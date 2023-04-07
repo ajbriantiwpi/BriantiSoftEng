@@ -31,6 +31,10 @@ public class Map {
 
     }
 
+    public void centerAndZoom(Pane parent){
+
+    }
+
 
 
 
