@@ -1,10 +1,11 @@
 package edu.wpi.teamname.database;
 
+import edu.wpi.teamname.database.interfaces.LocationNameDAO;
 import edu.wpi.teamname.navigation.LocationName;
 
 import java.util.ArrayList;
 
-public class LocationNameDAOImpl implements LocationNameDAO{
+public class LocationNameDAOImpl implements LocationNameDAO {
     /**
      *
      */

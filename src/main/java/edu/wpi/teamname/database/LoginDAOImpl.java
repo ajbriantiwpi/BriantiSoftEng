@@ -1,8 +1,10 @@
 package edu.wpi.teamname.database;
 
+import edu.wpi.teamname.database.interfaces.LoginDAO;
+
 import java.util.ArrayList;
 
-public class LoginDAOImpl implements LoginDAO{
+public class LoginDAOImpl implements LoginDAO {
     /**
      *
      */

@@ -1,8 +1,10 @@
 package edu.wpi.teamname.database;
 
+import edu.wpi.teamname.database.interfaces.ItemsOrderedDAO;
+
 import java.util.ArrayList;
 
-public class ItemsOrderedDAOImpl implements ItemsOrderedDAO{
+public class ItemsOrderedDAOImpl implements ItemsOrderedDAO {
     /**
      *
      */

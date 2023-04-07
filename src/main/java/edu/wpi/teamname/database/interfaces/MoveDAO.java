@@ -1,4 +1,4 @@
-package edu.wpi.teamname.database;
+package edu.wpi.teamname.database.interfaces;
 
 import edu.wpi.teamname.navigation.Move;
 

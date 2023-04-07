@@ -1,10 +1,11 @@
 package edu.wpi.teamname.database;
 
+import edu.wpi.teamname.database.interfaces.FlowerDAO;
 import edu.wpi.teamname.servicerequest.requestitem.Flower;
 
 import java.util.ArrayList;
 
-public class FlowerDAOImpl implements FlowerDAO{
+public class FlowerDAOImpl implements FlowerDAO {
     /**
      *
      */

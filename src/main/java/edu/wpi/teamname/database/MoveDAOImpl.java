@@ -1,11 +1,12 @@
 package edu.wpi.teamname.database;
 
+import edu.wpi.teamname.database.interfaces.MoveDAO;
 import edu.wpi.teamname.navigation.Move;
 import lombok.Getter;
 
 import java.util.ArrayList;
 
-public class MoveDAOImpl implements MoveDAO{
+public class MoveDAOImpl implements MoveDAO {
     @Getter private ArrayList<Move> moves;
 
     /**
