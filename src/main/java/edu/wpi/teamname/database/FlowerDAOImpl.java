@@ -1,0 +1,39 @@
+package edu.wpi.teamname.database;
+
+import edu.wpi.teamname.servicerequest.requestitem.Flower;
+
+import java.util.ArrayList;
+
+public class FlowerDAOImpl implements FlowerDAO{
+    /**
+     *
+     */
+    @Override
+    public void sync() {
+
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public ArrayList<Flower> getAll() {
+        return null;
+    }
+
+    /**
+     * @param flower
+     */
+    @Override
+    public void add(Flower flower) {
+
+    }
+
+    /**
+     * @param flower
+     */
+    @Override
+    public void delete(Flower flower) {
+
+    }
+}
