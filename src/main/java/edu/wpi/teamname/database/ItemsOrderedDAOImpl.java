@@ -1,6 +1,7 @@
 package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.ItemsOrderedDAO;
+import edu.wpi.teamname.servicerequest.ItemsOrdered;
 
 import java.util.ArrayList;
 

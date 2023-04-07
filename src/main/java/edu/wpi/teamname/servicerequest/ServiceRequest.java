@@ -1,15 +1,15 @@
 package edu.wpi.teamname.servicerequest;
 
 import edu.wpi.teamname.navigation.Node;
+import edu.wpi.teamname.servicerequest.requestitem.RequestItem;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class ServiceRequest {
-    @Getter
-    @Setter
-    private int requestID;
+    @Getter @Setter private int requestID;
     @Setter @Getter private String staffName;
     @Setter @Getter private String patientName;
 
@@ -19,6 +19,7 @@ public class ServiceRequest {
     @Setter @Getter private LocalDateTime requestedAt;
 
     @Setter @Getter private Status status;
+    @Getter private ArrayList<RequestItem> items;
 
     public ServiceRequest(
             int requestID,
@@ -34,37 +35,14 @@ public class ServiceRequest {
         this.deliverBy = deliverBy;
         requestedAt = LocalDateTime.now();
         this.status = status;
+        items = new ArrayList<RequestItem>();
     }
 
-    public ServiceRequest(
-            int requestID,
-            String staffName,
-            String patientName,
-            String roomNumber,
-            LocalDateTime deliverBy) {
-        this.requestID = requestID;
-        this.staffName = staffName;
-        this.patientName = patientName;
-        this.roomNumber = roomNumber;
-        this.deliverBy = deliverBy;
-        requestedAt = LocalDateTime.now();
-        this.status = Status.BLANK;
+    public void addItem(int requestID) {
+        return;
     }
 
-    public ServiceRequest(
-            int requestID,
-            String staffName,
-            String patientName,
-            String roomNumber,
-            LocalDateTime deliverBy,
-            LocalDateTime requestedAt,
-            Status status) {
-        this.requestID = requestID;
-        this.staffName = staffName;
-        this.patientName = patientName;
-        this.roomNumber = roomNumber;
-        this.deliverBy = deliverBy;
-        this.requestedAt = requestedAt;
-        this.status = status;
+    public void removeItem(int requestID) {
+        return;
     }
 }
