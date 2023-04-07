@@ -40,7 +40,7 @@ public class Node {
     }
 
     public int getX() {
-        return 1;
+        return 0;
     }
 
     public int getY() {
