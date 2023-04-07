@@ -1,4 +1,15 @@
 package edu.wpi.teamname.database;
 
-public class FlowerDAO extends DAO<Flower>{
+import edu.wpi.teamname.servicerequest.requestitem.Flower;
+
+import java.util.ArrayList;
+
+public interface FlowerDAO extends DAO<Flower>{
+    void sync();
+
+    ArrayList<Flower> getAll();
+
+    void add(Flower flower);
+
+    void delete(Flower flower);
 }
