@@ -1,11 +1,14 @@
 package edu.wpi.teamname.navigation;
 
 public class Emergency {
+
+    public Node emergencyPosition;
+
     public Emergency() {
 
     }
 
-    public void resolveEmergency(Emergency e) {
+    public static void resolveEmergency(Emergency e) {
 
     }
 
