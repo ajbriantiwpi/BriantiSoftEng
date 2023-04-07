@@ -1,12 +1,13 @@
 package edu.wpi.teamname.database;
 
+import edu.wpi.teamname.navigation.Edge;
 import edu.wpi.teamname.navigation.Move;
 import lombok.Getter;
 
 import java.util.ArrayList;
 
-public class MoveDAOImpl implements MoveDAO{
-    @Getter private ArrayList<Move> moves;
+public class EdgeDAOImpl implements EdgeDAO {
+    @Getter private ArrayList<Edge> edges;
 
     /**
      *
@@ -20,7 +21,7 @@ public class MoveDAOImpl implements MoveDAO{
      * @return
      */
     @Override
-    public ArrayList<Move> getAll() {
+    public ArrayList<Edge> getAll() {
         return null;
     }
 
@@ -28,7 +29,7 @@ public class MoveDAOImpl implements MoveDAO{
      * @param type
      */
     @Override
-    public void add(Move type) {
+    public void add(Edge type) {
 
     }
 
@@ -36,7 +37,7 @@ public class MoveDAOImpl implements MoveDAO{
      * @param type
      */
     @Override
-    public void delete(Move type) {
+    public void delete(Edge type) {
 
     }
 }
