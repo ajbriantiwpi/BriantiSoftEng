@@ -18,7 +18,7 @@ public class Node {
     // heuristic: WILL NEED A FUNCTION TO FIND THIS
     public double h;
 
-    Node(int ID, int x, int y, String Floor, String Building) {
+    public Node(int ID, int x, int y, String Floor, String Building) {
 
     }
 
