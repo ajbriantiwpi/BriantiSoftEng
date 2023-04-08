@@ -3,7 +3,7 @@ package edu.wpi.teamname.servicerequest.requestitem;
 import lombok.Getter;
 import lombok.Setter;
 
-public class RequestItem {
+public abstract class RequestItem {
     @Getter @Setter private int itemID;
     @Getter @Setter private String name;
 
