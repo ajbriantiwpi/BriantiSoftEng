@@ -4,15 +4,16 @@ import java.util.ArrayList;
 
 public class Edge {
 
-    public int startNodeID;
-    public int endNodeID;
+  public int startNodeID;
+  public int endNodeID;
 
-    public ArrayList<Edge> getAllEdges(){
-        return null;
-    }
+  /** @return */
+  public ArrayList<Edge> getAllEdges() {
+    return null;
+  }
 
-    public String toString(){
-        return "";
-    }
-
+  /** @return */
+  public String toString() {
+    return "";
+  }
 }

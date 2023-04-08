@@ -1,86 +1,113 @@
 package edu.wpi.teamname.navigation;
 
-
 import java.util.List;
 
 public class Node {
 
-    public int id;
-    public String floor;
-    public String building;
-    private int x;
-    private int y;
-    private Node parent = null;
-    // f: sum of g and h;
-    public double f = Double.MAX_VALUE;
-    // g: Distance from start and node n
-    public double g = Double.MAX_VALUE;
-    // heuristic: WILL NEED A FUNCTION TO FIND THIS
-    public double h;
+  public int id;
+  public String floor;
+  public String building;
+  private int x;
+  private int y;
+  private Node parent = null;
+  // f: sum of g and h;
+  public double f = Double.MAX_VALUE;
+  // g: Distance from start and node n
+  public double g = Double.MAX_VALUE;
+  // heuristic: WILL NEED A FUNCTION TO FIND THIS
+  public double h;
 
-    public Node(int ID, int x, int y, String Floor, String Building) {
+  /**
+   * Constructor
+   *
+   * @param ID
+   * @param x
+   * @param y
+   * @param Floor
+   * @param Building
+   */
+  public Node(int ID, int x, int y, String Floor, String Building) {}
 
-    }
+  /** @return */
+  public Node getParent() {
+    return null;
+  }
 
+  /** @param parent */
+  public void setParent(Node parent) {}
 
-    public Node getParent() {
-        return null;
-    }
+  /** @return */
+  public List<Edge> getEdges() {
+    return null;
+  }
 
-    public void setParent(Node parent) {
+  /**
+   * @param n
+   * @return
+   */
+  public int compareTo(Node n) {
+    return 0;
+  }
 
-    }
+  /** @return */
+  public int getX() {
+    return 0;
+  }
 
-    public List<Edge> getEdges() {
-        return null;
-    }
+  /** @return */
+  public int getY() {
+    return 0;
+  }
 
-    public int compareTo(Node n) {
-        return 0;
-    }
+  /** @return */
+  public String getFloor() {
+    return null;
+  }
 
-    public int getX() {
-        return 0;
-    }
+  /** @return */
+  public String getBuilding() {
+    return null;
+  }
 
-    public int getY() {
-        return 0;
-    }
+  /** @return */
+  public List<Node> getNeighbors() {
+    return null;
+  }
 
-    public String getFloor() {
-        return null;
-    }
+  /** @param n */
+  public void setNeighbor(Node n) {}
 
-    public String getBuilding() {
-        return null;
-    }
+  /**
+   * @param edge
+   * @param s
+   * @param e
+   */
+  public void addEdge(Edge edge, Node s, Node e) {}
 
-    public List<Node> getNeighbors() {
-        return null;
-    }
+  /**
+   * @param b
+   * @return
+   */
+  public double findWeight(Node b) {
+    return 0;
+  }
 
-    public void setNeighbor(Node n) {
+  /** @return */
+  public int getId() {
+    return 0;
+  }
 
-    }
+  /** @return */
+  public String toString() {
+    return null;
+  }
 
-    public void addEdge(Edge edge, Node s, Node e) {
-
-    }
-
-    public double findWeight(Node b) {
-        return 0;
-    }
-
-    public int getId() {
-        return 0;
-    }
-
-    public String toString() {
-        return null;
-    }
-
-    public double calculateHeuristic(Node target) {
-        // Heuristic will return distance from target
-        return 0;
-    }
+  /**
+   * @param target
+   * @return
+   */
+  public double calculateHeuristic(Node target) {
+    // Heuristic will return distance from target
+    return 0;
+  }
 }

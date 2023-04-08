@@ -2,21 +2,15 @@ package edu.wpi.teamname.navigation;
 
 public class Emergency {
 
-    public Node emergencyPosition;
+  public Node emergencyPosition;
 
-    public Emergency() {
+  public Emergency() {}
 
-    }
+  public static void resolveEmergency(Emergency e) {}
 
-    public static void resolveEmergency(Emergency e) {
+  public void updateEmergencyNode(Node n) {}
 
-    }
-
-    public void updateEmergencyNode(Node n) {
-
-    }
-
-    public EmergencyStatus status() {
-        return null;
-    }
+  public EmergencyStatus status() {
+    return null;
+  }
 }
