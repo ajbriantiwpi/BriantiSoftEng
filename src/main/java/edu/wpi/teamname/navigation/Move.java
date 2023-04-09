@@ -1,8 +1,6 @@
 package edu.wpi.teamname.navigation;
 
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,9 +8,9 @@ public class Move {
   @Getter @Setter private int nodeID;
   @Getter @Setter private String longName;
   @Getter @Setter private Timestamp date;
-  @Getter final private int originalNodeID;
-  @Getter final private String originalLongName;
-  @Getter final private Timestamp originalDate;
+  @Getter private final int originalNodeID;
+  @Getter private final String originalLongName;
+  @Getter private final Timestamp originalDate;
 
   /**
    * Constructor

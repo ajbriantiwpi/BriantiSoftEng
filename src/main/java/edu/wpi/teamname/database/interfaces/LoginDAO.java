@@ -1,7 +1,6 @@
 package edu.wpi.teamname.database.interfaces;
 
 import edu.wpi.teamname.database.Login;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 

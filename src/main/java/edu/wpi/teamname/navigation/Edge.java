@@ -3,12 +3,10 @@ package edu.wpi.teamname.navigation;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-
 public class Edge {
 
-  @Getter final private int originalStartNodeID;
-  @Getter final private int originalEndNodeID;
+  @Getter private final int originalStartNodeID;
+  @Getter private final int originalEndNodeID;
   @Getter @Setter private int startNodeID;
   @Getter @Setter private int endNodeID;
 

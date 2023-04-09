@@ -1,7 +1,6 @@
 package edu.wpi.teamname.database.interfaces;
 
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 

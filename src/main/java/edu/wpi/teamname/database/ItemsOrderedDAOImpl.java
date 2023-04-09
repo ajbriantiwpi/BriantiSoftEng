@@ -2,8 +2,6 @@ package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.ItemsOrderedDAO;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
-import edu.wpi.teamname.servicerequest.requestitem.Flower;
-
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -13,15 +11,16 @@ public class ItemsOrderedDAOImpl implements ItemsOrderedDAO {
   public void sync(ItemsOrdered itemsOrdered) throws SQLException {
     Connection connection = DataManager.DbConnection();
     try (connection) {
-      String query = "UPDATE \"ItemsOrdered\" SET \"requestID\" = ?, \"itemID\" = ?, \"quantity\" = ?" +
-              " WHERE \"requestID\" = ? AND \"itemID\" = ?";
+      String query =
+          "UPDATE \"ItemsOrdered\" SET \"requestID\" = ?, \"itemID\" = ?, \"quantity\" = ?"
+              + " WHERE \"requestID\" = ? AND \"itemID\" = ?";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, itemsOrdered.getRequestID());
       statement.setInt(2, itemsOrdered.getItemID());
       statement.setInt(3, itemsOrdered.getQuantity());
       statement.setInt(4, itemsOrdered.getRequestID());
       statement.setInt(5, itemsOrdered.getItemID());
-;
+      ;
       statement.executeUpdate();
     } catch (SQLException e) {
       System.out.println(e.getMessage());
@@ -56,8 +55,9 @@ public class ItemsOrderedDAOImpl implements ItemsOrderedDAO {
   public void add(ItemsOrdered itemsOrdered) throws SQLException {
     Connection connection = DataManager.DbConnection();
     try (connection) {
-      String query = "INSERT INTO \"ItemsOrdered\" (\"requestID\", \"itemID\", \"quantity\") " +
-              "VALUES (?, ?, ?)";
+      String query =
+          "INSERT INTO \"ItemsOrdered\" (\"requestID\", \"itemID\", \"quantity\") "
+              + "VALUES (?, ?, ?)";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, itemsOrdered.getRequestID());
       statement.setInt(2, itemsOrdered.getItemID());
@@ -90,8 +90,7 @@ public class ItemsOrderedDAOImpl implements ItemsOrderedDAO {
       ResultSet rs2 = statement.executeQuery(query);
       int count = 0;
       while (rs2.next()) count++;
-      if (count == 0)
-        System.out.println("ItemOrdered information deleted successfully.");
+      if (count == 0) System.out.println("ItemOrdered information deleted successfully.");
       else System.out.println("ItemOrdered information did not delete.");
     } catch (SQLException e2) {
       System.out.println("Error checking delete. " + e2);
