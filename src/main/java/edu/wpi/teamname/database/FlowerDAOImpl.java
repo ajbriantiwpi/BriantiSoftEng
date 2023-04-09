@@ -1,6 +1,7 @@
 package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.FlowerDAO;
+import edu.wpi.teamname.navigation.Edge;
 import edu.wpi.teamname.servicerequest.requestitem.Flower;
 import java.sql.*;
 import java.util.ArrayList;
@@ -99,5 +100,26 @@ public class FlowerDAOImpl implements FlowerDAO {
       System.out.println("Error checking delete. " + e2);
     }
     connection.close();
+  }
+
+  public static Flower getFlower(int id) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    String query = "SELECT * FROM \"Flowers\" WHERE \"flowerID\" = ?";
+    Flower flower = null;
+    try (connection) {
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setInt(1, id);
+      ResultSet rs = statement.executeQuery();
+
+      int flowerID = rs.getInt("flowerID");
+      String name = rs.getString("Name");
+      float price = rs.getFloat("price");
+      String category = rs.getString("Category");
+      String color = rs.getString("Color");
+      flower = (new Flower(flowerID, name, price, category, color));
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return flower;
   }
 }

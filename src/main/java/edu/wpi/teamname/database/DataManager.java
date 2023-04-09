@@ -20,6 +20,10 @@ import java.util.StringTokenizer;
 
 public class DataManager {
   private static Connection connection;
+  private static String DB_URL =
+      "jdbc:postgresql://database.cs.wpi.edu:5432/teamddb?currentSchema=\"teamD\"";
+  private static String DB_PASSWORD = "teamd40";
+  private static String DB_USER = "teamd";
 
   /**
    * Main function to connect to the database
@@ -27,9 +31,6 @@ public class DataManager {
    * @return a Connection to a database
    */
   public static Connection DbConnection() throws SQLException {
-    String DB_URL = "jdbc:postgresql://database.cs.wpi.edu:5432/teamddb?currentSchema=\"teamD\"";
-    String DB_PASSWORD = "teamd40";
-    String DB_USER = "teamd";
 
     if (connection == null || connection.isClosed()) {
       System.out.print("--- Connecting To Database... ---");
@@ -47,6 +48,19 @@ public class DataManager {
       }
     }
     return connection;
+  }
+
+  /**
+   * * Updates the connection arguements
+   *
+   * @param url
+   * @param username
+   * @param password
+   */
+  public static void configConnection(String url, String username, String password) {
+    DB_URL = url;
+    DB_USER = username;
+    DB_PASSWORD = password;
   }
 
   // ------------------------DAO Methods------------------------
@@ -269,6 +283,42 @@ public class DataManager {
   public static ArrayList<LocationName> getAllLocationNames() throws SQLException {
     return (new LocationNameDAOImpl()).getAll();
   }
+
+  public static Flower getFlower(int id) throws SQLException {
+    FlowerDAOImpl flowerDAO = new FlowerDAOImpl();
+    return flowerDAO.getFlower(id);
+  }
+
+  public static ItemsOrdered getItemOrdered(int requestID, int itemID) throws SQLException {
+    ItemsOrderedDAOImpl itemsOrderedDAO = new ItemsOrderedDAOImpl();
+    return itemsOrderedDAO.getItemOrdered(requestID, itemID);
+  }
+
+  public static LocationName getLocationName(String name) throws SQLException {
+    LocationNameDAOImpl locationNameDAO = new LocationNameDAOImpl();
+    return locationNameDAO.getLocationName(name);
+  }
+
+  public static Login getLogin(String username) throws SQLException {
+    LoginDAOImpl loginDAO = new LoginDAOImpl();
+    return loginDAO.getLogin(username);
+  }
+
+  public static Meal getMeal(int id) throws SQLException {
+    MealDAOImpl mealDAO = new MealDAOImpl();
+    return mealDAO.getMeal(id);
+  }
+
+  public static Node getNode(int id) throws SQLException {
+    NodeDAOImpl nodeDAO = new NodeDAOImpl();
+    return nodeDAO.getNode(id);
+  }
+
+  public static ServiceRequest getServiceRequest(int id) throws SQLException {
+    ServiceRequestDAOImpl serviceRequestDAO = new ServiceRequestDAOImpl();
+    return serviceRequestDAO.getServiceRequest(id);
+  }
+
 
   public static List<String[]> parseCSVAndUploadToPostgreSQL(String csvFilePath)
       throws SQLException {

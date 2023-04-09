@@ -99,4 +99,25 @@ public class MealDAOImpl implements MealDAO {
       System.out.println("Error checking delete. " + e2);
     }
   }
+
+  public static Meal getMeal(int id) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    String query = "SELECT * FROM \"Meal\" WHERE \"mealID\" = ?";
+    Meal meal = null;
+    try (connection) {
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setInt(1, id);
+      ResultSet rs = statement.executeQuery();
+
+      int mealid = rs.getInt("mealID");
+      String name = rs.getString("Name");
+      float price = rs.getFloat("Price");
+      String meall = rs.getString("Meal");
+      String cuisine = rs.getString("Cuisine");
+      meal = (new Meal(mealid, name, price, meall, cuisine));
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return meal;
+  }
 }

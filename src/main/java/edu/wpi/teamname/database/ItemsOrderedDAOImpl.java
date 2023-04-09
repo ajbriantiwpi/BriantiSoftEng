@@ -2,6 +2,8 @@ package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.ItemsOrderedDAO;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
+import edu.wpi.teamname.servicerequest.requestitem.Flower;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -96,5 +98,25 @@ public class ItemsOrderedDAOImpl implements ItemsOrderedDAO {
       System.out.println("Error checking delete. " + e2);
     }
     connection.close();
+  }
+
+  public static ItemsOrdered getItemOrdered(int requestID, int itemID) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    String query = "SELECT * FROM \"ItemsOrdered\" WHERE \"requestID\" = ? AND \"itemID\" = ?";
+    ItemsOrdered itemsOrdered = null;
+    try (connection) {
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setInt(1, requestID);
+      statement.setInt(2, itemID);
+      ResultSet rs = statement.executeQuery();
+
+      int rID = rs.getInt("requestID");
+      int iID = rs.getInt("itemID");
+      int quantity = rs.getInt("quantity");
+      itemsOrdered = (new ItemsOrdered(rID, iID, quantity));
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return itemsOrdered;
   }
 }

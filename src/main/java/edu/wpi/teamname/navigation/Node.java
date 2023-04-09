@@ -1,14 +1,11 @@
 package edu.wpi.teamname.navigation;
 
 import edu.wpi.teamname.database.DataManager;
-
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;;
+import java.sql.SQLException;
 import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
 

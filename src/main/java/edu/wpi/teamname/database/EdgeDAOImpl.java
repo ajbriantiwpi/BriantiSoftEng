@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EdgeDAOImpl implements EdgeDAO {
-  /** Sync an ORM with its row in the database
-   * WARNING: do not create a new node just change the parameters on the old one
-   *
-   * */
+  /**
+   * Sync an ORM with its row in the database WARNING: do not create a new node just change the
+   * parameters on the old one
+   */
   @Override
   public void sync(Edge edge) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -100,8 +100,7 @@ public class EdgeDAOImpl implements EdgeDAO {
   public static void uploadEdgeToPostgreSQL(String csvFilePath) throws SQLException {
     List<String[]> csvData;
     Connection connection = DataManager.DbConnection();
-    DataManager dataImport = new DataManager();
-    csvData = dataImport.parseCSVAndUploadToPostgreSQL(csvFilePath);
+    csvData = DataManager.parseCSVAndUploadToPostgreSQL(csvFilePath);
     try (connection) {
       String createTableQuery =
           "CREATE TABLE IF NOT EXISTS \"Edge\" (\"startNode\" INTEGER, \"endNode\" INTEGER);";

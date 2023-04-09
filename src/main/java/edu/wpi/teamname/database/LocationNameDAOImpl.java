@@ -2,6 +2,8 @@ package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.LocationNameDAO;
 import edu.wpi.teamname.navigation.LocationName;
+import edu.wpi.teamname.servicerequest.requestitem.Flower;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -92,5 +94,24 @@ public class LocationNameDAOImpl implements LocationNameDAO {
     } catch (SQLException e2) {
       System.out.println("Error checking delete. " + e2);
     }
+  }
+
+  public static LocationName getLocationName(String name) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    String query = "SELECT * FROM \"LocationName\" WHERE \"longName\" = ?";
+    LocationName locationName = null;
+    try (connection) {
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setString(1, name);
+      ResultSet rs = statement.executeQuery();
+
+      String longn = rs.getString("longName");
+      String shortn = rs.getString("shortName");
+      String type = rs.getString("nodeType");
+      locationName = (new LocationName(longn, shortn, type));
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return locationName;
   }
 }
