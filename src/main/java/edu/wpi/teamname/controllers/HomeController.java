@@ -11,6 +11,6 @@ public class HomeController {
 
   @FXML
   public void initialize() {
-    navigateButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
+    navigateButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
   }
 }
