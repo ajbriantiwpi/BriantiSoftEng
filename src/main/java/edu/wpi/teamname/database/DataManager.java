@@ -136,6 +136,9 @@ public class DataManager {
   public void deleteServiceRequests() {}
 
   /** */
+  public void deleteServiceRequestsWithItems() {}
+
+  /** */
   public void deleteLogin() {}
 
   /** */

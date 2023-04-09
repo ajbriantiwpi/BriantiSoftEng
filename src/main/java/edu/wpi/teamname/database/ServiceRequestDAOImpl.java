@@ -39,11 +39,57 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
 
   }
 
-  /** @param type */
+  /** @param serviceRequest */
   @Override
-  public void add(ServiceRequest type) {}
+  public void add(ServiceRequest serviceRequest) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try (connection) {
+      String query = "INSERT INTO \"ServiceRequest\" (\"requestID\", \"roomNum\", \"staffName\", \"patientName\", \"requestedAt\", \"deliverBy\", \"status\") VALUES (?, ?, ?, ?, ?, ?, ?)";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setInt(1, serviceRequest.getRequestID());
+      statement.setString(2, serviceRequest.getRoomNumber());
+      statement.setString(3, serviceRequest.getStaffName());
+      statement.setString(4, serviceRequest.getPatientName());
+      statement.setTimestamp(5, serviceRequest.getRequestedAt());
+      statement.setTimestamp(6, serviceRequest.getDeliverBy());
+      statement.setString(7, serviceRequest.getStatus().getStatusString());
 
-  /** @param type */
+      statement.executeUpdate();
+
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+    }
+  }
+
+  /** @param serviceRequest */
   @Override
-  public void delete(ServiceRequest type) {}
+  public void delete(ServiceRequest serviceRequest) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try (connection) {
+      String query = "DELETE FROM \"ServiceRequest\" WHERE \"requestID\" = ?";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setInt(1, serviceRequest.getRequestID());
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+  }
+
+
+  public void deleteWithItems(ServiceRequest serviceRequest) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try (connection) {
+      String query = "DELETE FROM \"ServiceRequest\" WHERE \"requestID\" = ?";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setInt(1, serviceRequest.getRequestID());
+      statement.executeUpdate();
+      query = "DELETE FROM \"ItemsOrdered\" WHERE \"requestID\" = ?";
+      statement = connection.prepareStatement(query);
+      statement.setInt(1, serviceRequest.getRequestID());
+      statement.executeUpdate();
+
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+  }
 }
