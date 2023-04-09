@@ -1,10 +1,7 @@
 package edu.wpi.teamname.navigation;
 
 import edu.wpi.teamname.database.*;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import edu.wpi.teamname.database.DataManager;
 
@@ -25,6 +22,7 @@ public class Node implements Comparable<Node> {
   @Getter @Setter private int y;
   @Getter @Setter private Node parent = null;
   @Getter @Setter private List<Node> neighbors;
+  //  @Getter @Setter private List<Edge> edges;
   @Getter @Setter private List<Edge> edges;
   // f: sum of g and h;
   @Getter @Setter private double f = Double.MAX_VALUE;
@@ -41,7 +39,7 @@ public class Node implements Comparable<Node> {
     this.h = 0;
     this.id = ID;
     this.neighbors = new ArrayList<>();
-    this.edges = new ArrayList<>();
+    //    this.edges = new ArrayList<>();
   }
 
   @Override
@@ -49,22 +47,45 @@ public class Node implements Comparable<Node> {
     return Double.compare(this.f, n.f);
   }
 
-  /** @return */
-  public List<Node> getNeighbors() {
-    return null;
-  }
+  /**
+   * * Gets all the nodes in the database and puts them into an array list
+   *
+   * @return An array list of all the nodes in the database
+   * @throws SQLException
+   */
+  //  public static ArrayList<Node> getAllNodes() throws SQLException {
+  //    DatabaseConnection dbc = new DatabaseConnection();
+  //    Connection connection = dbc.DbConnection();
+  //    ArrayList<Node> list = new ArrayList<Node>();
+  //
+  //    try (connection) {
+  //      String query = "SELECT * FROM \"Node\"";
+  //      Statement statement = connection.createStatement();
+  //      ResultSet rs = statement.executeQuery(query);
+  //
+  //      while (rs.next()) {
+  //        int id = rs.getInt("nodeID");
+  //        int xcoord = rs.getInt("xcoord");
+  //        int ycoord = rs.getInt("ycoord");
+  //        String floor = rs.getString("floor");
+  //        String building = rs.getString("building");
+  //        list.add(new Node(id, xcoord, ycoord, floor, building));
+  //      }
+  //    }
+  //    return list;
+  //  }
 
-  public void addEdge(Edge edge, Node s, Node e) {
-    if (!this.edges.contains(edge)) {
-      edges.add(edge);
-
-      if (this.id == edge.getStartNodeID()) {
-        this.neighbors.add(e);
-      } else {
-        this.neighbors.add(s);
-      }
-    }
-  }
+  //  public void addEdge(Edge edge, Node s, Node e) {
+  //    if (!this.edges.contains(edge)) {
+  //      edges.add(edge);
+  //
+  //      if (this.id == edge.startNodeID) {
+  //        this.neighbors.add(e);
+  //      } else {
+  //        this.neighbors.add(s);
+  //      }
+  //    }
+  //  }
 
   public double findWeight(Node b) {
     int x1 = this.x;
@@ -89,8 +110,8 @@ public class Node implements Comparable<Node> {
   public double calculateHeuristic(Node target) {
     // Heuristic will return distance from target
     return Math.sqrt(
-            (target.getX() - this.x) * (target.getX() - this.x)
-                    + (target.getY() - this.y) * (target.getY() - this.y));
+        (target.getX() - this.x) * (target.getX() - this.x)
+            + (target.getY() - this.y) * (target.getY() - this.y));
   }
 
   /**

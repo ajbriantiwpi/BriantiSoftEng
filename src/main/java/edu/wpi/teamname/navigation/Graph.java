@@ -5,71 +5,76 @@ import edu.wpi.teamname.database.DataManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.PriorityQueue;
+import lombok.Getter;
 
 public class Graph {
 
-  private Node start;
-  private Node target;
-  private ArrayList<Node> nodeFromDB = new ArrayList<Node>();
-  private ArrayList<Edge> edgeFromDB = new ArrayList<Edge>();
-  public List<Node> Nodes = new ArrayList<>();
-  public List<Edge> Edges = new ArrayList<>();
+  //  @Getter @Setter private Node start;
+  //  @Getter @Setter private Node target;
+  //  private ArrayList<Node> nodeFromDB = new ArrayList<Node>();
+  //  private ArrayList<Edge> edgeFromDB = new ArrayList<Edge>();
+  @Getter private ArrayList<Node> Nodes = new ArrayList<>();
+  private ArrayList<Edge> Edges = new ArrayList<>();
 
-  Graph(List<Node> nodes, List<Edge> edges) throws SQLException {
-    this.start = null;
-    this.target = null;
+  Graph() {
+    //    this.start = null;
+    //    this.target = null;
 
-    nodeFromDB = DataManager.getAllNodes();
-    edgeFromDB = DataManager.getAllEdges();
+    Nodes = this.getAllNodes(); // Changed based on DB team
+    Edges = this.getAllEdges(); // Changed based on DB team
 
-    initializeNodes(nodeFromDB);
-    initializeEdges(edgeFromDB);
+    //    nodeFromDB = Node.getAllNodes();
+    //    edgeFromDB = Edge.getAllEdges();
+//    nodeFromDB = DataManager.getAllNodes();
+//    edgeFromDB = DataManager.getAllEdges();
+
+    //    initializeNodes(nodeFromDB);
+    this.initializeEdges();
+  }
+
+  public ArrayList<Node> getAllNodes() {
+    return Nodes;
+  }
+
+  public ArrayList<Edge> getAllEdges() {
+    return Edges;
   }
 
   public void addEdge(Edge e) {
     this.Edges.add(e);
   }
 
-  public void setStart(Node n) {}
-
-  public void setTarget(Node n) {}
-
-  public List<Node> getNodes() {
-    return Nodes;
-  }
-
-  public Node getStart() {
-    return start;
-  }
-
-  public Node getTarget() {
-    return null;
-  }
+  //  public List<Node> getNodes() {
+  //    return Nodes;
+  //  }
 
   public double findWeight(Node a, Node b) {
     return 0;
   }
 
-  private void assignEdges() {}
+  //  private void assignEdges() {}
 
-  public void printPath(ArrayList<Node> nodes) {
-    System.out.println(returnStringPath(target));
+  //  public void printPath(ArrayList<Node> nodes) {
+  //    System.out.println(returnStringPath(target));
+  //  }
+
+  public void printPath(Node s, Node t) {
+    System.out.println(AStar(s, t));
   }
 
-  public void setAllG() {
-    if (this.target == null || this.start == null) return;
+  public void setAllG(Node s, Node t) {
+    if (s == null || t == null) return;
     for (Node n : this.Nodes) {
-      n.setG(findWeight(n, this.start));
+      n.setG(findWeight(n, s));
     }
-    start.setG(0);
+    s.setG(0);
   }
 
-  public Node AStar(Node s, Node n) {
-    setAllG();
+  public ArrayList<Node> AStar(Node s, Node t) {
+    setAllG(s, t);
     Node start = s;
-    Node target = n;
+    Node target = t;
 
     PriorityQueue<Node> closedList = new PriorityQueue<>();
     PriorityQueue<Node> openList = new PriorityQueue<>();
@@ -80,20 +85,20 @@ public class Graph {
     while (!openList.isEmpty()) {
       Node ex = openList.peek();
       if (ex == target) {
-        return ex;
+        return getPath(ex);
       }
 
-      for (Node nei : n.getNeighbors()) {
-        double totalWeight = n.getG() + nei.findWeight(n);
+      for (Node nei : t.getNeighbors()) {
+        double totalWeight = t.getG() + nei.findWeight(t);
 
         if (!openList.contains(nei) && !closedList.contains(nei)) {
-          nei.setParent(n);
+          nei.setParent(t);
           nei.setG(totalWeight);
           nei.setF(nei.getG() + nei.calculateHeuristic(target));
           openList.add(nei);
         } else {
           if (totalWeight < nei.getG()) {
-            nei.setParent(n);
+            nei.setParent(t);
             nei.setG(totalWeight);
             nei.setF(nei.getG() + nei.calculateHeuristic(target));
 
@@ -104,26 +109,27 @@ public class Graph {
           }
         }
       }
-      openList.remove(n);
-      closedList.add(n);
+      openList.remove(t);
+      closedList.add(t);
     }
+
     return null;
   }
 
-  public static String returnStringPath(Node target) {
-    List<Node> ids = getPath(target);
+  //  public static String returnStringPath(Node target) {
+  //    List<Node> ids = getPath(target);
+  //
+  //    String strPath = "";
+  //
+  //    for (Node id : ids) {
+  //      strPath += (id.getId() + " ");
+  //    }
+  //    strPath += "\n";
+  //
+  //    return strPath;
+  //  }
 
-    String strPath = "";
-
-    for (Node id : ids) {
-      strPath += (id.getId() + " ");
-    }
-    strPath += "\n";
-
-    return strPath;
-  }
-
-  public static ArrayList<Node> getPath(Node target) {
+  private static ArrayList<Node> getPath(Node target) {
     Node n = target;
 
     ArrayList<Node> ids = new ArrayList<>();
@@ -139,34 +145,55 @@ public class Graph {
     return ids;
   }
 
-  public void initializeNodes(ArrayList<Node> NodeLines) {
-    // Initialize the nodes with the node lines data
-    int i = 0;
-    while (!NodeLines.isEmpty()) {
-      // String[] I = NodeLines.get(0).split(",");
-      // NodeLines.remove(0);
-      Nodes.add(
-              new Node(
-                      NodeLines.get(0).getId(),
-                      NodeLines.get(0).getX(),
-                      NodeLines.get(0).getY(),
-                      NodeLines.get(0).getFloor(),
-                      NodeLines.get(0).getBuilding()));
-      NodeLines.remove(0);
-    }
+  //  public void initializeNodes(ArrayList<Node> NodeLines) {
+  //    // Initialize the nodes with the node lines data
+  //    int i = 0;
+  //    while (!NodeLines.isEmpty()) {
+  //      // String[] I = NodeLines.get(0).split(",");
+  //      // NodeLines.remove(0);
+  //      Nodes.add(
+  //              new Node(
+  //                      NodeLines.get(0).getId(),
+  //                      NodeLines.get(0).getX(),
+  //                      NodeLines.get(0).getY(),
+  //                      NodeLines.get(0).getFloor(),
+  //                      NodeLines.get(0).getBuilding()));
+  //      NodeLines.remove(0);
+  //    }
+  //  }
+
+  // Get index for node from nodeID
+  public Node findNodeByID(int nodeId) {
+    return Nodes.get((nodeId - 100) / 5);
   }
 
-  public void initializeEdges(ArrayList<Edge> EdgeLines) {
+  public void initializeEdges() {
     // Initialize the nodes with the node lines data
-    int i = 0;
-    while (!EdgeLines.isEmpty()) {
-      // String[] E = EdgeLines.get(0).split(",");
-      // EdgeLines.remove(0);
-      Edges.add(
-              new Edge(
-                      EdgeLines.get(0).getStartNodeID(),
-                      EdgeLines.get(0).getEndNodeID()));
-      EdgeLines.remove(0);
+
+    for (int i = 0; i < Edges.size(); i++) {
+      Node StartNode =
+          this.findNodeByID(
+              Edges.get(i).startNodeID); // Nodes.get((Edges.get(i).getStartNodeID() - 100)/5);
+      Node EndNode = this.findNodeByID(Edges.get(i).endNodeID);
+
+      StartNode.getNeighbors().add(EndNode);
+      EndNode.getNeighbors().add(StartNode);
     }
   }
+  //    while (!Edges.isEmpty()) {
+  //      // String[] E = EdgeLines.get(0).split(",");
+  //      // EdgeLines.remove(0);
+  //      Edges.add(
+  //              new Edge(
+  //                      Edges.get(0).getStartNodeID(),
+  //                      Edges.get(0).getEndNodeID()));
+  //
+  //
+  // this.findNodeByID(getEndNodeID);
+  //
+  //
+  //
+  //      Edges.remove(0);
+  //    }
+  //  }
 }
