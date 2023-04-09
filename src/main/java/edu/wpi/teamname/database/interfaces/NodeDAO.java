@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface NodeDAO extends DAO<Node> {
-    void sync(Node node);
+    void sync(Node node) throws SQLException;
 
     ArrayList<Node> getAll() throws SQLException;
 

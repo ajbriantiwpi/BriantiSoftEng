@@ -9,10 +9,27 @@ import lombok.Getter;
 import oracle.ucp.proxy.annotation.Pre;
 
 public class EdgeDAOImpl implements EdgeDAO {
-  /** */
+  /** Sync an ORM with its row in the database
+   * WARNING: do not create a new node just change the parameters on the old one
+   *
+   * */
   @Override
-  public void sync(Edge edge) {
+  public void sync(Edge edge) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try (connection) {
+      String query = "UPDATE \"Edge\" SET \"startNode\" = ?, \"endNode\" = ?" +
+              " WHERE \"startNode\" = ? AND \"endNode\" = ?";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setInt(1, edge.getStartNodeID());
+      statement.setInt(2, edge.getEndNodeID());
+      statement.setInt(3, edge.getOriginalStartNodeID());
+      statement.setInt(4, edge.getOriginalEndNodeID());
 
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+  }
+    connection.close();
   }
 
   /** @return */
@@ -58,8 +75,9 @@ public class EdgeDAOImpl implements EdgeDAO {
   @Override
   public void delete(Edge edge) throws SQLException {
     Connection connection = DataManager.DbConnection();
+    String query = "DELETE FROM \"Edge\" WHERE \"startNode\" = ? AND \"endNode\" = ?";
     try (connection) {
-      String query = "DELETE FROM \"Edge\" WHERE \"startNode\" = ? AND \"endNode\" = ?";
+
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, edge.getStartNodeID());
       statement.setInt(2, edge.getEndNodeID());
@@ -67,6 +85,16 @@ public class EdgeDAOImpl implements EdgeDAO {
       statement.executeUpdate();
     } catch (SQLException e) {
       System.out.println(e.getMessage());
+    }
+    try (Statement statement = connection.createStatement()) {
+      ResultSet rs2 = statement.executeQuery(query);
+      int count = 0;
+      while (rs2.next()) count++;
+      if (count == 0)
+        System.out.println("Edge information deleted successfully.");
+      else System.out.println("Edge information did not delete.");
+    } catch (SQLException e2) {
+      System.out.println("Error checking delete. " + e2);
     }
     connection.close();
   }

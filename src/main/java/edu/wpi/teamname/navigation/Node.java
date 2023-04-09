@@ -1,14 +1,17 @@
 package edu.wpi.teamname.navigation;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
 public class Node {
 
-  public int id;
-  public String floor;
-  public String building;
-  private int x;
-  private int y;
+  @Getter @Setter public int id;
+  @Getter @Setter public String floor;
+  @Getter  public String building;
+  @Getter private int x;
+  @Getter private int y;
   private Node parent = null;
   // f: sum of g and h;
   public double f = Double.MAX_VALUE;

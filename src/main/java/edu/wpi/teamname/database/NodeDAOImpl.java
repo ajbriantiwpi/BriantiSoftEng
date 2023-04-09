@@ -8,10 +8,25 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class NodeDAOImpl implements NodeDAO {
-  @Getter private static ArrayList<Node> nodes;
   /** */
   @Override
-  public void sync(Node node) {}
+  public void sync(Node node) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try (connection) {
+      String query = "UPDATE \"Node\" SET \"xcoord\" = ?, \"ycoord\" = ?, \"floor\" = ?, \"building\" = ?" +
+              " WHERE \"nodeID\" = ?";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setInt(1, node.getX());
+      statement.setInt(2, node.getY());
+      statement.setString(3, node.getFloor());
+      statement.setString(4, node.getBuilding());
+
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    connection.close();
+  }
 
   /** @return */
   @Override

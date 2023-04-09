@@ -11,11 +11,28 @@ import edu.wpi.teamname.navigation.Node;
 import lombok.Getter;
 
 public class MoveDAOImpl implements MoveDAO {
-  @Getter private ArrayList<Move> moves;
 
   /** */
   @Override
-  public void sync(Move move) {}
+  public void sync(Move move) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try (connection) {
+      String query = "UPDATE \"Move\" SET \"nodeID\" = ?, \"longName\" = ?, \"date\" = ?" +
+              " WHERE \"nodeID\" = ? AND \"longName\" = ? AND \"date\" = ?";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setInt(1, move.getNodeID());
+      statement.setString(2, move.getLongName());
+      statement.setTimestamp(3, move.getDate());
+      statement.setInt(4, move.getOriginalNodeID());
+      statement.setString(5, move.getLongName());
+      statement.setTimestamp(6, move.getOriginalDate());
+
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    connection.close();
+  }
 
   /** @return */
   @Override

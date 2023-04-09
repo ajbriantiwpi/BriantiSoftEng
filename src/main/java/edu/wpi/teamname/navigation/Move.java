@@ -10,6 +10,9 @@ public class Move {
   @Getter @Setter private int nodeID;
   @Getter @Setter private String longName;
   @Getter @Setter private Timestamp date;
+  @Getter final private int originalNodeID;
+  @Getter final private String originalLongName;
+  @Getter final private Timestamp originalDate;
 
   /**
    * Constructor
@@ -22,5 +25,8 @@ public class Move {
     this.nodeID = nodeID;
     this.longName = longName;
     this.date = date;
+    this.originalNodeID = nodeID;
+    this.originalLongName = longName;
+    this.originalDate = date;
   }
 }
