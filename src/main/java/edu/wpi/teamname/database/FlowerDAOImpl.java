@@ -1,22 +1,19 @@
 package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.FlowerDAO;
-import edu.wpi.teamname.navigation.Edge;
 import edu.wpi.teamname.servicerequest.requestitem.Flower;
-
 import java.sql.*;
 import java.util.ArrayList;
 
 public class FlowerDAOImpl implements FlowerDAO {
-  /** Sync an ORM with its row in the database
-   *
-   * */
+  /** Sync an ORM with its row in the database */
   @Override
   public void sync(Flower flower) throws SQLException {
     Connection connection = DataManager.DbConnection();
     try (connection) {
-      String query = "UPDATE \"Flowers\" SET \"Name\" = ?, \"Price\" = ?, \"Category\" = ?, \"Color\" = ?" +
-              " WHERE \"flowerID\" = ?";
+      String query =
+          "UPDATE \"Flowers\" SET \"Name\" = ?, \"Price\" = ?, \"Category\" = ?, \"Color\" = ?"
+              + " WHERE \"flowerID\" = ?";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setString(1, flower.getName());
       statement.setFloat(2, flower.getPrice());
@@ -60,8 +57,9 @@ public class FlowerDAOImpl implements FlowerDAO {
   public void add(Flower flower) throws SQLException {
     Connection connection = DataManager.DbConnection();
     try (connection) {
-      String query = "INSERT INTO \"Flowers\" (\"flowerID\", \"Name\", \"Price\", \"Category\", \"Color\") " +
-              "VALUES (?, ?, ?, ?, ?)";
+      String query =
+          "INSERT INTO \"Flowers\" (\"flowerID\", \"Name\", \"Price\", \"Category\", \"Color\") "
+              + "VALUES (?, ?, ?, ?, ?)";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, flower.getItemID());
       statement.setString(2, flower.getName());
@@ -95,8 +93,7 @@ public class FlowerDAOImpl implements FlowerDAO {
       ResultSet rs2 = statement.executeQuery(query);
       int count = 0;
       while (rs2.next()) count++;
-      if (count == 0)
-        System.out.println("Flower information deleted successfully.");
+      if (count == 0) System.out.println("Flower information deleted successfully.");
       else System.out.println("Flower information did not delete.");
     } catch (SQLException e2) {
       System.out.println("Error checking delete. " + e2);

@@ -2,26 +2,22 @@ package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.MoveDAO;
 import edu.wpi.teamname.navigation.Move;
-
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
-
-import edu.wpi.teamname.navigation.Node;
-import lombok.Getter;
 
 public class MoveDAOImpl implements MoveDAO {
 
-  /** Sync an ORM with its row in the database
-   * WARNING: do not create a new node just change the parameters on the old one
-   *
-   * */
+  /**
+   * Sync an ORM with its row in the database WARNING: do not create a new node just change the
+   * parameters on the old one
+   */
   @Override
   public void sync(Move move) throws SQLException {
     Connection connection = DataManager.DbConnection();
     try (connection) {
-      String query = "UPDATE \"Move\" SET \"nodeID\" = ?, \"longName\" = ?, \"date\" = ?" +
-              " WHERE \"nodeID\" = ? AND \"longName\" = ? AND \"date\" = ?";
+      String query =
+          "UPDATE \"Move\" SET \"nodeID\" = ?, \"longName\" = ?, \"date\" = ?"
+              + " WHERE \"nodeID\" = ? AND \"longName\" = ? AND \"date\" = ?";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, move.getNodeID());
       statement.setString(2, move.getLongName());
@@ -64,7 +60,7 @@ public class MoveDAOImpl implements MoveDAO {
   public void add(Move move) throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query =
-            "INSERT INTO \"Move\" (\"nodeID\", \"longName\", \"date\") " + "VALUES (?, ?, ?)";
+        "INSERT INTO \"Move\" (\"nodeID\", \"longName\", \"date\") " + "VALUES (?, ?, ?)";
 
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
@@ -96,8 +92,7 @@ public class MoveDAOImpl implements MoveDAO {
       ResultSet rs2 = statement.executeQuery(query);
       int count = 0;
       while (rs2.next()) count++;
-      if (count == 0)
-        System.out.println("Move information deleted successfully.");
+      if (count == 0) System.out.println("Move information deleted successfully.");
       else System.out.println("Move information did not delete.");
     } catch (SQLException e2) {
       System.out.println("Error checking delete. " + e2);

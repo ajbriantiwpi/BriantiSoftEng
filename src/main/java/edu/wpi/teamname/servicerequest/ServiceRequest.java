@@ -1,10 +1,7 @@
 package edu.wpi.teamname.servicerequest;
 
 import edu.wpi.teamname.servicerequest.requestitem.RequestItem;
-
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import lombok.Getter;
 import lombok.Setter;
@@ -46,5 +43,23 @@ public class ServiceRequest {
 
   public void removeItem(int requestID) {
     return;
+  }
+
+  public String toString() {
+    return "["
+        + requestID
+        + ", "
+        + staffName
+        + ", "
+        + patientName
+        + ", "
+        + roomNumber
+        + ", "
+        + deliverBy
+        + ", "
+        + requestedAt
+        + ", "
+        + status.toString()
+        + "]";
   }
 }

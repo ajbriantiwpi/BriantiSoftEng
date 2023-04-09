@@ -3,8 +3,6 @@ package edu.wpi.teamname.navigation;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Timestamp;
-
 public class LocationName {
 
   @Getter @Setter private String longName;
@@ -15,5 +13,9 @@ public class LocationName {
     this.shortName = shortName;
     this.longName = longName;
     this.nodeType = nodeType;
+  }
+
+  public String toString() {
+    return "[" + longName + ", " + shortName + ", " + nodeType + "]";
   }
 }

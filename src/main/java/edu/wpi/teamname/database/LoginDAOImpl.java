@@ -1,10 +1,6 @@
 package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.LoginDAO;
-import edu.wpi.teamname.navigation.Move;
-import edu.wpi.teamname.servicerequest.requestitem.Meal;
-import lombok.Getter;
-
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -14,8 +10,7 @@ public class LoginDAOImpl implements LoginDAO {
   public void sync(Login login) throws SQLException {
     Connection connection = DataManager.DbConnection();
     try (connection) {
-      String query = "UPDATE \"Login\" SET \"password\" = ?" +
-              " WHERE \"username\" = ?";
+      String query = "UPDATE \"Login\" SET \"password\" = ?" + " WHERE \"username\" = ?";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setString(1, login.getPassword());
       statement.setString(2, login.getUsername());
@@ -52,8 +47,7 @@ public class LoginDAOImpl implements LoginDAO {
   @Override
   public void add(Login login) throws SQLException {
     Connection connection = DataManager.DbConnection();
-    String query =
-            "INSERT INTO \"Login\" (username, password) " + "VALUES (?, ?)";
+    String query = "INSERT INTO \"Login\" (username, password) " + "VALUES (?, ?)";
 
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
@@ -84,8 +78,7 @@ public class LoginDAOImpl implements LoginDAO {
       ResultSet rs2 = statement.executeQuery(query);
       int count = 0;
       while (rs2.next()) count++;
-      if (count == 0)
-        System.out.println("Login information deleted successfully.");
+      if (count == 0) System.out.println("Login information deleted successfully.");
       else System.out.println("Login information did not delete.");
     } catch (SQLException e2) {
       System.out.println("Error checking delete. " + e2);

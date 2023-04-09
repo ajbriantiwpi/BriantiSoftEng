@@ -14,4 +14,18 @@ public class Meal extends RequestItem {
     this.meal = meal;
     this.cuisine = cuisine;
   }
+
+  public String toString() {
+    return "["
+        + this.getItemID()
+        + ", "
+        + this.getName()
+        + ", "
+        + price
+        + ", "
+        + meal
+        + ", "
+        + cuisine
+        + "]";
+  }
 }

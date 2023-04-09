@@ -1,6 +1,7 @@
 package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.navigation.Edge;
+import edu.wpi.teamname.navigation.LocationName;
 import edu.wpi.teamname.navigation.Move;
 import edu.wpi.teamname.navigation.Node;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
@@ -46,144 +47,221 @@ public class DataManager {
   // ------------------------DAO Methods------------------------
 
   /** */
-  public void syncAll() {
-    syncMoves();
-    syncNodes();
-    syncEdges();
-    syncItemsOrdered();
-    syncItemsOrdered();
-    syncServiceRequests();
-    syncLogin();
-    syncFlowers();
-    syncMeals();
+  public static void syncMove(Move move) throws SQLException {
+    MoveDAOImpl moveDAO = new MoveDAOImpl();
+    moveDAO.sync(move);
   }
 
   /** */
-  public void syncMoves() {}
-
-  /** */
-  public void syncNodes() {}
-
-  /** */
-  public void syncEdges() {}
-
-  /** */
-  public void syncItemsOrdered() {}
-
-  /** */
-  public void syncServiceRequests() {}
-
-  /** */
-  public void syncLogin() {}
-
-  /** */
-  public void syncFlowers() {}
-
-  /** */
-  public void syncMeals() {}
-
-  /** */
-  public void addAll() {
-    addMoves();
-    addNodes();
-    addEdges();
-    addItemsOrdered();
-    addServiceRequests();
-    addLogin();
-    addFlowers();
-    addMeals();
+  public static void syncNode(Node node) throws SQLException {
+    NodeDAOImpl nodeDAO = new NodeDAOImpl();
+    nodeDAO.sync(node);
   }
 
   /** */
-  public void addMoves() {}
+  public static void syncEdge(Edge edge) throws SQLException {
+    EdgeDAOImpl edgeDAO = new EdgeDAOImpl();
+    edgeDAO.sync(edge);
+  }
 
   /** */
-  public void addNodes() {}
+  public static void syncItemsOrdered(ItemsOrdered itemsOrdered) throws SQLException {
+    ItemsOrderedDAOImpl itemsOrderedDao = new ItemsOrderedDAOImpl();
+    itemsOrderedDao.sync(itemsOrdered);
+  }
 
   /** */
-  public void addEdges() {}
+  public static void syncServiceRequest(ServiceRequest serviceRequest) throws SQLException {
+    ServiceRequestDAOImpl serviceRequestDAO = new ServiceRequestDAOImpl();
+    serviceRequestDAO.sync(serviceRequest);
+  }
 
   /** */
-  public void addItemsOrdered() {}
+  public static void syncLogin(Login login) throws SQLException {
+    LoginDAOImpl loginDAO = new LoginDAOImpl();
+    loginDAO.sync(login);
+  }
+
+  /** */
+  public static void syncFlower(Flower flower) throws SQLException {
+    FlowerDAOImpl flowerDAO = new FlowerDAOImpl();
+    flowerDAO.sync(flower);
+  }
+
+  /** */
+  public static void syncMeal(Meal meal) throws SQLException {
+    MealDAOImpl mealDAO = new MealDAOImpl();
+    mealDAO.sync(meal);
+  }
+
+  /** */
+  public static void syncLocationName(LocationName locationName) throws SQLException {
+    LocationNameDAOImpl locationNameDAO = new LocationNameDAOImpl();
+    locationNameDAO.sync(locationName);
+  }
+
+  /** */
+  public static void addMoves(Move move) throws SQLException {
+    MoveDAOImpl moveDAO = new MoveDAOImpl();
+    moveDAO.add(move);
+  }
+
+  /** */
+  public static void addNode(Node node) throws SQLException {
+    NodeDAOImpl nodeDAO = new NodeDAOImpl();
+    nodeDAO.add(node);
+  }
+
+  /** */
+  public static void addEdge(Edge edge) throws SQLException {
+    EdgeDAOImpl edgeDAO = new EdgeDAOImpl();
+    edgeDAO.add(edge);
+  }
+
+  /** */
+  public static void addItemsOrdered(ItemsOrdered itemsOrdered) throws SQLException {
+    ItemsOrderedDAOImpl itemsOrderedDAO = new ItemsOrderedDAOImpl();
+    itemsOrderedDAO.add(itemsOrdered);
+  }
 
   /** */
 
   /** */
-  public void addServiceRequests() {}
+  public static void addServiceRequest(ServiceRequest serviceRequest) throws SQLException {
+    ServiceRequestDAOImpl serviceRequestDAO = new ServiceRequestDAOImpl();
+    serviceRequestDAO.add(serviceRequest);
+  }
 
   /** */
-  public void addLogin() {}
+  public static void addLogin(Login login) throws SQLException {
+    LoginDAOImpl loginDAO = new LoginDAOImpl();
+    loginDAO.add(login);
+  }
 
   /** */
-  public void addFlowers() {}
+  public static void addFlower(Flower flower) throws SQLException {
+    FlowerDAOImpl flowerDAO = new FlowerDAOImpl();
+    flowerDAO.add(flower);
+  }
 
   /** */
-  public void addMeals() {}
+  public static void addMeal(Meal meal) throws SQLException {
+    MealDAOImpl mealDAO = new MealDAOImpl();
+    mealDAO.add(meal);
+  }
 
   /** */
-  public void deleteMoves() {}
+  public static void addLocationName(LocationName locationName) throws SQLException {
+    LocationNameDAOImpl locationNameDAO = new LocationNameDAOImpl();
+    locationNameDAO.add(locationName);
+  }
 
   /** */
-  public void deleteNodes() {}
+  public static void deleteMove(Move move) throws SQLException {
+    MoveDAOImpl moveDAO = new MoveDAOImpl();
+    moveDAO.delete(move);
+  }
 
   /** */
-  public void deleteEdges() {}
+  public static void deleteNode(Node node) throws SQLException {
+    NodeDAOImpl nodeDAO = new NodeDAOImpl();
+    nodeDAO.delete(node);
+  }
 
   /** */
-  public void deleteItemsOrdered() {}
+  public static void deleteEdge(Edge edge) throws SQLException {
+    EdgeDAOImpl edgeDAO = new EdgeDAOImpl();
+    edgeDAO.delete(edge);
+  }
 
   /** */
-  public void deleteServiceRequests() {}
+  public static void deleteItemsOrdered(ItemsOrdered itemsOrdered) throws SQLException {
+    ItemsOrderedDAOImpl itemsOrderedDAO = new ItemsOrderedDAOImpl();
+    itemsOrderedDAO.delete(itemsOrdered);
+  }
 
   /** */
-  public void deleteServiceRequestsWithItems() {}
+  public static void deleteServiceRequest(ServiceRequest serviceRequest) throws SQLException {
+    ServiceRequestDAOImpl serviceRequestDAO = new ServiceRequestDAOImpl();
+    serviceRequestDAO.delete(serviceRequest);
+  }
 
   /** */
-  public void deleteLogin() {}
+  public static void deleteServiceRequestsWithItems(ServiceRequest serviceRequest)
+      throws SQLException {
+    ServiceRequestDAOImpl serviceRequestDAO = new ServiceRequestDAOImpl();
+    serviceRequestDAO.deleteWithItems(serviceRequest);
+  }
 
   /** */
-  public void deleteFlowers() {}
+  public static void deleteLogin(Login login) throws SQLException {
+    LoginDAOImpl loginDAO = new LoginDAOImpl();
+    loginDAO.delete(login);
+  }
 
   /** */
-  public void deleteMeals() {}
+  public static void deleteFlower(Flower flower) throws SQLException {
+    FlowerDAOImpl flowerDAO = new FlowerDAOImpl();
+    flowerDAO.delete(flower);
+  }
+
+  /** */
+  public static void deleteMeals(Meal meal) throws SQLException {
+    MealDAOImpl mealDAO = new MealDAOImpl();
+    mealDAO.delete(meal);
+  }
+
+  /** */
+  public static void deleteLocationName(LocationName locationName) throws SQLException {
+    LocationNameDAOImpl locationNameDAO = new LocationNameDAOImpl();
+    locationNameDAO.delete(locationName);
+  }
 
   /** @return ArrayList<Move> */
-  public ArrayList<Move> getMoves() {
-    return null;
+  public static ArrayList<Move> getAllMoves() throws SQLException {
+    MoveDAOImpl moveDAO = new MoveDAOImpl();
+    return moveDAO.getAll();
   }
 
   /** @return ArrayList<Node> */
-  public ArrayList<Node> getNodes() {
-    return null;
+  public static ArrayList<Node> getAllNodes() throws SQLException {
+    NodeDAOImpl nodeDAO = new NodeDAOImpl();
+    return nodeDAO.getAll();
   }
 
   /** @return ArrayList<Edge> */
-  public ArrayList<Edge> getEdges() {
-    return null;
+  public static ArrayList<Edge> getAllEdges() throws SQLException {
+    EdgeDAOImpl edgeDAO = new EdgeDAOImpl();
+    return edgeDAO.getAll();
   }
 
   /** @return ArrayList<ItemsOrdered> */
-  public ArrayList<ItemsOrdered> getItemsOrdered() {
-    return null;
+  public static ArrayList<ItemsOrdered> getAllItemsOrdered() throws SQLException {
+    return (new ItemsOrderedDAOImpl()).getAll();
   }
 
   /** @return ArrayList<ServiceRequest> */
-  public ArrayList<ServiceRequest> getServiceRequests() {
-    return null;
+  public static ArrayList<ServiceRequest> getAllServiceRequests() throws SQLException {
+    return (new ServiceRequestDAOImpl()).getAll();
   }
 
   /** @return ArrayList<Login> */
-  public ArrayList<Login> getLogin() {
-    return null;
+  public static ArrayList<Login> getAllLogins() throws SQLException {
+    return (new LoginDAOImpl()).getAll();
   }
 
   /** @return ArrayList<Flower> */
-  public ArrayList<Flower> getFlowers() {
-    return null;
+  public static ArrayList<Flower> getAllFlowers() throws SQLException {
+    return (new FlowerDAOImpl()).getAll();
   }
 
   /** @return ArrayList<Meal> */
-  public ArrayList<Meal> getMeals() {
-    return null;
+  public static ArrayList<Meal> getAllMeals() throws SQLException {
+    return (new MealDAOImpl()).getAll();
+  }
+
+  /** @return ArrayList<LocationName> */
+  public static ArrayList<LocationName> getAllLocationNames() throws SQLException {
+    return (new LocationNameDAOImpl()).getAll();
   }
 }
