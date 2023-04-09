@@ -8,10 +8,15 @@ import edu.wpi.teamname.servicerequest.ItemsOrdered;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import edu.wpi.teamname.servicerequest.requestitem.Flower;
 import edu.wpi.teamname.servicerequest.requestitem.Meal;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 public class DataManager {
   private static Connection connection;
@@ -263,5 +268,29 @@ public class DataManager {
   /** @return ArrayList<LocationName> */
   public static ArrayList<LocationName> getAllLocationNames() throws SQLException {
     return (new LocationNameDAOImpl()).getAll();
+  }
+
+  public static List<String[]> parseCSVAndUploadToPostgreSQL(String csvFilePath)
+      throws SQLException {
+    List<String[]> csvData = new ArrayList<>();
+
+    try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
+      String line;
+
+      while ((line = br.readLine()) != null) {
+        StringTokenizer st = new StringTokenizer(line, ",");
+        List<String> row = new ArrayList<>();
+
+        while (st.hasMoreTokens()) {
+          row.add(st.nextToken());
+        }
+
+        csvData.add(row.toArray(new String[0]));
+      }
+    } catch (IOException e) {
+      System.err.println("Error reading CSV file: " + e.getMessage());
+    }
+
+    return csvData;
   }
 }

@@ -1,15 +1,15 @@
 package edu.wpi.teamname.navigation;
 
 import edu.wpi.teamname.database.DataManager;
-import java.util.List;
-import lombok.Getter;
-import lombok.Setter;
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
 public class Node {
 
@@ -102,9 +102,10 @@ public class Node {
   }
 
   /**
-   * Checks if this.nodeID has switched with given nodeID to swap positions, floor and building in the table
-   * with it in the edge table
-   * also swaps correlating information as well as switching the longNames with eachother in LocationName table
+   * Checks if this.nodeID has switched with given nodeID to swap positions, floor and building in
+   * the table with it in the edge table also swaps correlating information as well as switching the
+   * longNames with eachother in LocationName table
+   *
    * @param move
    * @return Boolean
    */
@@ -123,24 +124,22 @@ public class Node {
       System.out.println("Error getting long name.");
     }
 
-    /**
-     * Might use sync functions with this feature
-     */
-    //A starting node, B is node being swapped with
+    /** Might use sync functions with this feature */
+    // A starting node, B is node being swapped with
 
-    //rowAlocN = select longName from LocationName where longN = longN
-    //rowBlocN = select longName from LocationName where longN = swapLongN
-    //rowAnode = select floor, building from Node where thisNode = thisNode
-    //rowBnode = select floor, building from Node where thisNode = swapNodeID
+    // rowAlocN = select longName from LocationName where longN = longN
+    // rowBlocN = select longName from LocationName where longN = swapLongN
+    // rowAnode = select floor, building from Node where thisNode = thisNode
+    // rowBnode = select floor, building from Node where thisNode = swapNodeID
 
-    //put rowAlocN where longN = swapLongN
-    //put rowAnode where thisNode = swapNodeID
-    //insert nodeID, longN, date into Move
+    // put rowAlocN where longN = swapLongN
+    // put rowAnode where thisNode = swapNodeID
+    // insert nodeID, longN, date into Move
 
-    //put rowBnode where thisNode = thisNode
-    //put rowBlocN where longN = longN
+    // put rowBnode where thisNode = thisNode
+    // put rowBlocN where longN = longN
 
-    //insert swapNodeID, swapLongN, date into Move
+    // insert swapNodeID, swapLongN, date into Move
 
     String query = "";
 

@@ -4,12 +4,13 @@ import edu.wpi.teamname.database.interfaces.EdgeDAO;
 import edu.wpi.teamname.navigation.Edge;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class EdgeDAOImpl implements EdgeDAO {
-  /**
-   * Sync an ORM with its row in the database WARNING: do not create a new node just change the
-   * parameters on the old one
-   */
+  /** Sync an ORM with its row in the database
+   * WARNING: do not create a new node just change the parameters on the old one
+   *
+   * */
   @Override
   public void sync(Edge edge) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -94,5 +95,34 @@ public class EdgeDAOImpl implements EdgeDAO {
       System.out.println("Error checking delete. " + e2);
     }
     connection.close();
+  }
+
+  public static void uploadEdgeToPostgreSQL(String csvFilePath) throws SQLException {
+    List<String[]> csvData;
+    Connection connection = DataManager.DbConnection();
+    DataManager dataImport = new DataManager();
+    csvData = dataImport.parseCSVAndUploadToPostgreSQL(csvFilePath);
+    try (connection) {
+      String createTableQuery =
+          "CREATE TABLE IF NOT EXISTS \"Edge\" (\"startNode\" INTEGER, \"endNode\" INTEGER);";
+      PreparedStatement createTableStatement = connection.prepareStatement(createTableQuery);
+      createTableStatement.executeUpdate();
+
+      String query = "INSERT INTO \"Edge\" (\"startNode\", \"endNode\") " + "VALUES (?, ?)";
+      PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"Edge\";");
+      statement.executeUpdate();
+      statement = connection.prepareStatement(query);
+
+      for (int i = 1; i < csvData.size(); i++) {
+        String[] row = csvData.get(i);
+        statement.setInt(1, Integer.parseInt(row[0])); // startNode is a int column
+        statement.setInt(2, Integer.parseInt(row[1])); // endNode is a int column
+
+        statement.executeUpdate();
+      }
+      System.out.println("CSV data uploaded to PostgreSQL database");
+    } catch (SQLException e) {
+      System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
+    }
   }
 }
