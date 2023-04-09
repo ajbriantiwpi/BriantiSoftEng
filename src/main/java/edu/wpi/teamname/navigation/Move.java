@@ -27,4 +27,8 @@ public class Move {
     this.originalLongName = longName;
     this.originalDate = date;
   }
+
+  public String toString() {
+    return "[" + nodeID + ", " + longName + ", " + date + "]";
+  }
 }

@@ -28,15 +28,15 @@ public class Node {
    * Constructor
    *
    * @param ID
-   * @param X
-   * @param Y
+   * @param x
+   * @param y
    * @param Floor
    * @param Building
    */
-  public Node(int ID, int X, int Y, String Floor, String Building) {
+  public Node(int ID, int x, int y, String Floor, String Building) {
     this.id = ID;
-    this.x = X;
-    this.y = Y;
+    this.x = x;
+    this.y = y;
     this.floor = Floor;
     this.building = Building;
   }
@@ -63,26 +63,6 @@ public class Node {
   }
 
   /** @return */
-  public int getX() {
-    return 0;
-  }
-
-  /** @return */
-  public int getY() {
-    return 0;
-  }
-
-  /** @return */
-  public String getFloor() {
-    return null;
-  }
-
-  /** @return */
-  public String getBuilding() {
-    return null;
-  }
-
-  /** @return */
   public List<Node> getNeighbors() {
     return null;
   }
@@ -106,13 +86,8 @@ public class Node {
   }
 
   /** @return */
-  public int getId() {
-    return 0;
-  }
-
-  /** @return */
   public String toString() {
-    return null;
+    return "[" + id + ", " + x + ", " + y + ", " + floor + ", " + building + "]";
   }
 
   /**

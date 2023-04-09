@@ -14,4 +14,8 @@ public class LocationName {
     this.longName = longName;
     this.nodeType = nodeType;
   }
+
+  public String toString() {
+    return "[" + longName + ", " + shortName + ", " + nodeType + "]";
+  }
 }

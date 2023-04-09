@@ -44,4 +44,22 @@ public class ServiceRequest {
   public void removeItem(int requestID) {
     return;
   }
+
+  public String toString() {
+    return "["
+        + requestID
+        + ", "
+        + staffName
+        + ", "
+        + patientName
+        + ", "
+        + roomNumber
+        + ", "
+        + deliverBy
+        + ", "
+        + requestedAt
+        + ", "
+        + status.toString()
+        + "]";
+  }
 }

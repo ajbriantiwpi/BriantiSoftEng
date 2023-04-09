@@ -19,6 +19,6 @@ public class Edge {
 
   /** @return */
   public String toString() {
-    return "";
+    return startNodeID + " " + endNodeID;
   }
 }
