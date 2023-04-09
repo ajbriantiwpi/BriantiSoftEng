@@ -32,5 +32,7 @@ public class MapController {
     anchor.setOnMouseClicked(e);
 
     map.centerAndZoom(anchor);
+
+    ParentController.titleString.set("Map");
   }
 }
