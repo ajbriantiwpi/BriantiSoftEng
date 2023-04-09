@@ -1,8 +1,5 @@
 package edu.wpi.teamname.system;
 
-import edu.wpi.teamname.database.DataManager;
-
-import java.sql.Connection;
 import java.sql.SQLException;
 
 public class Main {

@@ -1,10 +1,7 @@
 package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.MealDAO;
-import edu.wpi.teamname.navigation.Move;
 import edu.wpi.teamname.servicerequest.requestitem.Meal;
-import lombok.Getter;
-
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -15,8 +12,9 @@ public class MealDAOImpl implements MealDAO {
   public void sync(Meal meal) throws SQLException {
     Connection connection = DataManager.DbConnection();
     try (connection) {
-      String query = "UPDATE \"Meal\" SET \"Name\" = ?, \"Price\" = ?, \"Meal\" = ?, \"Cuisine\" = ?" +
-              " WHERE \"mealID\" = ?";
+      String query =
+          "UPDATE \"Meal\" SET \"Name\" = ?, \"Price\" = ?, \"Meal\" = ?, \"Cuisine\" = ?"
+              + " WHERE \"mealID\" = ?";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setString(1, meal.getName());
       statement.setFloat(2, meal.getPrice());
@@ -60,7 +58,8 @@ public class MealDAOImpl implements MealDAO {
   public void add(Meal meal) throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query =
-            "INSERT INTO \"Meal\" (\"mealID\", \"Name\", \"Price\", \"Meal\", \"Cuisine\") " + "VALUES (?, ?, ?, ?, ?)";
+        "INSERT INTO \"Meal\" (\"mealID\", \"Name\", \"Price\", \"Meal\", \"Cuisine\") "
+            + "VALUES (?, ?, ?, ?, ?)";
 
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
@@ -94,8 +93,7 @@ public class MealDAOImpl implements MealDAO {
       ResultSet rs2 = statement.executeQuery(query);
       int count = 0;
       while (rs2.next()) count++;
-      if (count == 0)
-        System.out.println("Meal information deleted successfully.");
+      if (count == 0) System.out.println("Meal information deleted successfully.");
       else System.out.println("Meal information did not delete.");
     } catch (SQLException e2) {
       System.out.println("Error checking delete. " + e2);

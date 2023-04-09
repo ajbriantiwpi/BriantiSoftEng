@@ -1,7 +1,6 @@
 package edu.wpi.teamname.database.interfaces;
 
 import edu.wpi.teamname.navigation.Move;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 

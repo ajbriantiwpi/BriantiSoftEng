@@ -1,15 +1,14 @@
 package edu.wpi.teamname.navigation;
 
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
 
 public class Node {
 
   @Getter @Setter public int id;
   @Getter @Setter public String floor;
-  @Getter  public String building;
+  @Getter public String building;
   @Getter private int x;
   @Getter private int y;
   private Node parent = null;
@@ -29,7 +28,13 @@ public class Node {
    * @param Floor
    * @param Building
    */
-  public Node(int ID, int x, int y, String Floor, String Building) {}
+  public Node(int ID, int x, int y, String Floor, String Building) {
+    this.id = ID;
+    this.x = x;
+    this.y = y;
+    this.floor = Floor;
+    this.building = Building;
+  }
 
   /** @return */
   public Node getParent() {
@@ -50,26 +55,6 @@ public class Node {
    */
   public int compareTo(Node n) {
     return 0;
-  }
-
-  /** @return */
-  public int getX() {
-    return 0;
-  }
-
-  /** @return */
-  public int getY() {
-    return 0;
-  }
-
-  /** @return */
-  public String getFloor() {
-    return null;
-  }
-
-  /** @return */
-  public String getBuilding() {
-    return null;
   }
 
   /** @return */
@@ -96,13 +81,8 @@ public class Node {
   }
 
   /** @return */
-  public int getId() {
-    return 0;
-  }
-
-  /** @return */
   public String toString() {
-    return null;
+    return "[" + id + ", " + x + ", " + y + ", " + floor + ", " + building + "]";
   }
 
   /**

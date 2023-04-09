@@ -2,8 +2,6 @@ package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.NodeDAO;
 import edu.wpi.teamname.navigation.Node;
-import lombok.Getter;
-
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -13,8 +11,9 @@ public class NodeDAOImpl implements NodeDAO {
   public void sync(Node node) throws SQLException {
     Connection connection = DataManager.DbConnection();
     try (connection) {
-      String query = "UPDATE \"Node\" SET \"xcoord\" = ?, \"ycoord\" = ?, \"floor\" = ?, \"building\" = ?" +
-              " WHERE \"nodeID\" = ?";
+      String query =
+          "UPDATE \"Node\" SET \"xcoord\" = ?, \"ycoord\" = ?, \"floor\" = ?, \"building\" = ?"
+              + " WHERE \"nodeID\" = ?";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, node.getX());
       statement.setInt(2, node.getY());
@@ -58,7 +57,8 @@ public class NodeDAOImpl implements NodeDAO {
   public void add(Node node) throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query =
-            "INSERT INTO \"Node\" (\"nodeID\", xcoord, ycoord, floor, building) " + "VALUES (?, ?, ?, ?, ?)";
+        "INSERT INTO \"Node\" (\"nodeID\", xcoord, ycoord, floor, building) "
+            + "VALUES (?, ?, ?, ?, ?)";
 
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
@@ -92,8 +92,7 @@ public class NodeDAOImpl implements NodeDAO {
       ResultSet rs2 = statement.executeQuery(query);
       int count = 0;
       while (rs2.next()) count++;
-      if (count == 0)
-        System.out.println("Node information deleted successfully.");
+      if (count == 0) System.out.println("Node information deleted successfully.");
       else System.out.println("Node information did not delete.");
     } catch (SQLException e2) {
       System.out.println("Error checking delete. " + e2);
