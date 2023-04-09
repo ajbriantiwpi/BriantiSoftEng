@@ -1,5 +1,7 @@
 package edu.wpi.teamname.navigation;
 
+import edu.wpi.teamname.database.DataManager;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,8 +21,8 @@ public class Graph {
     this.start = null;
     this.target = null;
 
-    nodeFromDB = Node.getAllNodes();
-    edgeFromDB = Edge.getAllEdges();
+    nodeFromDB = DataManager.getAllNodes();
+    edgeFromDB = DataManager.getAllEdges();
 
     initializeNodes(nodeFromDB);
     initializeEdges(edgeFromDB);
@@ -105,6 +107,7 @@ public class Graph {
       openList.remove(n);
       closedList.add(n);
     }
+    return null;
   }
 
   public static String returnStringPath(Node target) {

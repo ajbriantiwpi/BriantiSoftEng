@@ -52,39 +52,13 @@ public class Node implements Comparable<Node> {
   /** @return */
   public List<Node> getNeighbors() {
     return null;
-  /**
-   * * Gets all the nodes in the database and puts them into an array list
-   *
-   * @return An array list of all the nodes in the database
-   * @throws SQLException
-   */
-  public static ArrayList<Node> getAllNodes() throws SQLException {
-    DatabaseConnection dbc = new DatabaseConnection();
-    Connection connection = dbc.DbConnection();
-    ArrayList<Node> list = new ArrayList<Node>();
-
-    try (connection) {
-      String query = "SELECT * FROM \"Node\"";
-      Statement statement = connection.createStatement();
-      ResultSet rs = statement.executeQuery(query);
-
-      while (rs.next()) {
-        int id = rs.getInt("nodeID");
-        int xcoord = rs.getInt("xcoord");
-        int ycoord = rs.getInt("ycoord");
-        String floor = rs.getString("floor");
-        String building = rs.getString("building");
-        list.add(new Node(id, xcoord, ycoord, floor, building));
-      }
-    }
-    return list;
   }
 
   public void addEdge(Edge edge, Node s, Node e) {
     if (!this.edges.contains(edge)) {
       edges.add(edge);
 
-      if (this.id == edge.startNodeID) {
+      if (this.id == edge.getStartNodeID()) {
         this.neighbors.add(e);
       } else {
         this.neighbors.add(s);
@@ -105,12 +79,11 @@ public class Node implements Comparable<Node> {
 
   /** @return */
   public String toString() {
-    return "[" + id + ", " + x + ", " + y + ", " + floor + ", " + building + "]";
     String nei = "";
     for (Node n : neighbors) {
       nei += " " + Integer.toString(n.getId());
     }
-    return "NodeID:" + id + " Xcord:" + x + " Ycord:" + y + " Heu: " + h + "Neighbors" + nei;
+    return "NodeID:" + id + " Xcord:" + x + " Ycord:" + y + " Heu: " + h + "Neighbors:" + nei + "Floor" + floor + "Building:" + building;
   }
 
   public double calculateHeuristic(Node target) {
