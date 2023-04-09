@@ -84,6 +84,7 @@ public class Graph {
     while (!openList.isEmpty()) {
       Node ex = openList.peek();
       if (ex == target) {
+        System.out.println(closedList.size());
         return getPath(ex);
       }
 
@@ -110,8 +111,9 @@ public class Graph {
           }
         }
       }
-      openList.remove(t);
-      closedList.add(t);
+      openList.remove(ex);
+      closedList.add(ex);
+      // System.out.println(closedList.size());
     }
     return null;
   }
@@ -171,10 +173,8 @@ public class Graph {
     // Initialize the nodes with the node lines data
 
     for (int i = 0; i < Edges.size(); i++) {
-      Node StartNode =
-          this.findNodeByID(
-              Edges.get(i).startNodeID); // Nodes.get((Edges.get(i).getStartNodeID() - 100)/5);
-      Node EndNode = this.findNodeByID(Edges.get(i).endNodeID);
+      Node StartNode = this.findNodeByID(Edges.get(i).getStartNodeID());
+      Node EndNode = this.findNodeByID(Edges.get(i).getEndNodeID());
 
       StartNode.getNeighbors().add(EndNode);
       EndNode.getNeighbors().add(StartNode);
