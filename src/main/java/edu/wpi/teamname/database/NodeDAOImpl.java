@@ -2,6 +2,9 @@ package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.NodeDAO;
 import edu.wpi.teamname.navigation.Node;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -149,6 +152,30 @@ public class NodeDAOImpl implements NodeDAO {
       System.out.println("CSV data uploaded to PostgreSQL database");
     } catch (SQLException e) {
       System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
+    }
+  }
+
+  public static void exportNodeToPostgreSQL(String csvFilePath) throws SQLException, IOException {
+    Connection connection = DataManager.DbConnection();
+    String query = "SELECT * FROM \"Node\"";
+    Statement statement = connection.createStatement();
+    ResultSet resultSet = statement.executeQuery(query);
+
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(csvFilePath))) {
+      writer.write("nodeID,xcoord,ycoord,floor,building\n");
+      while (resultSet.next()) {
+        int nodeID = resultSet.getInt("nodeID");
+        int xcoord = resultSet.getInt("xcoord");
+        int ycoord = resultSet.getInt("ycoord");
+        String floor = resultSet.getString("floor");
+        String building = resultSet.getString("building");
+
+        String row = nodeID + "," + xcoord + "," + ycoord + "," + floor + "," + building + "\n";
+        writer.write(row);
+      }
+      System.out.println("CSV data downloaded from PostgreSQL database");
+    } catch (IOException e) {
+      System.err.println("Error downloading CSV data from PostgreSQL database: " + e.getMessage());
     }
   }
 }

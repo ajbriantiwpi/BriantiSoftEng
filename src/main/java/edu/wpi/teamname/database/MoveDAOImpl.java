@@ -2,6 +2,8 @@ package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.MoveDAO;
 import edu.wpi.teamname.navigation.Move;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -123,7 +125,7 @@ public class MoveDAOImpl implements MoveDAO {
         String[] row = csvData.get(i);
         statement.setInt(1, Integer.parseInt(row[0])); // nodeId is an int column
         statement.setString(2, row[1]); // longName is a string column
-        SimpleDateFormat dateFormat = new SimpleDateFormat("M/d/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         java.util.Date parsedDate = dateFormat.parse(row[2]);
         java.sql.Date date = new java.sql.Date(parsedDate.getTime());
         statement.setDate(3, date); // date is a date column
@@ -135,6 +137,59 @@ public class MoveDAOImpl implements MoveDAO {
       System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
     } catch (ParseException e) {
       throw new RuntimeException(e);
+    }
+  }
+  /**
+   * Exports data from a PostgreSQL database table "Move" to a CSV file
+   *
+   * @param csvFilePath is a String representing a file path
+   * @throws SQLException if an error occurs while exporting the data from the database
+   */
+  public static void exportMoveToCSV(String csvFilePath) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+
+    try (connection) {
+      Statement statement = connection.createStatement();
+      ResultSet resultSet = statement.executeQuery("SELECT * FROM \"Move\"");
+
+      // add column headers
+      ResultSetMetaData metaData = resultSet.getMetaData();
+      int columnCount = metaData.getColumnCount();
+      StringBuilder headerBuilder = new StringBuilder();
+      for (int i = 1; i <= columnCount; i++) {
+        headerBuilder.append(metaData.getColumnName(i));
+        if (i < columnCount) {
+          headerBuilder.append(",");
+        }
+      }
+      String header = headerBuilder.toString();
+
+      // add data rows
+      StringBuilder dataBuilder = new StringBuilder();
+      while (resultSet.next()) {
+        for (int i = 1; i <= columnCount; i++) {
+          Object value = resultSet.getObject(i);
+          if (value instanceof java.sql.Date) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            dataBuilder.append(dateFormat.format(value));
+          } else {
+            dataBuilder.append(value == null ? "" : value.toString());
+          }
+          if (i < columnCount) {
+            dataBuilder.append(",");
+          }
+        }
+        dataBuilder.append("\n");
+      }
+
+      // write data to CSV file
+      FileWriter fileWriter = new FileWriter(csvFilePath);
+      fileWriter.write(header + "\n" + dataBuilder.toString());
+      fileWriter.close();
+
+      System.out.println("Data exported from PostgreSQL database to CSV file");
+    } catch (SQLException | IOException e) {
+      System.err.println("Error exporting data from PostgreSQL database: " + e.getMessage());
     }
   }
 }

@@ -2,6 +2,9 @@ package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.EdgeDAO;
 import edu.wpi.teamname.navigation.Edge;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -130,6 +133,26 @@ public class EdgeDAOImpl implements EdgeDAO {
       System.out.println("CSV data uploaded to PostgreSQL database");
     } catch (SQLException e) {
       System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
+    }
+  }
+
+  public static void exportEdgeToPostgreSQL(String csvFilePath) throws SQLException, IOException {
+    Connection connection = DataManager.DbConnection();
+    String query = "SELECT * FROM \"Edge\"";
+    Statement statement = connection.createStatement();
+    ResultSet resultSet = statement.executeQuery(query);
+
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(csvFilePath))) {
+      writer.write("\"startNode\",\"endNode\"\n");
+      while (resultSet.next()) {
+        int startNode = resultSet.getInt("startNode");
+        int endNode = resultSet.getInt("endNode");
+        String row = String.format("%d,%d\n", startNode, endNode);
+        writer.write(row);
+      }
+      System.out.println("CSV data downloaded from PostgreSQL database");
+    } catch (IOException e) {
+      System.err.println("Error downloading CSV data from PostgreSQL database: " + e.getMessage());
     }
   }
 }
