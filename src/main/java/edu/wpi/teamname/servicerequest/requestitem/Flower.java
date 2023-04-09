@@ -14,4 +14,18 @@ public class Flower extends RequestItem {
     this.category = category;
     this.color = color;
   }
+
+  public String toString() {
+    return "["
+        + this.getItemID()
+        + ", "
+        + this.getName()
+        + ", "
+        + price
+        + ", "
+        + category
+        + ", "
+        + color
+        + "]";
+  }
 }

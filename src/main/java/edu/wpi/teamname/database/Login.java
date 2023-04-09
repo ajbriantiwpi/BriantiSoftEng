@@ -14,5 +14,12 @@ public class Login {
    * @param username
    * @param password
    */
-  public Login(String username, String password) {}
+  public Login(String username, String password) {
+    this.username = username;
+    this.password = password;
+  }
+
+  public String toString() {
+    return "[" + username + ", " + password + "]";
+  }
 }

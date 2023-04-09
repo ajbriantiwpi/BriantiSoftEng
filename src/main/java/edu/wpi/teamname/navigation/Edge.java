@@ -1,19 +1,51 @@
 package edu.wpi.teamname.navigation;
 
-import java.util.ArrayList;
+import edu.wpi.teamname.database.*;
+import java.sql.SQLException;
+import lombok.Getter;
+import lombok.Setter;
 
 public class Edge {
 
-  public int startNodeID;
-  public int endNodeID;
+  @Getter private final int originalStartNodeID;
+  @Getter private final int originalEndNodeID;
+  @Getter @Setter private int startNodeID;
+  @Getter @Setter private int endNodeID;
 
-  /** @return */
-  public ArrayList<Edge> getAllEdges() {
-    return null;
+  public Edge(int startNodeID, int endNodeID) {
+    this.startNodeID = startNodeID;
+    this.endNodeID = endNodeID;
+    this.originalStartNodeID = startNodeID;
+    this.originalEndNodeID = endNodeID;
   }
 
-  /** @return */
+  /**
+   * * Gets all of the edges in the database and puts them into an array list
+   *
+   * @return An array list of all the edges in the database
+   * @throws SQLException
+   */
+  //  public static ArrayList<Edge> getAllEdges() throws SQLException {
+  //    DatabaseConnection dbc = new DatabaseConnection();
+  //    Connection connection = dbc.DbConnection();
+  //    ArrayList<Edge> list = new ArrayList<Edge>();
+  //
+  //    try (connection) {
+  //      String query = "SELECT * FROM \"Edge\"";
+  //      Statement statement = connection.createStatement();
+  //      ResultSet rs = statement.executeQuery(query);
+  //
+  //      while (rs.next()) {
+  //        int startNode = rs.getInt("startNode");
+  //        int endNode = rs.getInt("endNode");
+  //        list.add(new Edge(startNode, endNode));
+  //      }
+  //    }
+  //    return list;
+  //  }
+
+  // Returns all the attributes of a Node as a String
   public String toString() {
-    return "";
+    return "StartNodeID: " + startNodeID + " EndNodeID: " + endNodeID;
   }
 }
