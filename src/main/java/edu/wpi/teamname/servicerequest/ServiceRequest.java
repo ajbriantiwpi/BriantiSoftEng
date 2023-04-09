@@ -1,6 +1,9 @@
 package edu.wpi.teamname.servicerequest;
 
 import edu.wpi.teamname.servicerequest.requestitem.RequestItem;
+
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import lombok.Getter;
@@ -13,8 +16,8 @@ public class ServiceRequest {
 
   @Setter @Getter private String roomNumber;
 
-  @Setter @Getter private LocalDateTime deliverBy;
-  @Setter @Getter private LocalDateTime requestedAt;
+  @Setter @Getter private Timestamp deliverBy;
+  @Setter @Getter private Timestamp requestedAt;
 
   @Setter @Getter private Status status;
   @Getter private ArrayList<RequestItem> items;
@@ -24,14 +27,15 @@ public class ServiceRequest {
       String staffName,
       String patientName,
       String roomNumber,
-      LocalDateTime deliverBy,
+      Timestamp deliverBy,
+      Timestamp requestedAt,
       Status status) {
     this.requestID = requestID;
     this.staffName = staffName;
     this.patientName = patientName;
     this.roomNumber = roomNumber;
     this.deliverBy = deliverBy;
-    requestedAt = LocalDateTime.now();
+    this.requestedAt = requestedAt;
     this.status = status;
     items = new ArrayList<RequestItem>();
   }

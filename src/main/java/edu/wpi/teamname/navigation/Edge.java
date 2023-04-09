@@ -1,15 +1,18 @@
 package edu.wpi.teamname.navigation;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 
 public class Edge {
 
-  public int startNodeID;
-  public int endNodeID;
+  @Getter @Setter private int startNodeID;
+  @Getter @Setter private int endNodeID;
 
-  /** @return */
-  public ArrayList<Edge> getAllEdges() {
-    return null;
+  public Edge(int startNodeID, int endNodeID) {
+    this.startNodeID = startNodeID;
+    this.endNodeID = endNodeID;
   }
 
   /** @return */
