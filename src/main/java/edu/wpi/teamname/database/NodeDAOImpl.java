@@ -2,6 +2,8 @@ package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.NodeDAO;
 import edu.wpi.teamname.navigation.Node;
+import edu.wpi.teamname.servicerequest.requestitem.Meal;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -177,5 +179,25 @@ public class NodeDAOImpl implements NodeDAO {
     } catch (IOException e) {
       System.err.println("Error downloading CSV data from PostgreSQL database: " + e.getMessage());
     }
+  }
+  public static Node getNode(int id) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    String query = "SELECT * FROM \"Node\" WHERE \"nodeID\" = ?";
+    Node node = null;
+    try (connection) {
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setInt(1, id);
+      ResultSet rs = statement.executeQuery();
+
+      int nodeid = rs.getInt("nodeID");
+      int xcoord = rs.getInt("xcoord");
+      int ycoord = rs.getInt("ycoord");
+      String floor = rs.getString("floor");
+      String building = rs.getString("building");
+      node = (new Node(nodeid, xcoord, ycoord, floor, building));
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return node;
   }
 }

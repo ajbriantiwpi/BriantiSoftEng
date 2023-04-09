@@ -110,8 +110,7 @@ public class EdgeDAOImpl implements EdgeDAO {
   public static void uploadEdgeToPostgreSQL(String csvFilePath) throws SQLException {
     List<String[]> csvData;
     Connection connection = DataManager.DbConnection();
-    DataManager dataImport = new DataManager();
-    csvData = dataImport.parseCSVAndUploadToPostgreSQL(csvFilePath);
+    csvData = DataManager.parseCSVAndUploadToPostgreSQL(csvFilePath);
     try (connection) {
       String createTableQuery =
           "CREATE TABLE IF NOT EXISTS \"Edge\" (\"startNode\" INTEGER, \"endNode\" INTEGER);";

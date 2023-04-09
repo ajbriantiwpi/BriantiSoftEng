@@ -3,6 +3,7 @@ package edu.wpi.teamname.database;
 import edu.wpi.teamname.database.interfaces.ServiceRequestDAO;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import edu.wpi.teamname.servicerequest.Status;
+import edu.wpi.teamname.servicerequest.requestitem.Meal;
 import edu.wpi.teamname.servicerequest.requestitem.RequestItem;
 import java.sql.*;
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
         Status status = Status.valueOf(rs.getString("status"));
         list.add(
             new ServiceRequest(
-                requestID, roomNum, staffName, patientName, requestedAt, deliverBy, status));
+                requestID, staffName, patientName, roomNum, deliverBy, requestedAt, status));
       }
     }
     connection.close();
@@ -186,5 +187,28 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
       System.out.println("Error checking delete. " + e2);
     }
     connection.close();
+  }
+
+  public static ServiceRequest getServiceRequest(int id) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    String query = "SELECT * FROM \"ServiceRequest\" WHERE \"requestID\" = ?";
+    ServiceRequest serviceRequest = null;
+    try (connection) {
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setInt(1, id);
+      ResultSet rs = statement.executeQuery();
+
+      int rID = rs.getInt("mealID");
+      String roomNum = rs.getString("roomNum");
+      String staffName = rs.getString("Meal");
+      String patientName = rs.getString("Cuisine");
+      Timestamp requestedAt = rs.getTimestamp("requestedAt");
+      Timestamp deliverBy = rs.getTimestamp("deliverBy");
+      Status status = Status.valueOf(rs.getString("status"));
+      serviceRequest = (new ServiceRequest(rID, staffName, patientName, roomNum, deliverBy, requestedAt, status));
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return serviceRequest;
   }
 }
