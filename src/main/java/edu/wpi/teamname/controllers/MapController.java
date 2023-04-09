@@ -1,6 +1,7 @@
 package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.navigation.Map;
+import java.sql.SQLException;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
@@ -23,8 +24,9 @@ public class MapController {
       };
 
   @FXML
-  public void initialize() {
-    Map map = new Map();
+  public void initialize() throws SQLException {
+
+    map = new Map();
 
     gp.setMinScale(0.11);
     anchor.setOnMouseClicked(e);

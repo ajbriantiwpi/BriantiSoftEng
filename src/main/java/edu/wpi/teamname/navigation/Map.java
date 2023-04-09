@@ -1,5 +1,6 @@
 package edu.wpi.teamname.navigation;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.geometry.Point2D;
@@ -9,7 +10,7 @@ import javafx.scene.shape.*;
 
 public class Map {
 
-  public Map() {
+  public Map() throws SQLException {
     this.graph = new Graph();
   }
 

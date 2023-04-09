@@ -1,15 +1,12 @@
 package edu.wpi.teamname.navigation;
 
 import edu.wpi.teamname.database.*;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import edu.wpi.teamname.database.DataManager;
-
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,7 +28,7 @@ public class Node implements Comparable<Node> {
   // heuristic: WILL NEED A FUNCTION TO FIND THIS
   @Getter @Setter private double h;
 
-  Node(int ID, int x, int y, String Floor, String Building) {
+  public Node(int ID, int x, int y, String Floor, String Building) {
     this.x = x;
     this.y = y;
     this.floor = Floor;
@@ -104,7 +101,20 @@ public class Node implements Comparable<Node> {
     for (Node n : neighbors) {
       nei += " " + Integer.toString(n.getId());
     }
-    return "NodeID:" + id + " Xcord:" + x + " Ycord:" + y + " Heu: " + h + "Neighbors:" + nei + "Floor" + floor + "Building:" + building;
+    return "NodeID:"
+        + id
+        + " Xcord:"
+        + x
+        + " Ycord:"
+        + y
+        + " Heu: "
+        + h
+        + "Neighbors:"
+        + nei
+        + "Floor"
+        + floor
+        + "Building:"
+        + building;
   }
 
   public double calculateHeuristic(Node target) {

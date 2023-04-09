@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EdgeDAOImpl implements EdgeDAO {
-  /** Sync an ORM with its row in the database
-   * WARNING: do not create a new node just change the parameters on the old one
-   *
-   * */
+  /**
+   * Sync an ORM with its row in the database WARNING: do not create a new node just change the
+   * parameters on the old one
+   */
   @Override
   public void sync(Edge edge) throws SQLException {
     Connection connection = DataManager.DbConnection();

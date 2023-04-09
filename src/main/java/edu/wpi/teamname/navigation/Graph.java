@@ -1,7 +1,6 @@
 package edu.wpi.teamname.navigation;
 
 import edu.wpi.teamname.database.DataManager;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,7 +16,7 @@ public class Graph {
   @Getter private ArrayList<Node> Nodes = new ArrayList<>();
   private ArrayList<Edge> Edges = new ArrayList<>();
 
-  Graph() {
+  public Graph() throws SQLException {
     //    this.start = null;
     //    this.target = null;
 
@@ -26,19 +25,19 @@ public class Graph {
 
     //    nodeFromDB = Node.getAllNodes();
     //    edgeFromDB = Edge.getAllEdges();
-//    nodeFromDB = DataManager.getAllNodes();
-//    edgeFromDB = DataManager.getAllEdges();
+    //    nodeFromDB = DataManager.getAllNodes();
+    //    edgeFromDB = DataManager.getAllNodes();
 
     //    initializeNodes(nodeFromDB);
     this.initializeEdges();
   }
 
-  public ArrayList<Node> getAllNodes() {
-    return Nodes;
+  public ArrayList<Node> getAllNodes() throws SQLException {
+    return DataManager.getAllNodes();
   }
 
-  public ArrayList<Edge> getAllEdges() {
-    return Edges;
+  public ArrayList<Edge> getAllEdges() throws SQLException {
+    return DataManager.getAllEdges();
   }
 
   public void addEdge(Edge e) {
@@ -88,17 +87,19 @@ public class Graph {
         return getPath(ex);
       }
 
-      for (Node nei : t.getNeighbors()) {
-        double totalWeight = t.getG() + nei.findWeight(t);
+      for (Node nei : ex.getNeighbors()) {
+        double totalWeight = ex.getG() + nei.findWeight(ex);
+
+        System.out.println(closedList.size());
 
         if (!openList.contains(nei) && !closedList.contains(nei)) {
-          nei.setParent(t);
+          nei.setParent(ex);
           nei.setG(totalWeight);
           nei.setF(nei.getG() + nei.calculateHeuristic(target));
           openList.add(nei);
         } else {
           if (totalWeight < nei.getG()) {
-            nei.setParent(t);
+            nei.setParent(ex);
             nei.setG(totalWeight);
             nei.setF(nei.getG() + nei.calculateHeuristic(target));
 
@@ -112,7 +113,6 @@ public class Graph {
       openList.remove(t);
       closedList.add(t);
     }
-
     return null;
   }
 
