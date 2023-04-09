@@ -6,7 +6,7 @@ import edu.wpi.teamname.servicerequest.requestitem.Meal;
 import java.util.ArrayList;
 
 public interface MealDAO extends DAO<Meal> {
-    void sync();
+    void sync(Meal meal);
 
     ArrayList<Meal> getAll();
 

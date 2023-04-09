@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class NodeDAOImpl implements NodeDAO {
   /** */
   @Override
-  public void sync() {}
+  public void sync(Node node) {}
 
   /** @return */
   @Override

@@ -4,7 +4,7 @@ import edu.wpi.teamname.servicerequest.requestitem.Flower;
 import java.util.ArrayList;
 
 public interface FlowerDAO extends DAO<Flower> {
-  void sync();
+  void sync(Flower flower);
 
   ArrayList<Flower> getAll();
 

@@ -10,7 +10,7 @@ public class MoveDAOImpl implements MoveDAO {
 
   /** */
   @Override
-  public void sync() {}
+  public void sync(Move move) {}
 
   /** @return */
   @Override

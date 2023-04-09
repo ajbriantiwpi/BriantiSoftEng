@@ -4,7 +4,7 @@ import edu.wpi.teamname.navigation.LocationName;
 import java.util.ArrayList;
 
 public interface LocationNameDAO extends DAO<LocationName> {
-  void sync();
+  void sync(LocationName locationName);
 
   ArrayList<LocationName> getAll();
 

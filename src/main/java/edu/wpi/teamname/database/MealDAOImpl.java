@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class MealDAOImpl implements MealDAO {
   /** */
   @Override
-  public void sync() {}
+  public void sync(Meal meal) {}
 
   /** @return */
   @Override

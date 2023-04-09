@@ -9,11 +9,11 @@ import lombok.Getter;
 import oracle.ucp.proxy.annotation.Pre;
 
 public class EdgeDAOImpl implements EdgeDAO {
-  @Getter private static ArrayList<Edge> edges;
-
   /** */
   @Override
-  public void sync() {}
+  public void sync(Edge edge) {
+
+  }
 
   /** @return */
   @Override
@@ -32,6 +32,7 @@ public class EdgeDAOImpl implements EdgeDAO {
         list.add(new Edge(startNode, endNode));
       }
     }
+    connection.close();
     return list;
   }
 
@@ -50,6 +51,7 @@ public class EdgeDAOImpl implements EdgeDAO {
     } catch (SQLException e) {
       System.err.println(e.getMessage());
     }
+    connection.close();
   }
 
   /** @param edge */
@@ -66,5 +68,6 @@ public class EdgeDAOImpl implements EdgeDAO {
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }
+    connection.close();
   }
 }

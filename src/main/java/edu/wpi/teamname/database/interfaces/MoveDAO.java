@@ -4,7 +4,7 @@ import edu.wpi.teamname.navigation.Move;
 import java.util.ArrayList;
 
 public interface MoveDAO extends DAO<Move> {
-  void sync();
+  void sync(Move move);
 
   ArrayList<Move> getAll();
 

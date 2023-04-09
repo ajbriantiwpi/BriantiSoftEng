@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface DAO<T> {
-  void sync();
+  void sync(T type) throws SQLException;
 
   ArrayList<T> getAll() throws SQLException;
 

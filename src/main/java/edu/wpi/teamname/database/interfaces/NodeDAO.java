@@ -6,7 +6,7 @@ import edu.wpi.teamname.navigation.Node;
 import java.util.ArrayList;
 
 public interface NodeDAO extends DAO<Node> {
-    void sync();
+    void sync(Node node);
 
     ArrayList<Node> getAll();
 

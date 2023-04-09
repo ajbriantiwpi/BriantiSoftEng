@@ -4,6 +4,7 @@ import edu.wpi.teamname.database.interfaces.ServiceRequestDAO;
 import edu.wpi.teamname.navigation.Edge;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import edu.wpi.teamname.servicerequest.Status;
+import edu.wpi.teamname.servicerequest.requestitem.RequestItem;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,7 +12,21 @@ import java.util.ArrayList;
 public class ServiceRequestDAOImpl implements ServiceRequestDAO {
   /** */
   @Override
-  public void sync() {}
+  public void sync(ServiceRequest serviceRequest) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    String query = "UPDATE \"ServiceRequest\" SET \"roomNum\" = ?, \"staffName\" = ?, \"patientName\" = ?, \"requestedAt\" = ?, \"deliverBy\" = ?, \"status\" = ?" +
+            " WHERE \"requestID\" = ?";
+    PreparedStatement statement = connection.prepareStatement(query);
+    statement.setString(1, serviceRequest.getRoomNumber());
+    statement.setString(2, serviceRequest.getPatientName());
+    statement.setTimestamp(3, serviceRequest.getRequestedAt());
+    statement.setTimestamp(4, serviceRequest.getDeliverBy());
+    statement.setString(5, serviceRequest.getStatus().getStatusString());
+    statement.setInt(6, serviceRequest.getRequestID());
+
+    statement.executeUpdate();
+    connection.close();
+  }
 
   /** @return */
   @Override
@@ -35,6 +50,7 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
         list.add(new ServiceRequest(requestID, roomNum, staffName, patientName, requestedAt, deliverBy, status));
       }
     }
+    connection.close();
     return list;
 
   }
@@ -43,7 +59,7 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
   @Override
   public void add(ServiceRequest serviceRequest) throws SQLException {
     Connection connection = DataManager.DbConnection();
-    try (connection) {
+    try {
       String query = "INSERT INTO \"ServiceRequest\" (\"requestID\", \"roomNum\", \"staffName\", \"patientName\", \"requestedAt\", \"deliverBy\", \"status\") VALUES (?, ?, ?, ?, ?, ?, ?)";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, serviceRequest.getRequestID());
@@ -55,9 +71,66 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
       statement.setString(7, serviceRequest.getStatus().getStatusString());
 
       statement.executeUpdate();
+      //Qunatity
+      ArrayList<RequestItem> items = serviceRequest.getItems();
+      for (int i = 0; i < items.size(); i++) {
+        connection = DataManager.DbConnection();
+        int newQuantity = getQuantity(serviceRequest.getRequestID(), items.get(i).getItemID()) + 1;
+        try {
+
+          if (newQuantity == 1) {
+            query =
+                    "INSERT INTO \"ItemsOrdered\" (\"requestID\", \"itemID\", \"quantity\") "
+                            + "VALUES (?, ?, 1)";
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, serviceRequest.getRequestID());
+            statement.setInt(2, items.get(i).getItemID());
+          } else {
+            query =
+                    "UPDATE \"ItemsOrdered\" SET quantity = ? WHERE \"itemID\" = ? AND \"requestID\" = ?";
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, newQuantity);
+            statement.setInt(2, items.get(i).getItemID());
+            statement.setInt(3, serviceRequest.getRequestID());
+          }
+          statement = connection.prepareStatement(query);
+          statement.executeUpdate();
+        } catch (SQLException e) {
+          System.out.println(query);
+          System.out.println(e.getMessage());
+        }
+        connection.close();
+      }
 
     } catch (SQLException e) {
       System.err.println(e.getMessage());
+    }
+    connection.close();
+  }
+
+  public int getQuantity(int requestID, int itemID) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+
+    int quantity = 0;
+    try (connection) {
+      String query =
+              "SELECT \"quantity\" FROM \"ItemsOrdered\" WHERE \"itemID\" = "
+                      + itemID
+                      + " AND \"requestID\" = "
+                      + requestID;
+      PreparedStatement statement = connection.prepareStatement(query);
+      ResultSet rs = statement.executeQuery();
+
+      while (rs.next()) {
+        quantity = rs.getInt("quantity");
+      }
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    if (quantity > 0) {
+      return quantity + 1;
+    } else {
+      return 1;
     }
   }
 
@@ -73,6 +146,7 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }
+    connection.close();
   }
 
 
@@ -91,5 +165,6 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }
+    connection.close();
   }
 }

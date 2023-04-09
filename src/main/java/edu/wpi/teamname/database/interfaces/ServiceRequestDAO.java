@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface ServiceRequestDAO extends DAO<ServiceRequest> {
-    void sync();
+    void sync(ServiceRequest serviceRequest) throws SQLException;
 
     ArrayList<ServiceRequest> getAll() throws SQLException;
 

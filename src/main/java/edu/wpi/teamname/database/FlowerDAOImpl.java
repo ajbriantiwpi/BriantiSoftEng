@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class FlowerDAOImpl implements FlowerDAO {
   /** */
   @Override
-  public void sync() {}
+  public void sync(Flower flower) {}
 
   /** @return */
   @Override

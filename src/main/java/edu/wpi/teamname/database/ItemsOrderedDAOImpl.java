@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class ItemsOrderedDAOImpl implements ItemsOrderedDAO {
   /** */
   @Override
-  public void sync() {}
+  public void sync(ItemsOrdered itemsOrdered) {}
 
   /** @return */
   @Override

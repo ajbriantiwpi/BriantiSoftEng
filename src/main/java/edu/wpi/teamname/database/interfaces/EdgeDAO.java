@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface EdgeDAO extends DAO<Edge> {
-  void sync();
+  void sync(Edge edge);
 
   ArrayList<Edge> getAll() throws SQLException;
 

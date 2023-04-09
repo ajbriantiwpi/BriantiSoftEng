@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class LoginDAOImpl implements LoginDAO {
   /** */
   @Override
-  public void sync() {}
+  public void sync(Login login) {}
 
   /** @return */
   @Override

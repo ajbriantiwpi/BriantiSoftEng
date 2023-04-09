@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class LocationNameDAOImpl implements LocationNameDAO {
   /** */
   @Override
-  public void sync() {}
+  public void sync(LocationName locationName) {}
 
   /** @return */
   @Override
