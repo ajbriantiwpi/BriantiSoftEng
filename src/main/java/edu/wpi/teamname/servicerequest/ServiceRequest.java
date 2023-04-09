@@ -17,6 +17,7 @@ public class ServiceRequest {
   @Setter @Getter private Timestamp requestedAt;
 
   @Setter @Getter private Status status;
+  @Setter @Getter private String requestMadeBy;
   @Getter private ArrayList<RequestItem> items;
 
   public ServiceRequest(
@@ -26,7 +27,8 @@ public class ServiceRequest {
       String roomNumber,
       Timestamp deliverBy,
       Timestamp requestedAt,
-      Status status) {
+      Status status,
+      String requestMadeBy) {
     this.requestID = requestID;
     this.staffName = staffName;
     this.patientName = patientName;
@@ -34,6 +36,7 @@ public class ServiceRequest {
     this.deliverBy = deliverBy;
     this.requestedAt = requestedAt;
     this.status = status;
+    this.requestMadeBy = requestMadeBy;
     items = new ArrayList<RequestItem>();
   }
 
@@ -60,6 +63,8 @@ public class ServiceRequest {
         + requestedAt
         + ", "
         + status.toString()
+        + ", "
+        + requestMadeBy
         + "]";
   }
 }

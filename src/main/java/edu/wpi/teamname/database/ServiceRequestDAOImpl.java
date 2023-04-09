@@ -14,7 +14,7 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
     Connection connection = DataManager.DbConnection();
     try (connection) {
       String query =
-          "UPDATE \"ServiceRequest\" SET \"roomNum\" = ?, \"staffName\" = ?, \"patientName\" = ?, \"requestedAt\" = ?, \"deliverBy\" = ?, \"status\" = ?"
+          "UPDATE \"ServiceRequest\" SET \"roomNum\" = ?, \"staffName\" = ?, \"patientName\" = ?, \"requestedAt\" = ?, \"deliverBy\" = ?, \"status\" = ?, \"requestMadeBy\" = ?"
               + " WHERE \"requestID\" = ?";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setString(1, serviceRequest.getRoomNumber());
@@ -22,7 +22,8 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
       statement.setTimestamp(3, serviceRequest.getRequestedAt());
       statement.setTimestamp(4, serviceRequest.getDeliverBy());
       statement.setString(5, serviceRequest.getStatus().getStatusString());
-      statement.setInt(6, serviceRequest.getRequestID());
+      statement.setString(6, serviceRequest.getRequestMadeBy());
+      statement.setInt(7, serviceRequest.getRequestID());
 
       statement.executeUpdate();
     } catch (SQLException e) {
@@ -50,9 +51,10 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
         Timestamp requestedAt = rs.getTimestamp("requestedAt");
         Timestamp deliverBy = rs.getTimestamp("deliverBy");
         Status status = Status.valueOf(rs.getString("status"));
+        String requestMadeBy = rs.getString("requestMadeBy");
         list.add(
             new ServiceRequest(
-                requestID, staffName, patientName, roomNum, deliverBy, requestedAt, status));
+                requestID, staffName, patientName, roomNum, deliverBy, requestedAt, status, requestMadeBy));
       }
     }
     connection.close();
@@ -65,7 +67,7 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
     Connection connection = DataManager.DbConnection();
     try {
       String query =
-          "INSERT INTO \"ServiceRequest\" (\"requestID\", \"roomNum\", \"staffName\", \"patientName\", \"requestedAt\", \"deliverBy\", \"status\") VALUES (?, ?, ?, ?, ?, ?, ?)";
+          "INSERT INTO \"ServiceRequest\" (\"requestID\", \"roomNum\", \"staffName\", \"patientName\", \"requestedAt\", \"deliverBy\", \"status\", \"requestMadeBy\") VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, serviceRequest.getRequestID());
       statement.setString(2, serviceRequest.getRoomNumber());
@@ -74,6 +76,7 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
       statement.setTimestamp(5, serviceRequest.getRequestedAt());
       statement.setTimestamp(6, serviceRequest.getDeliverBy());
       statement.setString(7, serviceRequest.getStatus().getStatusString());
+      statement.setString(8, serviceRequest.getRequestMadeBy());
 
       statement.executeUpdate();
       // ItemsOrdered
@@ -117,10 +120,7 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
     int quantity = 0;
     try (connection) {
       String query =
-          "SELECT \"quantity\" FROM \"ItemsOrdered\" WHERE \"itemID\" = "
-              + itemID
-              + " AND \"requestID\" = "
-              + requestID;
+          "SELECT \"quantity\" FROM \"ItemsOrdered\" WHERE \"itemID\" = ? AND \"requestID\" = ?";
       PreparedStatement statement = connection.prepareStatement(query);
       ResultSet rs = statement.executeQuery();
 
@@ -204,12 +204,34 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
       Timestamp requestedAt = rs.getTimestamp("requestedAt");
       Timestamp deliverBy = rs.getTimestamp("deliverBy");
       Status status = Status.valueOf(rs.getString("status"));
+      String requestMadeBy = rs.getString("requestMadeBy");
       serviceRequest =
           (new ServiceRequest(
-              rID, staffName, patientName, roomNum, deliverBy, requestedAt, status));
+              rID, staffName, patientName, roomNum, deliverBy, requestedAt, status, requestMadeBy));
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }
     return serviceRequest;
+  }
+
+  /**
+   * * given an id and a staffname, updates that request's staff name into the new staff name
+   *
+   * @param requestID the id of the request to update
+   * @param staffName the new staff name
+   */
+  public static void uploadStaffName(int requestID, String staffName) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try {
+      String query =
+              "UPDATE \"ServiceRequest\" SET \"staffName\" = ? WHERE \"requestID\" = ?";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setString(1, staffName);
+      statement.setInt(2, requestID);
+      statement.executeUpdate();
+      connection.close();
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
   }
 }
