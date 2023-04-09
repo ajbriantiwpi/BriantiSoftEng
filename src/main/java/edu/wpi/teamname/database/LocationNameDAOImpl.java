@@ -2,8 +2,6 @@ package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.LocationNameDAO;
 import edu.wpi.teamname.navigation.LocationName;
-import edu.wpi.teamname.servicerequest.requestitem.Flower;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
@@ -36,7 +34,7 @@ public class LocationNameDAOImpl implements LocationNameDAO {
   public ArrayList<LocationName> getAll() throws SQLException {
     Connection connection = DataManager.DbConnection();
     ArrayList<LocationName> list = new ArrayList<LocationName>();
-    try (connection) {
+    try {
       String query = "SELECT * FROM \"LocationName\"";
       Statement statement = connection.createStatement();
       ResultSet rs = statement.executeQuery(query);

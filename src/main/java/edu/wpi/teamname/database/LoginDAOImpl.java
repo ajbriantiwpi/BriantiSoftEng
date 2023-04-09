@@ -1,8 +1,6 @@
 package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.LoginDAO;
-import edu.wpi.teamname.servicerequest.requestitem.Flower;
-
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -86,6 +84,7 @@ public class LoginDAOImpl implements LoginDAO {
       System.out.println("Error checking delete. " + e2);
     }
   }
+
   public static Login getLogin(String username) throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query = "SELECT * FROM \"Login\" WHERE \"username\" = ?";
@@ -103,5 +102,4 @@ public class LoginDAOImpl implements LoginDAO {
     }
     return login;
   }
-
 }

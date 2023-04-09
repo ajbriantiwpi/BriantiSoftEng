@@ -1,7 +1,6 @@
 package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.FlowerDAO;
-import edu.wpi.teamname.navigation.Edge;
 import edu.wpi.teamname.servicerequest.requestitem.Flower;
 import java.sql.*;
 import java.util.ArrayList;

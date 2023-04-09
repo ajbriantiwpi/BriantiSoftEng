@@ -31,7 +31,6 @@ public class DataManager {
    * @return a Connection to a database
    */
   public static Connection DbConnection() throws SQLException {
-
     if (connection == null || connection.isClosed()) {
       System.out.print("--- Connecting To Database... ---");
       try {
@@ -281,7 +280,8 @@ public class DataManager {
 
   /** @return ArrayList<LocationName> */
   public static ArrayList<LocationName> getAllLocationNames() throws SQLException {
-    return (new LocationNameDAOImpl()).getAll();
+    LocationNameDAOImpl locationNameDAO = new LocationNameDAOImpl();
+    return locationNameDAO.getAll();
   }
 
   public static Flower getFlower(int id) throws SQLException {
@@ -318,7 +318,6 @@ public class DataManager {
     ServiceRequestDAOImpl serviceRequestDAO = new ServiceRequestDAOImpl();
     return serviceRequestDAO.getServiceRequest(id);
   }
-
 
   public static List<String[]> parseCSVAndUploadToPostgreSQL(String csvFilePath)
       throws SQLException {

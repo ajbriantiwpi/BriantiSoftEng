@@ -3,7 +3,6 @@ package edu.wpi.teamname.database;
 import edu.wpi.teamname.database.interfaces.ServiceRequestDAO;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import edu.wpi.teamname.servicerequest.Status;
-import edu.wpi.teamname.servicerequest.requestitem.Meal;
 import edu.wpi.teamname.servicerequest.requestitem.RequestItem;
 import java.sql.*;
 import java.util.ArrayList;
@@ -205,7 +204,9 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
       Timestamp requestedAt = rs.getTimestamp("requestedAt");
       Timestamp deliverBy = rs.getTimestamp("deliverBy");
       Status status = Status.valueOf(rs.getString("status"));
-      serviceRequest = (new ServiceRequest(rID, staffName, patientName, roomNum, deliverBy, requestedAt, status));
+      serviceRequest =
+          (new ServiceRequest(
+              rID, staffName, patientName, roomNum, deliverBy, requestedAt, status));
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }

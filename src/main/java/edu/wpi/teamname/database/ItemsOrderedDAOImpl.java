@@ -2,8 +2,6 @@ package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.ItemsOrderedDAO;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
-import edu.wpi.teamname.servicerequest.requestitem.Flower;
-
 import java.sql.*;
 import java.util.ArrayList;
 
