@@ -69,8 +69,6 @@ public class MoveDAOImpl implements MoveDAO {
 
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
-      statement.executeUpdate(query);
-      statement = connection.prepareStatement(query);
       statement.setInt(1, move.getNodeID());
       statement.setString(2, move.getLongName());
       statement.setTimestamp(3, move.getDate());
@@ -85,9 +83,13 @@ public class MoveDAOImpl implements MoveDAO {
   @Override
   public void delete(Move move) throws SQLException {
     Connection connection = DataManager.DbConnection();
-    String query = "Delete from \"Move\" " + "where \"nodeID\" = " + move.getNodeID();
+    String query = "Delete from \"Move\" where \"nodeID\" = ? AND \"longName\" = ? AND \"date\" = ?";
 
     try (PreparedStatement statement = connection.prepareStatement(query)) {
+      statement.setInt(1, move.getNodeID());
+      statement.setString(2, move.getLongName());
+      statement.setTimestamp(3, move.getDate());
+
       statement.executeUpdate();
     } catch (SQLException e) {
       System.out.println("Delete in Move table error. " + e);

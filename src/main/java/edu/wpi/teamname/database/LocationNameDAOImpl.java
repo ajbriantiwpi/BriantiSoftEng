@@ -61,14 +61,13 @@ public class LocationNameDAOImpl implements LocationNameDAO {
 
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
-      statement.executeUpdate(query);
-      statement = connection.prepareStatement(query);
       statement.setString(1, locationName.getLongName());
       statement.setString(2, locationName.getShortName());
       statement.setString(3, locationName.getNodeType());
       statement.executeUpdate();
       System.out.println("Location Name information has been successfully added to the database.");
     } catch (SQLException e) {
+      System.err.println(query);
       System.err.println("Error adding Location Name information to database: " + e.getMessage());
     }
   }
@@ -77,10 +76,10 @@ public class LocationNameDAOImpl implements LocationNameDAO {
   @Override
   public void delete(LocationName locationName) throws SQLException {
     Connection connection = DataManager.DbConnection();
-    String query =
-        "Delete from \"LocationName\" " + "where \"longName\" = " + locationName.getLongName();
+    String query = "Delete from \"LocationName\" where \"longName\" = ?";
 
     try (PreparedStatement statement = connection.prepareStatement(query)) {
+      statement.setString(1, locationName.getLongName());
       statement.executeUpdate();
     } catch (SQLException e) {
       System.out.println("Delete in Location Name table error. " + e);

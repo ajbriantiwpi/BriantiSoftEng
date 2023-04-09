@@ -18,4 +18,8 @@ public class LocationName {
   public String toString() {
     return "[" + longName + ", " + shortName + ", " + nodeType + "]";
   }
+
+  public boolean equals(LocationName other) {
+    return other.longName.equals(this.longName);
+  }
 }

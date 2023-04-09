@@ -66,8 +66,6 @@ public class NodeDAOImpl implements NodeDAO {
 
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
-      statement.executeUpdate(query);
-      statement = connection.prepareStatement(query);
       statement.setInt(1, node.getId());
       statement.setInt(2, node.getX());
       statement.setInt(3, node.getY());
@@ -84,9 +82,10 @@ public class NodeDAOImpl implements NodeDAO {
   @Override
   public void delete(Node node) throws SQLException {
     Connection connection = DataManager.DbConnection();
-    String query = "Delete from \"Node\" " + "where \"nodeID\" = " + node.getId();
+    String query = "Delete from \"Node\" WHERE \"nodeID\" = ?";
 
     try (PreparedStatement statement = connection.prepareStatement(query)) {
+      statement.setInt(1, node.getId());
       statement.executeUpdate();
     } catch (SQLException e) {
       System.out.println("Delete in Node table error. " + e);

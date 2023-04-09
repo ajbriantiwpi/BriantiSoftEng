@@ -51,8 +51,6 @@ public class LoginDAOImpl implements LoginDAO {
 
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
-      statement.executeUpdate(query);
-      statement = connection.prepareStatement(query);
       statement.setString(1, login.getUsername());
       statement.setString(2, login.getPassword());
       statement.executeUpdate();
@@ -66,9 +64,10 @@ public class LoginDAOImpl implements LoginDAO {
   @Override
   public void delete(Login login) throws SQLException {
     Connection connection = DataManager.DbConnection();
-    String query = "Delete from \"Login\" " + "where username = " + login.getUsername();
+    String query = "Delete from \"Login\" where username = ?";
 
     try (PreparedStatement statement = connection.prepareStatement(query)) {
+      statement.setString(1, login.getUsername());
       statement.executeUpdate();
     } catch (SQLException e) {
       System.out.println("Delete in Login table error. " + e);
