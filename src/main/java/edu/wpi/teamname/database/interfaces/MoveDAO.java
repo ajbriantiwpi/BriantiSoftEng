@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface MoveDAO extends DAO<Move> {
-  void sync(Move move);
+  void sync(Move move) throws SQLException;
 
   ArrayList<Move> getAll() throws SQLException;
 

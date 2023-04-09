@@ -14,17 +14,21 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
   @Override
   public void sync(ServiceRequest serviceRequest) throws SQLException {
     Connection connection = DataManager.DbConnection();
-    String query = "UPDATE \"ServiceRequest\" SET \"roomNum\" = ?, \"staffName\" = ?, \"patientName\" = ?, \"requestedAt\" = ?, \"deliverBy\" = ?, \"status\" = ?" +
-            " WHERE \"requestID\" = ?";
-    PreparedStatement statement = connection.prepareStatement(query);
-    statement.setString(1, serviceRequest.getRoomNumber());
-    statement.setString(2, serviceRequest.getPatientName());
-    statement.setTimestamp(3, serviceRequest.getRequestedAt());
-    statement.setTimestamp(4, serviceRequest.getDeliverBy());
-    statement.setString(5, serviceRequest.getStatus().getStatusString());
-    statement.setInt(6, serviceRequest.getRequestID());
+    try (connection) {
+      String query = "UPDATE \"ServiceRequest\" SET \"roomNum\" = ?, \"staffName\" = ?, \"patientName\" = ?, \"requestedAt\" = ?, \"deliverBy\" = ?, \"status\" = ?" +
+              " WHERE \"requestID\" = ?";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setString(1, serviceRequest.getRoomNumber());
+      statement.setString(2, serviceRequest.getPatientName());
+      statement.setTimestamp(3, serviceRequest.getRequestedAt());
+      statement.setTimestamp(4, serviceRequest.getDeliverBy());
+      statement.setString(5, serviceRequest.getStatus().getStatusString());
+      statement.setInt(6, serviceRequest.getRequestID());
 
-    statement.executeUpdate();
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
     connection.close();
   }
 
@@ -138,13 +142,23 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
   @Override
   public void delete(ServiceRequest serviceRequest) throws SQLException {
     Connection connection = DataManager.DbConnection();
+    String query = "DELETE FROM \"ServiceRequest\" WHERE \"requestID\" = ?";
     try (connection) {
-      String query = "DELETE FROM \"ServiceRequest\" WHERE \"requestID\" = ?";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, serviceRequest.getRequestID());
       statement.executeUpdate();
     } catch (SQLException e) {
       System.out.println(e.getMessage());
+    }
+    try (Statement statement = connection.createStatement()) {
+      ResultSet rs2 = statement.executeQuery(query);
+      int count = 0;
+      while (rs2.next()) count++;
+      if (count == 0)
+        System.out.println("ServiceRequest information deleted successfully.");
+      else System.out.println("ServiceRequest information did not delete.");
+    } catch (SQLException e2) {
+      System.out.println("Error checking delete. " + e2);
     }
     connection.close();
   }
@@ -152,8 +166,8 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
 
   public void deleteWithItems(ServiceRequest serviceRequest) throws SQLException {
     Connection connection = DataManager.DbConnection();
+    String query = "DELETE FROM \"ServiceRequest\" WHERE \"requestID\" = ?";
     try (connection) {
-      String query = "DELETE FROM \"ServiceRequest\" WHERE \"requestID\" = ?";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, serviceRequest.getRequestID());
       statement.executeUpdate();
@@ -164,6 +178,16 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
 
     } catch (SQLException e) {
       System.out.println(e.getMessage());
+    }
+    try (Statement statement = connection.createStatement()) {
+      ResultSet rs2 = statement.executeQuery(query);
+      int count = 0;
+      while (rs2.next()) count++;
+      if (count == 0)
+        System.out.println("ServiceRequest information deleted successfully.");
+      else System.out.println("ServiceRequest information did not delete.");
+    } catch (SQLException e2) {
+      System.out.println("Error checking delete. " + e2);
     }
     connection.close();
   }
