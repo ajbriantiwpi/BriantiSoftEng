@@ -6,6 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import edu.wpi.teamname.database.DataManager;
+
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,8 +26,11 @@ public class Node implements Comparable<Node> {
   @Getter @Setter private Node parent = null;
   @Getter @Setter private List<Node> neighbors;
   @Getter @Setter private List<Edge> edges;
+  // f: sum of g and h;
   @Getter @Setter private double f = Double.MAX_VALUE;
+  // g: Distance from start and node n
   @Getter @Setter private double g = Double.MAX_VALUE;
+  // heuristic: WILL NEED A FUNCTION TO FIND THIS
   @Getter @Setter private double h;
 
   Node(int ID, int x, int y, String Floor, String Building) {
@@ -39,6 +49,9 @@ public class Node implements Comparable<Node> {
     return Double.compare(this.f, n.f);
   }
 
+  /** @return */
+  public List<Node> getNeighbors() {
+    return null;
   /**
    * * Gets all the nodes in the database and puts them into an array list
    *
@@ -90,7 +103,9 @@ public class Node implements Comparable<Node> {
     return Math.sqrt(x + y);
   }
 
+  /** @return */
   public String toString() {
+    return "[" + id + ", " + x + ", " + y + ", " + floor + ", " + building + "]";
     String nei = "";
     for (Node n : neighbors) {
       nei += " " + Integer.toString(n.getId());
@@ -103,5 +118,61 @@ public class Node implements Comparable<Node> {
     return Math.sqrt(
             (target.getX() - this.x) * (target.getX() - this.x)
                     + (target.getY() - this.y) * (target.getY() - this.y));
+  }
+
+  /**
+   * Checks if this.nodeID has switched with given nodeID to swap positions, floor and building in
+   * the table with it in the edge table also swaps correlating information as well as switching the
+   * longNames with eachother in LocationName table
+   *
+   * @param move
+   * @return Boolean
+   */
+  public boolean moveNode(Move move) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    boolean done = false;
+    int swapNodeID = move.getNodeID();
+    String swapLongN = move.getLongName();
+    int thisNode = this.id;
+
+    String getLn = "Select \"longName\" from \"Move\" where \"nodeID\" = " + thisNode;
+    try (PreparedStatement s = connection.prepareStatement(getLn)) {
+      ResultSet rowsUpdated = s.executeQuery();
+      String longN = rowsUpdated.getString("longName");
+    } catch (SQLException e2) {
+      System.out.println("Error getting long name.");
+    }
+
+    /** Might use sync functions with this feature */
+    // A starting node, B is node being swapped with
+
+    // rowAlocN = select longName from LocationName where longN = longN
+    // rowBlocN = select longName from LocationName where longN = swapLongN
+    // rowAnode = select floor, building from Node where thisNode = thisNode
+    // rowBnode = select floor, building from Node where thisNode = swapNodeID
+
+    // put rowAlocN where longN = swapLongN
+    // put rowAnode where thisNode = swapNodeID
+    // insert nodeID, longN, date into Move
+
+    // put rowBnode where thisNode = thisNode
+    // put rowBlocN where longN = longN
+
+    // insert swapNodeID, swapLongN, date into Move
+
+    String query = "";
+
+    try (PreparedStatement pstmtUpdate = connection.prepareStatement(query)) {
+      int rowsUpdated = pstmtUpdate.executeUpdate();
+      if (rowsUpdated > 0) {
+        System.out.println("successfully updated");
+      } else {
+        System.out.println("not updated");
+      }
+    } catch (SQLException e) {
+      System.out.println("Error updating LocationName record for node ID " + thisNode);
+    }
+
+    return done;
   }
 }
