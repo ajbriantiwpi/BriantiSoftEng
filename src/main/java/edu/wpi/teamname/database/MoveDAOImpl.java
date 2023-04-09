@@ -3,7 +3,10 @@ package edu.wpi.teamname.database;
 import edu.wpi.teamname.database.interfaces.MoveDAO;
 import edu.wpi.teamname.navigation.Move;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MoveDAOImpl implements MoveDAO {
 
@@ -96,6 +99,42 @@ public class MoveDAOImpl implements MoveDAO {
       else System.out.println("Move information did not delete.");
     } catch (SQLException e2) {
       System.out.println("Error checking delete. " + e2);
+    }
+  }
+  /**
+   * Uploads CSV data to a PostgreSQL database table "Move"
+   *
+   * @param csvFilePath is a String representing a file path
+   * @throws SQLException if an error occurs while uploading the data to the database
+   */
+  public static void uploadMoveToPostgreSQL(String csvFilePath) throws SQLException {
+    List<String[]> csvData;
+    Connection connection = DataManager.DbConnection();
+    DataManager dataImport = new DataManager();
+    csvData = dataImport.parseCSVAndUploadToPostgreSQL(csvFilePath);
+
+    try (connection) {
+      String query = "INSERT INTO \"Move\" (\"nodeID\", \"longName\", \"date\") VALUES (?, ?, ?)";
+      PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"Move\";");
+      statement.executeUpdate();
+      statement = connection.prepareStatement(query);
+
+      for (int i = 1; i < csvData.size(); i++) {
+        String[] row = csvData.get(i);
+        statement.setInt(1, Integer.parseInt(row[0])); // nodeId is an int column
+        statement.setString(2, row[1]); // longName is a string column
+        SimpleDateFormat dateFormat = new SimpleDateFormat("M/d/yyyy");
+        java.util.Date parsedDate = dateFormat.parse(row[2]);
+        java.sql.Date date = new java.sql.Date(parsedDate.getTime());
+        statement.setDate(3, date); // date is a date column
+
+        statement.executeUpdate();
+      }
+      System.out.println("CSV data uploaded to PostgreSQL database");
+    } catch (SQLException e) {
+      System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
+    } catch (ParseException e) {
+      throw new RuntimeException(e);
     }
   }
 }

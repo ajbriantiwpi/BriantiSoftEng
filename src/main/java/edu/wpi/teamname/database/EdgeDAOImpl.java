@@ -97,6 +97,13 @@ public class EdgeDAOImpl implements EdgeDAO {
     connection.close();
   }
 
+  /**
+   * Uploads CSV data to a PostgreSQL database table "Edge"-also creates one if one does not exist
+   *
+   * @param csvFilePath a string that represents a file path (/ is illegal so you must use double
+   *     //)
+   * @throws SQLException if an error occurs while uploading the data to the database
+   */
   public static void uploadEdgeToPostgreSQL(String csvFilePath) throws SQLException {
     List<String[]> csvData;
     Connection connection = DataManager.DbConnection();
