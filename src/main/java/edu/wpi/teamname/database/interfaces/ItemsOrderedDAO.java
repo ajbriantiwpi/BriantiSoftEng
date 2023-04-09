@@ -1,14 +1,16 @@
 package edu.wpi.teamname.database.interfaces;
 
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface ItemsOrderedDAO extends DAO<ItemsOrdered> {
-  void sync(ItemsOrdered itemsOrdered);
+  void sync(ItemsOrdered itemsOrdered) throws SQLException;
 
-  ArrayList<ItemsOrdered> getAll();
+  ArrayList<ItemsOrdered> getAll() throws SQLException;
 
-  void add(ItemsOrdered itemsOrdered);
+  void add(ItemsOrdered itemsOrdered) throws SQLException;
 
-  void delete(ItemsOrdered itemsOrdered);
+  void delete(ItemsOrdered itemsOrdered) throws SQLException;
 }

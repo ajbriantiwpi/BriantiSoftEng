@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface LocationNameDAO extends DAO<LocationName> {
-  void sync(LocationName locationName);
+  void sync(LocationName locationName) throws SQLException;
 
   ArrayList<LocationName> getAll() throws SQLException;
 

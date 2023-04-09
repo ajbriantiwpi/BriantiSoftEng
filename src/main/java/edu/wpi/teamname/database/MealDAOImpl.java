@@ -9,11 +9,27 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class MealDAOImpl implements MealDAO {
-  @Getter
-  private ArrayList<Meal> meals;
+
   /** */
   @Override
-  public void sync(Meal meal) {}
+  public void sync(Meal meal) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try (connection) {
+      String query = "UPDATE \"Meal\" SET \"Name\" = ?, \"Price\" = ?, \"Meal\" = ?, \"Cuisine\" = ?" +
+              " WHERE \"mealID\" = ?";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setString(1, meal.getName());
+      statement.setFloat(2, meal.getPrice());
+      statement.setString(3, meal.getMeal());
+      statement.setString(4, meal.getCuisine());
+      statement.setInt(5, meal.getItemID());
+
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    connection.close();
+  }
 
   /** @return */
   @Override

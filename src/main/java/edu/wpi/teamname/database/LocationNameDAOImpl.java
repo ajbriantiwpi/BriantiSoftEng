@@ -9,11 +9,24 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class LocationNameDAOImpl implements LocationNameDAO {
-  @Getter
-  private ArrayList<LocationName> locationNames;
   /** */
   @Override
-  public void sync(LocationName locationName) {}
+  public void sync(LocationName locationName) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try (connection) {
+      String query = "UPDATE \"LocationName\" SET \"shortName\" = ?, \"nodeType\" = ?" +
+              " WHERE \"longName\" = ?";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setString(1, locationName.getShortName());
+      statement.setString(2, locationName.getNodeType());
+      statement.setString(3, locationName.getLongName());
+
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    connection.close();
+  }
 
   /** @return */
   @Override
