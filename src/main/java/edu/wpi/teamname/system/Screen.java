@@ -1,9 +1,9 @@
 package edu.wpi.teamname.system;
 
 public enum Screen {
-  ROOT("views/Root.fxml"),
-  HOME("views/Home.fxml"),
-  SERVICE_REQUEST("views/ServiceRequest.fxml");
+  ROOT("../views/Root.fxml"),
+  HOME("../views/Home.fxml"),
+  SERVICE_REQUEST("../views/ServiceRequest.fxml");
 
   private final String filename;
 
