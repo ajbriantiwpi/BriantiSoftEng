@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface LoginDAO extends DAO<Login> {
-  void sync(Login login);
+  void sync(Login login) throws SQLException;
 
   ArrayList<Login> getAll() throws SQLException;
 

@@ -12,7 +12,10 @@ import lombok.Getter;
 
 public class MoveDAOImpl implements MoveDAO {
 
-  /** */
+  /** Sync an ORM with its row in the database
+   * WARNING: do not create a new node just change the parameters on the old one
+   *
+   * */
   @Override
   public void sync(Move move) throws SQLException {
     Connection connection = DataManager.DbConnection();

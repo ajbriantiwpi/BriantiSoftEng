@@ -75,7 +75,7 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
       statement.setString(7, serviceRequest.getStatus().getStatusString());
 
       statement.executeUpdate();
-      //Qunatity
+      //ItemsOrdered
       ArrayList<RequestItem> items = serviceRequest.getItems();
       for (int i = 0; i < items.size(); i++) {
         connection = DataManager.DbConnection();
@@ -100,10 +100,8 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
           statement = connection.prepareStatement(query);
           statement.executeUpdate();
         } catch (SQLException e) {
-          System.out.println(query);
           System.out.println(e.getMessage());
         }
-        connection.close();
       }
 
     } catch (SQLException e) {

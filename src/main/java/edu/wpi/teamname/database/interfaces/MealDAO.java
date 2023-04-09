@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface MealDAO extends DAO<Meal> {
-    void sync(Meal meal);
+    void sync(Meal meal) throws SQLException;
 
     ArrayList<Meal> getAll() throws SQLException;
 
