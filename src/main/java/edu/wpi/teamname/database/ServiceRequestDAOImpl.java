@@ -54,7 +54,14 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
         String requestMadeBy = rs.getString("requestMadeBy");
         list.add(
             new ServiceRequest(
-                requestID, staffName, patientName, roomNum, deliverBy, requestedAt, status, requestMadeBy));
+                requestID,
+                staffName,
+                patientName,
+                roomNum,
+                deliverBy,
+                requestedAt,
+                status,
+                requestMadeBy));
       }
     }
     connection.close();
@@ -223,8 +230,7 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
   public static void uploadStaffName(int requestID, String staffName) throws SQLException {
     Connection connection = DataManager.DbConnection();
     try {
-      String query =
-              "UPDATE \"ServiceRequest\" SET \"staffName\" = ? WHERE \"requestID\" = ?";
+      String query = "UPDATE \"ServiceRequest\" SET \"staffName\" = ? WHERE \"requestID\" = ?";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setString(1, staffName);
       statement.setInt(2, requestID);

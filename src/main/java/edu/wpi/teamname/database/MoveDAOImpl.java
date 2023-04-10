@@ -83,7 +83,8 @@ public class MoveDAOImpl implements MoveDAO {
   @Override
   public void delete(Move move) throws SQLException {
     Connection connection = DataManager.DbConnection();
-    String query = "Delete from \"Move\" where \"nodeID\" = ? AND \"longName\" = ? AND \"date\" = ?";
+    String query =
+        "Delete from \"Move\" where \"nodeID\" = ? AND \"longName\" = ? AND \"date\" = ?";
 
     try (PreparedStatement statement = connection.prepareStatement(query)) {
       statement.setInt(1, move.getNodeID());
