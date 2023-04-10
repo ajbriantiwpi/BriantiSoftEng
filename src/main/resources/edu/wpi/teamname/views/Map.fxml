@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
 <?import javafx.scene.Group?>
-<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
@@ -12,6 +12,7 @@
     <children>
         <StackPane fx:id="sp" prefHeight="340.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
+            <MFXComboBox fx:id="LocationOne" />
                 <GesturePane fx:id="gp" prefHeight="340.0" prefWidth="500.0" VBox.vgrow="ALWAYS">
                     <content>
                         <Group>
@@ -22,7 +23,6 @@
                         </Group>
                     </content>
                 </GesturePane>
-                <Canvas fx:id="canvas" disable="true" height="340.0" visible="false" width="500.0" />
             </children>
         </StackPane>
     </children>

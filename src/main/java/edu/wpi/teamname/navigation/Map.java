@@ -1,14 +1,25 @@
 package edu.wpi.teamname.navigation;
 
+import edu.wpi.teamname.database.DataManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 
 public class Map {
+
+  Color borderColor = new Color(0.1, 0.4, 0.9, 1);
+  Color insideColor = new Color(0.05, 0.7, 1, 1);
+  float circleR = 10.0f;
+  float lineT = 10.0f;
+  int lineTout = 2;
 
   public Map() throws SQLException {
     this.graph = new Graph();
@@ -20,15 +31,8 @@ public class Map {
   private ArrayList<Shape> makeShapePath(ArrayList<Node> nodes) {
     ArrayList<Shape> shapes = new ArrayList<Shape>();
 
-    Color borderColor = new Color(0.1, 0.4, 0.9, 1);
-    Color insideColor = new Color(0.05, 0.7, 1, 1);
-
     Circle c;
     Path path;
-
-    float circleR = 10.0f;
-    float lineT = 10.0f;
-    int lineTout = 2;
 
     for (int j = 0; j < 2; j++) {
       path = new Path();
@@ -109,6 +113,69 @@ public class Map {
     System.out.println(nodePath);
 
     parent.getChildren().addAll(shapes);
+  }
+
+  public ObservableList<String> getAllNodeNames(String floor) throws SQLException {
+    ObservableList<String> nodeNames = FXCollections.observableArrayList();
+    for (Node n : DataManager.getAllNodes()) {
+      if (n.getFloor().equals(floor)) {
+        nodeNames.addAll(("" + n.getId()));
+      }
+    }
+    return nodeNames;
+  }
+
+  EventHandler<MouseEvent> makeVisible =
+      new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent event) {
+          Circle outer = ((Circle) event.getSource());
+          System.out.println("V");
+          System.out.println(outer.getId());
+          outer.setVisible(true);
+        }
+      };
+
+  EventHandler<MouseEvent> hide =
+      new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent event) {
+          System.out.println("H");
+          Circle outer = ((Circle) event.getSource());
+          System.out.println(outer.getId());
+          outer.setVisible(false);
+        }
+      };
+
+  public ArrayList<javafx.scene.Node> makeAllFloorNodes(String floor) throws SQLException {
+    ArrayList<javafx.scene.Node> nodes = new ArrayList<javafx.scene.Node>();
+    for (Node n : DataManager.getAllNodes()) {
+      if (n.getFloor().equals(floor)) {
+        //        StackPane N = new StackPane();
+
+        Circle outer = new Circle(n.getX(), n.getY(), circleR + lineTout);
+        outer.setFill(borderColor);
+        outer.setId("" + n.getId());
+        Circle inner = new Circle(n.getX(), n.getY(), circleR);
+        inner.setFill(insideColor);
+
+        //        outer.setVisible(false);
+        //        inner.setVisible(false);
+
+        outer.setOnMouseEntered(makeVisible);
+        outer.setOnMouseExited(hide);
+
+        //        N.getChildren().addAll(outer, inner);
+
+        //        nodes.add(N);
+
+        nodes.add(outer);
+        nodes.add(inner);
+      }
+    }
+    return nodes;
   }
 
   /** */

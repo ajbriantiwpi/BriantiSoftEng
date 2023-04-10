@@ -1,7 +1,9 @@
 package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.navigation.Map;
+import io.github.palexdev.materialfx.controls.MFXComboBox;
 import java.sql.SQLException;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
@@ -14,12 +16,34 @@ public class MapController {
   Map map;
   @FXML GesturePane gp;
   @FXML AnchorPane anchor;
+  @FXML MFXComboBox<String> LocationOne = new MFXComboBox<>();
+
+  String defaultFloor = "L1";
 
   EventHandler<MouseEvent> e =
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
           map.drawAStarPath(anchor, new Point2D(event.getX(), event.getY()));
+        }
+      };
+
+  EventHandler<ActionEvent> changeStart =
+      new EventHandler<ActionEvent>() {
+
+        @Override
+        public void handle(ActionEvent event) {
+          System.out.println("T");
+          System.out.println(LocationOne.getValue());
+        }
+      };
+
+  EventHandler<MouseEvent> checkPoints =
+      new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent event) {
+          System.out.println("M");
         }
       };
 
@@ -31,7 +55,16 @@ public class MapController {
     gp.setMinScale(0.11);
     anchor.setOnMouseClicked(e);
 
+    //    gp.setOnMouseMoved(checkPoints);
+
+    anchor.getChildren().addAll(map.makeAllFloorNodes(defaultFloor));
+
     map.centerAndZoom(anchor);
+
+    LocationOne.setItems(map.getAllNodeNames("L1"));
+
+    LocationOne.setOnAction(changeStart);
+    //    System.out.println(getAllNodeNames("L1"));
 
     ParentController.titleString.set("Map");
   }
