@@ -1,8 +1,5 @@
 package edu.wpi.teamname.controllers;
 
-import edu.wpi.teamname.database.DataManager;
-import edu.wpi.teamname.system.Navigation;
-import edu.wpi.teamname.system.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
 import java.sql.SQLException;
@@ -28,15 +25,15 @@ public class LoginController {
 
   private static boolean loginPressed(String username, String password) throws SQLException {
     //    Login user = new Login(username, password);
-//    boolean successLog = DataManager.Login(username, password);
-//    if (successLog) {
-//      HomeController.setLoggedIn(true);
-//      Navigation.navigate(Screen.HOME);
-//      return true;
-//    } else {
-//      return false;
-//    }
-      return true;
+    //    boolean successLog = DataManager.Login(username, password);
+    //    if (successLog) {
+    //      HomeController.setLoggedIn(true);
+    //      Navigation.navigate(Screen.HOME);
+    //      return true;
+    //    } else {
+    //      return false;
+    //    }
+    return true;
   }
 
   @FXML
@@ -49,40 +46,40 @@ public class LoginController {
     loginButton.disableProperty().bind(Bindings.isEmpty(loginText.textProperty()));
     loginButton.disableProperty().bind((Bindings.isEmpty(passwordText.textProperty())));
     forgotPassword.setOnMouseClicked(
-            event -> {
-              try {
-                tempPassword = forgotPasswordPressed(loginText.getText());
-                newPassword.setText("Your new password is: \n" + tempPassword);
-                newPassword.setVisible(true);
-                paneOfStuff.setDisable(true);
-              } catch (SQLException e) {
-                throw new RuntimeException(e);
-              }
-            });
+        event -> {
+          try {
+            tempPassword = forgotPasswordPressed(loginText.getText());
+            newPassword.setText("Your new password is: \n" + tempPassword);
+            newPassword.setVisible(true);
+            paneOfStuff.setDisable(true);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          }
+        });
     rootPane.setOnMouseClicked(
-            event -> {
-              paneOfStuff.setDisable(false);
-              newPassword.setVisible(false);
-              success.setVisible(false);
-            });
+        event -> {
+          paneOfStuff.setDisable(false);
+          newPassword.setVisible(false);
+          success.setVisible(false);
+        });
 
     loginButton.setOnMouseClicked(
-            event -> {
-              try {
-                boolean temp = loginPressed(loginText.getText(), passwordText.getText());
-                if (!temp) {
-                  paneOfStuff.setDisable(true);
-                  success.setVisible(true);
-                  passwordText.clear();
-                }
-              } catch (SQLException e) {
-                throw new RuntimeException(e);
-              }
-            });
+        event -> {
+          try {
+            boolean temp = loginPressed(loginText.getText(), passwordText.getText());
+            if (!temp) {
+              paneOfStuff.setDisable(true);
+              success.setVisible(true);
+              passwordText.clear();
+            }
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          }
+        });
   }
 
   private String forgotPasswordPressed(String username) throws SQLException {
-//    return DataManager.forgotPassword(username);
-      return "";
+    //    return DataManager.forgotPassword(username);
+    return "";
   }
 }
