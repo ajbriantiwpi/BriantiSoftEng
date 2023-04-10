@@ -319,6 +319,11 @@ public class DataManager {
     return serviceRequestDAO.getServiceRequest(id);
   }
 
+  /***
+   * Parses a CSV after being given a String path and then returns a list of Strings after it parses
+   * @param csvFilePath a String that represents a file path (must use "\\" instead of "\")
+   * @throws SQLException
+   */
   public static List<String[]> parseCSVAndUploadToPostgreSQL(String csvFilePath)
       throws SQLException {
     List<String[]> csvData = new ArrayList<>();

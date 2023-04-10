@@ -2,6 +2,10 @@ package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.ItemsOrderedDAO;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -117,4 +121,26 @@ public class ItemsOrderedDAOImpl implements ItemsOrderedDAO {
     }
     return itemsOrdered;
   }
+  public static void exportItemsOrderedToCSV(String csvFilePath) throws SQLException, IOException {
+    Connection connection = DataManager.DbConnection();
+    String query = "SELECT * FROM \"ItemsOrdered\"";
+    Statement statement = connection.createStatement();
+    ResultSet resultSet = statement.executeQuery(query);
+
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(csvFilePath))) {
+      writer.write("requestID,itemID,quantity\n");
+      while (resultSet.next()) {
+        int requestID = resultSet.getInt("requestID");
+        int itemID = resultSet.getInt("itemID");
+        int quantity = resultSet.getInt("quantity");
+
+        String row = requestID + "," + itemID + "," + quantity + "\n";
+        writer.write(row);
+      }
+      System.out.println("CSV data downloaded from PostgreSQL database");
+    } catch (IOException e) {
+      System.err.println("Error downloading CSV data from PostgreSQL database: " + e.getMessage());
+    }
+  }
+
 }

@@ -135,7 +135,7 @@ public class EdgeDAOImpl implements EdgeDAO {
     }
   }
 
-  public static void exportEdgeToPostgreSQL(String csvFilePath) throws SQLException, IOException {
+  public static void exportEdgeToCSV(String csvFilePath) throws SQLException, IOException {
     Connection connection = DataManager.DbConnection();
     String query = "SELECT * FROM \"Edge\"";
     Statement statement = connection.createStatement();

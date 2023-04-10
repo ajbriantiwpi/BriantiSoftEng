@@ -2,6 +2,10 @@ package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.FlowerDAO;
 import edu.wpi.teamname.servicerequest.requestitem.Flower;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -121,4 +125,28 @@ public class FlowerDAOImpl implements FlowerDAO {
     }
     return flower;
   }
+  public static void exportFlowersToCSV(String csvFilePath) throws SQLException, IOException {
+    Connection connection = DataManager.DbConnection();
+    String query = "SELECT * FROM \"Flowers\"";
+    Statement statement = connection.createStatement();
+    ResultSet resultSet = statement.executeQuery(query);
+
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(csvFilePath))) {
+      writer.write("flowerID,Name,Price,Category,Color\n");
+      while (resultSet.next()) {
+        int flowerID = resultSet.getInt("flowerID");
+        String name = resultSet.getString("Name");
+        double price = resultSet.getInt("Price");
+        String category = resultSet.getString("Category");
+        String color = resultSet.getString("Color");
+
+        String row = flowerID + "," + name + "," + price + "," + category + "," + color + "\n";
+        writer.write(row);
+      }
+      System.out.println("CSV data downloaded from PostgreSQL database");
+    } catch (IOException e) {
+      System.err.println("Error downloading CSV data from PostgreSQL database: " + e.getMessage());
+    }
+  }
+
 }

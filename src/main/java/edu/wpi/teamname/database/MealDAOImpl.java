@@ -2,6 +2,10 @@ package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.MealDAO;
 import edu.wpi.teamname.servicerequest.requestitem.Meal;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -121,4 +125,28 @@ public class MealDAOImpl implements MealDAO {
     }
     return meal;
   }
+  public static void exportMealToCSV(String csvFilePath) throws SQLException, IOException {
+    Connection connection = DataManager.DbConnection();
+    String query = "SELECT * FROM \"Meal\"";
+    Statement statement = connection.createStatement();
+    ResultSet resultSet = statement.executeQuery(query);
+
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(csvFilePath))) {
+      writer.write("nodeID,xcoord,ycoord,floor,building\n");
+      while (resultSet.next()) {
+        int mealID = resultSet.getInt("mealID");
+        String name = resultSet.getString("Name");
+        int price = resultSet.getInt("Price");
+        String meal = resultSet.getString("Meal");
+        String cuisine = resultSet.getString("Cuisine");
+
+        String row = mealID + "," + name + "," + price + "," + meal + "," + cuisine + "\n";
+        writer.write(row);
+      }
+      System.out.println("CSV data downloaded from PostgreSQL database");
+    } catch (IOException e) {
+      System.err.println("Error downloading CSV data from PostgreSQL database: " + e.getMessage());
+    }
+  }
+
 }
