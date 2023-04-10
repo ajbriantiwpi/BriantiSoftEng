@@ -1,5 +1,6 @@
 package edu.wpi.teamname.navigation;
 
+import java.awt.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +8,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
+import javafx.scene.shape.Shape;
 
 public class Map {
 
@@ -112,10 +114,18 @@ public class Map {
   }
 
   /** */
-  public void drawEmergencies() {}
+  public void drawEmergencies() {
+
+  }
 
   /** */
-  public void drawLocationNames() {}
+  public void drawLocationNames() {
+    List<Node> allNodes = this.graph.getNodes();
+    List<Label> shortNames = new ArrayList<>();
+    for(Node n: allNodes){
+
+    }
+  }
 
   /** */
   public void clearMap() {}
