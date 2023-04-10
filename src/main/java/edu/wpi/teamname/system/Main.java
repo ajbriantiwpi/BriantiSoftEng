@@ -1,8 +1,6 @@
 package edu.wpi.teamname.system;
 
 import edu.wpi.teamname.database.DataManager;
-import edu.wpi.teamname.database.NodeDAOImpl;
-
 import java.sql.SQLException;
 
 public class Main {
@@ -15,7 +13,6 @@ public class Main {
         "teamd40");
 
     App.launch(App.class, args);
-
   }
 
   // shortcut: psvm

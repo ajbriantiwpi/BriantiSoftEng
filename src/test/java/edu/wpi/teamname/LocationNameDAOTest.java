@@ -15,7 +15,7 @@ class LocationNameDAOTest {
   @BeforeEach
   void setUp() {
     // TODO: Put in docker info
-    // DataManager.configConnection();
+    DataManager.configConnection("jdbc:postgresql://localhost:5432/postgres", "user", "pass");
   }
 
   @Test
@@ -84,7 +84,7 @@ class LocationNameDAOTest {
     boolean small2 = list.get(1).getShortName().equals("Test Short Name 2");
     boolean type2 = list.get(1).getNodeType().equals("Test Node Type 2");
     boolean long3 = list.get(2).getLongName().equals("Test Long Name 3");
-    boolean small3 = list.get(2).getShortName().equals("Test Short Name 4");
+    boolean small3 = list.get(2).getShortName().equals("Test Short Name 3");
     boolean type3 = list.get(2).getNodeType().equals("Test Node Type 3");
     boolean all = long1 && small1 && type1 && long2 && small2 && type2 && long3 && small3 && type3;
     // verify that all location names were retrieved
