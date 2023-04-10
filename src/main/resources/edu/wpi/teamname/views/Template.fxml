@@ -13,28 +13,6 @@
 <AnchorPane styleClass="body" stylesheets="@../stylesheets/imageScale.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestViewController">
    <children>
       <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <VBox HBox.hgrow="ALWAYS">
-            <children>
-               <StackPane prefHeight="50.0">
-                  <children>
-                     <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Template Page" StackPane.alignment="CENTER_LEFT">
-                        <font>
-                           <Font name="Times New Roman" size="48.0" />
-                        </font>
-                        <StackPane.margin>
-                           <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
-                        </StackPane.margin>
-                     </Text>
-                  </children>
-               </StackPane>
-               <AnchorPane VBox.vgrow="ALWAYS" />
-               <HBox fillHeight="false" spacing="30.0" VBox.vgrow="NEVER">
-                  <padding>
-                     <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-                  </padding>
-               </HBox>
-            </children>
-         </VBox>
          <VBox HBox.hgrow="NEVER">
             <children>
                <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="body" stylesheets="@../stylesheets/logoScale.css">
@@ -90,6 +68,28 @@
                      <Insets top="1.0" />
                   </padding>
                </ToolBar>
+            </children>
+         </VBox>
+         <VBox HBox.hgrow="ALWAYS">
+            <children>
+               <StackPane prefHeight="50.0">
+                  <children>
+                     <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Template Page" StackPane.alignment="CENTER_LEFT">
+                        <font>
+                           <Font name="Times New Roman" size="48.0" />
+                        </font>
+                        <StackPane.margin>
+                           <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                        </StackPane.margin>
+                     </Text>
+                  </children>
+               </StackPane>
+               <AnchorPane style="-fx-background-color: #000000;" VBox.vgrow="ALWAYS" />
+               <HBox fillHeight="false" spacing="30.0" VBox.vgrow="NEVER">
+                  <padding>
+                     <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                  </padding>
+               </HBox>
             </children>
          </VBox>
       </HBox>
