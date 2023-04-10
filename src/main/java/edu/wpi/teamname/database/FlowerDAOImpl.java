@@ -15,14 +15,14 @@ public class FlowerDAOImpl implements FlowerDAO {
     Connection connection = DataManager.DbConnection();
     try (connection) {
       String query =
-          "UPDATE \"Flowers\" SET \"Name\" = ?, \"Price\" = ?, \"Category\" = ?, \"Color\" = ?"
-              + " WHERE \"flowerID\" = ?";
+          "UPDATE \"Flowers\" SET \"flowerID\" = ?, \"Name\" = ?, \"Price\" = ?, \"Category\" = ?, \"Color\" = ? WHERE \"flowerID\" = ?";
       PreparedStatement statement = connection.prepareStatement(query);
-      statement.setString(1, flower.getName());
-      statement.setFloat(2, flower.getPrice());
-      statement.setString(3, flower.getCategory());
-      statement.setString(4, flower.getColor());
-      statement.setInt(5, flower.getItemID());
+      statement.setInt(1, flower.getItemID());
+      statement.setString(2, flower.getName());
+      statement.setFloat(3, flower.getPrice());
+      statement.setString(4, flower.getCategory());
+      statement.setString(5, flower.getColor());
+      statement.setInt(6, flower.getOriginalID());
 
       statement.executeUpdate();
     } catch (SQLException e) {

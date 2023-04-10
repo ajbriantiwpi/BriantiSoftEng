@@ -18,6 +18,7 @@ public class ServiceRequest {
 
   @Setter @Getter private Status status;
   @Setter @Getter private String requestMadeBy;
+  @Getter private final int originalID;
   @Getter private ArrayList<RequestItem> items;
 
   public ServiceRequest(
@@ -37,6 +38,7 @@ public class ServiceRequest {
     this.requestedAt = requestedAt;
     this.status = status;
     this.requestMadeBy = requestMadeBy;
+    this.originalID = requestID;
     items = new ArrayList<RequestItem>();
   }
 

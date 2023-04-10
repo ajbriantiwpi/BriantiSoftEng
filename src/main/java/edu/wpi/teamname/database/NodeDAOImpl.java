@@ -17,13 +17,15 @@ public class NodeDAOImpl implements NodeDAO {
     Connection connection = DataManager.DbConnection();
     try (connection) {
       String query =
-          "UPDATE \"Node\" SET \"xcoord\" = ?, \"ycoord\" = ?, \"floor\" = ?, \"building\" = ?"
+          "UPDATE \"Node\" SET \"xcoord\" = ?, \"ycoord\" = ?, \"floor\" = ?, \"building\" = ?, \"nodeID\" = ?"
               + " WHERE \"nodeID\" = ?";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, node.getX());
       statement.setInt(2, node.getY());
       statement.setString(3, node.getFloor());
       statement.setString(4, node.getBuilding());
+      statement.setInt(5, node.getId());
+      statement.setInt(6, node.getOriginalID());
 
       statement.executeUpdate();
     } catch (SQLException e) {

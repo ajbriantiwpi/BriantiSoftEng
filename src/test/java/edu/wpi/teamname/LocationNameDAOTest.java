@@ -2,7 +2,7 @@ package edu.wpi.teamname;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import edu.wpi.teamname.database.LocationNameDAOImpl;
+import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.navigation.LocationName;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,13 +10,12 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class LocationNameDAOImplTest {
-
-  private LocationNameDAOImpl dao;
+class LocationNameDAOTest {
 
   @BeforeEach
   void setUp() {
-    dao = new LocationNameDAOImpl();
+    // TODO: Put in docker info
+    // DataManager.configConnection();
   }
 
   @Test
@@ -27,7 +26,7 @@ class LocationNameDAOImplTest {
 
     // attempt to sync the location name
     try {
-      dao.sync(locationName);
+      DataManager.syncLocationName(locationName);
     } catch (SQLException e) {
       fail("SQL Exception thrown while syncing location name");
     }
@@ -35,7 +34,7 @@ class LocationNameDAOImplTest {
     // verify that the location name was synced
     ArrayList<LocationName> list = new ArrayList<LocationName>();
     try {
-      list = dao.getAll();
+      list = DataManager.getAllLocationNames();
     } catch (SQLException e) {
       fail("SQL Exception thrown while getting all location names");
     }
@@ -64,7 +63,7 @@ class LocationNameDAOImplTest {
     testData.add(new LocationName("Test Long Name 3", "Test Short Name 3", "Test Node Type 3"));
     try {
       for (LocationName ln : testData) {
-        dao.add(ln);
+        DataManager.addLocationName(ln);
       }
     } catch (SQLException e) {
       fail("SQL Exception thrown while adding test location names");
@@ -73,7 +72,7 @@ class LocationNameDAOImplTest {
     // retrieve all location names
     List<LocationName> list = new ArrayList<>();
     try {
-      list = dao.getAll();
+      list = DataManager.getAllLocationNames();
     } catch (SQLException e) {
       fail("SQL Exception thrown while getting all location names");
     }
@@ -98,10 +97,10 @@ class LocationNameDAOImplTest {
 
     LocationName locationName =
         new LocationName("Test Long Name", "Test Short Name", "Test Node Type");
-    dao.delete(locationName);
+    DataManager.deleteLocationName(locationName);
     // attempt to add the location name
     try {
-      dao.add(locationName);
+      DataManager.addLocationName(locationName);
     } catch (SQLException e) {
       fail("SQL Exception thrown while adding location name");
     }
@@ -109,7 +108,7 @@ class LocationNameDAOImplTest {
     // verify that the location name was added
     ArrayList<LocationName> list = null;
     try {
-      list = dao.getAll();
+      list = DataManager.getAllLocationNames();
     } catch (SQLException e) {
       fail("SQL Exception thrown while getting all location names");
     }
