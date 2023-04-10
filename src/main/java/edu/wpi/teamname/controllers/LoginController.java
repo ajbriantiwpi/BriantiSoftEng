@@ -1,8 +1,8 @@
 package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.database.DataManager;
-import edu.wpi.teamname.navigation.Navigation;
-import edu.wpi.teamname.navigation.Screen;
+import edu.wpi.teamname.system.Navigation;
+import edu.wpi.teamname.system.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
 import java.sql.SQLException;
@@ -28,14 +28,15 @@ public class LoginController {
 
   private static boolean loginPressed(String username, String password) throws SQLException {
     //    Login user = new Login(username, password);
-    boolean successLog = DataManager.Login(username, password);
-    if (successLog) {
-      HomeController.setLoggedIn(true);
-      Navigation.navigate(Screen.HOME);
+//    boolean successLog = DataManager.Login(username, password);
+//    if (successLog) {
+//      HomeController.setLoggedIn(true);
+//      Navigation.navigate(Screen.HOME);
+//      return true;
+//    } else {
+//      return false;
+//    }
       return true;
-    } else {
-      return false;
-    }
   }
 
   @FXML
@@ -81,6 +82,7 @@ public class LoginController {
   }
 
   private String forgotPasswordPressed(String username) throws SQLException {
-    return DataManager.forgotPassword(username);
+//    return DataManager.forgotPassword(username);
+      return "";
   }
 }
