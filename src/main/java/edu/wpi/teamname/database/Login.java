@@ -6,6 +6,7 @@ import lombok.Setter;
 public class Login {
   @Getter @Setter private String username;
   @Getter @Setter private String password;
+  @Getter private final String originalUsername;
 
   /**
    * Constructor for login that sets the username and password for every instance of someone logging
@@ -17,6 +18,7 @@ public class Login {
   public Login(String username, String password) {
     this.username = username;
     this.password = password;
+    this.originalUsername = username;
   }
 
   public String toString() {

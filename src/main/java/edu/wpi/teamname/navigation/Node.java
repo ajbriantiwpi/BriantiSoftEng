@@ -16,6 +16,8 @@ public class Node {
   @Getter public String building;
   @Getter private int x;
   @Getter private int y;
+
+  @Getter private final int originalID;
   private Node parent = null;
   // f: sum of g and h;
   public double f = Double.MAX_VALUE;
@@ -39,6 +41,7 @@ public class Node {
     this.y = y;
     this.floor = Floor;
     this.building = Building;
+    this.originalID = ID;
   }
 
   /** @return */

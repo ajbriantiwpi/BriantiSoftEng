@@ -10,11 +10,11 @@ public class LoginDAOImpl implements LoginDAO {
   public void sync(Login login) throws SQLException {
     Connection connection = DataManager.DbConnection();
     try (connection) {
-      String query = "UPDATE \"Login\" SET \"password\" = ?" + " WHERE \"username\" = ?";
+      String query = "UPDATE \"Login\" SET \"password\" = ?, \"username\" = ? WHERE \"username\" = ?";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setString(1, login.getPassword());
       statement.setString(2, login.getUsername());
-
+      statement.setString(3, login.getOriginalUsername());
       statement.executeUpdate();
     } catch (SQLException e) {
       System.out.println(e.getMessage());

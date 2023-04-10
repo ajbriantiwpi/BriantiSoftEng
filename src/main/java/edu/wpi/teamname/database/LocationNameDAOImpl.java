@@ -15,12 +15,13 @@ public class LocationNameDAOImpl implements LocationNameDAO {
     Connection connection = DataManager.DbConnection();
     try (connection) {
       String query =
-          "UPDATE \"LocationName\" SET \"shortName\" = ?, \"nodeType\" = ?"
+          "UPDATE \"LocationName\" SET \"shortName\" = ?, \"nodeType\" = ?, \"longName\" = ?"
               + " WHERE \"longName\" = ?";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setString(1, locationName.getShortName());
       statement.setString(2, locationName.getNodeType());
       statement.setString(3, locationName.getLongName());
+      statement.setString(4, locationName.getOriginalLongName());
 
       statement.executeUpdate();
     } catch (SQLException e) {

@@ -13,7 +13,7 @@ public class MealDAOImpl implements MealDAO {
     Connection connection = DataManager.DbConnection();
     try (connection) {
       String query =
-          "UPDATE \"Meal\" SET \"Name\" = ?, \"Price\" = ?, \"Meal\" = ?, \"Cuisine\" = ?"
+          "UPDATE \"Meal\" SET \"Name\" = ?, \"Price\" = ?, \"Meal\" = ?, \"Cuisine\" = ?, \"mealID\" = ?"
               + " WHERE \"mealID\" = ?";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setString(1, meal.getName());
@@ -21,6 +21,7 @@ public class MealDAOImpl implements MealDAO {
       statement.setString(3, meal.getMeal());
       statement.setString(4, meal.getCuisine());
       statement.setInt(5, meal.getItemID());
+      statement.setInt(6, meal.getOriginalID());
 
       statement.executeUpdate();
     } catch (SQLException e) {

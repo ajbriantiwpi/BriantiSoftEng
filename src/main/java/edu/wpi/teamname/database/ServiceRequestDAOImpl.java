@@ -14,7 +14,7 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
     Connection connection = DataManager.DbConnection();
     try (connection) {
       String query =
-          "UPDATE \"ServiceRequest\" SET \"roomNum\" = ?, \"staffName\" = ?, \"patientName\" = ?, \"requestedAt\" = ?, \"deliverBy\" = ?, \"status\" = ?, \"requestMadeBy\" = ?"
+          "UPDATE \"ServiceRequest\" SET \"roomNum\" = ?, \"staffName\" = ?, \"patientName\" = ?, \"requestedAt\" = ?, \"deliverBy\" = ?, \"status\" = ?, \"requestMadeBy\" = ?, \"requestID\" = ?"
               + " WHERE \"requestID\" = ?";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setString(1, serviceRequest.getRoomNumber());
@@ -24,7 +24,7 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
       statement.setString(5, serviceRequest.getStatus().getStatusString());
       statement.setString(6, serviceRequest.getRequestMadeBy());
       statement.setInt(7, serviceRequest.getRequestID());
-
+      statement.setInt(8, serviceRequest.getOriginalID());
       statement.executeUpdate();
     } catch (SQLException e) {
       System.out.println(e.getMessage());
