@@ -11,6 +11,8 @@ public class ServiceRequestController {
 
   @FXML
   public void initialize() {
+
     backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    ParentController.titleString.set("Service Request");
   }
 }
