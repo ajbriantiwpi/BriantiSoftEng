@@ -1,5 +1,6 @@
 package edu.wpi.teamname.database;
 
+import com.sun.javafx.geom.Point2D;
 import edu.wpi.teamname.database.interfaces.NodeDAO;
 import edu.wpi.teamname.navigation.Node;
 import java.io.BufferedWriter;
@@ -197,5 +198,30 @@ public class NodeDAOImpl implements NodeDAO {
       System.out.println(e.getMessage());
     }
     return node;
+  }
+  /**
+   * Display nodes located on every floor the parameter String is on within the "Node" table
+   *
+   * @param floor a String representing the floor the user wants to display nodes on
+   * @throws SQLException if an error occurs while displaying the data
+   */
+  public static ArrayList<Point2D> displayNodesByFloor(String floor) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    String query = "SELECT * FROM \"Node\" WHERE floor = ?";
+    ArrayList<Point2D> ret = new ArrayList<Point2D>();
+    try (PreparedStatement statement = connection.prepareStatement(query)) {
+      statement.setString(1, floor);
+      ResultSet rs = statement.executeQuery();
+
+      while (rs.next()) {
+        ret.add(
+            new Point2D(
+                Integer.parseInt(rs.getString("xcoord")),
+                Integer.parseInt(rs.getString("ycoord"))));
+      }
+    } catch (SQLException ex) {
+      throw new RuntimeException(ex);
+    }
+    return ret;
   }
 }

@@ -2,7 +2,6 @@ package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.FlowerDAO;
 import edu.wpi.teamname.servicerequest.requestitem.Flower;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -125,6 +124,7 @@ public class FlowerDAOImpl implements FlowerDAO {
     }
     return flower;
   }
+
   public static void exportFlowersToCSV(String csvFilePath) throws SQLException, IOException {
     Connection connection = DataManager.DbConnection();
     String query = "SELECT * FROM \"Flowers\"";
@@ -148,5 +148,4 @@ public class FlowerDAOImpl implements FlowerDAO {
       System.err.println("Error downloading CSV data from PostgreSQL database: " + e.getMessage());
     }
   }
-
 }

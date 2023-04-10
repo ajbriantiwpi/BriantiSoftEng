@@ -2,7 +2,6 @@ package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.MealDAO;
 import edu.wpi.teamname.servicerequest.requestitem.Meal;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -124,6 +123,7 @@ public class MealDAOImpl implements MealDAO {
     }
     return meal;
   }
+
   public static void exportMealToCSV(String csvFilePath) throws SQLException, IOException {
     Connection connection = DataManager.DbConnection();
     String query = "SELECT * FROM \"Meal\"";
@@ -147,5 +147,4 @@ public class MealDAOImpl implements MealDAO {
       System.err.println("Error downloading CSV data from PostgreSQL database: " + e.getMessage());
     }
   }
-
 }

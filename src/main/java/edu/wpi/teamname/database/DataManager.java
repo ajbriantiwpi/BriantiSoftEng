@@ -319,8 +319,10 @@ public class DataManager {
     return serviceRequestDAO.getServiceRequest(id);
   }
 
-  /***
-   * Parses a CSV after being given a String path and then returns a list of Strings after it parses
+  /**
+   * * Parses a CSV after being given a String path and then returns a list of Strings after it
+   * parses
+   *
    * @param csvFilePath a String that represents a file path (must use "\\" instead of "\")
    * @throws SQLException
    */
@@ -348,13 +350,15 @@ public class DataManager {
     return csvData;
   }
 
-  /***
+  /**
+   * *
    *
    * @param requestID
    * @param staffName
    * @throws SQLException
    */
-  public static void uploadStaffNameToServiceRequest(int requestID, String staffName) throws SQLException {
+  public static void uploadStaffNameToServiceRequest(int requestID, String staffName)
+      throws SQLException {
     ServiceRequestDAOImpl serviceRequestDAO = new ServiceRequestDAOImpl();
     serviceRequestDAO.uploadStaffName(requestID, staffName);
   }

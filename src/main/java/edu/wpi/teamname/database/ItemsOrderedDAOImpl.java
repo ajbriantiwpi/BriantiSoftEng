@@ -2,7 +2,6 @@ package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.ItemsOrderedDAO;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -121,6 +120,7 @@ public class ItemsOrderedDAOImpl implements ItemsOrderedDAO {
     }
     return itemsOrdered;
   }
+
   public static void exportItemsOrderedToCSV(String csvFilePath) throws SQLException, IOException {
     Connection connection = DataManager.DbConnection();
     String query = "SELECT * FROM \"ItemsOrdered\"";
@@ -142,5 +142,4 @@ public class ItemsOrderedDAOImpl implements ItemsOrderedDAO {
       System.err.println("Error downloading CSV data from PostgreSQL database: " + e.getMessage());
     }
   }
-
 }

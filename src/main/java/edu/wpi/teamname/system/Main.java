@@ -1,7 +1,7 @@
 package edu.wpi.teamname.system;
 
 import edu.wpi.teamname.database.DataManager;
-import edu.wpi.teamname.navigation.LocationName;
+import edu.wpi.teamname.database.NodeDAOImpl;
 import java.sql.SQLException;
 
 public class Main {
@@ -12,8 +12,8 @@ public class Main {
         "jdbc:postgresql://database.cs.wpi.edu:5432/teamddb?currentSchema=\"teamD\"",
         "teamd",
         "teamd40");
-    LocationName locationName = new LocationName("long", "short", "type");
-    DataManager.deleteLocationName(locationName);
+
+
     // App.launch(App.class, args);
   }
 
