@@ -154,7 +154,7 @@ public class NodeDAOImpl implements NodeDAO {
     }
   }
 
-  public static void exportNodeToPostgreSQL(String csvFilePath) throws SQLException, IOException {
+  public static void exportNodeToCSV(String csvFilePath) throws SQLException, IOException {
     Connection connection = DataManager.DbConnection();
     String query = "SELECT * FROM \"Node\"";
     Statement statement = connection.createStatement();
