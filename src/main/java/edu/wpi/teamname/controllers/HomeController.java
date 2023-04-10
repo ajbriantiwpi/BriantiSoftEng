@@ -21,7 +21,7 @@ public class HomeController {
 
   // test push
   @Setter private static boolean loggedIn = false;
-  @FXML ImageView imageView;
+//  @FXML ImageView imageView;
   @FXML private AnchorPane rootPane;
   @FXML MFXButton loginButton;
   @FXML MFXButton logoutButton;
@@ -62,5 +62,6 @@ public class HomeController {
     showRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST_VIEW));
     editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
     exitButton.setOnMouseClicked(event -> System.exit(0));
+//    navigateButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
   }
 }
