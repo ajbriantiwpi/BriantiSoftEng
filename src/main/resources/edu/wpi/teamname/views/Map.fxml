@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -22,11 +23,14 @@
                         </Group>
                     </content>
                 </GesturePane>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox maxHeight="10.0" maxWidth="10.0">
                <children>
                   <MFXComboBox fx:id="LocationOne" />
                   <MFXComboBox fx:id="FloorSelect" />
                </children>
+               <StackPane.margin>
+                  <Insets left="-250.0" top="-300.0" />
+               </StackPane.margin>
             </HBox>
             </children>
         </StackPane>

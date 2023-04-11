@@ -64,22 +64,32 @@ public class MapController {
         public void handle(ActionEvent event) {
           System.out.println("CF");
           String floor = FloorSelect.getValue();
+          System.out.println(floor);
           switch (floor) {
-            case ("L1"):
-              //                  anchor.getStyleC
-              //                  anchor.setStyle();
+            case ("Lower Level 1"):
+              System.out.println("L1");
+              anchor.getStyleClass().remove(0);
+              anchor.getStyleClass().add("L1");
               break;
-            case ("L2"):
+            case ("Lower Level 2"):
               anchor.getStyleClass().remove(0);
               anchor.getStyleClass().add("L2");
               break;
-            case ("GG"):
+            case ("Ground Floor"):
+              anchor.getStyleClass().remove(0);
+              anchor.getStyleClass().add("GG");
               break;
-            case ("G1"):
+            case ("First Floor"):
+              anchor.getStyleClass().remove(0);
+              anchor.getStyleClass().add("G1");
               break;
-            case ("G2"):
+            case ("Second Floor"):
+              anchor.getStyleClass().remove(0);
+              anchor.getStyleClass().add("G2");
               break;
-            case ("G3"):
+            case ("Third Floor"):
+              anchor.getStyleClass().remove(0);
+              anchor.getStyleClass().add("G3");
               break;
             default:
               break;
@@ -110,7 +120,7 @@ public class MapController {
 
     //    anchor.getChildren().addAll(map.makeAllFloorNodes(defaultFloor));
 
-    map.centerAndZoom(anchor);
+    map.centerAndZoom(gp);
 
     LocationOne.setItems(map.getAllNodeNames("L1"));
     LocationOne.setOnAction(changeStart);

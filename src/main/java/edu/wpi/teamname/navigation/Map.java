@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
+import net.kurobako.gesturefx.GesturePane;
 
 public class Map {
 
@@ -27,6 +28,9 @@ public class Map {
 
   public Graph graph;
   public ArrayList<Emergency> emergencies;
+
+  private Point2D centerPoint;
+  private Point2D centerTL;
 
   private ArrayList<Shape> makeShapePath(ArrayList<Node> nodes) {
     ArrayList<Shape> shapes = new ArrayList<Shape>();
@@ -223,6 +227,36 @@ public class Map {
   /** */
   public void clearMap() {}
 
+  private double getMapWitdh() {
+    return 0;
+  }
+
+  private double getMapHeight() {
+    return 0;
+  }
+
   /** @param parent */
-  public void centerAndZoom(Pane parent) {}
+  public void centerAndZoom(GesturePane parent) {
+    double parentW = getMapWitdh();
+    double parentH = getMapHeight();
+    parentW = 760;
+    parentH = 512;
+
+    Point2D scaleOneDim = new Point2D(760 * 2, 512 * 2); // hard Coded
+
+    double scaleX = parentW / scaleOneDim.getX();
+    double scaleY = parentH / scaleOneDim.getY();
+
+    System.out.println(scaleX + ", " + scaleY);
+
+    double scaleFactor = Double.min(scaleX, scaleY);
+
+    centerPoint = new Point2D(2250, 1000); // Hard Coded
+    double scale = parent.getCurrentScale();
+    Point2D CMin = new Point2D((parentW / 2) * (1 / scale), (parentH / 2) * (1 / scale));
+    centerTL = centerPoint.subtract(CMin);
+
+    parent.zoomTo(scaleFactor, Point2D.ZERO);
+    parent.centreOn(centerTL); // Actually Moves the Top left corner
+  }
 }
