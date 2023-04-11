@@ -3,6 +3,7 @@ package edu.wpi.teamname.system;
 public enum Screen {
   // Enum Constants Calling the Enum Constructor
   ROOT("../views/Root.fxml"),
+  TEMPLATE("../views/Template.fxml"),
   HOME("../views/Home.fxml"),
   SERVICE_REQUEST("../views/ServiceRequest2.fxml"),
   MAP("../views/Map.fxml"),

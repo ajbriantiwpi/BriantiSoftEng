@@ -106,9 +106,15 @@ public class MapEditController {
     // importLocation.setOnMouseClicked(event -> DataManager.exportData(2, //file ,connection);
     // importMove.setOnMouseClicked(event -> DataManager.exportData(3, //file ,connection);
 
-    //FileChooser fileChooser = new FileChooser();
-    //fileChooser.setTitle("Open Resource File");
-    //fileChooser.showOpenDialog(stage);              USE THE FILE PICKER TO IMPORT/EXPORT CSV'S
+ @FXML
+public void exportNodeData() {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Export Node Data");
+    File selectedFile = fileChooser.showSaveDialog(new Stage());
+    if (selectedFile != null) {
+        // TODO: Implement logic to export node data to the selected file
+    }
+}              USE THE FILE PICKER TO IMPORT/EXPORT CSV'S
 
     buildNodeData();
     buildEdgeData();

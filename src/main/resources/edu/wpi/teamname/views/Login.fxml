@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXPasswordField?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="rootPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="body" stylesheets="@../stylesheets/imageScale.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.LoginController">
     <children>
@@ -18,96 +19,101 @@
             <children>
                 <StackPane fx:id="paneOfStuff" minHeight="-Infinity" minWidth="-Infinity">
                     <children>
-                        <VBox alignment="CENTER">
+                        <VBox alignment="CENTER" maxHeight="550.0" maxWidth="480.0" spacing="24.0" style="-fx-background-color: #EEEDF1;" stylesheets="@../stylesheets/login.css" StackPane.alignment="CENTER">
                             <children>
-                                <TextField fx:id="loginText" maxWidth="150.0" promptText="Username" />
-                                <PasswordField fx:id="passwordText" maxWidth="150.0" promptText="Password">
-                                    <VBox.margin>
-                                        <Insets top="50.0" />
-                                    </VBox.margin>
-                                </PasswordField>
-                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                        <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" wrappingWidth="400.0">
+                           <font>
+                              <Font name="Roboto Medium" size="45.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <MFXTextField fx:id="loginText" alignment="BASELINE_LEFT" maxHeight="57.0" maxWidth="400.0" promptText="Username" style="-fx-background-color: #FAF9FD;" styleClass="button" stylesheets="@../stylesheets/login.css">
+                           <font>
+                              <Font size="28.0" />
+                           </font>
+                           <textFill>
+                              <Color red="0.10196078568696976" green="0.10980392247438431" blue="0.11764705926179886" opacity="0.8700000047683716" />
+                           </textFill>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </MFXTextField>
+                        <MFXPasswordField fx:id="passwordText" alignment="BASELINE_LEFT" maxHeight="57.0" maxWidth="400.0" promptText="Password" style="-fx-background-color: #FAF9FD;" styleClass="button" stylesheets="@../stylesheets/login.css">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <font>
+                              <Font name="Roboto" size="28.0" />
+                           </font>
+                           <textFill>
+                              <Color red="0.10196078568696976" green="0.10980392247438431" blue="0.11764705926179886" opacity="0.8700000047683716" />
+                           </textFill>
+                        </MFXPasswordField>
+                                  <MFXButton fx:id="loginButton" maxHeight="48.0" maxWidth="400.0" prefHeight="48.0" style="-fx-background-color: #001B3B;" stylesheets="@../stylesheets/login.css" text="Sign In" textAlignment="CENTER" textFill="#d5e3ff">
+                                      <font>
+                                          <Font name="Roboto" size="28.0" />
+                                      </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                                  </MFXButton>
+                                <HBox alignment="CENTER" maxWidth="400.0" prefWidth="400.0" spacing="16.0" style="-fx-border-radius: 16; -fx-background-radius: 16;">
                                     <children>
-                                        <MFXButton fx:id="forgotPassword" style="-fx-background-color: #70A4FF;" text="Forgot Password" textAlignment="CENTER">
+                              <MFXButton fx:id="cancel" maxHeight="44.0" prefHeight="44.0" style="-fx-background-color: #d5e3ff;" stylesheets="@../stylesheets/login.css" text="Cancel" textAlignment="CENTER" textFill="#001b3b" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Roboto" size="24.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </MFXButton>
+                                        <MFXButton fx:id="forgotPassword" maxHeight="44.0" prefHeight="44.0" style="-fx-background-color: #d5e3ff;" stylesheets="@../stylesheets/login.css" text="Forgot Password" textAlignment="CENTER" textFill="#001b3b">
                                             <font>
-                                                <Font size="20.0" />
-                                            </font>
-                                        </MFXButton>
-                                        <MFXButton fx:id="loginButton" style="-fx-background-color: #70A4FF;" text="Login" textAlignment="CENTER">
-                                            <HBox.margin>
-                                                <Insets left="20.0" />
-                                            </HBox.margin>
-                                            <font>
-                                                <Font size="20.0" />
+                                                <Font name="Roboto" size="24.0" />
                                             </font>
                                         </MFXButton>
                                     </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
                                 </HBox>
                             </children>
+                     <padding>
+                        <Insets bottom="40.0" left="40.0" right="40.0" top="32.0" />
+                     </padding>
                         </VBox>
                     </children>
                 </StackPane>
-                <Label fx:id="newPassword" style="-fx-background-color: #70A4FF;" text="Label" textAlignment="CENTER" StackPane.alignment="CENTER">
+                <Label fx:id="success" style="-fx-background-color: #70A4FF;" text="Label" textAlignment="CENTER">
                     <font>
                         <Font size="20.0" />
                     </font>
                 </Label>
-                <Label fx:id="success" style="-fx-background-color: #70A4FF;" text="Label" textAlignment="CENTER">
+                <Label fx:id="newPassword" style="-fx-background-color: #70A4FF;" stylesheets="@../stylesheets/login.css" text="Login">
                     <font>
                         <Font size="20.0" />
                     </font>
                 </Label>
             </children>
         </StackPane>
-        <MFXButton fx:id="exit" alignment="CENTER" style="-fx-background-color: #70A4FF;" text="Exit" textAlignment="CENTER" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </MFXButton>
-        <VBox layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <children>
-                <AnchorPane prefHeight="200.0" styleClass="body" stylesheets="@../stylesheets/logoScale.css" />
-                <ToolBar orientation="VERTICAL" style="-fx-background-color: #40404080;" VBox.vgrow="ALWAYS">
-                    <items>
-                        <MFXButton fx:id="homeButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Home" textFill="WHITE">
-                            <font>
-                                <Font name="Times New Roman" size="19.0" />
-                            </font>
-                        </MFXButton>
-                        <MFXButton fx:id="helpButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Help" textFill="WHITE">
-                            <font>
-                                <Font name="Times New Roman" size="19.0" />
-                            </font>
-                        </MFXButton>
-                        <MFXButton fx:id="mapButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Map" textFill="WHITE">
-                            <font>
-                                <Font name="Times New Roman" size="19.0" />
-                            </font>
-                        </MFXButton>
-                        <MFXButton fx:id="directionButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Directions" textFill="WHITE" textOverrun="CLIP">
-                            <font>
-                                <Font name="Times New Roman" size="19.0" />
-                            </font>
-                        </MFXButton>
-                        <MFXButton fx:id="serviceRequestsButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Service Requests" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
-                            <font>
-                                <Font name="Times New Roman" size="19.0" />
-                            </font>
-                        </MFXButton>
-                        <MFXButton fx:id="exitButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Exit" textFill="WHITE">
-                            <font>
-                                <Font name="Times New Roman" size="19.0" />
-                            </font>
-                        </MFXButton>
-                    </items>
-                    <opaqueInsets>
-                        <Insets />
-                    </opaqueInsets>
-                    <padding>
-                        <Insets top="1.0" />
-                    </padding>
-                </ToolBar>
-            </children>
-        </VBox>
+      <HBox layoutX="319.3333435058594" layoutY="10.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+         <children>
+            <MFXButton fx:id="help" alignment="CENTER" style="-fx-background-color: #001B3B; -fx-border-color: #F6bd38; -fx-border-width: 2; -fx-border-radius: 1;" text="Help" textAlignment="CENTER" textFill="#d5e3ff">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="48.0" />
+               </HBox.margin>
+            </MFXButton>
+              <MFXButton fx:id="exit" alignment="CENTER" style="-fx-background-color: #001B3B; -fx-border-color: #BA1A1A; -fx-border-width: 2;" text="Exit" textAlignment="CENTER" textFill="#d5e3ff">
+                  <font>
+                      <Font size="20.0" />
+                  </font>
+              </MFXButton>
+         </children>
+      </HBox>
     </children>
 </AnchorPane>
