@@ -44,6 +44,10 @@ public class Edge {
   //    return list;
   //  }
 
+  public Boolean equals(Edge other) {
+    return this.startNodeID == other.getStartNodeID() && this.endNodeID == other.getEndNodeID();
+  }
+
   // Returns all the attributes of a Node as a String
   public String toString() {
     return "StartNodeID: " + startNodeID + " EndNodeID: " + endNodeID;

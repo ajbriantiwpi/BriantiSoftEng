@@ -18,10 +18,19 @@ class LocationNameDAOTest {
   void setUp() throws SQLException {
     // TODO: Put in docker info
     DataManager.configConnection("jdbc:postgresql://localhost:5432/postgres", "user", "pass");
+    Connection connection = DataManager.DbConnection();
+    String query = "Truncate Table \"LocationName\"";
+    try (PreparedStatement statement = connection.prepareStatement(query)) {
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      System.out.println("Truncate Error. " + e);
+    }
+    connection.close();
   }
 
   @Test
-  void testSync() {
+  void testSync() throws SQLException {
+    testAdd();
     // create a location name to sync
     LocationName locationName =
         new LocationName("Test Long Name", "Test Short Name", "Test Node Type");

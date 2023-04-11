@@ -14,16 +14,29 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class EdgeDAOTest {
+
   @BeforeEach
   void setUp() throws SQLException {
     // TODO: Put in docker info
     DataManager.configConnection("jdbc:postgresql://localhost:5432/postgres", "user", "pass");
+    String query = "Truncate Table \"Edge\"";
+    Connection connection = DataManager.DbConnection();
+    DataManager.createTableIfNotExists(
+        "Edge",
+        "CREATE TABLE IF NOT EXISTS \"Edge\" (\"startNode\" INTEGER, \"endNode\" INTEGER);");
+    try (PreparedStatement statement = connection.prepareStatement(query)) {
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      System.out.println("Truncate Error. " + e);
+    }
+    connection.close();
   }
 
   @Test
-  void testSync() {
+  void testSync() throws SQLException {
+    testAdd();
     // create a location name to sync
-    Edge edge = new Edge(00, 01);
+    Edge edge = new Edge(40, 41);
 
     // attempt to sync the location name
     try {
@@ -176,7 +189,7 @@ public class EdgeDAOTest {
     }
 
     // export the location names to a CSV file
-    String csvFilePath = "test_location_names.csv";
+    String csvFilePath = "test_edge.csv";
     try {
       DataManager.exportEdgeToCSV(csvFilePath);
     } catch (IOException e) {
@@ -187,9 +200,9 @@ public class EdgeDAOTest {
     try {
       List<String> lines = Files.readAllLines(Paths.get(csvFilePath));
       assertEquals(lines.get(0), "\"startNode\",\"endNode\"");
-      assertEquals(Float.parseFloat(lines.get(1)), 60, 61);
-      assertEquals(Float.parseFloat(lines.get(2)), 70, 71);
-      assertEquals(Float.parseFloat(lines.get(3)), 80, 81);
+      assertEquals(lines.get(1), "60,61");
+      assertEquals(lines.get(2), "70,71");
+      assertEquals(lines.get(3), "80,81");
     } catch (IOException e) {
       fail("IOException thrown while reading CSV file");
     }
@@ -198,7 +211,7 @@ public class EdgeDAOTest {
   @Test
   public void testUploadEdgeToPostgreSQL() throws SQLException {
     // Set up test data
-    String csvFilePath = "src/test/resources/test_location_names.csv";
+    String csvFilePath = "src/test/resources/test_edge.csv";
 
     // Call the function being tested
     DataManager.uploadEdge(csvFilePath);
@@ -208,6 +221,6 @@ public class EdgeDAOTest {
     Statement statement = connection.createStatement();
     ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM \"Edge\"");
     assertTrue(resultSet.next());
-    assertEquals(3, resultSet.getInt(1));
+    assertEquals(2, resultSet.getInt(1));
   }
 }

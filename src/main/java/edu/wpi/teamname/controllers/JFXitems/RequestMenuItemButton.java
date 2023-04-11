@@ -30,16 +30,13 @@ public class RequestMenuItemButton extends Button {
     setFont(Font.font("Times New Roman", 32));
     setOnMouseClicked(
         event -> {
-          for (int a = 0; a < parent.getQuantity(); a++) {
-            try {
+          try {
+            for (int a = 0; a < parent.getQuantity(); a++) {
               request.addItem(id);
-            } catch (SQLException e) {
-              throw new RuntimeException(e);
             }
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
           }
-          /*catch (SQLException e) {
-              throw new RuntimeException(e);
-          }*/
         });
   }
 }

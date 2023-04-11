@@ -1,0 +1,4 @@
+"furnitureID","name","price","category","size,color"
+1,"Test1",1.0,"1Cat","TestSize1","1Col"
+2,"Test2",2.0,"2Cat","TestSize2","2Col"
+3,"Test3",3.0,"8Cat","TestSize3","3Col"
