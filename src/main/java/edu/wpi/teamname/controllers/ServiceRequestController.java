@@ -224,6 +224,7 @@ public class ServiceRequestController {
   }
 
   public void initialize() {
+    ParentController.titleString.set("Service Request");
     setVisibleScreen(0);
 
     for (int h = 0; h < 24; h++) {

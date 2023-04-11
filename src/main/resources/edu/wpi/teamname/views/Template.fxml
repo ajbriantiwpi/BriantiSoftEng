@@ -118,7 +118,7 @@
                   <children>
                      <VBox stylesheets="@../stylesheets/SideBar.css" StackPane.alignment="CENTER_LEFT">
                         <children>
-                           <Label fx:id="topLabel" maxHeight="96.0" minHeight="96.0" prefHeight="96.0" stylesheets="@../stylesheets/TopBar.css" text="Template Page">
+                           <Label fx:id="titleLabel" maxHeight="96.0" minHeight="96.0" prefHeight="96.0" stylesheets="@../stylesheets/TopBar.css" text="Template Page">
                               <padding>
                                  <Insets left="24.0" />
                               </padding>
