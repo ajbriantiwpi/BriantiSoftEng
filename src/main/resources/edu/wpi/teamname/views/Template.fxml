@@ -2,94 +2,136 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane styleClass="body" stylesheets="@../stylesheets/imageScale.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestViewController">
+<AnchorPane styleClass="body" stylesheets="@../stylesheets/Template_Background.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ParentController">
    <children>
       <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <VBox HBox.hgrow="ALWAYS">
+         <VBox alignment="CENTER" minWidth="240.0" styleClass="body" stylesheets="@../stylesheets/SideBar.css" HBox.hgrow="NEVER">
             <children>
-               <StackPane prefHeight="50.0">
-                  <children>
-                     <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Template Page" StackPane.alignment="CENTER_LEFT">
-                        <font>
-                           <Font name="Times New Roman" size="48.0" />
-                        </font>
-                        <StackPane.margin>
-                           <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
-                        </StackPane.margin>
-                     </Text>
-                  </children>
-               </StackPane>
-               <AnchorPane VBox.vgrow="ALWAYS" />
-               <HBox fillHeight="false" spacing="30.0" VBox.vgrow="NEVER">
-                  <padding>
-                     <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-                  </padding>
-               </HBox>
-            </children>
-         </VBox>
-         <VBox HBox.hgrow="NEVER">
-            <children>
-               <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="body" stylesheets="@../stylesheets/logoScale.css">
+               <AnchorPane maxHeight="75.0" maxWidth="53.0" minHeight="75.0" minWidth="53.0" prefHeight="75.0" prefWidth="53.0" styleClass="body" stylesheets="@../stylesheets/logoScale.css">
                   <children>
                   </children></AnchorPane>
-               <ToolBar orientation="VERTICAL" prefWidth="200.0" style="-fx-background-color: #40404080;" VBox.vgrow="ALWAYS">
-                  <items>
-                     <MFXButton fx:id="homeButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Home" textFill="WHITE">
+               <VBox prefWidth="200.0" style="-fx-background-color: #40404080;" VBox.vgrow="ALWAYS">
+                  <children>
+                     <MFXButton fx:id="homeButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" stylesheets="@../stylesheets/SideBar.css" text="Home" textFill="#1a1c1e">
                         <font>
                            <Font name="Times New Roman" size="19.0" />
                         </font>
+                        <graphic>
+                           <ImageView>
+                              <Image url="@../images/MenuIcons/home.png" />
+                           </ImageView>
+                        </graphic>
                      </MFXButton>
-                     <MFXButton fx:id="helpButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Help" textFill="WHITE">
+                     <MFXButton fx:id="helpButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" stylesheets="@../stylesheets/SideBar.css" text="Help" textFill="#1a1c1e">
                         <font>
                            <Font name="Times New Roman" size="19.0" />
                         </font>
+                        <graphic>
+                           <ImageView>
+                              <Image url="@../images/MenuIcons/help.png" />
+                           </ImageView>
+                        </graphic>
                      </MFXButton>
-                     <MFXButton fx:id="mapButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Map" textFill="WHITE">
+                     <MFXButton fx:id="mapButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" text="Map" textFill="#1a1c1e">
                         <font>
                            <Font name="Times New Roman" size="19.0" />
                         </font>
+                        <graphic>
+                           <ImageView>
+                              <Image url="@../images/MenuIcons/map.png" />
+                           </ImageView>
+                        </graphic>
                      </MFXButton>
-                     <MFXButton fx:id="directionsButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Directions" textFill="WHITE" textOverrun="CLIP">
+                     <MFXButton fx:id="directionsButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" text="Directions" textFill="#1a1c1e" textOverrun="CLIP">
                         <font>
                            <Font name="Times New Roman" size="19.0" />
                         </font>
+                        <graphic>
+                           <ImageView>
+                              <Image url="@../images/MenuIcons/compare_arrows.png" />
+                           </ImageView>
+                        </graphic>
                      </MFXButton>
-                     <MFXButton fx:id="makeRequestsButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Make Requests" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+                     <AnchorPane styleClass="body" VBox.vgrow="ALWAYS" />
+                     <MFXButton fx:id="makeRequestsButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" text="Make Requests" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
                         <font>
                            <Font name="Times New Roman" size="19.0" />
                         </font>
+                        <graphic>
+                           <ImageView>
+                              <Image url="@../images/MenuIcons/assignment.png" />
+                           </ImageView>
+                        </graphic>
                      </MFXButton>
-                     <MFXButton fx:id="showRequestsButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Show Requests" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+                     <MFXButton fx:id="showRequestsButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" text="Show Requests" textAlignment="CENTER" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
                         <font>
                            <Font name="Times New Roman" size="19.0" />
                         </font>
+                        <graphic>
+                           <ImageView>
+                              <Image url="@../images/MenuIcons/edit_note.png" />
+                           </ImageView>
+                        </graphic>
                      </MFXButton>
-                     <MFXButton fx:id="editMapButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Edit Map" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+                     <MFXButton fx:id="editMapButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" text="Edit Map" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
                         <font>
                            <Font name="Times New Roman" size="19.0" />
                         </font>
+                        <graphic>
+                           <ImageView>
+                              <Image url="@../images/MenuIcons/edit_location.png" />
+                           </ImageView>
+                        </graphic>
                      </MFXButton>
-                     <MFXButton fx:id="exitButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Exit" textFill="WHITE">
+                     <MFXButton fx:id="exitButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" text="Exit" textFill="#1a1c1e">
                         <font>
                            <Font name="Times New Roman" size="19.0" />
                         </font>
+                        <graphic>
+                           <ImageView>
+                              <Image url="@../images/MenuIcons/logout.png" />
+                           </ImageView>
+                        </graphic>
                      </MFXButton>
-                  </items>
+                  </children>
                   <opaqueInsets>
                      <Insets />
                   </opaqueInsets>
                   <padding>
                      <Insets top="1.0" />
                   </padding>
-               </ToolBar>
+               </VBox>
+            </children>
+         </VBox>
+         <VBox HBox.hgrow="ALWAYS">
+            <children>
+               <StackPane prefHeight="50.0" stylesheets="@../stylesheets/TopBar.css">
+                  <children>
+                     <VBox stylesheets="@../stylesheets/SideBar.css" StackPane.alignment="CENTER_LEFT">
+                        <children>
+                           <Label fx:id="topLabel" maxHeight="96.0" minHeight="96.0" prefHeight="96.0" stylesheets="@../stylesheets/TopBar.css" text="Template Page">
+                              <padding>
+                                 <Insets left="24.0" />
+                              </padding>
+                           </Label>
+                        </children>
+                        <StackPane.margin>
+                           <Insets />
+                        </StackPane.margin>
+                     </VBox>
+                  </children>
+               </StackPane>
+               <HBox VBox.vgrow="ALWAYS" />
+               <HBox prefHeight="100.0" prefWidth="200.0" />
             </children>
          </VBox>
       </HBox>

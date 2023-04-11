@@ -38,7 +38,7 @@ public class App extends Application {
     primaryStage.setScene(scene);
     primaryStage.show();
 
-    Navigation.navigate(Screen.HOME);
+    Navigation.navigate(Screen.SERVICE_REQUEST);
   }
 
   @Override
