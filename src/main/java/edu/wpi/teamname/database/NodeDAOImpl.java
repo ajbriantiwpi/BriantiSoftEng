@@ -85,9 +85,11 @@ public class NodeDAOImpl implements NodeDAO {
   @Override
   public void delete(Node node) throws SQLException {
     Connection connection = DataManager.DbConnection();
-    String query = "Delete from \"Node\" WHERE \"nodeID\" = ?";
+    String del = "Delete ";
+    String sel = "Select * ";
+    String query = "from \"Node\" WHERE \"nodeID\" = ?";
 
-    try (PreparedStatement statement = connection.prepareStatement(query)) {
+    try (PreparedStatement statement = connection.prepareStatement(del+"from \"Node\" WHERE \"nodeID\" = ?")) {
       statement.setInt(1, node.getId());
       statement.executeUpdate();
     } catch (SQLException e) {
@@ -95,7 +97,7 @@ public class NodeDAOImpl implements NodeDAO {
     }
 
     try (Statement statement = connection.createStatement()) {
-      ResultSet rs2 = statement.executeQuery(query);
+      ResultSet rs2 = statement.executeQuery(sel+query);
       int count = 0;
       while (rs2.next()) count++;
       if (count == 0) System.out.println("Node information deleted successfully.");
