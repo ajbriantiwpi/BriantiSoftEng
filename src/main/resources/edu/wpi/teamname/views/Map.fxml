@@ -27,9 +27,10 @@
                <children>
                   <MFXComboBox fx:id="LocationOne" />
                   <MFXComboBox fx:id="FloorSelect" />
+                  <MFXComboBox fx:id="EndPointSelect"/>
                </children>
                <StackPane.margin>
-                  <Insets left="-250.0" top="-300.0" />
+                  <Insets left="-150.0" top="-300.0" />
                </StackPane.margin>
             </HBox>
             </children>

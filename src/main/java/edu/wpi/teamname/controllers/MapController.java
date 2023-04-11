@@ -17,6 +17,7 @@ public class MapController {
   @FXML GesturePane gp;
   @FXML AnchorPane anchor;
   @FXML MFXComboBox<String> LocationOne = new MFXComboBox<>();
+  @FXML MFXComboBox<String> EndPointSelect = new MFXComboBox<>();
 
   @FXML MFXComboBox<String> FloorSelect = new MFXComboBox<>();
 
@@ -62,15 +63,26 @@ public class MapController {
         public void handle(ActionEvent event) {
           System.out.println("T");
           System.out.println(LocationOne.getValue());
+          System.out.println(EndPointSelect.getValue());
+        }
+      };
+
+  EventHandler<ActionEvent> changeEnd =
+      new EventHandler<ActionEvent>() {
+
+        @Override
+        public void handle(ActionEvent event) {
+          System.out.println("T");
+          System.out.println(EndPointSelect.getValue());
         }
       };
 
   public String takeFloor(String f) {
     String retStr = "";
-    if(f == null){
+    if (f == null) {
       return "L1";
     }
-//    System.out.println(f);
+    //    System.out.println(f);
     switch (f) {
       case ("Lower Level 1"):
         retStr = "L1";
@@ -137,6 +149,9 @@ public class MapController {
 
     LocationOne.setItems(map.getAllNodeNames("L1"));
     LocationOne.setOnAction(changeStart);
+
+    EndPointSelect.setItems(map.getAllNodeNames("L1"));
+    EndPointSelect.setOnAction(changeEnd);
 
     FloorSelect.setItems(map.getAllFloors("L1"));
     FloorSelect.setOnAction(changeFloor);
