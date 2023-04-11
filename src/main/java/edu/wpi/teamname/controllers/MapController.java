@@ -1,6 +1,8 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.navigation.Map;
+import edu.wpi.teamname.navigation.Node;
 import edu.wpi.teamname.system.App;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
@@ -112,6 +114,24 @@ public class MapController {
           System.out.println(locText.getText() + ", " + xText.getText() + ", " + yText.getText());
           // Connect to add Node/Location Name Sql query.
 
+          int highestID = 3000;
+          String currentFloor = "L1";
+          String currentBuilding = "45 Francis";
+
+          Node n =
+              new Node(
+                  highestID + 5,
+                  (int) Double.parseDouble(xText.getText()),
+                  (int) Double.parseDouble(yText.getText()),
+                  currentFloor,
+                  currentBuilding);
+
+          try {
+            DataManager.addNode(n);
+          } catch (SQLException ex) {
+            System.out.println(ex);
+            //            throw new RuntimeException(ex);
+          }
         }
       };
 
