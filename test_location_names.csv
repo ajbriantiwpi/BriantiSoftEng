@@ -1,4 +1,4 @@
-"longName","shortName","nodeType"
-"Test Long Name 1","Test Short Name 1","Test Node Type 1"
-"Test Long Name 2","Test Short Name 2","Test Node Type 2"
-"Test Long Name 3","Test Short Name 3","Test Node Type 3"
+"startNode","endNode"
+60,61
+70,71
+80,81

@@ -10,13 +10,12 @@ import java.nio.file.Paths;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 class LocationNameDAOTest {
 
   @BeforeEach
-  void setUp() {
+  void setUp() throws SQLException {
     // TODO: Put in docker info
     DataManager.configConnection("jdbc:postgresql://localhost:5432/postgres", "user", "pass");
   }
