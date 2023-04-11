@@ -5,12 +5,13 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.tableview2.FilteredTableView?>
+
 
 <AnchorPane styleClass="body" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestViewController">
     <children>
@@ -110,8 +111,8 @@
                     </HBox>
                 </children>
             </VBox>
-         <TableView fx:id="serviceRequestTable">
-           <columns>
+         <FilteredTableView>
+            <columns>
                <TableColumn fx:id="requestIDCol" minWidth="0.0" prefWidth="148.5" style="-fx-background-color: #D5E3FF;" text="Request ID" />
                <TableColumn fx:id="patientNameCol" prefWidth="148.5" style="-fx-background-color: #D9E3F8;" text="Patient Name" />
                <TableColumn fx:id="roomNumCol" prefWidth="148.5" style="-fx-background-color: #D5E3FF;" text="Room #" />
@@ -120,11 +121,11 @@
              <TableColumn fx:id="requestedForCol" prefWidth="148.5" style="-fx-background-color: #D9E3F8;" text="Requested For" />
              <TableColumn fx:id="assignedStaffCol" prefWidth="148.5" style="-fx-background-color: #D5E3FF;" text="Assigned Staff" />
                <TableColumn fx:id="statusCol" prefWidth="148.5" style="-fx-background-color: #D9E3F8;" text="Status" />
-           </columns>
+            </columns>
             <HBox.margin>
                <Insets right="10.0" />
             </HBox.margin>
-         </TableView>
+         </FilteredTableView>
         </HBox>
     </children>
 </AnchorPane>
