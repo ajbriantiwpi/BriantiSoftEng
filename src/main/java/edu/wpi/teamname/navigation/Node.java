@@ -155,24 +155,25 @@ public class Node implements Comparable<Node> {
 
     // insert swapNodeID, swapLongN, date into Move
 
-//    String query = "";
-//
-//    try (PreparedStatement pstmtUpdate = connection.prepareStatement(query)) {
-//      int rowsUpdated = pstmtUpdate.executeUpdate();
-//      if (rowsUpdated > 0) {
-//        System.out.println("successfully updated");
-//      } else {
-//        System.out.println("not updated");
-//      }
-//    } catch (SQLException e) {
-//      System.out.println("Error updating LocationName record for node ID " + thisNode);
-//    }
+    //    String query = "";
+    //
+    //    try (PreparedStatement pstmtUpdate = connection.prepareStatement(query)) {
+    //      int rowsUpdated = pstmtUpdate.executeUpdate();
+    //      if (rowsUpdated > 0) {
+    //        System.out.println("successfully updated");
+    //      } else {
+    //        System.out.println("not updated");
+    //      }
+    //    } catch (SQLException e) {
+    //      System.out.println("Error updating LocationName record for node ID " + thisNode);
+    //    }
 
     return done;
   }
 
   /**
    * Gets the short name for any node inputed
+   *
    * @return
    * @throws SQLException
    */
@@ -180,10 +181,13 @@ public class Node implements Comparable<Node> {
     Connection connection = DataManager.DbConnection();
     String shortN = "";
     int thisNode = this.id;
-//    String getn = "Select \"longName\" from \"Move\" where \"nodeID\" = " + thisNode;
+    //    String getn = "Select \"longName\" from \"Move\" where \"nodeID\" = " + thisNode;
 
-    String getn = "Select \"shortName\" from \"LocationName\" where \"longName\" = " +
-            "(Select \"longName\" from \"Move\" where \"nodeID\" = " + thisNode + ")";
+    String getn =
+        "Select \"shortName\" from \"LocationName\" where \"longName\" = "
+            + "(Select \"longName\" from \"Move\" where \"nodeID\" = "
+            + thisNode
+            + ")";
 
     try (PreparedStatement s = connection.prepareStatement(getn)) {
       ResultSet rowsUpdated = s.executeQuery();
@@ -193,5 +197,4 @@ public class Node implements Comparable<Node> {
     }
     return shortN;
   }
-
 }

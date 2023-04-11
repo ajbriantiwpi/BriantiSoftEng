@@ -1,6 +1,7 @@
 package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.navigation.Map;
+import java.io.IOException;
 import java.sql.SQLException;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -43,7 +44,7 @@ public class MapController {
       };
 
   @FXML
-  public void initialize() throws SQLException {
+  public void initialize() throws SQLException, IOException {
 
     map = new Map();
 

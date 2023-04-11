@@ -2,6 +2,7 @@ package edu.wpi.teamname.navigation;
 
 import edu.wpi.teamname.database.DataManager;
 import java.awt.*;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -152,7 +153,8 @@ public class Map {
   //    return nodeNames;
   //  }
 
-  public ArrayList<javafx.scene.Node> makeAllFloorNodes(String floor) throws SQLException {
+  public ArrayList<javafx.scene.Node> makeAllFloorNodes(String floor)
+      throws SQLException, IOException {
     ArrayList<javafx.scene.Node> nodes =
         new ArrayList<javafx.scene.Node>(); // list of shapes to be displayed
     List<NodeCircle> circles = new ArrayList<>(); // List of NodeCircle Objects
@@ -163,9 +165,12 @@ public class Map {
       }
     }
     for (NodeCircle c : circles) {
-      nodes.add(c.outer);
-      nodes.add(c.inner);
-      nodes.add(c.text);
+      //            Pane p = new Pane();
+      //      p.getChildren().addAll(c.outer, c.inner, c.text);
+      //      nodes.add(c.outer);
+      //      nodes.add(c.inner);
+      //      nodes.add(c.text);
+      nodes.add(c.p);
     }
 
     return nodes;
