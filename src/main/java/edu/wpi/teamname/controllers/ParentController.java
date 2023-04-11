@@ -27,6 +27,7 @@ public class ParentController {
 
   @FXML
   public void initialize() throws IOException {
+    titleLabel.setText(titleString.getValue());
     System.out.println("Parent!");
 
     homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
