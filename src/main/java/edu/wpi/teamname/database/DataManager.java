@@ -49,6 +49,40 @@ public class DataManager {
     }
     return connection;
   }
+  public static ArrayList<String> getUpdatedNodeInfo(int nodeID, Timestamp date) throws SQLException {
+    ArrayList<String> update = new ArrayList<>();
+    String query = """
+            Select "longName", building, floor
+            FROM
+                (SELECT
+                     new1."nodeID", new1."longName", "shortName", "nodeType", xcoord, ycoord, building, floor, date
+                  FROM
+                    "LocationName" as l,
+                       (Select
+                            m."nodeID", xcoord, ycoord, floor, building, "longName", date
+                        FROM
+                            "Node" as n, "Move" as m
+                       Where
+                            n."nodeID" = m."nodeID") as new1
+                 Where
+                     l."longName" = new1."longName") new2
+            WHERE
+                new2."nodeID" = ? AND
+                date = ?""";
+    try (PreparedStatement statement = connection.prepareStatement(query);) {
+      statement.setInt(1, nodeID);
+      statement.setTimestamp(2, date);
+      ResultSet rs = statement.executeQuery();
+      while(rs.next()){
+        update.add(rs.getString("\"longName\""));
+        update.add(rs.getString("building"));
+        update.add(rs.getString("floor"));
+      }
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return update;
+  }
   /**
    * Main function to connect to the database
    *
