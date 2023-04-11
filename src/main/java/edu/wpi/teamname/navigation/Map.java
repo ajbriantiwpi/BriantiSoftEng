@@ -1,5 +1,6 @@
 package edu.wpi.teamname.navigation;
 
+import edu.wpi.teamname.database.DataManager;
 import java.awt.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,6 +12,12 @@ import javafx.scene.shape.*;
 import javafx.scene.shape.Shape;
 
 public class Map {
+
+  Color borderColor = new Color(0.1, 0.4, 0.9, 1);
+  Color insideColor = new Color(0.05, 0.7, 1, 1);
+  float circleR = 10.0f;
+  float lineT = 10.0f;
+  int lineTout = 2;
 
   public Map() throws SQLException {
     this.graph = new Graph();
@@ -133,18 +140,39 @@ public class Map {
   }
 
   /** */
-  public void drawEmergencies() {
+  public void drawEmergencies() {}
 
+  //  public ObservableList<String> getAllNodeNames(String floor) throws SQLException {
+  //    ObservableList<String> nodeNames = FXCollections.observableArrayList();
+  //    for (Node n : DataManager.getAllNodes()) {
+  //      if (n.getFloor().equals(floor)) {
+  //        nodeNames.addAll(("" + n.getId()));
+  //      }
+  //    }
+  //    return nodeNames;
+  //  }
+
+  public ArrayList<javafx.scene.Node> makeAllFloorNodes(String floor) throws SQLException {
+    ArrayList<javafx.scene.Node> nodes =
+        new ArrayList<javafx.scene.Node>(); // list of shapes to be displayed
+    List<NodeCircle> circles = new ArrayList<>(); // List of NodeCircle Objects
+
+    for (Node n : DataManager.getAllNodes()) {
+      if (n.getFloor().equals(floor)) {
+        circles.add(new NodeCircle(n));
+      }
+    }
+    for (NodeCircle c : circles) {
+      nodes.add(c.outer);
+      nodes.add(c.inner);
+      nodes.add(c.text);
+    }
+
+    return nodes;
   }
 
   /** */
-  public void drawLocationNames() {
-    List<Node> allNodes = this.graph.getNodes();
-    List<Label> shortNames = new ArrayList<>();
-    for(Node n: allNodes){
-
-    }
-  }
+  public void drawLocationNames() throws SQLException {}
 
   /** */
   public void clearMap() {}

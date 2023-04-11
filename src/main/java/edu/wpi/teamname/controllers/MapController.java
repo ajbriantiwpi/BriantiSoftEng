@@ -15,6 +15,8 @@ public class MapController {
   @FXML GesturePane gp;
   @FXML AnchorPane anchor;
 
+  String defaultFloor = "L1";
+
   int clickCount = 0;
   Point2D firstClick = null;
   Point2D secondClick = null;
@@ -51,5 +53,6 @@ public class MapController {
     map.centerAndZoom(anchor);
 
     ParentController.titleString.set("Map");
+    anchor.getChildren().addAll(map.makeAllFloorNodes(defaultFloor));
   }
 }
