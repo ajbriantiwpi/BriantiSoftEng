@@ -25,6 +25,10 @@ public class MapController {
   int clickCount = 0;
   Point2D firstClick = null;
   Point2D secondClick = null;
+
+  String floor1;
+  String floor2;
+
   EventHandler<MouseEvent> e =
       new EventHandler<MouseEvent>() {
         @Override
@@ -34,6 +38,8 @@ public class MapController {
           if (clickCount == 1) {
             // Capture the first click
             firstClick = new Point2D(event.getX(), event.getY());
+            floor1 = takeFloor(FloorSelect.getValue());
+
           } else if (clickCount == 2) {
             // Capture the second click
             secondClick = new Point2D(event.getX(), event.getY());
@@ -41,8 +47,10 @@ public class MapController {
             // Reset click counter
             clickCount = 0;
 
+            floor2 = takeFloor(FloorSelect.getValue());
+
             // Call drawAStarPath with both points
-            map.drawAStarPath(anchor, firstClick, secondClick);
+            map.drawAStarPath(anchor, firstClick, secondClick, floor1, floor2);
           }
         }
       };
@@ -65,35 +73,10 @@ public class MapController {
           System.out.println("CF");
           String floor = FloorSelect.getValue();
           System.out.println(floor);
-          switch (floor) {
-            case ("Lower Level 1"):
-              System.out.println("L1");
-              anchor.getStyleClass().remove(0);
-              anchor.getStyleClass().add("L1");
-              break;
-            case ("Lower Level 2"):
-              anchor.getStyleClass().remove(0);
-              anchor.getStyleClass().add("L2");
-              break;
-            case ("Ground Floor"):
-              anchor.getStyleClass().remove(0);
-              anchor.getStyleClass().add("GG");
-              break;
-            case ("First Floor"):
-              anchor.getStyleClass().remove(0);
-              anchor.getStyleClass().add("G1");
-              break;
-            case ("Second Floor"):
-              anchor.getStyleClass().remove(0);
-              anchor.getStyleClass().add("G2");
-              break;
-            case ("Third Floor"):
-              anchor.getStyleClass().remove(0);
-              anchor.getStyleClass().add("G3");
-              break;
-            default:
-              break;
-          }
+
+          anchor.getStyleClass().remove(0);
+          anchor.getStyleClass().add(takeFloor(floor));
+
           //                           System.out.println(LocationOne.getValue());
 
         }

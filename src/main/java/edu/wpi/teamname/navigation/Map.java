@@ -75,55 +75,65 @@ public class Map {
    * @param parent
    * @param clickPos
    */
-  public void drawAStarPath(Pane parent, Point2D firstClick, Point2D clickPos) {
+  public void drawAStarPath(
+      Pane parent, Point2D firstClick, Point2D secondClick, String floor1, String floor2) {
 
-    String floor = "L1";
+    //    String floor = "L1";
 
     List<Node> allNodes = this.graph.getNodes();
 
-    System.out.println(firstClick);
-    System.out.println(clickPos); // Coordinates in inner, now goes up to 5000
+    //    System.out.println(firstClick);
+    //    System.out.println(secondClick); // Coordinates in inner, now goes up to 5000
 
-    int leastDistanceNodeIndex = -1;
-    int leastDistanceNodeIndexFirst = -1;
-    double leastDistance = Double.MAX_VALUE;
-    double firstLeastDistance = Double.MAX_VALUE;
+    int startIndex = -1;
+    int endIndex = -1;
+    double leastDistance;
     double nodeDist;
-    int startNodeIndex = 4; // ID: 115
 
-    for (int i = 0; i < allNodes.size(); i++) {
-      if (i == startNodeIndex) {
-        continue;
+    Point2D currentClick;
+    String currentFloor;
+    int checkIndex;
+
+    for (int j = 0; j < 2; j++) {
+      if (j == 0) {
+        // Start Node
+        currentFloor = floor1;
+        currentClick = firstClick;
       } else {
-        Node currentNode = allNodes.get(i);
-        if (currentNode.getFloor().equals(floor)) {
-          nodeDist = firstClick.distance(currentNode.getX(), currentNode.getY());
-          if (nodeDist < firstLeastDistance) {
-            firstLeastDistance = nodeDist;
-            leastDistanceNodeIndexFirst = i;
+        // End Node
+        currentFloor = floor2;
+        currentClick = secondClick;
+      }
+
+      leastDistance = Double.MAX_VALUE;
+      checkIndex = -1;
+
+      for (int i = 0; i < allNodes.size(); i++) {
+        if (i == startIndex) {
+          continue;
+        } else {
+          Node currentNode = allNodes.get(i);
+          if (currentNode.getFloor().equals(currentFloor)) {
+            nodeDist = currentClick.distance(currentNode.getX(), currentNode.getY());
+            if (nodeDist < leastDistance) {
+              leastDistance = nodeDist;
+              checkIndex = i;
+            }
           }
         }
       }
-    }
 
-    Node startNode = allNodes.get(leastDistanceNodeIndexFirst);
-
-    for (int i = 0; i < allNodes.size(); i++) {
-      if (i == (startNode.getId() - 100) / 5) {
-        continue;
+      if (j == 0) {
+        // Start Node
+        startIndex = checkIndex;
       } else {
-        Node currentNode = allNodes.get(i);
-        if (currentNode.getFloor().equals(floor)) {
-          nodeDist = clickPos.distance(currentNode.getX(), currentNode.getY());
-          if (nodeDist < leastDistance) {
-            leastDistance = nodeDist;
-            leastDistanceNodeIndex = i;
-          }
-        }
+        // End Node
+        endIndex = checkIndex;
       }
     }
 
-    Node endNode = allNodes.get(leastDistanceNodeIndex);
+    Node startNode = allNodes.get(startIndex);
+    Node endNode = allNodes.get(endIndex);
 
     drawAStarPath(parent, startNode, endNode);
   }
