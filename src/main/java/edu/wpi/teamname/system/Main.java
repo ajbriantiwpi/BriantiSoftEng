@@ -13,8 +13,8 @@ public class Main {
         "jdbc:postgresql://database.cs.wpi.edu:5432/teamddb?currentSchema=\"teamD\"",
         "teamd",
         "teamd40");
-    // App.launch(App.class, args);
-    DataManager.exportMoveToCSV("C:/Users/jtkar/Downloads/test22.csv");
+    App.launch(App.class, args);
+    //    DataManager.exportMoveToCSV("C:/Users/jtkar/Downloads/test22.csv");
   }
 
   // shortcut: psvm

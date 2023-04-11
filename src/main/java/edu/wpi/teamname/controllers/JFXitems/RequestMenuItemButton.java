@@ -1,6 +1,7 @@
 package edu.wpi.teamname.controllers.JFXitems;
 
 import edu.wpi.teamname.servicerequest.ServiceRequest;
+import java.sql.SQLException;
 import javafx.scene.AccessibleRole;
 import javafx.scene.control.Button;
 import javafx.scene.text.Font;
@@ -30,7 +31,11 @@ public class RequestMenuItemButton extends Button {
     setOnMouseClicked(
         event -> {
           for (int a = 0; a < parent.getQuantity(); a++) {
-            request.addItem(id);
+            try {
+              request.addItem(id);
+            } catch (SQLException e) {
+              throw new RuntimeException(e);
+            }
           }
           /*catch (SQLException e) {
               throw new RuntimeException(e);
