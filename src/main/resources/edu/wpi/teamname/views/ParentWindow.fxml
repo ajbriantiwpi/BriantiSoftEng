@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ParentController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ParentController">
     <children>
         <HBox id="H0" style="-fx-background-color: #d9d9d9;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -72,19 +76,14 @@
                     <children>
                         <StackPane prefHeight="50.0">
                             <children>
-                        <Label text="Template Page" textFill="WHITE">
+                        <Label fx:id="titleText" text="Template Page" textFill="WHITE">
                            <font>
                               <Font name="Times New Roman" size="48.0" />
                            </font>
+                           <StackPane.margin>
+                              <Insets right="100.0" />
+                           </StackPane.margin>
                         </Label>
-                                <Text fx:id="titleText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Template Page" StackPane.alignment="CENTER_LEFT">
-                                    <font>
-                                        <Font name="Times New Roman" size="48.0" />
-                                    </font>
-                                    <StackPane.margin>
-                                        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
-                                    </StackPane.margin>
-                                </Text>
                             </children>
                         </StackPane>
                         <HBox id="H012" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #0000ff;" VBox.vgrow="ALWAYS" />
