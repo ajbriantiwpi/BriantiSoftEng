@@ -34,7 +34,7 @@
                                  <Insets bottom="12.0" />
                               </VBox.margin>
                            </Text>
-                           <ComboBox fx:id="requestType" prefHeight="27.0" prefWidth="180.0">
+                           <ComboBox fx:id="requestTypeCombo" prefHeight="27.0" prefWidth="180.0">
                               <VBox.margin>
                                  <Insets bottom="24.0" left="10.0" />
                               </VBox.margin></ComboBox>
@@ -46,7 +46,7 @@
                                  <Insets bottom="12.0" />
                               </VBox.margin>
                            </Text>
-                           <ComboBox prefHeight="25.0" prefWidth="180.0">
+                           <ComboBox fx:id="requestStatusCombo" prefHeight="25.0" prefWidth="180.0">
                               <VBox.margin>
                                  <Insets bottom="24.0" left="10.0" />
                               </VBox.margin></ComboBox>
@@ -58,7 +58,7 @@
                                  <Insets bottom="12.0" />
                               </VBox.margin>
                            </Text>
-                           <TextField prefHeight="25.0" prefWidth="180.0">
+                           <TextField fx:id="requestIDText" prefHeight="25.0" prefWidth="180.0">
                               <opaqueInsets>
                                  <Insets />
                               </opaqueInsets>
@@ -74,7 +74,7 @@
                                  <Insets bottom="12.0" />
                               </VBox.margin>
                            </Text>
-                           <TextField fx:id="assignStaff" prefHeight="25.0" prefWidth="180.0">
+                           <TextField fx:id="assignStaffText" prefHeight="25.0" prefWidth="180.0">
                               <opaqueInsets>
                                  <Insets />
                               </opaqueInsets>
@@ -90,7 +90,7 @@
                                  <Insets bottom="12.0" />
                               </VBox.margin>
                            </Text>
-                           <TextField fx:id="requestStatus" prefHeight="25.0" prefWidth="180.0">
+                           <TextField fx:id="requestStatusText" prefHeight="25.0" prefWidth="180.0">
                               <opaqueInsets>
                                  <Insets />
                               </opaqueInsets>
@@ -102,14 +102,14 @@
                      </VBox>
                      <TableView fx:id="serviceRequestTable" layoutX="245.0" layoutY="14.0" prefHeight="401.0" prefWidth="805.0">
                        <columns>
-                           <TableColumn prefWidth="76.0" style="-fx-background-color: #D5E3FF;" text="Request ID" />
-                           <TableColumn prefWidth="91.99996948242188" style="-fx-background-color: #D9E3F8;" text="Patient Name" />
-                           <TableColumn prefWidth="71.3333740234375" style="-fx-background-color: #D5E3FF;" text="Room #" />
-                           <TableColumn prefWidth="101.33322143554688" style="-fx-background-color: #D9E3F8;" text="Requester ID" />
-                           <TableColumn prefWidth="120.0001220703125" style="-fx-background-color: #D5E3FF;" text="Requested At" />
-                         <TableColumn prefWidth="116.66668701171875" style="-fx-background-color: #D9E3F8;" text="Requested For" />
-                         <TableColumn prefWidth="134.6666259765625" style="-fx-background-color: #D5E3FF;" text="Assigned Staff" />
-                           <TableColumn prefWidth="92.0001220703125" style="-fx-background-color: #D9E3F8;" text="Status" />
+                           <TableColumn fx:id="requestIDCol" prefWidth="76.0" style="-fx-background-color: #D5E3FF;" text="Request ID" />
+                           <TableColumn fx:id="patientNameCol" prefWidth="91.99996948242188" style="-fx-background-color: #D9E3F8;" text="Patient Name" />
+                           <TableColumn fx:id="roomNumCol" prefWidth="71.3333740234375" style="-fx-background-color: #D5E3FF;" text="Room #" />
+                           <TableColumn fx:id="requesterIDCol" prefWidth="101.33322143554688" style="-fx-background-color: #D9E3F8;" text="Requester ID" />
+                           <TableColumn fx:id="requestedAtCol" prefWidth="120.0001220703125" style="-fx-background-color: #D5E3FF;" text="Requested At" />
+                         <TableColumn fx:id="requestedForCol" prefWidth="116.66668701171875" style="-fx-background-color: #D9E3F8;" text="Requested For" />
+                         <TableColumn fx:id="assignedStaffCol" prefWidth="134.6666259765625" style="-fx-background-color: #D5E3FF;" text="Assigned Staff" />
+                           <TableColumn fx:id="statusCol" prefWidth="92.0001220703125" style="-fx-background-color: #D9E3F8;" text="Status" />
                        </columns>
                      </TableView>
                   </children></AnchorPane>
