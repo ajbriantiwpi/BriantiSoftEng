@@ -3,12 +3,11 @@ package edu.wpi.teamname;
 import static org.junit.jupiter.api.Assertions.*;
 
 import edu.wpi.teamname.database.DataManager;
-import edu.wpi.teamname.database.LocationNameDAOImpl;
 import edu.wpi.teamname.navigation.LocationName;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -164,6 +163,14 @@ class LocationNameDAOTest {
 
   @Test
   void testExportCSV() throws SQLException {
+    try {
+      Connection conn =
+          DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "user", "pass");
+      PreparedStatement ps = conn.prepareStatement("TRUNCATE TABLE \"LocationName\"");
+      ps.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
     // insert some test data
     List<LocationName> testData = new ArrayList<>();
     testData.add(new LocationName("Test Long Name 1", "Test Short Name 1", "Test Node Type 1"));
@@ -178,10 +185,9 @@ class LocationNameDAOTest {
     }
 
     // export the location names to a CSV file
-    String csvFilePath = "test_export.csv";
+    String csvFilePath = "test_location_names.csv";
     try {
-      LocationNameDAOImpl locationNameDAO = new LocationNameDAOImpl();
-      locationNameDAO.exportLocationNameToCSV(csvFilePath);
+      DataManager.exportLocationNameToCSV(csvFilePath);
     } catch (IOException e) {
       fail("IOException thrown while exporting location names to CSV");
     }
@@ -196,5 +202,21 @@ class LocationNameDAOTest {
     } catch (IOException e) {
       fail("IOException thrown while reading CSV file");
     }
+  }
+  // Test uploading a CSV file to a new table
+  @Test
+  public void testUploadLocationNameToPostgreSQL() throws SQLException {
+    // Set up test data
+    String csvFilePath = "src/test/resources/test_location_names.csv";
+
+    // Call the function being tested
+    DataManager.uploadLocationNameToPostgreSQL(csvFilePath);
+
+    // Verify that the data was uploaded correctly
+    Connection connection = DataManager.DbConnection();
+    Statement statement = connection.createStatement();
+    ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM \"LocationName\"");
+    assertTrue(resultSet.next());
+    assertEquals(3, resultSet.getInt(1));
   }
 }

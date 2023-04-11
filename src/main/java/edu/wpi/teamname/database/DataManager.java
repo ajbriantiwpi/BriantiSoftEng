@@ -362,4 +362,14 @@ public class DataManager {
     ServiceRequestDAOImpl serviceRequestDAO = new ServiceRequestDAOImpl();
     serviceRequestDAO.uploadStaffName(requestID, staffName);
   }
+
+  public static void exportLocationNameToCSV(String csvFilePath) throws SQLException, IOException {
+    LocationNameDAOImpl locationNameDAO = new LocationNameDAOImpl();
+    locationNameDAO.exportLocationNameToCSV(csvFilePath);
+  }
+
+  public static void uploadLocationNameToPostgreSQL(String csvFilePath) throws SQLException {
+    LocationNameDAOImpl locationNameDAO = new LocationNameDAOImpl();
+    locationNameDAO.uploadLocationNameToPostgreSQL(csvFilePath);
+  }
 }
