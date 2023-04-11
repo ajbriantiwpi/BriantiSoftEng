@@ -51,11 +51,12 @@ public class DataManager {
   }
   /**
    * Main function to connect to the database
+   *
    * @param createTableQuery a String that reps the query to create a table
    * @param tableName a String that reps the name of the table being checked
-   *
    */
-  public void createTableIfNotExists(String tableName, String createTableQuery) throws SQLException {
+  public static void createTableIfNotExists(String tableName, String createTableQuery)
+      throws SQLException {
     connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
     DatabaseMetaData dbm = connection.getMetaData();
     ResultSet rs = dbm.getTables(null, null, tableName, null);
