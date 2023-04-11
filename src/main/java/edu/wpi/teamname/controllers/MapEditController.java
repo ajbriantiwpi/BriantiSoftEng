@@ -1,7 +1,6 @@
 package edu.wpi.teamname.controllers;
 
 import javafx.fxml.FXML;
-import javafx.stage.FileChooser;
 
 public class MapEditController {
 
