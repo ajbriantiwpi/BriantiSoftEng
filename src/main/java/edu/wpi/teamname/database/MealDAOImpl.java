@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MealDAOImpl implements MealDAO {
 
@@ -124,6 +125,40 @@ public class MealDAOImpl implements MealDAO {
     }
     return meal;
   }
+  /**
+   * Uploads CSV data to a PostgreSQL database table "Meal"
+   *
+   * @param csvFilePath is a String representing a file path
+   * @throws SQLException if an error occurs while uploading the data to the database
+   */
+  public static void uploadMealToPostgreSQL(String csvFilePath) throws SQLException {
+    List<String[]> csvData;
+    Connection connection = DataManager.DbConnection();
+    DataManager dataImport = new DataManager();
+    csvData = dataImport.parseCSVAndUploadToPostgreSQL(csvFilePath);
+
+    try (connection) {
+      String query =
+          "INSERT INTO \"Meal\" (\"mealID\", \"Name\", \"Price\",\"Meal\",\"Cuisine\") VALUES (?, ?, ?, ?, ?)";
+      PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"Meal\";");
+      statement.executeUpdate();
+      statement = connection.prepareStatement(query);
+
+      for (int i = 1; i < csvData.size(); i++) {
+        String[] row = csvData.get(i);
+        statement.setInt(1, Integer.parseInt(row[0]));
+        statement.setString(2, row[1]);
+        statement.setInt(3, Integer.parseInt(row[2]));
+        statement.setString(4, row[3]);
+        statement.setString(5, row[4]);
+
+        statement.executeUpdate();
+      }
+      System.out.println("CSV data uploaded to PostgreSQL database");
+    } catch (SQLException e) {
+      System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
+    }
+  }
 
   public static void exportMealToCSV(String csvFilePath) throws SQLException, IOException {
     Connection connection = DataManager.DbConnection();
@@ -132,7 +167,7 @@ public class MealDAOImpl implements MealDAO {
     ResultSet resultSet = statement.executeQuery(query);
 
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(csvFilePath))) {
-      writer.write("nodeID,xcoord,ycoord,floor,building\n");
+      writer.write("mealID,Name,Price,Meal,Cuisine\n");
       while (resultSet.next()) {
         int mealID = resultSet.getInt("mealID");
         String name = resultSet.getString("Name");

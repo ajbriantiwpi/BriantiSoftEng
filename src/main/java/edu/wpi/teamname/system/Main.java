@@ -1,7 +1,7 @@
 package edu.wpi.teamname.system;
 
 import edu.wpi.teamname.database.DataManager;
-import edu.wpi.teamname.database.ServiceRequestDAOImpl;
+import edu.wpi.teamname.database.MealDAOImpl;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -13,10 +13,8 @@ public class Main {
         "jdbc:postgresql://database.cs.wpi.edu:5432/teamddb?currentSchema=\"teamD\"",
         "teamd",
         "teamd40");
-    ServiceRequestDAOImpl sv = new ServiceRequestDAOImpl();
-    sv.uploadServiceRequestToPostgreSQL("C:\\Users\\boxtu\\OneDrive\\Desktop\\serviceReq.csv");
 
-    // App.launch(App.class, args);
+    App.launch(App.class, args);
   }
 
   // shortcut: psvm
