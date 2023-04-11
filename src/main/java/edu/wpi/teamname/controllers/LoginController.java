@@ -1,5 +1,6 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.database.Login;
 import edu.wpi.teamname.system.Navigation;
 import edu.wpi.teamname.system.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -17,7 +18,7 @@ public class LoginController {
   @FXML MFXButton exit;
   @FXML AnchorPane rootPane;
   @FXML StackPane paneOfStuff;
-//  String tempPassword;
+  //  String tempPassword;
   @FXML Label newPassword;
   @FXML Label success;
   @FXML MFXButton loginButton;
@@ -27,16 +28,15 @@ public class LoginController {
   @FXML MFXButton cancel;
 
   private static boolean loginPressed(String username, String password) throws SQLException {
-    //    Login user = new Login(username, password);
-    //    boolean successLog = DataManager.Login(username, password);
-    //    if (successLog) {
-    //      HomeController.setLoggedIn(true);
-    //      Navigation.navigate(Screen.HOME);
-    //      return true;
-    //    } else {
-    //      return false;
-    //    }
-    return true;
+    Login user = new Login(username, password);
+    boolean successLog = user.LogInto();
+    if (successLog) {
+      HomeController.setLoggedIn(true);
+      Navigation.navigate(Screen.HOME);
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @FXML
@@ -84,6 +84,7 @@ public class LoginController {
 
   private String forgotPasswordPressed(String username) throws SQLException {
     //    return DataManager.forgotPassword(username);
-    return "";
+    Login temp = new Login(username, "");
+    return temp.resetPass("NewPassword");
   }
 }
