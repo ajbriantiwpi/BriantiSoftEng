@@ -138,6 +138,24 @@ public class MealDAOImpl implements MealDAO {
     csvData = dataImport.parseCSVAndUploadToPostgreSQL(csvFilePath);
 
     try (connection) {
+      DatabaseMetaData metadata = connection.getMetaData();
+      ResultSet resultSet = metadata.getTables(null, null, "Meal", null);
+      if (!resultSet.next()) {
+        // create a new table if one does not exist
+        String createTableQuery =
+            "CREATE TABLE \"Meal\" (\n"
+                + "  \"mealID\" INTEGER NOT NULL,\n"
+                + "  \"Name\" VARCHAR(255),\n"
+                + "  \"Price\" INTEGER,\n"
+                + "  \"Meal\" VARCHAR(255),\n"
+                + "  \"Cuisine\" VARCHAR(255),\n"
+                + "  PRIMARY KEY (\"mealID\")\n"
+                + ");";
+        PreparedStatement createStatement = connection.prepareStatement(createTableQuery);
+        createStatement.executeUpdate();
+        System.out.println("Created new table \"Meal\"");
+      }
+
       String query =
           "INSERT INTO \"Meal\" (\"mealID\", \"Name\", \"Price\",\"Meal\",\"Cuisine\") VALUES (?, ?, ?, ?, ?)";
       PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"Meal\";");

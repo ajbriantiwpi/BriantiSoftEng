@@ -13,8 +13,10 @@ public class Main {
         "jdbc:postgresql://database.cs.wpi.edu:5432/teamddb?currentSchema=\"teamD\"",
         "teamd",
         "teamd40");
+    MealDAOImpl me = new MealDAOImpl();
+    me.uploadMealToPostgreSQL("C:\\Users\\boxtu\\OneDrive\\Desktop\\meal.csv");
 
-    App.launch(App.class, args);
+    // App.launch(App.class, args);
   }
 
   // shortcut: psvm
