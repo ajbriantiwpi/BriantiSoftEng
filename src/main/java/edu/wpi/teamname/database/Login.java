@@ -11,6 +11,7 @@ public class Login {
   @Getter @Setter private static Login user = null;
   @Getter @Setter private String username;
   @Getter @Setter private String password;
+  @Getter private final String originalUsername;
 
   @Getter @Setter private static boolean admin;
 
@@ -27,6 +28,7 @@ public class Login {
     }
     this.username = username;
     this.password = password;
+    this.originalUsername = username;
   }
 
   public boolean LogInto() throws SQLException {

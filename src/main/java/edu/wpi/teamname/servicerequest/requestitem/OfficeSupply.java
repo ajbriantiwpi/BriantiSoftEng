@@ -9,35 +9,35 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Flower extends RequestItem {
-  @Getter @Setter private float price;
-  @Getter @Setter private String category;
-  @Getter @Setter private String color;
+public class OfficeSupply extends RequestItem {
+  @Setter @Getter private float price;
+  @Setter @Getter private String category;
+  @Setter @Getter private boolean isElectric;
 
-  public Flower(int flowerID, String name, float price, String category, String color) {
-    super(flowerID, name);
+  public OfficeSupply(int itemID, String name, float price, String category, boolean isElectric) {
+    super(itemID, name);
     this.price = price;
     this.category = category;
-    this.color = color;
+    this.isElectric = isElectric;
   }
 
-  public Flower(int id) throws SQLException {
+  public OfficeSupply(int id) throws SQLException {
     super(id);
     Connection connection = DataManager.DbConnection();
-    String query = "SELECT * FROM \"Flower\" WHERE \"flowerID\" = ?;";
+    String query = "SELECT * FROM \"OfficeSupply\" WHERE \"supplyID\" = ?;";
 
     String name = null;
     try (PreparedStatement statement = connection.prepareStatement(query)) {
       statement.setInt(1, id);
       ResultSet rs = statement.executeQuery();
       while (rs.next()) {
-        super.setName(rs.getString("Name"));
-        setPrice(rs.getFloat("Price"));
-        setCategory(rs.getString("Category"));
-        setColor(rs.getString("Color"));
+        super.setName(rs.getString("name"));
+        setPrice(rs.getFloat("price"));
+        setCategory(rs.getString("category"));
+        setElectric(rs.getBoolean("isElectric"));
       }
     } catch (SQLException e) {
-      System.out.println("Error retrieving meal data: " + e.getMessage());
+      System.out.println("Error retrieving office supply data: " + e.getMessage());
     }
   }
 
@@ -51,7 +51,7 @@ public class Flower extends RequestItem {
         + ", "
         + category
         + ", "
-        + color
+        + isElectric
         + "]";
   }
 }
