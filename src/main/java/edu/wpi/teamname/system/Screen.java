@@ -1,11 +1,22 @@
 package edu.wpi.teamname.system;
 
 public enum Screen {
+  // Enum Constants Calling the Enum Constructor
   ROOT("../views/Root.fxml"),
+  TEMPLATE("../views/Template.fxml"),
   HOME("../views/Home.fxml"),
+  SERVICE_REQUEST("../views/ServiceRequest2.fxml"),
   MAP("../views/Map.fxml"),
-  SERVICE_REQUEST("../views/ServiceRequest.fxml");
 
+  TEST("../views/Test.fxml"),
+  SIGNAGE("../views/SignageLevels.fxml"),
+
+  //  REQ_MENU("views/ServiceRequestMenu.fxml"),
+  LOGIN("../views/Login.fxml"),
+  //  SIGNAGE("views/SignageLevels.fxml"),
+  SERVICE_REQUEST_VIEW("../views/ServiceRequestView.fxml"),
+
+  MAP_EDIT("../views/MapEdit.fxml");
   private final String filename;
 
   Screen(String filename) {

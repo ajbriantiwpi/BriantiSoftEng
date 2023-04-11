@@ -21,6 +21,7 @@ public class Node implements Comparable<Node> {
   @Getter @Setter private List<Node> neighbors;
   //  @Getter @Setter private List<Edge> edges;
   @Getter @Setter private List<Edge> edges;
+  @Getter private final int originalID;
   // f: sum of g and h;
   @Getter @Setter private double f = Double.MAX_VALUE;
   // g: Distance from start and node n
@@ -37,6 +38,7 @@ public class Node implements Comparable<Node> {
     this.id = ID;
     this.neighbors = new ArrayList<>();
     //    this.edges = new ArrayList<>();
+    this.originalID = ID;
   }
 
   @Override

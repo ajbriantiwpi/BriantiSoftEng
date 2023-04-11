@@ -1,8 +1,13 @@
 package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.LoginDAO;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class LoginDAOImpl implements LoginDAO {
   /** */
@@ -10,11 +15,12 @@ public class LoginDAOImpl implements LoginDAO {
   public void sync(Login login) throws SQLException {
     Connection connection = DataManager.DbConnection();
     try (connection) {
-      String query = "UPDATE \"Login\" SET \"password\" = ?" + " WHERE \"username\" = ?";
+      String query =
+          "UPDATE \"Login\" SET \"password\" = ?, \"username\" = ? WHERE \"username\" = ?";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setString(1, login.getPassword());
       statement.setString(2, login.getUsername());
-
+      statement.setString(3, login.getOriginalUsername());
       statement.executeUpdate();
     } catch (SQLException e) {
       System.out.println(e.getMessage());
@@ -51,8 +57,6 @@ public class LoginDAOImpl implements LoginDAO {
 
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
-      statement.executeUpdate(query);
-      statement = connection.prepareStatement(query);
       statement.setString(1, login.getUsername());
       statement.setString(2, login.getPassword());
       statement.executeUpdate();
@@ -66,9 +70,10 @@ public class LoginDAOImpl implements LoginDAO {
   @Override
   public void delete(Login login) throws SQLException {
     Connection connection = DataManager.DbConnection();
-    String query = "Delete from \"Login\" " + "where username = " + login.getUsername();
+    String query = "Delete from \"Login\" where username = ?";
 
     try (PreparedStatement statement = connection.prepareStatement(query)) {
+      statement.setString(1, login.getUsername());
       statement.executeUpdate();
     } catch (SQLException e) {
       System.out.println("Delete in Login table error. " + e);
@@ -82,6 +87,82 @@ public class LoginDAOImpl implements LoginDAO {
       else System.out.println("Login information did not delete.");
     } catch (SQLException e2) {
       System.out.println("Error checking delete. " + e2);
+    }
+  }
+
+  public static Login getLogin(String username) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    String query = "SELECT * FROM \"Login\" WHERE \"username\" = ?";
+    Login login = null;
+    try (connection) {
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setString(1, username);
+      ResultSet rs = statement.executeQuery();
+
+      String user = rs.getString("username");
+      String pass = rs.getString("password");
+      login = (new Login(user, pass));
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return login;
+  }
+
+  /**
+   * Uploads CSV data to a PostgreSQL database table "Login"
+   *
+   * @param csvFilePath is a String representing a file path
+   * @throws SQLException if an error occurs while uploading the data to the database
+   */
+  public static void uploadLoginToPostgreSQL(String csvFilePath)
+      throws SQLException, ParseException {
+    List<String[]> csvData;
+    Connection connection = DataManager.DbConnection();
+    DataManager dataImport = new DataManager();
+    csvData = dataImport.parseCSVAndUploadToPostgreSQL(csvFilePath);
+
+    try (connection) {
+      String query = "INSERT INTO \"Login\" (\"username\", \"password\") VALUES (?, ?)";
+      PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"Login\";");
+      statement.executeUpdate();
+      statement = connection.prepareStatement(query);
+
+      for (int i = 1; i < csvData.size(); i++) {
+        String[] row = csvData.get(i);
+        statement.setString(1, row[0]); // username is a string column
+        statement.setString(2, row[1]); // password is a string column
+        statement.executeUpdate();
+      }
+      System.out.println("CSV data uploaded to PostgreSQL database");
+    } catch (SQLException e) {
+      System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
+    }
+  }
+
+  /**
+   * Exports data from a PostgreSQL database table "Login" to a CSV file
+   *
+   * @param csvFilePath is a String representing a file path
+   * @throws SQLException if an error occurs while exporting the data from the database
+   */
+  public static void exportLoginToCSV(String csvFilePath) throws SQLException, IOException {
+    Connection connection = DataManager.DbConnection();
+    String query = "SELECT * FROM \"Login\"";
+    Statement statement = connection.createStatement();
+    ResultSet resultSet = statement.executeQuery(query);
+
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(csvFilePath))) {
+      writer.write("username,password\n");
+      while (resultSet.next()) {
+        String username = resultSet.getString("username");
+        String password = resultSet.getString("password");
+
+        String row = username + "," + password + "\n";
+        writer.write(row);
+      }
+      System.out.println("CSV data downloaded from PostgreSQL database");
+    } catch (IOException e) {
+      System.err.println("Error downloading CSV data from PostgreSQL database: " + e.getMessage());
     }
   }
 }

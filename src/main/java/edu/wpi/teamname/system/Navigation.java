@@ -24,8 +24,7 @@ public class Navigation {
       Pane PFinal;
       if (!(filename.equals("../views/Home.fxml")) && !(filename.equals("../views/Login.fxml"))) {
         System.out.println("Here");
-        final FXMLLoader loader2 =
-            new FXMLLoader(App.class.getResource("../views/ParentWindow.fxml"));
+        final FXMLLoader loader2 = new FXMLLoader(App.class.getResource("../views/Template.fxml"));
         final Pane root = loader2.load();
         Pane inner =
             (Pane)
