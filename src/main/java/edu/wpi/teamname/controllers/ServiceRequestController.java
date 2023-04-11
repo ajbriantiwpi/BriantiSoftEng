@@ -54,12 +54,15 @@ public class ServiceRequestController {
   // Form fields
   // @FXML TextField staffName;
   @FXML TextField patientName;
-  @FXML TextField roomNum;
+  @FXML ComboBox nodeBox;
+  ObservableList<String> longNames =
+      FXCollections.observableArrayList(DataManager.getNamesAlphabetically());
   @FXML DatePicker dateBox;
   @FXML ComboBox timeBox;
   ObservableList<String> timeValues = FXCollections.observableArrayList();
   ObservableList<String> serviceType =
-      FXCollections.observableArrayList("Meal Delivery", "Flower Delivery");
+      FXCollections.observableArrayList(
+          "Meal Delivery", "Flower Delivery", "Office Supply Delivery", "Furniture Delivery");
   @FXML ComboBox requestType;
 
   // menu item page
@@ -79,6 +82,20 @@ public class ServiceRequestController {
           "Purple Hyacinths",
           "Pink Hyacinths");
 
+  ObservableList<String> furnitureItems =
+      FXCollections.observableArrayList(
+          "Harlow Dresser",
+          "Aspen Bed",
+          "Eames Lounge Chair",
+          "Tulip Dining Table",
+          "Oslo Recliner",
+          "Baxter Bookcase",
+          "Palmer Ottoman");
+
+  ObservableList<String> officeItems =
+      FXCollections.observableArrayList(
+          "Stapler", "Calculator", "Pen", "Paper shredder", "Notebook", "Desk lamp", "Whiteboard");
+
   @FXML AnchorPane summaryPane;
   @FXML Label summaryLabel;
 
@@ -86,6 +103,8 @@ public class ServiceRequestController {
 
   // ArrayList<Integer> itemIDs;
   ArrayList<Flower> items;
+
+  public ServiceRequestController() throws SQLException {}
 
   /**
    * Controls the switching and progression through creating the service request
@@ -115,7 +134,8 @@ public class ServiceRequestController {
                 Instant.now().get(ChronoField.MICRO_OF_SECOND),
                 "",
                 patientName.toString(),
-                roomNum.toString(),
+                "",
+                // node.toString(),
                 Timestamp.from(Instant.now()),
                 Timestamp.from(Instant.now()),
                 Status.BLANK,
@@ -127,7 +147,8 @@ public class ServiceRequestController {
                 Instant.now().get(ChronoField.MICRO_OF_SECOND),
                 "",
                 patientName.toString(),
-                roomNum.toString(),
+                "",
+                // roomNum.toString(),
                 Timestamp.from(Instant.now()),
                 Timestamp.from(Instant.now()),
                 Status.BLANK,
@@ -151,7 +172,8 @@ public class ServiceRequestController {
       requestPage = 1;
 
       request.setPatientName(patientName.getCharacters().toString());
-      request.setRoomNumber(roomNum.getCharacters().toString());
+      // request.setRoomNumber(roomNum.getCharacters().toString());
+      request.setRoomNumber("");
       // request.setDeliverBy(dateBox.getValue().atStartOfDay());
 
     } else if (requestPage == 1) {
@@ -164,7 +186,7 @@ public class ServiceRequestController {
       setVisibleScreen(0);
       requestPage = 0;
       nextButton.setText("Next");
-      // request.uploadRequestToDatabase();
+      DataManager.addServiceRequest(request);
       Navigation.navigate(Screen.HOME);
 
       System.out.println(request);
@@ -181,7 +203,7 @@ public class ServiceRequestController {
   private void clearAction() {
     patientName.clear();
     // staffName.clear();
-    roomNum.clear();
+    // roomNum.clear();
     requestType.cancelEdit();
     dateBox.cancelEdit();
     if (requestPage > 0) {
@@ -235,6 +257,7 @@ public class ServiceRequestController {
       timeValues.add(Integer.toString(h) + ":45");
     }
     timeBox.setItems(timeValues);
+    nodeBox.setItems(longNames);
 
     nextButton.setText("Next");
 

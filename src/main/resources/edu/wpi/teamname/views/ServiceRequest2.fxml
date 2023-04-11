@@ -39,12 +39,12 @@
                                                         </Text>
                                                         <TextField fx:id="patientName" prefHeight="49.0" prefWidth="500.0" style="-fx-background-color: #d9d9d9;" />
                                                         <Separator prefWidth="200.0" />
-                                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room Number">
+                                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room Name">
                                                             <font>
                                                                 <Font name="Times New Roman" size="32.0" />
                                                             </font>
                                                         </Text>
-                                                        <TextField fx:id="roomNum" prefHeight="49.0" prefWidth="500.0" style="-fx-background-color: #d9d9d9;" />
+                                                        <ComboBox fx:id="nodeBox" prefHeight="49.0" prefWidth="500.0" style="-fx-background-color: #d9d9d9;" />
                                                         <Separator prefWidth="200.0" />
                                                         <GridPane hgap="10.0" vgap="25.0">
                                                             <columnConstraints>
