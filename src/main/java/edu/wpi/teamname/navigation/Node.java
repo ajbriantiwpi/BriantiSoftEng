@@ -132,20 +132,11 @@ public class Node implements Comparable<Node> {
    * @param move
    * @return Boolean
    */
-  public boolean moveNode(Move move) throws SQLException {
+  public Boolean moveNode(Move move) throws SQLException {
     Connection connection = DataManager.DbConnection();
     boolean done = false;
     int swapNodeID = move.getNodeID();
     String swapLongN = move.getLongName();
-    int thisNode = this.id;
-
-    String getLn = "Select \"longName\" from \"Move\" where \"nodeID\" = " + thisNode;
-    try (PreparedStatement s = connection.prepareStatement(getLn)) {
-      ResultSet rowsUpdated = s.executeQuery();
-      String longN = rowsUpdated.getString("longName");
-    } catch (SQLException e2) {
-      System.out.println("Error getting long name.");
-    }
 
     /** Might use sync functions with this feature */
     // A starting node, B is node being swapped with
@@ -164,19 +155,43 @@ public class Node implements Comparable<Node> {
 
     // insert swapNodeID, swapLongN, date into Move
 
-    String query = "";
-
-    try (PreparedStatement pstmtUpdate = connection.prepareStatement(query)) {
-      int rowsUpdated = pstmtUpdate.executeUpdate();
-      if (rowsUpdated > 0) {
-        System.out.println("successfully updated");
-      } else {
-        System.out.println("not updated");
-      }
-    } catch (SQLException e) {
-      System.out.println("Error updating LocationName record for node ID " + thisNode);
-    }
+//    String query = "";
+//
+//    try (PreparedStatement pstmtUpdate = connection.prepareStatement(query)) {
+//      int rowsUpdated = pstmtUpdate.executeUpdate();
+//      if (rowsUpdated > 0) {
+//        System.out.println("successfully updated");
+//      } else {
+//        System.out.println("not updated");
+//      }
+//    } catch (SQLException e) {
+//      System.out.println("Error updating LocationName record for node ID " + thisNode);
+//    }
 
     return done;
   }
+
+  /**
+   * Gets the short name for any node inputed
+   * @return
+   * @throws SQLException
+   */
+  public String getShortName() throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    String shortN = "";
+    int thisNode = this.id;
+//    String getn = "Select \"longName\" from \"Move\" where \"nodeID\" = " + thisNode;
+
+    String getn = "Select \"shortName\" from \"LocationName\" where \"longName\" = " +
+            "(Select \"longName\" from \"Move\" where \"nodeID\" = " + thisNode + ")";
+
+    try (PreparedStatement s = connection.prepareStatement(getn)) {
+      ResultSet rowsUpdated = s.executeQuery();
+      shortN = rowsUpdated.getString("shortName");
+    } catch (SQLException e2) {
+      System.out.println("Error getting short name.");
+    }
+    return shortN;
+  }
+
 }
