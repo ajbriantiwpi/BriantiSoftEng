@@ -30,6 +30,9 @@ public class MapController {
   String floor1;
   String floor2;
 
+  int sNode = 0;
+  int eNode = 0;
+
   EventHandler<MouseEvent> e =
       new EventHandler<MouseEvent>() {
         @Override
@@ -63,7 +66,11 @@ public class MapController {
         public void handle(ActionEvent event) {
           System.out.println("T");
           System.out.println(LocationOne.getValue());
-          System.out.println(EndPointSelect.getValue());
+          // System.out.println(EndPointSelect.getValue());
+          sNode = Integer.parseInt(LocationOne.getValue());
+          if (sNode != 0 && eNode != 0) {
+            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
+          }
         }
       };
 
@@ -74,6 +81,10 @@ public class MapController {
         public void handle(ActionEvent event) {
           System.out.println("T");
           System.out.println(EndPointSelect.getValue());
+          eNode = Integer.parseInt(EndPointSelect.getValue());
+          if (sNode != 0 && eNode != 0) {
+            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
+          }
         }
       };
 
@@ -147,7 +158,8 @@ public class MapController {
 
     map.centerAndZoom(gp);
 
-    LocationOne.setItems(map.getAllNodeNames("L1"));
+    LocationOne.setItems(
+        map.getAllNodeNames("L1")); // change for when the floor changes to update the nodes shown
     LocationOne.setOnAction(changeStart);
 
     EndPointSelect.setItems(map.getAllNodeNames("L1"));

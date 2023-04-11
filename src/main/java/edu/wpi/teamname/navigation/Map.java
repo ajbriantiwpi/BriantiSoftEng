@@ -73,7 +73,10 @@ public class Map {
 
   /**
    * @param parent
-   * @param clickPos
+   * @param firstClick
+   * @param secondClick
+   * @param floor1
+   * @param floor2
    */
   public void drawAStarPath(
       Pane parent, Point2D firstClick, Point2D secondClick, String floor1, String floor2) {
@@ -132,8 +135,25 @@ public class Map {
       }
     }
 
+
+
     Node startNode = allNodes.get(startIndex);
     Node endNode = allNodes.get(endIndex);
+
+    drawAStarPath(parent, startNode, endNode);
+  }
+
+  public void drawAStarPath(Pane parent, String floor1, String floor2, int sNode, int eNode) {
+
+    //    String floor = "L1";
+
+    List<Node> allNodes = this.graph.getNodes();
+
+    //    System.out.println(firstClick);
+    //    System.out.println(secondClick); // Coordinates in inner, now goes up to 5000
+
+    Node startNode = allNodes.get(/*startIndex*/ (sNode - 100) / 5);
+    Node endNode = allNodes.get(/*endIndex*/ (eNode - 100) / 5);
 
     drawAStarPath(parent, startNode, endNode);
   }
