@@ -23,37 +23,37 @@
                         <children>
                            <Label text="Request Type" textFill="#001b3b">
                               <font>
-                                 <Font size="20.0" />
+                                  <Font name="Roboto" size="28.0" />
                               </font>
                               <VBox.margin>
                                  <Insets bottom="12.0" />
                               </VBox.margin>
                            </Label>
-                           <ComboBox fx:id="requestTypeCombo" prefHeight="71.0" prefWidth="206.0" stylesheets="@../stylesheets/combo.css">
+                           <ComboBox fx:id="requestTypeCombo" prefHeight="71.0" prefWidth="396.0" promptText="Choose Request Type" styleClass="combo-box" stylesheets="@../stylesheets/combo.css">
                               <VBox.margin>
                                  <Insets bottom="24.0" />
                               </VBox.margin></ComboBox>
                            <Label text="Request Status" textFill="#001b3b">
                               <font>
-                                 <Font size="20.0" />
+                                  <Font name="Roboto" size="28.0" />
                               </font>
                               <VBox.margin>
                                  <Insets bottom="12.0" />
                               </VBox.margin>
                            </Label>
-                           <ComboBox fx:id="requestStatusCombo" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="71.0" prefWidth="206.0" stylesheets="@../stylesheets/combo.css">
+                           <ComboBox fx:id="requestStatusCombo" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="71.0" prefWidth="396.0" promptText="Choose Status" stylesheets="@../stylesheets/combo.css">
                               <VBox.margin>
                                  <Insets bottom="24.0" />
                               </VBox.margin></ComboBox>
                            <Label text="Request ID" textFill="#001b3b">
                               <font>
-                                 <Font size="20.0" />
+                                  <Font name="Roboto" size="28.0" />
                               </font>
                               <VBox.margin>
                                  <Insets bottom="12.0" />
                               </VBox.margin>
                            </Label>
-                           <TextField fx:id="requestIDText" maxWidth="-Infinity" prefHeight="50.0" prefWidth="206.0" style="-fx-background-color: #D9E3F8;">
+                           <TextField fx:id="requestIDText" maxWidth="-Infinity" prefHeight="50.0" prefWidth="396.0" style="-fx-background-color: #D9E3F8;">
                               <opaqueInsets>
                                  <Insets />
                               </opaqueInsets>
@@ -63,13 +63,13 @@
                            </TextField>
                            <Label text="Assign Staff" textFill="#001b3b">
                               <font>
-                                 <Font size="20.0" />
+                                  <Font name="Roboto" size="28.0" />
                               </font>
                               <VBox.margin>
                                  <Insets bottom="12.0" />
                               </VBox.margin>
                            </Label>
-                           <TextField fx:id="assignStaffText" maxWidth="-Infinity" prefHeight="50.0" prefWidth="206.0" style="-fx-background-color: #D9E3F8;">
+                           <TextField fx:id="assignStaffText" maxWidth="-Infinity" prefHeight="50.0" prefWidth="396.0" style="-fx-background-color: #D9E3F8;">
                               <opaqueInsets>
                                  <Insets />
                               </opaqueInsets>
@@ -79,13 +79,13 @@
                            </TextField>
                            <Label text="Request Status" textFill="#001b3b">
                               <font>
-                                 <Font size="20.0" />
+                                 <Font name="Roboto" size="28.0" />
                               </font>
                               <VBox.margin>
                                  <Insets bottom="12.0" />
                               </VBox.margin>
                            </Label>
-                           <TextField fx:id="requestStatusText" maxWidth="-Infinity" prefHeight="50.0" prefWidth="206.0" style="-fx-background-color: #D9E3F8;">
+                           <TextField fx:id="requestStatusText" maxWidth="-Infinity" prefHeight="50.0" prefWidth="396.0" style="-fx-background-color: #D9E3F8;">
                               <opaqueInsets>
                                  <Insets />
                               </opaqueInsets>
@@ -95,18 +95,6 @@
                            </TextField>
                         </children>
                      </VBox>
-                     <TableView fx:id="serviceRequestTable" layoutX="243.0" layoutY="14.0">
-                       <columns>
-                           <TableColumn fx:id="requestIDCol" minWidth="0.0" prefWidth="148.5" style="-fx-background-color: #D5E3FF;" text="Request ID" />
-                           <TableColumn fx:id="patientNameCol" prefWidth="148.5" style="-fx-background-color: #D9E3F8;" text="Patient Name" />
-                           <TableColumn fx:id="roomNumCol" prefWidth="148.5" style="-fx-background-color: #D5E3FF;" text="Room #" />
-                           <TableColumn fx:id="requesterIDCol" prefWidth="148.5" style="-fx-background-color: #D9E3F8;" text="Requester ID" />
-                           <TableColumn fx:id="requestedAtCol" prefWidth="148.5" style="-fx-background-color: #D5E3FF;" text="Requested At" />
-                         <TableColumn fx:id="requestedForCol" prefWidth="148.5" style="-fx-background-color: #D9E3F8;" text="Requested For" />
-                         <TableColumn fx:id="assignedStaffCol" prefWidth="148.5" style="-fx-background-color: #D5E3FF;" text="Assigned Staff" />
-                           <TableColumn fx:id="statusCol" prefWidth="148.5" style="-fx-background-color: #D9E3F8;" text="Status" />
-                       </columns>
-                     </TableView>
                   </children></AnchorPane>
                     <HBox fillHeight="false" spacing="30.0" VBox.vgrow="NEVER">
                         <children>
@@ -122,6 +110,21 @@
                     </HBox>
                 </children>
             </VBox>
+         <TableView fx:id="serviceRequestTable">
+           <columns>
+               <TableColumn fx:id="requestIDCol" minWidth="0.0" prefWidth="148.5" style="-fx-background-color: #D5E3FF;" text="Request ID" />
+               <TableColumn fx:id="patientNameCol" prefWidth="148.5" style="-fx-background-color: #D9E3F8;" text="Patient Name" />
+               <TableColumn fx:id="roomNumCol" prefWidth="148.5" style="-fx-background-color: #D5E3FF;" text="Room #" />
+               <TableColumn fx:id="requesterIDCol" prefWidth="148.5" style="-fx-background-color: #D9E3F8;" text="Requester ID" />
+               <TableColumn fx:id="requestedAtCol" prefWidth="148.5" style="-fx-background-color: #D5E3FF;" text="Requested At" />
+             <TableColumn fx:id="requestedForCol" prefWidth="148.5" style="-fx-background-color: #D9E3F8;" text="Requested For" />
+             <TableColumn fx:id="assignedStaffCol" prefWidth="148.5" style="-fx-background-color: #D5E3FF;" text="Assigned Staff" />
+               <TableColumn fx:id="statusCol" prefWidth="148.5" style="-fx-background-color: #D9E3F8;" text="Status" />
+           </columns>
+            <HBox.margin>
+               <Insets right="10.0" />
+            </HBox.margin>
+         </TableView>
         </HBox>
     </children>
 </AnchorPane>
