@@ -13,9 +13,7 @@ import edu.wpi.teamname.servicerequest.requestitem.OfficeSupply;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +48,24 @@ public class DataManager {
       }
     }
     return connection;
+  }
+  /**
+   * Main function to connect to the database
+   *
+   * @param createTableQuery a String that reps the query to create a table
+   * @param tableName a String that reps the name of the table being checked
+   */
+  public static void createTableIfNotExists(String tableName, String createTableQuery)
+      throws SQLException {
+    connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+    DatabaseMetaData dbm = connection.getMetaData();
+    ResultSet rs = dbm.getTables(null, null, tableName, null);
+    if (!rs.next()) { // table does not exist
+      Statement statement = connection.createStatement();
+      statement.executeUpdate(createTableQuery);
+      statement.close();
+    }
+    rs.close();
   }
 
   /**

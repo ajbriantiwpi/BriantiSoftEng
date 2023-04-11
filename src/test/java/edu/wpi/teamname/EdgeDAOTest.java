@@ -14,12 +14,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class EdgeDAOTest {
+
   @BeforeEach
   void setUp() throws SQLException {
     // TODO: Put in docker info
     DataManager.configConnection("jdbc:postgresql://localhost:5432/postgres", "user", "pass");
     String query = "Truncate Table \"Edge\"";
     Connection connection = DataManager.DbConnection();
+    DataManager.createTableIfNotExists(
+        "Edge",
+        "CREATE TABLE IF NOT EXISTS \"Edge\" (\"startNode\" INTEGER, \"endNode\" INTEGER);");
     try (PreparedStatement statement = connection.prepareStatement(query)) {
       statement.executeUpdate();
     } catch (SQLException e) {
