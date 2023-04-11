@@ -6,8 +6,6 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -159,7 +157,8 @@ public class ItemsOrderedDAOImpl implements ItemsOrderedDAO {
     csvData = dataImport.parseCSVAndUploadToPostgreSQL(csvFilePath);
 
     try (connection) {
-      String query = "INSERT INTO \"ItemsOrdered\" (\"requestID\", \"itemID\", \"quantity\") VALUES (?, ?, ?)";
+      String query =
+          "INSERT INTO \"ItemsOrdered\" (\"requestID\", \"itemID\", \"quantity\") VALUES (?, ?, ?)";
       PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"ItemsOrdered\";");
       statement.executeUpdate();
       statement = connection.prepareStatement(query);

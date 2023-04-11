@@ -2,8 +2,6 @@ package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.LocationNameDAO;
 import edu.wpi.teamname.navigation.LocationName;
-import edu.wpi.teamname.servicerequest.requestitem.OfficeSupply;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
@@ -218,8 +216,9 @@ public class LocationNameDAOImpl implements LocationNameDAO {
     return locationName;
   }
 
-  /***
-   * Gets
+  /**
+   * * Gets
+   *
    * @return
    */
   public static ArrayList<String> getAllLongNames() throws SQLException {

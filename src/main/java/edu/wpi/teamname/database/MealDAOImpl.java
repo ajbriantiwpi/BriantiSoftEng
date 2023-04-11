@@ -6,7 +6,6 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -161,7 +160,6 @@ public class MealDAOImpl implements MealDAO {
       System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
     }
   }
-
 
   public static void exportMealToCSV(String csvFilePath) throws SQLException, IOException {
     Connection connection = DataManager.DbConnection();

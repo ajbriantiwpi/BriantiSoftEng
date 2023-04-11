@@ -1,7 +1,6 @@
 package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.LoginDAO;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -115,7 +114,8 @@ public class LoginDAOImpl implements LoginDAO {
    * @param csvFilePath is a String representing a file path
    * @throws SQLException if an error occurs while uploading the data to the database
    */
-  public static void uploadLoginToPostgreSQL(String csvFilePath) throws SQLException, ParseException {
+  public static void uploadLoginToPostgreSQL(String csvFilePath)
+      throws SQLException, ParseException {
     List<String[]> csvData;
     Connection connection = DataManager.DbConnection();
     DataManager dataImport = new DataManager();
@@ -134,7 +134,7 @@ public class LoginDAOImpl implements LoginDAO {
         statement.executeUpdate();
       }
       System.out.println("CSV data uploaded to PostgreSQL database");
-    } catch (SQLException e ) {
+    } catch (SQLException e) {
       System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
     }
   }

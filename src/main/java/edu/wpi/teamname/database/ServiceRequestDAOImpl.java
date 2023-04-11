@@ -4,10 +4,6 @@ import edu.wpi.teamname.database.interfaces.ServiceRequestDAO;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import edu.wpi.teamname.servicerequest.Status;
 import edu.wpi.teamname.servicerequest.requestitem.RequestItem;
-
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
@@ -256,8 +252,10 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
    * @throws SQLException if an error occurs while exporting the data from the database
    * @throws IOException if an error occurs while writing the data to the file
    */
-  public void exportServiceRequestToCSV(String csvFilePath) throws SQLException, IOException {
-    ArrayList<ServiceRequest> serviceRequests = getAll();
+  public static void exportServiceRequestToCSV(String csvFilePath)
+      throws SQLException, IOException {
+    ServiceRequestDAOImpl serviceRequestDAO = new ServiceRequestDAOImpl();
+    ArrayList<ServiceRequest> serviceRequests = serviceRequestDAO.getAll();
 
     FileWriter writer = new FileWriter(csvFilePath);
     writer.write(

@@ -157,14 +157,16 @@ public class FlowerDAOImpl implements FlowerDAO {
    * @param csvFilePath is a String representing a file path
    * @throws SQLException if an error occurs while uploading the data to the database
    */
-  public static void uploadFlowerToPostgreSQL(String csvFilePath) throws SQLException, ParseException {
+  public static void uploadFlowerToPostgreSQL(String csvFilePath)
+      throws SQLException, ParseException {
     List<String[]> csvData;
     Connection connection = DataManager.DbConnection();
     DataManager dataImport = new DataManager();
     csvData = dataImport.parseCSVAndUploadToPostgreSQL(csvFilePath);
 
     try (connection) {
-      String query = "INSERT INTO \"Flowers\" (\"flowerID\", \"Name\", \"Price\", \"Category\", \"Color\") VALUES (?, ?, ?, ?, ?, ?)";
+      String query =
+          "INSERT INTO \"Flowers\" (\"flowerID\", \"Name\", \"Price\", \"Category\", \"Color\") VALUES (?, ?, ?, ?, ?, ?)";
       PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"Flowers\";");
       statement.executeUpdate();
       statement = connection.prepareStatement(query);
@@ -177,11 +179,10 @@ public class FlowerDAOImpl implements FlowerDAO {
         statement.setString(4, row[3]); // category is a string column
         statement.setString(5, row[4]); // color is a string column
 
-
         statement.executeUpdate();
       }
       System.out.println("CSV data uploaded to PostgreSQL database");
-    } catch (SQLException e ) {
+    } catch (SQLException e) {
       System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
     }
   }
