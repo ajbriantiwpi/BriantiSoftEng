@@ -18,6 +18,8 @@ public class MapController {
   @FXML AnchorPane anchor;
   @FXML MFXComboBox<String> LocationOne = new MFXComboBox<>();
 
+  @FXML MFXComboBox<String> FloorSelect = new MFXComboBox<>();
+
   String defaultFloor = "L1";
 
   int clickCount = 0;
@@ -55,6 +57,38 @@ public class MapController {
         }
       };
 
+  EventHandler<ActionEvent> changeFloor =
+      new EventHandler<ActionEvent>() {
+
+        @Override
+        public void handle(ActionEvent event) {
+          System.out.println("CF");
+          String floor = FloorSelect.getValue();
+          switch (floor) {
+            case ("L1"):
+              //                  anchor.getStyleC
+              //                  anchor.setStyle();
+              break;
+            case ("L2"):
+              anchor.getStyleClass().remove(0);
+              anchor.getStyleClass().add("L2");
+              break;
+            case ("GG"):
+              break;
+            case ("G1"):
+              break;
+            case ("G2"):
+              break;
+            case ("G3"):
+              break;
+            default:
+              break;
+          }
+          //                           System.out.println(LocationOne.getValue());
+
+        }
+      };
+
   EventHandler<MouseEvent> checkPoints =
       new EventHandler<MouseEvent>() {
 
@@ -74,13 +108,16 @@ public class MapController {
 
     //    gp.setOnMouseMoved(checkPoints);
 
-    anchor.getChildren().addAll(map.makeAllFloorNodes(defaultFloor));
+    //    anchor.getChildren().addAll(map.makeAllFloorNodes(defaultFloor));
 
     map.centerAndZoom(anchor);
 
     LocationOne.setItems(map.getAllNodeNames("L1"));
-
     LocationOne.setOnAction(changeStart);
+
+    FloorSelect.setItems(map.getAllFloors("L1"));
+    FloorSelect.setOnAction(changeFloor);
+
     //    System.out.println(getAllNodeNames("L1"));
 
     ParentController.titleString.set("Map");

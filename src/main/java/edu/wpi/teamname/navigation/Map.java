@@ -144,6 +144,21 @@ public class Map {
     return nodeNames;
   }
 
+  String[] floorArr = {
+    "Lower Level 2", "Lower Level 1", "Ground Floor", "First Floor", "Second Floor", "Third Floor"
+  };
+
+  public ObservableList<String> getAllFloors(String floor) throws SQLException {
+    ObservableList<String> floorNames = FXCollections.observableArrayList();
+
+    for (String f : floorArr) {
+
+      floorNames.addAll(f);
+    }
+
+    return floorNames;
+  }
+
   EventHandler<MouseEvent> makeVisible =
       new EventHandler<MouseEvent>() {
 
@@ -184,7 +199,7 @@ public class Map {
         //        inner.setVisible(false);
 
         outer.setOnMouseEntered(makeVisible);
-//        text. makeVistimbe
+        //        text. makeVistimbe
 
         outer.setOnMouseExited(hide);
 
