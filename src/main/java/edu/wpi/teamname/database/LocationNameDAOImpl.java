@@ -226,7 +226,8 @@ public class LocationNameDAOImpl implements LocationNameDAO {
     ArrayList<String> list = new ArrayList<String>();
 
     try (connection) {
-      String query = "SELECT * FROM \"LocationName\" ORDER BY \"longName\"";
+      String query =
+          "SELECT * FROM \"LocationName\" WHERE \"nodeType\" = 'CONF' OR \"nodeType\" = 'DEPT' OR \"nodeType\" = 'INFO' OR \"nodeType\" = 'LABS' ORDER BY \"longName\"";
       PreparedStatement statement = connection.prepareStatement(query);
       ResultSet rs = statement.executeQuery();
 
