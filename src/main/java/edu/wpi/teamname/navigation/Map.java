@@ -10,9 +10,9 @@ import javafx.geometry.Point2D;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
+import javafx.scene.shape.Shape;
 import lombok.Getter;
 import lombok.Setter;
-import javafx.scene.shape.Shape;
 
 public class Map {
 

@@ -1,8 +1,10 @@
 package edu.wpi.teamname.navigation;
 
+import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.system.App;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
+import java.sql.SQLException;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
@@ -72,8 +74,9 @@ public class NodeCircle {
 
     //    v.setTranslateY(-200);
 
-    inner.setOpacity(0);
-    outer.setOpacity(0);
+    //    inner.setOpacity(0);
+    //    outer.setOpacity(0);
+
     //    v.setOpacity(0);
     //    v.setDisable(true);
 
@@ -137,12 +140,22 @@ public class NodeCircle {
           MFXButton SubmitButton = ((MFXButton) event.getSource());
           VBox v = (VBox) ((HBox) SubmitButton.getParent()).getParent();
 
-//          for (javafx.scene.Node n : p.getChildren()) {
-//            if (n.getClass() == VBox.class) {
-//              p.getChildren().remove(n);
-//              break;
-//            }
-//          }
+          //          for (javafx.scene.Node n : p.getChildren()) {
+          //            if (n.getClass() == VBox.class) {
+          //              p.getChildren().remove(n);
+          //              break;
+          //            }
+          //          }
+
+          // Only the Node ID is important for Deletion
+          Node n = new Node(nodeID, 0, 0, "", "");
+
+          try {
+            DataManager.deleteNode(n);
+          } catch (SQLException ex) {
+            System.out.println(ex);
+            //            throw new RuntimeException(ex);
+          }
         }
       };
 
@@ -161,6 +174,26 @@ public class NodeCircle {
           System.out.println(
               locText.getText() + ", " + xText.getText() + ", " + yText.getText() + "2");
 
+          //          int highestID = 3000;
+          String currentFloor = "L1";
+          String currentBuilding = "45 Francis";
+
+          Node n =
+              new Node(
+                  nodeID,
+                  (int) Double.parseDouble(xText.getText()),
+                  (int) Double.parseDouble(yText.getText()),
+                  currentFloor,
+                  currentBuilding);
+
+          try {
+            DataManager.syncNode(n);
+          } catch (SQLException ex) {
+            System.out.println(ex);
+            //            throw new RuntimeException(ex);
+          }
+
+          System.out.println("DONE SYNC");
           // Update Based On text
         }
       };
@@ -182,7 +215,7 @@ public class NodeCircle {
 
           // Set Location Name
           TextField Location = (TextField) ((Pane) (v.getChildren().get(0))).getChildren().get(1);
-          Location.setText("" + nodeCords.getX());
+          Location.setText("LOC");
           // Set X
           TextField XText = (TextField) ((Pane) (v.getChildren().get(1))).getChildren().get(1);
           XText.setText("" + nodeCords.getX());

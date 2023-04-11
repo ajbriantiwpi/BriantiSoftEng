@@ -95,7 +95,8 @@ public class NodeDAOImpl implements NodeDAO {
     }
 
     try (Statement statement = connection.createStatement()) {
-      ResultSet rs2 = statement.executeQuery(query);
+      ResultSet rs2 =
+          statement.executeQuery("Select * from \"Node\" WHERE \"nodeID\" = " + node.getId());
       int count = 0;
       while (rs2.next()) count++;
       if (count == 0) System.out.println("Node information deleted successfully.");
