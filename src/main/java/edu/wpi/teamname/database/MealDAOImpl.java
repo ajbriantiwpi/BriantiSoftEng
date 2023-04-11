@@ -86,9 +86,10 @@ public class MealDAOImpl implements MealDAO {
   @Override
   public void delete(Meal meal) throws SQLException {
     Connection connection = DataManager.DbConnection();
-    String query = "Delete from \"Meal\" " + "where \"mealID\" = " + meal.getItemID();
+    String query = "Delete from \"Meal\" where \"mealID\" = ?";
 
     try (PreparedStatement statement = connection.prepareStatement(query)) {
+      statement.setInt(1, meal.getItemID());
       statement.executeUpdate();
     } catch (SQLException e) {
       System.out.println("Delete in Meal table error. " + e);

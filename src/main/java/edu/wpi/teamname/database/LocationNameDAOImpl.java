@@ -215,4 +215,26 @@ public class LocationNameDAOImpl implements LocationNameDAO {
     }
     return locationName;
   }
+
+  /**
+   * * Gets
+   *
+   * @return
+   */
+  public static ArrayList<String> getAllLongNames() throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    ArrayList<String> list = new ArrayList<String>();
+
+    try (connection) {
+      String query = "SELECT * FROM \"LocationName\" ORDER BY \"longName\"";
+      PreparedStatement statement = connection.prepareStatement(query);
+      ResultSet rs = statement.executeQuery();
+
+      while (rs.next()) {
+        list.add(rs.getString("longName"));
+      }
+    }
+    connection.close();
+    return list;
+  }
 }

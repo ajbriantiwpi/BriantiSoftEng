@@ -7,13 +7,16 @@ import edu.wpi.teamname.navigation.Node;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import edu.wpi.teamname.servicerequest.requestitem.Flower;
+import edu.wpi.teamname.servicerequest.requestitem.Furniture;
 import edu.wpi.teamname.servicerequest.requestitem.Meal;
+import edu.wpi.teamname.servicerequest.requestitem.OfficeSupply;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -119,6 +122,18 @@ public class DataManager {
   }
 
   /** */
+  public static void syncFurniture(Furniture furniture) throws SQLException {
+    FurnitureDAOImpl furnitureDAO = new FurnitureDAOImpl();
+    furnitureDAO.sync(furniture);
+  }
+
+  /** */
+  public static void syncOfficeSupply(OfficeSupply officeSupply) throws SQLException {
+    OfficeSupplyDAOImpl officeSupplyDAO = new OfficeSupplyDAOImpl();
+    officeSupplyDAO.sync(officeSupply);
+  }
+
+  /** */
   public static void addMoves(Move move) throws SQLException {
     MoveDAOImpl moveDAO = new MoveDAOImpl();
     moveDAO.add(move);
@@ -172,6 +187,18 @@ public class DataManager {
   public static void addLocationName(LocationName locationName) throws SQLException {
     LocationNameDAOImpl locationNameDAO = new LocationNameDAOImpl();
     locationNameDAO.add(locationName);
+  }
+
+  /** */
+  public static void addFurniture(Furniture furniture) throws SQLException {
+    FurnitureDAOImpl furnitureDAO = new FurnitureDAOImpl();
+    furnitureDAO.add(furniture);
+  }
+
+  /** */
+  public static void addOfficeSupply(OfficeSupply officeSupply) throws SQLException {
+    OfficeSupplyDAOImpl officeSupplyDAO = new OfficeSupplyDAOImpl();
+    officeSupplyDAO.add(officeSupply);
   }
 
   /** */
@@ -235,6 +262,18 @@ public class DataManager {
     locationNameDAO.delete(locationName);
   }
 
+  /** */
+  public static void deleteFurniture(Furniture furniture) throws SQLException {
+    FurnitureDAOImpl furnitureDAO = new FurnitureDAOImpl();
+    furnitureDAO.delete(furniture);
+  }
+
+  /** */
+  public static void deleteOfficeSupply(OfficeSupply officeSupply) throws SQLException {
+    OfficeSupplyDAOImpl officeSupplyDAO = new OfficeSupplyDAOImpl();
+    officeSupplyDAO.delete(officeSupply);
+  }
+
   /** @return ArrayList<Move> */
   public static ArrayList<Move> getAllMoves() throws SQLException {
     MoveDAOImpl moveDAO = new MoveDAOImpl();
@@ -284,6 +323,18 @@ public class DataManager {
     return locationNameDAO.getAll();
   }
 
+  /** @return ArrayList<LocationName> */
+  public static ArrayList<Furniture> getAllFurniture() throws SQLException {
+    FurnitureDAOImpl furnitureDAO = new FurnitureDAOImpl();
+    return furnitureDAO.getAll();
+  }
+
+  /** @return ArrayList<LocationName> */
+  public static ArrayList<OfficeSupply> getAllOfficeSupplies() throws SQLException {
+    OfficeSupplyDAOImpl officeSupplyDAO = new OfficeSupplyDAOImpl();
+    return officeSupplyDAO.getAll();
+  }
+
   public static Flower getFlower(int id) throws SQLException {
     FlowerDAOImpl flowerDAO = new FlowerDAOImpl();
     return flowerDAO.getFlower(id);
@@ -319,6 +370,14 @@ public class DataManager {
     return serviceRequestDAO.getServiceRequest(id);
   }
 
+  public static Furniture getFurniture(int id) throws SQLException {
+    return FurnitureDAOImpl.getFurniture(id);
+  }
+
+  public static OfficeSupply getOfficeSupply(int id) throws SQLException {
+    return OfficeSupplyDAOImpl.getOfficeSupply(id);
+  }
+
   /**
    * * Parses a CSV after being given a String path and then returns a list of Strings after it
    * parses
@@ -351,7 +410,8 @@ public class DataManager {
   }
 
   /**
-   * *
+   * Given a serviceRequestID and a staffName Update the given staff name at the certain service
+   * request
    *
    * @param requestID
    * @param staffName
@@ -363,13 +423,100 @@ public class DataManager {
     serviceRequestDAO.uploadStaffName(requestID, staffName);
   }
 
-  public static void exportLocationNameToCSV(String csvFilePath) throws SQLException, IOException {
-    LocationNameDAOImpl locationNameDAO = new LocationNameDAOImpl();
-    locationNameDAO.exportLocationNameToCSV(csvFilePath);
-  }
-
   public static void uploadLocationNameToPostgreSQL(String csvFilePath) throws SQLException {
     LocationNameDAOImpl locationNameDAO = new LocationNameDAOImpl();
     locationNameDAO.uploadLocationNameToPostgreSQL(csvFilePath);
+  }
+
+  public static void uploadEdge(String path) throws SQLException {
+    EdgeDAOImpl.uploadEdgeToPostgreSQL(path);
+  }
+
+  public static void uploadFlower(String path) throws SQLException, ParseException {
+    FlowerDAOImpl.uploadFlowerToPostgreSQL(path);
+  }
+
+  public static void uploadFurniture(String path) throws SQLException, ParseException {
+    FurnitureDAOImpl.uploadFurnitureToPostgreSQL(path);
+  }
+
+  public static void uploadItemsOrdered(String path) throws SQLException, ParseException {
+    ItemsOrderedDAOImpl.uploadItemsOrderedToPostgreSQL(path);
+  }
+
+  public static void uploadLocationName(String path) throws SQLException, ParseException {
+    LocationNameDAOImpl.uploadLocationNameToPostgreSQL(path);
+  }
+
+  public static void uploadLogin(String path) throws SQLException, ParseException {
+    LoginDAOImpl.uploadLoginToPostgreSQL(path);
+  }
+
+  public static void uploadMeal(String path) throws SQLException, ParseException {
+    MealDAOImpl.uploadMealToPostgreSQL(path);
+  }
+
+  public static void uploadMove(String path) throws SQLException, ParseException {
+    MoveDAOImpl.uploadMoveToPostgreSQL(path);
+  }
+
+  public static void uploadNode(String path) throws SQLException, ParseException {
+    NodeDAOImpl.uploadNodeToPostgreSQL(path);
+  }
+
+  public static void uploadOfficeSupply(String path) throws SQLException, ParseException {
+    OfficeSupplyDAOImpl.uploadOfficeSupplyToPostgreSQL(path);
+  }
+
+  public static void uploadServiceRequest(String path) throws SQLException, ParseException {
+    ServiceRequestDAOImpl.uploadServiceRequestToPostgreSQL(path);
+  }
+
+  public static void exportEdgeToCSV(String path) throws SQLException, IOException {
+    EdgeDAOImpl.exportEdgeToCSV(path);
+  }
+
+  public static void exportFlowersToCSV(String path) throws SQLException, IOException {
+    FlowerDAOImpl.exportFlowersToCSV(path);
+  }
+
+  public static void exportFurnitureToCSV(String path) throws SQLException, IOException {
+    FurnitureDAOImpl.exportFurnitureToCSV(path);
+  }
+
+  public static void exportItemsOrderedToCSV(String path) throws SQLException, IOException {
+    ItemsOrderedDAOImpl.exportItemsOrderedToCSV(path);
+  }
+
+  public static void exportLocationNameToCSV(String path) throws SQLException, IOException {
+    LocationNameDAOImpl.exportLocationNameToCSV(path);
+  }
+
+  public static void exportLoginToCSV(String path) throws SQLException, IOException {
+    LoginDAOImpl.exportLoginToCSV(path);
+  }
+
+  public static void exportMealToCSV(String path) throws SQLException, IOException {
+    MealDAOImpl.exportMealToCSV(path);
+  }
+
+  public static void exportMoveToCSV(String path) throws SQLException, IOException {
+    MoveDAOImpl.exportMoveToCSV(path);
+  }
+
+  public static void exportNodeToCSV(String path) throws SQLException, IOException {
+    NodeDAOImpl.exportNodeToCSV(path);
+  }
+
+  public static void exportOfficeSupplyToCSV(String path) throws SQLException, IOException {
+    OfficeSupplyDAOImpl.exportOfficeSupplyToCSV(path);
+  }
+
+  public static void exportServiceRequestToCSV(String path) throws SQLException, IOException {
+    ServiceRequestDAOImpl.exportServiceRequestToCSV(path);
+  }
+
+  public static ArrayList<String> getNamesAlphabetically() throws SQLException {
+    return LocationNameDAOImpl.getAllLongNames();
   }
 }

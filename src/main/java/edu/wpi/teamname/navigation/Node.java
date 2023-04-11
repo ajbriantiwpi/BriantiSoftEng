@@ -41,11 +41,6 @@ public class Node implements Comparable<Node> {
     this.originalID = ID;
   }
 
-  /** @return */
-  public Node getParent() {
-    return null;
-  }
-
   @Override
   public int compareTo(Node n) {
     return Double.compare(this.f, n.f);

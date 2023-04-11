@@ -252,8 +252,10 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
    * @throws SQLException if an error occurs while exporting the data from the database
    * @throws IOException if an error occurs while writing the data to the file
    */
-  public void exportServiceRequestToCSV(String csvFilePath) throws SQLException, IOException {
-    ArrayList<ServiceRequest> serviceRequests = getAll();
+  public static void exportServiceRequestToCSV(String csvFilePath)
+      throws SQLException, IOException {
+    ServiceRequestDAOImpl serviceRequestDAO = new ServiceRequestDAOImpl();
+    ArrayList<ServiceRequest> serviceRequests = serviceRequestDAO.getAll();
 
     FileWriter writer = new FileWriter(csvFilePath);
     writer.write(

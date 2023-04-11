@@ -6,7 +6,9 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class FlowerDAOImpl implements FlowerDAO {
   /** Sync an ORM with its row in the database */
@@ -146,6 +148,42 @@ public class FlowerDAOImpl implements FlowerDAO {
       System.out.println("CSV data downloaded from PostgreSQL database");
     } catch (IOException e) {
       System.err.println("Error downloading CSV data from PostgreSQL database: " + e.getMessage());
+    }
+  }
+
+  /**
+   * Uploads CSV data to a PostgreSQL database table "Flowers"
+   *
+   * @param csvFilePath is a String representing a file path
+   * @throws SQLException if an error occurs while uploading the data to the database
+   */
+  public static void uploadFlowerToPostgreSQL(String csvFilePath)
+      throws SQLException, ParseException {
+    List<String[]> csvData;
+    Connection connection = DataManager.DbConnection();
+    DataManager dataImport = new DataManager();
+    csvData = dataImport.parseCSVAndUploadToPostgreSQL(csvFilePath);
+
+    try (connection) {
+      String query =
+          "INSERT INTO \"Flowers\" (\"flowerID\", \"Name\", \"Price\", \"Category\", \"Color\") VALUES (?, ?, ?, ?, ?, ?)";
+      PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"Flowers\";");
+      statement.executeUpdate();
+      statement = connection.prepareStatement(query);
+
+      for (int i = 1; i < csvData.size(); i++) {
+        String[] row = csvData.get(i);
+        statement.setInt(1, Integer.parseInt(row[0])); // flowerID is an int column
+        statement.setString(2, row[1]); // name is a string column
+        statement.setFloat(3, Float.parseFloat(row[2])); // price is a float column
+        statement.setString(4, row[3]); // category is a string column
+        statement.setString(5, row[4]); // color is a string column
+
+        statement.executeUpdate();
+      }
+      System.out.println("CSV data uploaded to PostgreSQL database");
+    } catch (SQLException e) {
+      System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
     }
   }
 }
