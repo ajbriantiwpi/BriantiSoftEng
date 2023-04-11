@@ -4,6 +4,8 @@ import edu.wpi.teamname.database.interfaces.ServiceRequestDAO;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import edu.wpi.teamname.servicerequest.Status;
 import edu.wpi.teamname.servicerequest.requestitem.RequestItem;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -239,5 +241,34 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }
+  }
+
+  public void uploadServiceRequestToPostgreSQL(String fileName) throws SQLException, IOException {
+    ArrayList<ServiceRequest> serviceRequests = getAll();
+
+    FileWriter writer = new FileWriter(fileName);
+    writer.write(
+        "Request ID,Staff Name,Patient Name,Room Number,Requested At,Deliver By,Status,Request Made By\n");
+
+    for (ServiceRequest sr : serviceRequests) {
+      writer.write(
+          sr.getRequestID()
+              + ","
+              + sr.getStaffName()
+              + ","
+              + sr.getPatientName()
+              + ","
+              + sr.getRoomNumber()
+              + ","
+              + sr.getRequestedAt()
+              + ","
+              + sr.getDeliverBy()
+              + ","
+              + sr.getStatus().getStatusString()
+              + ","
+              + sr.getRequestMadeBy()
+              + "\n");
+    }
+    writer.close();
   }
 }

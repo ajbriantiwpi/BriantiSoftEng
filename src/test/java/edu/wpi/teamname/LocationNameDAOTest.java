@@ -20,7 +20,6 @@ class LocationNameDAOTest {
   void setUp() {
     // TODO: Put in docker info
     DataManager.configConnection("jdbc:postgresql://localhost:5432/postgres", "user", "pass");
-
   }
 
   @Test
@@ -125,6 +124,7 @@ class LocationNameDAOTest {
     }
     assertTrue(isIn);
   }
+
   @Test
   void testDelete() throws SQLException {
     // create a location name to delete
