@@ -4,8 +4,15 @@ import edu.wpi.teamname.database.interfaces.ServiceRequestDAO;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import edu.wpi.teamname.servicerequest.Status;
 import edu.wpi.teamname.servicerequest.requestitem.RequestItem;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ServiceRequestDAOImpl implements ServiceRequestDAO {
   /** */
@@ -238,6 +245,83 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
       connection.close();
     } catch (SQLException e) {
       System.out.println(e.getMessage());
+    }
+  }
+
+  /**
+   * Uploads CSV data to a PostgreSQL database table "ServiceRequest"
+   *
+   * @param csvFilePath is a String representing a file path
+   * @throws SQLException if an error occurs while uploading the data to the database
+   */
+  public static void uploadServiceRequestToPostgreSQL(String csvFilePath) throws SQLException, ParseException {
+    List<String[]> csvData;
+    Connection connection = DataManager.DbConnection();
+    DataManager dataImport = new DataManager();
+    csvData = dataImport.parseCSVAndUploadToPostgreSQL(csvFilePath);
+
+    try (connection) {
+      String query = "INSERT INTO \"ServiceRequest\" (\"requestID\", \"roomNum\", \"staffName\", \"patientName\", \"requestedAt\", \"deliverBy\", \"status\", \"requestMadeBy\") VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+      PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"ServiceRequest\";");
+      statement.executeUpdate();
+      statement = connection.prepareStatement(query);
+
+      for (int i = 1; i < csvData.size(); i++) {
+        String[] row = csvData.get(i);
+        statement.setInt(1, Integer.parseInt(row[0])); // requestID is an int column
+        statement.setString(2, row[1]); // roomNum is a string column
+        statement.setString(3, row[2]); // staffName is a string column
+        statement.setString(4, row[3]); // patientName is a string column
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+        java.util.Date parsedDate = dateFormat.parse(row[4]);
+        Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+        statement.setTimestamp(5, timestamp); // requestedAt is a timestamp column
+
+        parsedDate = dateFormat.parse(row[5]);
+        timestamp = new java.sql.Timestamp(parsedDate.getTime());
+        statement.setTimestamp(6, timestamp); // deliverBy is a timestamp column
+        statement.setString(7, row[6]);// status is a string column
+        statement.setString(8, row[7]); // requestMadeBy is a string column
+
+        statement.executeUpdate();
+      }
+      System.out.println("CSV data uploaded to PostgreSQL database");
+    } catch (SQLException e ) {
+      System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
+    }
+  }
+
+  /**
+   * Exports data from a PostgreSQL database table "ServiceRequest" to a CSV file
+   *
+   * @param csvFilePath is a String representing a file path
+   * @throws SQLException if an error occurs while exporting the data from the database
+   */
+  public static void exportServiceRequestToCSV(String csvFilePath) throws SQLException, IOException {
+    Connection connection = DataManager.DbConnection();
+    String query = "SELECT * FROM \"ServiceRequest\"";
+    Statement statement = connection.createStatement();
+    ResultSet resultSet = statement.executeQuery(query);
+
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(csvFilePath))) {
+      writer.write("requestID,roomNum,staffName,patientName,requestedAt,deliverBy,status,requestMadeBy");
+      while (resultSet.next()) {
+        int requestID = resultSet.getInt("requestID");
+        String roomNum = resultSet.getString("roomNum");
+        String staffName = resultSet.getString("staffName");
+        String patientName = resultSet.getString("patientName");
+        String requestedAt = resultSet.getTimestamp("requestedAt").toString();
+        String deliverBy = resultSet.getTimestamp("deliverBy").toString();
+        String status = resultSet.getString("status");
+        String requestMadeBy = resultSet.getString("requestMadeBy");
+
+        String row = requestID + "," + roomNum + "," + staffName + "," + patientName + "," + requestedAt + "," + deliverBy + "," + status + "," + requestMadeBy + "\n";
+        writer.write(row);
+      }
+      System.out.println("CSV data downloaded from PostgreSQL database");
+    } catch (IOException e) {
+      System.err.println("Error downloading CSV data from PostgreSQL database: " + e.getMessage());
     }
   }
 }

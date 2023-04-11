@@ -2,12 +2,13 @@ package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.MealDAO;
 import edu.wpi.teamname.servicerequest.requestitem.Meal;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MealDAOImpl implements MealDAO {
 
@@ -86,9 +87,10 @@ public class MealDAOImpl implements MealDAO {
   @Override
   public void delete(Meal meal) throws SQLException {
     Connection connection = DataManager.DbConnection();
-    String query = "Delete from \"Meal\" " + "where \"mealID\" = " + meal.getItemID();
+    String query = "Delete from \"Meal\" where \"mealID\" = ?";
 
     try (PreparedStatement statement = connection.prepareStatement(query)) {
+      statement.setInt(1, meal.getItemID());
       statement.executeUpdate();
     } catch (SQLException e) {
       System.out.println("Delete in Meal table error. " + e);
@@ -125,6 +127,7 @@ public class MealDAOImpl implements MealDAO {
     }
     return meal;
   }
+
   public static void exportMealToCSV(String csvFilePath) throws SQLException, IOException {
     Connection connection = DataManager.DbConnection();
     String query = "SELECT * FROM \"Meal\"";
@@ -132,7 +135,7 @@ public class MealDAOImpl implements MealDAO {
     ResultSet resultSet = statement.executeQuery(query);
 
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(csvFilePath))) {
-      writer.write("nodeID,xcoord,ycoord,floor,building\n");
+      writer.write("mealID,Name,Price,Meal,Cuisine\n");
       while (resultSet.next()) {
         int mealID = resultSet.getInt("mealID");
         String name = resultSet.getString("Name");
@@ -149,4 +152,38 @@ public class MealDAOImpl implements MealDAO {
     }
   }
 
+  /**
+   * Uploads CSV data to a PostgreSQL database table "Flowers"
+   *
+   * @param csvFilePath is a String representing a file path
+   * @throws SQLException if an error occurs while uploading the data to the database
+   */
+  public static void uploadMealToPostgreSQL(String csvFilePath) throws SQLException, ParseException {
+    List<String[]> csvData;
+    Connection connection = DataManager.DbConnection();
+    DataManager dataImport = new DataManager();
+    csvData = dataImport.parseCSVAndUploadToPostgreSQL(csvFilePath);
+
+    try (connection) {
+      String query = "INSERT INTO \"Meal\" (\"mealID\", \"Name\", \"Price\", \"Meal\", \"Cuisine\") VALUES (?, ?, ?, ?, ?, ?)";
+      PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"Meal\";");
+      statement.executeUpdate();
+      statement = connection.prepareStatement(query);
+
+      for (int i = 1; i < csvData.size(); i++) {
+        String[] row = csvData.get(i);
+        statement.setInt(1, Integer.parseInt(row[0])); // flowerID is an int column
+        statement.setString(2, row[1]); // name is a string column
+        statement.setFloat(3, Float.parseFloat(row[2])); // price is a float column
+        statement.setString(4, row[3]); // meal is a string column
+        statement.setString(5, row[4]); // cuisine is a string column
+
+
+        statement.executeUpdate();
+      }
+      System.out.println("CSV data uploaded to PostgreSQL database");
+    } catch (SQLException e ) {
+      System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
+    }
+  }
 }

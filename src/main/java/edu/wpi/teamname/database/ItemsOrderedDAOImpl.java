@@ -2,12 +2,14 @@ package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.ItemsOrderedDAO;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ItemsOrderedDAOImpl implements ItemsOrderedDAO {
   /** */
@@ -121,6 +123,7 @@ public class ItemsOrderedDAOImpl implements ItemsOrderedDAO {
     }
     return itemsOrdered;
   }
+
   public static void exportItemsOrderedToCSV(String csvFilePath) throws SQLException, IOException {
     Connection connection = DataManager.DbConnection();
     String query = "SELECT * FROM \"ItemsOrdered\"";
@@ -143,4 +146,35 @@ public class ItemsOrderedDAOImpl implements ItemsOrderedDAO {
     }
   }
 
+  /**
+   * Uploads CSV data to a PostgreSQL database table "ItemsOrdered"
+   *
+   * @param csvFilePath is a String representing a file path
+   * @throws SQLException if an error occurs while uploading the data to the database
+   */
+  public static void uploadItemsOrderedToPostgreSQL(String csvFilePath) throws SQLException {
+    List<String[]> csvData;
+    Connection connection = DataManager.DbConnection();
+    DataManager dataImport = new DataManager();
+    csvData = dataImport.parseCSVAndUploadToPostgreSQL(csvFilePath);
+
+    try (connection) {
+      String query = "INSERT INTO \"ItemsOrdered\" (\"requestID\", \"itemID\", \"quantity\") VALUES (?, ?, ?)";
+      PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"ItemsOrdered\";");
+      statement.executeUpdate();
+      statement = connection.prepareStatement(query);
+
+      for (int i = 1; i < csvData.size(); i++) {
+        String[] row = csvData.get(i);
+        statement.setInt(1, Integer.parseInt(row[0])); // request is an int column
+        statement.setInt(2, Integer.parseInt(row[1])); // itemID is an int column
+        statement.setInt(3, Integer.parseInt(row[2])); // quantity is an int column
+
+        statement.executeUpdate();
+      }
+      System.out.println("CSV data uploaded to PostgreSQL database");
+    } catch (SQLException e) {
+      System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
+    }
+  }
 }
