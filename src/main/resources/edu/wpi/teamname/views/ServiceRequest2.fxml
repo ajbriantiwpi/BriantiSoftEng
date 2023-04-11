@@ -1,24 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import io.github.palexdev.materialfx.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane styleClass="body" stylesheets="@../stylesheets/imageScale.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestController">
+<AnchorPane styleClass="body" stylesheets="@../stylesheets/imageScale.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestController">
     <children>
         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="body" stylesheets="@../stylesheets/imageScale.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -32,6 +20,11 @@
                                             <children>
                                                 <VBox layoutX="25.0" layoutY="25.0" spacing="15.0" style="-fx-background-color: #ffffff;" stylesheets="@../stylesheets/combo.css" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
                                                     <children>
+                                          <Label text="Patient Name">
+                                             <font>
+                                                <Font name="Times New Roman" size="32.0" />
+                                             </font>
+                                          </Label>
                                                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Name">
                                                             <font>
                                                                 <Font name="Times New Roman" size="32.0" />
@@ -39,6 +32,11 @@
                                                         </Text>
                                                         <TextField fx:id="patientName" prefHeight="49.0" prefWidth="500.0" style="-fx-background-color: #d9d9d9;" />
                                                         <Separator prefWidth="200.0" />
+                                          <Label text="Room Number">
+                                             <font>
+                                                <Font name="Times New Roman" size="32.0" />
+                                             </font>
+                                          </Label>
                                                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room Number">
                                                             <font>
                                                                 <Font name="Times New Roman" size="32.0" />
@@ -56,12 +54,22 @@
                                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                             </rowConstraints>
                                                             <children>
+                                                <Label text="Date">
+                                                   <font>
+                                                      <Font name="Times New Roman" size="32.0" />
+                                                   </font>
+                                                </Label>
                                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
                                                                     <font>
                                                                         <Font name="Times New Roman" size="32.0" />
                                                                     </font>
                                                                 </Text>
                                                                 <DatePicker fx:id="dateBox" style="-fx-background-color: #d9d9d9;" stylesheets="@../stylesheets/dateBox.css" GridPane.rowIndex="1" />
+                                                <Label text="Time" GridPane.columnIndex="1">
+                                                   <font>
+                                                      <Font name="Times New Roman" size="32.0" />
+                                                   </font>
+                                                </Label>
                                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Time" GridPane.columnIndex="1">
                                                                     <font>
                                                                         <Font name="Times New Roman" size="32.0" />
@@ -74,6 +82,11 @@
                                                             </padding>
                                                         </GridPane>
                                                         <Separator prefWidth="200.0" />
+                                          <Label text="Service Request Type">
+                                             <font>
+                                                <Font name="Times New Roman" size="32.0" />
+                                             </font>
+                                          </Label>
                                                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request Type">
                                                             <font>
                                                                 <Font name="Times New Roman" size="32.0" />
