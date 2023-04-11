@@ -72,7 +72,7 @@ public class MoveDAOTest {
     Move move2 = new Move(1, "New Test Long Name", new Timestamp(2023, 3, 2, 0, 0, 0, 0));
     boolean isIn = false;
     for (Move mv : list) {
-      if (mv.equals(move2)) {
+      if (mv.equals(move)) {
         isIn = true;
       }
     }

@@ -29,7 +29,8 @@ class LocationNameDAOTest {
   }
 
   @Test
-  void testSync() {
+  void testSync() throws SQLException {
+    testAdd();
     // create a location name to sync
     LocationName locationName =
         new LocationName("Test Long Name", "Test Short Name", "Test Node Type");
