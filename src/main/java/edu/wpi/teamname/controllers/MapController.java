@@ -65,6 +65,36 @@ public class MapController {
         }
       };
 
+  public String takeFloor(String f) {
+    String retStr = "";
+    if(f == null){
+      return "L1";
+    }
+//    System.out.println(f);
+    switch (f) {
+      case ("Lower Level 1"):
+        retStr = "L1";
+        return retStr;
+      case ("Lower Level 2"):
+        retStr = "L2";
+        return retStr;
+      case ("Ground Floor"):
+        retStr = "GG";
+        return retStr;
+      case ("First Floor"):
+        retStr = "G1";
+        return retStr;
+      case ("Second Floor"):
+        retStr = "G2";
+        return retStr;
+      case ("Third Floor"):
+        retStr = "G3";
+        return retStr;
+      default:
+        return "You should never see  this!!!";
+    }
+  }
+
   EventHandler<ActionEvent> changeFloor =
       new EventHandler<ActionEvent>() {
 
