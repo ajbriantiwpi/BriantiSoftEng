@@ -151,11 +151,7 @@
                      </AnchorPane>
                   </children>
                </StackPane>
-               <AnchorPane styleClass="body" stylesheets="@../stylesheets/Template_Background.css" VBox.vgrow="ALWAYS">
-                  <children>
-                     <HBox style="-fx-background-radius: 16; -fx-border-radius: 16;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  </children>
-               </AnchorPane>
+               <HBox style="-fx-background-radius: 16; -fx-border-radius: 16;" VBox.vgrow="ALWAYS" />
             </children>
          </VBox>
       </HBox>
