@@ -1,10 +1,9 @@
 package edu.wpi.teamname.system;
 
+import edu.wpi.teamname.database.DataManager;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-
-import edu.wpi.teamname.database.DataManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

@@ -1,6 +1,8 @@
 package edu.wpi.teamname.servicerequest;
 
-import edu.wpi.teamname.servicerequest.requestitem.RequestItem;
+import edu.wpi.teamname.servicerequest.requestitem.*;
+
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import lombok.Getter;
@@ -42,12 +44,25 @@ public class ServiceRequest {
     items = new ArrayList<RequestItem>();
   }
 
-  public void addItem(int requestID) {
-    return;
+  public void addItem(int requestID) throws SQLException {
+    if (requestID < 1100) {
+      items.add(new Flower(requestID));
+    } else if (requestID < 1200) {
+      items.add(new Meal(requestID));
+    } else if (requestID < 1400) {
+      items.add(new Furniture(requestID));
+    } else if (requestID < 1500) {
+      items.add(new OfficeSupply(requestID));
+    }
   }
 
   public void removeItem(int requestID) {
-    return;
+    for (int i = 0; i < items.size(); i++) {
+      if (items.get(i).getItemID() == requestID) {
+        items.remove(i);
+        return;
+      }
+    }
   }
 
   public String toString() {

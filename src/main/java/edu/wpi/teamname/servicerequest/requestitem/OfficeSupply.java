@@ -1,7 +1,13 @@
 package edu.wpi.teamname.servicerequest.requestitem;
 
+import edu.wpi.teamname.database.DataManager;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class OfficeSupply extends RequestItem {
   @Setter @Getter private float price;
@@ -13,6 +19,26 @@ public class OfficeSupply extends RequestItem {
     this.price = price;
     this.category = category;
     this.isElectric = isElectric;
+  }
+
+  public OfficeSupply(int id) throws SQLException {
+    super(id);
+    Connection connection = DataManager.DbConnection();
+    String query = "SELECT * FROM \"OfficeSupply\" WHERE \"supplyID\" = ?;";
+
+    String name = null;
+    try (PreparedStatement statement = connection.prepareStatement(query)) {
+      statement.setInt(1, id);
+      ResultSet rs = statement.executeQuery();
+      while (rs.next()) {
+        super.setName(rs.getString("name"));
+        setPrice(rs.getFloat("price"));
+        setCategory(rs.getString("category"));
+        setElectric(rs.getBoolean("isElectric"));
+      }
+    } catch (SQLException e) {
+      System.out.println("Error retrieving office supply data: " + e.getMessage());
+    }
   }
 
   public String toString() {

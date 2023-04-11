@@ -31,4 +31,10 @@ public class Move {
   public String toString() {
     return "[" + nodeID + ", " + longName + ", " + date + "]";
   }
+
+  public Boolean equals(Move other) {
+    return this.nodeID == other.getNodeID()
+        && this.longName.equals(other.getLongName())
+        && date.equals(other.getDate());
+  }
 }
