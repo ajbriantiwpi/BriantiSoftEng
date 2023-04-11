@@ -1,13 +1,12 @@
 package edu.wpi.teamname.servicerequest.requestitem;
 
 import edu.wpi.teamname.database.DataManager;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import lombok.Getter;
+import lombok.Setter;
 
 public class OfficeSupply extends RequestItem {
   @Setter @Getter private float price;

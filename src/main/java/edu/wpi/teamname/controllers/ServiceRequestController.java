@@ -118,7 +118,8 @@ public class ServiceRequestController {
                 roomNum.toString(),
                 Timestamp.from(Instant.now()),
                 Timestamp.from(Instant.now()),
-                Status.BLANK));
+                Status.BLANK,
+                ""));
         folder = "MealIcons";
       } else {
         setRequest(
@@ -129,7 +130,8 @@ public class ServiceRequestController {
                 roomNum.toString(),
                 Timestamp.from(Instant.now()),
                 Timestamp.from(Instant.now()),
-                Status.BLANK));
+                Status.BLANK,
+                ""));
         folder = "FlowerIcons";
       }
       System.out.println(request.getDeliverBy().toString());

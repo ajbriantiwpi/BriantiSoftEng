@@ -1,7 +1,6 @@
 package edu.wpi.teamname.servicerequest;
 
 import edu.wpi.teamname.servicerequest.requestitem.*;
-
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
