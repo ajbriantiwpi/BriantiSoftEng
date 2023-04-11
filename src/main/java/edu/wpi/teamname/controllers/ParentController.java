@@ -7,7 +7,7 @@ import java.io.IOException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
-import javafx.scene.text.Text;
+import javafx.scene.control.Label;
 import lombok.Setter;
 
 public class ParentController {
@@ -21,7 +21,7 @@ public class ParentController {
   @FXML MFXButton editMapButton;
   @FXML MFXButton exitButton;
 
-  @FXML Text titleText;
+  @FXML Label titleLabel;
 
   @Setter public static StringProperty titleString = new SimpleStringProperty();
 
@@ -39,6 +39,6 @@ public class ParentController {
     //        editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
     exitButton.setOnMouseClicked(event -> System.exit(0));
 
-    titleText.setText(titleString.getValue());
+    // titleLabel.setText(titleString.getValue());
   }
 }
