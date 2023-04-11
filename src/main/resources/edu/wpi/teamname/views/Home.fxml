@@ -71,7 +71,7 @@
                                 <Font name="Roboto" size="22.0" />
                             </font>
                         </MFXButton>
-                        <MFXButton fx:id="showRequestsButton" alignment="BASELINE_LEFT" maxWidth="420.0" style="-fx-background-color: #faf9fd;" text="View Service Reqiests">
+                        <MFXButton fx:id="showRequestsButton" alignment="BASELINE_LEFT" maxWidth="420.0" style="-fx-background-color: #faf9fd;" text="View Service Requests">
                             <font>
                                 <Font name="Roboto" size="22.0" />
                             </font>
