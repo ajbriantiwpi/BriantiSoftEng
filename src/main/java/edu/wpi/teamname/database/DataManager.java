@@ -1,9 +1,6 @@
 package edu.wpi.teamname.database;
 
-import edu.wpi.teamname.navigation.Edge;
-import edu.wpi.teamname.navigation.LocationName;
-import edu.wpi.teamname.navigation.Move;
-import edu.wpi.teamname.navigation.Node;
+import edu.wpi.teamname.navigation.*;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import edu.wpi.teamname.servicerequest.requestitem.Flower;
@@ -518,5 +515,9 @@ public class DataManager {
 
   public static ArrayList<String> getNamesAlphabetically() throws SQLException {
     return LocationNameDAOImpl.getAllLongNames();
+  }
+
+  public static Room getAllNodeInfo(int id) throws SQLException {
+    return NodeDAOImpl.getAllInfoOfNode(id);
   }
 }

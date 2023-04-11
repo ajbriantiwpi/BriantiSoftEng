@@ -21,8 +21,8 @@ public class MoveDAOImpl implements MoveDAO {
     Connection connection = DataManager.DbConnection();
     try (connection) {
       String query =
-          "UPDATE \"Move\" SET \"nodeID\" = ?, \"longName\" = ?, \"date\" = ?"
-              + " WHERE \"nodeID\" = ? AND \"longName\" = ? AND \"date\" = ?";
+          "UPDATE \"Move\" SET \"nodeID\" = ?, \"longName\" = ?, date = ?"
+              + " WHERE \"nodeID\" = ? AND \"longName\" = ? AND date = ?";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, move.getNodeID());
       statement.setString(2, move.getLongName());
