@@ -3,7 +3,11 @@ package edu.wpi.teamname;
 import static org.junit.jupiter.api.Assertions.*;
 
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.database.LocationNameDAOImpl;
 import edu.wpi.teamname.navigation.LocationName;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +20,7 @@ class LocationNameDAOTest {
   void setUp() {
     // TODO: Put in docker info
     DataManager.configConnection("jdbc:postgresql://localhost:5432/postgres", "user", "pass");
+
   }
 
   @Test
@@ -119,5 +124,77 @@ class LocationNameDAOTest {
       }
     }
     assertTrue(isIn);
+  }
+  @Test
+  void testDelete() throws SQLException {
+    // create a location name to delete
+    LocationName locationName =
+        new LocationName("Test Long Name", "Test Short Name", "Test Node Type");
+
+    // add the location name to the database
+    try {
+      DataManager.addLocationName(locationName);
+    } catch (SQLException e) {
+      fail("SQL Exception thrown while adding location name");
+    }
+
+    // delete the location name from the database
+    try {
+      DataManager.deleteLocationName(locationName);
+    } catch (SQLException e) {
+      fail("SQL Exception thrown while deleting location name");
+    }
+
+    // verify that the location name was deleted
+    ArrayList<LocationName> list = null;
+    try {
+      list = DataManager.getAllLocationNames();
+    } catch (SQLException e) {
+      fail("SQL Exception thrown while getting all location names");
+    }
+
+    boolean isIn = false;
+    for (LocationName locationName1 : list) {
+      if (locationName1.equals(locationName)) {
+        isIn = true;
+      }
+    }
+    assertFalse(isIn);
+  }
+
+  @Test
+  void testExportCSV() throws SQLException {
+    // insert some test data
+    List<LocationName> testData = new ArrayList<>();
+    testData.add(new LocationName("Test Long Name 1", "Test Short Name 1", "Test Node Type 1"));
+    testData.add(new LocationName("Test Long Name 2", "Test Short Name 2", "Test Node Type 2"));
+    testData.add(new LocationName("Test Long Name 3", "Test Short Name 3", "Test Node Type 3"));
+    try {
+      for (LocationName ln : testData) {
+        DataManager.addLocationName(ln);
+      }
+    } catch (SQLException e) {
+      fail("SQL Exception thrown while adding test location names");
+    }
+
+    // export the location names to a CSV file
+    String csvFilePath = "test_export.csv";
+    try {
+      LocationNameDAOImpl locationNameDAO = new LocationNameDAOImpl();
+      locationNameDAO.exportLocationNameToCSV(csvFilePath);
+    } catch (IOException e) {
+      fail("IOException thrown while exporting location names to CSV");
+    }
+
+    // read the CSV file and verify its contents
+    try {
+      List<String> lines = Files.readAllLines(Paths.get(csvFilePath));
+      assertEquals(lines.get(0), "\"longName\",\"shortName\",\"nodeType\"");
+      assertEquals(lines.get(1), "\"Test Long Name 1\",\"Test Short Name 1\",\"Test Node Type 1\"");
+      assertEquals(lines.get(2), "\"Test Long Name 2\",\"Test Short Name 2\",\"Test Node Type 2\"");
+      assertEquals(lines.get(3), "\"Test Long Name 3\",\"Test Short Name 3\",\"Test Node Type 3\"");
+    } catch (IOException e) {
+      fail("IOException thrown while reading CSV file");
+    }
   }
 }
