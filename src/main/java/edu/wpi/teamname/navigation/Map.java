@@ -165,6 +165,8 @@ public class Map {
         //        inner.setVisible(false);
 
         outer.setOnMouseEntered(makeVisible);
+//        text. makeVistimbe
+
         outer.setOnMouseExited(hide);
 
         //        N.getChildren().addAll(outer, inner);
