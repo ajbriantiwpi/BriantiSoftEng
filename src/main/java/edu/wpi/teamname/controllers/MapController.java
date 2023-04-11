@@ -20,11 +20,28 @@ public class MapController {
 
   String defaultFloor = "L1";
 
+  int clickCount = 0;
+  Point2D firstClick = null;
+  Point2D secondClick = null;
   EventHandler<MouseEvent> e =
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          map.drawAStarPath(anchor, new Point2D(event.getX(), event.getY()));
+          clickCount++;
+
+          if (clickCount == 1) {
+            // Capture the first click
+            firstClick = new Point2D(event.getX(), event.getY());
+          } else if (clickCount == 2) {
+            // Capture the second click
+            secondClick = new Point2D(event.getX(), event.getY());
+
+            // Reset click counter
+            clickCount = 0;
+
+            // Call drawAStarPath with both points
+            map.drawAStarPath(anchor, firstClick, secondClick);
+          }
         }
       };
 

@@ -71,21 +71,41 @@ public class Map {
    * @param parent
    * @param clickPos
    */
-  public void drawAStarPath(Pane parent, Point2D clickPos) {
+  public void drawAStarPath(Pane parent, Point2D firstClick, Point2D clickPos) {
 
     String floor = "L1";
 
     List<Node> allNodes = this.graph.getNodes();
 
+    System.out.println(firstClick);
     System.out.println(clickPos); // Coordinates in inner, now goes up to 5000
 
     int leastDistanceNodeIndex = -1;
+    int leastDistanceNodeIndexFirst = -1;
     double leastDistance = Double.MAX_VALUE;
+    double firstLeastDistance = Double.MAX_VALUE;
     double nodeDist;
     int startNodeIndex = 4; // ID: 115
 
     for (int i = 0; i < allNodes.size(); i++) {
       if (i == startNodeIndex) {
+        continue;
+      } else {
+        Node currentNode = allNodes.get(i);
+        if (currentNode.getFloor().equals(floor)) {
+          nodeDist = firstClick.distance(currentNode.getX(), currentNode.getY());
+          if (nodeDist < firstLeastDistance) {
+            firstLeastDistance = nodeDist;
+            leastDistanceNodeIndexFirst = i;
+          }
+        }
+      }
+    }
+
+    Node startNode = allNodes.get(leastDistanceNodeIndexFirst);
+
+    for (int i = 0; i < allNodes.size(); i++) {
+      if (i == (startNode.getId() - 100) / 5) {
         continue;
       } else {
         Node currentNode = allNodes.get(i);
@@ -99,7 +119,6 @@ public class Map {
       }
     }
 
-    Node startNode = allNodes.get(startNodeIndex);
     Node endNode = allNodes.get(leastDistanceNodeIndex);
 
     drawAStarPath(parent, startNode, endNode);
