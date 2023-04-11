@@ -7,6 +7,8 @@ import javafx.geometry.Point2D;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
+import lombok.Getter;
+import lombok.Setter;
 
 public class Map {
 
@@ -16,6 +18,8 @@ public class Map {
 
   public Graph graph;
   public ArrayList<Emergency> emergencies;
+
+  @Getter @Setter private ArrayList<Shape> prevPath = new ArrayList<Shape>();
 
   private ArrayList<Shape> makeShapePath(ArrayList<Node> nodes) {
     ArrayList<Shape> shapes = new ArrayList<Shape>();
@@ -59,7 +63,7 @@ public class Map {
         shapes.add(c);
       }
     }
-
+    prevPath = shapes;
     return shapes;
   }
 
