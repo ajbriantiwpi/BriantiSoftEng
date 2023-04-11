@@ -14,7 +14,7 @@
 <AnchorPane styleClass="body" stylesheets="@../stylesheets/Template_Background.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ParentController">
    <children>
       <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <VBox alignment="CENTER" styleClass="body" stylesheets="@../stylesheets/SideBar.css" HBox.hgrow="NEVER">
+         <VBox alignment="CENTER" minWidth="240.0" styleClass="body" stylesheets="@../stylesheets/SideBar.css" HBox.hgrow="NEVER">
             <children>
                <AnchorPane maxHeight="75.0" maxWidth="53.0" minHeight="75.0" minWidth="53.0" prefHeight="75.0" prefWidth="53.0" styleClass="body" stylesheets="@../stylesheets/logoScale.css">
                   <children>
@@ -61,7 +61,7 @@
                            </ImageView>
                         </graphic>
                      </MFXButton>
-                     <AnchorPane style="-fx-background-color: #000000;" VBox.vgrow="ALWAYS" />
+                     <AnchorPane styleClass="body" VBox.vgrow="ALWAYS" />
                      <MFXButton fx:id="makeRequestsButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" text="Make Requests" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
                         <font>
                            <Font name="Times New Roman" size="19.0" />
@@ -130,6 +130,8 @@
                      </VBox>
                   </children>
                </StackPane>
+               <HBox VBox.vgrow="ALWAYS" />
+               <HBox prefHeight="100.0" prefWidth="200.0" />
             </children>
          </VBox>
       </HBox>
