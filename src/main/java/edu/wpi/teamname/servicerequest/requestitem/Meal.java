@@ -1,10 +1,9 @@
 package edu.wpi.teamname.servicerequest.requestitem;
 
 import edu.wpi.teamname.database.DataManager;
+import java.sql.*;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.sql.*;
 
 public class Meal extends RequestItem {
   @Setter @Getter private float price;

@@ -1,13 +1,7 @@
 package edu.wpi.teamname.servicerequest.requestitem;
 
-import edu.wpi.teamname.database.DataManager;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public abstract class RequestItem {
   @Getter @Setter private int itemID;
@@ -27,7 +21,4 @@ public abstract class RequestItem {
   public boolean isEqual(RequestItem other) {
     return itemID == other.getItemID();
   }
-
-
-
 }
