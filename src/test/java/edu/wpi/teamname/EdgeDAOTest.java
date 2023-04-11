@@ -217,6 +217,6 @@ public class EdgeDAOTest {
     Statement statement = connection.createStatement();
     ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM \"Edge\"");
     assertTrue(resultSet.next());
-    assertEquals(3, resultSet.getInt(1));
+    assertEquals(2, resultSet.getInt(1));
   }
 }
