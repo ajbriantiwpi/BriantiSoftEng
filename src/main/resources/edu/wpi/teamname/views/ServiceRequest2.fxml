@@ -32,18 +32,18 @@
                                             <children>
                                                 <VBox layoutX="25.0" layoutY="25.0" spacing="15.0" style="-fx-background-color: #ffffff;" stylesheets="@../stylesheets/combo.css" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
                                                     <children>
-                                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Name">
-                                                            <font>
-                                                                <Font name="Times New Roman" size="32.0" />
-                                                            </font>
-                                                        </Text>
+                                          <Label text="Patient Name">
+                                             <font>
+                                                <Font name="Times New Roman" size="32.0" />
+                                             </font>
+                                          </Label>
                                                         <TextField fx:id="patientName" prefHeight="49.0" prefWidth="500.0" style="-fx-background-color: #d9d9d9;" />
                                                         <Separator prefWidth="200.0" />
-                                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room Number">
-                                                            <font>
-                                                                <Font name="Times New Roman" size="32.0" />
-                                                            </font>
-                                                        </Text>
+                                          <Label text="Room Number">
+                                             <font>
+                                                <Font name="Times New Roman" size="32.0" />
+                                             </font>
+                                          </Label>
                                                         <TextField fx:id="roomNum" prefHeight="49.0" prefWidth="500.0" style="-fx-background-color: #d9d9d9;" />
                                                         <Separator prefWidth="200.0" />
                                                         <GridPane hgap="10.0" vgap="25.0">
@@ -56,17 +56,17 @@
                                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                             </rowConstraints>
                                                             <children>
-                                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
-                                                                    <font>
-                                                                        <Font name="Times New Roman" size="32.0" />
-                                                                    </font>
-                                                                </Text>
+                                                <Label text="Date">
+                                                   <font>
+                                                      <Font name="Times New Roman" size="32.0" />
+                                                   </font>
+                                                </Label>
                                                                 <DatePicker fx:id="dateBox" style="-fx-background-color: #d9d9d9;" stylesheets="@../stylesheets/dateBox.css" GridPane.rowIndex="1" />
-                                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Time" GridPane.columnIndex="1">
-                                                                    <font>
-                                                                        <Font name="Times New Roman" size="32.0" />
-                                                                    </font>
-                                                                </Text>
+                                                <Label text="Time" GridPane.columnIndex="1">
+                                                   <font>
+                                                      <Font name="Times New Roman" size="32.0" />
+                                                   </font>
+                                                </Label>
                                                                 <ComboBox fx:id="timeBox" prefHeight="49.0" promptText="Choose Time of Delivery" style="-fx-background-color: #D9d9d9;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                             </children>
                                                             <padding>
@@ -74,11 +74,11 @@
                                                             </padding>
                                                         </GridPane>
                                                         <Separator prefWidth="200.0" />
-                                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request Type">
-                                                            <font>
-                                                                <Font name="Times New Roman" size="32.0" />
-                                                            </font>
-                                                        </Text>
+                                          <Label text="Service Request Type">
+                                             <font>
+                                                <Font name="Times New Roman" size="32.0" />
+                                             </font>
+                                          </Label>
                                                         <ComboBox fx:id="requestType" prefHeight="49.0" promptText="Choose Service Request Type" style="-fx-background-color: #D9d9d9;" />
                                                     </children>
                                                 </VBox>

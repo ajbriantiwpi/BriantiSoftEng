@@ -3,6 +3,7 @@ package edu.wpi.teamname.database;
 import com.sun.javafx.geom.Point2D;
 import edu.wpi.teamname.database.interfaces.NodeDAO;
 import edu.wpi.teamname.navigation.Node;
+import edu.wpi.teamname.navigation.Room;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -225,5 +226,54 @@ public class NodeDAOImpl implements NodeDAO {
       throw new RuntimeException(ex);
     }
     return ret;
+  }
+
+  public static Room getAllInfoOfNode(int id) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    String query =
+        "SELECT \"nodeID\", \"longName\", \"shortName\", xcoord, ycoord, \"nodeType\", building, floor, j.date "
+            + "FROM (SELECT n.\"longName\", \"shortName\", n.\"nodeID\", \"nodeType\", xcoord, ycoord, building, floor, date "
+            + "      FROM \"LocationName\", "
+            + "           (select \"Move\".\"nodeID\", xcoord, ycoord, floor, building, \"longName\", date "
+            + "            FROM \"Node\", \"Move\" "
+            + "            where \"Node\".\"nodeID\" = \"Move\".\"nodeID\") n "
+            + "      WHERE \"LocationName\".\"longName\" = n.\"longName\") j, "
+            + "     (SELECT max(date) AS date "
+            + "      FROM (SELECT date "
+            + "            FROM (SELECT n.\"nodeID\", date "
+            + "                  FROM \"LocationName\", "
+            + "                       (select \"Move\".\"nodeID\", xcoord, ycoord, floor, building, \"longName\", date "
+            + "                        FROM \"Node\", \"Move\" "
+            + "                        where \"Node\".\"nodeID\" = \"Move\".\"nodeID\") n "
+            + "                  WHERE \"LocationName\".\"longName\" = n.\"longName\") j "
+            + "            WHERE date < (SELECT NOW()::timestamp) "
+            + "              AND j.\"nodeID\" = ?) l) q "
+            + "WHERE j.date = q.date "
+            + "AND j.\"nodeID\" = ?;";
+    Room room = null;
+    try (connection) {
+      int one = 1;
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setInt(one, id);
+      statement.setInt(2, id);
+
+      ResultSet rs = statement.executeQuery();
+      while (rs.next()) {
+        int id2 = rs.getInt("nodeID");
+        String longName = rs.getString("longName");
+        String shortN = rs.getString("shortName");
+        int xcoord = rs.getInt("xcoord");
+        int ycoord = rs.getInt("ycoord");
+        String nodeType = rs.getString("nodeType");
+        String building = rs.getString("building");
+        String floor = rs.getString("floor");
+        Timestamp date = rs.getTimestamp("date");
+
+        room = new Room(id2, longName, date, xcoord, ycoord, floor, building, shortN, nodeType);
+      }
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+    }
+    return room;
   }
 }
