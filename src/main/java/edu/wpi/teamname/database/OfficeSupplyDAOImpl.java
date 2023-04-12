@@ -12,8 +12,11 @@ import java.util.List;
 
 public class OfficeSupplyDAOImpl implements OfficeSupplyDAO {
   /**
-   * @param officeSupply
-   * @throws SQLException
+   * This method updates an existing OfficeSupply object in the "OfficeSupply" table in the database with the
+   * new OfficeSupply object.
+   *
+   * @param officeSupply the new OfficeSupply object to be updated in the "OfficeSupply" table
+   * @throws SQLException if there is a problem accessing the database
    */
   @Override
   public void sync(OfficeSupply officeSupply) throws SQLException {
@@ -38,8 +41,10 @@ public class OfficeSupplyDAOImpl implements OfficeSupplyDAO {
   }
 
   /**
-   * @return
-   * @throws SQLException
+   * The method retrieves all the OfficeSupply objects from the "OfficeSupply" table in the database.
+   *
+   * @return an ArrayList of the OfficeSupply objects in the database
+   * @throws SQLException if there is a problem accessing the database
    */
   @Override
   public ArrayList<OfficeSupply> getAll() throws SQLException {
@@ -65,8 +70,10 @@ public class OfficeSupplyDAOImpl implements OfficeSupplyDAO {
   }
 
   /**
-   * @param officeSupply
-   * @throws SQLException
+   * This method adds a new OfficeSupply object to the "OfficeSupply" table in the database.
+   *
+   * @param officeSupply the OfficeSupply object to be added to the "OfficeSupply" table
+   * @throws SQLException if there is a problem accessing the database
    */
   @Override
   public void add(OfficeSupply officeSupply) throws SQLException {
@@ -90,8 +97,10 @@ public class OfficeSupplyDAOImpl implements OfficeSupplyDAO {
   }
 
   /**
-   * @param officeSupply
-   * @throws SQLException
+   * This method deletes the given OfficeSupply object from the database
+   *
+   * @param officeSupply the OfficeSupply object that will be deleted in the database
+   * @throws SQLException if there is a problem accessing the database
    */
   @Override
   public void delete(OfficeSupply officeSupply) throws SQLException {
@@ -116,6 +125,14 @@ public class OfficeSupplyDAOImpl implements OfficeSupplyDAO {
     }
   }
 
+  /**
+   * This method retrieves an OfficeSupply object with the specified ID from the "OfficeSupply" table in the
+   * database.
+   *
+   * @param id the ID of the OfficeSupply object to retrieve from the "OfficeSupply" table
+   * @return the Flower object with the specified ID, or null if not found
+   * @throws SQLException if there is a problem accessing the database
+   */
   public static OfficeSupply getOfficeSupply(int id) throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query = "SELECT * FROM \"OfficeSupply\" WHERE \"supplyID\" = ?";

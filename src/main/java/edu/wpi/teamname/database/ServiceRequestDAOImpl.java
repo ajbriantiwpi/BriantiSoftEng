@@ -37,7 +37,12 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
     connection.close();
   }
 
-  /** @return */
+  /**
+   * The method retrieves all the ServiceRequest objects from the "ServiceRequest" table in the database.
+   *
+   * @return an ArrayList of the ServiceRequest objects in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public ArrayList<ServiceRequest> getAll() throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -73,7 +78,11 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
     return list;
   }
 
-  /** @param serviceRequest */
+  /**
+   * Adds a service request to the database, along with the corresponding order of items.
+   * @param serviceRequest The service request to be added to the database
+   * @throws SQLException If an error occurs while accessing the database
+   */
   @Override
   public void add(ServiceRequest serviceRequest) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -126,6 +135,13 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
     connection.close();
   }
 
+  /**
+   Returns the quantity of an item in a service request.
+   @param requestID the ID of the service request
+   @param itemID the ID of the item
+   @return the quantity of the item in the service request
+   @throws SQLException if there is an error accessing the database
+   */
   public int getQuantity(int requestID, int itemID) throws SQLException {
     Connection connection = DataManager.DbConnection();
 
@@ -149,7 +165,12 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
     }
   }
 
-  /** @param serviceRequest */
+  /**
+   * This method deletes the given ServiceRequest object from the database
+   *
+   * @param serviceRequest the ServiceRequest object that will be deleted in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void delete(ServiceRequest serviceRequest) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -173,6 +194,11 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
     connection.close();
   }
 
+  /**
+   * Deletes the ServiceRequest and all associated items from the database.
+   * @param serviceRequest The ServiceRequest to delete.
+   * @throws SQLException if there is an error executing the SQL query.
+   */
   public void deleteWithItems(ServiceRequest serviceRequest) throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query = "DELETE FROM \"ServiceRequest\" WHERE \"requestID\" = ?";
@@ -200,6 +226,14 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
     connection.close();
   }
 
+  /**
+   * This method retrieves an ServiceRequest object with the specified ID from the "ServiceRequest" table in the
+   * database.
+   *
+   * @param id the ID of the ServiceRequest object to retrieve from the "ServiceRequest" table
+   * @return the ServiceRequest object with the specified ID, or null if not found
+   * @throws SQLException if there is a problem accessing the database
+   */
   public static ServiceRequest getServiceRequest(int id) throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query = "SELECT * FROM \"ServiceRequest\" WHERE \"requestID\" = ?";

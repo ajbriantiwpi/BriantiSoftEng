@@ -13,8 +13,11 @@ import java.util.List;
 public class MoveDAOImpl implements MoveDAO {
 
   /**
-   * Sync an ORM with its row in the database WARNING: do not create a new node just change the
-   * parameters on the old one
+   * This method updates an existing Move object in the "Move" table in the database with the
+   * new Move object.
+   *
+   * @param move the new Move object to be updated in the "Move" table
+   * @throws SQLException if there is a problem accessing the database
    */
   @Override
   public void sync(Move move) throws SQLException {
@@ -38,7 +41,12 @@ public class MoveDAOImpl implements MoveDAO {
     connection.close();
   }
 
-  /** @return */
+  /**
+   * The method retrieves all the Move objects from the "Move" table in the database.
+   *
+   * @return an ArrayList of the Move objects in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public ArrayList<Move> getAll() throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -60,7 +68,12 @@ public class MoveDAOImpl implements MoveDAO {
     return list;
   }
 
-  /** @param move */
+  /**
+   * This method adds a new Move object to the "Move" table in the database.
+   *
+   * @param move the Move object to be added to the "Move" table
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void add(Move move) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -79,7 +92,12 @@ public class MoveDAOImpl implements MoveDAO {
     }
   }
 
-  /** @param move */
+  /**
+   * This method deletes the given Move object from the database
+   *
+   * @param Move the Meal object that will be deleted in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void delete(Move move) throws SQLException {
     Connection connection = DataManager.DbConnection();

@@ -12,8 +12,11 @@ import java.util.List;
 
 public class FurnitureDAOImpl implements FurnitureDAO {
   /**
-   * @param furniture
-   * @throws SQLException
+   * This method updates an existing Furniture object in the "Furniture" table in the database with
+   * the new Furniture object.
+   *
+   * @param furniture the new Flower object to be updated in the "Furniture" table
+   * @throws SQLException if there is a problem accessing the database
    */
   @Override
   public void sync(Furniture furniture) throws SQLException {
@@ -39,8 +42,10 @@ public class FurnitureDAOImpl implements FurnitureDAO {
   }
 
   /**
-   * @return
-   * @throws SQLException
+   * The method retrieves all the Furniture objects from the "Furniture" table in the database.
+   *
+   * @return an ArrayList of the Furniture objects in the database
+   * @throws SQLException if there is a problem accessing the database
    */
   @Override
   public ArrayList<Furniture> getAll() throws SQLException {
@@ -67,8 +72,10 @@ public class FurnitureDAOImpl implements FurnitureDAO {
   }
 
   /**
-   * @param furniture
-   * @throws SQLException
+   * This method adds a new Furniture object to the "Furniture" table in the database.
+   *
+   * @param furniture the Furniture object to be added to the "Furniture" table
+   * @throws SQLException if there is a problem accessing the database
    */
   @Override
   public void add(Furniture furniture) throws SQLException {
@@ -93,8 +100,10 @@ public class FurnitureDAOImpl implements FurnitureDAO {
   }
 
   /**
-   * @param furniture
-   * @throws SQLException
+   * This method deletes the given Furniture object from the database
+   *
+   * @param furniture the Flower object that will be deleted in the database
+   * @throws SQLException if there is a problem accessing the database
    */
   @Override
   public void delete(Furniture furniture) throws SQLException {
@@ -119,6 +128,14 @@ public class FurnitureDAOImpl implements FurnitureDAO {
     }
   }
 
+  /**
+   * This method retrieves a Furniture object with the specified ID from the "Furniture" table in
+   * the database.
+   *
+   * @param id the ID of the Furniture object to retrieve from the "Furniture" table
+   * @return the Furniture object with the specified ID, or null if not found
+   * @throws SQLException if there is a problem accessing the database
+   */
   public static Furniture getFurniture(int id) throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query = "SELECT * FROM \"Furniture\" WHERE \"furnitureID\" = ?";
