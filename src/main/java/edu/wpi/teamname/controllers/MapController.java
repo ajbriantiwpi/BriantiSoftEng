@@ -2,6 +2,7 @@ package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.navigation.Map;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.io.IOException;
 import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -203,7 +204,7 @@ public class MapController {
       };
 
   @FXML
-  public void initialize() throws SQLException {
+  public void initialize() throws SQLException, IOException {
 
     map = new Map();
 
@@ -220,7 +221,7 @@ public class MapController {
 
     //    gp.setOnMouseMoved(checkPoints);
 
-    //    anchor.getChildren().addAll(map.makeAllFloorNodes(defaultFloor));
+    anchor.getChildren().addAll(map.makeAllFloorNodes(defaultFloor));
 
     map.centerAndZoom(gp);
 

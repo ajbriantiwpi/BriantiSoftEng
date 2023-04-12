@@ -793,6 +793,18 @@ public class DataManager {
     serviceRequestDAO.uploadStaffName(requestID, staffName);
   }
 
+  /**
+   * Updates the status for a service request with the given request ID in the database.
+   *
+   * @param requestID the ID of the service request to update.
+   * @param status the new staff name to set.
+   * @throws SQLException if a database error occurs.
+   */
+  public static void uploadStatusToServiceRequest(int requestID, String status)
+      throws SQLException {
+    ServiceRequestDAOImpl.uploadStatus(requestID, status);
+  }
+
   /*/**
    * Uploads CSV data to a PostgreSQL database table "LocationName" also creates table if one does
    * not exist

@@ -2,10 +2,7 @@ package edu.wpi.teamname.navigation;
 
 import edu.wpi.teamname.database.*;
 import edu.wpi.teamname.database.DataManager;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
@@ -179,24 +176,30 @@ public class Node implements Comparable<Node> {
    * @return
    * @throws SQLException
    */
-  public String getShortName() throws SQLException {
+  public ArrayList<String> getShortName() throws SQLException {
     Connection connection = DataManager.DbConnection();
+    ArrayList<String> a = new ArrayList<>();
     String shortN = "";
+    String nodeT = "";
     int thisNode = this.id;
     //    String getn = "Select \"longName\" from \"Move\" where \"nodeID\" = " + thisNode;
 
     String getn =
-        "Select \"shortName\" from \"LocationName\" where \"longName\" = "
+        "Select \"shortName\", \"nodeType\" from \"LocationName\" where \"longName\" = "
             + "(Select \"longName\" from \"Move\" where \"nodeID\" = "
             + thisNode
             + ")";
 
     try (PreparedStatement s = connection.prepareStatement(getn)) {
       ResultSet rowsUpdated = s.executeQuery();
+      rowsUpdated.next();
       shortN = rowsUpdated.getString("shortName");
+      nodeT = rowsUpdated.getString("nodeType");
+      a.add(shortN);
+      a.add(nodeT);
     } catch (SQLException e2) {
-      System.out.println("Error getting short name.");
+      System.out.println("Error getting short name. " + e2);
     }
-    return shortN;
+    return a;
   }
 }

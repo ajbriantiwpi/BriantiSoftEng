@@ -221,37 +221,6 @@ public class Map {
         }
       };
 
-  //  public ArrayList<javafx.scene.Node> makeAllFloorNodes(String floor) throws SQLException {
-  //    ArrayList<javafx.scene.Node> nodes = new ArrayList<javafx.scene.Node>();
-  //    for (Node n : DataManager.getAllNodes()) {
-  //      if (n.getFloor().equals(floor)) {
-  //        //        StackPane N = new StackPane();
-  //
-  //        Circle outer = new Circle(n.getX(), n.getY(), circleR + lineTout);
-  //        outer.setFill(borderColor);
-  //        outer.setId("" + n.getId());
-  //        Circle inner = new Circle(n.getX(), n.getY(), circleR);
-  //        inner.setFill(insideColor);
-  //
-  //        //        outer.setVisible(false);
-  //        //        inner.setVisible(false);
-  //
-  //        outer.setOnMouseEntered(makeVisible);
-  //        //        text. makeVistimbe
-  //
-  //        outer.setOnMouseExited(hide);
-  //
-  //        //        N.getChildren().addAll(outer, inner);
-  //
-  //        //        nodes.add(N);
-  //
-  //        nodes.add(outer);
-  //        nodes.add(inner);
-  //      }
-  //    }
-  //    return nodes;
-  //  }
-
   /** */
   public void drawEmergencies() {}
 
@@ -269,6 +238,38 @@ public class Map {
       throws SQLException, IOException {
     ArrayList<javafx.scene.Node> nodes =
         new ArrayList<javafx.scene.Node>(); // list of shapes to be displayed
+    List<NodeCircle> circles = new ArrayList<>(); // List of NodeCircle Objects
+
+    for (Node n : DataManager.getAllNodes()) {
+      if (n.getFloor().equals(floor)) {
+        ArrayList<String> nameType = new ArrayList<>();
+        try {
+          nameType = n.getShortName();
+        } catch (SQLException ex) {
+          System.out.println(ex.toString());
+          System.out.println("Could not find info");
+        }
+        // String shortName = "";
+        String nodeType = "";
+        if (nameType.size() == 2) {
+          // shortName = nameType.get(0);
+          nodeType = nameType.get(1);
+        } else {
+        }
+        if (!nodeType.equals("HALL")) circles.add(new NodeCircle(n));
+      }
+    }
+    for (NodeCircle c : circles) {
+      nodes.add(c.p);
+      nodes.add(c.label);
+    }
+    return nodes;
+  }
+
+  public ArrayList<javafx.scene.Node> makeAllFloorNodesTwo(String floor)
+          throws SQLException, IOException {
+    ArrayList<javafx.scene.Node> nodes =
+            new ArrayList<javafx.scene.Node>(); // list of shapes to be displayed
     List<NodeCircle> circles = new ArrayList<>(); // List of NodeCircle Objects
 
     for (Node n : DataManager.getAllNodes()) {
