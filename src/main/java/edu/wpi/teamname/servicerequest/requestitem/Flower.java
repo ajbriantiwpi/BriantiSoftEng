@@ -21,7 +21,7 @@ public class Flower extends RequestItem {
   public Flower(int id) throws SQLException {
     super(id);
     Connection connection = DataManager.DbConnection();
-    String query = "SELECT * FROM \"Flower\" WHERE \"flowerID\" = ?;";
+    String query = "SELECT * FROM \"Flowers\" WHERE \"flowerID\" = ?;";
 
     String name = null;
     try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -35,6 +35,7 @@ public class Flower extends RequestItem {
       }
     } catch (SQLException e) {
       System.out.println("Error retrieving meal data: " + e.getMessage());
+      System.out.println(id);
     }
   }
 

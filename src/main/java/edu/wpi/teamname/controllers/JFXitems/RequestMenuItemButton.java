@@ -42,11 +42,12 @@ public class RequestMenuItemButton extends Button {
                 request.addItem(id);
               } else {
                 request.removeItem(id);
+                parent.delete();
               }
             } catch (SQLException e) {
               throw new RuntimeException(e);
             }
-          
-        }});
+          }
+        });
   }
 }

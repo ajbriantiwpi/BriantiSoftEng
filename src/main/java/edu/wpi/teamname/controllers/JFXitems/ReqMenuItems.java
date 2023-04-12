@@ -1,5 +1,6 @@
 package edu.wpi.teamname.controllers.JFXitems;
 
+import edu.wpi.teamname.controllers.ServiceRequestController;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import edu.wpi.teamname.servicerequest.requestitem.RequestItem;
 import javafx.fxml.FXML;
@@ -19,6 +20,8 @@ public class ReqMenuItems extends GridPane {
   private boolean add;
   ServiceRequest request;
 
+  ServiceRequestController controller;
+
   @FXML VBox vBox;
   @FXML Label label;
   @FXML Label labelP;
@@ -26,11 +29,17 @@ public class ReqMenuItems extends GridPane {
   @FXML ImageView imageView;
   @FXML TextField quantity;
 
-  public ReqMenuItems(RequestItem item, String folder, ServiceRequest request, boolean add) {
+  public ReqMenuItems(
+      RequestItem item,
+      String folder,
+      ServiceRequest request,
+      boolean add,
+      ServiceRequestController controller) {
     this.name = item.getName();
     this.id = item.getItemID();
     this.request = request;
     this.add = add;
+    this.controller = controller;
     try {
       imageView =
           new ImageView(
@@ -107,5 +116,9 @@ public class ReqMenuItems extends GridPane {
       val = 1;
     }
     return val;
+  }
+
+  void delete() {
+    controller.getCartBox().getChildren().remove(this);
   }
 }

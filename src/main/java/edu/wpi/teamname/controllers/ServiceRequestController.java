@@ -102,6 +102,11 @@ public class ServiceRequestController {
   @FXML Label summaryLabel;
 
   @FXML VBox cartBox;
+
+  public VBox getCartBox() {
+    return cartBox;
+  }
+
   @FXML Label totalLabel;
   @FXML MFXButton forgotButton;
 
@@ -172,7 +177,9 @@ public class ServiceRequestController {
 
       for (int a = 0; a < items.size(); a++) {
         if (a < 4) {
-          itemBox.getChildren().add(new ReqMenuItems(items.get(a), folder, getRequest(), true));
+          itemBox
+              .getChildren()
+              .add(new ReqMenuItems(items.get(a), folder, getRequest(), true, this));
         }
       }
 
@@ -194,19 +201,21 @@ public class ServiceRequestController {
       summaryLabel.setText(request.toString());
       String t = request.getRequestType().toString();
       String f;
-      if (t == "MEAL") {
+      if (t == "Meal Request") {
         f = "MealIcons";
-      } else if (t == "FLOWER") {
+      } else if (t == "Flower Request") {
         f = "FlowerIcons";
-      } else if (t == "OFFICESUPPLY") {
+      } else if (t == "Office Supply Request") {
         f = "OfficeIcons";
       } else {
         f = "FurnitureIcons";
+        System.out.println(t);
       }
       HashSet tem = new HashSet<>(request.getItems());
       ArrayList<RequestItem> tem2 = new ArrayList(tem);
+      System.out.println(tem);
       for (RequestItem item : tem2) {
-        cartBox.getChildren().add(new ReqMenuItems(item, f, getRequest(), false));
+        cartBox.getChildren().add(new ReqMenuItems(item, f, getRequest(), false, this));
       }
 
     } else if (requestPage == 2) {
@@ -239,6 +248,8 @@ public class ServiceRequestController {
       nextButton.setText("Next");
       // request.clearItems();
     }
+    itemBox.getChildren().clear();
+    cartBox.getChildren().clear();
   }
 
   /**
