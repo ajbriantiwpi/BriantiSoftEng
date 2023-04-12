@@ -304,6 +304,27 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
       System.out.println(e.getMessage());
     }
   }
+
+  /**
+   * Updates the status for a service request with the given request ID in the database.
+   *
+   * @param requestID the ID of the service request to update.
+   * @param status the new staff name to set.
+   * @throws SQLException if a database error occurs.
+   */
+  public static void uploadStatus(int requestID, String status) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try {
+      String query = "UPDATE \"ServiceRequest\" SET \"status\" = ? WHERE \"requestID\" = ?";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setString(1, status.toUpperCase());
+      statement.setInt(2, requestID);
+      statement.executeUpdate();
+      connection.close();
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+  }
   /**
    * Exports data from a PostgreSQL database table "ServiceRequest" to a CSV file
    *
