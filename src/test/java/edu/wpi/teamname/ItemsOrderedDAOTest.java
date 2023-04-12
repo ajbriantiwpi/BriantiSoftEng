@@ -1,6 +1,6 @@
 package edu.wpi.teamname;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.database.ItemsOrderedDAOImpl;
@@ -59,7 +59,7 @@ public class ItemsOrderedDAOTest {
       fail("SQL Exception thrown while adding test location names");
     }
 
-    // export the location names to a CSV file
+
     String csvFilePath = "test_ItemsOrdered.csv";
     try {
       DataManager.exportItemsOrderedToCSV(csvFilePath);
@@ -77,5 +77,70 @@ public class ItemsOrderedDAOTest {
     } catch (IOException e) {
       fail("IOException thrown while reading CSV file");
     }
+  }
+
+  @Test
+  void testSync() throws SQLException {
+    testAdd();
+
+    ItemsOrdered items = new ItemsOrdered(1, 3, 6);
+
+
+    try {
+      DataManager.syncItemsOrdered(items);
+    } catch (SQLException e) {
+      fail("SQL Exception thrown while syncing location name");
+    }
+
+
+    ArrayList<ItemsOrdered> list = new ArrayList<ItemsOrdered>();
+    try {
+      list = DataManager.getAllItemsOrdered();
+    } catch (SQLException e) {
+      fail("SQL Exception thrown while getting all location names");
+    }
+
+    boolean foundItem = false;
+    for (ItemsOrdered ln : list) {
+      if (ln.getOriginalItemID() == items.getOriginalItemID()) {
+        assertEquals(ln.getRequestID(), items.getRequestID());
+        assertEquals(ln.getItemID(), items.getItemID());
+        assertEquals(ln.getQuantity(), items.getQuantity());
+        foundItem = true;
+        break;
+      }
+    }
+    if (!foundItem) {
+      fail("Item not found in database after sync");
+    }
+  }
+
+  @Test
+  void testAdd() throws SQLException {
+
+    ItemsOrdered items = new ItemsOrdered(1, 2, 3);
+    DataManager.deleteItemsOrdered(items);
+
+    try {
+      DataManager.addItemsOrdered(items);
+    } catch (SQLException e) {
+      fail("SQL Exception thrown while adding item");
+    }
+
+    ArrayList<ItemsOrdered> list = null;
+    try {
+      list = DataManager.getAllItemsOrdered();
+    } catch (SQLException e) {
+      fail("SQL Exception thrown while getting all location names");
+    }
+    boolean isIn = false;
+    for (ItemsOrdered item1 : list) {
+      System.out.println(item1);
+      System.out.println(items);
+      if (item1.equals(items)) {
+        isIn = true;
+      }
+    }
+    assertTrue(isIn);
   }
 }
