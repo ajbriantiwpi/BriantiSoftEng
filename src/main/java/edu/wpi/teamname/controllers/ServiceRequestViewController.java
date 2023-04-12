@@ -3,10 +3,9 @@ package edu.wpi.teamname.controllers;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.servicerequest.RequestType;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import java.sql.SQLException;
 import java.util.List;
-import javafx.beans.binding.Bindings;
-import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -34,8 +33,7 @@ public class ServiceRequestViewController {
   @FXML TextField assignStaffText;
   @FXML TextField requestStatusText;
 
-  @FXML
-  MFXButton submitButton;
+  @FXML MFXButton submitButton;
 
   @FXML ComboBox<RequestType> requestTypeCombo;
 
@@ -118,14 +116,15 @@ public class ServiceRequestViewController {
     submitButton.disableProperty().bind(Bindings.isEmpty(assignStaffText.textProperty()));
     submitButton.disableProperty().bind(Bindings.isEmpty(requestStatusText.textProperty()));
 
-    submitButton.setOnMouseClicked(event -> {
-      try {
-        assignStuff(requestIDText.getText(), assignStaffText.getText(), requestStatusText.getText());
-      } catch (SQLException e) {
-        throw new RuntimeException(e);
-      }
-    });
-
+    submitButton.setOnMouseClicked(
+        event -> {
+          try {
+            assignStuff(
+                requestIDText.getText(), assignStaffText.getText(), requestStatusText.getText());
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          }
+        });
 
     requestTypeCombo.setItems(FXCollections.observableArrayList(RequestType.values()));
     requestStatusCombo.setItems(statusValue);

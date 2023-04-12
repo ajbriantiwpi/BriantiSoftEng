@@ -754,7 +754,8 @@ public class DataManager {
    * @param status the new staff name to set.
    * @throws SQLException if a database error occurs.
    */
-  public static void uploadStatusToServiceRequest(int requestID, String status) throws SQLException {
+  public static void uploadStatusToServiceRequest(int requestID, String status)
+      throws SQLException {
     ServiceRequestDAOImpl.uploadStatus(requestID, status);
   }
 
