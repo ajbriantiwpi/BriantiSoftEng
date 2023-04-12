@@ -179,7 +179,12 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
     }
   }
 
-  /** @param serviceRequest */
+  /**
+   * This method deletes the given ServiceRequest object from the database
+   *
+   * @param serviceRequest the ServiceRequest object that will be deleted in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void delete(ServiceRequest serviceRequest) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -292,6 +297,27 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
       String query = "UPDATE \"ServiceRequest\" SET \"staffName\" = ? WHERE \"requestID\" = ?";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setString(1, staffName);
+      statement.setInt(2, requestID);
+      statement.executeUpdate();
+      connection.close();
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+  }
+
+  /**
+   * Updates the status for a service request with the given request ID in the database.
+   *
+   * @param requestID the ID of the service request to update.
+   * @param status the new staff name to set.
+   * @throws SQLException if a database error occurs.
+   */
+  public static void uploadStatus(int requestID, String status) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try {
+      String query = "UPDATE \"ServiceRequest\" SET \"status\" = ? WHERE \"requestID\" = ?";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setString(1, status.toUpperCase());
       statement.setInt(2, requestID);
       statement.executeUpdate();
       connection.close();

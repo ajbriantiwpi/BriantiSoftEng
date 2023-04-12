@@ -138,6 +138,7 @@
                         <Insets right="20.0" top="10.0" />
                     </GridPane.margin>
                 </HBox>
+            <AnchorPane maxHeight="400.0" maxWidth="400.0" prefHeight="120.0" prefWidth="120.0" styleClass="body3" stylesheets="@../stylesheets/logoScale.css" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER" />
             </children>
         </GridPane>
 

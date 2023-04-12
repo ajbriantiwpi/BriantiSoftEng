@@ -71,6 +71,10 @@ public class Graph {
   }
 
   public ArrayList<Node> AStar(Node s, Node t) {
+    for (Node j : Nodes) {
+      j.setParent(null);
+    }
+
     setAllG(s, t);
     Node start = s;
     Node target = t;

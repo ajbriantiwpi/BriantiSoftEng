@@ -35,16 +35,13 @@ public class MoveDAOTest {
 
     Move move = new Move(1, "Test Long Name", new Timestamp(2023, 3, 2, 0, 0, 0, 0));
     // attempt to add the location name
-
+    // Move move2 = new Move(1, "Test Long Name", new Timestamp(2023, 3, 2, 0, 0, 0, 0));
+    // assertTrue(move.equals(move2));
     DataManager.addMoves(move);
 
     // verify that the location name was added
-    ArrayList<Move> list = null;
-    try {
-      list = DataManager.getAllMoves();
-    } catch (SQLException e) {
-      fail("SQL Exception thrown while getting all location names");
-    }
+    ArrayList<Move> list = DataManager.getAllMoves();
+
     boolean isIn = false;
     for (Move mv : list) {
       if (mv.equals(move)) {
@@ -69,10 +66,9 @@ public class MoveDAOTest {
     } catch (SQLException e) {
       fail("SQL Exception thrown while getting all location names");
     }
-    Move move2 = new Move(1, "New Test Long Name", new Timestamp(2023, 3, 2, 0, 0, 0, 0));
     boolean isIn = false;
     for (Move mv : list) {
-      if (mv.equals(move2)) {
+      if (mv.equals(move)) {
         isIn = true;
       }
     }

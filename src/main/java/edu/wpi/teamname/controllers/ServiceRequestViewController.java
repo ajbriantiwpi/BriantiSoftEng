@@ -5,12 +5,16 @@ import edu.wpi.teamname.servicerequest.RequestType;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import java.sql.SQLException;
 import java.util.List;
+import javafx.beans.binding.Bindings;
+import io.github.palexdev.materialfx.controls.MFXButton;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.controlsfx.control.tableview2.FilteredTableColumn;
 import org.controlsfx.control.tableview2.FilteredTableView;
@@ -26,6 +30,13 @@ public class ServiceRequestViewController {
   @FXML FilteredTableColumn requestedForCol;
   @FXML FilteredTableColumn assignedStaffCol;
   @FXML FilteredTableColumn statusCol;
+  @FXML TextField requestIDText;
+  @FXML TextField assignStaffText;
+  @FXML TextField requestStatusText;
+
+  @FXML
+  MFXButton submitButton;
+
   @FXML ComboBox<RequestType> requestTypeCombo;
 
   ObservableList<String> serviceType =
@@ -95,9 +106,26 @@ public class ServiceRequestViewController {
   //            .toList()));
   //  }
 
+  public void assignStuff(String id, String assignStaff, String requestStatus) throws SQLException {
+    DataManager.uploadStatusToServiceRequest(Integer.parseInt(id), requestStatus);
+    DataManager.uploadStaffNameToServiceRequest(Integer.parseInt(id), assignStaff);
+  }
+
   @FXML
   public void initialize() throws SQLException {
     ParentController.titleString.set("Service Request View");
+    submitButton.disableProperty().bind(Bindings.isEmpty(requestIDText.textProperty()));
+    submitButton.disableProperty().bind(Bindings.isEmpty(assignStaffText.textProperty()));
+    submitButton.disableProperty().bind(Bindings.isEmpty(requestStatusText.textProperty()));
+
+    submitButton.setOnMouseClicked(event -> {
+      try {
+        assignStuff(requestIDText.getText(), assignStaffText.getText(), requestStatusText.getText());
+      } catch (SQLException e) {
+        throw new RuntimeException(e);
+      }
+    });
+
 
     requestTypeCombo.setItems(FXCollections.observableArrayList(RequestType.values()));
     requestStatusCombo.setItems(statusValue);

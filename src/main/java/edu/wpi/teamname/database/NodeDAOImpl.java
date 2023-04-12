@@ -3,6 +3,7 @@ package edu.wpi.teamname.database;
 import com.sun.javafx.geom.Point2D;
 import edu.wpi.teamname.database.interfaces.NodeDAO;
 import edu.wpi.teamname.navigation.Node;
+import edu.wpi.teamname.navigation.Room;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -40,7 +41,12 @@ public class NodeDAOImpl implements NodeDAO {
     connection.close();
   }
 
-  /** @return */
+  /**
+   * The method retrieves all the Move objects from the "Move" table in the database.
+   *
+   * @return an ArrayList of the Move objects in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public ArrayList<Node> getAll() throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -65,7 +71,12 @@ public class NodeDAOImpl implements NodeDAO {
     return list;
   }
 
-  /** @param node */
+  /**
+   * This method adds a new Node object to the "Node" table in the database.
+   *
+   * @param node the Node object to be added to the "Node" table
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void add(Node node) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -87,7 +98,12 @@ public class NodeDAOImpl implements NodeDAO {
     }
   }
 
-  /** @param node */
+  /**
+   * This method deletes the given Node object from the database
+   *
+   * @param node the Node object that will be deleted in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void delete(Node node) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -163,6 +179,12 @@ public class NodeDAOImpl implements NodeDAO {
     }
   }
 
+  /**
+   * Exports data from a PostgreSQL database table "Node" to a CSV file
+   *
+   * @param csvFilePath is a String representing a file path
+   * @throws SQLException if an error occurs while exporting the data from the database
+   */
   public static void exportNodeToCSV(String csvFilePath) throws SQLException, IOException {
     Connection connection = DataManager.DbConnection();
     String query = "SELECT * FROM \"Node\"";
@@ -187,6 +209,14 @@ public class NodeDAOImpl implements NodeDAO {
     }
   }
 
+  /**
+   * This method retrieves a Node object with the specified ID from the "Node" table in the
+   * database.
+   *
+   * @param id the ID of the Meal object to retrieve from the "Node" table
+   * @return the Node object with the specified ID, or null if not found
+   * @throws SQLException if there is a problem accessing the database
+   */
   public static Node getNode(int id) throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query = "SELECT * FROM \"Node\" WHERE \"nodeID\" = ?";
