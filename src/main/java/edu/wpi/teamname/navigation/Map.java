@@ -1,5 +1,7 @@
 package edu.wpi.teamname.navigation;
 
+import edu.wpi.teamname.database.DataManager;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -219,36 +221,36 @@ public class Map {
         }
       };
 
-  public ArrayList<javafx.scene.Node> makeAllFloorNodes(String floor) throws SQLException {
-    ArrayList<javafx.scene.Node> nodes = new ArrayList<javafx.scene.Node>();
-    for (Node n : DataManager.getAllNodes()) {
-      if (n.getFloor().equals(floor)) {
-        //        StackPane N = new StackPane();
-
-        Circle outer = new Circle(n.getX(), n.getY(), circleR + lineTout);
-        outer.setFill(borderColor);
-        outer.setId("" + n.getId());
-        Circle inner = new Circle(n.getX(), n.getY(), circleR);
-        inner.setFill(insideColor);
-
-        //        outer.setVisible(false);
-        //        inner.setVisible(false);
-
-        outer.setOnMouseEntered(makeVisible);
-        //        text. makeVistimbe
-
-        outer.setOnMouseExited(hide);
-
-        //        N.getChildren().addAll(outer, inner);
-
-        //        nodes.add(N);
-
-        nodes.add(outer);
-        nodes.add(inner);
-      }
-    }
-    return nodes;
-  }
+  //  public ArrayList<javafx.scene.Node> makeAllFloorNodes(String floor) throws SQLException {
+  //    ArrayList<javafx.scene.Node> nodes = new ArrayList<javafx.scene.Node>();
+  //    for (Node n : DataManager.getAllNodes()) {
+  //      if (n.getFloor().equals(floor)) {
+  //        //        StackPane N = new StackPane();
+  //
+  //        Circle outer = new Circle(n.getX(), n.getY(), circleR + lineTout);
+  //        outer.setFill(borderColor);
+  //        outer.setId("" + n.getId());
+  //        Circle inner = new Circle(n.getX(), n.getY(), circleR);
+  //        inner.setFill(insideColor);
+  //
+  //        //        outer.setVisible(false);
+  //        //        inner.setVisible(false);
+  //
+  //        outer.setOnMouseEntered(makeVisible);
+  //        //        text. makeVistimbe
+  //
+  //        outer.setOnMouseExited(hide);
+  //
+  //        //        N.getChildren().addAll(outer, inner);
+  //
+  //        //        nodes.add(N);
+  //
+  //        nodes.add(outer);
+  //        nodes.add(inner);
+  //      }
+  //    }
+  //    return nodes;
+  //  }
 
   /** */
   public void drawEmergencies() {}

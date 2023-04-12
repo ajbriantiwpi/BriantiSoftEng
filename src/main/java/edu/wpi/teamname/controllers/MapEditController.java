@@ -65,36 +65,36 @@ public class MapEditController {
 
   int selectedRowIndex = 0;
 
-  EventHandler<MouseEvent> e =
-      new EventHandler<MouseEvent>() {
-        @Override
-        public void handle(MouseEvent event) {
-          clickCount++;
-
-          if (clickCount == 1) {
-            if (!map.getPrevPath().isEmpty()) {
-              for (int i = anchor.getChildren().size() - 1; i >= 0; i--) {
-                if (map.getPrevPath().contains(anchor.getChildren().get(i))) {
-                  anchor.getChildren().remove(i);
-                }
-              }
-              map.setPrevPath(null);
-            }
-
-            // Capture the first click
-            firstClick = new Point2D(event.getX(), event.getY());
-          } else if (clickCount == 2) {
-            // Capture the second click
-            secondClick = new Point2D(event.getX(), event.getY());
-
-            // Reset click counter
-            clickCount = 0;
-
-            // Call drawAStarPath with both points
-            map.drawAStarPath(anchor, firstClick, secondClick);
-          }
-        }
-      };
+  //  EventHandler<MouseEvent> e =
+  //      new EventHandler<MouseEvent>() {
+  //        @Override
+  //        public void handle(MouseEvent event) {
+  //          clickCount++;
+  //
+  //          if (clickCount == 1) {
+  //            if (!map.getPrevPath().isEmpty()) {
+  //              for (int i = anchor.getChildren().size() - 1; i >= 0; i--) {
+  //                if (map.getPrevPath().contains(anchor.getChildren().get(i))) {
+  //                  anchor.getChildren().remove(i);
+  //                }
+  //              }
+  //              map.setPrevPath(null);
+  //            }
+  //
+  //            // Capture the first click
+  //            firstClick = new Point2D(event.getX(), event.getY());
+  //          } else if (clickCount == 2) {
+  //            // Capture the second click
+  //            secondClick = new Point2D(event.getX(), event.getY());
+  //
+  //            // Reset click counter
+  //            clickCount = 0;
+  //
+  //            // Call drawAStarPath with both points
+  //            map.drawAStarPath(anchor, firstClick, secondClick);
+  //          }
+  //        }
+  //      };
 
   EventHandler<MouseEvent> exportCSV =
       new EventHandler<MouseEvent>() {
@@ -592,7 +592,7 @@ public class MapEditController {
     gp.setMinScale(0.11);
     //    anchor.setOnMouseClicked(e);
 
-    map.centerAndZoom(anchor);
+    map.centerAndZoom(gp);
 
     ParentController.titleString.set("Map");
     anchor.getChildren().addAll(map.makeAllFloorNodes(defaultFloor));
