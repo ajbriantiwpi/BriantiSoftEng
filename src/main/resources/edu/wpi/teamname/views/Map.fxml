@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXComboBox?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -22,6 +23,7 @@
                         </Group>
                     </content>
                 </GesturePane>
+            <MFXButton fx:id="DeleteNodeButton" prefHeight="69.0" prefWidth="227.0" text="Delete Path" StackPane.alignment="TOP_LEFT" />
             </children>
         </StackPane>
       <HBox fx:id="SelectCombo" alignment="BOTTOM_CENTER" layoutX="136.0" layoutY="493.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="72.0" prefWidth="810.0">
