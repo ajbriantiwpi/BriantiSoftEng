@@ -12,8 +12,8 @@ import java.util.List;
 
 public class OfficeSupplyDAOImpl implements OfficeSupplyDAO {
   /**
-   * This method updates an existing OfficeSupply object in the "OfficeSupply" table in the database with the
-   * new OfficeSupply object.
+   * This method updates an existing OfficeSupply object in the "OfficeSupply" table in the database
+   * with the new OfficeSupply object.
    *
    * @param officeSupply the new OfficeSupply object to be updated in the "OfficeSupply" table
    * @throws SQLException if there is a problem accessing the database
@@ -41,7 +41,8 @@ public class OfficeSupplyDAOImpl implements OfficeSupplyDAO {
   }
 
   /**
-   * The method retrieves all the OfficeSupply objects from the "OfficeSupply" table in the database.
+   * The method retrieves all the OfficeSupply objects from the "OfficeSupply" table in the
+   * database.
    *
    * @return an ArrayList of the OfficeSupply objects in the database
    * @throws SQLException if there is a problem accessing the database
@@ -126,8 +127,8 @@ public class OfficeSupplyDAOImpl implements OfficeSupplyDAO {
   }
 
   /**
-   * This method retrieves an OfficeSupply object with the specified ID from the "OfficeSupply" table in the
-   * database.
+   * This method retrieves an OfficeSupply object with the specified ID from the "OfficeSupply"
+   * table in the database.
    *
    * @param id the ID of the OfficeSupply object to retrieve from the "OfficeSupply" table
    * @return the Flower object with the specified ID, or null if not found

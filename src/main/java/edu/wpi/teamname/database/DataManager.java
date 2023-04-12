@@ -81,8 +81,8 @@ public class DataManager {
   // ------------------------DAO Methods------------------------
 
   /**
-   * This method updates an existing Move object in the "Move" table in the database with the
-   * new Move object.
+   * This method updates an existing Move object in the "Move" table in the database with the new
+   * Move object.
    *
    * @param move the new Move object to be updated in the "Move" table
    * @throws SQLException if there is a problem accessing the database
@@ -93,8 +93,8 @@ public class DataManager {
   }
 
   /**
-   * This method updates an existing Node object in the "Node" table in the database with the
-   * new Node object.
+   * This method updates an existing Node object in the "Node" table in the database with the new
+   * Node object.
    *
    * @param node the new Node object to be updated in the "Node" table
    * @throws SQLException if there is a problem accessing the database
@@ -129,8 +129,8 @@ public class DataManager {
   }
 
   /**
-   * This method updates an existing ServiceRequest object in the "ServiceRequest" table in the database
-   * with the new ServiceRequest object.
+   * This method updates an existing ServiceRequest object in the "ServiceRequest" table in the
+   * database with the new ServiceRequest object.
    *
    * @param serviceRequest the new ServiceRequest object to be updated in the "ServiceRequest" table
    * @throws SQLException if there is a problem accessing the database
@@ -141,8 +141,8 @@ public class DataManager {
   }
 
   /**
-   * This method updates an existing Login object in the "Login" table in the database with the
-   * new Login object.
+   * This method updates an existing Login object in the "Login" table in the database with the new
+   * Login object.
    *
    * @param login the new Login object to be updated in the "Login" table
    * @throws SQLException if there is a problem accessing the database
@@ -165,8 +165,8 @@ public class DataManager {
   }
 
   /**
-   * This method updates an existing Meal object in the "Meal" table in the database with the
-   * new Meal object.
+   * This method updates an existing Meal object in the "Meal" table in the database with the new
+   * Meal object.
    *
    * @param meal the new Meal object to be updated in the "Meal" table
    * @throws SQLException if there is a problem accessing the database
@@ -177,8 +177,8 @@ public class DataManager {
   }
 
   /**
-   * This method updates an existing LocationName object in the "LocationName" table in the database with the
-   * new LocationName object.
+   * This method updates an existing LocationName object in the "LocationName" table in the database
+   * with the new LocationName object.
    *
    * @param locationName the new LocationName object to be updated in the "LocationName" table
    * @throws SQLException if there is a problem accessing the database
@@ -201,8 +201,8 @@ public class DataManager {
   }
 
   /**
-   * This method updates an existing OfficeSupply object in the "OfficeSupply" table in the database with the
-   * new OfficeSupply object.
+   * This method updates an existing OfficeSupply object in the "OfficeSupply" table in the database
+   * with the new OfficeSupply object.
    *
    * @param officeSupply the new OfficeSupply object to be updated in the "OfficeSupply" table
    * @throws SQLException if there is a problem accessing the database
@@ -256,9 +256,9 @@ public class DataManager {
     itemsOrderedDAO.add(itemsOrdered);
   }
 
-
   /**
    * Adds a service request to the database, along with the corresponding order of items.
+   *
    * @param serviceRequest The service request to be added to the database
    * @throws SQLException If an error occurs while accessing the database
    */
@@ -390,6 +390,7 @@ public class DataManager {
 
   /**
    * Deletes the ServiceRequest and all associated items from the database.
+   *
    * @param serviceRequest The ServiceRequest to delete.
    * @throws SQLException if there is an error executing the SQL query.
    */
@@ -510,7 +511,8 @@ public class DataManager {
   }
 
   /**
-   * The method retrieves all the ServiceRequest objects from the "ServiceRequest" table in the database.
+   * The method retrieves all the ServiceRequest objects from the "ServiceRequest" table in the
+   * database.
    *
    * @return an ArrayList of the ServiceRequest objects in the database
    * @throws SQLException if there is a problem accessing the database
@@ -550,7 +552,8 @@ public class DataManager {
   }
 
   /**
-   * The method retrieves all the LocationName objects from the "ItemsOrdered" table in the database.
+   * The method retrieves all the LocationName objects from the "ItemsOrdered" table in the
+   * database.
    *
    * @return an ArrayList of the ItemsOrdered objects in the database
    * @throws SQLException if there is a problem accessing the database
@@ -572,7 +575,8 @@ public class DataManager {
   }
 
   /**
-   * The method retrieves all the OfficeSupply objects from the "OfficeSupply" table in the database.
+   * The method retrieves all the OfficeSupply objects from the "OfficeSupply" table in the
+   * database.
    *
    * @return an ArrayList of the OfficeSupply objects in the database
    * @throws SQLException if there is a problem accessing the database
@@ -611,8 +615,8 @@ public class DataManager {
   }
 
   /**
-   * This method retrieves a LocationName object with the specified name from the "LocationName" table in the
-   * database.
+   * This method retrieves a LocationName object with the specified name from the "LocationName"
+   * table in the database.
    *
    * @param name the long name of the LocationName object to retrieve from the "LocationName" table
    * @return the LocationName object with the specified name, or null if not found
@@ -663,8 +667,8 @@ public class DataManager {
   }
 
   /**
-   * This method retrieves an ServiceRequest object with the specified ID from the "ServiceRequest" table in the
-   * database.
+   * This method retrieves an ServiceRequest object with the specified ID from the "ServiceRequest"
+   * table in the database.
    *
    * @param id the ID of the ServiceRequest object to retrieve from the "ServiceRequest" table
    * @return the ServiceRequest object with the specified ID, or null if not found
@@ -688,8 +692,8 @@ public class DataManager {
   }
 
   /**
-   * This method retrieves an OfficeSupply object with the specified ID from the "OfficeSupply" table in the
-   * database.
+   * This method retrieves an OfficeSupply object with the specified ID from the "OfficeSupply"
+   * table in the database.
    *
    * @param id the ID of the OfficeSupply object to retrieve from the "OfficeSupply" table
    * @return the Flower object with the specified ID, or null if not found
@@ -732,6 +736,7 @@ public class DataManager {
 
   /**
    * Updates the staff name for a service request with the given request ID in the database.
+   *
    * @param requestID the ID of the service request to update.
    * @param staffName the new staff name to set.
    * @throws SQLException if a database error occurs.
@@ -775,7 +780,8 @@ public class DataManager {
   }
 
   /**
-   * Uploads CSV data to a PostgreSQL database table "Furniture"-also creates one if one does not exist
+   * Uploads CSV data to a PostgreSQL database table "Furniture"-also creates one if one does not
+   * exist
    *
    * @param path a string that represents a file path (/ is illegal so you must use double//)
    * @throws SQLException if an error occurs while uploading the data to the database
@@ -785,7 +791,8 @@ public class DataManager {
   }
 
   /**
-   * Uploads CSV data to a PostgreSQL database table "ItemsOrdered"-also creates one if one does not exist
+   * Uploads CSV data to a PostgreSQL database table "ItemsOrdered"-also creates one if one does not
+   * exist
    *
    * @param path a string that represents a file path (/ is illegal so you must use double//)
    * @throws SQLException if an error occurs while uploading the data to the database
@@ -846,7 +853,8 @@ public class DataManager {
   }
 
   /**
-   * Uploads CSV data to a PostgreSQL database table "OfficeSupply"-also creates one if one does not exist
+   * Uploads CSV data to a PostgreSQL database table "OfficeSupply"-also creates one if one does not
+   * exist
    *
    * @param path a string that represents a file path (/ is illegal so you must use double//)
    * @throws SQLException if an error occurs while uploading the data to the database
@@ -856,7 +864,8 @@ public class DataManager {
   }
 
   /**
-   * Uploads CSV data to a PostgreSQL database table "ServiceRequest"-also creates one if one does not exist
+   * Uploads CSV data to a PostgreSQL database table "ServiceRequest"-also creates one if one does
+   * not exist
    *
    * @param path a string that represents a file path (/ is illegal so you must use double//)
    * @throws SQLException if an error occurs while uploading the data to the database
@@ -878,8 +887,8 @@ public class DataManager {
   }
 
   /**
-   * This method exports all the Flower objects from the "Flowers" table in the database to a CSV file at
-   * the specified file path.
+   * This method exports all the Flower objects from the "Flowers" table in the database to a CSV
+   * file at the specified file path.
    *
    * @param path the file path of the CSV file to export the Flower objects to
    * @throws SQLException if there is a problem accessing the database
@@ -890,8 +899,8 @@ public class DataManager {
   }
 
   /**
-   * This method exports all the Furniture objects from the "Furniture" table in the database to a CSV file at
-   * the specified file path.
+   * This method exports all the Furniture objects from the "Furniture" table in the database to a
+   * CSV file at the specified file path.
    *
    * @param path the file path of the CSV file to export the Furniture objects to
    * @throws SQLException if there is a problem accessing the database
@@ -902,8 +911,8 @@ public class DataManager {
   }
 
   /**
-   * This method exports all the ItemsOrdered objects from the "ItemsOrdered" table in the database to a CSV file at
-   * the specified file path.
+   * This method exports all the ItemsOrdered objects from the "ItemsOrdered" table in the database
+   * to a CSV file at the specified file path.
    *
    * @param path the file path of the CSV file to export the ItemsOrdered objects to
    * @throws SQLException if there is a problem accessing the database
@@ -914,8 +923,8 @@ public class DataManager {
   }
 
   /**
-   * This method exports all the LocationName objects from the "LocationName" table in the database to a CSV file at
-   * the specified file path.
+   * This method exports all the LocationName objects from the "LocationName" table in the database
+   * to a CSV file at the specified file path.
    *
    * @param path the file path of the CSV file to export the LocationName objects to
    * @throws SQLException if there is a problem accessing the database
@@ -926,8 +935,8 @@ public class DataManager {
   }
 
   /**
-   * This method exports all the Login objects from the "Login" table in the database to a CSV file at
-   * the specified file path.
+   * This method exports all the Login objects from the "Login" table in the database to a CSV file
+   * at the specified file path.
    *
    * @param path the file path of the CSV file to export the Login objects to
    * @throws SQLException if there is a problem accessing the database
@@ -974,8 +983,8 @@ public class DataManager {
   }
 
   /**
-   * This method exports all the OfficeSupply objects from the "OfficeSupply" table in the database to a CSV file at
-   * the specified file path.
+   * This method exports all the OfficeSupply objects from the "OfficeSupply" table in the database
+   * to a CSV file at the specified file path.
    *
    * @param path the file path of the CSV file to export the OfficeSupply objects to
    * @throws SQLException if there is a problem accessing the database
@@ -986,8 +995,8 @@ public class DataManager {
   }
 
   /**
-   * This method exports all the ServiceRequest objects from the "ServiceRequest" table in the database to a CSV file at
-   * the specified file path.
+   * This method exports all the ServiceRequest objects from the "ServiceRequest" table in the
+   * database to a CSV file at the specified file path.
    *
    * @param path the file path of the CSV file to export the ServiceRequest objects to
    * @throws SQLException if there is a problem accessing the database
@@ -998,22 +1007,29 @@ public class DataManager {
   }
 
   /**
-   This method retrieves a list of all the long names of locations from the "LocationName" table in the database.
-   @return an ArrayList of Strings representing the long names of all locations in the "LocationName" table, ordered alphabetically
-   @throws SQLException if there is a problem accessing the database
+   * This method retrieves a list of all the long names of locations from the "LocationName" table
+   * in the database.
+   *
+   * @return an ArrayList of Strings representing the long names of all locations in the
+   *     "LocationName" table, ordered alphabetically
+   * @throws SQLException if there is a problem accessing the database
    */
   public static ArrayList<String> getNamesAlphabetically() throws SQLException {
     return LocationNameDAOImpl.getAllLongNames();
   }
 
   /**
-   * Returns a Room object containing all information about the node with the given ID.
-   * The information includes the node's long name, short name, coordinates, node type, building, floor, and the most recent date when the node's location was updated.
-   * The function queries the database and joins the "LocationName" and "Move" tables to retrieve the necessary information.
-   * It also filters the results by selecting only the information for the node with the given ID and the most recent date prior to the current time.
-   * If no information is found for the given ID, null is returned.
+   * Returns a Room object containing all information about the node with the given ID. The
+   * information includes the node's long name, short name, coordinates, node type, building, floor,
+   * and the most recent date when the node's location was updated. The function queries the
+   * database and joins the "LocationName" and "Move" tables to retrieve the necessary information.
+   * It also filters the results by selecting only the information for the node with the given ID
+   * and the most recent date prior to the current time. If no information is found for the given
+   * ID, null is returned.
+   *
    * @param id the ID of the node to retrieve information for
-   * @return a Room object containing all information about the node, or null if no information is found
+   * @return a Room object containing all information about the node, or null if no information is
+   *     found
    * @throws SQLException if there is an error accessing the database
    */
   public static Room getAllNodeInfo(int id) throws SQLException {
