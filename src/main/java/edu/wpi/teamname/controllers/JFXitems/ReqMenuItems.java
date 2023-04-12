@@ -18,7 +18,9 @@ public class ReqMenuItems extends GridPane {
   private String name;
   private int id;
   private boolean add;
+  private String folder;
   ServiceRequest request;
+  RequestItem item;
 
   ServiceRequestController controller;
 
@@ -36,10 +38,39 @@ public class ReqMenuItems extends GridPane {
       boolean add,
       ServiceRequestController controller) {
     this.name = item.getName();
+    // System.out.println(item.getItemID());
     this.id = item.getItemID();
+    this.item = item;
     this.request = request;
     this.add = add;
     this.controller = controller;
+    this.folder = folder;
+
+    initialize();
+  }
+
+  public ReqMenuItems(
+      RequestItem item,
+      String folder,
+      ServiceRequest request,
+      boolean add,
+      ServiceRequestController controller,
+      int q) {
+    this.name = item.getName();
+    this.id = item.getItemID();
+    this.item = item;
+    this.request = request;
+    this.add = add;
+    this.controller = controller;
+    this.folder = folder;
+
+    initialize();
+
+    quantity.setText("Quantity: " + String.valueOf(q));
+    quantity.setDisable(true);
+  }
+
+  private void initialize() {
     try {
       imageView =
           new ImageView(
@@ -82,13 +113,9 @@ public class ReqMenuItems extends GridPane {
     vBox.getChildren().add(button);
     add(vBox, 4, 0);
 
+    quantity.setText("1");
     button.setLayoutY(this.getHeight());
     button.setPadding(new Insets(this.getHeight() / 2 - button.getHeight() / 2, 25, 0, 25));
-    initialize();
-  }
-
-  private void initialize() {
-    // setLayoutX(1000);
 
     setFillWidth(label, true);
     setHgrow(label, Priority.ALWAYS);

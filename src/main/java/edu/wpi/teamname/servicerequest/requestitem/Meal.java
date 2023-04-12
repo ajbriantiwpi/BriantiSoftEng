@@ -25,6 +25,7 @@ public class Meal extends RequestItem {
       statement.setInt(1, mealID);
       ResultSet rs = statement.executeQuery();
       while (rs.next()) {
+        super.setItemID(mealID);
         super.setName(rs.getString("Name"));
         setPrice(rs.getFloat("Price"));
         setMeal(rs.getString("Meal"));

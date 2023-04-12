@@ -28,6 +28,7 @@ public class Flower extends RequestItem {
       statement.setInt(1, id);
       ResultSet rs = statement.executeQuery();
       while (rs.next()) {
+        super.setItemID(id);
         super.setName(rs.getString("Name"));
         setPrice(rs.getFloat("Price"));
         setCategory(rs.getString("Category"));

@@ -40,6 +40,7 @@ public class RequestMenuItemButton extends Button {
             try {
               if (add) {
                 request.addItem(id);
+                System.out.println(id);
               } else {
                 request.removeItem(id);
                 parent.delete();

@@ -31,6 +31,7 @@ public class Furniture extends RequestItem {
       statement.setInt(1, id);
       ResultSet rs = statement.executeQuery();
       while (rs.next()) {
+        super.setItemID(id);
         super.setName(rs.getString("name"));
         setPrice(rs.getFloat("price"));
         setCategory(rs.getString("category"));

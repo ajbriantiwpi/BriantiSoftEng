@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
-import java.util.HashSet;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -199,24 +198,38 @@ public class ServiceRequestController {
       nextButton.setText("Submit");
       requestPage = 2;
       summaryLabel.setText(request.toString());
+
+      ArrayList<RequestItem> tem = new ArrayList<>();
+      double totalPrice = 0.0;
       String t = request.getRequestType().toString();
       String f;
       if (t == "Meal Request") {
         f = "MealIcons";
+        tem.addAll(DataManager.getAllMeals());
       } else if (t == "Flower Request") {
         f = "FlowerIcons";
+        tem.addAll(DataManager.getAllFlowers());
       } else if (t == "Office Supply Request") {
         f = "OfficeIcons";
+        tem.addAll(DataManager.getAllOfficeSupplies());
       } else {
         f = "FurnitureIcons";
         System.out.println(t);
+        tem.addAll(DataManager.getAllFurniture());
       }
-      HashSet tem = new HashSet<>(request.getItems());
-      ArrayList<RequestItem> tem2 = new ArrayList(tem);
-      System.out.println(tem);
-      for (RequestItem item : tem2) {
-        cartBox.getChildren().add(new ReqMenuItems(item, f, getRequest(), false, this));
+      int c = 0;
+      // System.out.println(tem);
+      // System.out.println(request.getItems());
+      for (RequestItem item : tem) {
+        c = request.countItem(item.getItemID());
+        // System.out.println(c);
+        if (c > 0) {
+          cartBox.getChildren().add(new ReqMenuItems(item, f, this.request, false, this, c));
+          totalPrice += c * item.getPrice();
+        }
       }
+      System.out.println(totalPrice);
+      totalLabel.setText(totalLabel.getText() + String.valueOf(totalPrice));
 
     } else if (requestPage == 2) {
       setVisibleScreen(0);
@@ -265,6 +278,7 @@ public class ServiceRequestController {
       menuPane.setVisible(true);
       summaryPane.setVisible(false);
       summaryPane.setDisable(true);
+      nextButton.setText("next");
     } else if (n == 2) {
       formPane.setVisible(false);
       formPane.setDisable(true);
@@ -272,6 +286,7 @@ public class ServiceRequestController {
       menuPane.setVisible(false);
       summaryPane.setVisible(true);
       summaryPane.setDisable(false);
+      nextButton.setText("submit");
     } else {
       formPane.setVisible(true);
       formPane.setDisable(false);
@@ -280,6 +295,7 @@ public class ServiceRequestController {
       summaryPane.setVisible(false);
       summaryPane.setDisable(true);
       timeBox.setDisable(false);
+      nextButton.setText("next");
     }
   }
 
@@ -317,5 +333,7 @@ public class ServiceRequestController {
 
     itemBox.setFillWidth(true);
     itemBox.setSpacing(25);
+
+    forgotButton.setOnMouseClicked(event -> setVisibleScreen(1));
   }
 }
