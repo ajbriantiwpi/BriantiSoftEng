@@ -12,6 +12,12 @@ public class Edge {
   @Getter @Setter private int startNodeID;
   @Getter @Setter private int endNodeID;
 
+  /**
+   * Constructs a new Edge object with the specified starting and ending node IDs.
+   *
+   * @param startNodeID the ID of the starting node
+   * @param endNodeID the ID of the ending node
+   */
   public Edge(int startNodeID, int endNodeID) {
     this.startNodeID = startNodeID;
     this.endNodeID = endNodeID;
@@ -20,35 +26,20 @@ public class Edge {
   }
 
   /**
-   * * Gets all of the edges in the database and puts them into an array list
+   * Determines whether this edge is equal to another edge.
    *
-   * @return An array list of all the edges in the database
-   * @throws SQLException
+   * @param other the other edge to compare to this edge
+   * @return true if the edges are equal, false otherwise
    */
-  //  public static ArrayList<Edge> getAllEdges() throws SQLException {
-  //    DatabaseConnection dbc = new DatabaseConnection();
-  //    Connection connection = dbc.DbConnection();
-  //    ArrayList<Edge> list = new ArrayList<Edge>();
-  //
-  //    try (connection) {
-  //      String query = "SELECT * FROM \"Edge\"";
-  //      Statement statement = connection.createStatement();
-  //      ResultSet rs = statement.executeQuery(query);
-  //
-  //      while (rs.next()) {
-  //        int startNode = rs.getInt("startNode");
-  //        int endNode = rs.getInt("endNode");
-  //        list.add(new Edge(startNode, endNode));
-  //      }
-  //    }
-  //    return list;
-  //  }
-
   public Boolean equals(Edge other) {
     return this.startNodeID == other.getStartNodeID() && this.endNodeID == other.getEndNodeID();
   }
 
-  // Returns all the attributes of a Node as a String
+  /**
+   * Returns a string representation of this edge, including its starting and ending node IDs.
+   *
+   * @return a string representation of this edge
+   */
   public String toString() {
     return "StartNodeID: " + startNodeID + " EndNodeID: " + endNodeID;
   }

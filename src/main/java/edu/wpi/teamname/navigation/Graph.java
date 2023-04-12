@@ -8,60 +8,69 @@ import java.util.PriorityQueue;
 import lombok.Getter;
 
 public class Graph {
-
-  //  @Getter @Setter private Node start;
-  //  @Getter @Setter private Node target;
-  //  private ArrayList<Node> nodeFromDB = new ArrayList<Node>();
-  //  private ArrayList<Edge> edgeFromDB = new ArrayList<Edge>();
   @Getter private ArrayList<Node> Nodes = new ArrayList<>();
   private ArrayList<Edge> Edges = new ArrayList<>();
 
+  /**
+   *    Creates a new Graph by retrieving Nodes and Edges from the database.
+   *    @throws SQLException if there is an error accessing the database
+   */
   public Graph() throws SQLException {
-    //    this.start = null;
-    //    this.target = null;
-
     Nodes = this.getAllNodes(); // Changed based on DB team
     Edges = this.getAllEdges(); // Changed based on DB team
-
-    //    nodeFromDB = Node.getAllNodes();
-    //    edgeFromDB = Edge.getAllEdges();
-    //    nodeFromDB = DataManager.getAllNodes();
-    //    edgeFromDB = DataManager.getAllNodes();
-
-    //    initializeNodes(nodeFromDB);
     this.initializeEdges();
   }
 
+  /**
+   *    Retrieves all the Nodes from the database.
+   *    @return an ArrayList of Nodes
+   *    @throws SQLException if there is an error accessing the database
+   */
   public ArrayList<Node> getAllNodes() throws SQLException {
     return DataManager.getAllNodes();
   }
 
+  /**
+   *    Retrieves all the Edges from the database.
+   *    @return an ArrayList of Edges
+   *    @throws SQLException if there is an error accessing the database
+   */
   public ArrayList<Edge> getAllEdges() throws SQLException {
     return DataManager.getAllEdges();
   }
 
+  /**
+   *    Adds a new Edge to the graph.
+   *    @param e the Edge to be added
+   */
   public void addEdge(Edge e) {
     this.Edges.add(e);
   }
 
-  //  public List<Node> getNodes() {
-  //    return Nodes;
-  //  }
-
+  /**
+   *    Finds the weight between two Nodes.
+   *    @param a the first Node
+   *    @param b the second Node
+   *    @return the weight between the two Nodes
+   */
   public double findWeight(Node a, Node b) {
     return 0;
   }
 
-  //  private void assignEdges() {}
-
-  //  public void printPath(ArrayList<Node> nodes) {
-  //    System.out.println(returnStringPath(target));
-  //  }
-
+  /**
+   * Prints a path from the start Node to the target Node using the A* algorithm.
+   * @param s the start Node
+   * @param t the target Node
+   */
   public void printPath(Node s, Node t) {
     System.out.println(AStar(s, t));
   }
 
+  /**
+   * Sets the G value of all Nodes in the graph.
+   * @param s the start Node
+   * @param t the target Node
+   */
   public void setAllG(Node s, Node t) {
     if (s == null || t == null) return;
     for (Node n : this.Nodes) {
@@ -70,6 +79,12 @@ public class Graph {
     s.setG(0);
   }
 
+  /**
+   * Returns the shortest path between two nodes using A* algorithm.
+   * @param s the starting node.
+   * @param t the ending node.
+   * @return a list of nodes representing the shortest path between the starting node and the ending node.
+   */
   public ArrayList<Node> AStar(Node s, Node t) {
     for (Node j : Nodes) {
       j.setParent(null);
@@ -122,19 +137,13 @@ public class Graph {
     return null;
   }
 
-  //  public static String returnStringPath(Node target) {
-  //    List<Node> ids = getPath(target);
-  //
-  //    String strPath = "";
-  //
-  //    for (Node id : ids) {
-  //      strPath += (id.getId() + " ");
-  //    }
-  //    strPath += "\n";
-  //
-  //    return strPath;
-  //  }
-
+  /**
+   *    This method returns the path from the target node to the start node.
+   *
+   *    @param target The target node to start the path from
+   *
+   *    @return The path from the target node to the start node
+   */
   private static ArrayList<Node> getPath(Node target) {
     Node n = target;
 
@@ -151,31 +160,20 @@ public class Graph {
     return ids;
   }
 
-  //  public void initializeNodes(ArrayList<Node> NodeLines) {
-  //    // Initialize the nodes with the node lines data
-  //    int i = 0;
-  //    while (!NodeLines.isEmpty()) {
-  //      // String[] I = NodeLines.get(0).split(",");
-  //      // NodeLines.remove(0);
-  //      Nodes.add(
-  //              new Node(
-  //                      NodeLines.get(0).getId(),
-  //                      NodeLines.get(0).getX(),
-  //                      NodeLines.get(0).getY(),
-  //                      NodeLines.get(0).getFloor(),
-  //                      NodeLines.get(0).getBuilding()));
-  //      NodeLines.remove(0);
-  //    }
-  //  }
-
-  // Get index for node from nodeID
+  /**
+   * This method returns the node with the given ID.
+   * @param nodeId The ID of the node to be returned
+   * @return The node with the given ID
+   */
   public Node findNodeByID(int nodeId) {
     return Nodes.get((nodeId - 100) / 5);
   }
 
+  /**
+   * This method initializes the edges in the graph by creating and setting neighbors for each node.
+   */
   public void initializeEdges() {
     // Initialize the nodes with the node lines data
-
     for (int i = 0; i < Edges.size(); i++) {
       Node StartNode = this.findNodeByID(Edges.get(i).getStartNodeID());
       Node EndNode = this.findNodeByID(Edges.get(i).getEndNodeID());
@@ -184,20 +182,4 @@ public class Graph {
       EndNode.getNeighbors().add(StartNode);
     }
   }
-  //    while (!Edges.isEmpty()) {
-  //      // String[] E = EdgeLines.get(0).split(",");
-  //      // EdgeLines.remove(0);
-  //      Edges.add(
-  //              new Edge(
-  //                      Edges.get(0).getStartNodeID(),
-  //                      Edges.get(0).getEndNodeID()));
-  //
-  //
-  // this.findNodeByID(getEndNodeID);
-  //
-  //
-  //
-  //      Edges.remove(0);
-  //    }
-  //  }
 }
