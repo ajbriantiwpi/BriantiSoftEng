@@ -23,20 +23,14 @@ public class MapController {
   @FXML ComboBox<String> LocationOne = new ComboBox<>();
   @FXML ComboBox<String> EndPointSelect = new ComboBox<>();
   @FXML MFXButton DeleteNodeButton = new MFXButton();
-
   @FXML ComboBox<String> FloorSelect = new ComboBox<>();
-
   String defaultFloor = "L1";
-
   int clickCount = 0;
   Point2D firstClick = null;
   Point2D secondClick = null;
-
   String floor1;
   String floor2;
-
   String currFloor = "L1";
-
   int sNode = 0;
   int eNode = 0;
 
