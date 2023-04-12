@@ -12,14 +12,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
-import java.util.ArrayList;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -47,7 +39,7 @@ public class NodeCircle {
   float circleR = 10.0f;
 
   Color labelColor = new Color(.835, .89, 1, 1);
-  Color labelText = new Color(0, .106, .231, 1)
+  Color labelText = new Color(0, .106, .231, 1);
   int lineTout = 2;
 
   public NodeCircle(Node n) throws IOException {
@@ -57,38 +49,38 @@ public class NodeCircle {
     nodeCords = new Point2D(n.getX(), n.getY());
     nodeID = n.getId();
 
-      this.outer = new Circle(shiftX, shiftY, circleR + lineTout);
-      outer.setFill(borderColor);
-      outer.setOpacity(0);
-      this.inner = new Circle(shiftX, shiftY, circleR);
-      inner.setFill(insideColor);
-      inner.setOpacity(0);
+    this.outer = new Circle(shiftX, shiftY, circleR + lineTout);
+    outer.setFill(borderColor);
+    outer.setOpacity(0);
+    this.inner = new Circle(shiftX, shiftY, circleR);
+    inner.setFill(insideColor);
+    inner.setOpacity(0);
 
-      ArrayList<String> nameType = new ArrayList<>();
-      try {
-          nameType = n.getShortName();
-      } catch (SQLException ex) {
-          System.out.println(ex.toString());
-          System.out.println("Could not find info");
-      }
-      String shortName = "";
-      String nodeType = "";
-      if (nameType.size() == 2) {
-          shortName = nameType.get(0);
-          nodeType = nameType.get(1);
-      } else {
-      }
+    ArrayList<String> nameType = new ArrayList<>();
+    try {
+      nameType = n.getShortName();
+    } catch (SQLException ex) {
+      System.out.println(ex.toString());
+      System.out.println("Could not find info");
+    }
+    String shortName = "";
+    String nodeType = "";
+    if (nameType.size() == 2) {
+      shortName = nameType.get(0);
+      nodeType = nameType.get(1);
+    } else {
+    }
 
-      label.setText(shortName);
-      // label.setText("HELLO");
-      CornerRadii corn = new CornerRadii(7);
-      label.setBackground(new Background(new BackgroundFill(labelColor, corn, Insets.EMPTY)));
-      label.setTextFill(labelText);
-      label.setTranslateX(n.getX() - 35);
-      label.setTranslateY(n.getY() - 30);
-      //    final var resource = App.class.getResource("../views/ChangeNode.fxml");
-      //    final FXMLLoader loader = new FXMLLoader(resource);
-      //    v = loader.load();
+    label.setText(shortName);
+    // label.setText("HELLO");
+    CornerRadii corn = new CornerRadii(7);
+    label.setBackground(new Background(new BackgroundFill(labelColor, corn, Insets.EMPTY)));
+    label.setTextFill(labelText);
+    label.setTranslateX(n.getX() - 35);
+    label.setTranslateY(n.getY() - 30);
+    //    final var resource = App.class.getResource("../views/ChangeNode.fxml");
+    //    final FXMLLoader loader = new FXMLLoader(resource);
+    //    v = loader.load();
 
     p = new Pane();
 

@@ -267,9 +267,9 @@ public class Map {
   }
 
   public ArrayList<javafx.scene.Node> makeAllFloorNodesTwo(String floor)
-          throws SQLException, IOException {
+      throws SQLException, IOException {
     ArrayList<javafx.scene.Node> nodes =
-            new ArrayList<javafx.scene.Node>(); // list of shapes to be displayed
+        new ArrayList<javafx.scene.Node>(); // list of shapes to be displayed
     List<NodeCircle> circles = new ArrayList<>(); // List of NodeCircle Objects
 
     for (Node n : DataManager.getAllNodes()) {
