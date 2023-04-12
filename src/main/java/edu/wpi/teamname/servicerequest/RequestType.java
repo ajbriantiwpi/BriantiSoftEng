@@ -15,4 +15,20 @@ public enum RequestType {
   public String getString() {
     return type;
   }
+
+  @Override
+  public String toString() {
+    if (this.getString() == "MEAL") {
+      return "Meal Request";
+    } else if (this.getString() == "FLOWER") {
+      return "Flower Request";
+    } else if (this.getString() == "OFFICESUPPLY") {
+      return "Office Supply Request";
+    }
+    if (this.getString() == "FURNITURE") {
+      return "Furniture Request";
+    } else {
+      return "";
+    }
+  }
 }

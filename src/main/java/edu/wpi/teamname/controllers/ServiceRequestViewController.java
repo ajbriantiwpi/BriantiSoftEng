@@ -1,6 +1,7 @@
 package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.servicerequest.RequestType;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import java.sql.SQLException;
 import javafx.collections.FXCollections;
@@ -24,7 +25,7 @@ public class ServiceRequestViewController {
   @FXML FilteredTableColumn requestedForCol;
   @FXML FilteredTableColumn assignedStaffCol;
   @FXML FilteredTableColumn statusCol;
-  @FXML ComboBox<String> requestTypeCombo;
+  @FXML ComboBox<RequestType> requestTypeCombo;
 
   ObservableList<String> serviceType =
       FXCollections.observableArrayList(
@@ -33,11 +34,34 @@ public class ServiceRequestViewController {
       FXCollections.observableArrayList("", "PROCESSING", "BLANK", "DONE");
   @FXML ComboBox requestStatusCombo;
 
+  public static ObservableList<ServiceRequest> tableFilter(RequestType one, String two)
+      throws SQLException {
+    if (one.equals(null) || one.toString().equals("")) {
+      return (FXCollections.observableArrayList(
+          DataManager.getAllServiceRequests().stream()
+              .filter((request) -> request.getStatus().getStatusString().equals(two))
+              .toList()));
+    } else {
+      if (two.equals(null) || two.equals("")) {
+        return (FXCollections.observableArrayList(
+            DataManager.getAllServiceRequests().stream()
+                .filter((request) -> request.getRequestType().toString().equals(one.toString()))
+                .toList()));
+      } else {
+        return (FXCollections.observableArrayList(
+            DataManager.getAllServiceRequests().stream()
+                .filter((request) -> request.getStatus().toString().equals(two.toString()))
+                .filter((request) -> request.getRequestType().toString().equals(one.toString()))
+                .toList()));
+      }
+    }
+  }
+
   @FXML
   public void initialize() throws SQLException {
     ParentController.titleString.set("Service Request View");
 
-    requestTypeCombo.setItems(serviceType);
+    requestTypeCombo.setItems(FXCollections.observableArrayList(RequestType.values()));
     requestStatusCombo.setItems(statusValue);
 
     ObservableList<ServiceRequest> serviceRequests =
@@ -63,25 +87,124 @@ public class ServiceRequestViewController {
     requestStatusCombo
         .valueProperty()
         .addListener(
-            (observable, oldValue, newValue) -> {
-              if (!newValue.equals(null)) {
-                try {
-                  if (newValue.equals("")) {
-                    table.setItems(sortedServiceReq);
-                  } else {
-                    table.setItems(
-                        FXCollections.observableList(
-                            DataManager.getAllServiceRequests().stream()
-                                .filter(
-                                    (request) ->
-                                        request.getStatus().getStatusString().equals(newValue))
-                                .toList()));
-                  }
-                } catch (SQLException e) {
-                  throw new RuntimeException(e);
-                }
-              }
+            ((observable, oldValue, newValue) -> {
+              requestTypeCombo
+                  .valueProperty()
+                  .addListener(
+                      ((observable1, oldValue1, newValue1) -> {
+                        try {
+                          table.setItems(tableFilter(newValue1, newValue.toString()));
+                        } catch (SQLException e) {
+                          throw new RuntimeException(e);
+                        }
+                      }));
+            }));
+    //    requestTypeCombo.valueProperty().addListener(
+    //            (observable1, oldValue1, newValue1) -> {
+    //              requestStatusCombo
+    //                  .valueProperty()
+    //                  .addListener(
+    //                      (observable2, oldValue2, newValue2) -> {
+    //                        if (!newValue1.equals(null)) {
+    //                          try {
+    //                            if (newValue1.equals("Meal Request")) {
+    //                              table.setItems(
+    //                                  FXCollections.observableList(
+    //                                      DataManager.getAllServiceRequests().stream()
+    //                                          .filter(
+    //                                              (request) ->
+    //                                                  request
+    //                                                      .getStatus()
+    //                                                      .getStatusString()
+    //                                                      .equals(newValue2))
+    //                                          .filter(
+    //                                              (request) ->
+    //
+    // request.getRequestType().toString().equals(newValue1))
+    //                                          .toList()));
+    //                            } else if (newValue1.equals("Flower Request")) {
+    //                              table.setItems(
+    //                                  FXCollections.observableList(
+    //                                      DataManager.getAllServiceRequests().stream()
+    //                                          .filter(
+    //                                              (request) ->
+    //                                                  request
+    //                                                      .getStatus()
+    //                                                      .getStatusString()
+    //                                                      .equals(newValue2))
+    //                                          .filter(
+    //                                              (request) ->
+    //                                                  request
+    //                                                      .getRequestType()
+    //                                                      .equals(RequestType.FLOWER))
+    //                                          .toList()));
+    //                            } else if (newValue1.equals("Furniture Request")) {
+    //                              table.setItems(
+    //                                  FXCollections.observableList(
+    //                                      DataManager.getAllServiceRequests().stream()
+    //                                          .filter(
+    //                                              (request) ->
+    //                                                  request
+    //                                                      .getStatus()
+    //                                                      .getStatusString()
+    //                                                      .equals(newValue2))
+    //                                          .filter(
+    //                                              (request) ->
+    //                                                  request
+    //                                                      .getRequestType()
+    //                                                      .equals(RequestType.FURNITURE))
+    //                                          .toList()));
+    //                            } else if (newValue1.equals("Office Supply Request")) {
+    //                              table.setItems(
+    //                                  FXCollections.observableList(
+    //                                      DataManager.getAllServiceRequests().stream()
+    //                                          .filter(
+    //                                              (request) ->
+    //                                                  request
+    //                                                      .getStatus()
+    //                                                      .getStatusString()
+    //                                                      .equals(newValue2))
+    //                                          .filter(
+    //                                              (request) ->
+    //                                                  request
+    //                                                      .getRequestType()
+    //                                                      .equals(RequestType.OFFICESUPPLY))
+    //                                          .toList()));
+    //                            } else if (newValue1.equals("")) {
+    //                              table.setItems(
+    //                                  FXCollections.observableList(
+    //                                      DataManager.getAllServiceRequests()));
+    //                            }
+    //                          } catch (SQLException e) {
+    //                            throw new RuntimeException(e);
+    //                          }
+    //                        }
+    //                      });
+    //            });
 
-            });
+    //    requestStatusCombo
+    //        .valueProperty()
+    //        .addListener(
+    //            (observable, oldValue, newValue) -> {
+    //              if (!newValue.equals(null)) {
+    //                try {
+    //                  if (newValue.equals("")) {
+    //                    table.setItems(sortedServiceReq);
+    //                  } else {
+    //                    table.setItems(
+    //                        FXCollections.observableList(
+    //                            DataManager.getAllServiceRequests().stream()
+    //                                .filter(
+    //                                    (request) ->
+    //
+    // request.getStatus().getStatusString().equals(newValue))
+    //                                .toList()));
+    //                  }
+    //                } catch (SQLException e) {
+    //                  throw new RuntimeException(e);
+    //                }
+    //              }
+    //
+    //            });
   }
 }
