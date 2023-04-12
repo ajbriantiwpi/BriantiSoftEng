@@ -225,7 +225,15 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
       RequestType requestType = RequestType.valueOf(rs.getString("requestType"));
       serviceRequest =
           (new ServiceRequest(
-              rID, staffName, patientName, roomNum, deliverBy, requestedAt, status, requestMadeBy, requestType));
+              rID,
+              staffName,
+              patientName,
+              roomNum,
+              deliverBy,
+              requestedAt,
+              status,
+              requestMadeBy,
+              requestType));
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }
