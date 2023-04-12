@@ -71,10 +71,8 @@ public class OfficeSupplyDAOImpl implements OfficeSupplyDAO {
   }
 
   /**
-   * This method adds a new OfficeSupply object to the "OfficeSupply" table in the database.
-   *
-   * @param officeSupply the OfficeSupply object to be added to the "OfficeSupply" table
-   * @throws SQLException if there is a problem accessing the database
+   * @param officeSupply
+   * @throws SQLException
    */
   @Override
   public void add(OfficeSupply officeSupply) throws SQLException {
@@ -98,10 +96,8 @@ public class OfficeSupplyDAOImpl implements OfficeSupplyDAO {
   }
 
   /**
-   * This method deletes the given OfficeSupply object from the database
-   *
-   * @param officeSupply the OfficeSupply object that will be deleted in the database
-   * @throws SQLException if there is a problem accessing the database
+   * @param officeSupply
+   * @throws SQLException
    */
   @Override
   public void delete(OfficeSupply officeSupply) throws SQLException {

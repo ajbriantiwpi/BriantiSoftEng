@@ -16,8 +16,7 @@ FROM (SELECT n."longName", "shortName", n."nodeID", "nodeType", xcoord, ycoord, 
                                    WHERE "LocationName"."longName" = n."longName") j
                              WHERE date < (SELECT cast(now() AS DATE))
                              AND j."nodeID" = 100) l) q
-        WHERE j.date = q.date
-        AND j."nodeID" = 100;
+        WHERE j.date = q.date;
 
 --Gets up-to-date info by node
 SELECT DISTINCT q."nodeID", "longName", "shortName", "nodeType", xcoord, ycoord, building, floor, date
@@ -33,7 +32,7 @@ FROM (SELECT n."longName", "shortName", n."nodeID", "nodeType", xcoord, ycoord, 
                      FROM "Node", "Move"
                      where "Node"."nodeID" = "Move"."nodeID") n
                WHERE "LocationName"."longName" = n."longName"
-               AND date < (SELECT NOW()::timestamp) j
+               AND date < (SELECT cast(now() AS DATE))) j
     GROUP BY "nodeID") q
 where q."nodeID" = w."nodeID";
 

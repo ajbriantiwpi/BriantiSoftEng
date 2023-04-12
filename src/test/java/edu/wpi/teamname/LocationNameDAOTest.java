@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.*;
@@ -19,19 +18,10 @@ class LocationNameDAOTest {
   void setUp() throws SQLException {
     // TODO: Put in docker info
     DataManager.configConnection("jdbc:postgresql://localhost:5432/postgres", "user", "pass");
-    Connection connection = DataManager.DbConnection();
-    String query = "Truncate Table \"LocationName\"";
-    try (PreparedStatement statement = connection.prepareStatement(query)) {
-      statement.executeUpdate();
-    } catch (SQLException e) {
-      System.out.println("Truncate Error. " + e);
-    }
-    connection.close();
   }
 
   @Test
-  void testSync() throws SQLException {
-    testAdd();
+  void testSync() {
     // create a location name to sync
     LocationName locationName =
         new LocationName("Test Long Name", "Test Short Name", "Test Node Type");
@@ -214,12 +204,12 @@ class LocationNameDAOTest {
   }
   // Test uploading a CSV file to a new table
   @Test
-  public void testUploadLocationNameToPostgreSQL() throws SQLException, ParseException {
+  public void testUploadLocationNameToPostgreSQL() throws SQLException {
     // Set up test data
     String csvFilePath = "src/test/resources/test_location_names.csv";
 
     // Call the function being tested
-    DataManager.uploadLocationName(csvFilePath);
+    DataManager.uploadLocationNameToPostgreSQL(csvFilePath);
 
     // Verify that the data was uploaded correctly
     Connection connection = DataManager.DbConnection();

@@ -27,9 +27,8 @@ public class Login {
       admin = true;
     }
     this.username = username;
+    this.password = password;
     this.originalUsername = username;
-    // encrypt the password using Caesar cipher
-    this.password = encrypt(password, 3);
   }
 
   public boolean LogInto() throws SQLException {
@@ -73,14 +72,8 @@ public class Login {
       System.out.println(
           "Username does not meet the requirements: 8 Characters, 1 uppercase, 1 number, 1 special.");
     } else { // meets username req
-      // encrypt the password using Caesar cipher
-      String encryptedPass = encrypt(newPass, 3);
       String query =
-          "INSERT INTO \"Login\" (username, password) VALUES('"
-              + newUser
-              + "', '"
-              + encryptedPass
-              + "')";
+          "INSERT INTO \"Login\" (username, password) Values('" + newUser + "', '" + newPass + "')";
       try (Statement statement = connection.createStatement()) {
         statement.executeUpdate(query);
       } catch (SQLException e) {
@@ -91,19 +84,19 @@ public class Login {
 
   public String resetPass(String newPass) throws SQLException {
     Connection connection = DataManager.DbConnection();
-    // encrypt the new password using Caesar cipher
-    String encryptedPass = encrypt(newPass, 3);
-    this.password = encryptedPass;
+    //    StringBuilder sb = new StringBuilder();
+    //    Random rand = new Random();
+    //    String oldPass = "NewOldPassword";
+    //        for (int i = 0; i < 10; i++) {
+    //          sb.append(oldPass.charAt(rand.nextInt(oldPass.length())));
+    //        }
+    this.password = newPass;
     String query =
-        "UPDATE \"Login\" SET password = '"
-            + encryptedPass
-            + "' WHERE username = '"
-            + username
-            + "'";
+        "Update \"Login\" Set password = '" + password + "' where username = '" + username + "'";
 
     try (Statement statement = connection.createStatement()) {
       statement.executeUpdate(query);
-      System.out.println("New password is now: " + newPass);
+      System.out.println("New password is now: " + password);
     } catch (SQLException e3) {
       System.out.println("Set New Password Error. " + e3);
     }
@@ -112,19 +105,6 @@ public class Login {
 
   public String toString() {
     return "[" + username + ", " + password + "]";
-  }
-
-  private String encrypt(String plaintext, int shift) {
-    StringBuilder ciphertext = new StringBuilder();
-    for (int i = 0; i < plaintext.length(); i++) {
-      char c = plaintext.charAt(i);
-      if (Character.isLetter(c)) {
-        char base = Character.isUpperCase(c) ? 'A' : 'a';
-        c = (char) (base + (c - base + shift) % 26);
-      }
-      ciphertext.append(c);
-    }
-    return ciphertext.toString();
   }
 
   // ---------------Login requirements-----------

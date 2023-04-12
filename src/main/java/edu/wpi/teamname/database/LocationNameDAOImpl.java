@@ -64,12 +64,7 @@ public class LocationNameDAOImpl implements LocationNameDAO {
     return list;
   }
 
-  /**
-   * This method adds a new LocationName object to the "LocationName" table in the database.
-   *
-   * @param locationName the LocationName object to be added to the "LocationName" table
-   * @throws SQLException if there is a problem accessing the database
-   */
+  /** @param locationName */
   @Override
   public void add(LocationName locationName) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -90,12 +85,7 @@ public class LocationNameDAOImpl implements LocationNameDAO {
     }
   }
 
-  /**
-   * This method deletes the given LocationName object from the database
-   *
-   * @param locationName the LocationName object that will be deleted in the database
-   * @throws SQLException if there is a problem accessing the database
-   */
+  /** @param locationName */
   @Override
   public void delete(LocationName locationName) throws SQLException {
     Connection connection = DataManager.DbConnection();
