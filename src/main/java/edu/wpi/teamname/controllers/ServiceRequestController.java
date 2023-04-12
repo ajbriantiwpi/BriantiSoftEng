@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
+import java.util.HashSet;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -100,6 +101,10 @@ public class ServiceRequestController {
   @FXML AnchorPane summaryPane;
   @FXML Label summaryLabel;
 
+  @FXML VBox cartBox;
+  @FXML Label totalLabel;
+  @FXML MFXButton forgotButton;
+
   @Setter @Getter private ServiceRequest request;
 
   // ArrayList<Integer> itemIDs;
@@ -129,6 +134,30 @@ public class ServiceRequestController {
       LocalDateTime reqDateTime = date.atTime(time);
       System.out.println(reqDateTime.toString());
       Timestamp reqTS = Timestamp.valueOf(reqDateTime);
+      RequestType reqType;
+      ArrayList<RequestItem> items = new ArrayList<>();
+      if (requestType.getValue() == "Meal Delivery") {
+        folder = "MealIcons";
+        ArrayList<Meal> tems = DataManager.getAllMeals();
+        items.addAll(tems);
+        reqType = RequestType.MEAL;
+      } else if (requestType.getValue() == "Flower Delivery") {
+        folder = "FlowerIcons";
+        ArrayList<Flower> tems = DataManager.getAllFlowers();
+        items.addAll(tems);
+        reqType = RequestType.FLOWER;
+      } else if (requestType.getValue() == "Office Supply Delivery") {
+        folder = "OfficeIcons";
+        ArrayList<OfficeSupply> tems = DataManager.getAllOfficeSupplies();
+        items.addAll(tems);
+        reqType = RequestType.OFFICESUPPLY;
+      } else { // "Furniture Delivery"
+        folder = "FurnitureIcons";
+        ArrayList<Furniture> tems = DataManager.getAllFurniture();
+        items.addAll(tems);
+        reqType = RequestType.FURNITURE;
+      }
+
       setRequest(
           new ServiceRequest(
               Instant.now().get(ChronoField.MICRO_OF_SECOND),
@@ -138,25 +167,8 @@ public class ServiceRequestController {
               reqTS,
               Timestamp.from(Instant.now()),
               Status.BLANK,
-              "test"));
-      ArrayList<RequestItem> items = new ArrayList<>();
-      if (requestType.getValue() == "Meal Delivery") {
-        folder = "MealIcons";
-        ArrayList<Meal> tems = DataManager.getAllMeals();
-        items.addAll(tems);
-      } else if (requestType.getValue() == "Flower Delivery") {
-        folder = "FlowerIcons";
-        ArrayList<Flower> tems = DataManager.getAllFlowers();
-        items.addAll(tems);
-      } else if (requestType.getValue() == "Office Supply Delivery") {
-        folder = "OfficeIcons";
-        ArrayList<OfficeSupply> tems = DataManager.getAllOfficeSupplies();
-        items.addAll(tems);
-      } else { // "Furniture Delivery"
-        folder = "FurnitureIcons";
-        ArrayList<Furniture> tems = DataManager.getAllFurniture();
-        items.addAll(tems);
-      }
+              "test",
+              reqType));
 
       for (int a = 0; a < items.size(); a++) {
         if (a < 4) {
@@ -180,7 +192,22 @@ public class ServiceRequestController {
       nextButton.setText("Submit");
       requestPage = 2;
       summaryLabel.setText(request.toString());
-
+      String t = request.getRequestType().toString();
+      String f;
+      if (t == "MEAL") {
+        f = "MealIcons";
+      } else if (t == "FLOWER") {
+        f = "FlowerIcons";
+      } else if (t == "OFFICESUPPLY") {
+        f = "OfficeIcons";
+      } else {
+        f = "FurnitureIcons";
+      }
+      HashSet tem = new HashSet<>(request.getItems());
+      ArrayList<RequestItem> tem2 = new ArrayList(tem);
+      for (RequestItem item : tem2) {
+        cartBox.getChildren().add(new ReqMenuItems(item, f, getRequest(), false));
+      }
 
     } else if (requestPage == 2) {
       setVisibleScreen(0);
