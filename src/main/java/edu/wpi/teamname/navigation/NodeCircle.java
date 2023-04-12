@@ -33,8 +33,8 @@ public class NodeCircle {
 
   public Pane p;
 
-  Color borderColor = new Color(0.1, 0.4, 0.9, 1);
-  Color insideColor = new Color(0.05, 0.7, 1, 1);
+  Color borderColor = Color.web("33567A"); // new Color(0.1, 0.4, 0.9, 1);
+  Color insideColor = Color.web("2FA7B0"); // new Color(0.05, 0.7, 1, 1);
   float circleR = 10.0f;
   float lineT = 10.0f;
   int lineTout = 2;
@@ -78,8 +78,8 @@ public class NodeCircle {
 
     //    v.setTranslateY(-200);
 
-    //    inner.setOpacity(0);
-    //    outer.setOpacity(0);
+    inner.setOpacity(0);
+    outer.setOpacity(0);
 
     //    v.setOpacity(0);
     //    v.setDisable(true);
@@ -127,7 +127,7 @@ public class NodeCircle {
           //          text.setOpacity(0);
           Pane p = ((Pane) event.getSource());
           p.setOpacity(1);
-          p.setBackground(Background.fill(Color.RED));
+          //          p.setBackground(Background.fill(Color.RED));
           for (javafx.scene.Node n : p.getChildren()) {
             if (!(n.getClass() == VBox.class)) {
               n.setOpacity(1);

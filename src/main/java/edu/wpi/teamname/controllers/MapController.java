@@ -6,7 +6,6 @@ import edu.wpi.teamname.navigation.Map;
 import edu.wpi.teamname.navigation.Node;
 import edu.wpi.teamname.system.App;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXComboBox;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -18,10 +17,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -53,7 +49,8 @@ public class MapController {
   @FXML TableColumn shortNameColumn;
   @FXML TableColumn nodeTypeColumn;
 
-  @FXML MFXComboBox<String> selectTable = new MFXComboBox<>();
+  //  @FXML MFXComboBox<String> selectTable = new MFXComboBox<>();
+  @FXML ComboBox<String> selectTable = new ComboBox<>();
 
   String defaultFloor = "L1";
   int defaultX = 0;
@@ -360,7 +357,7 @@ public class MapController {
         public void handle(MouseEvent event) {
 
           MFXButton addButton = ((MFXButton) event.getSource());
-          HBox outerPane = (HBox) addButton.getParent();
+          VBox outerPane = (VBox) addButton.getParent();
 
           final var resource = App.class.getResource("../views/ChangeNode.fxml");
           final FXMLLoader loader = new FXMLLoader(resource);
@@ -392,7 +389,7 @@ public class MapController {
         public void handle(MouseEvent event) {
 
           MFXButton addButton = ((MFXButton) event.getSource());
-          HBox outerPane = (HBox) addButton.getParent();
+          VBox outerPane = (VBox) addButton.getParent();
 
           final var resource = App.class.getResource("../views/ChangeNode.fxml");
           final FXMLLoader loader = new FXMLLoader(resource);

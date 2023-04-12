@@ -1,39 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.canvas.Canvas?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import net.kurobako.gesturefx.GesturePane?>
 
 <HBox xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MapController">
    <children>
       <AnchorPane prefHeight="340.0" prefWidth="300.0">
          <children>
-            <VBox prefHeight="200.0" prefWidth="323.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox prefHeight="200.0" prefWidth="323.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <MFXComboBox fx:id="selectTable" />
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <ComboBox fx:id="selectTable" promptText="Choose Table To Import/Export" style="-fx-background-color: #D5E3ff;" stylesheets="@../stylesheets/combo.css">
+<!--                      <font>-->
+<!--                          <Font name="Roboto" size="16.0" />-->
+<!--                      </font>-->
+                  </ComboBox>
+
+                  <HBox prefHeight="0.0" prefWidth="0.0" spacing="20.0">
                      <children>
-                        <MFXButton fx:id="importButton" text="Import" />
-                        <MFXButton fx:id="exportButton" text="Export" />
+                        <MFXButton fx:id="importButton" style="-fx-background-color: #D5E3ff;" text="Import">
+                           <font>
+                              <Font name="Roboto" size="16.0" />
+                           </font></MFXButton>
+                        <MFXButton fx:id="exportButton" style="-fx-background-color: #D5E3ff;" text="Export">
+                           <font>
+                              <Font name="Roboto" size="16.0" />
+                           </font></MFXButton>
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <MFXButton fx:id="addNodeButton" text="AddNode" />
-                        <MFXButton fx:id="addLocationButton" text="AddLocation" />
-                        <MFXButton fx:id="toggleTableButton" text="Modify/Remove Locatoins" />
-                     </children>
-                  </HBox>
+                  <MFXButton fx:id="addNodeButton" style="-fx-background-color: #D5E3ff;" text="AddNode">
+                     <font>
+                        <Font name="Roboto" size="16.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton fx:id="addLocationButton" style="-fx-background-color: #D5E3ff;" text="AddLocation">
+                     <font>
+                        <Font name="Roboto" size="16.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton fx:id="toggleTableButton" style="-fx-background-color: #D5E3ff;" text="Modify/Remove Locatoins">
+                     <font>
+                        <Font name="Roboto" size="16.0" />
+                     </font>
+                  </MFXButton>
                </children>
+               <padding>
+                  <Insets left="20.0" top="20.0" />
+               </padding>
             </VBox>
          </children>
       </AnchorPane>
@@ -46,7 +69,6 @@
                               <Group>
                                   <children>
                                       <AnchorPane fx:id="anchor" prefHeight="3400.0" prefWidth="5000.0" styleClass="body" stylesheets="@../stylesheets/scaleFull.css" visible="true" />
-                                      <Label fx:id="destText" layoutX="66.0" layoutY="138.0" styleClass="outline" stylesheets="@../stylesheets/textOutline.css" text="Click Your Destination!" />
                                   </children>
                               </Group>
                           </content>
