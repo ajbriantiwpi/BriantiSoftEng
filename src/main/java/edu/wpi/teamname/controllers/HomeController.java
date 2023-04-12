@@ -1,5 +1,6 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.database.Login;
 import edu.wpi.teamname.system.Navigation;
 import edu.wpi.teamname.system.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -14,9 +15,13 @@ public class HomeController {
   @FXML MFXButton mapButton;
   @FXML MFXButton directionsButton;
   @FXML MFXButton makeRequestsButton;
+  @FXML MFXButton makeRequestsButton1;
+  @FXML MFXButton makeRequestsButton2;
+  @FXML MFXButton makeRequestsButton3;
   @FXML MFXButton showRequestsButton;
   @FXML MFXButton editMapButton;
   @FXML MFXButton exitButton;
+  @FXML MFXButton navigateButton;
 
   // test push
   @Setter private static boolean loggedIn = false;
@@ -29,6 +34,7 @@ public class HomeController {
     loggedIn = false;
     loginButton.setVisible(true);
     logoutButton.setVisible(false);
+    Login.setUser(null);
   }
 
   @FXML
@@ -52,15 +58,20 @@ public class HomeController {
       logoutButton.setVisible(false);
     }
     loginButton.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN));
+    logoutButton.setOnMouseClicked(event -> logout());
 
-    homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-    //    helpButton.setOnMouseClicked(event -> Navigation.navigate(Screen.));
+    //    homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+
+    //        helpButton.setOnMouseClicked(event -> Navigation.navigate(Screen));
     mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
     directionsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
     makeRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
+    makeRequestsButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
+    makeRequestsButton2.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
+    makeRequestsButton3.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
     showRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST_VIEW));
     editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
     exitButton.setOnMouseClicked(event -> System.exit(0));
-    //    navigateButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
+    navigateButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
   }
 }
