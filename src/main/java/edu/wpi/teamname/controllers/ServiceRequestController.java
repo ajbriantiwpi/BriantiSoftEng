@@ -190,7 +190,7 @@ public class ServiceRequestController {
 
       request.setPatientName(patientName.getCharacters().toString());
       // request.setRoomNumber(roomNum.getCharacters().toString());
-      //request.setRoomNumber("");
+      // request.setRoomNumber("");
       // request.setDeliverBy(dateBox.getValue().atStartOfDay());
 
     } else if (requestPage == 1) {

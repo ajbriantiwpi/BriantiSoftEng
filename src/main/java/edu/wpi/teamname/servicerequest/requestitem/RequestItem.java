@@ -9,7 +9,6 @@ public abstract class RequestItem {
   @Getter @Setter private String name;
   @Getter private final int originalID;
   @Getter @Setter private float price;
-  private static final DecimalFormat df = new DecimalFormat("0.00");
 
   public RequestItem(int itemID, String name) {
     this.itemID = itemID;
@@ -19,6 +18,7 @@ public abstract class RequestItem {
   }
 
   public RequestItem(int itemID, String name, float price) {
+    DecimalFormat df = new DecimalFormat("0.00");
     this.itemID = itemID;
     this.name = name;
     this.originalID = itemID;
