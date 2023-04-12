@@ -209,6 +209,14 @@ public class NodeDAOImpl implements NodeDAO {
     }
   }
 
+  /**
+   * This method retrieves a Node object with the specified ID from the "Node" table in the
+   * database.
+   *
+   * @param id the ID of the Meal object to retrieve from the "Node" table
+   * @return the Node object with the specified ID, or null if not found
+   * @throws SQLException if there is a problem accessing the database
+   */
   public static Node getNode(int id) throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query = "SELECT * FROM \"Node\" WHERE \"nodeID\" = ?";

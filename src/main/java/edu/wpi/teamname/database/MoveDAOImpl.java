@@ -95,7 +95,7 @@ public class MoveDAOImpl implements MoveDAO {
   /**
    * This method deletes the given Move object from the database
    *
-   * @param Move the Meal object that will be deleted in the database
+   * @param move the Move object that will be deleted in the database
    * @throws SQLException if there is a problem accessing the database
    */
   @Override

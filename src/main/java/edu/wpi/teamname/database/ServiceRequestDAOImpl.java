@@ -13,7 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceRequestDAOImpl implements ServiceRequestDAO {
-  /** */
+  /**
+   * This method updates an existing ServiceRequest object in the "ServiceRequest" table in the database
+   * with the new ServiceRequest object.
+   *
+   * @param serviceRequest the new ServiceRequest object to be updated in the "ServiceRequest" table
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void sync(ServiceRequest serviceRequest) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -261,10 +267,10 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
   }
 
   /**
-   * * given an id and a staffname, updates that request's staff name into the new staff name
-   *
-   * @param requestID the id of the request to update
-   * @param staffName the new staff name
+   * Updates the staff name for a service request with the given request ID in the database.
+   * @param requestID the ID of the service request to update.
+   * @param staffName the new staff name to set.
+   * @throws SQLException if a database error occurs.
    */
   public static void uploadStaffName(int requestID, String staffName) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -318,9 +324,7 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
   }
   /**
    * Uploads CSV data to a PostgreSQL database table "ServiceRequest"
-   *
-   * @param csvFilePath is a String representing the filepath of the file we want to upload (use
-   *     "\\" instead of "\")
+   * @param csvFilePath is a String representing the filepath of the file we want to upload (use"\\" instead of "\")
    * @throws SQLException if an error occurs while uploading the data to the database
    */
   public static void uploadServiceRequestToPostgreSQL(String csvFilePath) throws SQLException {
