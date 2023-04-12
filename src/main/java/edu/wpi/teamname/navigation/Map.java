@@ -112,33 +112,32 @@ public class Map {
         currentClick = secondClick;
       }
 
+      leastDistance = Double.MAX_VALUE;
+      checkIndex = -1;
 
-    leastDistance = Double.MAX_VALUE;
-    checkIndex = -1;
-
-    for (int i = 0; i < allNodes.size(); i++) {
-      if (i == startIndex) {
-        continue;
-      } else {
-        Node currentNode = allNodes.get(i);
-        if (currentNode.getFloor().equals(currentFloor)) {
-          nodeDist = currentClick.distance(currentNode.getX(), currentNode.getY());
-          if (nodeDist < leastDistance) {
-            leastDistance = nodeDist;
-            checkIndex = i;
+      for (int i = 0; i < allNodes.size(); i++) {
+        if (i == startIndex) {
+          continue;
+        } else {
+          Node currentNode = allNodes.get(i);
+          if (currentNode.getFloor().equals(currentFloor)) {
+            nodeDist = currentClick.distance(currentNode.getX(), currentNode.getY());
+            if (nodeDist < leastDistance) {
+              leastDistance = nodeDist;
+              checkIndex = i;
+            }
           }
         }
       }
-    }
 
-    if (j == 0) {
-      // Start Node
-      startIndex = checkIndex;
-    } else {
-      // End Node
-      endIndex = checkIndex;
+      if (j == 0) {
+        // Start Node
+        startIndex = checkIndex;
+      } else {
+        // End Node
+        endIndex = checkIndex;
+      }
     }
-  }
 
     Node startNode = allNodes.get(startIndex);
     Node endNode = allNodes.get(endIndex);
