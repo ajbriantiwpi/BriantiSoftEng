@@ -161,7 +161,7 @@ public class ServiceRequestController {
 
       for (int a = 0; a < items.size(); a++) {
         if (a < 4) {
-          itemBox.getChildren().add(new ReqMenuItems(items.get(a), folder, getRequest()));
+          itemBox.getChildren().add(new ReqMenuItems(items.get(a), folder, getRequest(), true));
         }
       }
 

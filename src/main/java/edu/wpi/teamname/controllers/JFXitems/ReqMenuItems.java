@@ -16,18 +16,21 @@ import javafx.scene.text.Font;
 public class ReqMenuItems extends GridPane {
   private String name;
   private int id;
+  private boolean add;
   ServiceRequest request;
-  @FXML HBox hBox;
+
   @FXML VBox vBox;
   @FXML Label label;
+  @FXML Label labelP;
   @FXML Button button;
   @FXML ImageView imageView;
   @FXML TextField quantity;
 
-  public ReqMenuItems(RequestItem item, String folder, ServiceRequest request) {
+  public ReqMenuItems(RequestItem item, String folder, ServiceRequest request, boolean add) {
     this.name = item.getName();
     this.id = item.getItemID();
     this.request = request;
+    this.add = add;
     try {
       imageView =
           new ImageView(
@@ -42,12 +45,17 @@ public class ReqMenuItems extends GridPane {
       System.out.println(
           "edu/wpi/teamname/images/" + folder + "/" + name.replace(" ", "_") + ".png");
     }
-    hBox = new HBox();
+    // hBox = new HBox();
     label = new Label(name.replace("_", " "));
     label.setFont(Font.font("Roboto", 32));
     label.setMinWidth(200);
     label.setMaxWidth(200);
-    button = new RequestMenuItemButton(name.replace("_", " "), this.id, this, this.request);
+    labelP = new Label("Price: $" + String.valueOf(item.getPrice()));
+    labelP.setFont(Font.font("Roboto", 32));
+    labelP.setMinWidth(200);
+    labelP.setMaxWidth(200);
+    button =
+        new RequestMenuItemButton(name.replace("_", " "), this.id, this, this.request, this.add);
     quantity = new TextField("");
     quantity.setPromptText("Quantity");
     quantity.setFont(Font.font("Roboto", 32));
@@ -56,13 +64,14 @@ public class ReqMenuItems extends GridPane {
         "-fx-background-color: #D9E3F8 ;-fx-font-fill: #121C2B; -fx-background-radius: 8;-fx-border-radius: 8; -fx-border-color: #6F797A; -fx-border-width: 1");
 
     add(label, 1, 0);
-    add(quantity, 2, 0);
+    add(labelP, 2, 0);
+    add(quantity, 3, 0);
 
     vBox = new VBox();
     vBox.setAlignment(Pos.CENTER);
     vBox.setMinWidth(button.getWidth() + 15);
     vBox.getChildren().add(button);
-    add(vBox, 3, 0);
+    add(vBox, 4, 0);
 
     button.setLayoutY(this.getHeight());
     button.setPadding(new Insets(this.getHeight() / 2 - button.getHeight() / 2, 25, 0, 25));
@@ -71,24 +80,23 @@ public class ReqMenuItems extends GridPane {
 
   private void initialize() {
     // setLayoutX(1000);
-    hBox.setPadding(new Insets(0, 30, 0, 30));
-    hBox.setSpacing(100);
+
     setFillWidth(label, true);
     setHgrow(label, Priority.ALWAYS);
     setHalignment(label, HPos.LEFT);
+    setHalignment(labelP, HPos.LEFT);
     setHalignment(quantity, HPos.LEFT);
     setFillWidth(vBox, true);
     setHgrow(vBox, Priority.ALWAYS);
     button.setAlignment(Pos.CENTER_RIGHT);
     setHalignment(vBox, HPos.RIGHT);
-    hBox.setAlignment(Pos.CENTER_LEFT);
     setStyle("-fx-background-color: #D5E3FF;" + "-fx-background-radius: 8");
     button.setStyle(
         "-fx-background-color: #555F71; "
             + "-fx-text-fill:  #FFFFFF; "
             + "-fx-background-radius: 100;"
             + " -fx-font-family: Roboto;"
-            + " -fx-font-size: 28 ");
+            + " -fx-font-size: 32 ");
   }
 
   public int getQuantity() {

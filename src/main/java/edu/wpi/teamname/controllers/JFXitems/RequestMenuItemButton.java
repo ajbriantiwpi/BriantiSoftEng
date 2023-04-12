@@ -4,7 +4,6 @@ import edu.wpi.teamname.servicerequest.ServiceRequest;
 import java.sql.SQLException;
 import javafx.scene.AccessibleRole;
 import javafx.scene.control.Button;
-import javafx.scene.text.Font;
 
 public class RequestMenuItemButton extends Button {
   ReqMenuItems parent;
@@ -12,27 +11,38 @@ public class RequestMenuItemButton extends Button {
   int id;
   ServiceRequest request;
 
-  RequestMenuItemButton(String name, int id, ReqMenuItems parent, ServiceRequest request) {
+  boolean add;
+
+  RequestMenuItemButton(
+      String name, int id, ReqMenuItems parent, ServiceRequest request, boolean add) {
     super(name);
     this.parent = parent;
     this.name = name;
     this.id = id;
     this.request = request;
+    this.add = add;
     initialize();
-    this.setText("Add to Cart");
+    if (add) {
+      this.setText("Add to Cart");
+    } else {
+      this.setText("Remove From Cart");
+    }
   }
 
   private void initialize() {
     getStyleClass().setAll("button");
     setAccessibleRole(AccessibleRole.BUTTON);
     setMnemonicParsing(true);
-    setStyle("-fx-background-color: #d9d9d9");
-    setFont(Font.font("Times New Roman", 32));
+    // setStyle("-fx-background-color: #d9d9d9");
     setOnMouseClicked(
         event -> {
           for (int a = 0; a < parent.getQuantity(); a++) {
             try {
-              request.addItem(id);
+              if (add) {
+                request.addItem(id);
+              } else {
+                request.removeItem(id);
+              }
             } catch (SQLException e) {
               throw new RuntimeException(e);
             }

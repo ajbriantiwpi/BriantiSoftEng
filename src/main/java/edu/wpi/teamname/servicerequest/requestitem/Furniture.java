@@ -9,15 +9,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class Furniture extends RequestItem {
-  @Setter @Getter private float price;
   @Setter @Getter private String category;
   @Setter @Getter private String size;
   @Setter @Getter private String color;
 
   public Furniture(
       int itemID, String name, float price, String category, String size, String color) {
-    super(itemID, name);
-    this.price = price;
+    super(itemID, name, price);
     this.category = category;
     this.size = size;
     this.color = color;
@@ -50,7 +48,7 @@ public class Furniture extends RequestItem {
         + ", "
         + this.getName()
         + ", "
-        + price
+        + this.getPrice()
         + ", "
         + category
         + ", "

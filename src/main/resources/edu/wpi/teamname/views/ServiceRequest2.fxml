@@ -25,7 +25,7 @@
                     <children>
                         <StackPane prefWidth="500.0" VBox.vgrow="ALWAYS">
                             <children>
-                                <ScrollPane VBox.vgrow="ALWAYS">
+                                <ScrollPane disable="true" visible="false" VBox.vgrow="ALWAYS">
                                     <content>
                                         <AnchorPane fx:id="formPane" minHeight="0.0" minWidth="0.0">
                                             <children>
@@ -56,21 +56,49 @@
                                         </AnchorPane>
                                     </content>
                                 </ScrollPane>
-                                <AnchorPane fx:id="summaryPane" disable="true" visible="false">
+                                <AnchorPane fx:id="summaryPane">
                                     <children>
                                         <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <content>
                                                 <AnchorPane>
                                                     <children>
-                                                        <HBox alignment="CENTER" layoutX="25.0" layoutY="25.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
-                                                            <children>
-                                                                <Label fx:id="summaryLabel" style="-fx-font-family: Times New Roman; -fx-font-size: 20pt; -fx-text-alignment: center;" text="Label">
+                                          <VBox prefHeight="200.0" prefWidth="100.0" spacing="12.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <Label stylesheets="@../stylesheets/RowLabel.css" text="Order Details" textFill="#001b3b">
+                                                   <font>
+                                                      <Font size="40.0" />
+                                                   </font>
+                                                </Label>
+                                                                <Label fx:id="summaryLabel" style="-fx-font-family: Times New Roman; -fx-font-size: 20pt; -fx-text-alignment: center;" text="Order detes" textFill="#001b3b">
                                                                     <font>
-                                                                        <Font name="Times New Roman" size="20.0" />
+                                                                        <Font name="Times New Roman" size="28.0" />
                                                                     </font>
                                                                 </Label>
-                                                            </children>
-                                                        </HBox>
+                                                <Label stylesheets="@../stylesheets/RowLabel.css" text="Order Details" textFill="#001b3b">
+                                                   <font>
+                                                      <Font size="40.0" />
+                                                   </font>
+                                                </Label>
+                                                 <ScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
+                                                     <content>
+                                                         <AnchorPane VBox.vgrow="ALWAYS">
+                                                             <children>
+                                                                 <VBox fx:id="cartBox" fillWidth="true" spacing="12.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                     <children>
+                                                                     </children>
+                                                                 </VBox>
+                                                             </children>
+                                                             <padding>
+                                                                 <Insets left="25.0" right="25.0" />
+                                                             </padding>
+                                                         </AnchorPane>
+                                                     </content>
+                                                     <VBox.margin>
+                                                         <Insets />
+                                                     </VBox.margin>
+                                                 </ScrollPane>
+                                             </children>
+                                          </VBox>
                                                     </children>
                                                 </AnchorPane>
                                             </content>
@@ -100,7 +128,7 @@
                                                     <content>
                                                         <AnchorPane VBox.vgrow="ALWAYS">
                                                             <children>
-                                                                <VBox fx:id="itemBox" fillWidth="true" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                <VBox fx:id="itemBox" fillWidth="true" spacing="12.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                                     <children>
                                                                     </children>
                                                                 </VBox>
