@@ -5,6 +5,8 @@ import edu.wpi.teamname.system.App;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +22,7 @@ import javafx.scene.shape.Circle;
 public class NodeCircle {
   public Circle inner;
   public Circle outer;
+  //  public Text text = new Text();
 
   Label label = new Label();
 
@@ -27,15 +30,16 @@ public class NodeCircle {
   public int nodeID;
 
   public VBox v;
+  public VBox v2;
 
   public Pane p;
 
-  Color borderColor = new Color(0.1, 0.4, 0.9, 1);
-  Color insideColor = new Color(0.05, 0.7, 1, 1);
+  Color borderColor = Color.web("33567A"); // new Color(0.1, 0.4, 0.9, 1);
+  Color insideColor = Color.web("2FA7B0"); // new Color(0.05, 0.7, 1, 1);
+  float circleR = 10.0f;
+
   Color labelColor = new Color(.835, .89, 1, 1);
   Color labelText = new Color(0, .106, .231, 1);
-  float circleR = 7.0f;
-  float lineT = 10.0f;
   int lineTout = 2;
 
   public NodeCircle(Node n) throws IOException {
@@ -92,8 +96,8 @@ public class NodeCircle {
 
     //    v.setTranslateY(-200);
 
-    //    inner.setOpacity(0);
-    //    outer.setOpacity(0);
+    inner.setOpacity(0);
+    outer.setOpacity(0);
 
     //    v.setOpacity(0);
     //    v.setDisable(true);
@@ -141,7 +145,7 @@ public class NodeCircle {
           //          text.setOpacity(0);
           Pane p = ((Pane) event.getSource());
           p.setOpacity(1);
-          p.setBackground(Background.fill(Color.RED));
+          //          p.setBackground(Background.fill(Color.RED));
           for (javafx.scene.Node n : p.getChildren()) {
             if (!(n.getClass() == VBox.class)) {
               n.setOpacity(1);
@@ -170,6 +174,7 @@ public class NodeCircle {
 
           try {
             DataManager.deleteNode(n);
+            //            DataManager.deleteLocationName
           } catch (SQLException ex) {
             System.out.println(ex);
             //            throw new RuntimeException(ex);
@@ -183,26 +188,50 @@ public class NodeCircle {
           MFXButton SubmitButton = ((MFXButton) event.getSource());
           VBox v = (VBox) ((HBox) SubmitButton.getParent()).getParent();
 
-          TextField locText = (TextField) ((Pane) (v.getChildren().get(0))).getChildren().get(1);
-          TextField xText = (TextField) ((Pane) (v.getChildren().get(1))).getChildren().get(1);
-          TextField yText = (TextField) ((Pane) (v.getChildren().get(2))).getChildren().get(1);
+          //          TextField locText = (TextField) ((Pane)
+          // (v.getChildren().get(0))).getChildren().get(1);
+          TextField xText = (TextField) ((Pane) (v.getChildren().get(0))).getChildren().get(1);
+          TextField yText = (TextField) ((Pane) (v.getChildren().get(1))).getChildren().get(1);
+          TextField floorText = (TextField) ((Pane) (v.getChildren().get(2))).getChildren().get(1);
+          TextField buildingText =
+              (TextField) ((Pane) (v.getChildren().get(3))).getChildren().get(1);
 
-          //          String locationNameValue = popupVbox.g
+          Node currNode = null;
+          try {
+            currNode = DataManager.getSingleNodeInfo(nodeID).get(0);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          }
 
-          System.out.println(
-              locText.getText() + ", " + xText.getText() + ", " + yText.getText() + "2");
+          int xPos = currNode.getX();
+          if (!(xText.getText().equals(""))) {
+            xPos = (int) Double.parseDouble(xText.getText());
+          }
+          int yPos = currNode.getY();
+          if (!(yText.getText().equals(""))) {
+            yPos = (int) Double.parseDouble(yText.getText());
+          }
+          String floor = currNode.getFloor();
+          if (!(floorText.getText().equals(""))) {
+            floor = floorText.getText();
+          }
+          String building = currNode.getBuilding();
+          if (!(buildingText.getText().equals(""))) {
+            building = buildingText.getText();
+          }
 
-          //          int highestID = 3000;
-          String currentFloor = "L1";
-          String currentBuilding = "45 Francis";
+          ArrayList<Node> allNodes;
+          try {
+            allNodes = DataManager.getAllNodes();
+          } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+          }
 
-          Node n =
-              new Node(
-                  nodeID,
-                  (int) Double.parseDouble(xText.getText()),
-                  (int) Double.parseDouble(yText.getText()),
-                  currentFloor,
-                  currentBuilding);
+          // This is working on the assumption that We still want all id's to be a difference of 5
+          // and that the last one in the table is the biggest ID
+          int highestID = allNodes.get(allNodes.size() - 1).getId();
+
+          Node n = new Node(nodeID, xPos, yPos, floor, building);
 
           try {
             DataManager.syncNode(n);
@@ -233,21 +262,52 @@ public class NodeCircle {
 
           // Set Location Name
           TextField Location = (TextField) ((Pane) (v.getChildren().get(0))).getChildren().get(1);
-          Location.setText("LOC");
+          try {
+            System.out.println("Start");
+            ArrayList<String> nodeInfo =
+                DataManager.getUpdatedNodeInfo(nodeID, Timestamp.from(Instant.now()));
+            System.out.println(nodeInfo);
+            nodeInfo.add("Empty");
+            // Long Name, Building, Floor
+            Location.setText(nodeInfo.get(0));
+          } catch (Exception e) {
+            throw new RuntimeException(e);
+          }
+          //            } catch (SQLException e) {
+          //              throw new RuntimeException(e);
+          //            }
           // Set X
           TextField XText = (TextField) ((Pane) (v.getChildren().get(1))).getChildren().get(1);
           XText.setText("" + nodeCords.getX());
           // Set Y
           TextField YText = (TextField) ((Pane) (v.getChildren().get(2))).getChildren().get(1);
           YText.setText("" + nodeCords.getY());
+
+          Node currNode = null;
+          try {
+            currNode = DataManager.getSingleNodeInfo(nodeID).get(0);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          }
+
+          TextField floorText = (TextField) ((Pane) (v.getChildren().get(3))).getChildren().get(1);
+          floorText.setText(currNode.getFloor());
+          TextField buildingText =
+              (TextField) ((Pane) (v.getChildren().get(4))).getChildren().get(1);
+          buildingText.setText(currNode.getBuilding());
+
           // Set Remove Node. On Click
           MFXButton removeNodeButton =
-              (MFXButton) ((Pane) (v.getChildren().get(3))).getChildren().get(0);
+              (MFXButton) ((Pane) (v.getChildren().get(7))).getChildren().get(0);
           removeNodeButton.setOnMouseClicked(removeNode);
           // Set Submit
           MFXButton submitButton =
-              (MFXButton) ((Pane) (v.getChildren().get(3))).getChildren().get(1);
+              (MFXButton) ((Pane) (v.getChildren().get(7))).getChildren().get(1);
           submitButton.setOnMouseClicked(saveNodeChanges);
+
+          v.getChildren().remove(6);
+          v.getChildren().remove(5);
+          v.getChildren().remove(0);
 
           p.getChildren().addAll(v);
 

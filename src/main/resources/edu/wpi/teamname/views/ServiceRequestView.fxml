@@ -12,6 +12,7 @@
 <?import org.controlsfx.control.tableview2.FilteredTableColumn?>
 <?import org.controlsfx.control.tableview2.FilteredTableView?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <AnchorPane styleClass="body" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestViewController">
     <children>
         <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -98,11 +99,11 @@
                   </children></AnchorPane>
                     <HBox fillHeight="false" prefHeight="31.0" prefWidth="420.0" spacing="30.0" VBox.vgrow="NEVER">
                         <children>
-                            <Button fx:id="submitButton" mnemonicParsing="false" style="-fx-background-color: #003da6;" text="Assign" textFill="WHITE">
+                            <MFXButton fx:id="submitButton" mnemonicParsing="false" style="-fx-background-color: #003da6;" text="Assign" textFill="WHITE">
                                 <font>
                                     <Font name="Times New Roman" size="32.0" />
                                 </font>
-                            </Button>
+                            </MFXButton>
                         </children>
                         <padding>
                             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />

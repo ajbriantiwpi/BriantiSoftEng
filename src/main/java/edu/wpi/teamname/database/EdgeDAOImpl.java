@@ -95,10 +95,12 @@ public class EdgeDAOImpl implements EdgeDAO {
   @Override
   public void delete(Edge edge) throws SQLException {
     Connection connection = DataManager.DbConnection();
-    String query = "DELETE FROM \"Edge\" WHERE \"startNode\" = ? AND \"endNode\" = ?";
+    String del = "Delete ";
+    String sel = "Select * ";
+    String query = "FROM \"Edge\" WHERE \"startNode\" = ? AND \"endNode\" = ?";
     try (connection) {
 
-      PreparedStatement statement = connection.prepareStatement(query);
+      PreparedStatement statement = connection.prepareStatement(del + query);
       statement.setInt(1, edge.getStartNodeID());
       statement.setInt(2, edge.getEndNodeID());
 
@@ -107,7 +109,7 @@ public class EdgeDAOImpl implements EdgeDAO {
       System.out.println(e.getMessage());
     }
     try (Statement statement = connection.createStatement()) {
-      ResultSet rs2 = statement.executeQuery(query);
+      ResultSet rs2 = statement.executeQuery(sel + query);
       int count = 0;
       while (rs2.next()) count++;
       if (count == 0) System.out.println("Edge information deleted successfully.");

@@ -101,10 +101,11 @@ public class MoveDAOImpl implements MoveDAO {
   @Override
   public void delete(Move move) throws SQLException {
     Connection connection = DataManager.DbConnection();
-    String query =
-        "Delete from \"Move\" where \"nodeID\" = ? AND \"longName\" = ? AND \"date\" = ?";
+    String del = "Delete ";
+    String sel = "Select * ";
+    String query = "from \"Move\" where \"nodeID\" = ? AND \"longName\" = ? AND \"date\" = ?";
 
-    try (PreparedStatement statement = connection.prepareStatement(query)) {
+    try (PreparedStatement statement = connection.prepareStatement(del + query)) {
       statement.setInt(1, move.getNodeID());
       statement.setString(2, move.getLongName());
       statement.setTimestamp(3, move.getDate());
@@ -115,7 +116,7 @@ public class MoveDAOImpl implements MoveDAO {
     }
 
     try (Statement statement = connection.createStatement()) {
-      ResultSet rs2 = statement.executeQuery(query);
+      ResultSet rs2 = statement.executeQuery(sel + query);
       int count = 0;
       while (rs2.next()) count++;
       if (count == 0) System.out.println("Move information deleted successfully.");

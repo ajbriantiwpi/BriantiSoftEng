@@ -1,7 +1,6 @@
 package edu.wpi.teamname.navigation;
 
 import edu.wpi.teamname.database.DataManager;
-import java.awt.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -264,6 +263,29 @@ public class Map {
       nodes.add(c.p);
       nodes.add(c.label);
     }
+    return nodes;
+  }
+
+  public ArrayList<javafx.scene.Node> makeAllFloorNodesTwo(String floor)
+      throws SQLException, IOException {
+    ArrayList<javafx.scene.Node> nodes =
+        new ArrayList<javafx.scene.Node>(); // list of shapes to be displayed
+    List<NodeCircle> circles = new ArrayList<>(); // List of NodeCircle Objects
+
+    for (Node n : DataManager.getAllNodes()) {
+      if (n.getFloor().equals(floor)) {
+        circles.add(new NodeCircle(n));
+      }
+    }
+    for (NodeCircle c : circles) {
+      //            Pane p = new Pane();
+      //      p.getChildren().addAll(c.outer, c.inner, c.text);
+      //      nodes.add(c.outer);
+      //      nodes.add(c.inner);
+      //      nodes.add(c.text);
+      nodes.add(c.p);
+    }
+
     return nodes;
   }
 
