@@ -64,7 +64,7 @@ public class DataManager {
       statement.setTimestamp(4, date);
       ResultSet rs = statement.executeQuery();
       while(rs.next()){
-        update.add(rs.getString("\"longName\""));
+        update.add(rs.getString("longName"));
         update.add(rs.getString("building"));
         update.add(rs.getString("floor"));
       }
