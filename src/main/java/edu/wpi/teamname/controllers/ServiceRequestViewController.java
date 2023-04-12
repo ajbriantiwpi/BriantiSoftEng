@@ -64,13 +64,24 @@ public class ServiceRequestViewController {
         .valueProperty()
         .addListener(
             (observable, oldValue, newValue) -> {
-              if (newValue != null) {
+              if (!newValue.equals(null)) {
                 try {
-                  table.setItems(FXCollections.observableList(DataManager.getAllServiceRequests().stream().filter((request) ->request.getStatus().getStatusString().equals(newValue)).toList()));
+                  if (newValue.equals("")) {
+                    table.setItems(sortedServiceReq);
+                  } else {
+                    table.setItems(
+                        FXCollections.observableList(
+                            DataManager.getAllServiceRequests().stream()
+                                .filter(
+                                    (request) ->
+                                        request.getStatus().getStatusString().equals(newValue))
+                                .toList()));
+                  }
                 } catch (SQLException e) {
                   throw new RuntimeException(e);
                 }
               }
+
             });
   }
 }
