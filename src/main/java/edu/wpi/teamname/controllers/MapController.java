@@ -2,12 +2,12 @@ package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.navigation.Map;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXComboBox;
 import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
+import javafx.scene.control.ComboBox;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -19,11 +19,11 @@ public class MapController {
   @FXML GesturePane gp;
   @FXML AnchorPane anchor;
   @FXML HBox SelectCombo = new HBox();
-  @FXML MFXComboBox<String> LocationOne = new MFXComboBox<>();
-  @FXML MFXComboBox<String> EndPointSelect = new MFXComboBox<>();
+  @FXML ComboBox<String> LocationOne = new ComboBox<>();
+  @FXML ComboBox<String> EndPointSelect = new ComboBox<>();
   @FXML MFXButton DeleteNodeButton = new MFXButton();
 
-  @FXML MFXComboBox<String> FloorSelect = new MFXComboBox<>();
+  @FXML ComboBox<String> FloorSelect = new ComboBox<>();
 
   String defaultFloor = "L1";
 

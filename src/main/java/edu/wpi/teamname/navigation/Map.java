@@ -18,8 +18,8 @@ import net.kurobako.gesturefx.GesturePane;
 
 public class Map {
 
-  Color borderColor = new Color(0.1, 0.4, 0.9, 1);
-  Color insideColor = new Color(0.05, 0.7, 1, 1);
+  Color borderColor = Color.web("33567A");
+  Color insideColor = Color.web("2FA7B0");
   float circleR = 10.0f;
   float lineT = 10.0f;
   int lineTout = 2;
@@ -274,7 +274,8 @@ public class Map {
     parentW = 760;
     parentH = 512;
 
-    Point2D scaleOneDim = new Point2D(760 * 2, 512 * 2); // hard Coded
+    //    Point2D scaleOneDim = new Point2D(760 * 2, 512 * 2); // hard Coded
+    Point2D scaleOneDim = new Point2D(1500, 2000);
 
     double scaleX = parentW / scaleOneDim.getX();
     double scaleY = parentH / scaleOneDim.getY();
