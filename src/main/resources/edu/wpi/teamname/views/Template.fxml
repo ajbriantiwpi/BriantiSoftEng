@@ -76,7 +76,7 @@
                            </ImageView>
                         </graphic>
                      </MFXButton>
-                     <MFXButton fx:id="showRequestsButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" text="Show Requests" textAlignment="CENTER" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
+                     <MFXButton fx:id="showRequestsButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" text="Show Requests" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
                         <font>
                            <Font name="Roboto" size="22.0" />
                         </font>

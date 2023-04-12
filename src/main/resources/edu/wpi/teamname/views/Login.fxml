@@ -29,7 +29,7 @@
                               <Insets />
                            </VBox.margin>
                         </Text>
-                        <MFXTextField fx:id="loginText" alignment="BASELINE_LEFT" maxHeight="57.0" maxWidth="400.0" promptText="Username" style="-fx-background-color: #FAF9FD;" styleClass="button" stylesheets="@../stylesheets/login.css">
+                        <MFXTextField fx:id="loginText" alignment="BASELINE_LEFT" floatMode="DISABLED" maxHeight="57.0" maxWidth="400.0" promptText="Username" style="-fx-background-color: #FAF9FD;" styleClass="button" stylesheets="@../stylesheets/login.css">
                            <font>
                               <Font size="28.0" />
                            </font>
@@ -40,7 +40,7 @@
                               <Insets />
                            </VBox.margin>
                         </MFXTextField>
-                        <MFXPasswordField fx:id="passwordText" alignment="BASELINE_LEFT" maxHeight="57.0" maxWidth="400.0" promptText="Password" style="-fx-background-color: #FAF9FD;" styleClass="button" stylesheets="@../stylesheets/login.css">
+                        <MFXPasswordField fx:id="passwordText" alignment="BASELINE_LEFT" borderGap="0.0" floatMode="DISABLED" floatingText="hello" floatingTextGap="10.0" graphicTextGap="0.0" maxHeight="57.0" maxWidth="400.0" promptText="Password" style="-fx-background-color: #FAF9FD;" styleClass="button" stylesheets="@../stylesheets/login.css">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
@@ -86,12 +86,12 @@
                         </VBox>
                     </children>
                 </StackPane>
-                <Label fx:id="success" style="-fx-background-color: #70A4FF;" text="Label" textAlignment="CENTER">
+                <Label fx:id="success" style="-fx-background-color: #70A4FF;" text="Label" textAlignment="CENTER" visible="false">
                     <font>
                         <Font size="20.0" />
                     </font>
                 </Label>
-                <Label fx:id="newPassword" style="-fx-background-color: #70A4FF;" stylesheets="@../stylesheets/login.css" text="Login">
+                <Label fx:id="newPassword" style="-fx-background-color: #70A4FF;" text="Login" visible="false">
                     <font>
                         <Font size="20.0" />
                     </font>
@@ -100,7 +100,7 @@
         </StackPane>
       <HBox layoutX="319.3333435058594" layoutY="10.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
          <children>
-            <MFXButton fx:id="help" alignment="CENTER" style="-fx-background-color: #001B3B; -fx-border-color: #F6bd38; -fx-border-width: 2; -fx-border-radius: 1;" text="Help" textAlignment="CENTER" textFill="#d5e3ff">
+            <MFXButton fx:id="help" alignment="CENTER" style="-fx-background-radius: 10; -fx-border-radius: 8; -fx-background-color: #001B3B; -fx-border-color: #F6BD38; -fx-border-width: 3;" text="Help" textAlignment="CENTER" textFill="#d5e3ff">
                <font>
                   <Font size="20.0" />
                </font>
@@ -108,7 +108,7 @@
                   <Insets right="48.0" />
                </HBox.margin>
             </MFXButton>
-              <MFXButton fx:id="exit" alignment="CENTER" style="-fx-background-color: #001B3B; -fx-border-color: #BA1A1A; -fx-border-width: 2;" text="Exit" textAlignment="CENTER" textFill="#d5e3ff">
+              <MFXButton fx:id="exit" alignment="CENTER" style="-fx-background-radius: 10; -fx-border-radius: 8; -fx-background-color: #001B3B; -fx-border-color: #BA1A1A; -fx-border-width: 3;" text="Exit" textAlignment="CENTER" textFill="#d5e3ff">
                   <font>
                       <Font size="20.0" />
                   </font>
