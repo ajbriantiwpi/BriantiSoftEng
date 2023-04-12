@@ -1,6 +1,7 @@
 package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.ServiceRequestDAO;
+import edu.wpi.teamname.servicerequest.RequestType;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import edu.wpi.teamname.servicerequest.Status;
 import edu.wpi.teamname.servicerequest.requestitem.RequestItem;
@@ -25,7 +26,7 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
     Connection connection = DataManager.DbConnection();
     try (connection) {
       String query =
-          "UPDATE \"ServiceRequest\" SET \"roomNum\" = ?, \"staffName\" = ?, \"patientName\" = ?, \"requestedAt\" = ?, \"deliverBy\" = ?, \"status\" = ?, \"requestMadeBy\" = ?, \"requestID\" = ?"
+          "UPDATE \"ServiceRequest\" SET \"roomNum\" = ?, \"staffName\" = ?, \"patientName\" = ?, \"requestedAt\" = ?, \"deliverBy\" = ?, \"status\" = ?, \"requestMadeBy\" = ?, \"requestID\" = ?, \"requestType\" = ?"
               + " WHERE \"requestID\" = ?";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setString(1, serviceRequest.getRoomNumber());
@@ -35,7 +36,8 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
       statement.setString(5, serviceRequest.getStatus().getStatusString());
       statement.setString(6, serviceRequest.getRequestMadeBy());
       statement.setInt(7, serviceRequest.getRequestID());
-      statement.setInt(8, serviceRequest.getOriginalID());
+      statement.setString(8, serviceRequest.getRequestType().getString());
+      statement.setInt(9, serviceRequest.getOriginalID());
       statement.executeUpdate();
     } catch (SQLException e) {
       System.out.println(e.getMessage());
@@ -69,6 +71,7 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
         Timestamp deliverBy = rs.getTimestamp("deliverBy");
         Status status = Status.valueOf(rs.getString("status"));
         String requestMadeBy = rs.getString("requestMadeBy");
+        RequestType requestType = RequestType.valueOf(rs.getString("requestType"));
         list.add(
             new ServiceRequest(
                 requestID,
@@ -78,7 +81,8 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
                 deliverBy,
                 requestedAt,
                 status,
-                requestMadeBy));
+                requestMadeBy,
+                requestType));
       }
     }
     connection.close();
@@ -96,7 +100,7 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
     Connection connection = DataManager.DbConnection();
     try {
       String query =
-          "INSERT INTO \"ServiceRequest\" (\"requestID\", \"roomNum\", \"staffName\", \"patientName\", \"requestedAt\", \"deliverBy\", \"status\", \"requestMadeBy\") VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+          "INSERT INTO \"ServiceRequest\" (\"requestID\", \"roomNum\", \"staffName\", \"patientName\", \"requestedAt\", \"deliverBy\", \"status\", \"requestMadeBy\", \"requestType\") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, serviceRequest.getRequestID());
       statement.setString(2, serviceRequest.getRoomNumber());
@@ -106,6 +110,7 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
       statement.setTimestamp(6, serviceRequest.getDeliverBy());
       statement.setString(7, serviceRequest.getStatus().getStatusString());
       statement.setString(8, serviceRequest.getRequestMadeBy());
+      statement.setString(9, serviceRequest.getRequestType().getString());
 
       statement.executeUpdate();
       // ItemsOrdered
@@ -261,9 +266,18 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
       Timestamp deliverBy = rs.getTimestamp("deliverBy");
       Status status = Status.valueOf(rs.getString("status"));
       String requestMadeBy = rs.getString("requestMadeBy");
+      RequestType requestType = RequestType.valueOf(rs.getString("requestType"));
       serviceRequest =
           (new ServiceRequest(
-              rID, staffName, patientName, roomNum, deliverBy, requestedAt, status, requestMadeBy));
+              rID,
+              staffName,
+              patientName,
+              roomNum,
+              deliverBy,
+              requestedAt,
+              status,
+              requestMadeBy,
+              requestType));
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }
@@ -283,6 +297,27 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
       String query = "UPDATE \"ServiceRequest\" SET \"staffName\" = ? WHERE \"requestID\" = ?";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setString(1, staffName);
+      statement.setInt(2, requestID);
+      statement.executeUpdate();
+      connection.close();
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+  }
+
+  /**
+   * Updates the status for a service request with the given request ID in the database.
+   *
+   * @param requestID the ID of the service request to update.
+   * @param status the new staff name to set.
+   * @throws SQLException if a database error occurs.
+   */
+  public static void uploadStatus(int requestID, String status) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try {
+      String query = "UPDATE \"ServiceRequest\" SET \"status\" = ? WHERE \"requestID\" = ?";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setString(1, status.toUpperCase());
       statement.setInt(2, requestID);
       statement.executeUpdate();
       connection.close();
@@ -323,6 +358,8 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
               + sr.getStatus().getStatusString()
               + ","
               + sr.getRequestMadeBy()
+              + ","
+              + sr.getRequestType().getString()
               + "\n");
     }
     writer.close();
@@ -346,13 +383,13 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
       if (!tables.next()) {
         PreparedStatement createTableStatement =
             connection.prepareStatement(
-                "CREATE TABLE \"ServiceRequest\" (\"requestID\" INTEGER NOT NULL, \"roomNum\" VARCHAR(255) NOT NULL, \"staffName\" VARCHAR(255) NOT NULL, \"patientName\" VARCHAR(255) NOT NULL, \"requestedAt\" TIMESTAMP NOT NULL, \"deliverBy\" TIMESTAMP NOT NULL, \"status\" VARCHAR(255) NOT NULL, \"requestMadeBy\" VARCHAR(255), PRIMARY KEY (\"requestID\"))");
+                "CREATE TABLE \"ServiceRequest\" (\"requestID\" INTEGER NOT NULL, \"roomNum\" VARCHAR(255) NOT NULL, \"staffName\" VARCHAR(255) NOT NULL, \"patientName\" VARCHAR(255) NOT NULL, \"requestedAt\" TIMESTAMP NOT NULL, \"deliverBy\" TIMESTAMP NOT NULL, \"status\" VARCHAR(255) NOT NULL, \"requestMadeBy\" VARCHAR(255), \"requestType\" VARCHAR(255), PRIMARY KEY (\"requestID\"))");
         createTableStatement.executeUpdate();
       }
 
       String query =
-          "INSERT INTO \"ServiceRequest\" (\"requestID\", \"roomNum\", \"staffName\", \"patientName\", \"requestedAt\", \"deliverBy\", \"status\", \"requestMadeBy\") "
-              + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+          "INSERT INTO \"ServiceRequest\" (\"requestID\", \"roomNum\", \"staffName\", \"patientName\", \"requestedAt\", \"deliverBy\", \"status\", \"requestMadeBy\", \"requestType\") "
+              + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
       PreparedStatement statement =
           connection.prepareStatement("TRUNCATE TABLE \"ServiceRequest\";");
       statement.executeUpdate();
@@ -399,6 +436,7 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
         }
 
         statement.setString(8, row[7]);
+        statement.setString(9, row[8]);
 
         statement.executeUpdate();
       }
