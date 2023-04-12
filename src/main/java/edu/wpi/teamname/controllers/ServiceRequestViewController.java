@@ -153,36 +153,42 @@ public class ServiceRequestViewController {
           }
         });
 
-    //    requestStatusCombo
-    //        .valueProperty()
-    //        .addListener(
-    //            ((observable, oldValue, newValue) -> {
-    //              requestTypeCombo
-    //                  .valueProperty()
-    //                  .addListener(
-    //                      ((observable1, oldValue1, newValue1) -> {
-    //                        try {
-    //                          table.setItems(tableFilter(newValue1, newValue.toString()));
-    //                        } catch (SQLException e) {
-    //                          throw new RuntimeException(e);
-    //                        }
-    //                      }));
-    //            }));
-    //    requestTypeCombo
-    //        .valueProperty()
-    //        .addListener(
-    //            ((observable, oldValue, newValue) -> {
-    //              requestStatusCombo
-    //                  .valueProperty()
-    //                  .addListener(
-    //                      ((observable1, oldValue1, newValue1) -> {
-    //                        try {
-    //                          table.setItems(tableFilter(newValue, newValue1.toString()));
-    //                        } catch (SQLException e) {
-    //                          throw new RuntimeException(e);
-    //                        }
-    //                      }));
-    //            }));
+    requestStatusCombo
+        .valueProperty()
+        .addListener(
+            ((observable, oldValue, one) -> {
+              if (!one.equals(null) && !(one.toString().equals(""))) {
+                try {
+                  table.setItems(
+                      FXCollections.observableList(
+                          DataManager.getAllServiceRequests().stream()
+                              .filter(
+                                  (request) ->
+                                      request.getStatus().getStatusString().equals(one.toString()))
+                              .toList()));
+                } catch (SQLException e) {
+                  throw new RuntimeException(e);
+                }
+              }
+            }));
+    requestTypeCombo
+        .valueProperty()
+        .addListener(
+            ((observable, oldValue, one) -> {
+              if (!one.equals(null) && !(one.toString().equals(""))) {
+                try {
+                  table.setItems(
+                      FXCollections.observableList(
+                          DataManager.getAllServiceRequests().stream()
+                              .filter(
+                                  (request) ->
+                                      request.getRequestType().toString().equals(one.toString()))
+                              .toList()));
+                } catch (SQLException e) {
+                  throw new RuntimeException(e);
+                }
+              }
+            }));
   }
   //    ParentController.titleString.set("Service Request View");
   //
