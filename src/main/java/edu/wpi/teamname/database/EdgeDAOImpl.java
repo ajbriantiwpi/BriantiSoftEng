@@ -11,8 +11,11 @@ import java.util.List;
 
 public class EdgeDAOImpl implements EdgeDAO {
   /**
-   * Sync an ORM with its row in the database WARNING: do not create a new node just change the
-   * parameters on the old one
+   * This method updates an existing Edge object in the "Edge" table in the database with the new
+   * Edge object.
+   *
+   * @param edge the new Edge object to be updated in the "Edge" table
+   * @throws SQLException if there is a problem accessing the database
    */
   @Override
   public void sync(Edge edge) throws SQLException {
@@ -34,7 +37,12 @@ public class EdgeDAOImpl implements EdgeDAO {
     connection.close();
   }
 
-  /** @return */
+  /**
+   * The method retrieves all the Edge objects from the "Edge" table in the database.
+   *
+   * @return an ArrayList of the Edge objects in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public ArrayList<Edge> getAll() throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -55,7 +63,12 @@ public class EdgeDAOImpl implements EdgeDAO {
     return list;
   }
 
-  /** @param edge */
+  /**
+   * This method adds a new Edge object to the "Edge" table in the database.
+   *
+   * @param edge the Edge object to be added to the "Edge" table
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void add(Edge edge) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -73,7 +86,12 @@ public class EdgeDAOImpl implements EdgeDAO {
     connection.close();
   }
 
-  /** @param edge */
+  /**
+   * This method deletes the given Edge object from the database
+   *
+   * @param edge the Edge object that will be deleted in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void delete(Edge edge) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -105,8 +123,7 @@ public class EdgeDAOImpl implements EdgeDAO {
   /**
    * Uploads CSV data to a PostgreSQL database table "Edge"-also creates one if one does not exist
    *
-   * @param csvFilePath a string that represents a file path (/ is illegal so you must use double
-   *     //)
+   * @param csvFilePath a string that represents a file path (/ is illegal so you must use double//)
    * @throws SQLException if an error occurs while uploading the data to the database
    */
   public static void uploadEdgeToPostgreSQL(String csvFilePath) throws SQLException {
@@ -137,6 +154,14 @@ public class EdgeDAOImpl implements EdgeDAO {
     }
   }
 
+  /**
+   * This method exports all the Edge objects from the "Edge" table in the database to a CSV file at
+   * the specified file path.
+   *
+   * @param csvFilePath the file path of the CSV file to export the Edge objects to
+   * @throws SQLException if there is a problem accessing the database
+   * @throws IOException if there is a problem writing the CSV file
+   */
   public static void exportEdgeToCSV(String csvFilePath) throws SQLException, IOException {
     Connection connection = DataManager.DbConnection();
     String query = "SELECT * FROM \"Edge\"";
