@@ -12,7 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NodeDAOImpl implements NodeDAO {
-  /** */
+  /**
+   * This method updates an existing Node object in the "Node" table in the database with the
+   * new Node object.
+   *
+   * @param node the new Node object to be updated in the "Node" table
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void sync(Node node) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -35,7 +41,12 @@ public class NodeDAOImpl implements NodeDAO {
     connection.close();
   }
 
-  /** @return */
+  /**
+   * The method retrieves all the Move objects from the "Move" table in the database.
+   *
+   * @return an ArrayList of the Move objects in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public ArrayList<Node> getAll() throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -60,7 +71,12 @@ public class NodeDAOImpl implements NodeDAO {
     return list;
   }
 
-  /** @param node */
+  /**
+   * This method adds a new Node object to the "Node" table in the database.
+   *
+   * @param node the Node object to be added to the "Node" table
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void add(Node node) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -82,7 +98,12 @@ public class NodeDAOImpl implements NodeDAO {
     }
   }
 
-  /** @param node */
+  /**
+   * This method deletes the given Node object from the database
+   *
+   * @param node the Node object that will be deleted in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void delete(Node node) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -158,6 +179,12 @@ public class NodeDAOImpl implements NodeDAO {
     }
   }
 
+  /**
+   * Exports data from a PostgreSQL database table "Node" to a CSV file
+   *
+   * @param csvFilePath is a String representing a file path
+   * @throws SQLException if an error occurs while exporting the data from the database
+   */
   public static void exportNodeToCSV(String csvFilePath) throws SQLException, IOException {
     Connection connection = DataManager.DbConnection();
     String query = "SELECT * FROM \"Node\"";
@@ -182,6 +209,14 @@ public class NodeDAOImpl implements NodeDAO {
     }
   }
 
+  /**
+   * This method retrieves a Node object with the specified ID from the "Node" table in the
+   * database.
+   *
+   * @param id the ID of the Meal object to retrieve from the "Node" table
+   * @return the Node object with the specified ID, or null if not found
+   * @throws SQLException if there is a problem accessing the database
+   */
   public static Node getNode(int id) throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query = "SELECT * FROM \"Node\" WHERE \"nodeID\" = ?";
@@ -227,7 +262,16 @@ public class NodeDAOImpl implements NodeDAO {
     }
     return ret;
   }
-
+  /**
+   * Returns a Room object containing all information about the node with the given ID.
+   * The information includes the node's long name, short name, coordinates, node type, building, floor, and the most recent date when the node's location was updated.
+   * The function queries the database and joins the "LocationName" and "Move" tables to retrieve the necessary information.
+   * It also filters the results by selecting only the information for the node with the given ID and the most recent date prior to the current time.
+   * If no information is found for the given ID, null is returned.
+   * @param id the ID of the node to retrieve information for
+   * @return a Room object containing all information about the node, or null if no information is found
+   * @throws SQLException if there is an error accessing the database
+   */
   public static Room getAllInfoOfNode(int id) throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query =

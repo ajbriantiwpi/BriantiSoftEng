@@ -10,7 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemsOrderedDAOImpl implements ItemsOrderedDAO {
-  /** */
+  /**
+   * This method updates an existing ItemsOrdered object in the "ItemsOrdered" table in the database
+   * with the new ItemsOrdered object.
+   *
+   * @param itemsOrdered the new ItemsOrdered object to be updated in the "ItemsOrdered" table
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void sync(ItemsOrdered itemsOrdered) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -32,7 +38,13 @@ public class ItemsOrderedDAOImpl implements ItemsOrderedDAO {
     connection.close();
   }
 
-  /** @return */
+  /**
+   * The method retrieves all the ItemsOrdered objects from the "ItemsOrdered" table in the
+   * database.
+   *
+   * @return an ArrayList of the ItemsOrdered objects in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public ArrayList<ItemsOrdered> getAll() throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -54,7 +66,12 @@ public class ItemsOrderedDAOImpl implements ItemsOrderedDAO {
     return list;
   }
 
-  /** @param itemsOrdered */
+  /**
+   * This method adds a new ItemsOrdered object to the "ItemsOrdered" table in the database.
+   *
+   * @param itemsOrdered the ItemsOrdered object to be added to the "ItemsOrdered" table
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void add(ItemsOrdered itemsOrdered) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -75,7 +92,12 @@ public class ItemsOrderedDAOImpl implements ItemsOrderedDAO {
     connection.close();
   }
 
-  /** @param itemsOrdered */
+  /**
+   * This method deletes the given ItemsOrdered object from the database
+   *
+   * @param itemsOrdered the ItemsOrdered object that will be deleted in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void delete(ItemsOrdered itemsOrdered) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -102,6 +124,16 @@ public class ItemsOrderedDAOImpl implements ItemsOrderedDAO {
     connection.close();
   }
 
+  /**
+   * This method retrieves an ItemsOrdered object with the specified ID from the "ItemsOrdered"
+   * table in the database.
+   *
+   * @param requestID the requestID of the ItemsOrdered object to retrieve from the "ItemsOrdered"
+   *     table
+   * @param itemID the itemID of the ItemsOrdered object to retrieve from the "ItemsOrdered" table
+   * @return the ItemsOrdered object that matches the specified ID's, or null if not found
+   * @throws SQLException if there is a problem accessing the database
+   */
   public static ItemsOrdered getItemOrdered(int requestID, int itemID) throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query = "SELECT * FROM \"ItemsOrdered\" WHERE \"requestID\" = ? AND \"itemID\" = ?";
@@ -122,6 +154,14 @@ public class ItemsOrderedDAOImpl implements ItemsOrderedDAO {
     return itemsOrdered;
   }
 
+  /**
+   * This method exports all the ItemsOrdered objects from the "ItemsOrdered" table in the database
+   * to a CSV file at the specified file path.
+   *
+   * @param csvFilePath the file path of the CSV file to export the ItemsOrdered objects to
+   * @throws SQLException if there is a problem accessing the database
+   * @throws IOException if there is a problem writing the CSV file
+   */
   public static void exportItemsOrderedToCSV(String csvFilePath) throws SQLException, IOException {
     Connection connection = DataManager.DbConnection();
     String query = "SELECT * FROM \"ItemsOrdered\"";

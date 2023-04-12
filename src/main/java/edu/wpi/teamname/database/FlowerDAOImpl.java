@@ -11,7 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FlowerDAOImpl implements FlowerDAO {
-  /** Sync an ORM with its row in the database */
+  /**
+   * This method updates an existing Flower object in the "Flower" table in the database with the
+   * new Flower object.
+   *
+   * @param flower the new Flower object to be updated in the "Flower" table
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void sync(Flower flower) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -33,7 +39,12 @@ public class FlowerDAOImpl implements FlowerDAO {
     connection.close();
   }
 
-  /** @return */
+  /**
+   * The method retrieves all the Flower objects from the "Flowers" table in the database.
+   *
+   * @return an ArrayList of the Flower objects in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public ArrayList<Flower> getAll() throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -57,7 +68,12 @@ public class FlowerDAOImpl implements FlowerDAO {
     return list;
   }
 
-  /** @param flower */
+  /**
+   * This method adds a new Flower object to the "Flowers" table in the database.
+   *
+   * @param flower the Flower object to be added to the "Flower" table
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void add(Flower flower) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -80,7 +96,12 @@ public class FlowerDAOImpl implements FlowerDAO {
     connection.close();
   }
 
-  /** @param flower */
+  /**
+   * This method deletes the given Flower object from the database
+   *
+   * @param flower the Flower object that will be deleted in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void delete(Flower flower) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -106,6 +127,14 @@ public class FlowerDAOImpl implements FlowerDAO {
     connection.close();
   }
 
+  /**
+   * This method retrieves a Flower object with the specified ID from the "Flowers" table in the
+   * database.
+   *
+   * @param id the ID of the Flower object to retrieve from the "Flowers" table
+   * @return the Flower object with the specified ID, or null if not found
+   * @throws SQLException if there is a problem accessing the database
+   */
   public static Flower getFlower(int id) throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query = "SELECT * FROM \"Flowers\" WHERE \"flowerID\" = ?";
@@ -127,6 +156,14 @@ public class FlowerDAOImpl implements FlowerDAO {
     return flower;
   }
 
+  /**
+   * This method exports all the Flower objects from the "Flower" table in the database to a CSV
+   * file at the specified file path.
+   *
+   * @param csvFilePath the file path of the CSV file to export the Flower objects to
+   * @throws SQLException if there is a problem accessing the database
+   * @throws IOException if there is a problem writing the CSV file
+   */
   public static void exportFlowersToCSV(String csvFilePath) throws SQLException, IOException {
     Connection connection = DataManager.DbConnection();
     String query = "SELECT * FROM \"Flowers\"";
