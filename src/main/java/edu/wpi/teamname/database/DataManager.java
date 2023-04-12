@@ -50,13 +50,14 @@ public class DataManager {
     return connection;
   }
   public static ArrayList<String> getUpdatedNodeInfo(int nodeID, Timestamp date) throws SQLException {
+    Connection conn = DbConnection();
     ArrayList<String> update = new ArrayList<>();
     String query = "Select \"longName\", building, floor\n" +
             "From \"Move\" as m, \"Node\" as n\n" +
             "Where\n" +
             "    (n.\"nodeID\" = ?) AND (m.\"nodeID\" = ?) AND\n" +
             "        m.date = (Select max(date) From \"Move\" Where \"nodeID\" = ? AND date <= ?)";
-    try (PreparedStatement statement = connection.prepareStatement(query);) {
+    try (PreparedStatement statement = conn.prepareStatement(query);) {
       statement.setInt(1, nodeID);
       statement.setInt(2, nodeID);
       statement.setInt(3, nodeID);
