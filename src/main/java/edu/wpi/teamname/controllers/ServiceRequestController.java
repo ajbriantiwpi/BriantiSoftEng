@@ -278,7 +278,8 @@ public class ServiceRequestController {
       menuPane.setVisible(true);
       summaryPane.setVisible(false);
       summaryPane.setDisable(true);
-      nextButton.setText("next");
+      nextButton.setText("Next");
+      requestPage = 1;
     } else if (n == 2) {
       formPane.setVisible(false);
       formPane.setDisable(true);
@@ -286,7 +287,8 @@ public class ServiceRequestController {
       menuPane.setVisible(false);
       summaryPane.setVisible(true);
       summaryPane.setDisable(false);
-      nextButton.setText("submit");
+      nextButton.setText("Submit");
+      requestPage = 2;
     } else {
       formPane.setVisible(true);
       formPane.setDisable(false);
@@ -295,7 +297,8 @@ public class ServiceRequestController {
       summaryPane.setVisible(false);
       summaryPane.setDisable(true);
       timeBox.setDisable(false);
-      nextButton.setText("next");
+      nextButton.setText("Next");
+      requestPage = 0;
     }
   }
 
