@@ -51,28 +51,16 @@ public class DataManager {
   }
   public static ArrayList<String> getUpdatedNodeInfo(int nodeID, Timestamp date) throws SQLException {
     ArrayList<String> update = new ArrayList<>();
-    String query = """
-            Select "longName", building, floor
-            FROM
-                (SELECT
-                     new1."nodeID", new1."longName", "shortName", "nodeType", xcoord, ycoord, building, floor, date
-                  FROM
-                    "LocationName" as l,
-                       (Select
-                            m."nodeID", xcoord, ycoord, floor, building, "longName", date
-                        FROM
-                            "Node" as n, "Move" as m
-                       Where
-                            n."nodeID" = m."nodeID") as new1
-                 Where
-                     l."longName" = new1."longName") new2
-            WHERE
-                new2."nodeID" = ? AND
-                date = (Select max(date) From "Move" Where "nodeID" = ?)""";
+    String query = "Select \"longName\", building, floor\n" +
+            "From \"Move\" as m, \"Node\" as n\n" +
+            "Where\n" +
+            "    (n.\"nodeID\" = ?) AND (m.\"nodeID\" = ?) AND\n" +
+            "        m.date = (Select max(date) From \"Move\" Where \"nodeID\" = ? AND date <= ?)";
     try (PreparedStatement statement = connection.prepareStatement(query);) {
       statement.setInt(1, nodeID);
-      statement.setTimestamp(2, date);
+      statement.setInt(2, nodeID);
       statement.setInt(3, nodeID);
+      statement.setTimestamp(4, date);
       ResultSet rs = statement.executeQuery();
       while(rs.next()){
         update.add(rs.getString("\"longName\""));
