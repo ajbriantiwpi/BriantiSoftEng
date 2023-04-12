@@ -46,6 +46,52 @@ public class DataManager {
     }
     return connection;
   }
+
+  public static ArrayList<Node> getSingleNodeInfo(int nodeID) throws SQLException {
+    Connection conn = DbConnection();
+    ArrayList<Node> list = new ArrayList<Node>();
+    String query = "SELECT * FROM \"Node\" Where \"nodeID\" = " + nodeID;
+
+    try (conn) {
+      Statement statement = connection.createStatement();
+      ResultSet rs = statement.executeQuery(query);
+      rs.next();
+      int id = rs.getInt("nodeID");
+      int xcoord = rs.getInt("xcoord");
+      int ycoord = rs.getInt("ycoord");
+      String floor = rs.getString("floor");
+      String building = rs.getString("building");
+      list.add(new Node(id, xcoord, ycoord, floor, building));
+    }
+    return list;
+  }
+
+  public static ArrayList<String> getUpdatedNodeInfo(int nodeID, Timestamp date)
+      throws SQLException {
+    Connection conn = DbConnection();
+    ArrayList<String> update = new ArrayList<>();
+    String query =
+        "Select \"longName\", building, floor\n"
+            + "From \"Move\" as m, \"Node\" as n\n"
+            + "Where\n"
+            + "    (n.\"nodeID\" = ?) AND (m.\"nodeID\" = ?) AND\n"
+            + "        m.date = (Select max(date) From \"Move\" Where \"nodeID\" = ? AND date <= ?)";
+    try (PreparedStatement statement = conn.prepareStatement(query); ) {
+      statement.setInt(1, nodeID);
+      statement.setInt(2, nodeID);
+      statement.setInt(3, nodeID);
+      statement.setTimestamp(4, date);
+      ResultSet rs = statement.executeQuery();
+      while (rs.next()) {
+        update.add(rs.getString("\"longName\""));
+        update.add(rs.getString("building"));
+        update.add(rs.getString("floor"));
+      }
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return update;
+  }
   /**
    * Main function to create all Database tables if they don't already exist
    *

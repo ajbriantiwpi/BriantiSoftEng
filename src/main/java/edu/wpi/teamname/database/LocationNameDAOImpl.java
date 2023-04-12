@@ -99,9 +99,11 @@ public class LocationNameDAOImpl implements LocationNameDAO {
   @Override
   public void delete(LocationName locationName) throws SQLException {
     Connection connection = DataManager.DbConnection();
-    String query = "Delete from \"LocationName\" where \"longName\" = ?";
+    String del = "Delete ";
+    String sel = "Select * ";
+    String query = "from \"LocationName\" where \"longName\" = ?";
 
-    try (PreparedStatement statement = connection.prepareStatement(query)) {
+    try (PreparedStatement statement = connection.prepareStatement(del + query)) {
       statement.setString(1, locationName.getLongName());
       statement.executeUpdate();
     } catch (SQLException e) {
@@ -109,7 +111,7 @@ public class LocationNameDAOImpl implements LocationNameDAO {
     }
 
     try (Statement statement = connection.createStatement()) {
-      ResultSet rs2 = statement.executeQuery(query);
+      ResultSet rs2 = statement.executeQuery(sel + query);
       int count = 0;
       while (rs2.next()) count++;
       if (count == 0) System.out.println("LocationName information deleted successfully.");
