@@ -161,13 +161,13 @@ public class ServiceRequestController {
         items.addAll(tems);
         reqType = RequestType.FURNITURE;
       }
-
+      String loc = (String) nodeBox.getValue();
       setRequest(
           new ServiceRequest(
               Instant.now().get(ChronoField.MICRO_OF_SECOND),
               "null",
               patientName.toString(),
-              nodeBox.toString(),
+              loc,
               reqTS,
               Timestamp.from(Instant.now()),
               Status.BLANK,
@@ -190,7 +190,7 @@ public class ServiceRequestController {
 
       request.setPatientName(patientName.getCharacters().toString());
       // request.setRoomNumber(roomNum.getCharacters().toString());
-      //request.setRoomNumber("");
+      // request.setRoomNumber("");
       // request.setDeliverBy(dateBox.getValue().atStartOfDay());
 
     } else if (requestPage == 1) {
