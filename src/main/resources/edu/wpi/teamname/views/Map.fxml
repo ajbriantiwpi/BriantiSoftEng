@@ -5,6 +5,8 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
@@ -22,11 +24,13 @@
                      <children>
                         <MFXButton fx:id="importButton" text="Import" />
                         <MFXButton fx:id="exportButton" text="Export" />
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                              <MFXButton fx:id="addNodeButton" text="AddNode" />
-                           </children>
-                        </AnchorPane>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <MFXButton fx:id="addNodeButton" text="AddNode" />
+                        <MFXButton fx:id="addLocationButton" text="AddLocation" />
+                        <MFXButton fx:id="toggleTableButton" text="Modify/Remove Locatoins" />
                      </children>
                   </HBox>
                </children>
@@ -48,6 +52,13 @@
                           </content>
                       </GesturePane>
                       <Canvas fx:id="canvas" disable="true" height="340.0" visible="false" width="500.0" />
+                  <TableView fx:id="table" prefHeight="401.0" prefWidth="401.0" visible="false">
+                     <columns>
+                        <TableColumn fx:id="longNameColumn" prefWidth="52.666656494140625" text="longName" />
+                        <TableColumn fx:id="shortNameColumn" prefWidth="64.0" text="shortName" />
+                        <TableColumn fx:id="nodeTypeColumn" prefWidth="62.0" text="nodeType" />
+                     </columns>
+                  </TableView>
                   </children>
               </StackPane>
           </children>

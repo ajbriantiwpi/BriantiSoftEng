@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="200.0" prefWidth="250.0" style="-fx-background-color: #dcdcdc;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="270.0" prefWidth="250.0" style="-fx-background-color: #dcdcdc;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
@@ -23,6 +23,30 @@
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
             <Label text="Y" />
+            <TextField />
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label text="Floor" />
+            <TextField />
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label text="Building" />
+            <TextField />
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label text="Short Name" />
+            <TextField />
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label text="nodeType" />
             <TextField />
          </children>
       </HBox>
