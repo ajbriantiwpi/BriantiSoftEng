@@ -135,8 +135,6 @@ public class Map {
       }
     }
 
-
-
     Node startNode = allNodes.get(startIndex);
     Node endNode = allNodes.get(endIndex);
 

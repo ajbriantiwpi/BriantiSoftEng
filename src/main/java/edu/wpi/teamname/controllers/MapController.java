@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import net.kurobako.gesturefx.GesturePane;
 
 public class MapController {
@@ -16,6 +17,7 @@ public class MapController {
   Map map;
   @FXML GesturePane gp;
   @FXML AnchorPane anchor;
+  @FXML HBox SelectCombo = new HBox();
   @FXML MFXComboBox<String> LocationOne = new MFXComboBox<>();
   @FXML MFXComboBox<String> EndPointSelect = new MFXComboBox<>();
 
@@ -30,6 +32,8 @@ public class MapController {
   String floor1;
   String floor2;
 
+  String currFloor = "L1";
+
   int sNode = 0;
   int eNode = 0;
 
@@ -42,6 +46,8 @@ public class MapController {
           if (clickCount == 1) {
             // Capture the first click
             firstClick = new Point2D(event.getX(), event.getY());
+            LocationOne.setOnAction(e -> {});
+
             floor1 = takeFloor(FloorSelect.getValue());
 
           } else if (clickCount == 2) {
@@ -126,6 +132,16 @@ public class MapController {
           System.out.println("CF");
           String floor = FloorSelect.getValue();
           System.out.println(floor);
+          try {
+            LocationOne.setItems(map.getAllNodeNames(takeFloor(floor)));
+          } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+          }
+          try {
+            EndPointSelect.setItems(map.getAllNodeNames(takeFloor(floor)));
+          } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+          }
 
           anchor.getStyleClass().remove(0);
           anchor.getStyleClass().add(takeFloor(floor));
@@ -149,6 +165,14 @@ public class MapController {
 
     map = new Map();
 
+    //    AnchorPane.setLeftAnchor(SelectCombo, 0.0);
+    //    AnchorPane.setRightAnchor(SelectCombo, 0.0);
+    //    AnchorPane.setTopAnchor(SelectCombo, 100.0);
+
+    //    anchor.getChildren().add(SelectCombo);
+    //    AnchorPane.setTopAnchor(anchor, 0.0);
+    //    AnchorPane.setBottomAnchor(anchor, 1000.0);
+
     gp.setMinScale(0.11);
     anchor.setOnMouseClicked(e);
 
@@ -158,13 +182,17 @@ public class MapController {
 
     map.centerAndZoom(gp);
 
+    //    LocationOne.setStyle("-fx-padding: 5 250 5 5;");
+    LocationOne.setPromptText("Select start");
     LocationOne.setItems(
         map.getAllNodeNames("L1")); // change for when the floor changes to update the nodes shown
     LocationOne.setOnAction(changeStart);
 
+    EndPointSelect.setPromptText("Select end");
     EndPointSelect.setItems(map.getAllNodeNames("L1"));
     EndPointSelect.setOnAction(changeEnd);
 
+    FloorSelect.setPromptText("Select floor");
     FloorSelect.setItems(map.getAllFloors("L1"));
     FloorSelect.setOnAction(changeFloor);
 
