@@ -1,12 +1,16 @@
 package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.navigation.Map;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
+import java.io.IOException;
+
 import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
+import javafx.scene.control.ComboBox;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -18,10 +22,11 @@ public class MapController {
   @FXML GesturePane gp;
   @FXML AnchorPane anchor;
   @FXML HBox SelectCombo = new HBox();
-  @FXML MFXComboBox<String> LocationOne = new MFXComboBox<>();
-  @FXML MFXComboBox<String> EndPointSelect = new MFXComboBox<>();
+  @FXML ComboBox<String> LocationOne = new ComboBox<>();
+  @FXML ComboBox<String> EndPointSelect = new ComboBox<>();
+  @FXML MFXButton DeleteNodeButton = new MFXButton();
 
-  @FXML MFXComboBox<String> FloorSelect = new MFXComboBox<>();
+  @FXML ComboBox<String> FloorSelect = new ComboBox<>();
 
   String defaultFloor = "L1";
 
@@ -59,6 +64,10 @@ public class MapController {
 
             // Call drawAStarPath with both points
             map.drawAStarPath(anchor, firstClick, secondClick, floor1, floor2);
+
+            if (!map.getPrevPath().isEmpty()) {
+              clickCount = 0;
+            }
           } else if (clickCount == 3) {
             if (!map.getPrevPath().isEmpty()) {
               for (int i = anchor.getChildren().size() - 1; i >= 0; i--) {
@@ -68,7 +77,24 @@ public class MapController {
               }
               map.setPrevPath(null);
             }
+
             clickCount = 0;
+          }
+        }
+      };
+
+  EventHandler<MouseEvent> deleteNodeButton =
+      new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+          System.out.println("DN");
+          if (!map.getPrevPath().isEmpty()) {
+            for (int i = anchor.getChildren().size() - 1; i >= 0; i--) {
+              if (map.getPrevPath().contains(anchor.getChildren().get(i))) {
+                anchor.getChildren().remove(i);
+              }
+            }
+            map.setPrevPath(null);
           }
         }
       };
@@ -180,7 +206,7 @@ public class MapController {
       };
 
   @FXML
-  public void initialize() throws SQLException {
+  public void initialize() throws SQLException, IOException {
 
     map = new Map();
 
@@ -197,11 +223,13 @@ public class MapController {
 
     //    gp.setOnMouseMoved(checkPoints);
 
-    //    anchor.getChildren().addAll(map.makeAllFloorNodes(defaultFloor));
+    anchor.getChildren().addAll(map.makeAllFloorNodes(defaultFloor));
 
     map.centerAndZoom(gp);
 
-    //    LocationOne.setStyle("-fx-padding: 5 250 5 5;");
+    DeleteNodeButton.setOnMouseClicked(deleteNodeButton);
+
+    //    LocationOne.setStyle("-fx-padding: 5 25 5 5;");
     LocationOne.setPromptText("Select start");
     LocationOne.setItems(
         map.getAllNodeNames("L1")); // change for when the floor changes to update the nodes shown

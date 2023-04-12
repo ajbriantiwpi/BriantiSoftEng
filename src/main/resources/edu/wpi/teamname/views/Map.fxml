@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.scene.Group?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import net.kurobako.gesturefx.GesturePane?>
 
 <AnchorPane id="AP" prefHeight="668.0" prefWidth="951.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MapController">
@@ -22,13 +24,17 @@
                         </Group>
                     </content>
                 </GesturePane>
+            <MFXButton fx:id="DeleteNodeButton" prefHeight="61.0" prefWidth="171.0" style="-fx-background-color: #D5E3FF;" text="Delete Path" translateX="20.0" translateY="20.0" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font name="Roboto" size="13.0" />
+               </font></MFXButton>
             </children>
         </StackPane>
-      <HBox fx:id="SelectCombo" alignment="BOTTOM_CENTER" layoutX="136.0" layoutY="493.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="72.0" prefWidth="810.0">
+      <HBox fx:id="SelectCombo" alignment="BOTTOM_CENTER" layoutX="136.0" layoutY="493.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="72.0" prefWidth="810.0" spacing="20.0">
          <children>
-            <MFXComboBox fx:id="LocationOne" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="270.0" />
-            <MFXComboBox fx:id="FloorSelect" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="270.0" />
-            <MFXComboBox fx:id="EndPointSelect" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="270.0" />
+            <ComboBox fx:id="LocationOne" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #D5E3ff;" stylesheets="@../stylesheets/combo.css" />
+            <ComboBox fx:id="FloorSelect" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #D5E3ff;" stylesheets="@../stylesheets/combo.css" />
+            <ComboBox fx:id="EndPointSelect" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #D5E3ff;" stylesheets="@../stylesheets/combo.css" />
          </children>
       </HBox>
     </children>

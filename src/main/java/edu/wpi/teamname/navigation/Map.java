@@ -1,6 +1,8 @@
 package edu.wpi.teamname.navigation;
 
 import edu.wpi.teamname.database.DataManager;
+import java.awt.*;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,14 +14,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
+import javafx.scene.shape.Shape;
 import lombok.Getter;
 import lombok.Setter;
 import net.kurobako.gesturefx.GesturePane;
 
 public class Map {
 
-  Color borderColor = new Color(0.1, 0.4, 0.9, 1);
-  Color insideColor = new Color(0.05, 0.7, 1, 1);
+  Color borderColor = Color.web("33567A");
+  Color insideColor = Color.web("2FA7B0");
   float circleR = 10.0f;
   float lineT = 10.0f;
   int lineTout = 2;
@@ -219,42 +222,53 @@ public class Map {
         }
       };
 
-  public ArrayList<javafx.scene.Node> makeAllFloorNodes(String floor) throws SQLException {
-    ArrayList<javafx.scene.Node> nodes = new ArrayList<javafx.scene.Node>();
+  /** */
+  public void drawEmergencies() {}
+
+  //  public ObservableList<String> getAllNodeNames(String floor) throws SQLException {
+  //    ObservableList<String> nodeNames = FXCollections.observableArrayList();
+  //    for (Node n : DataManager.getAllNodes()) {
+  //      if (n.getFloor().equals(floor)) {
+  //        nodeNames.addAll(("" + n.getId()));
+  //      }
+  //    }
+  //    return nodeNames;
+  //  }
+
+  public ArrayList<javafx.scene.Node> makeAllFloorNodes(String floor)
+      throws SQLException, IOException {
+    ArrayList<javafx.scene.Node> nodes =
+        new ArrayList<javafx.scene.Node>(); // list of shapes to be displayed
+    List<NodeCircle> circles = new ArrayList<>(); // List of NodeCircle Objects
+
     for (Node n : DataManager.getAllNodes()) {
       if (n.getFloor().equals(floor)) {
-        //        StackPane N = new StackPane();
-
-        Circle outer = new Circle(n.getX(), n.getY(), circleR + lineTout);
-        outer.setFill(borderColor);
-        outer.setId("" + n.getId());
-        Circle inner = new Circle(n.getX(), n.getY(), circleR);
-        inner.setFill(insideColor);
-
-        //        outer.setVisible(false);
-        //        inner.setVisible(false);
-
-        outer.setOnMouseEntered(makeVisible);
-        //        text. makeVistimbe
-
-        outer.setOnMouseExited(hide);
-
-        //        N.getChildren().addAll(outer, inner);
-
-        //        nodes.add(N);
-
-        nodes.add(outer);
-        nodes.add(inner);
+        ArrayList<String> nameType = new ArrayList<>();
+        try {
+          nameType = n.getShortName();
+        } catch (SQLException ex) {
+          System.out.println(ex.toString());
+          System.out.println("Could not find info");
+        }
+        // String shortName = "";
+        String nodeType = "";
+        if (nameType.size() == 2) {
+          // shortName = nameType.get(0);
+          nodeType = nameType.get(1);
+        } else {
+        }
+        if (!nodeType.equals("HALL")) circles.add(new NodeCircle(n));
       }
+    }
+    for (NodeCircle c : circles) {
+      nodes.add(c.p);
+      nodes.add(c.label);
     }
     return nodes;
   }
 
   /** */
-  public void drawEmergencies() {}
-
-  /** */
-  public void drawLocationNames() {}
+  public void drawLocationNames() throws SQLException {}
 
   /** */
   public void clearMap() {}
@@ -274,7 +288,8 @@ public class Map {
     parentW = 760;
     parentH = 512;
 
-    Point2D scaleOneDim = new Point2D(760 * 2, 512 * 2); // hard Coded
+    //    Point2D scaleOneDim = new Point2D(760 * 2, 512 * 2); // hard Coded
+    Point2D scaleOneDim = new Point2D(1500, 2000);
 
     double scaleX = parentW / scaleOneDim.getX();
     double scaleY = parentH / scaleOneDim.getY();
