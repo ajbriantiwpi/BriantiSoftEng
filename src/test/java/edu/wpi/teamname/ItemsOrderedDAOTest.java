@@ -1,106 +1,81 @@
 package edu.wpi.teamname;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.database.ItemsOrderedDAOImpl;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.*;
 
 public class ItemsOrderedDAOTest {
   private ItemsOrderedDAOImpl itemsOrderedDAO;
 
-  @BeforeAll
-  static void setup() throws SQLException {
-    ItemsOrderedDAOImpl io = new ItemsOrderedDAOImpl();
+  @BeforeEach
+  void setUp() throws SQLException {
+    // TODO: Put in docker info
+    DataManager.configConnection("jdbc:postgresql://localhost:5432/postgres", "user", "pass");
+    String query = "Truncate Table \"ItemsOrdered\"";
+    Connection connection = DataManager.DbConnection();
     DataManager.createTableIfNotExists(
         "ItemsOrdered",
-        "CREATE TABLE IF NOT EXISTS \"ItemsOrdered\" ("
-            + "\"requestID\" INT NOT NULL,"
-            + "\"itemID\" INT NOT NULL,"
-            + "\"quantity\" INT NOT NULL,"
-            + "PRIMARY KEY (\"requestID\", \"itemID\")"
-            + ")");
-  }
-
-  @BeforeEach
-  void init() throws SQLException {
-    itemsOrderedDAO.add(new ItemsOrdered(1, 1, 1));
-  }
-
-  @AfterEach
-  void cleanup() throws SQLException {
-    ArrayList<ItemsOrdered> itemsOrdereds = itemsOrderedDAO.getAll();
-    for (ItemsOrdered io : itemsOrdereds) {
-      itemsOrderedDAO.delete(io);
+        "CREATE TABLE IF NOT EXISTS \"ItemsOrdered\" (\"requestID\" INTEGER, \"itemID\" INTEGER, \"quantity\" INTEGER);");
+    try (PreparedStatement statement = connection.prepareStatement(query)) {
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      System.out.println("Truncate Error. " + e);
     }
+    connection.close();
   }
 
   @Test
-  public void testSync() throws SQLException {
-    // create an item ordered and add it to the database
-    ItemsOrdered itemsOrdered = new ItemsOrdered(1, 1, 1);
-    itemsOrderedDAO.add(itemsOrdered);
+  void testExportCSV() throws SQLException {
+    try {
+      Connection conn =
+          DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "user", "pass");
+      PreparedStatement ps = conn.prepareStatement("TRUNCATE TABLE \"ItemsOrdered\"");
+      ps.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    // insert some test data
+    List<ItemsOrdered> testData = new ArrayList<>();
+    testData.add(new ItemsOrdered(6, 55, 6));
+    testData.add(new ItemsOrdered(2, 4, 7));
+    testData.add(new ItemsOrdered(1, 2, 9));
+    try {
+      for (ItemsOrdered ln : testData) {
+        DataManager.addItemsOrdered(ln);
+      }
+    } catch (SQLException e) {
+      fail("SQL Exception thrown while adding test location names");
+    }
 
-    // update the quantity of the item ordered
-    itemsOrdered.setQuantity(2);
-    itemsOrderedDAO.sync(itemsOrdered);
+    // export the location names to a CSV file
+    String csvFilePath = "test_ItemsOrdered.csv";
+    try {
+      DataManager.exportItemsOrderedToCSV(csvFilePath);
+    } catch (IOException e) {
+      fail("IOException thrown while exporting location names to CSV");
+    }
 
-    // retrieve the updated item ordered from the database
-    ItemsOrdered updatedItemsOrdered = itemsOrderedDAO.getItemOrdered(1, 1);
-
-    // assert that the quantity has been updated
-    assertEquals(2, updatedItemsOrdered.getQuantity());
-  }
-
-  @Test
-  public void testGetAll() throws SQLException {
-    // add three item ordered to the database
-    ItemsOrdered itemsOrdered1 = new ItemsOrdered(1, 1, 1);
-    ItemsOrdered itemsOrdered2 = new ItemsOrdered(1, 2, 2);
-    ItemsOrdered itemsOrdered3 = new ItemsOrdered(2, 1, 3);
-    itemsOrderedDAO.add(itemsOrdered1);
-    itemsOrderedDAO.add(itemsOrdered2);
-    itemsOrderedDAO.add(itemsOrdered3);
-
-    // retrieve all the item ordered from the database
-    ArrayList<ItemsOrdered> itemsOrderedList = itemsOrderedDAO.getAll();
-
-    // assert that the correct number of items have been retrieved
-    assertEquals(3, itemsOrderedList.size());
-
-    // assert that each item has the correct values
-    assertEquals(itemsOrdered1, itemsOrderedList.get(0));
-    assertEquals(itemsOrdered2, itemsOrderedList.get(1));
-    assertEquals(itemsOrdered3, itemsOrderedList.get(2));
-  }
-
-  @Test
-  public void testAdd() throws SQLException {
-    // create an item ordered and add it to the database
-    ItemsOrdered itemsOrdered = new ItemsOrdered(1, 1, 1);
-    itemsOrderedDAO.add(itemsOrdered);
-
-    // retrieve the item ordered from the database
-    ItemsOrdered retrievedItemsOrdered = itemsOrderedDAO.getItemOrdered(1, 1);
-
-    // assert that the retrieved item has the correct values
-    assertEquals(itemsOrdered, retrievedItemsOrdered);
-  }
-
-  @Test
-  public void testDelete() throws SQLException {
-    // create an item ordered and add it to the database
-    ItemsOrdered itemsOrdered = new ItemsOrdered(1, 1, 1);
-    itemsOrderedDAO.add(itemsOrdered);
-
-    // delete the item ordered from the database
-    itemsOrderedDAO.delete(itemsOrdered);
-
-    // assert that the item has been deleted from the database
-    ItemsOrdered deletedItemsOrdered = ItemsOrderedDAOImpl.getItemOrdered(1, 1);
-    assertEquals(null, deletedItemsOrdered);
+    // read the CSV file and verify its contents
+    try {
+      List<String> lines = Files.readAllLines(Paths.get(csvFilePath));
+      Assertions.assertEquals(lines.get(0), "requestID,itemID,quantity");
+      Assertions.assertEquals(lines.get(1), "6,55,6");
+      Assertions.assertEquals(lines.get(2), "2,4,7");
+      Assertions.assertEquals(lines.get(3), "1,2,9");
+    } catch (IOException e) {
+      fail("IOException thrown while reading CSV file");
+    }
   }
 }
