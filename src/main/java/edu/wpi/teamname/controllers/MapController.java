@@ -63,19 +63,6 @@ public class MapController {
             // Call drawAStarPath with both points
             map.drawAStarPath(anchor, firstClick, secondClick, floor1, floor2);
 
-            if (!map.getPrevPath().isEmpty()) {
-              clickCount = 0;
-            }
-          } else if (clickCount == 3) {
-            if (!map.getPrevPath().isEmpty()) {
-              for (int i = anchor.getChildren().size() - 1; i >= 0; i--) {
-                if (map.getPrevPath().contains(anchor.getChildren().get(i))) {
-                  anchor.getChildren().remove(i);
-                }
-              }
-              map.setPrevPath(null);
-            }
-
             clickCount = 0;
           }
         }
@@ -106,7 +93,7 @@ public class MapController {
           System.out.println(LocationOne.getValue());
           // System.out.println(EndPointSelect.getValue());
           sNode = Integer.parseInt(LocationOne.getValue());
-          if (sNode != 0 && eNode != 0) {
+          if (eNode != 0) {
             map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
           }
         }
@@ -117,10 +104,10 @@ public class MapController {
 
         @Override
         public void handle(ActionEvent event) {
-          System.out.println("T");
+          System.out.println("changed end " + EndPointSelect.getValue());
           System.out.println(EndPointSelect.getValue());
           eNode = Integer.parseInt(EndPointSelect.getValue());
-          if (sNode != 0 && eNode != 0) {
+          if (sNode != 0) {
             map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
           }
         }
@@ -162,6 +149,7 @@ public class MapController {
         } else {
           retStr = "3";
         }
+        return retStr;
       default:
         return "You should never see  this!!!";
     }
@@ -217,7 +205,6 @@ public class MapController {
     //    AnchorPane.setBottomAnchor(anchor, 1000.0);
 
     gp.setMinScale(0.11);
-    anchor.setOnMouseClicked(e);
 
     //    gp.setOnMouseMoved(checkPoints);
 
@@ -240,6 +227,8 @@ public class MapController {
     FloorSelect.setPromptText("Select floor");
     FloorSelect.setItems(map.getAllFloors("L1"));
     FloorSelect.setOnAction(changeFloor);
+
+    anchor.setOnMouseClicked(e);
 
     //    System.out.println(getAllNodeNames("L1"));
 
