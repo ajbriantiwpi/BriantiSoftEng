@@ -13,8 +13,8 @@ import java.util.List;
 public class MoveDAOImpl implements MoveDAO {
 
   /**
-   * This method updates an existing Move object in the "Move" table in the database with the
-   * new Move object.
+   * This method updates an existing Move object in the "Move" table in the database with the new
+   * Move object.
    *
    * @param move the new Move object to be updated in the "Move" table
    * @throws SQLException if there is a problem accessing the database

@@ -14,8 +14,8 @@ import java.util.List;
 
 public class ServiceRequestDAOImpl implements ServiceRequestDAO {
   /**
-   * This method updates an existing ServiceRequest object in the "ServiceRequest" table in the database
-   * with the new ServiceRequest object.
+   * This method updates an existing ServiceRequest object in the "ServiceRequest" table in the
+   * database with the new ServiceRequest object.
    *
    * @param serviceRequest the new ServiceRequest object to be updated in the "ServiceRequest" table
    * @throws SQLException if there is a problem accessing the database
@@ -44,7 +44,8 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
   }
 
   /**
-   * The method retrieves all the ServiceRequest objects from the "ServiceRequest" table in the database.
+   * The method retrieves all the ServiceRequest objects from the "ServiceRequest" table in the
+   * database.
    *
    * @return an ArrayList of the ServiceRequest objects in the database
    * @throws SQLException if there is a problem accessing the database
@@ -86,6 +87,7 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
 
   /**
    * Adds a service request to the database, along with the corresponding order of items.
+   *
    * @param serviceRequest The service request to be added to the database
    * @throws SQLException If an error occurs while accessing the database
    */
@@ -142,11 +144,12 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
   }
 
   /**
-   Returns the quantity of an item in a service request.
-   @param requestID the ID of the service request
-   @param itemID the ID of the item
-   @return the quantity of the item in the service request
-   @throws SQLException if there is an error accessing the database
+   * Returns the quantity of an item in a service request.
+   *
+   * @param requestID the ID of the service request
+   * @param itemID the ID of the item
+   * @return the quantity of the item in the service request
+   * @throws SQLException if there is an error accessing the database
    */
   public int getQuantity(int requestID, int itemID) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -202,6 +205,7 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
 
   /**
    * Deletes the ServiceRequest and all associated items from the database.
+   *
    * @param serviceRequest The ServiceRequest to delete.
    * @throws SQLException if there is an error executing the SQL query.
    */
@@ -233,8 +237,8 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
   }
 
   /**
-   * This method retrieves an ServiceRequest object with the specified ID from the "ServiceRequest" table in the
-   * database.
+   * This method retrieves an ServiceRequest object with the specified ID from the "ServiceRequest"
+   * table in the database.
    *
    * @param id the ID of the ServiceRequest object to retrieve from the "ServiceRequest" table
    * @return the ServiceRequest object with the specified ID, or null if not found
@@ -268,6 +272,7 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
 
   /**
    * Updates the staff name for a service request with the given request ID in the database.
+   *
    * @param requestID the ID of the service request to update.
    * @param staffName the new staff name to set.
    * @throws SQLException if a database error occurs.
@@ -324,7 +329,9 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
   }
   /**
    * Uploads CSV data to a PostgreSQL database table "ServiceRequest"
-   * @param csvFilePath is a String representing the filepath of the file we want to upload (use"\\" instead of "\")
+   *
+   * @param csvFilePath is a String representing the filepath of the file we want to upload (use"\\"
+   *     instead of "\")
    * @throws SQLException if an error occurs while uploading the data to the database
    */
   public static void uploadServiceRequestToPostgreSQL(String csvFilePath) throws SQLException {
