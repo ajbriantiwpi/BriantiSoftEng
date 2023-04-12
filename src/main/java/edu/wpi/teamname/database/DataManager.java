@@ -68,10 +68,11 @@ public class DataManager {
                      l."longName" = new1."longName") new2
             WHERE
                 new2."nodeID" = ? AND
-                date = ?""";
+                date = (Select max(date) From "Move" Where "nodeID" = ?)""";
     try (PreparedStatement statement = connection.prepareStatement(query);) {
       statement.setInt(1, nodeID);
       statement.setTimestamp(2, date);
+      statement.setInt(3, nodeID);
       ResultSet rs = statement.executeQuery();
       while(rs.next()){
         update.add(rs.getString("\"longName\""));
