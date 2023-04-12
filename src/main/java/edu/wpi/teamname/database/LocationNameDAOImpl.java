@@ -10,8 +10,8 @@ import java.util.List;
 
 public class LocationNameDAOImpl implements LocationNameDAO {
   /**
-   * This method updates an existing LocationName object in the "LocationName" table in the database with the
-   * new LocationName object.
+   * This method updates an existing LocationName object in the "LocationName" table in the database
+   * with the new LocationName object.
    *
    * @param locationName the new LocationName object to be updated in the "LocationName" table
    * @throws SQLException if there is a problem accessing the database
@@ -37,7 +37,8 @@ public class LocationNameDAOImpl implements LocationNameDAO {
   }
 
   /**
-   * The method retrieves all the LocationName objects from the "ItemsOrdered" table in the database.
+   * The method retrieves all the LocationName objects from the "ItemsOrdered" table in the
+   * database.
    *
    * @return an ArrayList of the ItemsOrdered objects in the database
    * @throws SQLException if there is a problem accessing the database
@@ -219,8 +220,8 @@ public class LocationNameDAOImpl implements LocationNameDAO {
   }
 
   /**
-   * This method retrieves a LocationName object with the specified name from the "LocationName" table in the
-   * database.
+   * This method retrieves a LocationName object with the specified name from the "LocationName"
+   * table in the database.
    *
    * @param name the long name of the LocationName object to retrieve from the "LocationName" table
    * @return the LocationName object with the specified name, or null if not found
@@ -246,9 +247,12 @@ public class LocationNameDAOImpl implements LocationNameDAO {
   }
 
   /**
-   This method retrieves a list of all the long names of locations from the "LocationName" table in the database.
-   @return an ArrayList of Strings representing the long names of all locations in the "LocationName" table, ordered alphabetically
-   @throws SQLException if there is a problem accessing the database
+   * This method retrieves a list of all the long names of locations from the "LocationName" table
+   * in the database.
+   *
+   * @return an ArrayList of Strings representing the long names of all locations in the
+   *     "LocationName" table, ordered alphabetically
+   * @throws SQLException if there is a problem accessing the database
    */
   public static ArrayList<String> getAllLongNames() throws SQLException {
     Connection connection = DataManager.DbConnection();

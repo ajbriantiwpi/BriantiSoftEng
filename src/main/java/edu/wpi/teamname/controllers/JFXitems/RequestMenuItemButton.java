@@ -46,8 +46,6 @@ public class RequestMenuItemButton extends Button {
             } catch (SQLException e) {
               throw new RuntimeException(e);
             }
-          } catch (SQLException e) {
-            throw new RuntimeException(e);
           }
         });
   }

@@ -4,7 +4,7 @@ import edu.wpi.teamname.controllers.JFXitems.ReqMenuItems;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import edu.wpi.teamname.servicerequest.Status;
-import edu.wpi.teamname.servicerequest.requestitem.Flower;
+import edu.wpi.teamname.servicerequest.requestitem.*;
 import edu.wpi.teamname.system.Navigation;
 import edu.wpi.teamname.system.Screen;
 import io.github.palexdev.materialfx.controls.*;
@@ -102,7 +102,6 @@ public class ServiceRequestController {
   @Setter @Getter private ServiceRequest request;
 
   // ArrayList<Integer> itemIDs;
-  ArrayList<Flower> items;
 
   public ServiceRequestController() throws SQLException {}
 
@@ -128,36 +127,35 @@ public class ServiceRequestController {
       System.out.println(time);
       LocalDateTime reqDateTime = date.atTime(time);
       System.out.println(reqDateTime.toString());
+      Timestamp reqTS = Timestamp.valueOf(reqDateTime);
+      setRequest(
+          new ServiceRequest(
+              Instant.now().get(ChronoField.MICRO_OF_SECOND),
+              "null",
+              patientName.toString(),
+              nodeBox.toString(),
+              reqTS,
+              Timestamp.from(Instant.now()),
+              Status.BLANK,
+              "test"));
+      ArrayList<RequestItem> items = new ArrayList<>();
       if (requestType.getValue() == "Meal Delivery") {
-        setRequest(
-            new ServiceRequest(
-                Instant.now().get(ChronoField.MICRO_OF_SECOND),
-                "",
-                patientName.toString(),
-                "",
-                // node.toString(),
-                Timestamp.from(Instant.now()),
-                Timestamp.from(Instant.now()),
-                Status.BLANK,
-                ""));
         folder = "MealIcons";
-      } else {
-        setRequest(
-            new ServiceRequest(
-                Instant.now().get(ChronoField.MICRO_OF_SECOND),
-                "",
-                patientName.toString(),
-                "",
-                // roomNum.toString(),
-                Timestamp.from(Instant.now()),
-                Timestamp.from(Instant.now()),
-                Status.BLANK,
-                ""));
+        ArrayList<Meal> tems = DataManager.getAllMeals();
+        items.addAll(tems);
+      } else if (requestType.getValue() == "Flower Delivery") {
         folder = "FlowerIcons";
+        ArrayList<Flower> tems = DataManager.getAllFlowers();
+        items.addAll(tems);
+      } else if (requestType.getValue() == "Office Supply Delivery") {
+        folder = "OfficeIcons";
+        ArrayList<OfficeSupply> tems = DataManager.getAllOfficeSupplies();
+        items.addAll(tems);
+      } else { // "Furniture Delivery"
+        folder = "FurnitureIcons";
+        ArrayList<Furniture> tems = DataManager.getAllFurniture();
+        items.addAll(tems);
       }
-      System.out.println(request.getDeliverBy().toString());
-
-      items = DataManager.getAllFlowers();
 
       for (int a = 0; a < items.size(); a++) {
         if (a < 4) {
@@ -181,6 +179,7 @@ public class ServiceRequestController {
       nextButton.setText("Submit");
       requestPage = 2;
       summaryLabel.setText(request.toString());
+
 
     } else if (requestPage == 2) {
       setVisibleScreen(0);
