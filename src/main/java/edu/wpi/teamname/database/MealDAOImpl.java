@@ -12,8 +12,8 @@ import java.util.List;
 public class MealDAOImpl implements MealDAO {
 
   /**
-   * This method updates an existing Meal object in the "Meal" table in the database with the
-   * new Meal object.
+   * This method updates an existing Meal object in the "Meal" table in the database with the new
+   * Meal object.
    *
    * @param meal the new Meal object to be updated in the "Meal" table
    * @throws SQLException if there is a problem accessing the database
@@ -209,8 +209,8 @@ public class MealDAOImpl implements MealDAO {
   }
 
   /**
-   * This method exports all the Meal objects from the "Meal" table in the database to a CSV
-   * file at the specified file path.
+   * This method exports all the Meal objects from the "Meal" table in the database to a CSV file at
+   * the specified file path.
    *
    * @param csvFilePath the file path of the CSV file to export the Meal objects to
    * @throws SQLException if there is a problem accessing the database

@@ -13,8 +13,8 @@ import java.util.List;
 
 public class NodeDAOImpl implements NodeDAO {
   /**
-   * This method updates an existing Node object in the "Node" table in the database with the
-   * new Node object.
+   * This method updates an existing Node object in the "Node" table in the database with the new
+   * Node object.
    *
    * @param node the new Node object to be updated in the "Node" table
    * @throws SQLException if there is a problem accessing the database
@@ -263,13 +263,17 @@ public class NodeDAOImpl implements NodeDAO {
     return ret;
   }
   /**
-   * Returns a Room object containing all information about the node with the given ID.
-   * The information includes the node's long name, short name, coordinates, node type, building, floor, and the most recent date when the node's location was updated.
-   * The function queries the database and joins the "LocationName" and "Move" tables to retrieve the necessary information.
-   * It also filters the results by selecting only the information for the node with the given ID and the most recent date prior to the current time.
-   * If no information is found for the given ID, null is returned.
+   * Returns a Room object containing all information about the node with the given ID. The
+   * information includes the node's long name, short name, coordinates, node type, building, floor,
+   * and the most recent date when the node's location was updated. The function queries the
+   * database and joins the "LocationName" and "Move" tables to retrieve the necessary information.
+   * It also filters the results by selecting only the information for the node with the given ID
+   * and the most recent date prior to the current time. If no information is found for the given
+   * ID, null is returned.
+   *
    * @param id the ID of the node to retrieve information for
-   * @return a Room object containing all information about the node, or null if no information is found
+   * @return a Room object containing all information about the node, or null if no information is
+   *     found
    * @throws SQLException if there is an error accessing the database
    */
   public static Room getAllInfoOfNode(int id) throws SQLException {

@@ -11,8 +11,8 @@ import java.util.List;
 
 public class LoginDAOImpl implements LoginDAO {
   /**
-   * This method updates an existing Login object in the "Login" table in the database with the
-   * new Login object.
+   * This method updates an existing Login object in the "Login" table in the database with the new
+   * Login object.
    *
    * @param login the new Login object to be updated in the "Login" table
    * @throws SQLException if there is a problem accessing the database
