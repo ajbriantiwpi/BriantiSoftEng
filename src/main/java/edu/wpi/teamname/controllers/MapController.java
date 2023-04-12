@@ -44,14 +44,6 @@ public class MapController {
           clickCount++;
 
           if (clickCount == 1) {
-            if (!map.getPrevPath().isEmpty()) {
-              for (int i = anchor.getChildren().size() - 1; i >= 0; i--) {
-                if (map.getPrevPath().contains(anchor.getChildren().get(i))) {
-                  anchor.getChildren().remove(i);
-                }
-              }
-              map.setPrevPath(null);
-            }
 
             // Capture the first click
             firstClick = new Point2D(event.getX(), event.getY());
@@ -63,13 +55,20 @@ public class MapController {
             // Capture the second click
             secondClick = new Point2D(event.getX(), event.getY());
 
-            // Reset click counter
-            clickCount = 0;
-
             floor2 = takeFloor(FloorSelect.getValue());
 
             // Call drawAStarPath with both points
             map.drawAStarPath(anchor, firstClick, secondClick, floor1, floor2);
+          } else if (clickCount == 3) {
+            if (!map.getPrevPath().isEmpty()) {
+              for (int i = anchor.getChildren().size() - 1; i >= 0; i--) {
+                if (map.getPrevPath().contains(anchor.getChildren().get(i))) {
+                  anchor.getChildren().remove(i);
+                }
+              }
+              map.setPrevPath(null);
+            }
+            clickCount = 0;
           }
         }
       };
