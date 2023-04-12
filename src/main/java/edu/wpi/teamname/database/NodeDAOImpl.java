@@ -3,6 +3,7 @@ package edu.wpi.teamname.database;
 import com.sun.javafx.geom.Point2D;
 import edu.wpi.teamname.database.interfaces.NodeDAO;
 import edu.wpi.teamname.navigation.Node;
+import edu.wpi.teamname.navigation.Room;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,7 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NodeDAOImpl implements NodeDAO {
-  /** */
+  /**
+   * This method updates an existing Node object in the "Node" table in the database with the new
+   * Node object.
+   *
+   * @param node the new Node object to be updated in the "Node" table
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void sync(Node node) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -34,7 +41,12 @@ public class NodeDAOImpl implements NodeDAO {
     connection.close();
   }
 
-  /** @return */
+  /**
+   * The method retrieves all the Move objects from the "Move" table in the database.
+   *
+   * @return an ArrayList of the Move objects in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public ArrayList<Node> getAll() throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -59,7 +71,12 @@ public class NodeDAOImpl implements NodeDAO {
     return list;
   }
 
-  /** @param node */
+  /**
+   * This method adds a new Node object to the "Node" table in the database.
+   *
+   * @param node the Node object to be added to the "Node" table
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void add(Node node) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -81,7 +98,12 @@ public class NodeDAOImpl implements NodeDAO {
     }
   }
 
-  /** @param node */
+  /**
+   * This method deletes the given Node object from the database
+   *
+   * @param node the Node object that will be deleted in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void delete(Node node) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -157,6 +179,12 @@ public class NodeDAOImpl implements NodeDAO {
     }
   }
 
+  /**
+   * Exports data from a PostgreSQL database table "Node" to a CSV file
+   *
+   * @param csvFilePath is a String representing a file path
+   * @throws SQLException if an error occurs while exporting the data from the database
+   */
   public static void exportNodeToCSV(String csvFilePath) throws SQLException, IOException {
     Connection connection = DataManager.DbConnection();
     String query = "SELECT * FROM \"Node\"";
@@ -181,6 +209,14 @@ public class NodeDAOImpl implements NodeDAO {
     }
   }
 
+  /**
+   * This method retrieves a Node object with the specified ID from the "Node" table in the
+   * database.
+   *
+   * @param id the ID of the Meal object to retrieve from the "Node" table
+   * @return the Node object with the specified ID, or null if not found
+   * @throws SQLException if there is a problem accessing the database
+   */
   public static Node getNode(int id) throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query = "SELECT * FROM \"Node\" WHERE \"nodeID\" = ?";
@@ -225,5 +261,67 @@ public class NodeDAOImpl implements NodeDAO {
       throw new RuntimeException(ex);
     }
     return ret;
+  }
+  /**
+   * Returns a Room object containing all information about the node with the given ID. The
+   * information includes the node's long name, short name, coordinates, node type, building, floor,
+   * and the most recent date when the node's location was updated. The function queries the
+   * database and joins the "LocationName" and "Move" tables to retrieve the necessary information.
+   * It also filters the results by selecting only the information for the node with the given ID
+   * and the most recent date prior to the current time. If no information is found for the given
+   * ID, null is returned.
+   *
+   * @param id the ID of the node to retrieve information for
+   * @return a Room object containing all information about the node, or null if no information is
+   *     found
+   * @throws SQLException if there is an error accessing the database
+   */
+  public static Room getAllInfoOfNode(int id) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    String query =
+        "SELECT \"nodeID\", \"longName\", \"shortName\", xcoord, ycoord, \"nodeType\", building, floor, j.date "
+            + "FROM (SELECT n.\"longName\", \"shortName\", n.\"nodeID\", \"nodeType\", xcoord, ycoord, building, floor, date "
+            + "      FROM \"LocationName\", "
+            + "           (select \"Move\".\"nodeID\", xcoord, ycoord, floor, building, \"longName\", date "
+            + "            FROM \"Node\", \"Move\" "
+            + "            where \"Node\".\"nodeID\" = \"Move\".\"nodeID\") n "
+            + "      WHERE \"LocationName\".\"longName\" = n.\"longName\") j, "
+            + "     (SELECT max(date) AS date "
+            + "      FROM (SELECT date "
+            + "            FROM (SELECT n.\"nodeID\", date "
+            + "                  FROM \"LocationName\", "
+            + "                       (select \"Move\".\"nodeID\", xcoord, ycoord, floor, building, \"longName\", date "
+            + "                        FROM \"Node\", \"Move\" "
+            + "                        where \"Node\".\"nodeID\" = \"Move\".\"nodeID\") n "
+            + "                  WHERE \"LocationName\".\"longName\" = n.\"longName\") j "
+            + "            WHERE date < (SELECT NOW()::timestamp) "
+            + "              AND j.\"nodeID\" = ?) l) q "
+            + "WHERE j.date = q.date "
+            + "AND j.\"nodeID\" = ?;";
+    Room room = null;
+    try (connection) {
+      int one = 1;
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setInt(one, id);
+      statement.setInt(2, id);
+
+      ResultSet rs = statement.executeQuery();
+      while (rs.next()) {
+        int id2 = rs.getInt("nodeID");
+        String longName = rs.getString("longName");
+        String shortN = rs.getString("shortName");
+        int xcoord = rs.getInt("xcoord");
+        int ycoord = rs.getInt("ycoord");
+        String nodeType = rs.getString("nodeType");
+        String building = rs.getString("building");
+        String floor = rs.getString("floor");
+        Timestamp date = rs.getTimestamp("date");
+
+        room = new Room(id2, longName, date, xcoord, ycoord, floor, building, shortN, nodeType);
+      }
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+    }
+    return room;
   }
 }
