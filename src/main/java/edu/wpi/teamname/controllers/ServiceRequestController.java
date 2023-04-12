@@ -5,7 +5,7 @@ import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.servicerequest.RequestType;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import edu.wpi.teamname.servicerequest.Status;
-import edu.wpi.teamname.servicerequest.requestitem.Flower;
+import edu.wpi.teamname.servicerequest.requestitem.*;
 import edu.wpi.teamname.system.Navigation;
 import edu.wpi.teamname.system.Screen;
 import io.github.palexdev.materialfx.controls.*;
@@ -55,12 +55,15 @@ public class ServiceRequestController {
   // Form fields
   // @FXML TextField staffName;
   @FXML TextField patientName;
-  @FXML TextField roomNum;
+  @FXML ComboBox nodeBox;
+  ObservableList<String> longNames =
+      FXCollections.observableArrayList(DataManager.getNamesAlphabetically());
   @FXML DatePicker dateBox;
   @FXML ComboBox timeBox;
   ObservableList<String> timeValues = FXCollections.observableArrayList();
   ObservableList<String> serviceType =
-      FXCollections.observableArrayList("Meal Delivery", "Flower Delivery");
+      FXCollections.observableArrayList(
+          "Meal Delivery", "Flower Delivery", "Office Supply Delivery", "Furniture Delivery");
   @FXML ComboBox requestType;
 
   // menu item page
@@ -80,13 +83,37 @@ public class ServiceRequestController {
           "Purple Hyacinths",
           "Pink Hyacinths");
 
+  ObservableList<String> furnitureItems =
+      FXCollections.observableArrayList(
+          "Harlow Dresser",
+          "Aspen Bed",
+          "Eames Lounge Chair",
+          "Tulip Dining Table",
+          "Oslo Recliner",
+          "Baxter Bookcase",
+          "Palmer Ottoman");
+
+  ObservableList<String> officeItems =
+      FXCollections.observableArrayList(
+          "Stapler", "Calculator", "Pen", "Paper shredder", "Notebook", "Desk lamp", "Whiteboard");
+
   @FXML AnchorPane summaryPane;
   @FXML Label summaryLabel;
+
+  @FXML VBox cartBox;
+
+  public VBox getCartBox() {
+    return cartBox;
+  }
+
+  @FXML Label totalLabel;
+  @FXML MFXButton forgotButton;
 
   @Setter @Getter private ServiceRequest request;
 
   // ArrayList<Integer> itemIDs;
-  ArrayList<Flower> items;
+
+  public ServiceRequestController() throws SQLException {}
 
   /**
    * Controls the switching and progression through creating the service request
@@ -110,40 +137,48 @@ public class ServiceRequestController {
       System.out.println(time);
       LocalDateTime reqDateTime = date.atTime(time);
       System.out.println(reqDateTime.toString());
+      Timestamp reqTS = Timestamp.valueOf(reqDateTime);
+      RequestType reqType;
+      ArrayList<RequestItem> items = new ArrayList<>();
       if (requestType.getValue() == "Meal Delivery") {
-        setRequest(
-            new ServiceRequest(
-                Instant.now().get(ChronoField.MICRO_OF_SECOND),
-                "",
-                patientName.toString(),
-                roomNum.toString(),
-                Timestamp.from(Instant.now()),
-                Timestamp.from(Instant.now()),
-                Status.BLANK,
-                "",
-                RequestType.MEAL));
         folder = "MealIcons";
-      } else {
-        setRequest(
-            new ServiceRequest(
-                Instant.now().get(ChronoField.MICRO_OF_SECOND),
-                "",
-                patientName.toString(),
-                roomNum.toString(),
-                Timestamp.from(Instant.now()),
-                Timestamp.from(Instant.now()),
-                Status.BLANK,
-                "",
-                RequestType.FLOWER));
+        ArrayList<Meal> tems = DataManager.getAllMeals();
+        items.addAll(tems);
+        reqType = RequestType.MEAL;
+      } else if (requestType.getValue() == "Flower Delivery") {
         folder = "FlowerIcons";
+        ArrayList<Flower> tems = DataManager.getAllFlowers();
+        items.addAll(tems);
+        reqType = RequestType.FLOWER;
+      } else if (requestType.getValue() == "Office Supply Delivery") {
+        folder = "OfficeIcons";
+        ArrayList<OfficeSupply> tems = DataManager.getAllOfficeSupplies();
+        items.addAll(tems);
+        reqType = RequestType.OFFICESUPPLY;
+      } else { // "Furniture Delivery"
+        folder = "FurnitureIcons";
+        ArrayList<Furniture> tems = DataManager.getAllFurniture();
+        items.addAll(tems);
+        reqType = RequestType.FURNITURE;
       }
-      System.out.println(request.getDeliverBy().toString());
 
-      items = DataManager.getAllFlowers();
+      setRequest(
+          new ServiceRequest(
+              Instant.now().get(ChronoField.MICRO_OF_SECOND),
+              "null",
+              patientName.toString(),
+              nodeBox.toString(),
+              reqTS,
+              Timestamp.from(Instant.now()),
+              Status.BLANK,
+              "test",
+              reqType));
 
       for (int a = 0; a < items.size(); a++) {
         if (a < 4) {
-          itemBox.getChildren().add(new ReqMenuItems(items.get(a), folder, getRequest()));
+          itemBox
+              .getChildren()
+              .add(new ReqMenuItems(items.get(a), folder, getRequest(), true, this));
         }
       }
 
@@ -154,7 +189,8 @@ public class ServiceRequestController {
       requestPage = 1;
 
       request.setPatientName(patientName.getCharacters().toString());
-      request.setRoomNumber(roomNum.getCharacters().toString());
+      // request.setRoomNumber(roomNum.getCharacters().toString());
+      request.setRoomNumber("");
       // request.setDeliverBy(dateBox.getValue().atStartOfDay());
 
     } else if (requestPage == 1) {
@@ -163,11 +199,43 @@ public class ServiceRequestController {
       requestPage = 2;
       summaryLabel.setText(request.toString());
 
+      ArrayList<RequestItem> tem = new ArrayList<>();
+      double totalPrice = 0.0;
+      String t = request.getRequestType().toString();
+      String f;
+      if (t == "Meal Request") {
+        f = "MealIcons";
+        tem.addAll(DataManager.getAllMeals());
+      } else if (t == "Flower Request") {
+        f = "FlowerIcons";
+        tem.addAll(DataManager.getAllFlowers());
+      } else if (t == "Office Supply Request") {
+        f = "OfficeIcons";
+        tem.addAll(DataManager.getAllOfficeSupplies());
+      } else {
+        f = "FurnitureIcons";
+        System.out.println(t);
+        tem.addAll(DataManager.getAllFurniture());
+      }
+      int c = 0;
+      // System.out.println(tem);
+      // System.out.println(request.getItems());
+      for (RequestItem item : tem) {
+        c = request.countItem(item.getItemID());
+        // System.out.println(c);
+        if (c > 0) {
+          cartBox.getChildren().add(new ReqMenuItems(item, f, this.request, false, this, c));
+          totalPrice += c * item.getPrice();
+        }
+      }
+      System.out.println(totalPrice);
+      totalLabel.setText(totalLabel.getText() + String.valueOf(totalPrice));
+
     } else if (requestPage == 2) {
       setVisibleScreen(0);
       requestPage = 0;
       nextButton.setText("Next");
-      // request.uploadRequestToDatabase();
+      DataManager.addServiceRequest(request);
       Navigation.navigate(Screen.HOME);
 
       System.out.println(request);
@@ -184,7 +252,7 @@ public class ServiceRequestController {
   private void clearAction() {
     patientName.clear();
     // staffName.clear();
-    roomNum.clear();
+    // roomNum.clear();
     requestType.cancelEdit();
     dateBox.cancelEdit();
     if (requestPage > 0) {
@@ -193,6 +261,8 @@ public class ServiceRequestController {
       nextButton.setText("Next");
       // request.clearItems();
     }
+    itemBox.getChildren().clear();
+    cartBox.getChildren().clear();
   }
 
   /**
@@ -208,6 +278,7 @@ public class ServiceRequestController {
       menuPane.setVisible(true);
       summaryPane.setVisible(false);
       summaryPane.setDisable(true);
+      nextButton.setText("next");
     } else if (n == 2) {
       formPane.setVisible(false);
       formPane.setDisable(true);
@@ -215,6 +286,7 @@ public class ServiceRequestController {
       menuPane.setVisible(false);
       summaryPane.setVisible(true);
       summaryPane.setDisable(false);
+      nextButton.setText("submit");
     } else {
       formPane.setVisible(true);
       formPane.setDisable(false);
@@ -223,6 +295,7 @@ public class ServiceRequestController {
       summaryPane.setVisible(false);
       summaryPane.setDisable(true);
       timeBox.setDisable(false);
+      nextButton.setText("next");
     }
   }
 
@@ -238,6 +311,7 @@ public class ServiceRequestController {
       timeValues.add(Integer.toString(h) + ":45");
     }
     timeBox.setItems(timeValues);
+    nodeBox.setItems(longNames);
 
     nextButton.setText("Next");
 
@@ -259,5 +333,7 @@ public class ServiceRequestController {
 
     itemBox.setFillWidth(true);
     itemBox.setSpacing(25);
+
+    forgotButton.setOnMouseClicked(event -> setVisibleScreen(1));
   }
 }

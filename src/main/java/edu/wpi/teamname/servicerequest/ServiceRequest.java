@@ -104,4 +104,21 @@ public class ServiceRequest {
         + requestType
         + "]";
   }
+
+  /**
+   * Takes an id of a RequestItem and gives the number of instances of that RequestItem this order
+   * has
+   *
+   * @param id id of RequestItem to be counted
+   * @return number of RequestItem with the id in this order
+   */
+  public int countItem(int id) {
+    int i = 0;
+    for (RequestItem item : items) {
+      if (item.getItemID() == id) {
+        i++;
+      }
+    }
+    return i;
+  }
 }
