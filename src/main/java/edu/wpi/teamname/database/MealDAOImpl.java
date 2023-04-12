@@ -11,7 +11,13 @@ import java.util.List;
 
 public class MealDAOImpl implements MealDAO {
 
-  /** */
+  /**
+   * This method updates an existing Meal object in the "Meal" table in the database with the
+   * new Meal object.
+   *
+   * @param meal the new Meal object to be updated in the "Meal" table
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void sync(Meal meal) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -34,7 +40,12 @@ public class MealDAOImpl implements MealDAO {
     connection.close();
   }
 
-  /** @return */
+  /**
+   * The method retrieves all the Meal objects from the "Meal" table in the database.
+   *
+   * @return an ArrayList of the Meal objects in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public ArrayList<Meal> getAll() throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -58,7 +69,12 @@ public class MealDAOImpl implements MealDAO {
     return list;
   }
 
-  /** @param meal */
+  /**
+   * This method adds a new Meal object to the "Meal" table in the database.
+   *
+   * @param meal the Meal object to be added to the "Meal" table
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void add(Meal meal) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -82,7 +98,12 @@ public class MealDAOImpl implements MealDAO {
     }
   }
 
-  /** @param meal */
+  /**
+   * This method deletes the given Meal object from the database
+   *
+   * @param meal the Meal object that will be deleted in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void delete(Meal meal) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -106,6 +127,14 @@ public class MealDAOImpl implements MealDAO {
     }
   }
 
+  /**
+   * This method retrieves a Meal object with the specified ID from the "Meal" table in the
+   * database.
+   *
+   * @param id the ID of the Meal object to retrieve from the "Meal" table
+   * @return the Meal object with the specified ID, or null if not found
+   * @throws SQLException if there is a problem accessing the database
+   */
   public static Meal getMeal(int id) throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query = "SELECT * FROM \"Meal\" WHERE \"mealID\" = ?";
@@ -179,6 +208,14 @@ public class MealDAOImpl implements MealDAO {
     }
   }
 
+  /**
+   * This method exports all the Meal objects from the "Meal" table in the database to a CSV
+   * file at the specified file path.
+   *
+   * @param csvFilePath the file path of the CSV file to export the Meal objects to
+   * @throws SQLException if there is a problem accessing the database
+   * @throws IOException if there is a problem writing the CSV file
+   */
   public static void exportMealToCSV(String csvFilePath) throws SQLException, IOException {
     Connection connection = DataManager.DbConnection();
     String query = "SELECT * FROM \"Meal\"";
