@@ -3,6 +3,7 @@ package edu.wpi.teamname.controllers.JFXitems;
 import edu.wpi.teamname.controllers.ServiceRequestController;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import edu.wpi.teamname.servicerequest.requestitem.RequestItem;
+import java.text.DecimalFormat;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -86,11 +87,12 @@ public class ReqMenuItems extends GridPane {
           "edu/wpi/teamname/images/" + folder + "/" + name.replace(" ", "_") + ".png");
     }
     // hBox = new HBox();
+    DecimalFormat df = new DecimalFormat("0.00");
     label = new Label(name.replace("_", " "));
     label.setFont(Font.font("Roboto", 32));
     label.setMinWidth(200);
     label.setMaxWidth(200);
-    labelP = new Label("Price: $" + String.valueOf(item.getPrice()));
+    labelP = new Label("Price: $" + df.format(item.getPrice()));
     labelP.setFont(Font.font("Roboto", 32));
     labelP.setMinWidth(200);
     labelP.setMaxWidth(200);
