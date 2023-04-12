@@ -20,6 +20,7 @@ public class ServiceRequest {
   @Setter @Getter private Status status;
   @Setter @Getter private String requestMadeBy;
   @Getter private final int originalID;
+  @Getter private RequestType requestType;
   @Getter private ArrayList<RequestItem> items;
 
   public ServiceRequest(
@@ -30,7 +31,8 @@ public class ServiceRequest {
       Timestamp deliverBy,
       Timestamp requestedAt,
       Status status,
-      String requestMadeBy) {
+      String requestMadeBy,
+      RequestType requestType) {
     this.requestID = requestID;
     this.staffName = staffName;
     this.patientName = patientName;
@@ -40,6 +42,7 @@ public class ServiceRequest {
     this.status = status;
     this.requestMadeBy = requestMadeBy;
     this.originalID = requestID;
+    this.requestType = requestType;
     items = new ArrayList<RequestItem>();
   }
 
@@ -81,6 +84,8 @@ public class ServiceRequest {
         + status.toString()
         + ", "
         + requestMadeBy
+        + ", "
+        + requestType
         + "]";
   }
 }
