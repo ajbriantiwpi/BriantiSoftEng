@@ -15,7 +15,7 @@ import org.controlsfx.control.tableview2.FilteredTableView;
 
 public class ServiceRequestViewController {
 
-  @FXML FilteredTableView table;
+  @FXML FilteredTableView<ServiceRequest> table;
   @FXML FilteredTableColumn requestIDCol;
   @FXML FilteredTableColumn patientNameCol;
   @FXML FilteredTableColumn roomNumCol;
@@ -24,13 +24,13 @@ public class ServiceRequestViewController {
   @FXML FilteredTableColumn requestedForCol;
   @FXML FilteredTableColumn assignedStaffCol;
   @FXML FilteredTableColumn statusCol;
-  @FXML ComboBox requestTypeCombo;
+  @FXML ComboBox<String> requestTypeCombo;
 
   ObservableList<String> serviceType =
       FXCollections.observableArrayList(
-          "Meal Request", "Flower Request", "Furniture Request", "Office Supply Request");
+          "", "Meal Request", "Flower Request", "Furniture Request", "Office Supply Request");
   ObservableList<String> statusValue =
-      FXCollections.observableArrayList("PROCESSING", "BLANK", "DONE");
+      FXCollections.observableArrayList("", "PROCESSING", "BLANK", "DONE");
   @FXML ComboBox requestStatusCombo;
 
   @FXML
@@ -59,5 +59,18 @@ public class ServiceRequestViewController {
     statusCol.setCellValueFactory(new PropertyValueFactory<ServiceRequest, String>("status"));
     requesterIDCol.setCellValueFactory(
         new PropertyValueFactory<ServiceRequest, String>("requestMadeBy"));
+
+    requestStatusCombo
+        .valueProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              if (newValue != null) {
+                try {
+                  table.setItems(FXCollections.observableList(DataManager.getAllServiceRequests().stream().filter((request) ->request.getStatus().getStatusString().equals(newValue)).toList()));
+                } catch (SQLException e) {
+                  throw new RuntimeException(e);
+                }
+              }
+            });
   }
 }
