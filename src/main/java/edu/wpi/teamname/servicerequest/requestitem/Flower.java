@@ -9,13 +9,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class Flower extends RequestItem {
-  @Getter @Setter private float price;
   @Getter @Setter private String category;
   @Getter @Setter private String color;
 
   public Flower(int flowerID, String name, float price, String category, String color) {
-    super(flowerID, name);
-    this.price = price;
+    super(flowerID, name, price);
     this.category = category;
     this.color = color;
   }
@@ -23,13 +21,14 @@ public class Flower extends RequestItem {
   public Flower(int id) throws SQLException {
     super(id);
     Connection connection = DataManager.DbConnection();
-    String query = "SELECT * FROM \"Flower\" WHERE \"flowerID\" = ?;";
+    String query = "SELECT * FROM \"Flowers\" WHERE \"flowerID\" = ?;";
 
     String name = null;
     try (PreparedStatement statement = connection.prepareStatement(query)) {
       statement.setInt(1, id);
       ResultSet rs = statement.executeQuery();
       while (rs.next()) {
+        super.setItemID(id);
         super.setName(rs.getString("Name"));
         setPrice(rs.getFloat("Price"));
         setCategory(rs.getString("Category"));
@@ -37,6 +36,7 @@ public class Flower extends RequestItem {
       }
     } catch (SQLException e) {
       System.out.println("Error retrieving meal data: " + e.getMessage());
+      System.out.println(id);
     }
   }
 
@@ -46,7 +46,7 @@ public class Flower extends RequestItem {
         + ", "
         + this.getName()
         + ", "
-        + price
+        + this.getPrice()
         + ", "
         + category
         + ", "

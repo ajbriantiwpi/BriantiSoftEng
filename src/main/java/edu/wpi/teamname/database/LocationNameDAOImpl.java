@@ -9,7 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LocationNameDAOImpl implements LocationNameDAO {
-  /** */
+  /**
+   * This method updates an existing LocationName object in the "LocationName" table in the database
+   * with the new LocationName object.
+   *
+   * @param locationName the new LocationName object to be updated in the "LocationName" table
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void sync(LocationName locationName) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -30,7 +36,13 @@ public class LocationNameDAOImpl implements LocationNameDAO {
     connection.close();
   }
 
-  /** @return */
+  /**
+   * The method retrieves all the LocationName objects from the "ItemsOrdered" table in the
+   * database.
+   *
+   * @return an ArrayList of the ItemsOrdered objects in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public ArrayList<LocationName> getAll() throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -52,7 +64,12 @@ public class LocationNameDAOImpl implements LocationNameDAO {
     return list;
   }
 
-  /** @param locationName */
+  /**
+   * This method adds a new LocationName object to the "LocationName" table in the database.
+   *
+   * @param locationName the LocationName object to be added to the "LocationName" table
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void add(LocationName locationName) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -73,13 +90,20 @@ public class LocationNameDAOImpl implements LocationNameDAO {
     }
   }
 
-  /** @param locationName */
+  /**
+   * This method deletes the given LocationName object from the database
+   *
+   * @param locationName the LocationName object that will be deleted in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void delete(LocationName locationName) throws SQLException {
     Connection connection = DataManager.DbConnection();
-    String query = "Delete from \"LocationName\" where \"longName\" = ?";
+    String del = "Delete ";
+    String sel = "Select * ";
+    String query = "from \"LocationName\" where \"longName\" = ?";
 
-    try (PreparedStatement statement = connection.prepareStatement(query)) {
+    try (PreparedStatement statement = connection.prepareStatement(del + query)) {
       statement.setString(1, locationName.getLongName());
       statement.executeUpdate();
     } catch (SQLException e) {
@@ -87,7 +111,7 @@ public class LocationNameDAOImpl implements LocationNameDAO {
     }
 
     try (Statement statement = connection.createStatement()) {
-      ResultSet rs2 = statement.executeQuery(query);
+      ResultSet rs2 = statement.executeQuery(sel + query);
       int count = 0;
       while (rs2.next()) count++;
       if (count == 0) System.out.println("LocationName information deleted successfully.");
@@ -197,6 +221,14 @@ public class LocationNameDAOImpl implements LocationNameDAO {
     }
   }
 
+  /**
+   * This method retrieves a LocationName object with the specified name from the "LocationName"
+   * table in the database.
+   *
+   * @param name the long name of the LocationName object to retrieve from the "LocationName" table
+   * @return the LocationName object with the specified name, or null if not found
+   * @throws SQLException if there is a problem accessing the database
+   */
   public static LocationName getLocationName(String name) throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query = "SELECT * FROM \"LocationName\" WHERE \"longName\" = ?";
@@ -217,16 +249,20 @@ public class LocationNameDAOImpl implements LocationNameDAO {
   }
 
   /**
-   * * Gets
+   * This method retrieves a list of all the long names of locations from the "LocationName" table
+   * in the database.
    *
-   * @return
+   * @return an ArrayList of Strings representing the long names of all locations in the
+   *     "LocationName" table, ordered alphabetically
+   * @throws SQLException if there is a problem accessing the database
    */
   public static ArrayList<String> getAllLongNames() throws SQLException {
     Connection connection = DataManager.DbConnection();
     ArrayList<String> list = new ArrayList<String>();
 
     try (connection) {
-      String query = "SELECT * FROM \"LocationName\" ORDER BY \"longName\"";
+      String query =
+          "SELECT * FROM \"LocationName\" WHERE \"nodeType\" = 'CONF' OR \"nodeType\" = 'DEPT' OR \"nodeType\" = 'INFO' OR \"nodeType\" = 'LABS' ORDER BY \"longName\"";
       PreparedStatement statement = connection.prepareStatement(query);
       ResultSet rs = statement.executeQuery();
 

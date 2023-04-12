@@ -20,6 +20,9 @@ public class FlowerDAOTest {
     DataManager.configConnection("jdbc:postgresql://localhost:5432/postgres", "user", "pass");
     String query = "Truncate Table \"Flowers\"";
     Connection connection = DataManager.DbConnection();
+    DataManager.createTableIfNotExists(
+        "Flowers",
+        "CREATE TABLE IF NOT EXISTS \"Flowers\" (\"flowerID\" INTEGER, \"Name\" TEXT, \"Price\" INTEGER, \"Category\" TEXT, \"Color\" TEXT);");
     try (PreparedStatement statement = connection.prepareStatement(query)) {
       statement.executeUpdate();
     } catch (SQLException e) {

@@ -1,16 +1,30 @@
 package edu.wpi.teamname.navigation;
 
+import edu.wpi.teamname.database.DataManager;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
+import javafx.scene.shape.Shape;
 import lombok.Getter;
 import lombok.Setter;
+import net.kurobako.gesturefx.GesturePane;
 
 public class Map {
+
+  Color borderColor = Color.web("33567A");
+  Color insideColor = Color.web("2FA7B0");
+  float circleR = 10.0f;
+  float lineT = 10.0f;
+  int lineTout = 2;
 
   public Map() throws SQLException {
     this.graph = new Graph();
@@ -19,20 +33,16 @@ public class Map {
   public Graph graph;
   public ArrayList<Emergency> emergencies;
 
+  private Point2D centerPoint;
+  private Point2D centerTL;
+
   @Getter @Setter private ArrayList<Shape> prevPath = new ArrayList<Shape>();
 
   private ArrayList<Shape> makeShapePath(ArrayList<Node> nodes) {
     ArrayList<Shape> shapes = new ArrayList<Shape>();
 
-    Color borderColor = new Color(0.1, 0.4, 0.9, 1);
-    Color insideColor = new Color(0.05, 0.7, 1, 1);
-
     Circle c;
     Path path;
-
-    float circleR = 10.0f;
-    float lineT = 10.0f;
-    int lineTout = 2;
 
     for (int j = 0; j < 2; j++) {
       path = new Path();
@@ -69,57 +79,85 @@ public class Map {
 
   /**
    * @param parent
-   * @param clickPos
+   * @param firstClick
+   * @param secondClick
+   * @param floor1
+   * @param floor2
    */
-  public void drawAStarPath(Pane parent, Point2D firstClick, Point2D clickPos) {
+  public void drawAStarPath(
+      Pane parent, Point2D firstClick, Point2D secondClick, String floor1, String floor2) {
 
-    String floor = "L1";
+    //    String floor = "L1";
 
     List<Node> allNodes = this.graph.getNodes();
 
-    System.out.println(firstClick);
-    System.out.println(clickPos); // Coordinates in inner, now goes up to 5000
+    //    System.out.println(firstClick);
+    //    System.out.println(secondClick); // Coordinates in inner, now goes up to 5000
 
-    int leastDistanceNodeIndex = -1;
-    int leastDistanceNodeIndexFirst = -1;
-    double leastDistance = Double.MAX_VALUE;
-    double firstLeastDistance = Double.MAX_VALUE;
+    int startIndex = -1;
+    int endIndex = -1;
+    double leastDistance;
     double nodeDist;
-    int startNodeIndex = 4; // ID: 115
 
-    for (int i = 0; i < allNodes.size(); i++) {
-      if (i == startNodeIndex) {
-        continue;
+    Point2D currentClick;
+    String currentFloor;
+    int checkIndex;
+
+    for (int j = 0; j < 2; j++) {
+      if (j == 0) {
+        // Start Node
+        currentFloor = floor1;
+        currentClick = firstClick;
       } else {
-        Node currentNode = allNodes.get(i);
-        if (currentNode.getFloor().equals(floor)) {
-          nodeDist = firstClick.distance(currentNode.getX(), currentNode.getY());
-          if (nodeDist < firstLeastDistance) {
-            firstLeastDistance = nodeDist;
-            leastDistanceNodeIndexFirst = i;
+        // End Node
+        currentFloor = floor2;
+        currentClick = secondClick;
+      }
+
+      leastDistance = Double.MAX_VALUE;
+      checkIndex = -1;
+
+      for (int i = 0; i < allNodes.size(); i++) {
+        if (i == startIndex) {
+          continue;
+        } else {
+          Node currentNode = allNodes.get(i);
+          if (currentNode.getFloor().equals(currentFloor)) {
+            nodeDist = currentClick.distance(currentNode.getX(), currentNode.getY());
+            if (nodeDist < leastDistance) {
+              leastDistance = nodeDist;
+              checkIndex = i;
+            }
           }
         }
       }
-    }
 
-    Node startNode = allNodes.get(leastDistanceNodeIndexFirst);
-
-    for (int i = 0; i < allNodes.size(); i++) {
-      if (i == (startNode.getId() - 100) / 5) {
-        continue;
+      if (j == 0) {
+        // Start Node
+        startIndex = checkIndex;
       } else {
-        Node currentNode = allNodes.get(i);
-        if (currentNode.getFloor().equals(floor)) {
-          nodeDist = clickPos.distance(currentNode.getX(), currentNode.getY());
-          if (nodeDist < leastDistance) {
-            leastDistance = nodeDist;
-            leastDistanceNodeIndex = i;
-          }
-        }
+        // End Node
+        endIndex = checkIndex;
       }
     }
 
-    Node endNode = allNodes.get(leastDistanceNodeIndex);
+    Node startNode = allNodes.get(startIndex);
+    Node endNode = allNodes.get(endIndex);
+
+    drawAStarPath(parent, startNode, endNode);
+  }
+
+  public void drawAStarPath(Pane parent, String floor1, String floor2, int sNode, int eNode) {
+
+    //    String floor = "L1";
+
+    List<Node> allNodes = this.graph.getNodes();
+
+    //    System.out.println(firstClick);
+    //    System.out.println(secondClick); // Coordinates in inner, now goes up to 5000
+
+    Node startNode = allNodes.get(/*startIndex*/ (sNode - 100) / 5);
+    Node endNode = allNodes.get(/*endIndex*/ (eNode - 100) / 5);
 
     drawAStarPath(parent, startNode, endNode);
   }
@@ -134,15 +172,160 @@ public class Map {
     parent.getChildren().addAll(shapes);
   }
 
+  public ObservableList<String> getAllNodeNames(String floor) throws SQLException {
+    ObservableList<String> nodeNames = FXCollections.observableArrayList();
+    for (Node n : DataManager.getAllNodes()) {
+      if (n.getFloor().equals(floor)) {
+        nodeNames.addAll(("" + n.getId()));
+      }
+    }
+    return nodeNames;
+  }
+
+  String[] floorArr = {
+    "Lower Level 2", "Lower Level 1", "Ground Floor", "First Floor", "Second Floor", "Third Floor"
+  };
+
+  public ObservableList<String> getAllFloors(String floor) throws SQLException {
+    ObservableList<String> floorNames = FXCollections.observableArrayList();
+
+    for (String f : floorArr) {
+
+      floorNames.addAll(f);
+    }
+
+    return floorNames;
+  }
+
+  EventHandler<MouseEvent> makeVisible =
+      new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent event) {
+          Circle outer = ((Circle) event.getSource());
+          System.out.println("V");
+          System.out.println(outer.getId());
+          outer.setVisible(true);
+        }
+      };
+
+  EventHandler<MouseEvent> hide =
+      new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent event) {
+          System.out.println("H");
+          Circle outer = ((Circle) event.getSource());
+          System.out.println(outer.getId());
+          outer.setVisible(false);
+        }
+      };
+
   /** */
   public void drawEmergencies() {}
 
+  //  public ObservableList<String> getAllNodeNames(String floor) throws SQLException {
+  //    ObservableList<String> nodeNames = FXCollections.observableArrayList();
+  //    for (Node n : DataManager.getAllNodes()) {
+  //      if (n.getFloor().equals(floor)) {
+  //        nodeNames.addAll(("" + n.getId()));
+  //      }
+  //    }
+  //    return nodeNames;
+  //  }
+
+  public ArrayList<javafx.scene.Node> makeAllFloorNodes(String floor)
+      throws SQLException, IOException {
+    ArrayList<javafx.scene.Node> nodes =
+        new ArrayList<javafx.scene.Node>(); // list of shapes to be displayed
+    List<NodeCircle> circles = new ArrayList<>(); // List of NodeCircle Objects
+
+    for (Node n : DataManager.getAllNodes()) {
+      if (n.getFloor().equals(floor)) {
+        ArrayList<String> nameType = new ArrayList<>();
+        try {
+          nameType = n.getShortName();
+        } catch (SQLException ex) {
+          System.out.println(ex.toString());
+          System.out.println("Could not find info");
+        }
+        // String shortName = "";
+        String nodeType = "";
+        if (nameType.size() == 2) {
+          // shortName = nameType.get(0);
+          nodeType = nameType.get(1);
+        } else {
+        }
+        if (!nodeType.equals("HALL")) circles.add(new NodeCircle(n));
+      }
+    }
+    for (NodeCircle c : circles) {
+      nodes.add(c.p);
+      nodes.add(c.label);
+    }
+    return nodes;
+  }
+
+  public ArrayList<javafx.scene.Node> makeAllFloorNodesTwo(String floor)
+      throws SQLException, IOException {
+    ArrayList<javafx.scene.Node> nodes =
+        new ArrayList<javafx.scene.Node>(); // list of shapes to be displayed
+    List<NodeCircle> circles = new ArrayList<>(); // List of NodeCircle Objects
+
+    for (Node n : DataManager.getAllNodes()) {
+      if (n.getFloor().equals(floor)) {
+        circles.add(new NodeCircle(n));
+      }
+    }
+    for (NodeCircle c : circles) {
+      //            Pane p = new Pane();
+      //      p.getChildren().addAll(c.outer, c.inner, c.text);
+      //      nodes.add(c.outer);
+      //      nodes.add(c.inner);
+      //      nodes.add(c.text);
+      nodes.add(c.p);
+    }
+
+    return nodes;
+  }
+
   /** */
-  public void drawLocationNames() {}
+  public void drawLocationNames() throws SQLException {}
 
   /** */
   public void clearMap() {}
 
+  private double getMapWitdh() {
+    return 0;
+  }
+
+  private double getMapHeight() {
+    return 0;
+  }
+
   /** @param parent */
-  public void centerAndZoom(Pane parent) {}
+  public void centerAndZoom(GesturePane parent) {
+    double parentW = getMapWitdh();
+    double parentH = getMapHeight();
+    parentW = 760;
+    parentH = 512;
+
+    //    Point2D scaleOneDim = new Point2D(760 * 2, 512 * 2); // hard Coded
+    Point2D scaleOneDim = new Point2D(1500, 2000);
+
+    double scaleX = parentW / scaleOneDim.getX();
+    double scaleY = parentH / scaleOneDim.getY();
+
+    System.out.println(scaleX + ", " + scaleY);
+
+    double scaleFactor = Double.min(scaleX, scaleY);
+
+    centerPoint = new Point2D(2250, 1000); // Hard Coded
+    double scale = parent.getCurrentScale();
+    Point2D CMin = new Point2D((parentW / 2) * (1 / scale), (parentH / 2) * (1 / scale));
+    centerTL = centerPoint.subtract(CMin);
+
+    parent.zoomTo(scaleFactor, Point2D.ZERO);
+    parent.centreOn(centerTL); // Actually Moves the Top left corner
+  }
 }

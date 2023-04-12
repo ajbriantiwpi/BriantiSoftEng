@@ -9,13 +9,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class OfficeSupply extends RequestItem {
-  @Setter @Getter private float price;
   @Setter @Getter private String category;
   @Setter @Getter private boolean isElectric;
 
   public OfficeSupply(int itemID, String name, float price, String category, boolean isElectric) {
-    super(itemID, name);
-    this.price = price;
+    super(itemID, name, price);
     this.category = category;
     this.isElectric = isElectric;
   }
@@ -30,6 +28,7 @@ public class OfficeSupply extends RequestItem {
       statement.setInt(1, id);
       ResultSet rs = statement.executeQuery();
       while (rs.next()) {
+        super.setItemID(id);
         super.setName(rs.getString("name"));
         setPrice(rs.getFloat("price"));
         setCategory(rs.getString("category"));
@@ -46,7 +45,7 @@ public class OfficeSupply extends RequestItem {
         + ", "
         + this.getName()
         + ", "
-        + price
+        + this.getPrice()
         + ", "
         + category
         + ", "

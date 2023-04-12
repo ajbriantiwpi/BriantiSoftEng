@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.*;
@@ -213,12 +214,12 @@ class LocationNameDAOTest {
   }
   // Test uploading a CSV file to a new table
   @Test
-  public void testUploadLocationNameToPostgreSQL() throws SQLException {
+  public void testUploadLocationNameToPostgreSQL() throws SQLException, ParseException {
     // Set up test data
     String csvFilePath = "src/test/resources/test_location_names.csv";
 
     // Call the function being tested
-    DataManager.uploadLocationNameToPostgreSQL(csvFilePath);
+    DataManager.uploadLocationName(csvFilePath);
 
     // Verify that the data was uploaded correctly
     Connection connection = DataManager.DbConnection();

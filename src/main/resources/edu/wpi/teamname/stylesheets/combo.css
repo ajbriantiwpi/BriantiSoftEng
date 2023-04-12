@@ -1,12 +1,28 @@
 .combo-box-popup .list-view {
-    -fx-font-size : 20pt;
+    -fx-font-size: 28px;
+    -fx-font-family: Roboto;
+    -fx-line-height: 36px;
+    -fx-background-color: #3D5E3FF;
+    -fx-text-fill: #001B3B;
+    -fx-background-radius: 8;
 }
 
 /*added this in an edit*/
 .combo-box-popup .list-view .list-cell {
     -fx-padding: -1 -1 -1 -1;
+    -fx-background-color: #3D5E3FF;
+    -fx-text-fill: #001B3B;
+    -fx-background-radius: 8;
 }
 
 .combo-box{
-    -fx-font-size: 20pt;
+    -fx-background-color: #D5E3FF;
+    -fx-font-size: 28px;
+    -fx-font-family: Roboto;
+    -fx-line-height: 36px;
+    -fx-text-fill: #001B3B;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #6F797A;
+    -fx-border-width: 1;
 }

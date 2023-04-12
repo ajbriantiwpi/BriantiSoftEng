@@ -10,7 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LoginDAOImpl implements LoginDAO {
-  /** */
+  /**
+   * This method updates an existing Login object in the "Login" table in the database with the new
+   * Login object.
+   *
+   * @param login the new Login object to be updated in the "Login" table
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void sync(Login login) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -28,7 +34,12 @@ public class LoginDAOImpl implements LoginDAO {
     connection.close();
   }
 
-  /** @return */
+  /**
+   * The method retrieves all the Login objects from the "Login" table in the database.
+   *
+   * @return an ArrayList of the Login objects in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public ArrayList<Login> getAll() throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -49,7 +60,12 @@ public class LoginDAOImpl implements LoginDAO {
     return list;
   }
 
-  /** @param login */
+  /**
+   * This method adds a new Login object to the "Login" table in the database.
+   *
+   * @param login the Login object to be added to the "Login" table
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void add(Login login) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -66,7 +82,12 @@ public class LoginDAOImpl implements LoginDAO {
     }
   }
 
-  /** @param login */
+  /**
+   * This method deletes the given Login object from the database
+   *
+   * @param login the Login object that will be deleted in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void delete(Login login) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -90,6 +111,14 @@ public class LoginDAOImpl implements LoginDAO {
     }
   }
 
+  /**
+   * This method retrieves a Login object with the specified username from the "Login" table in the
+   * database.
+   *
+   * @param username the username of the Login object to retrieve from the "Login" table
+   * @return the Login object with the specified username, or null if not found
+   * @throws SQLException if there is a problem accessing the database
+   */
   public static Login getLogin(String username) throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query = "SELECT * FROM \"Login\" WHERE \"username\" = ?";
