@@ -63,7 +63,7 @@ public class HomeController {
 
     //        helpButton.setOnMouseClicked(event -> Navigation.navigate(Screen));
     mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
-    directionsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
+    // directionsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
     makeRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
     makeRequestsButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
     makeRequestsButton2.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
