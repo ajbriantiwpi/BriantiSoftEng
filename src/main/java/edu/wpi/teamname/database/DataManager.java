@@ -73,18 +73,19 @@ public class DataManager {
       throws SQLException {
     Connection conn = DbConnection();
     ArrayList<String> update = new ArrayList<>();
-    String query = "Select \"longName\", building, floor\n" +
-            "From \"Move\" as m, \"Node\" as n\n" +
-            "Where\n" +
-            "    (n.\"nodeID\" = ?) AND (m.\"nodeID\" = ?) AND\n" +
-            "        m.date = (Select max(date) From \"Move\" Where \"nodeID\" = ? AND date <= ?)";
-    try (PreparedStatement statement = conn.prepareStatement(query);) {
+    String query =
+        "Select \"longName\", building, floor\n"
+            + "From \"Move\" as m, \"Node\" as n\n"
+            + "Where\n"
+            + "    (n.\"nodeID\" = ?) AND (m.\"nodeID\" = ?) AND\n"
+            + "        m.date = (Select max(date) From \"Move\" Where \"nodeID\" = ? AND date <= ?)";
+    try (PreparedStatement statement = conn.prepareStatement(query); ) {
       statement.setInt(1, nodeID);
       statement.setInt(2, nodeID);
       statement.setInt(3, nodeID);
       statement.setTimestamp(4, date);
       ResultSet rs = statement.executeQuery();
-      while(rs.next()){
+      while (rs.next()) {
         update.add(rs.getString("\"longName\""));
         update.add(rs.getString("building"));
         update.add(rs.getString("floor"));
