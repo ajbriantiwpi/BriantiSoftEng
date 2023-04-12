@@ -161,13 +161,13 @@ public class ServiceRequestController {
         items.addAll(tems);
         reqType = RequestType.FURNITURE;
       }
-
+      String loc = (String) nodeBox.getValue();
       setRequest(
           new ServiceRequest(
               Instant.now().get(ChronoField.MICRO_OF_SECOND),
               "null",
               patientName.toString(),
-              nodeBox.toString(),
+              loc,
               reqTS,
               Timestamp.from(Instant.now()),
               Status.BLANK,
