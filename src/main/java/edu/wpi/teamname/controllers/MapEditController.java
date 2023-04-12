@@ -30,7 +30,7 @@ public class MapEditController {
   @FXML TableView edgeTable;
   private Connection connection;
 
-  /* public void buildNodeData() throws SQLException {
+  /*public void buildNodeData() throws SQLException {
       connection = new DatabaseConnection().DbConnection();
       table.setEditable(true);
 
@@ -57,7 +57,9 @@ public class MapEditController {
       ObservableList<NodeMoveLocationName> nodes =
               FXCollections.observableArrayList(NodeMoveLocationName.getAllObjects());
       table.setItems(nodes);
-      table.getColumns().addAll(nodeID, xCoord, yCoord, floor, building, longName, shortName, nodeType);
+      table
+              .getColumns()
+              .addAll(nodeID, xCoord, yCoord, floor, building, longName, shortName, nodeType);
     }
 
     public void buildEdgeData() throws SQLException {
@@ -105,10 +107,10 @@ public class MapEditController {
       if (selectedFile != null) {
           // TODO: Implement logic to export node data to the selected file
       }
-  }              //USE THE FILE PICKER TO IMPORT/EXPORT CSV'S
+  }              USE THE FILE PICKER TO IMPORT/EXPORT CSV'S
 
       buildNodeData();
       buildEdgeData();
       connection.close();
-    } */
+    }*/
 }
