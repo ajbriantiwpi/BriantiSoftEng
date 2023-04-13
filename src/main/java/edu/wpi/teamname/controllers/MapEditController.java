@@ -32,37 +32,23 @@ public class MapEditController {
 
   Map map;
   @FXML GesturePane gp;
-
   @FXML TableView table;
   @FXML AnchorPane anchor;
-
   @FXML MFXButton exportButton;
-
   @FXML MFXButton importButton;
   @FXML MFXButton addNodeButton;
-
   @FXML MFXButton addLocationButton;
-
   @FXML MFXButton toggleTableButton;
-
   @FXML TableColumn longNameColumn;
   @FXML TableColumn shortNameColumn;
   @FXML TableColumn nodeTypeColumn;
-
   //  @FXML MFXComboBox<String> selectTable = new MFXComboBox<>();
   @FXML ComboBox<String> selectTable = new ComboBox<>();
-
   String defaultFloor = "L1";
   int defaultX = 0;
   int defaultY = 0;
   String defaultBuilding = "45 Francis";
-
-  int clickCount = 0;
-  Point2D firstClick = null;
-  Point2D secondClick = null;
-
   boolean isMap = true;
-
   int selectedRowIndex = 0;
 
   //  EventHandler<MouseEvent> e =
