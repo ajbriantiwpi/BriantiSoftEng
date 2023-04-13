@@ -8,9 +8,27 @@ import edu.wpi.teamname.servicerequest.requestitem.Meal;
 import java.sql.*;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class MealDAOTest {
+  @BeforeEach
+  void setUp() throws SQLException {
+    // TODO: Put in docker info
+    DataManager.configConnection("jdbc:postgresql://localhost:5432/postgres", "user", "pass");
+    String query = "Truncate Table \"Meal\"";
+    Connection connection = DataManager.DbConnection();
+    DataManager.createTableIfNotExists(
+        "Meal",
+        "CREATE TABLE IF NOT EXISTS \"Meal\" (\"mealID\" INTEGER, \"Name\" TEXT, \"Price\" INTEGER, \"Meal\" TEXT, \"Cuisine\" TEXT);");
+    try (PreparedStatement statement = connection.prepareStatement(query)) {
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      System.out.println("Truncate Error. " + e);
+    }
+    connection.close();
+  }
+
   @Test
   public void testSync() throws SQLException {
 
