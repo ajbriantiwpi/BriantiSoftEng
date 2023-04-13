@@ -15,13 +15,17 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+import lombok.Getter;
 
 public class DataManager {
   private static Connection connection;
+
+  @Getter
   private static String DB_URL =
       "jdbc:postgresql://database.cs.wpi.edu:5432/teamddb?currentSchema=\"teamD\"";
-  private static String DB_PASSWORD = "teamd40";
-  private static String DB_USER = "teamd";
+
+  @Getter private static String DB_PASSWORD = "teamd40";
+  @Getter private static String DB_USER = "teamd";
 
   /**
    * Main function to connect to the database
