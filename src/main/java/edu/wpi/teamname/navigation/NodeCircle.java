@@ -208,7 +208,14 @@ public class NodeCircle {
         }
       };
 
-
+  /**
+   * An event handler for saving changes to a node when the save button is clicked. This handler is
+   * triggered by a MouseEvent and updates the node's x and y coordinates, floor, and building
+   * information based on the text fields in the parent VBox. The updated node is then saved to the
+   * database using DataManager.syncNode().
+   * @param event The MouseEvent triggered by clicking the save button.
+   * @throws RuntimeException if there is an SQLException while getting or synchronizing node data.
+   */
   EventHandler<MouseEvent> saveNodeChanges =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
