@@ -134,25 +134,24 @@
                                                         <Insets left="25.0" right="25.0" top="32.0" />
                                                     </padding>
                                                 </HBox>
-
-                                                <ScrollPane fx:id="glitchyPane" fitToHeight="true" fitToWidth="true" maxHeight="700.0" pannable="true" vbarPolicy="ALWAYS" VBox.vgrow="NEVER">
-                                                    <content>
-                                                        <AnchorPane VBox.vgrow="ALWAYS">
-                                                            <children>
-                                                                <VBox fx:id="itemBox" fillWidth="true" spacing="12.0" style="-fx-background-color: #e3e2e6; -fx-background-radius: 8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                    <children>
-                                                                    </children>
-                                                                </VBox>
-                                                            </children>
-                                                            <padding>
-                                                                <Insets left="25.0" right="25.0" />
-                                                            </padding>
-                                                        </AnchorPane>
-                                                    </content>
+                                    <AnchorPane VBox.vgrow="ALWAYS">
                                        <VBox.margin>
                                           <Insets />
                                        </VBox.margin>
-                                                </ScrollPane>
+                                       <children>
+      
+                                                      <ScrollPane fx:id="glitchyPane" fitToHeight="true" fitToWidth="true" layoutY="0.79998779296875" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="12.0">
+                                                          <content>
+      
+                                                                      <VBox fx:id="itemBox" fillWidth="false" spacing="12.0" style="-fx-background-color: #e3e2e6; -fx-background-radius: 8;">
+                                                                          <children>
+                                                                    </children>
+                                                                      </VBox>
+      
+                                                          </content>
+                                                      </ScrollPane>
+                                       </children>
+                                    </AnchorPane>
                                             </children>
                                         </VBox>
 

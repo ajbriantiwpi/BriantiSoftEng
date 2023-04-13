@@ -15,6 +15,7 @@ public class Furniture extends RequestItem {
 
   /**
    * Creates a furniture object
+   *
    * @param itemID id of the item
    * @param name name of the item
    * @param price price of the item
@@ -32,8 +33,10 @@ public class Furniture extends RequestItem {
 
   /**
    * creates a furniture object in the database
+   *
    * @param id id of the object
-   * @throws SQLException thrown when there is an error connecting to the database or an error with the sql query syntax
+   * @throws SQLException thrown when there is an error connecting to the database or an error with
+   *     the sql query syntax
    */
   public Furniture(int id) throws SQLException {
     super(id);
@@ -59,6 +62,7 @@ public class Furniture extends RequestItem {
 
   /**
    * A string of the item
+   *
    * @return String in format [ <itemID>, <name>, <price>, <category>, <size>, <color>]
    */
   public String toString() {

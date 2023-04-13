@@ -13,7 +13,6 @@ public class OfficeSupply extends RequestItem {
   @Setter @Getter private boolean isElectric;
 
   /**
-   *
    * @param itemID id of the item
    * @param name name of the item
    * @param price price of the item
@@ -28,8 +27,10 @@ public class OfficeSupply extends RequestItem {
 
   /**
    * creates an office supply item in the database
+   *
    * @param id id of the item
-   * @throws SQLException thrown when there is an error connecting to the database or an error with the sql query syntax
+   * @throws SQLException thrown when there is an error connecting to the database or an error with
+   *     the sql query syntax
    */
   public OfficeSupply(int id) throws SQLException {
     super(id);
@@ -54,6 +55,7 @@ public class OfficeSupply extends RequestItem {
 
   /**
    * a toString method for the meal items
+   *
    * @return String in format [ <itemID>, <name>, <price>, <category>, <isElectric>]
    */
   public String toString() {

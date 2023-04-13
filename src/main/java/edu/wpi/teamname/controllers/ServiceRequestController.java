@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -343,6 +344,12 @@ public class ServiceRequestController {
           setVisibleScreen(1);
           cartBox.getChildren().clear();
           totalLabel.setText("Quantity: ");
+        });
+
+    Platform.runLater(
+        () -> {
+          double height = glitchyPane.getHeight();
+          glitchyPane.setMaxHeight(height);
         });
   }
 }
