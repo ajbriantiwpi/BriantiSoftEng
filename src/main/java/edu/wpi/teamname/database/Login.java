@@ -130,7 +130,7 @@ public class Login {
   // ---------------Login requirements-----------
 
   public boolean checkLegalLogin(String u) {
-    if (u.contains("\"") || u.contains(";")) {
+    if (u.contains("\'") || u.contains(";")) {
       return false;
     } else if (u.length() >= 8 && capital(u) && number(u) && special(u)) {
       return true;

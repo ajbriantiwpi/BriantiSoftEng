@@ -10,12 +10,12 @@ public abstract class RequestItem {
   @Getter private final int originalID;
   @Getter @Setter private float price;
 
-  public RequestItem(int itemID, String name) {
+  /*public RequestItem(int itemID, String name) {
     this.itemID = itemID;
     this.name = name;
     this.originalID = itemID;
     this.price = 0;
-  }
+  }*/
 
   public RequestItem(int itemID, String name, float price) {
     DecimalFormat df = new DecimalFormat("0.00");

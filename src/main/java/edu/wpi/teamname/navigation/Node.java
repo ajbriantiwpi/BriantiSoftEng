@@ -106,13 +106,13 @@ public class Node implements Comparable<Node> {
         + x
         + " Ycord:"
         + y
-        + " Heu: "
+        + " Heu:"
         + h
-        + "Neighbors:"
+        + " Neighbors:"
         + nei
-        + "Floor"
+        + " Floor:"
         + floor
-        + "Building:"
+        + " Building:"
         + building;
   }
 
