@@ -42,6 +42,14 @@ public class NodeCircle {
   Color labelText = new Color(0, .106, .231, 1);
   int lineTout = 2;
 
+  /**
+   * A NodeCircle is a circle that represents a Node in the GUI. It is composed of two circles, an inner one that
+   *    is filled with a color that represents the Node type, and an outer one that serves as a border. It also contains
+   *    a label that displays the Node's name. When the user hovers over a NodeCircle, the outer circle and the label
+   *    become visible. When the user clicks on a NodeCircle, a VBox containing information about the Node is displayed.
+   *    @param n The Node that this NodeCircle represents.
+   *    @throws IOException If there was an error reading from the FXML file for the Node editing menu.
+   */
   public NodeCircle(Node n) throws IOException {
     float shiftX = 0; // circleR;
     float shiftY = 0; // circleR;
@@ -108,6 +116,10 @@ public class NodeCircle {
     p.setOnMouseClicked(boxVisible);
   }
 
+  /**
+   *    A mouse event handler that hides the VBox containing information about a NodeCircle
+   *    when the user's mouse exits the NodeCircle.
+   */
   EventHandler<MouseEvent> hide =
       new EventHandler<MouseEvent>() {
         @Override
@@ -135,6 +147,13 @@ public class NodeCircle {
         }
       };
 
+  /**
+   *    An event handler to make a node visible on mouse click.
+   *    <p>This handler sets the opacity of the clicked node's parent pane and all its children to 1,
+   *    except for any VBoxes which are excluded. This is used to show a previously hidden node and
+   *    its contents.
+   *    @param event the mouse event triggering the handler
+   */
   EventHandler<MouseEvent> makeVisible =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
@@ -154,6 +173,13 @@ public class NodeCircle {
         }
       };
 
+  /**
+   *    An event handler to remove a node on mouse click.
+   *    <p>This handler removes the node associated with the clicked button from the parent VBox and
+   *    deletes it from the database using the node ID. If an exception occurs during the deletion
+   *    process, it is caught and printed to the console.
+   *    @param event the mouse event triggering the handler
+   */
   EventHandler<MouseEvent> removeNode =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
@@ -182,6 +208,14 @@ public class NodeCircle {
         }
       };
 
+  /**
+   * An event handler for saving changes to a node when the save button is clicked. This handler is
+   * triggered by a MouseEvent and updates the node's x and y coordinates, floor, and building
+   * information based on the text fields in the parent VBox. The updated node is then saved to the
+   * database using DataManager.syncNode().
+   * @param event The MouseEvent triggered by clicking the save button.
+   * @throws RuntimeException if there is an SQLException while getting or synchronizing node data.
+   */
   EventHandler<MouseEvent> saveNodeChanges =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
@@ -245,6 +279,15 @@ public class NodeCircle {
         }
       };
 
+  /**
+   * EventHandler for saving changes made to a node in the system.
+   * This EventHandler is triggered when the "Save Changes" button is clicked on the edit node screen.
+   * It retrieves the updated information from the relevant TextFields and constructs a new Node object
+   * with the updated information. It then calls the DataManager to update the information in the system
+   * database, and prints a message to the console to confirm that the synchronization has been completed.
+   * @param event The MouseEvent that triggered the EventHandler.
+   * @throws RuntimeException if an SQL exception occurs during the data synchronization process.
+   */
   EventHandler<MouseEvent> boxVisible =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {

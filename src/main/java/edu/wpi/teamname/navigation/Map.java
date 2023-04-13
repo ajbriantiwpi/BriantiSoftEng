@@ -38,6 +38,11 @@ public class Map {
 
   @Getter @Setter private ArrayList<Shape> prevPath = new ArrayList<Shape>();
 
+  /**
+   *    Creates a path with circles representing the nodes from the given list of nodes.
+   *    @param nodes List of nodes to create the path from
+   *    @return An ArrayList of Shape objects representing the path
+   */
   private ArrayList<Shape> makeShapePath(ArrayList<Node> nodes) {
     ArrayList<Shape> shapes = new ArrayList<Shape>();
 
@@ -78,11 +83,12 @@ public class Map {
   }
 
   /**
-   * @param parent
-   * @param firstClick
-   * @param secondClick
-   * @param floor1
-   * @param floor2
+   * Draws the A* path between two points on a given floor.
+   * @param parent The Pane to draw the path on
+   * @param firstClick The starting Point2D object
+   * @param secondClick The ending Point2D object
+   * @param floor1 The starting floor
+   * @param floor2 The ending floor
    */
   public void drawAStarPath(
       Pane parent, Point2D firstClick, Point2D secondClick, String floor1, String floor2) {
@@ -147,6 +153,14 @@ public class Map {
     drawAStarPath(parent, startNode, endNode);
   }
 
+  /**
+   * Draws the A* path between two nodes on a given floor and adds it to the specified parent Pane.
+   * @param parent the Pane to add the path to
+   * @param floor1 the starting floor
+   * @param floor2 the ending floor
+   * @param sNode the starting node ID
+   * @param eNode the ending node ID
+   */
   public void drawAStarPath(Pane parent, String floor1, String floor2, int sNode, int eNode) {
 
     //    String floor = "L1";
@@ -162,6 +176,12 @@ public class Map {
     drawAStarPath(parent, startNode, endNode);
   }
 
+  /**
+   * Draws the A* path between two given nodes and adds it to the specified parent Pane.
+   * @param parent the Pane to add the path to
+   * @param startNode the starting node
+   * @param endNode the ending node
+   */
   public void drawAStarPath(Pane parent, Node startNode, Node endNode) {
     ArrayList<Node> nodePath = this.graph.AStar(startNode, endNode);
 
@@ -172,6 +192,12 @@ public class Map {
     parent.getChildren().addAll(shapes);
   }
 
+  /**
+   * Retrieves the names of all nodes on the specified floor and returns them in an ObservableList.
+   * @param floor the floor to retrieve node names from
+   * @return an ObservableList of node names on the specified floor
+   * @throws SQLException if there is an error with the SQL database
+   */
   public ObservableList<String> getAllNodeNames(String floor) throws SQLException {
     ObservableList<String> nodeNames = FXCollections.observableArrayList();
     for (Node n : DataManager.getAllNodes()) {
@@ -182,24 +208,36 @@ public class Map {
     return nodeNames;
   }
 
+  /**
+   * An array of strings that represent the names of different floors.
+   */
   String[] floorArr = {
     "Lower Level 2", "Lower Level 1", "Ground Floor", "First Floor", "Second Floor", "Third Floor"
   };
 
+  /**
+   * Returns an observable list of all floor names.
+   * @param floor the floor to retrieve information for
+   * @return an observable list of all floor names
+   * @throws SQLException if there is an error retrieving the data from the database
+   */
   public ObservableList<String> getAllFloors(String floor) throws SQLException {
     ObservableList<String> floorNames = FXCollections.observableArrayList();
 
     for (String f : floorArr) {
-
       floorNames.addAll(f);
     }
 
     return floorNames;
   }
 
+  /**
+   * An event handler that sets the visibility of a Circle object to true when triggered by a MouseEvent.
+   * When this event handler is invoked, it prints "V" to the console, gets the source of the event (assumed to be a Circle object), and sets the visibility of the Circle object to true. Additionally, it prints the ID of the Circle object to the console.
+   * @param <MouseEvent> the type of the MouseEvent that triggers this event handler
+   */
   EventHandler<MouseEvent> makeVisible =
       new EventHandler<MouseEvent>() {
-
         @Override
         public void handle(MouseEvent event) {
           Circle outer = ((Circle) event.getSource());
@@ -209,9 +247,13 @@ public class Map {
         }
       };
 
+  /**
+   * An event handler that sets the visibility of a Circle object to false when triggered by a MouseEvent.
+   * When this event handler is invoked, it prints "H" to the console, gets the source of the event (assumed to be a Circle object), and sets the visibility of the Circle object to false. Additionally, it prints the ID of the Circle object to the console.
+   * @param <MouseEvent> the type of the MouseEvent that triggers this event handler
+   */
   EventHandler<MouseEvent> hide =
       new EventHandler<MouseEvent>() {
-
         @Override
         public void handle(MouseEvent event) {
           System.out.println("H");
@@ -221,7 +263,11 @@ public class Map {
         }
       };
 
-  /** */
+  /**
+   * Draws emergency markers on the map.
+   * The method retrieves a list of all emergency events from the EmergencyEventManager
+   * and creates a corresponding emergency marker for each event on the map.
+   */
   public void drawEmergencies() {}
 
   //  public ObservableList<String> getAllNodeNames(String floor) throws SQLException {
@@ -234,6 +280,13 @@ public class Map {
   //    return nodeNames;
   //  }
 
+  /**
+   *    Generates a list of nodes to display for a given floor, excluding any nodes with type "HALL".
+   *    @param floor the floor for which to generate nodes
+   *    @return the list of nodes to display
+   *    @throws SQLException if there is an error accessing the database
+   *    @throws IOException if there is an error loading image resources
+   */
   public ArrayList<javafx.scene.Node> makeAllFloorNodes(String floor)
       throws SQLException, IOException {
     ArrayList<javafx.scene.Node> nodes =
@@ -266,6 +319,13 @@ public class Map {
     return nodes;
   }
 
+  /**
+   *    Generates a list of all nodes to display for a given floor, including nodes with type "HALL".
+   *    @param floor the floor for which to generate nodes
+   *    @return the list of nodes to display
+   *    @throws SQLException if there is an error accessing the database
+   *    @throws IOException if there is an error loading image resources
+   */
   public ArrayList<javafx.scene.Node> makeAllFloorNodesTwo(String floor)
       throws SQLException, IOException {
     ArrayList<javafx.scene.Node> nodes =
@@ -289,21 +349,32 @@ public class Map {
     return nodes;
   }
 
-  /** */
+  /** Draws location names on the map. */
   public void drawLocationNames() throws SQLException {}
 
-  /** */
+  /** Clears the map of all displayed nodes. */
   public void clearMap() {}
 
+  /**
+   * Returns the width of the map.
+   * @return the width of the map
+   */
   private double getMapWitdh() {
     return 0;
   }
 
+  /**
+   * returns the height of the map.
+   * @return the height of the map
+   */
   private double getMapHeight() {
     return 0;
   }
 
-  /** @param parent */
+  /**
+   * Centers and zooms the given GesturePane to display the map.
+   * @param parent the GesturePane to center and zoom
+   */
   public void centerAndZoom(GesturePane parent) {
     double parentW = getMapWitdh();
     double parentH = getMapHeight();

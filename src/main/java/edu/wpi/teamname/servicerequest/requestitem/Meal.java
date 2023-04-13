@@ -9,12 +9,25 @@ public class Meal extends RequestItem {
   @Setter @Getter private String meal;
   @Setter @Getter private String cuisine;
 
+  /**
+   * creates a meal item
+   * @param itemID id of the item
+   * @param name name of the meal item
+   * @param price price of the meal
+   * @param meal meal dinner (breakfast, lunch, dinner)
+   * @param cuisine type of cuisine of the meal
+   */
   public Meal(int itemID, String name, float price, String meal, String cuisine) {
     super(itemID, name, price);
     this.meal = meal;
     this.cuisine = cuisine;
   }
 
+  /**
+   * creates a meal in the database
+   * @param mealID id of the meal
+   * @throws SQLException thrown when there is an error connecting to the database or an error with the sql query syntax
+   */
   public Meal(int mealID) throws SQLException {
     super(mealID);
     Connection connection = DataManager.DbConnection();
@@ -36,6 +49,10 @@ public class Meal extends RequestItem {
     }
   }
 
+  /**
+   * a toString method for the meal items
+   * @return String in format [ <itemID>, <name>, <price>, <meal>, <cuisine>]
+   */
   public String toString() {
     return "["
         + this.getItemID()

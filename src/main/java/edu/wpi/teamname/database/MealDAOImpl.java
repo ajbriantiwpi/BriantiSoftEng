@@ -84,8 +84,6 @@ public class MealDAOImpl implements MealDAO {
 
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
-      statement.executeUpdate(query);
-      statement = connection.prepareStatement(query);
       statement.setInt(1, meal.getItemID());
       statement.setString(2, meal.getName());
       statement.setFloat(3, meal.getPrice());

@@ -27,7 +27,16 @@ public class LoginController {
   @FXML MFXPasswordField passwordText;
   @FXML MFXButton cancel;
 
-  private static boolean loginPressed(String username, String password) throws SQLException {
+  /**
+   * handles when the login button is pressed
+   * @param username username
+   * @param password password
+   * @return a boolean if the login was successful or not
+   * @throws SQLException if there is an error connecting to the database
+   * @throws ExceptionInInitializerError for testing, when we change pages without initializing the screen
+   */
+  public static boolean loginPressed(String username, String password)
+      throws SQLException, ExceptionInInitializerError {
     Login user = new Login(username, password);
     boolean successLog = user.LogInto();
     if (successLog) {
@@ -39,6 +48,9 @@ public class LoginController {
     }
   }
 
+  /**
+   * initializes the view for the login page
+   */
   @FXML
   public void initialize() {
     newPassword.setVisible(false);
@@ -82,7 +94,13 @@ public class LoginController {
     cancel.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
   }
 
-  private String forgotPasswordPressed(String username) throws SQLException {
+  /**
+   * handles when the forgot password button is pressed
+   * @param username the username from the text field that we want to reset the password of
+   * @return the new password string
+   * @throws SQLException if there is an error connecting to the database
+   */
+  public static String forgotPasswordPressed(String username) throws SQLException {
     //    return DataManager.forgotPassword(username);
     Login temp = new Login(username, "");
     return temp.resetPass("NewPassword");
