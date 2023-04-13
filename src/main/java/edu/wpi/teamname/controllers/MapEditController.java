@@ -344,7 +344,7 @@ public class MapEditController {
           MFXButton addButton = ((MFXButton) event.getSource());
           VBox outerPane = (VBox) addButton.getParent();
 
-          final var resource = App.class.getResource("../views/ChangeNode.fxml");
+          final var resource = App.class.getResource("views/ChangeNode.fxml");
           final FXMLLoader loader = new FXMLLoader(resource);
           VBox v;
           try {
@@ -376,7 +376,7 @@ public class MapEditController {
           MFXButton addButton = ((MFXButton) event.getSource());
           VBox outerPane = (VBox) addButton.getParent();
 
-          final var resource = App.class.getResource("../views/ChangeNode.fxml");
+          final var resource = App.class.getResource("views/ChangeNode.fxml");
           final FXMLLoader loader = new FXMLLoader(resource);
           VBox v;
           try {
@@ -525,7 +525,7 @@ public class MapEditController {
           TableRow<LocationName> row = ((TableRow<LocationName>) event.getSource());
           selectedRowIndex = row.getIndex();
 
-          final var resource = App.class.getResource("../views/ChangeNode.fxml");
+          final var resource = App.class.getResource("views/ChangeNode.fxml");
 
           final FXMLLoader loader = new FXMLLoader(resource);
           VBox v;

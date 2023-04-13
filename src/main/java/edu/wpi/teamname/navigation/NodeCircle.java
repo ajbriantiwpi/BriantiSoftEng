@@ -297,7 +297,7 @@ public class NodeCircle {
           p.setOpacity(1);
           p.setBackground(Background.fill(Color.RED));
 
-          final var resource = App.class.getResource("../views/ChangeNode.fxml");
+          final var resource = App.class.getResource("views/ChangeNode.fxml");
           final FXMLLoader loader = new FXMLLoader(resource);
           try {
             v = loader.load();
