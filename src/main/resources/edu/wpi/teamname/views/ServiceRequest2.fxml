@@ -25,7 +25,7 @@
                     <children>
                         <StackPane prefWidth="500.0" VBox.vgrow="ALWAYS">
                             <children>
-                                <ScrollPane VBox.vgrow="ALWAYS">
+                                <ScrollPane pannable="true" VBox.vgrow="ALWAYS">
                                     <content>
                                         <AnchorPane fx:id="formPane" minHeight="0.0" minWidth="0.0">
                                             <children>
@@ -58,7 +58,7 @@
                                 </ScrollPane>
                                 <AnchorPane fx:id="summaryPane" disable="true" visible="false">
                                     <children>
-                                        <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" pannable="true" style="-fx-background-color: #ffffff;" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <content>
                                                 <AnchorPane>
                                                     <children>
@@ -79,7 +79,7 @@
                                                       <Font name="Roboto" size="40.0" />
                                                    </font>
                                                 </Label>
-                                                 <ScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
+                                                 <ScrollPane fitToHeight="true" fitToWidth="true" pannable="true" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
                                                      <content>
                                                          <AnchorPane VBox.vgrow="ALWAYS">
                                                              <children>
@@ -117,10 +117,10 @@
                                     </children>
                                 </AnchorPane>
 
-                                <AnchorPane fx:id="menuPane" disable="true" visible="false" VBox.vgrow="ALWAYS">
+                                <AnchorPane fx:id="menuPane" disable="true" visible="false" StackPane.alignment="TOP_CENTER" VBox.vgrow="ALWAYS">
                                     <children>
 
-                                        <VBox stylesheets="@../stylesheets/RowLabel.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                        <VBox alignment="CENTER" stylesheets="@../stylesheets/RowLabel.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <children>
                                                 <HBox minHeight="100.0" spacing="30.0" VBox.vgrow="SOMETIMES">
                                                     <children>
@@ -134,25 +134,24 @@
                                                         <Insets left="25.0" right="25.0" top="32.0" />
                                                     </padding>
                                                 </HBox>
-
-                                                <ScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
-                                                    <content>
-                                                        <AnchorPane VBox.vgrow="ALWAYS">
-                                                            <children>
-                                                                <VBox fx:id="itemBox" fillWidth="true" spacing="12.0" style="-fx-background-color: #e3e2e6; -fx-background-radius: 8;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                    <children>
-                                                                    </children>
-                                                                </VBox>
-                                                            </children>
-                                                            <padding>
-                                                                <Insets left="25.0" right="25.0" />
-                                                            </padding>
-                                                        </AnchorPane>
-                                                    </content>
+                                    <AnchorPane VBox.vgrow="ALWAYS">
                                        <VBox.margin>
                                           <Insets />
                                        </VBox.margin>
-                                                </ScrollPane>
+                                       <children>
+      
+                                                      <ScrollPane fx:id="glitchyPane" fitToHeight="true" fitToWidth="true" layoutY="0.79998779296875" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="12.0">
+                                                          <content>
+      
+                                                                      <VBox fx:id="itemBox" fillWidth="false" spacing="12.0" style="-fx-background-color: #e3e2e6; -fx-background-radius: 8;">
+                                                                          <children>
+                                                                    </children>
+                                                                      </VBox>
+      
+                                                          </content>
+                                                      </ScrollPane>
+                                       </children>
+                                    </AnchorPane>
                                             </children>
                                         </VBox>
 
@@ -161,7 +160,7 @@
 
                             </children>
                         </StackPane>
-                        <GridPane alignment="BOTTOM_CENTER" prefHeight="75.0">
+                        <GridPane alignment="BOTTOM_CENTER" minHeight="75.0" prefHeight="75.0" VBox.vgrow="NEVER">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

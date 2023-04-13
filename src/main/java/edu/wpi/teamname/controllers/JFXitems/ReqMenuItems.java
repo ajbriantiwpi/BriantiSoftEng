@@ -79,6 +79,9 @@ public class ReqMenuItems extends GridPane {
       add(imageView, 0, 0);
       setFillWidth(imageView, true);
       setHgrow(imageView, Priority.ALWAYS);
+      imageView.setFitHeight(100);
+      imageView.setFitWidth(100);
+
       System.out.println(
           "edu/wpi/teamname/images/" + folder + "/" + name.replace(" ", "_") + ".png");
     } catch (IllegalArgumentException i) {

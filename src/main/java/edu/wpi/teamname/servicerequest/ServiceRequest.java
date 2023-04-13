@@ -84,25 +84,33 @@ public class ServiceRequest {
   }
 
   public String toString() {
-    return "["
-        + requestID
-        + ", "
-        + staffName
-        + ", "
+    //    return "["
+    //        + requestID
+    //        + ", "
+    //        + staffName
+    //        + ", "
+    //        + patientName
+    //        + ", "
+    //        + roomNumber
+    //        + ", "
+    //        + deliverBy
+    //        + ", "
+    //        + requestedAt
+    //        + ", "
+    //        + status.toString()
+    //        + ", "
+    //        + requestMadeBy
+    //        + ", "
+    //        + requestType
+    //        + "]";
+    return "Request ID: "
+        + String.valueOf(requestID)
+        + "\tPatient Name: "
         + patientName
-        + ", "
+        + "\tRoom Name: "
         + roomNumber
-        + ", "
-        + deliverBy
-        + ", "
-        + requestedAt
-        + ", "
-        + status.toString()
-        + ", "
-        + requestMadeBy
-        + ", "
-        + requestType
-        + "]";
+        + "\tDeliver By: "
+        + deliverBy.toString();
   }
 
   /**

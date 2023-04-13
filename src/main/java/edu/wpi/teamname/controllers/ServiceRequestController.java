@@ -11,12 +11,14 @@ import edu.wpi.teamname.system.Screen;
 import io.github.palexdev.materialfx.controls.*;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -70,33 +72,33 @@ public class ServiceRequestController {
   @FXML AnchorPane menuPane;
   @FXML TextField searchBar;
   @FXML VBox itemBox;
-  //  ObservableList<String> mealItems =
-  //      FXCollections.observableArrayList(
-  //          "Burger", "Pizza", "Cookies", "Spaghet", "Ice Cream Cone", "Banana", "Banana Split");
-  //  ObservableList<String> flowerItems =
-  //      FXCollections.observableArrayList(
-  //          "Black Cosmos",
-  //          "Gold Roses",
-  //          "Orange Tulips",
-  //          "Green Mums",
-  //          "Orange Cosmos",
-  //          "Purple Hyacinths",
-  //          "Pink Hyacinths");
-  //
-  //  ObservableList<String> furnitureItems =
-  //      FXCollections.observableArrayList(
-  //          "Harlow Dresser",
-  //          "Aspen Bed",
-  //          "Eames Lounge Chair",
-  //          "Tulip Dining Table",
-  //          "Oslo Recliner",
-  //          "Baxter Bookcase",
-  //          "Palmer Ottoman");
-  //
-  //  ObservableList<String> officeItems =
-  //      FXCollections.observableArrayList(
-  //          "Stapler", "Calculator", "Pen", "Paper shredder", "Notebook", "Desk lamp",
-  // "Whiteboard");
+  @FXML ScrollPane glitchyPane;
+  ObservableList<String> mealItems =
+      FXCollections.observableArrayList(
+          "Burger", "Pizza", "Cookies", "Spaghet", "Ice Cream Cone", "Banana", "Banana Split");
+  ObservableList<String> flowerItems =
+      FXCollections.observableArrayList(
+          "Black Cosmos",
+          "Gold Roses",
+          "Orange Tulips",
+          "Green Mums",
+          "Orange Cosmos",
+          "Purple Hyacinths",
+          "Pink Hyacinths");
+
+  ObservableList<String> furnitureItems =
+      FXCollections.observableArrayList(
+          "Harlow Dresser",
+          "Aspen Bed",
+          "Eames Lounge Chair",
+          "Tulip Dining Table",
+          "Oslo Recliner",
+          "Baxter Bookcase",
+          "Palmer Ottoman");
+
+  ObservableList<String> officeItems =
+      FXCollections.observableArrayList(
+          "Stapler", "Calculator", "Pen", "Paper shredder", "Notebook", "Desk lamp", "Whiteboard");
 
   @FXML AnchorPane summaryPane;
   @FXML Label summaryLabel;
@@ -174,13 +176,11 @@ public class ServiceRequestController {
               Status.BLANK,
               "test",
               reqType));
-
+      // glitchyPane.setMaxHeight(glitchyPane.getHvalue());
       for (int a = 0; a < items.size(); a++) {
-        if (a < 4) {
-          itemBox
-              .getChildren()
-              .add(new ReqMenuItems(items.get(a), folder, getRequest(), true, this));
-        }
+        // if (a < 10) {
+        itemBox.getChildren().add(new ReqMenuItems(items.get(a), folder, getRequest(), true, this));
+        // }
       }
 
       itemBox.setFillWidth(true);
@@ -230,7 +230,8 @@ public class ServiceRequestController {
         }
       }
       System.out.println(totalPrice);
-      totalLabel.setText(totalLabel.getText() + String.valueOf(totalPrice));
+      DecimalFormat format = new DecimalFormat("###.##");
+      totalLabel.setText(totalLabel.getText() + format.format(totalPrice));
 
     } else if (requestPage == 2) {
       setVisibleScreen(0);
@@ -338,6 +339,17 @@ public class ServiceRequestController {
     itemBox.setFillWidth(true);
     itemBox.setSpacing(25);
 
-    forgotButton.setOnMouseClicked(event -> setVisibleScreen(1));
+    forgotButton.setOnMouseClicked(
+        event -> {
+          setVisibleScreen(1);
+          cartBox.getChildren().clear();
+          totalLabel.setText("Quantity: ");
+        });
+
+    Platform.runLater(
+        () -> {
+          double height = glitchyPane.getHeight();
+          glitchyPane.setMaxHeight(height);
+        });
   }
 }
