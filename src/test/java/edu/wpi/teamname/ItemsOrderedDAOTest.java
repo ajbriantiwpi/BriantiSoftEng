@@ -59,7 +59,6 @@ public class ItemsOrderedDAOTest {
       fail("SQL Exception thrown while adding test location names");
     }
 
-
     String csvFilePath = "test_ItemsOrdered.csv";
     try {
       DataManager.exportItemsOrderedToCSV(csvFilePath);
@@ -85,13 +84,11 @@ public class ItemsOrderedDAOTest {
 
     ItemsOrdered items = new ItemsOrdered(1, 3, 6);
 
-
     try {
       DataManager.syncItemsOrdered(items);
     } catch (SQLException e) {
       fail("SQL Exception thrown while syncing location name");
     }
-
 
     ArrayList<ItemsOrdered> list = new ArrayList<ItemsOrdered>();
     try {
