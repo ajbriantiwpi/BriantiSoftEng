@@ -12,8 +12,9 @@ public class Graph {
   private ArrayList<Edge> Edges = new ArrayList<>();
 
   /**
-   *    Creates a new Graph by retrieving Nodes and Edges from the database.
-   *    @throws SQLException if there is an error accessing the database
+   * Creates a new Graph by retrieving Nodes and Edges from the database.
+   *
+   * @throws SQLException if there is an error accessing the database
    */
   public Graph() throws SQLException {
     Nodes = this.getAllNodes(); // Changed based on DB team
@@ -22,36 +23,40 @@ public class Graph {
   }
 
   /**
-   *    Retrieves all the Nodes from the database.
-   *    @return an ArrayList of Nodes
-   *    @throws SQLException if there is an error accessing the database
+   * Retrieves all the Nodes from the database.
+   *
+   * @return an ArrayList of Nodes
+   * @throws SQLException if there is an error accessing the database
    */
   public ArrayList<Node> getAllNodes() throws SQLException {
     return DataManager.getAllNodes();
   }
 
   /**
-   *    Retrieves all the Edges from the database.
-   *    @return an ArrayList of Edges
-   *    @throws SQLException if there is an error accessing the database
+   * Retrieves all the Edges from the database.
+   *
+   * @return an ArrayList of Edges
+   * @throws SQLException if there is an error accessing the database
    */
   public ArrayList<Edge> getAllEdges() throws SQLException {
     return DataManager.getAllEdges();
   }
 
   /**
-   *    Adds a new Edge to the graph.
-   *    @param e the Edge to be added
+   * Adds a new Edge to the graph.
+   *
+   * @param e the Edge to be added
    */
   public void addEdge(Edge e) {
     this.Edges.add(e);
   }
 
   /**
-   *    Finds the weight between two Nodes.
-   *    @param a the first Node
-   *    @param b the second Node
-   *    @return the weight between the two Nodes
+   * Finds the weight between two Nodes.
+   *
+   * @param a the first Node
+   * @param b the second Node
+   * @return the weight between the two Nodes
    */
   public double findWeight(Node a, Node b) {
     return 0;
@@ -59,6 +64,7 @@ public class Graph {
 
   /**
    * Prints a path from the start Node to the target Node using the A* algorithm.
+   *
    * @param s the start Node
    * @param t the target Node
    */
@@ -68,6 +74,7 @@ public class Graph {
 
   /**
    * Sets the G value of all Nodes in the graph.
+   *
    * @param s the start Node
    * @param t the target Node
    */
@@ -81,9 +88,11 @@ public class Graph {
 
   /**
    * Returns the shortest path between two nodes using A* algorithm.
+   *
    * @param s the starting node.
    * @param t the ending node.
-   * @return a list of nodes representing the shortest path between the starting node and the ending node.
+   * @return a list of nodes representing the shortest path between the starting node and the ending
+   *     node.
    */
   public ArrayList<Node> AStar(Node s, Node t) {
     for (Node j : Nodes) {
@@ -138,11 +147,10 @@ public class Graph {
   }
 
   /**
-   *    This method returns the path from the target node to the start node.
+   * This method returns the path from the target node to the start node.
    *
-   *    @param target The target node to start the path from
-   *
-   *    @return The path from the target node to the start node
+   * @param target The target node to start the path from
+   * @return The path from the target node to the start node
    */
   private static ArrayList<Node> getPath(Node target) {
     Node n = target;
@@ -162,6 +170,7 @@ public class Graph {
 
   /**
    * This method returns the node with the given ID.
+   *
    * @param nodeId The ID of the node to be returned
    * @return The node with the given ID
    */

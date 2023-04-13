@@ -176,7 +176,7 @@ public class ServiceRequestController {
               reqType));
 
       for (int a = 0; a < items.size(); a++) {
-        if (a < 4) {
+        if (a < 6) {
           itemBox
               .getChildren()
               .add(new ReqMenuItems(items.get(a), folder, getRequest(), true, this));

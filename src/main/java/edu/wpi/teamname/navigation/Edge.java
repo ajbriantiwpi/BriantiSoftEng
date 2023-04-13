@@ -1,7 +1,6 @@
 package edu.wpi.teamname.navigation;
 
 import edu.wpi.teamname.database.*;
-import java.sql.SQLException;
 import lombok.Getter;
 import lombok.Setter;
 
