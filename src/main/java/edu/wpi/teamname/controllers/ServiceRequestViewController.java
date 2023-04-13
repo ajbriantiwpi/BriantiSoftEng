@@ -36,9 +36,9 @@ public class ServiceRequestViewController {
 
   @FXML ComboBox<RequestType> requestTypeCombo;
 
-  ObservableList<String> serviceType =
-      FXCollections.observableArrayList(
-          "", "Meal Request", "Flower Request", "Furniture Request", "Office Supply Request");
+  //  ObservableList<String> serviceType =
+  //      FXCollections.observableArrayList(
+  //          "", "Meal Request", "Flower Request", "Furniture Request", "Office Supply Request");
   ObservableList<String> statusValue =
       FXCollections.observableArrayList("", "PROCESSING", "BLANK", "DONE");
   @FXML ComboBox requestStatusCombo;
