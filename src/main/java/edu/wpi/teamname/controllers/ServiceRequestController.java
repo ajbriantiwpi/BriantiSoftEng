@@ -71,6 +71,7 @@ public class ServiceRequestController {
   @FXML AnchorPane menuPane;
   @FXML TextField searchBar;
   @FXML VBox itemBox;
+  @FXML ScrollPane glitchyPane;
   ObservableList<String> mealItems =
       FXCollections.observableArrayList(
           "Burger", "Pizza", "Cookies", "Spaghet", "Ice Cream Cone", "Banana", "Banana Split");
@@ -174,13 +175,11 @@ public class ServiceRequestController {
               Status.BLANK,
               "test",
               reqType));
-
+      // glitchyPane.setMaxHeight(glitchyPane.getHvalue());
       for (int a = 0; a < items.size(); a++) {
-        if (a < 6) {
-          itemBox
-              .getChildren()
-              .add(new ReqMenuItems(items.get(a), folder, getRequest(), true, this));
-        }
+        // if (a < 10) {
+        itemBox.getChildren().add(new ReqMenuItems(items.get(a), folder, getRequest(), true, this));
+        // }
       }
 
       itemBox.setFillWidth(true);
