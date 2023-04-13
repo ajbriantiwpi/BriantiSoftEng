@@ -1,4 +1,4 @@
-package edu.wpi.teamname.system;
+package edu.wpi.teamname;
 
 import edu.wpi.teamname.database.DataManager;
 import java.io.IOException;

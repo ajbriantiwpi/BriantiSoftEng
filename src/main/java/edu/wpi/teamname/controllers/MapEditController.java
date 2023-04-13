@@ -1,10 +1,10 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.App;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.navigation.LocationName;
 import edu.wpi.teamname.navigation.Map;
 import edu.wpi.teamname.navigation.Node;
-import edu.wpi.teamname.system.App;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.File;
 import java.io.IOException;

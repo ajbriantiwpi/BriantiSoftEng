@@ -1,4 +1,4 @@
-package edu.wpi.teamname.system;
+package edu.wpi.teamname;
 
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
@@ -22,9 +22,9 @@ public class Navigation {
       System.out.println(filename);
       Pane p = loader.load();
       Pane PFinal;
-      if (!(filename.equals("../views/Home.fxml")) && !(filename.equals("../views/Login.fxml"))) {
+      if (!(filename.equals("views/Home.fxml")) && !(filename.equals("views/Login.fxml"))) {
         System.out.println("Here");
-        final FXMLLoader loader2 = new FXMLLoader(App.class.getResource("../views/Template.fxml"));
+        final FXMLLoader loader2 = new FXMLLoader(App.class.getResource("views/Template.fxml"));
         final Pane root = loader2.load();
         Pane inner =
             (Pane)

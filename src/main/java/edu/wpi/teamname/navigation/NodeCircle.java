@@ -1,7 +1,7 @@
 package edu.wpi.teamname.navigation;
 
+import edu.wpi.teamname.App;
 import edu.wpi.teamname.database.DataManager;
-import edu.wpi.teamname.system.App;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.sql.SQLException;

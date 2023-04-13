@@ -1,4 +1,4 @@
-package edu.wpi.teamname.system;
+package edu.wpi.teamname;
 
 import edu.wpi.teamname.database.DataManager;
 import java.io.IOException;
@@ -29,7 +29,7 @@ public class App extends Application {
     /* primaryStage is generally only used if one of your components require the stage to display */
     App.primaryStage = primaryStage;
 
-    final FXMLLoader loader = new FXMLLoader(App.class.getResource("../views/Root.fxml"));
+    final FXMLLoader loader = new FXMLLoader(App.class.getResource("views/Root.fxml"));
     final BorderPane root = loader.load();
 
     App.rootPane = root;

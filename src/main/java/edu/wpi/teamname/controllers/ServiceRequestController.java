@@ -1,13 +1,13 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.Navigation;
+import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.controllers.JFXitems.ReqMenuItems;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.servicerequest.RequestType;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import edu.wpi.teamname.servicerequest.Status;
 import edu.wpi.teamname.servicerequest.requestitem.*;
-import edu.wpi.teamname.system.Navigation;
-import edu.wpi.teamname.system.Screen;
 import io.github.palexdev.materialfx.controls.*;
 import java.sql.SQLException;
 import java.sql.Timestamp;

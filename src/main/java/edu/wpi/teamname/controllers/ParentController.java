@@ -1,7 +1,7 @@
 package edu.wpi.teamname.controllers;
 
-import edu.wpi.teamname.system.Navigation;
-import edu.wpi.teamname.system.Screen;
+import edu.wpi.teamname.Navigation;
+import edu.wpi.teamname.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import javafx.beans.property.SimpleStringProperty;

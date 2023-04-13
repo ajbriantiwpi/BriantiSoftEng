@@ -326,7 +326,6 @@ public class Map {
     return nodes;
   }
 
-
   /**
    * Generates a list of all nodes to display for a given floor, including nodes with type "HALL".
    *
@@ -335,7 +334,7 @@ public class Map {
    * @throws SQLException if there is an error accessing the database
    * @throws IOException if there is an error loading image resources
    */
-  
+
   //  public ArrayList<javafx.scene.Node> makeAllFloorNodesTwo(String floor)
   //      throws SQLException, IOException {
   //    ArrayList<javafx.scene.Node> nodes =
@@ -358,7 +357,6 @@ public class Map {
   //
   //    return nodes;
   //  }
-
 
   /** Draws location names on the map. */
   public void drawLocationNames() throws SQLException {}
