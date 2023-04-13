@@ -11,6 +11,7 @@ public class Meal extends RequestItem {
 
   /**
    * creates a meal item
+   *
    * @param itemID id of the item
    * @param name name of the meal item
    * @param price price of the meal
@@ -25,8 +26,10 @@ public class Meal extends RequestItem {
 
   /**
    * creates a meal in the database
+   *
    * @param mealID id of the meal
-   * @throws SQLException thrown when there is an error connecting to the database or an error with the sql query syntax
+   * @throws SQLException thrown when there is an error connecting to the database or an error with
+   *     the sql query syntax
    */
   public Meal(int mealID) throws SQLException {
     super(mealID);
@@ -51,6 +54,7 @@ public class Meal extends RequestItem {
 
   /**
    * a toString method for the meal items
+   *
    * @return String in format [ <itemID>, <name>, <price>, <meal>, <cuisine>]
    */
   public String toString() {

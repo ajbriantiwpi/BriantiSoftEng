@@ -12,6 +12,7 @@ public class ItemsOrdered {
 
   /**
    * creates an ordered items list for a given request ID
+   *
    * @param requestID the request id that we are adding items to
    * @param itemID the items id
    * @param quantity number of items to assign
@@ -26,6 +27,7 @@ public class ItemsOrdered {
 
   /**
    * a to string method
+   *
    * @return String in format [<requestID>, <itemID>, <quantity>]
    */
   public String toString() {

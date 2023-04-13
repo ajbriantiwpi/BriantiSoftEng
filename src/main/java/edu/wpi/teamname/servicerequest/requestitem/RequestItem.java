@@ -19,6 +19,7 @@ public abstract class RequestItem {
 
   /**
    * Creates a request item
+   *
    * @param itemID id of the item
    * @param name name of the item
    * @param price price of the item
@@ -33,6 +34,7 @@ public abstract class RequestItem {
 
   /**
    * changes the id of the item
+   *
    * @param itemID id needed to change to
    */
   public RequestItem(int itemID) {
@@ -41,6 +43,7 @@ public abstract class RequestItem {
 
   /**
    * checks if this is eaual to another request item object
+   *
    * @param other the item we are checking if it is the same as
    * @return true if equal, false if not
    */

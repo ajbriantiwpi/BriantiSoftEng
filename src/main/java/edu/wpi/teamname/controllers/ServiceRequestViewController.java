@@ -67,6 +67,7 @@ public class ServiceRequestViewController {
 
   /**
    * filters the list of service requests to add it to the table
+   *
    * @param one the request type that we want to see
    * @param two the status that we want to see
    * @return the list of filtered items
@@ -95,6 +96,7 @@ public class ServiceRequestViewController {
 
   /**
    * assigns a staff and status to a request
+   *
    * @param id id we want to assign to
    * @param assignStaff staff we want to assign the request to
    * @param requestStatus status we want to assign the request to
@@ -107,6 +109,7 @@ public class ServiceRequestViewController {
 
   /**
    * initializes the serviceRequestView page
+   *
    * @throws SQLException if there is an error connecting to the database
    */
   @FXML

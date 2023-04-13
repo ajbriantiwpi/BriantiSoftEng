@@ -29,9 +29,7 @@ public class HomeController {
   @FXML MFXButton loginButton;
   @FXML MFXButton logoutButton;
 
-  /**
-   * logs the current user out of the application
-   */
+  /** logs the current user out of the application */
   private void logout() {
     loggedIn = false;
     loginButton.setVisible(true);

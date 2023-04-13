@@ -29,11 +29,13 @@ public class LoginController {
 
   /**
    * handles when the login button is pressed
+   *
    * @param username username
    * @param password password
    * @return a boolean if the login was successful or not
    * @throws SQLException if there is an error connecting to the database
-   * @throws ExceptionInInitializerError for testing, when we change pages without initializing the screen
+   * @throws ExceptionInInitializerError for testing, when we change pages without initializing the
+   *     screen
    */
   public static boolean loginPressed(String username, String password)
       throws SQLException, ExceptionInInitializerError {
@@ -48,9 +50,7 @@ public class LoginController {
     }
   }
 
-  /**
-   * initializes the view for the login page
-   */
+  /** initializes the view for the login page */
   @FXML
   public void initialize() {
     newPassword.setVisible(false);
@@ -96,6 +96,7 @@ public class LoginController {
 
   /**
    * handles when the forgot password button is pressed
+   *
    * @param username the username from the text field that we want to reset the password of
    * @return the new password string
    * @throws SQLException if there is an error connecting to the database
