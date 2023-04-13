@@ -35,9 +35,10 @@ public class Map {
   }
 
   /**
-   *    Creates a path with circles representing the nodes from the given list of nodes.
-   *    @param nodes List of nodes to create the path from
-   *    @return An ArrayList of Shape objects representing the path
+   * Creates a path with circles representing the nodes from the given list of nodes.
+   *
+   * @param nodes List of nodes to create the path from
+   * @return An ArrayList of Shape objects representing the path
    */
   private ArrayList<Shape> makeShapePath(ArrayList<Node> nodes) {
     ArrayList<Shape> shapes = new ArrayList<Shape>();
@@ -80,6 +81,7 @@ public class Map {
 
   /**
    * Draws the A* path between two points on a given floor.
+   *
    * @param parent The Pane to draw the path on
    * @param firstClick The starting Point2D object
    * @param secondClick The ending Point2D object
@@ -151,6 +153,7 @@ public class Map {
 
   /**
    * Draws the A* path between two nodes on a given floor and adds it to the specified parent Pane.
+   *
    * @param parent the Pane to add the path to
    * @param floor1 the starting floor
    * @param floor2 the ending floor
@@ -174,6 +177,7 @@ public class Map {
 
   /**
    * Draws the A* path between two given nodes and adds it to the specified parent Pane.
+   *
    * @param parent the Pane to add the path to
    * @param startNode the starting node
    * @param endNode the ending node
@@ -190,6 +194,7 @@ public class Map {
 
   /**
    * Retrieves the names of all nodes on the specified floor and returns them in an ObservableList.
+   *
    * @param floor the floor to retrieve node names from
    * @return an ObservableList of node names on the specified floor
    * @throws SQLException if there is an error with the SQL database
@@ -204,15 +209,14 @@ public class Map {
     return nodeNames;
   }
 
-  /**
-   * An array of strings that represent the names of different floors.
-   */
+  /** An array of strings that represent the names of different floors. */
   String[] floorArr = {
     "Lower Level 2", "Lower Level 1", "Ground Floor", "First Floor", "Second Floor", "Third Floor"
   };
 
   /**
    * Returns an observable list of all floor names.
+   *
    * @param floor the floor to retrieve information for
    * @return an observable list of all floor names
    * @throws SQLException if there is an error retrieving the data from the database
@@ -228,8 +232,11 @@ public class Map {
   }
 
   /**
-   * An event handler that sets the visibility of a Circle object to true when triggered by a MouseEvent.
-   * When this event handler is invoked, it prints "V" to the console, gets the source of the event (assumed to be a Circle object), and sets the visibility of the Circle object to true. Additionally, it prints the ID of the Circle object to the console.
+   * An event handler that sets the visibility of a Circle object to true when triggered by a
+   * MouseEvent. When this event handler is invoked, it prints "V" to the console, gets the source
+   * of the event (assumed to be a Circle object), and sets the visibility of the Circle object to
+   * true. Additionally, it prints the ID of the Circle object to the console.
+   *
    * @param <MouseEvent> the type of the MouseEvent that triggers this event handler
    */
   EventHandler<MouseEvent> makeVisible =
@@ -244,8 +251,11 @@ public class Map {
       };
 
   /**
-   * An event handler that sets the visibility of a Circle object to false when triggered by a MouseEvent.
-   * When this event handler is invoked, it prints "H" to the console, gets the source of the event (assumed to be a Circle object), and sets the visibility of the Circle object to false. Additionally, it prints the ID of the Circle object to the console.
+   * An event handler that sets the visibility of a Circle object to false when triggered by a
+   * MouseEvent. When this event handler is invoked, it prints "H" to the console, gets the source
+   * of the event (assumed to be a Circle object), and sets the visibility of the Circle object to
+   * false. Additionally, it prints the ID of the Circle object to the console.
+   *
    * @param <MouseEvent> the type of the MouseEvent that triggers this event handler
    */
   EventHandler<MouseEvent> hide =
@@ -260,9 +270,9 @@ public class Map {
       };
 
   /**
-   * Draws emergency markers on the map.
-   * The method retrieves a list of all emergency events from the EmergencyEventManager
-   * and creates a corresponding emergency marker for each event on the map.
+   * Draws emergency markers on the map. The method retrieves a list of all emergency events from
+   * the EmergencyEventManager and creates a corresponding emergency marker for each event on the
+   * map.
    */
   public void drawEmergencies() {}
 
@@ -277,11 +287,12 @@ public class Map {
   //  }
 
   /**
-   *    Generates a list of nodes to display for a given floor, excluding any nodes with type "HALL".
-   *    @param floor the floor for which to generate nodes
-   *    @return the list of nodes to display
-   *    @throws SQLException if there is an error accessing the database
-   *    @throws IOException if there is an error loading image resources
+   * Generates a list of nodes to display for a given floor, excluding any nodes with type "HALL".
+   *
+   * @param floor the floor for which to generate nodes
+   * @return the list of nodes to display
+   * @throws SQLException if there is an error accessing the database
+   * @throws IOException if there is an error loading image resources
    */
   public ArrayList<javafx.scene.Node> makeAllFloorNodes(String floor)
       throws SQLException, IOException {
@@ -346,6 +357,7 @@ public class Map {
 
   /**
    * Returns the width of the map.
+   *
    * @return the width of the map
    */
   private double getMapWitdh() {
@@ -354,6 +366,7 @@ public class Map {
 
   /**
    * returns the height of the map.
+   *
    * @return the height of the map
    */
   private double getMapHeight() {
@@ -362,6 +375,7 @@ public class Map {
 
   /**
    * Centers and zooms the given GesturePane to display the map.
+   *
    * @param parent the GesturePane to center and zoom
    */
   public void centerAndZoom(GesturePane parent) {

@@ -27,7 +27,7 @@ public class NodeCircle {
   private Point2D nodeCords;
   private int nodeID;
   private VBox v;
-//  public VBox v2;
+  //  public VBox v2;
   public Pane p;
   private Color borderColor = Color.web("33567A"); // new Color(0.1, 0.4, 0.9, 1);
   private Color insideColor = Color.web("2FA7B0"); // new Color(0.05, 0.7, 1, 1);
