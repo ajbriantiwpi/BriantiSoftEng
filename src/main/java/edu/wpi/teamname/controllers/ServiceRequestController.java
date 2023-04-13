@@ -11,6 +11,7 @@ import edu.wpi.teamname.system.Screen;
 import io.github.palexdev.materialfx.controls.*;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -229,7 +230,8 @@ public class ServiceRequestController {
         }
       }
       System.out.println(totalPrice);
-      totalLabel.setText(totalLabel.getText() + String.valueOf(totalPrice));
+      DecimalFormat format = new DecimalFormat("###.##");
+      totalLabel.setText(totalLabel.getText() + format.format(totalPrice));
 
     } else if (requestPage == 2) {
       setVisibleScreen(0);
@@ -337,6 +339,11 @@ public class ServiceRequestController {
     itemBox.setFillWidth(true);
     itemBox.setSpacing(25);
 
-    forgotButton.setOnMouseClicked(event -> setVisibleScreen(1));
+    forgotButton.setOnMouseClicked(
+        event -> {
+          setVisibleScreen(1);
+          cartBox.getChildren().clear();
+          totalLabel.setText("Quantity: ");
+        });
   }
 }
