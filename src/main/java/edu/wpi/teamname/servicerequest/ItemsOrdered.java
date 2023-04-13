@@ -10,6 +10,12 @@ public class ItemsOrdered {
   @Getter private final int originalRequestID;
   @Getter private final int originalItemID;
 
+  /**
+   * creates an ordered items list for a given request ID
+   * @param requestID the request id that we are adding items to
+   * @param itemID the items id
+   * @param quantity number of items to assign
+   */
   public ItemsOrdered(int requestID, int itemID, int quantity) {
     this.requestID = requestID;
     this.itemID = itemID;
@@ -18,6 +24,10 @@ public class ItemsOrdered {
     this.originalItemID = itemID;
   }
 
+  /**
+   * a to string method
+   * @return String in format [<requestID>, <itemID>, <quantity>]
+   */
   public String toString() {
     return "[" + requestID + " " + itemID + " " + quantity + "]";
   }

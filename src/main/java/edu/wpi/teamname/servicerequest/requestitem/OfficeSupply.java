@@ -12,12 +12,25 @@ public class OfficeSupply extends RequestItem {
   @Setter @Getter private String category;
   @Setter @Getter private boolean isElectric;
 
+  /**
+   *
+   * @param itemID id of the item
+   * @param name name of the item
+   * @param price price of the item
+   * @param category type of item
+   * @param isElectric if it needs electricity to operate
+   */
   public OfficeSupply(int itemID, String name, float price, String category, boolean isElectric) {
     super(itemID, name, price);
     this.category = category;
     this.isElectric = isElectric;
   }
 
+  /**
+   * creates an office supply item in the database
+   * @param id id of the item
+   * @throws SQLException thrown when there is an error connecting to the database or an error with the sql query syntax
+   */
   public OfficeSupply(int id) throws SQLException {
     super(id);
     Connection connection = DataManager.DbConnection();
@@ -39,6 +52,10 @@ public class OfficeSupply extends RequestItem {
     }
   }
 
+  /**
+   * a toString method for the meal items
+   * @return String in format [ <itemID>, <name>, <price>, <category>, <isElectric>]
+   */
   public String toString() {
     return "["
         + this.getItemID()
