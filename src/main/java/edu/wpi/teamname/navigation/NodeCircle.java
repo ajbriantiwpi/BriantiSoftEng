@@ -20,27 +20,21 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class NodeCircle {
-  public Circle inner;
-  public Circle outer;
+  private Circle inner;
+  private Circle outer;
   //  public Text text = new Text();
-
-  Label label = new Label();
-
-  public Point2D nodeCords;
-  public int nodeID;
-
-  public VBox v;
-  public VBox v2;
-
+  public Label label = new Label();
+  private Point2D nodeCords;
+  private int nodeID;
+  private VBox v;
+  //  public VBox v2;
   public Pane p;
-
-  Color borderColor = Color.web("33567A"); // new Color(0.1, 0.4, 0.9, 1);
-  Color insideColor = Color.web("2FA7B0"); // new Color(0.05, 0.7, 1, 1);
-  float circleR = 10.0f;
-
-  Color labelColor = new Color(.835, .89, 1, 1);
-  Color labelText = new Color(0, .106, .231, 1);
-  int lineTout = 2;
+  private Color borderColor = Color.web("33567A"); // new Color(0.1, 0.4, 0.9, 1);
+  private Color insideColor = Color.web("2FA7B0"); // new Color(0.05, 0.7, 1, 1);
+  private float circleR = 10.0f;
+  private Color labelColor = new Color(.835, .89, 1, 1);
+  private Color labelText = new Color(0, .106, .231, 1);
+  private int lineTout = 2;
 
   /**
    * A NodeCircle is a circle that represents a Node in the GUI. It is composed of two circles, an

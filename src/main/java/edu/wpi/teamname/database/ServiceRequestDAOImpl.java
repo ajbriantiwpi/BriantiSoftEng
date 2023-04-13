@@ -116,9 +116,11 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
 
       // ItemsOrdered
       ArrayList<RequestItem> items = serviceRequest.getItems();
+      // ArrayList<Integer> itemsUsed = new ArrayList<>();
       for (int i = 0; i < items.size(); i++) {
         int newQuantity = getQuantity(serviceRequest.getRequestID(), items.get(i).getItemID()) + 1;
         connection = DataManager.DbConnection();
+        // int currID = items.get(i).getItemID();
         // connection;
         // DriverManager.getConnection(
         // DataManager.getDB_URL(), DataManager.getDB_USER(), DataManager.getDB_PASSWORD());
@@ -126,10 +128,12 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
           if (newQuantity == 1) {
             query =
                 "INSERT INTO \"ItemsOrdered\" (\"requestID\", \"itemID\", \"quantity\") "
-                    + "VALUES (?, ?, 1)";
+                    + "VALUES (?, ?, ?)";
             statement = connection.prepareStatement(query);
             statement.setInt(1, serviceRequest.getRequestID());
             statement.setInt(2, items.get(i).getItemID());
+            statement.setInt(3, 1);
+            // itemsUsed.add(currID);
           } else {
             query =
                 "UPDATE \"ItemsOrdered\" SET quantity = ? WHERE \"itemID\" = ? AND \"requestID\" = ?";
@@ -167,6 +171,8 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
       String query =
           "SELECT \"quantity\" FROM \"ItemsOrdered\" WHERE \"itemID\" = ? AND \"requestID\" = ?";
       PreparedStatement statement = connection.prepareStatement(query);
+      statement.setInt(1, itemID);
+      statement.setInt(2, requestID);
       ResultSet rs = statement.executeQuery();
 
       while (rs.next()) {
@@ -175,11 +181,13 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }
-    if (quantity > 0) {
+    System.out.println("quantity: " + quantity);
+    return quantity;
+    /*if (quantity > 0) {
       return quantity;
     } else {
       return 0;
-    }
+    }*/
   }
 
   /**
