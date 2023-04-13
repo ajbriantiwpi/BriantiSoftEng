@@ -113,13 +113,16 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
       statement.setString(9, serviceRequest.getRequestType().getString());
 
       statement.executeUpdate();
+
       // ItemsOrdered
       ArrayList<RequestItem> items = serviceRequest.getItems();
       for (int i = 0; i < items.size(); i++) {
-        connection = DataManager.DbConnection();
         int newQuantity = getQuantity(serviceRequest.getRequestID(), items.get(i).getItemID()) + 1;
+        connection = DataManager.DbConnection();
+        // connection;
+        // DriverManager.getConnection(
+        // DataManager.getDB_URL(), DataManager.getDB_USER(), DataManager.getDB_PASSWORD());
         try {
-
           if (newQuantity == 1) {
             query =
                 "INSERT INTO \"ItemsOrdered\" (\"requestID\", \"itemID\", \"quantity\") "
@@ -135,10 +138,10 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
             statement.setInt(2, items.get(i).getItemID());
             statement.setInt(3, serviceRequest.getRequestID());
           }
-          statement = connection.prepareStatement(query);
           statement.executeUpdate();
+
         } catch (SQLException e) {
-          System.out.println(e.getMessage());
+          System.err.println(e.getMessage());
         }
       }
 
@@ -173,9 +176,9 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
       System.out.println(e.getMessage());
     }
     if (quantity > 0) {
-      return quantity + 1;
+      return quantity;
     } else {
-      return 1;
+      return 0;
     }
   }
 
