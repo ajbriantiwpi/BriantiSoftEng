@@ -36,9 +36,9 @@ public class ServiceRequestViewController {
 
   @FXML ComboBox<RequestType> requestTypeCombo;
 
-  ObservableList<String> serviceType =
-      FXCollections.observableArrayList(
-          "", "Meal Request", "Flower Request", "Furniture Request", "Office Supply Request");
+  //  ObservableList<String> serviceType =
+  //      FXCollections.observableArrayList(
+  //          "", "Meal Request", "Flower Request", "Furniture Request", "Office Supply Request");
   ObservableList<String> statusValue =
       FXCollections.observableArrayList("", "PROCESSING", "BLANK", "DONE");
   @FXML ComboBox requestStatusCombo;
@@ -65,6 +65,13 @@ public class ServiceRequestViewController {
   //    return FXCollections.observableArrayList(requests);
   //  }
 
+  /**
+   * filters the list of service requests to add it to the table
+   * @param one the request type that we want to see
+   * @param two the status that we want to see
+   * @return the list of filtered items
+   * @throws SQLException if there is an error when connecting to the database
+   */
   public static ObservableList<ServiceRequest> tableFilter(RequestType one, String two)
       throws SQLException {
     ObservableList<ServiceRequest> requestList =
@@ -86,11 +93,22 @@ public class ServiceRequestViewController {
     return requestList;
   }
 
+  /**
+   * assigns a staff and status to a request
+   * @param id id we want to assign to
+   * @param assignStaff staff we want to assign the request to
+   * @param requestStatus status we want to assign the request to
+   * @throws SQLException if there is an error connecting to the database
+   */
   public void assignStuff(String id, String assignStaff, String requestStatus) throws SQLException {
     DataManager.uploadStatusToServiceRequest(Integer.parseInt(id), requestStatus);
     DataManager.uploadStaffNameToServiceRequest(Integer.parseInt(id), assignStaff);
   }
 
+  /**
+   * initializes the serviceRequestView page
+   * @throws SQLException if there is an error connecting to the database
+   */
   @FXML
   public void initialize() throws SQLException {
     ParentController.titleString.set("Service Request View");

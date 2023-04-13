@@ -17,6 +17,12 @@ public abstract class RequestItem {
     this.price = 0;
   }*/
 
+  /**
+   * Creates a request item
+   * @param itemID id of the item
+   * @param name name of the item
+   * @param price price of the item
+   */
   public RequestItem(int itemID, String name, float price) {
     DecimalFormat df = new DecimalFormat("0.00");
     this.itemID = itemID;
@@ -25,10 +31,19 @@ public abstract class RequestItem {
     this.price = Float.parseFloat(df.format(price));
   }
 
+  /**
+   * changes the id of the item
+   * @param itemID id needed to change to
+   */
   public RequestItem(int itemID) {
     this.originalID = itemID;
   }
 
+  /**
+   * checks if this is eaual to another request item object
+   * @param other the item we are checking if it is the same as
+   * @return true if equal, false if not
+   */
   public boolean isEqual(RequestItem other) {
     return itemID == other.getItemID();
   }
