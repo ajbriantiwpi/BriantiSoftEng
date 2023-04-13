@@ -70,32 +70,32 @@ public class ServiceRequestController {
   @FXML AnchorPane menuPane;
   @FXML TextField searchBar;
   @FXML VBox itemBox;
-  ObservableList<String> mealItems =
-      FXCollections.observableArrayList(
-          "Burger", "Pizza", "Cookies", "Spaghet", "Ice Cream Cone", "Banana", "Banana Split");
-  ObservableList<String> flowerItems =
-      FXCollections.observableArrayList(
-          "Black Cosmos",
-          "Gold Roses",
-          "Orange Tulips",
-          "Green Mums",
-          "Orange Cosmos",
-          "Purple Hyacinths",
-          "Pink Hyacinths");
-
-  ObservableList<String> furnitureItems =
-      FXCollections.observableArrayList(
-          "Harlow Dresser",
-          "Aspen Bed",
-          "Eames Lounge Chair",
-          "Tulip Dining Table",
-          "Oslo Recliner",
-          "Baxter Bookcase",
-          "Palmer Ottoman");
-
-  ObservableList<String> officeItems =
-      FXCollections.observableArrayList(
-          "Stapler", "Calculator", "Pen", "Paper shredder", "Notebook", "Desk lamp", "Whiteboard");
+//  ObservableList<String> mealItems =
+//      FXCollections.observableArrayList(
+//          "Burger", "Pizza", "Cookies", "Spaghet", "Ice Cream Cone", "Banana", "Banana Split");
+//  ObservableList<String> flowerItems =
+//      FXCollections.observableArrayList(
+//          "Black Cosmos",
+//          "Gold Roses",
+//          "Orange Tulips",
+//          "Green Mums",
+//          "Orange Cosmos",
+//          "Purple Hyacinths",
+//          "Pink Hyacinths");
+//
+//  ObservableList<String> furnitureItems =
+//      FXCollections.observableArrayList(
+//          "Harlow Dresser",
+//          "Aspen Bed",
+//          "Eames Lounge Chair",
+//          "Tulip Dining Table",
+//          "Oslo Recliner",
+//          "Baxter Bookcase",
+//          "Palmer Ottoman");
+//
+//  ObservableList<String> officeItems =
+//      FXCollections.observableArrayList(
+//          "Stapler", "Calculator", "Pen", "Paper shredder", "Notebook", "Desk lamp", "Whiteboard");
 
   @FXML AnchorPane summaryPane;
   @FXML Label summaryLabel;
