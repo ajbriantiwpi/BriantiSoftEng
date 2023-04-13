@@ -26,6 +26,14 @@ public class Node implements Comparable<Node> {
   // heuristic: WILL NEED A FUNCTION TO FIND THIS
   @Getter @Setter private double h;
 
+  /**
+   *    Constructor for creating a Node object with the given parameters.
+   *    @param ID the unique identifier of the node
+   *    @param x the x-coordinate of the node's location
+   *    @param y the y-coordinate of the node's location
+   *    @param Floor the floor on which the node is located
+   *    @param Building the building in which the node is located
+   */
   public Node(int ID, int x, int y, String Floor, String Building) {
     this.x = x;
     this.y = y;
@@ -38,6 +46,11 @@ public class Node implements Comparable<Node> {
     this.originalID = ID;
   }
 
+  /**
+   * Compares this node to the specified node based on their f value.
+   *    @param n the node to compare to
+   *    @return a negative integer, zero, or a positive integer as this node is less than, equal to, or greater than the specified node based on their f value
+   */
   @Override
   public int compareTo(Node n) {
     return Double.compare(this.f, n.f);
@@ -83,6 +96,12 @@ public class Node implements Comparable<Node> {
   //    }
   //  }
 
+  /**
+   *    Calculates the weight of the edge between this node and the given node.
+   *    The weight is the Euclidean distance between the coordinates of the two nodes.
+   *    @param b the node to calculate the weight for
+   *    @return the weight of the edge between this node and the given node
+   */
   public double findWeight(Node b) {
     int x1 = this.x;
     int x2 = b.getX();
@@ -94,7 +113,11 @@ public class Node implements Comparable<Node> {
     return Math.sqrt(x + y);
   }
 
-  /** @return */
+  /**
+   *    Returns a string representation of this Node object, which includes its id, x and y coordinates, heuristic value, neighbors,
+   *    floor and building.
+   *    @return a string representation of this Node object
+   */
   public String toString() {
     String nei = "";
     for (Node n : neighbors) {
@@ -116,6 +139,11 @@ public class Node implements Comparable<Node> {
         + building;
   }
 
+  /**
+   *    Calculates the heuristic distance from this node to the target node using Euclidean distance formula.
+   *    @param target the target node to calculate the distance to
+   *    @return the heuristic distance between this node and the target node
+   */
   public double calculateHeuristic(Node target) {
     // Heuristic will return distance from target
     return Math.sqrt(
