@@ -27,7 +27,8 @@ public class LoginController {
   @FXML MFXPasswordField passwordText;
   @FXML MFXButton cancel;
 
-  private static boolean loginPressed(String username, String password) throws SQLException {
+  public static boolean loginPressed(String username, String password)
+      throws SQLException, ExceptionInInitializerError {
     Login user = new Login(username, password);
     boolean successLog = user.LogInto();
     if (successLog) {
@@ -82,7 +83,7 @@ public class LoginController {
     cancel.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
   }
 
-  private String forgotPasswordPressed(String username) throws SQLException {
+  public static String forgotPasswordPressed(String username) throws SQLException {
     //    return DataManager.forgotPassword(username);
     Login temp = new Login(username, "");
     return temp.resetPass("NewPassword");

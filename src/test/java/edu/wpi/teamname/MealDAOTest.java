@@ -20,8 +20,11 @@ public class MealDAOTest {
   void setUp() throws SQLException {
     // TODO: Put in docker info
     DataManager.configConnection("jdbc:postgresql://localhost:5432/postgres", "user", "pass");
-    Connection connection = DataManager.DbConnection();
     String query = "Truncate Table \"Meal\"";
+    Connection connection = DataManager.DbConnection();
+    DataManager.createTableIfNotExists(
+        "Meal",
+        "CREATE TABLE IF NOT EXISTS \"Meal\" (\"mealID\" INTEGER, \"Name\" TEXT, \"Price\" INTEGER, \"Meal\" TEXT, \"Cuisine\" TEXT);");
     try (PreparedStatement statement = connection.prepareStatement(query)) {
       statement.executeUpdate();
     } catch (SQLException e) {
@@ -30,26 +33,26 @@ public class MealDAOTest {
     connection.close();
   }
 
-  //  @Test
-  //  public void testSync() throws SQLException {
-  //    testAdd();
-  //    // Initialize test data
-  //    Meal meal = new Meal(1, "Test Meal", 10.99f, "Test Food", "Test Cuisine");
-  //
-  //    // Sync meal to database
-  //    MealDAOImpl dao = new MealDAOImpl();
-  //    dao.sync(meal);
-  //
-  //    // Retrieve synced meal from database
-  //    Meal syncedMeal = MealDAOImpl.getMeal(1);
-  //
-  //    // Assert that synced meal matches original meal
-  //    assertEquals(meal.getItemID(), syncedMeal.getItemID());
-  //    assertEquals(meal.getName(), syncedMeal.getName());
-  //    assertEquals(meal.getPrice(), syncedMeal.getPrice(), 0.01);
-  //    assertEquals(meal.getMeal(), syncedMeal.getMeal());
-  //    assertEquals(meal.getCuisine(), syncedMeal.getCuisine());
-  //  }
+  @Test
+  public void testSync() throws SQLException {
+
+    // Initialize test data
+    Meal meal = new Meal(1, "Test Meal", 10.99f, "Test Food", "Test Cuisine");
+
+    // Sync meal to database
+    MealDAOImpl dao = new MealDAOImpl();
+    dao.sync(meal);
+
+    // Retrieve synced meal from database
+    Meal syncedMeal = MealDAOImpl.getMeal(1);
+
+    // Assert that synced meal matches original meal
+    assertEquals(meal.getItemID(), syncedMeal.getItemID());
+    assertEquals(meal.getName(), syncedMeal.getName());
+    assertEquals(meal.getPrice(), syncedMeal.getPrice(), 0.01);
+    assertEquals(meal.getMeal(), syncedMeal.getMeal());
+    assertEquals(meal.getCuisine(), syncedMeal.getCuisine());
+  }
 
   @Test
   void testGetAll() throws SQLException {
@@ -75,7 +78,7 @@ public class MealDAOTest {
   void testAdd() throws SQLException {
     // create a location name to add
 
-    Meal m = new Meal(1, "Test Meal", 10.99f, "Test Food", "Test Cuisine");
+    Meal m = new Meal(40, "fish", 9.9f, "salmon", "idk");
     DataManager.deleteMeals(m);
     // attempt to add the location name
     try {

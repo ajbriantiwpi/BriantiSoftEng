@@ -73,7 +73,7 @@ public class Map {
         shapes.add(c);
       }
     }
-    prevPath = shapes;
+    prevPath.addAll(shapes);
     return shapes;
   }
 
