@@ -19,24 +19,20 @@ import lombok.Setter;
 import net.kurobako.gesturefx.GesturePane;
 
 public class Map {
-
-  Color borderColor = Color.web("33567A");
-  Color insideColor = Color.web("2FA7B0");
-  float circleR = 10.0f;
-  float lineT = 10.0f;
-  int lineTout = 2;
+  private Color borderColor = Color.web("33567A");
+  private Color insideColor = Color.web("2FA7B0");
+  private float circleR = 10.0f;
+  private float lineT = 10.0f;
+  private int lineTout = 2;
+  public Graph graph;
+  public ArrayList<Emergency> emergencies;
+  private Point2D centerPoint;
+  private Point2D centerTL;
+  @Getter @Setter private ArrayList<Shape> prevPath = new ArrayList<Shape>();
 
   public Map() throws SQLException {
     this.graph = new Graph();
   }
-
-  public Graph graph;
-  public ArrayList<Emergency> emergencies;
-
-  private Point2D centerPoint;
-  private Point2D centerTL;
-
-  @Getter @Setter private ArrayList<Shape> prevPath = new ArrayList<Shape>();
 
   /**
    *    Creates a path with circles representing the nodes from the given list of nodes.
@@ -319,35 +315,28 @@ public class Map {
     return nodes;
   }
 
-  /**
-   *    Generates a list of all nodes to display for a given floor, including nodes with type "HALL".
-   *    @param floor the floor for which to generate nodes
-   *    @return the list of nodes to display
-   *    @throws SQLException if there is an error accessing the database
-   *    @throws IOException if there is an error loading image resources
-   */
-  public ArrayList<javafx.scene.Node> makeAllFloorNodesTwo(String floor)
-      throws SQLException, IOException {
-    ArrayList<javafx.scene.Node> nodes =
-        new ArrayList<javafx.scene.Node>(); // list of shapes to be displayed
-    List<NodeCircle> circles = new ArrayList<>(); // List of NodeCircle Objects
-
-    for (Node n : DataManager.getAllNodes()) {
-      if (n.getFloor().equals(floor)) {
-        circles.add(new NodeCircle(n));
-      }
-    }
-    for (NodeCircle c : circles) {
-      //            Pane p = new Pane();
-      //      p.getChildren().addAll(c.outer, c.inner, c.text);
-      //      nodes.add(c.outer);
-      //      nodes.add(c.inner);
-      //      nodes.add(c.text);
-      nodes.add(c.p);
-    }
-
-    return nodes;
-  }
+  //  public ArrayList<javafx.scene.Node> makeAllFloorNodesTwo(String floor)
+  //      throws SQLException, IOException {
+  //    ArrayList<javafx.scene.Node> nodes =
+  //        new ArrayList<javafx.scene.Node>(); // list of shapes to be displayed
+  //    List<NodeCircle> circles = new ArrayList<>(); // List of NodeCircle Objects
+  //
+  //    for (Node n : DataManager.getAllNodes()) {
+  //      if (n.getFloor().equals(floor)) {
+  //        circles.add(new NodeCircle(n));
+  //      }
+  //    }
+  //    for (NodeCircle c : circles) {
+  //      //            Pane p = new Pane();
+  //      //      p.getChildren().addAll(c.outer, c.inner, c.text);
+  //      //      nodes.add(c.outer);
+  //      //      nodes.add(c.inner);
+  //      //      nodes.add(c.text);
+  //      nodes.add(c.p);
+  //    }
+  //
+  //    return nodes;
+  //  }
 
   /** Draws location names on the map. */
   public void drawLocationNames() throws SQLException {}
