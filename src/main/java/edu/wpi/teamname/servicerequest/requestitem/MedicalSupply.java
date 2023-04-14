@@ -10,7 +10,7 @@ import lombok.Setter;
 
 public class MedicalSupply extends RequestItem{
     @Getter @Setter String type;
-    @Getter @Setter String accessLvl;
+    @Getter @Setter int accessLvl;
 
     /**
      * Creates medical supply object
@@ -21,7 +21,7 @@ public class MedicalSupply extends RequestItem{
      * @param type
      * @param accessLvl
      */
-    public MedicalSupply(int supplyID, String name, float price, String type, String accessLvl){
+    public MedicalSupply(int supplyID, String name, float price, String type, int accessLvl){
         super(supplyID, name, price);
         this.type = type;
         this.accessLvl = accessLvl;
@@ -41,7 +41,7 @@ public class MedicalSupply extends RequestItem{
                 super.setName(rs.getString("Name"));
                 setPrice(rs.getFloat("Price"));
                 setType(rs.getString("Type"));
-                setAccessLvl(rs.getString("AccessLevel"));
+                setAccessLvl(rs.getInt("AccessLevel"));
             }
         } catch (SQLException e) {
             System.out.println("Error retrieving medical supply data: " + e.getMessage());

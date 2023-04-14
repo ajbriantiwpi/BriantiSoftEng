@@ -3,10 +3,8 @@ package edu.wpi.teamname.database;
 import edu.wpi.teamname.navigation.*;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
-import edu.wpi.teamname.servicerequest.requestitem.Flower;
-import edu.wpi.teamname.servicerequest.requestitem.Furniture;
-import edu.wpi.teamname.servicerequest.requestitem.Meal;
-import edu.wpi.teamname.servicerequest.requestitem.OfficeSupply;
+import edu.wpi.teamname.servicerequest.requestitem.*;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -261,6 +259,17 @@ public class DataManager {
     OfficeSupplyDAOImpl officeSupplyDAO = new OfficeSupplyDAOImpl();
     officeSupplyDAO.sync(officeSupply);
   }
+  /**
+   * This method updates an existing MedicalSupply object in the "MedicalSupply" table in the database
+   * with the new MedicalSupply object.
+   *
+   * @param medicalSupply the new MedicalSupply object to be updated in the "MedicalSupply" table
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static void syncMedicalSupply(MedicalSupply medicalSupply) throws SQLException {
+    MedicalSupplyDAOImpl medicalSupplyDAO = new MedicalSupplyDAOImpl();
+    medicalSupplyDAO.sync(medicalSupply);
+  }
 
   /**
    * This method adds a new Move object to the "Move" table in the database.
@@ -381,6 +390,17 @@ public class DataManager {
   public static void addOfficeSupply(OfficeSupply officeSupply) throws SQLException {
     OfficeSupplyDAOImpl officeSupplyDAO = new OfficeSupplyDAOImpl();
     officeSupplyDAO.add(officeSupply);
+  }
+
+  /**
+   * This method adds a new MedicalSupply object to the "MedicalSupply" table in the database.
+   *
+   * @param medicalSupply the MedicalSupply object to be added to the "MedicalSupply" table
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static void addMedicalSupply(MedicalSupply medicalSupply) throws SQLException {
+    MedicalSupplyDAOImpl medicalSupplyDAO = new MedicalSupplyDAOImpl();
+    medicalSupplyDAO.add(medicalSupply);
   }
 
   /**
@@ -517,6 +537,17 @@ public class DataManager {
   }
 
   /**
+   * This method deletes the given MedicalSupply object from the database
+   *
+   * @param medicalSupply the MedicalSupply object that will be deleted in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static void deleteMedicalSupply(MedicalSupply medicalSupply) throws SQLException {
+    MedicalSupplyDAOImpl medicalSupplyDAO = new MedicalSupplyDAOImpl();
+    medicalSupplyDAO.delete(medicalSupply);
+  }
+
+  /**
    * The method retrieves all the Move objects from the "Move" table in the database.
    *
    * @return an ArrayList of the Move objects in the database
@@ -637,6 +668,18 @@ public class DataManager {
   }
 
   /**
+   * The method retrieves all the MedicalSupply objects from the "MedicalSupply" table in the
+   * database.
+   *
+   * @return an ArrayList of the MedicalSupply objects in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static ArrayList<MedicalSupply> getAllMedicalSupplies() throws SQLException {
+    MedicalSupplyDAOImpl medicalSupplyDAO = new MedicalSupplyDAOImpl();
+    return medicalSupplyDAO.getAll();
+  }
+
+  /**
    * This method retrieves a Flower object with the specified ID from the "Flowers" table in the
    * database.
    *
@@ -751,6 +794,18 @@ public class DataManager {
    */
   public static OfficeSupply getOfficeSupply(int id) throws SQLException {
     return OfficeSupplyDAOImpl.getOfficeSupply(id);
+  }
+
+  /**
+   * This method retrieves an MedicalSupply object with the specified ID from the "MedicalSupply"
+   * table in the database.
+   *
+   * @param id the ID of the MedicalSupply object to retrieve from the "MedicalSupply" table
+   * @return the Flower object with the specified ID, or null if not found
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static MedicalSupply getMedicalSupply(int id) throws SQLException {
+    return MedicalSupplyDAOImpl.getMedicalSupply(id);
   }
 
   /**
@@ -926,6 +981,17 @@ public class DataManager {
   }
 
   /**
+   * Uploads CSV data to a PostgreSQL database table "MedicalSupply"-also creates one if one does not
+   * exist
+   *
+   * @param path a string that represents a file path (/ is illegal so you must use double//)
+   * @throws SQLException if an error occurs while uploading the data to the database
+   */
+  public static void uploadMedicalSupply(String path) throws SQLException, ParseException {
+    MedicalSupplyDAOImpl.uploadMedicalSupplyToPostgreSQL(path);
+  }
+
+  /**
    * Uploads CSV data to a PostgreSQL database table "ServiceRequest"-also creates one if one does
    * not exist
    *
@@ -1054,6 +1120,18 @@ public class DataManager {
    */
   public static void exportOfficeSupplyToCSV(String path) throws SQLException, IOException {
     OfficeSupplyDAOImpl.exportOfficeSupplyToCSV(path);
+  }
+
+  /**
+   * This method exports all the MedicalSupply objects from the "MedicalSupply" table in the database
+   * to a CSV file at the specified file path.
+   *
+   * @param path the file path of the CSV file to export the MedicalSupply objects to
+   * @throws SQLException if there is a problem accessing the database
+   * @throws IOException if there is a problem writing the CSV file
+   */
+  public static void exportMedicalSupplyToCSV(String path) throws SQLException, IOException {
+    MedicalSupplyDAOImpl.exportMedicalSupplyToCSV(path);
   }
 
   /**

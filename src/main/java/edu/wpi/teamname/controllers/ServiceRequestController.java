@@ -65,7 +65,7 @@ public class ServiceRequestController {
   ObservableList<String> timeValues = FXCollections.observableArrayList();
   ObservableList<String> serviceType =
       FXCollections.observableArrayList(
-          "Meal Delivery", "Flower Delivery", "Office Supply Delivery", "Furniture Delivery");
+          "Meal Delivery", "Flower Delivery", "Office Supply Delivery", "Furniture Delivery", "Medical Supply");
   @FXML ComboBox requestType;
 
   // menu item page
@@ -73,32 +73,6 @@ public class ServiceRequestController {
   @FXML TextField searchBar;
   @FXML VBox itemBox;
   @FXML ScrollPane glitchyPane;
-  ObservableList<String> mealItems =
-      FXCollections.observableArrayList(
-          "Burger", "Pizza", "Cookies", "Spaghet", "Ice Cream Cone", "Banana", "Banana Split");
-  ObservableList<String> flowerItems =
-      FXCollections.observableArrayList(
-          "Black Cosmos",
-          "Gold Roses",
-          "Orange Tulips",
-          "Green Mums",
-          "Orange Cosmos",
-          "Purple Hyacinths",
-          "Pink Hyacinths");
-
-  ObservableList<String> furnitureItems =
-      FXCollections.observableArrayList(
-          "Harlow Dresser",
-          "Aspen Bed",
-          "Eames Lounge Chair",
-          "Tulip Dining Table",
-          "Oslo Recliner",
-          "Baxter Bookcase",
-          "Palmer Ottoman");
-
-  ObservableList<String> officeItems =
-      FXCollections.observableArrayList(
-          "Stapler", "Calculator", "Pen", "Paper shredder", "Notebook", "Desk lamp", "Whiteboard");
 
   @FXML AnchorPane summaryPane;
   @FXML Label summaryLabel;
@@ -158,6 +132,11 @@ public class ServiceRequestController {
         ArrayList<OfficeSupply> tems = DataManager.getAllOfficeSupplies();
         items.addAll(tems);
         reqType = RequestType.OFFICESUPPLY;
+      } else if (requestType.getValue() == "Medical Supply Delivery" ){
+        folder = "MedicalIcons";
+        ArrayList<MedicalSupply> temp = DataManager.getAllMedicalSupplies();
+        items.addAll(temp);
+        reqType = RequestType.MEDICALSUPPLY;
       } else { // "Furniture Delivery"
         folder = "FurnitureIcons";
         ArrayList<Furniture> tems = DataManager.getAllFurniture();
