@@ -203,7 +203,7 @@ public class Map {
     ObservableList<String> nodeNames = FXCollections.observableArrayList();
     for (Node n : DataManager.getAllNodes()) {
       if (n.getFloor().equals(floor)) {
-        nodeNames.addAll(("" + n.getId()));
+        nodeNames.addAll(("" + DataManager.getAllNodeInfo(n.getId()).getShortName()));
       }
     }
     return nodeNames;
