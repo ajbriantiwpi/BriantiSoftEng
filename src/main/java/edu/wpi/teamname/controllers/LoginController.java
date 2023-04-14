@@ -2,7 +2,7 @@ package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
-import edu.wpi.teamname.database.Login;
+import edu.wpi.teamname.employees.Employee;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -38,7 +38,7 @@ public class LoginController {
    */
   public static boolean loginPressed(String username, String password)
       throws SQLException, ExceptionInInitializerError {
-    Login user = new Login(username, password);
+    Employee user = new Employee(username, password);
     boolean successLog = user.LogInto();
     if (successLog) {
       HomeController.setLoggedIn(true);
@@ -102,7 +102,7 @@ public class LoginController {
    */
   public static String forgotPasswordPressed(String username) throws SQLException {
     //    return DataManager.forgotPassword(username);
-    Login temp = new Login(username, "");
+    Employee temp = new Employee(username, "");
     return temp.resetPass("NewPassword");
   }
 }

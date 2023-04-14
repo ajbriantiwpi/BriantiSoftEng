@@ -1,19 +1,21 @@
-package edu.wpi.teamname.database;
+package edu.wpi.teamname.employees;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+
+import edu.wpi.teamname.database.DataManager;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Login {
-  @Getter @Setter private static Login user = null;
+public class Employee {
   @Getter @Setter private String username;
   @Getter @Setter private String password;
   @Getter private final String originalUsername;
+  @Getter private ArrayList<EmployeeType> type;
 
-  @Getter @Setter private static boolean admin;
 
   /**
    * Constructor for login that sets the username and password for every instance of someone logging
@@ -22,10 +24,8 @@ public class Login {
    * @param username
    * @param password
    */
-  public Login(String username, String password) {
-    if (username == "Admin" && password == "Admin") {
-      admin = true;
-    }
+  public Employee(String username, String password) {
+    type = new ArrayList<EmployeeType>();
     this.username = username;
     this.originalUsername = username;
     // encrypt the password using Caesar cipher
@@ -36,7 +36,7 @@ public class Login {
     Connection connection = DataManager.DbConnection();
     boolean done = false;
     String query =
-        "Select count(*) from \"Login\" l Where l.username = '"
+        "Select count(*) from \"Employee\" l Where l.username = '"
             + username
             + "' AND l.password = '"
             + password
@@ -76,7 +76,7 @@ public class Login {
       // encrypt the password using Caesar cipher
       String encryptedPass = encrypt(newPass, 3);
       String query =
-          "INSERT INTO \"Login\" (username, password) VALUES('"
+          "INSERT INTO \"Employee\" (username, password) VALUES('"
               + newUser
               + "', '"
               + encryptedPass

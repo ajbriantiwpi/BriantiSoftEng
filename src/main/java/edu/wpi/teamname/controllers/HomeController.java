@@ -2,7 +2,7 @@ package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
-import edu.wpi.teamname.database.Login;
+import edu.wpi.teamname.employees.Employee;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
@@ -34,7 +34,7 @@ public class HomeController {
     loggedIn = false;
     loginButton.setVisible(true);
     logoutButton.setVisible(false);
-    Login.setUser(null);
+    Employee.setUser(null);
   }
 
   @FXML

@@ -1,6 +1,8 @@
 package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.LoginDAO;
+import edu.wpi.teamname.employees.Employee;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,7 +11,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoginDAOImpl implements LoginDAO {
+public class EmployeeDAOImpl implements LoginDAO {
   /**
    * This method updates an existing Login object in the "Login" table in the database with the new
    * Login object.
@@ -18,7 +20,7 @@ public class LoginDAOImpl implements LoginDAO {
    * @throws SQLException if there is a problem accessing the database
    */
   @Override
-  public void sync(Login login) throws SQLException {
+  public void sync(Employee login) throws SQLException {
     Connection connection = DataManager.DbConnection();
     try (connection) {
       String query =
@@ -41,9 +43,9 @@ public class LoginDAOImpl implements LoginDAO {
    * @throws SQLException if there is a problem accessing the database
    */
   @Override
-  public ArrayList<Login> getAll() throws SQLException {
+  public ArrayList<Employee> getAll() throws SQLException {
     Connection connection = DataManager.DbConnection();
-    ArrayList<Login> list = new ArrayList<Login>();
+    ArrayList<Employee> list = new ArrayList<Employee>();
     try (connection) {
       String query = "SELECT * FROM \"Login\"";
       Statement statement = connection.createStatement();
@@ -52,7 +54,7 @@ public class LoginDAOImpl implements LoginDAO {
       while (rs.next()) {
         String usern = rs.getString("username");
         String passw = rs.getString("password");
-        list.add(new Login(usern, passw));
+        list.add(new Employee(usern, passw));
       }
     } catch (SQLException e) {
       System.out.println("Get all Logins error.");
@@ -67,7 +69,7 @@ public class LoginDAOImpl implements LoginDAO {
    * @throws SQLException if there is a problem accessing the database
    */
   @Override
-  public void add(Login login) throws SQLException {
+  public void add(Employee login) throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query = "INSERT INTO \"Login\" (username, password) " + "VALUES (?, ?)";
 
@@ -89,7 +91,7 @@ public class LoginDAOImpl implements LoginDAO {
    * @throws SQLException if there is a problem accessing the database
    */
   @Override
-  public void delete(Login login) throws SQLException {
+  public void delete(Employee login) throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query = "Delete from \"Login\" where username = ?";
 
@@ -119,10 +121,10 @@ public class LoginDAOImpl implements LoginDAO {
    * @return the Login object with the specified username, or null if not found
    * @throws SQLException if there is a problem accessing the database
    */
-  public static Login getLogin(String username) throws SQLException {
+  public static Employee getLogin(String username) throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query = "SELECT * FROM \"Login\" WHERE \"username\" = ?";
-    Login login = null;
+    Employee login = null;
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setString(1, username);
@@ -130,7 +132,7 @@ public class LoginDAOImpl implements LoginDAO {
 
       String user = rs.getString("username");
       String pass = rs.getString("password");
-      login = (new Login(user, pass));
+      login = (new Employee(user, pass));
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }

@@ -1,5 +1,6 @@
 package edu.wpi.teamname.database;
 
+import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.navigation.*;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
@@ -197,8 +198,8 @@ public class DataManager {
    * @param login the new Login object to be updated in the "Login" table
    * @throws SQLException if there is a problem accessing the database
    */
-  public static void syncLogin(Login login) throws SQLException {
-    LoginDAOImpl loginDAO = new LoginDAOImpl();
+  public static void syncLogin(Employee login) throws SQLException {
+    EmployeeDAOImpl loginDAO = new EmployeeDAOImpl();
     loginDAO.sync(login);
   }
 
@@ -323,8 +324,8 @@ public class DataManager {
    * @param login the Login object to be added to the "Login" table
    * @throws SQLException if there is a problem accessing the database
    */
-  public static void addLogin(Login login) throws SQLException {
-    LoginDAOImpl loginDAO = new LoginDAOImpl();
+  public static void addLogin(Employee login) throws SQLException {
+    EmployeeDAOImpl loginDAO = new EmployeeDAOImpl();
     loginDAO.add(login);
   }
 
@@ -456,8 +457,8 @@ public class DataManager {
    * @param login the Login object that will be deleted in the database
    * @throws SQLException if there is a problem accessing the database
    */
-  public static void deleteLogin(Login login) throws SQLException {
-    LoginDAOImpl loginDAO = new LoginDAOImpl();
+  public static void deleteLogin(Employee login) throws SQLException {
+    EmployeeDAOImpl loginDAO = new EmployeeDAOImpl();
     loginDAO.delete(login);
   }
 
@@ -577,8 +578,8 @@ public class DataManager {
    * @return an ArrayList of the Login objects in the database
    * @throws SQLException if there is a problem accessing the database
    */
-  public static ArrayList<Login> getAllLogins() throws SQLException {
-    return (new LoginDAOImpl()).getAll();
+  public static ArrayList<Employee> getAllLogins() throws SQLException {
+    return (new EmployeeDAOImpl()).getAll();
   }
 
   /**
@@ -685,8 +686,8 @@ public class DataManager {
    * @return the Login object with the specified username, or null if not found
    * @throws SQLException if there is a problem accessing the database
    */
-  public static Login getLogin(String username) throws SQLException {
-    LoginDAOImpl loginDAO = new LoginDAOImpl();
+  public static Employee getLogin(String username) throws SQLException {
+    EmployeeDAOImpl loginDAO = new EmployeeDAOImpl();
     return loginDAO.getLogin(username);
   }
 
@@ -881,7 +882,7 @@ public class DataManager {
    * @throws SQLException if an error occurs while uploading the data to the database
    */
   public static void uploadLogin(String path) throws SQLException, ParseException {
-    LoginDAOImpl.uploadLoginToPostgreSQL(path);
+    EmployeeDAOImpl.uploadLoginToPostgreSQL(path);
   }
 
   /**
@@ -1005,7 +1006,7 @@ public class DataManager {
    * @throws IOException if there is a problem writing the CSV file
    */
   public static void exportLoginToCSV(String path) throws SQLException, IOException {
-    LoginDAOImpl.exportLoginToCSV(path);
+    EmployeeDAOImpl.exportLoginToCSV(path);
   }
 
   /**
