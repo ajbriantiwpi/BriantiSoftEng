@@ -66,6 +66,8 @@ public class ServiceRequest {
       items.add(new Furniture(requestID));
     } else if (requestID < 1500) {
       items.add(new OfficeSupply(requestID));
+    } else if (requestID < 1600) {
+      items.add(new MedicalSupply(requestID));
     }
   }
 
