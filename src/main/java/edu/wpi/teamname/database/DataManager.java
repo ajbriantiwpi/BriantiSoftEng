@@ -1090,11 +1090,56 @@ public class DataManager {
    * ID, null is returned.
    *
    * @param id the ID of the node to retrieve information for
+   * @param timestamp the timestamp to get the most up-to-date info at
    * @return a Room object containing all information about the node, or null if no information is
    *     found
    * @throws SQLException if there is an error accessing the database
    */
-  public static Room getAllNodeInfo(int id) throws SQLException {
-    return NodeDAOImpl.getAllInfoOfNode(id);
+  public static Room getAllInfoOfNode(int id, Timestamp timestamp) throws SQLException {
+    return NodeDAOImpl.getAllInfoOfNode(id, timestamp);
+  }
+
+  /***
+   * Gets an arraylist of the combination of Nodes and LocationNames based upon the moves.
+   * This info is gotten through looking at the most up-to-date information of the node IDs
+   * See getAllRoomsCalculatedByLongName(Timestamp) for calculations based upon longNames
+   *
+   * @param timestamp the timestamp to filter by
+   * @return the list of rooms calculated by node ID at the given timestamp
+   * @throws SQLException if there is an error executing the SQL query
+   */
+  public static ArrayList<Room> getAllRoomsCalculatedByNodeID(Timestamp timestamp) throws SQLException {
+    return NodeDAOImpl.getAllRoomsCalculatedByNodeID(timestamp);
+  }
+
+  /**
+   * Returns a Room object containing all information about the node with the given longName. The
+   * information includes the locationName's nodeID, short name, coordinates, node type, building, floor,
+   * and the most recent date when the node's location was updated. The function queries the
+   * database and joins the "LocationName" and "Move" tables to retrieve the necessary information.
+   * It also filters the results by selecting only the information for the node with the given ID
+   * and the most recent date prior to the current time. If no information is found for the given
+   * ID, null is returned.
+   *
+   * @param name the longName of the LocationName to retrieve information for
+   * @return a Room object containing all information about the node, or null if no information is
+   *     found
+   * @throws SQLException if there is an error accessing the database
+   */
+  public static Room getAllInfoOfLocationName(String name, Timestamp timestamp) throws SQLException {
+    return LocationNameDAOImpl.getAllInfoOfLocationName(name, timestamp);
+  }
+
+  /***
+   * Gets an arraylist of the combination of Nodes and LocationNames based upon the moves.
+   * This info is gotten through looking at the most up-to-date information of the longNames
+   * See getAllRoomsCalculatedByNodeID(Timestamp) for calculations based upon nodeID's
+   *
+   * @param timestamp the timestamp to filter by
+   * @return the list of rooms calculated by long name at the given timestamp
+   * @throws SQLException if there is an error executing the SQL query
+   */
+  public static ArrayList<Room> getAllRoomsCalculatedByLocationName(Timestamp timestamp) throws SQLException {
+    return LocationNameDAOImpl.getAllRoomsCalculatedByLongName(timestamp);
   }
 }
