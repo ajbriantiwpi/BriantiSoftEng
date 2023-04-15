@@ -52,24 +52,24 @@ public class DataManager {
     return connection;
   }
 
-  public static ArrayList<Node> getSingleNodeInfo(int nodeID) throws SQLException {
-    Connection conn = DbConnection();
-    ArrayList<Node> list = new ArrayList<Node>();
-    String query = "SELECT * FROM \"Node\" Where \"nodeID\" = " + nodeID;
-
-    try (conn) {
-      Statement statement = connection.createStatement();
-      ResultSet rs = statement.executeQuery(query);
-      rs.next();
-      int id = rs.getInt("nodeID");
-      int xcoord = rs.getInt("xcoord");
-      int ycoord = rs.getInt("ycoord");
-      String floor = rs.getString("floor");
-      String building = rs.getString("building");
-      list.add(new Node(id, xcoord, ycoord, floor, building));
-    }
-    return list;
-  }
+  //  public static ArrayList<Node> getSingleNodeInfo(int nodeID) throws SQLException {
+  //    Connection conn = DbConnection();
+  //    ArrayList<Node> list = new ArrayList<Node>();
+  //    String query = "SELECT * FROM \"Node\" Where \"nodeID\" = " + nodeID;
+  //
+  //    try (conn) {
+  //      Statement statement = connection.createStatement();
+  //      ResultSet rs = statement.executeQuery(query);
+  //      rs.next();
+  //      int id = rs.getInt("nodeID");
+  //      int xcoord = rs.getInt("xcoord");
+  //      int ycoord = rs.getInt("ycoord");
+  //      String floor = rs.getString("floor");
+  //      String building = rs.getString("building");
+  //      list.add(new Node(id, xcoord, ycoord, floor, building));
+  //    }
+  //    return list;
+  //  }
 
   public static ArrayList<String> getUpdatedNodeInfo(int nodeID, Timestamp date)
       throws SQLException {
@@ -1139,6 +1139,11 @@ public class DataManager {
     return NodeDAOImpl.getAllInfoOfNode(id, timestamp);
   }
 
+  //  public static ArrayList<LocationName> getAllInfoOfNode(int id, Timestamp timestamp)
+  //      throws SQLException {
+  //    //    return NodeDAOImpl.getAllInfoOfNode(id, timestamp);
+  //  }
+
   /**
    * * Gets an arraylist of the combination of Nodes and LocationNames based upon the moves. This
    * info is gotten through looking at the most up-to-date information of the node IDs See
@@ -1148,10 +1153,12 @@ public class DataManager {
    * @return the list of rooms calculated by node ID at the given timestamp
    * @throws SQLException if there is an error executing the SQL query
    */
-  public static ArrayList<Room> getAllRoomsCalculatedByNodeID(Timestamp timestamp)
-      throws SQLException {
-    return NodeDAOImpl.getAllRoomsCalculatedByNodeID(timestamp);
-  }
+
+  // Every single up to date pairing
+  //  public static ArrayList<Room> getAllRoomsCalculatedByNodeID(Timestamp timestamp)
+  //      throws SQLException {
+  //    return NodeDAOImpl.getAllRoomsCalculatedByNodeID(timestamp);
+  //  }
 
   /**
    * Returns a Room object containing all information about the node with the given longName. The
@@ -1167,6 +1174,8 @@ public class DataManager {
    *     found
    * @throws SQLException if there is an error accessing the database
    */
+
+  // Reverse
   public static Room getAllInfoOfLocationName(String name, Timestamp timestamp)
       throws SQLException {
     return LocationNameDAOImpl.getAllInfoOfLocationName(name, timestamp);
@@ -1181,10 +1190,11 @@ public class DataManager {
    * @return the list of rooms calculated by long name at the given timestamp
    * @throws SQLException if there is an error executing the SQL query
    */
-  public static ArrayList<Room> getAllRoomsCalculatedByLocationName(Timestamp timestamp)
-      throws SQLException {
-    return LocationNameDAOImpl.getAllRoomsCalculatedByLongName(timestamp);
-  }
+  // Same as other
+  //  public static ArrayList<Room> getAllRoomsCalculatedByLocationName(Timestamp timestamp)
+  //      throws SQLException {
+  //    return LocationNameDAOImpl.getAllRoomsCalculatedByLongName(timestamp);
+  //  }
 
   /**
    * conencts to the employee database and checks if the given username and pass are valid returns

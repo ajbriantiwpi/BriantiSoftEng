@@ -44,7 +44,7 @@ public class LoginController {
     if (user != null) {
       HomeController.setLoggedIn(true);
       Navigation.navigate(Screen.HOME);
-      GlobalVariables.currentUser = user;
+      GlobalVariables.setCurrentUser(user);
       return true;
     } else {
       return false;

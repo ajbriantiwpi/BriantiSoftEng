@@ -337,48 +337,55 @@ public class NodeDAOImpl implements NodeDAO {
    * @return the list of rooms calculated by node ID at the given timestamp
    * @throws SQLException if there is an error executing the SQL query
    */
-  public static ArrayList<Room> getAllRoomsCalculatedByNodeID(Timestamp timestamp)
-      throws SQLException {
-    Connection connection = DataManager.DbConnection();
-    String query =
-        "SELECT DISTINCT q.\"nodeID\", \"longName\", \"shortName\", \"nodeType\", xcoord, ycoord, building, floor, date\n"
-            + "FROM (SELECT n.\"longName\", \"shortName\", n.\"nodeID\", \"nodeType\", xcoord, ycoord, building, floor, date\n"
-            + "      FROM \"LocationName\",\n"
-            + "           (select \"Move\".\"nodeID\", xcoord, ycoord, floor, building, \"longName\", date\n"
-            + "            FROM \"Node\", \"Move\"\n"
-            + "            where \"Node\".\"nodeID\" = \"Move\".\"nodeID\") n\n"
-            + "      WHERE \"LocationName\".\"longName\" = n.\"longName\") w,\n"
-            + "     (SELECT \"nodeID\" FROM (SELECT n.\"nodeID\"\n"
-            + "                            FROM \"LocationName\",\n"
-            + "                                 (select \"Move\".\"nodeID\", xcoord, ycoord, floor, building, \"longName\", date\n"
-            + "                                  FROM \"Node\", \"Move\"\n"
-            + "                                  where \"Node\".\"nodeID\" = \"Move\".\"nodeID\") n\n"
-            + "                            WHERE \"LocationName\".\"longName\" = n.\"longName\"\n"
-            + "                              AND date < ?) j\n"
-            + "                            GROUP BY \"nodeID\") q\n"
-            + "      where q.\"nodeID\" = w.\"nodeID\";";
-    ArrayList<Room> rooms = new ArrayList<>();
-    try (connection) {
-      PreparedStatement statement = connection.prepareStatement(query);
-      statement.setTimestamp(1, timestamp);
-
-      ResultSet rs = statement.executeQuery();
-      while (rs.next()) {
-        int id2 = rs.getInt("nodeID");
-        String longName = rs.getString("longName");
-        String shortN = rs.getString("shortName");
-        int xcoord = rs.getInt("xcoord");
-        int ycoord = rs.getInt("ycoord");
-        String nodeType = rs.getString("nodeType");
-        String building = rs.getString("building");
-        String floor = rs.getString("floor");
-        Timestamp date = rs.getTimestamp("date");
-
-        rooms.add(new Room(id2, longName, date, xcoord, ycoord, floor, building, shortN, nodeType));
-      }
-    } catch (SQLException e) {
-      System.err.println(e.getMessage());
-    }
-    return rooms;
-  }
+  //  public static ArrayList<Room> getAllRoomsCalculatedByNodeID(Timestamp timestamp)
+  //      throws SQLException {
+  //    Connection connection = DataManager.DbConnection();
+  //    String query =
+  //        "SELECT DISTINCT q.\"nodeID\", \"longName\", \"shortName\", \"nodeType\", xcoord,
+  // ycoord, building, floor, date\n"
+  //            + "FROM (SELECT n.\"longName\", \"shortName\", n.\"nodeID\", \"nodeType\", xcoord,
+  // ycoord, building, floor, date\n"
+  //            + "      FROM \"LocationName\",\n"
+  //            + "           (select \"Move\".\"nodeID\", xcoord, ycoord, floor, building,
+  // \"longName\", date\n"
+  //            + "            FROM \"Node\", \"Move\"\n"
+  //            + "            where \"Node\".\"nodeID\" = \"Move\".\"nodeID\") n\n"
+  //            + "      WHERE \"LocationName\".\"longName\" = n.\"longName\") w,\n"
+  //            + "     (SELECT \"nodeID\" FROM (SELECT n.\"nodeID\"\n"
+  //            + "                            FROM \"LocationName\",\n"
+  //            + "                                 (select \"Move\".\"nodeID\", xcoord, ycoord,
+  // floor, building, \"longName\", date\n"
+  //            + "                                  FROM \"Node\", \"Move\"\n"
+  //            + "                                  where \"Node\".\"nodeID\" =
+  // \"Move\".\"nodeID\") n\n"
+  //            + "                            WHERE \"LocationName\".\"longName\" =
+  // n.\"longName\"\n"
+  //            + "                              AND date < ?) j\n"
+  //            + "                            GROUP BY \"nodeID\") q\n"
+  //            + "      where q.\"nodeID\" = w.\"nodeID\";";
+  //    ArrayList<Room> rooms = new ArrayList<>();
+  //    try (connection) {
+  //      PreparedStatement statement = connection.prepareStatement(query);
+  //      statement.setTimestamp(1, timestamp);
+  //
+  //      ResultSet rs = statement.executeQuery();
+  //      while (rs.next()) {
+  //        int id2 = rs.getInt("nodeID");
+  //        String longName = rs.getString("longName");
+  //        String shortN = rs.getString("shortName");
+  //        int xcoord = rs.getInt("xcoord");
+  //        int ycoord = rs.getInt("ycoord");
+  //        String nodeType = rs.getString("nodeType");
+  //        String building = rs.getString("building");
+  //        String floor = rs.getString("floor");
+  //        Timestamp date = rs.getTimestamp("date");
+  //
+  //        rooms.add(new Room(id2, longName, date, xcoord, ycoord, floor, building, shortN,
+  // nodeType));
+  //      }
+  //    } catch (SQLException e) {
+  //      System.err.println(e.getMessage());
+  //    }
+  //    return rooms;
+  //  }
 }
