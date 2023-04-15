@@ -102,7 +102,7 @@ public class EmployeeDAOImpl implements LoginDAO {
         int id = rs.getInt("employeeID");
         String fname = rs.getString("firstName");
         String lname = rs.getString("lastName");
-        Employee employee = new Employee(usern, passw, id, fname, lname);
+        Employee employee = new Employee(usern, passw, id, fname, lname, false);
         query = "SELECT type FROM \"EmployeeType\" WHERE username = ?";
         connection = DataManager.DbConnection();
         statement = connection.prepareStatement(query);
@@ -214,7 +214,7 @@ public class EmployeeDAOImpl implements LoginDAO {
         int id = rs.getInt("employeeID");
         String fname = rs.getString("firstName");
         String lname = rs.getString("lastName");
-        employee = (new Employee(user, pass, id, fname, lname));
+        employee = (new Employee(user, pass, id, fname, lname, false));
       }
       query = "SELECT type FROM \"EmployeeType\" WHERE \"username\" = ?";
       connection = DataManager.DbConnection();
@@ -352,6 +352,28 @@ public class EmployeeDAOImpl implements LoginDAO {
       System.out.println("CSV data downloaded from PostgreSQL database");
     } catch (IOException e) {
       System.err.println("Error downloading CSV data from PostgreSQL database: " + e.getMessage());
+    }
+  }
+
+  /**
+   * conencts to the employee database and checks if the given username and pass are valid returns
+   * the Employee if it exists
+   *
+   * @param user the username to check
+   * @param pass the password to check
+   * @return the Employee if it exists and is correct, null if no
+   * @throws SQLException
+   */
+  public static Employee checkLogin(String user, String pass) throws SQLException {
+    Employee employee = getEmployee(user);
+    if (employee == null) {
+      return null;
+    } else {
+      if (employee.getPassword().equals(Employee.encrypt(pass, 3))) {
+        return employee;
+      } else {
+        return null;
+      }
     }
   }
 }

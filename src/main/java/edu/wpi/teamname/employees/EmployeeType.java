@@ -7,7 +7,10 @@ public enum EmployeeType {
   NURSE("NURSE"),
   RECEPTIONIST("RECEPTIONIST"),
   DOCTOR("DOCTOR"),
-  JANITOR("JANITOR");
+  JANITOR("JANITOR"),
+  MAINTENANCE("MAINTENANCE"),
+  DELIVERY("DELIVERY"),
+  SECURITY("SECURITY");
 
   private final String type;
 

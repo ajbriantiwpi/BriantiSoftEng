@@ -1034,9 +1034,9 @@ public class DataManager {
   }
 
   /**
-   * This method exports all the Employee objects from the "Employee" table
-   * and all the EmployeeTypes from the "EmployeeType" table in the database to a
-   * CSV file at the specified file path. Will save the EmployeeTypes at path_employeeType.csv
+   * This method exports all the Employee objects from the "Employee" table and all the
+   * EmployeeTypes from the "EmployeeType" table in the database to a CSV file at the specified file
+   * path. Will save the EmployeeTypes at path_employeeType.csv
    *
    * @param path the file path of the CSV file to export the Employees to
    * @throws SQLException if there is a problem accessing the database
@@ -1136,5 +1136,18 @@ public class DataManager {
    */
   public static Room getAllNodeInfo(int id) throws SQLException {
     return NodeDAOImpl.getAllInfoOfNode(id);
+  }
+
+  /**
+   * conencts to the employee database and checks if the given username and pass are valid returns
+   * the Employee if it exists
+   *
+   * @param username the username to check
+   * @param password the password to check
+   * @return the Employee if it exists and is correct, null if no
+   * @throws SQLException
+   */
+  public static Employee checkLogin(String username, String password) throws SQLException {
+    return EmployeeDAOImpl.checkLogin(username, password);
   }
 }
