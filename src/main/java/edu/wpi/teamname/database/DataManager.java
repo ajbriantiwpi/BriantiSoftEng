@@ -586,6 +586,10 @@ public class DataManager {
     return (new EmployeeDAOImpl()).getAll();
   }
 
+  public static ArrayList<String> getAllUsernames() throws SQLException {
+    return (new EmployeeDAOImpl()).getAllUsernames();
+  }
+
   /**
    * The method retrieves all the Flower objects from the "Flowers" table in the database.
    *

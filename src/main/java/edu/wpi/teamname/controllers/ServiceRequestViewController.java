@@ -31,7 +31,7 @@ public class ServiceRequestViewController {
   @FXML FilteredTableColumn statusCol;
   @FXML SearchableComboBox<String> requestIDText;
   @FXML SearchableComboBox<String> assignStaffText;
-  @FXML SearchableComboBox<String> requestStatusText;
+  @FXML ComboBox<Status> requestStatusText;
 
   @FXML MFXButton submitButton;
 
@@ -81,9 +81,12 @@ public class ServiceRequestViewController {
    * @param requestStatus status we want to assign the request to
    * @throws SQLException if there is an error connecting to the database
    */
-  public void assignStuff(String id, String assignStaff, String requestStatus) throws SQLException {
-    DataManager.uploadStatusToServiceRequest(Integer.parseInt(id), requestStatus);
+  public void assignStuff(String id, String assignStaff, Status requestStatus) throws SQLException {
+    DataManager.uploadStatusToServiceRequest(Integer.parseInt(id), requestStatus.getStatusString());
     DataManager.uploadStaffNameToServiceRequest(Integer.parseInt(id), assignStaff);
+    requestIDText.setValue(null);
+    assignStaffText.setValue(null);
+    requestStatusText.setValue(null);
   }
 
   /**
@@ -119,6 +122,10 @@ public class ServiceRequestViewController {
     requestStatusCombo.setItems(requestStatuses);
 
     requestIDText.setItems(FXCollections.observableList(DataManager.getAllRequestIDs()));
+    assignStaffText.setItems(FXCollections.observableList(DataManager.getAllUsernames()));
+    ObservableList<Status> requestStatuses2 = FXCollections.observableArrayList(Status.values());
+
+    requestStatusText.setItems(requestStatuses2);
 
     ObservableList<ServiceRequest> serviceRequests =
         FXCollections.observableList(DataManager.getAllServiceRequests());
