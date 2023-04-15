@@ -87,6 +87,16 @@ public class ServiceRequestViewController {
     requestIDText.setValue(null);
     assignStaffText.setValue(null);
     requestStatusText.setValue(null);
+    refreshTable();
+  }
+
+  public void refreshTable() throws SQLException {
+    ObservableList<ServiceRequest> serviceRequests =
+        FXCollections.observableList(DataManager.getAllServiceRequests());
+    FilteredList<ServiceRequest> serviceRequests1 = new FilteredList<>(serviceRequests);
+    serviceRequests1.predicateProperty().bind(table.predicateProperty());
+    SortedList<ServiceRequest> sortedServiceReq = new SortedList<>(serviceRequests1);
+    table.setItems(sortedServiceReq);
   }
 
   /**
