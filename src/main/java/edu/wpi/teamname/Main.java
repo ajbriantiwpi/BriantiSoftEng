@@ -4,7 +4,6 @@ import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.navigation.LocationName;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.ArrayList;
 
