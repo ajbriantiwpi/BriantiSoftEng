@@ -105,6 +105,11 @@
                                     <Font name="Times New Roman" size="32.0" />
                                 </font>
                             </MFXButton>
+                     <MFXButton fx:id="switchButton" mnemonicParsing="false" style="-fx-background-color: #003da6;" text="Switch" textFill="WHITE">
+                        <font>
+                           <Font name="Times New Roman" size="32.0" />
+                        </font>
+                     </MFXButton>
                         </children>
                         <padding>
                             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
@@ -129,7 +134,7 @@
                      <FilteredTableColumn fx:id="statusCol" prefWidth="148.5" style="-fx-background-color: #D9E3F8;" text="Status" />
                   </columns>
                </FilteredTableView>
-                <AnchorPane fx:id="summaryPane">
+                <AnchorPane fx:id="summaryPane" disable="true" visible="false">
                     <children>
                         <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" pannable="true" style="-fx-background-color: #ffffff;" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <content>
@@ -137,7 +142,12 @@
                                     <children>
                                         <VBox prefHeight="200.0" prefWidth="100.0" spacing="12.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <children>
-                                                <Label fx:id="detailsLabel" style="-fx-font-family: Roboto; -fx-font-size: 24;" text="Request Details" textFill="#001b3b">
+                                       <Label layoutX="10.0" layoutY="10.0" style="-fx-font-family: Roboto; -fx-font-size: 24;" text="Request Details" textFill="#001b3b">
+                                          <font>
+                                             <Font name="Roboto" size="40.0" />
+                                          </font>
+                                       </Label>
+                                                <Label fx:id="detailsLabel" style="-fx-font-family: Roboto; -fx-font-size: 24;" textFill="#001b3b">
                                                     <font>
                                                         <Font name="Times New Roman" size="28.0" />
                                                     </font>

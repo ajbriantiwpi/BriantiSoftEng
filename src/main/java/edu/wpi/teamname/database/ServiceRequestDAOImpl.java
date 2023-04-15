@@ -1,10 +1,13 @@
 package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.ServiceRequestDAO;
+import edu.wpi.teamname.servicerequest.ItemsOrdered;
 import edu.wpi.teamname.servicerequest.RequestType;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import edu.wpi.teamname.servicerequest.Status;
 import edu.wpi.teamname.servicerequest.requestitem.RequestItem;
+import oracle.ucp.common.FailoverStats;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
@@ -271,8 +274,8 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
 
       int rID = rs.getInt("mealID");
       String roomNum = rs.getString("roomNum");
-      String staffName = rs.getString("Meal");
-      String patientName = rs.getString("Cuisine");
+      String staffName = rs.getString("staffName");
+      String patientName = rs.getString("patientName");
       Timestamp requestedAt = rs.getTimestamp("requestedAt");
       Timestamp deliverBy = rs.getTimestamp("deliverBy");
       Status status = Status.valueOf(rs.getString("status"));

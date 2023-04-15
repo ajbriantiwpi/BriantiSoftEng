@@ -22,6 +22,7 @@ public class ReqMenuItems extends GridPane {
   private String folder;
   ServiceRequest request;
   RequestItem item;
+  private boolean editable = true;
 
   ServiceRequestController controller;
 
@@ -46,6 +47,7 @@ public class ReqMenuItems extends GridPane {
     this.add = add;
     this.controller = controller;
     this.folder = folder;
+    this.editable = true;
 
     initialize();
   }
@@ -64,9 +66,23 @@ public class ReqMenuItems extends GridPane {
     this.add = add;
     this.controller = controller;
     this.folder = folder;
+    this.editable = true;
 
     initialize();
 
+    quantity.setText("Quantity: " + String.valueOf(q));
+    quantity.setDisable(true);
+  }
+
+  public ReqMenuItems(RequestItem item, String folder, int q){
+    this.item = item;
+    this.folder = folder;
+    this.id = item.getItemID();
+    this.name = item.getName();
+    this.editable = false;
+    this.add = false;
+
+    initialize();
     quantity.setText("Quantity: " + String.valueOf(q));
     quantity.setDisable(true);
   }
@@ -99,8 +115,27 @@ public class ReqMenuItems extends GridPane {
     labelP.setFont(Font.font("Roboto", 32));
     labelP.setMinWidth(200);
     labelP.setMaxWidth(200);
-    button =
-        new RequestMenuItemButton(name.replace("_", " "), this.id, this, this.request, this.add);
+    if(editable){
+      button =
+              new RequestMenuItemButton(name.replace("_", " "), this.id, this, this.request, this.add);
+      vBox = new VBox();
+      vBox.setAlignment(Pos.CENTER);
+      vBox.setMinWidth(button.getWidth() + 15);
+      vBox.getChildren().add(button);
+      add(vBox, 4, 0);
+      setFillWidth(vBox, true);
+      setHgrow(vBox, Priority.ALWAYS);
+      setHalignment(vBox, HPos.RIGHT);
+      button.setLayoutY(this.getHeight());
+      button.setPadding(new Insets(this.getHeight() / 2 - button.getHeight() / 2, 25, 0, 25));
+      button.setAlignment(Pos.CENTER_RIGHT);
+      button.setStyle(
+              "-fx-background-color: #555F71; "
+                      + "-fx-text-fill:  #FFFFFF; "
+                      + "-fx-background-radius: 100;"
+                      + " -fx-font-family: Roboto;"
+                      + " -fx-font-size: 32 ");
+    }
     quantity = new TextField("");
     quantity.setPromptText("Quantity");
     quantity.setFont(Font.font("Roboto", 32));
@@ -111,33 +146,16 @@ public class ReqMenuItems extends GridPane {
     add(label, 1, 0);
     add(labelP, 2, 0);
     add(quantity, 3, 0);
-
-    vBox = new VBox();
-    vBox.setAlignment(Pos.CENTER);
-    vBox.setMinWidth(button.getWidth() + 15);
-    vBox.getChildren().add(button);
-    add(vBox, 4, 0);
-
     quantity.setText("1");
-    button.setLayoutY(this.getHeight());
-    button.setPadding(new Insets(this.getHeight() / 2 - button.getHeight() / 2, 25, 0, 25));
 
     setFillWidth(label, true);
     setHgrow(label, Priority.ALWAYS);
     setHalignment(label, HPos.LEFT);
     setHalignment(labelP, HPos.LEFT);
     setHalignment(quantity, HPos.LEFT);
-    setFillWidth(vBox, true);
-    setHgrow(vBox, Priority.ALWAYS);
-    button.setAlignment(Pos.CENTER_RIGHT);
-    setHalignment(vBox, HPos.RIGHT);
+
     setStyle("-fx-background-color: #D5E3FF;" + "-fx-background-radius: 8");
-    button.setStyle(
-        "-fx-background-color: #555F71; "
-            + "-fx-text-fill:  #FFFFFF; "
-            + "-fx-background-radius: 100;"
-            + " -fx-font-family: Roboto;"
-            + " -fx-font-size: 32 ");
+
   }
 
   public int getQuantity() {
