@@ -42,7 +42,7 @@ public class NodeCircle {
    * @param n The Node that this NodeCircle represents.
    * @throws IOException If there was an error reading from the FXML file for the Node editing menu.
    */
-  public NodeCircle(Node n, boolean isMapPage) throws IOException {
+  public NodeCircle(Node n, boolean isMapPage) throws IOException, SQLException {
     float shiftX = 0; // circleR;
     float shiftY = 0; // circleR;
 
@@ -52,15 +52,24 @@ public class NodeCircle {
     nodeCords = new Point2D(n.getX(), n.getY());
     nodeID = n.getId();
 
-    //    if(isHall){
-    //      if(isMapPage){
-    //        return;
-    //      }else{
-    //        scaleDown = 0.5f;
-    //      }
-    //    }else{
-    scaleDown = 0.75f;
-    //    }
+    ArrayList<LocationName> locations =
+        DataManager.getLocationNameByNode(nodeID, Timestamp.from(Instant.now()));
+
+    p = new Pane();
+
+    if (locations.size() > 0 && locations.get(0).getNodeType().equals("HALL")) {
+      if (isMapPage) {
+        //        System.out.println("HM");
+        //        p.getChildren().addAll(this.label);
+        return;
+      } else {
+        //        System.out.println("HME");
+        scaleDown = 0.5f;
+      }
+      //      scaleDown = 0.5f;
+    } else {
+      scaleDown = 0.75f;
+    }
 
     this.outer =
         new Circle(
@@ -71,15 +80,19 @@ public class NodeCircle {
     // Visible By default
 
     // Get short name(s) from table
-    label.setText("" + n.getId());
+
+    if (locations.size() > 0) {
+      label.setText(locations.get(0).getShortName());
+    } else {
+      label.setText(" " + nodeID);
+    }
+
     CornerRadii corn = new CornerRadii(7);
     label.setBackground(
         new Background(new BackgroundFill(GlobalVariables.getLabelColor(), corn, Insets.EMPTY)));
     label.setTextFill(GlobalVariables.getLabelTextColor());
     label.setTranslateX(-GlobalVariables.getCircleR());
     label.setTranslateY(-30);
-
-    p = new Pane();
 
     float boxW = circleRCopy;
     float boxH = circleRCopy;
@@ -165,75 +178,83 @@ public class NodeCircle {
    * @throws RuntimeException if an SQL exception occurs during the data synchronization process.
    */
   EventHandler<MouseEvent> boxVisible =
-    new EventHandler<MouseEvent>() {
-      public void handle(MouseEvent event) {
-        Pane p = ((Pane) event.getSource());
-        p.setOpacity(1);
+      new EventHandler<MouseEvent>() {
+        public void handle(MouseEvent event) {
+          Pane p = ((Pane) event.getSource());
+          p.setOpacity(1);
 
-        final var resource = App.class.getResource("views/ChangeNode.fxml");
-        final FXMLLoader loader = new FXMLLoader(resource);
-        try {
-          changeBox = loader.load();
-        } catch (IOException e) {
-          throw new RuntimeException(e);
+          final var resource = App.class.getResource("views/ChangeNode.fxml");
+          final FXMLLoader loader = new FXMLLoader(resource);
+          try {
+            changeBox = loader.load();
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+
+          // Set Location Name
+          TextField Location =
+              (TextField) ((Pane) (changeBox.getChildren().get(0))).getChildren().get(1);
+
+          ArrayList<LocationName> locations;
+          try {
+            locations = DataManager.getLocationNameByNode(nodeID, Timestamp.from(Instant.now()));
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          }
+
+          //          if(l)
+          if (locations.size() > 0) {
+            Location.setText(locations.get(0).getLongName());
+          }
+
+          // Set X
+          TextField XText =
+              (TextField) ((Pane) (changeBox.getChildren().get(1))).getChildren().get(1);
+          XText.setText("" + nodeCords.getX());
+          // Set Y
+          TextField YText =
+              (TextField) ((Pane) (changeBox.getChildren().get(2))).getChildren().get(1);
+          YText.setText("" + nodeCords.getY());
+
+          Node currNode;
+
+          try {
+            //            System.out.println("Add");
+            currNode = DataManager.getNode(nodeID);
+          } catch (Exception e2) {
+            //            System.out.println("RTE");
+            throw new RuntimeException(e2);
+          }
+
+          TextField floorText =
+              (TextField) ((Pane) (changeBox.getChildren().get(3))).getChildren().get(1);
+
+          TextField buildingText =
+              (TextField) ((Pane) (changeBox.getChildren().get(4))).getChildren().get(1);
+
+          if (currNode != null) {
+            floorText.setText(currNode.getFloor());
+            buildingText.setText(currNode.getBuilding());
+          }
+
+          // Set Remove Node. On Click
+          MFXButton removeNodeButton =
+              (MFXButton) ((Pane) (changeBox.getChildren().get(7))).getChildren().get(0);
+          removeNodeButton.setOnMouseClicked(removeNode);
+          // Set Submit
+          MFXButton submitButton =
+              (MFXButton) ((Pane) (changeBox.getChildren().get(7))).getChildren().get(1);
+          submitButton.setOnMouseClicked(saveNodeChanges);
+
+          changeBox.getChildren().remove(6);
+          changeBox.getChildren().remove(5);
+          //          changeBox.getChildren().remove(0);
+
+          System.out.println("AddBox");
+
+          p.getChildren().addAll(changeBox);
         }
-
-        // Set Location Name
-        TextField Location =
-                (TextField) ((Pane) (changeBox.getChildren().get(0))).getChildren().get(1);
-        try {
-          System.out.println("Start");
-          ArrayList<String> nodeInfo =
-                  DataManager.getUpdatedNodeInfo(nodeID, Timestamp.from(Instant.now()));
-          System.out.println(nodeInfo);
-          nodeInfo.add("Empty");
-          // Long Name, Building, Floor
-          Location.setText(nodeInfo.get(0));
-        } catch (Exception e) {
-          throw new RuntimeException(e);
-        }
-
-        // Set X
-        TextField XText =
-                (TextField) ((Pane) (changeBox.getChildren().get(1))).getChildren().get(1);
-        XText.setText("" + nodeCords.getX());
-        // Set Y
-        TextField YText =
-                (TextField) ((Pane) (changeBox.getChildren().get(2))).getChildren().get(1);
-        YText.setText("" + nodeCords.getY());
-
-        Node currNode = null;
-        try {
-          currNode = DataManager.getNode(nodeID);
-        } catch (Exception e2) {
-          throw new RuntimeException(e2);
-        }
-
-        TextField floorText =
-                (TextField) ((Pane) (changeBox.getChildren().get(3))).getChildren().get(1);
-//          floorText.setText(currNode.getFloor());
-        TextField buildingText =
-                (TextField) ((Pane) (changeBox.getChildren().get(4))).getChildren().get(1);
-//          buildingText.setText(currNode.getBuilding());
-
-        // Set Remove Node. On Click
-        MFXButton removeNodeButton =
-                (MFXButton) ((Pane) (changeBox.getChildren().get(7))).getChildren().get(0);
-        removeNodeButton.setOnMouseClicked(removeNode);
-        // Set Submit
-        MFXButton submitButton =
-                (MFXButton) ((Pane) (changeBox.getChildren().get(7))).getChildren().get(1);
-        submitButton.setOnMouseClicked(saveNodeChanges);
-
-        changeBox.getChildren().remove(6);
-        changeBox.getChildren().remove(5);
-        changeBox.getChildren().remove(0);
-
-        System.out.println("AddBox");
-
-        p.getChildren().addAll(changeBox);
-      }
-    };
+      };
 
   /**
    * An event handler to remove a node on mouse click.
@@ -278,7 +299,8 @@ public class NodeCircle {
           TextField xText = (TextField) ((Pane) (v.getChildren().get(0))).getChildren().get(1);
           TextField yText = (TextField) ((Pane) (v.getChildren().get(1))).getChildren().get(1);
           TextField floorText = (TextField) ((Pane) (v.getChildren().get(2))).getChildren().get(1);
-          TextField buildingText = (TextField) ((Pane) (v.getChildren().get(3))).getChildren().get(1);
+          TextField buildingText =
+              (TextField) ((Pane) (v.getChildren().get(3))).getChildren().get(1);
 
           Node currNode = null;
           try {
@@ -327,6 +349,4 @@ public class NodeCircle {
           // Update Based On text
         }
       };
-
-
 }
