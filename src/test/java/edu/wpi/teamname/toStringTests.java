@@ -2,7 +2,8 @@ package edu.wpi.teamname;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import edu.wpi.teamname.database.Login;
+import edu.wpi.teamname.employees.Employee;
+import edu.wpi.teamname.employees.EmployeeType;
 import edu.wpi.teamname.navigation.*;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
 import edu.wpi.teamname.servicerequest.RequestType;
@@ -15,9 +16,13 @@ import org.junit.jupiter.api.Test;
 public class toStringTests {
 
   @Test
-  public void loginToString() {
-    Login login = new Login("test1", "test2");
-    assertEquals("[test1, whvw2]", login.toString());
+  public void employeeToString() {
+    Employee employee = new Employee("username", "password", 1, "First", "Last", false);
+    employee.addType(EmployeeType.JANITOR);
+    employee.addType(EmployeeType.STAFF);
+    assertEquals(
+        "Employee{username='username', password='password', employeeID=1, firstName='First', lastName='Last', type=[JANITOR, STAFF]}",
+        employee.toString());
   }
 
   @Test

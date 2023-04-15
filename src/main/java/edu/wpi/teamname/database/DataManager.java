@@ -1,5 +1,6 @@
 package edu.wpi.teamname.database;
 
+import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.navigation.*;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
@@ -191,15 +192,15 @@ public class DataManager {
   }
 
   /**
-   * This method updates an existing Login object in the "Login" table in the database with the new
-   * Login object.
+   * This method updates an existing Employee object in the "Employee" table in the database with
+   * the new Employee object.
    *
-   * @param login the new Login object to be updated in the "Login" table
+   * @param employee the new Employee object to be updated in the "Employee" table
    * @throws SQLException if there is a problem accessing the database
    */
-  public static void syncLogin(Login login) throws SQLException {
-    LoginDAOImpl loginDAO = new LoginDAOImpl();
-    loginDAO.sync(login);
+  public static void syncEmployee(Employee employee) throws SQLException {
+    EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
+    employeeDAO.sync(employee);
   }
 
   /**
@@ -318,14 +319,14 @@ public class DataManager {
   }
 
   /**
-   * This method adds a new Login object to the "Login" table in the database.
+   * This method adds a new Employee object to the "Employee" table in the database.
    *
-   * @param login the Login object to be added to the "Login" table
+   * @param employee the Employee object to be added to the "Employee" table
    * @throws SQLException if there is a problem accessing the database
    */
-  public static void addLogin(Login login) throws SQLException {
-    LoginDAOImpl loginDAO = new LoginDAOImpl();
-    loginDAO.add(login);
+  public static void addEmployee(Employee employee) throws SQLException {
+    EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
+    employeeDAO.add(employee);
   }
 
   /**
@@ -451,14 +452,14 @@ public class DataManager {
   }
 
   /**
-   * This method deletes the given Login object from the database
+   * This method deletes the given Employee object from the database
    *
-   * @param login the Login object that will be deleted in the database
+   * @param employee the Employee object that will be deleted in the database
    * @throws SQLException if there is a problem accessing the database
    */
-  public static void deleteLogin(Login login) throws SQLException {
-    LoginDAOImpl loginDAO = new LoginDAOImpl();
-    loginDAO.delete(login);
+  public static void deleteEmployee(Employee employee) throws SQLException {
+    EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
+    employeeDAO.delete(employee);
   }
 
   /**
@@ -576,13 +577,13 @@ public class DataManager {
   }
 
   /**
-   * The method retrieves all the Login objects from the "Login" table in the database.
+   * The method retrieves all the Employee objects from the "Employee" table in the database.
    *
-   * @return an ArrayList of the Login objects in the database
+   * @return an ArrayList of the Employee objects in the database
    * @throws SQLException if there is a problem accessing the database
    */
-  public static ArrayList<Login> getAllLogins() throws SQLException {
-    return (new LoginDAOImpl()).getAll();
+  public static ArrayList<Employee> getAllEmployees() throws SQLException {
+    return (new EmployeeDAOImpl()).getAll();
   }
 
   /**
@@ -682,16 +683,16 @@ public class DataManager {
   }
 
   /**
-   * This method retrieves a Login object with the specified username from the "Login" table in the
-   * database.
+   * This method retrieves a Employee object with the specified username from the "Employee" table
+   * in the database.
    *
-   * @param username the username of the Login object to retrieve from the "Login" table
-   * @return the Login object with the specified username, or null if not found
+   * @param username the username of the Employee object to retrieve from the "Employee" table
+   * @return the Employee object with the specified username, or null if not found
    * @throws SQLException if there is a problem accessing the database
    */
-  public static Login getLogin(String username) throws SQLException {
-    LoginDAOImpl loginDAO = new LoginDAOImpl();
-    return loginDAO.getLogin(username);
+  public static Employee getEmployee(String username) throws SQLException {
+    EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
+    return employeeDAO.getEmployee(username);
   }
 
   /**
@@ -879,13 +880,25 @@ public class DataManager {
   }
 
   /**
-   * Uploads CSV data to a PostgreSQL database table "Login"-also creates one if one does not exist
+   * Uploads CSV data to a PostgreSQL database table "Employee"-also creates one if one does not
+   * exist
    *
    * @param path a string that represents a file path (/ is illegal so you must use double//)
    * @throws SQLException if an error occurs while uploading the data to the database
    */
-  public static void uploadLogin(String path) throws SQLException, ParseException {
-    LoginDAOImpl.uploadLoginToPostgreSQL(path);
+  public static void uploadEmployee(String path) throws SQLException, ParseException {
+    EmployeeDAOImpl.uploadEmployeeToPostgreSQL(path);
+  }
+
+  /**
+   * Uploads CSV data to a PostgreSQL database table "EmployeeType"-also creates one if one does not
+   * exist
+   *
+   * @param path a string that represents a file path (/ is illegal so you must use double//)
+   * @throws SQLException if an error occurs while uploading the data to the database
+   */
+  public static void uploadEmployeeType(String path) throws SQLException, ParseException {
+    EmployeeDAOImpl.uploadEmployeeTypeToPostgreSQL(path);
   }
 
   /**
@@ -1001,15 +1014,42 @@ public class DataManager {
   }
 
   /**
-   * This method exports all the Login objects from the "Login" table in the database to a CSV file
-   * at the specified file path.
+   * This method exports all the Employee objects from the "Employee" table in the database to a CSV
+   * file at the specified file path.
    *
-   * @param path the file path of the CSV file to export the Login objects to
+   * @param path the file path of the CSV file to export the Employee objects to
    * @throws SQLException if there is a problem accessing the database
    * @throws IOException if there is a problem writing the CSV file
    */
-  public static void exportLoginToCSV(String path) throws SQLException, IOException {
-    LoginDAOImpl.exportLoginToCSV(path);
+  public static void exportEmployeeToCSV(String path) throws SQLException, IOException {
+    EmployeeDAOImpl.exportEmployeeToCSV(path);
+  }
+
+  /**
+   * This method exports all the EmployeeTypes from the "EmployeeType" table in the database to a
+   * CSV file at the specified file path.
+   *
+   * @param path the file path of the CSV file to export the EmployeeTypes to
+   * @throws SQLException if there is a problem accessing the database
+   * @throws IOException if there is a problem writing the CSV file
+   */
+  public static void exportEmployeeTypeToCSV(String path) throws SQLException, IOException {
+    EmployeeDAOImpl.exportEmployeeTypeToCSV(path);
+  }
+
+  /**
+   * This method exports all the Employee objects from the "Employee" table and all the
+   * EmployeeTypes from the "EmployeeType" table in the database to a CSV file at the specified file
+   * path. Will save the EmployeeTypes at path_employeeType.csv
+   *
+   * @param path the file path of the CSV file to export the Employees to
+   * @throws SQLException if there is a problem accessing the database
+   * @throws IOException if there is a problem writing the CSV file
+   */
+  public static void exportAllEmployeeDataToCSV(String path) throws SQLException, IOException {
+    EmployeeDAOImpl.exportEmployeeToCSV(path);
+    String typePath = path.replaceAll(".csv", "_employeeType.csv");
+    EmployeeDAOImpl.exportEmployeeTypeToCSV(typePath);
   }
 
   /**
@@ -1148,5 +1188,18 @@ public class DataManager {
   public static ArrayList<Room> getAllRoomsCalculatedByLocationName(Timestamp timestamp)
       throws SQLException {
     return LocationNameDAOImpl.getAllRoomsCalculatedByLongName(timestamp);
+  }
+
+  /**
+   * conencts to the employee database and checks if the given username and pass are valid returns
+   * the Employee if it exists
+   *
+   * @param username the username to check
+   * @param password the password to check
+   * @return the Employee if it exists and is correct, null if no
+   * @throws SQLException
+   */
+  public static Employee checkLogin(String username, String password) throws SQLException {
+    return EmployeeDAOImpl.checkLogin(username, password);
   }
 }
