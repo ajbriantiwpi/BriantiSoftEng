@@ -89,6 +89,36 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
     return list;
   }
 
+  public ArrayList<String> getAllIDs() throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    ArrayList<String> list = new ArrayList<String>();
+
+    try (connection) {
+      String query = "SELECT * FROM \"ServiceRequest\"";
+      PreparedStatement statement = connection.prepareStatement(query);
+      ResultSet rs = statement.executeQuery();
+
+      while (rs.next()) {
+        int requestID = rs.getInt("requestID");
+        list.add(
+            String.valueOf(requestID)
+            //                new ServiceRequest(
+            //                        requestID,
+            //                        staffName,
+            //                        patientName,
+            //                        roomNum,
+            //                        deliverBy,
+            //                        requestedAt,
+            //                        status,
+            //                        requestMadeBy,
+            //                        requestType)
+            );
+      }
+    }
+    connection.close();
+    return list;
+  }
+
   /**
    * Adds a service request to the database, along with the corresponding order of items.
    *

@@ -14,7 +14,7 @@ public enum Screen {
   //  REQ_MENU("views/ServiceRequestMenu.fxml"),
   LOGIN("views/Login.fxml"),
   //  SIGNAGE("views/SignageLevels.fxml"),
-  SERVICE_REQUEST_VIEW("views/ServiceRequestView.fxml"),
+  SERVICE_REQUEST_VIEW("views/ServiceRequestView2.fxml"),
 
   MAP_EDIT("views/MapEdit.fxml");
   private final String filename;

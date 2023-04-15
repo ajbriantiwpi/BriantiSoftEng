@@ -572,6 +572,10 @@ public class DataManager {
     return (new ServiceRequestDAOImpl()).getAll();
   }
 
+  public static ArrayList<String> getAllRequestIDs() throws SQLException {
+    return (new ServiceRequestDAOImpl()).getAllIDs();
+  }
+
   /**
    * The method retrieves all the Employee objects from the "Employee" table in the database.
    *
@@ -580,6 +584,10 @@ public class DataManager {
    */
   public static ArrayList<Employee> getAllEmployees() throws SQLException {
     return (new EmployeeDAOImpl()).getAll();
+  }
+
+  public static ArrayList<String> getAllUsernames() throws SQLException {
+    return (new EmployeeDAOImpl()).getAllUsernames();
   }
 
   /**
