@@ -1,21 +1,22 @@
 package edu.wpi.teamname.employees;
 
+import edu.wpi.teamname.database.DataManager;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
-import edu.wpi.teamname.database.DataManager;
 import lombok.Getter;
 import lombok.Setter;
 
 public class Employee {
   @Getter @Setter private String username;
   @Getter @Setter private String password;
+  @Getter @Setter private int employeeID;
+  @Getter @Setter private String firstName;
+  @Getter @Setter private String lastName;
   @Getter private final String originalUsername;
   @Getter private ArrayList<EmployeeType> type;
-
 
   /**
    * Constructor for login that sets the username and password for every instance of someone logging
@@ -24,12 +25,26 @@ public class Employee {
    * @param username
    * @param password
    */
-  public Employee(String username, String password) {
+  public Employee(
+      String username, String password, int employeeID, String firstName, String lastName) {
     type = new ArrayList<EmployeeType>();
     this.username = username;
     this.originalUsername = username;
+    this.employeeID = employeeID;
+    this.firstName = firstName;
+    this.lastName = lastName;
     // encrypt the password using Caesar cipher
     this.password = encrypt(password, 3);
+  }
+
+  public void addType(EmployeeType employeeType) {
+    if (!type.contains(employeeType)) {
+      type.add(employeeType);
+    }
+  }
+
+  public void removeType(EmployeeType employeeType) {
+    type.remove(employeeType);
   }
 
   public boolean LogInto() throws SQLException {
@@ -47,14 +62,14 @@ public class Employee {
       rs.next();
       int count = rs.getInt(1);
       if (count == 1) {
-        if (admin) {
+        if (type.contains(EmployeeType.ADMIN)) {
           System.out.println("Welcome Admin " + username + "!");
           // ADMIN IS TRUE
         } else {
           System.out.println("Welcome " + username + "!");
           // ADMIN IS FALSE
         }
-        user = this;
+
         done = true;
       } else if (count == 0) {
         done = false;
@@ -95,7 +110,7 @@ public class Employee {
     String encryptedPass = encrypt(newPass, 3);
     this.password = encryptedPass;
     String query =
-        "UPDATE \"Login\" SET password = '"
+        "UPDATE \"Employee\" SET password = '"
             + encryptedPass
             + "' WHERE username = '"
             + username
@@ -110,11 +125,29 @@ public class Employee {
     return newPass;
   }
 
+  @Override
   public String toString() {
-    return "[" + username + ", " + password + "]";
+    return "Employee{"
+        + "username='"
+        + username
+        + '\''
+        + ", password='"
+        + password
+        + '\''
+        + ", employeeID="
+        + employeeID
+        + ", firstName='"
+        + firstName
+        + '\''
+        + ", lastName='"
+        + lastName
+        + '\''
+        + ", type="
+        + type
+        + '}';
   }
 
-  private String encrypt(String plaintext, int shift) {
+  public String encrypt(String plaintext, int shift) {
     StringBuilder ciphertext = new StringBuilder();
     for (int i = 0; i < plaintext.length(); i++) {
       char c = plaintext.charAt(i);

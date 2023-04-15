@@ -2,7 +2,7 @@ package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.LoginDAO;
 import edu.wpi.teamname.employees.Employee;
-
+import edu.wpi.teamname.employees.EmployeeType;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,87 +16,166 @@ public class EmployeeDAOImpl implements LoginDAO {
    * This method updates an existing Login object in the "Login" table in the database with the new
    * Login object.
    *
-   * @param login the new Login object to be updated in the "Login" table
+   * @param employee the new Login object to be updated in the "Login" table
    * @throws SQLException if there is a problem accessing the database
    */
   @Override
-  public void sync(Employee login) throws SQLException {
+  public void sync(Employee employee) throws SQLException {
     Connection connection = DataManager.DbConnection();
-    try (connection) {
-      String query =
-          "UPDATE \"Login\" SET \"password\" = ?, \"username\" = ? WHERE \"username\" = ?";
-      PreparedStatement statement = connection.prepareStatement(query);
-      statement.setString(1, login.getPassword());
-      statement.setString(2, login.getUsername());
-      statement.setString(3, login.getOriginalUsername());
+    String query = "";
+    PreparedStatement statement = null;
+    try {
+      // Updating data in employee
+      query =
+          "UPDATE \"Employee\" SET \"password\" = ?, \"username\" = ?, \"employeeID\" = ?, \"firstName\" = ?, \"lastName\" = ? WHERE \"username\" = ?";
+      statement = connection.prepareStatement(query);
+      statement.setString(1, employee.getPassword());
+      statement.setString(2, employee.getUsername());
+      statement.setInt(3, employee.getEmployeeID());
+      statement.setString(4, employee.getFirstName());
+      statement.setString(5, employee.getLastName());
+      statement.setString(6, employee.getOriginalUsername());
       statement.executeUpdate();
     } catch (SQLException e) {
       System.out.println(e.getMessage());
+    }
+
+    // Adding new types
+    for (EmployeeType type : employee.getType()) {
+      connection = DataManager.DbConnection();
+      query = "SELECT count(*) count FROM \"EmployeeType\" WHERE \"username\" = ? AND \"type\" = ?";
+      statement = connection.prepareStatement(query);
+      statement.setString(1, employee.getUsername());
+      statement.setString(2, type.getString());
+      ResultSet rs = statement.executeQuery();
+      int num = 0;
+      while (rs.next()) {
+        num = rs.getInt("count");
+      }
+      if (num == 0) {
+        query = "INSERT INTO \"EmployeeType\" (username, type) VALUES (?, ?)";
+        statement = connection.prepareStatement(query);
+        statement.setString(1, employee.getUsername());
+        statement.setString(2, type.getString());
+        statement.executeUpdate();
+      }
+    }
+
+    // Deleting old types
+    connection = DataManager.DbConnection();
+    query = "SELECT type FROM \"EmployeeType\" WHERE username = ?";
+    statement = connection.prepareStatement(query);
+    statement.setString(1, employee.getUsername());
+    ResultSet rs = statement.executeQuery();
+    while (rs.next()) {
+      EmployeeType dbEmployeeType = EmployeeType.valueOf(rs.getString("type"));
+      if (!employee.getType().contains(dbEmployeeType)) {
+        query = "DELETE FROM \"EmployeeType\" WHERE username = ? AND type = ?";
+        connection = DataManager.DbConnection();
+        statement = connection.prepareStatement(query);
+        statement.setString(1, employee.getUsername());
+        statement.setString(2, dbEmployeeType.getString());
+        statement.executeUpdate();
+      }
     }
     connection.close();
   }
 
   /**
-   * The method retrieves all the Login objects from the "Login" table in the database.
+   * The method retrieves all the Employee objects from the "Employee" table in the database.
    *
-   * @return an ArrayList of the Login objects in the database
+   * @return an ArrayList of the Employee objects in the database
    * @throws SQLException if there is a problem accessing the database
    */
   @Override
   public ArrayList<Employee> getAll() throws SQLException {
     Connection connection = DataManager.DbConnection();
     ArrayList<Employee> list = new ArrayList<Employee>();
-    try (connection) {
-      String query = "SELECT * FROM \"Login\"";
-      Statement statement = connection.createStatement();
-      ResultSet rs = statement.executeQuery(query);
+    try {
+      String query = "SELECT * FROM \"Employee\"";
+      PreparedStatement statement = connection.prepareStatement(query);
+      ResultSet rs = statement.executeQuery();
 
       while (rs.next()) {
         String usern = rs.getString("username");
         String passw = rs.getString("password");
-        list.add(new Employee(usern, passw));
+        int id = rs.getInt("employeeID");
+        String fname = rs.getString("firstName");
+        String lname = rs.getString("lastName");
+        Employee employee = new Employee(usern, passw, id, fname, lname);
+        query = "SELECT type FROM \"EmployeeType\" WHERE username = ?";
+        connection = DataManager.DbConnection();
+        statement = connection.prepareStatement(query);
+        int one = 1;
+        statement.setString(one, employee.getUsername());
+        ResultSet rs2 = statement.executeQuery();
+        while (rs2.next()) {
+          employee.addType(EmployeeType.valueOf(rs2.getString("type")));
+        }
+        list.add(employee);
       }
     } catch (SQLException e) {
-      System.out.println("Get all Logins error.");
+      System.out.println("Get all Employees error.");
     }
     return list;
   }
 
   /**
-   * This method adds a new Login object to the "Login" table in the database.
+   * This method adds a new Employee object to the "Employee" table in the database.
    *
-   * @param login the Login object to be added to the "Login" table
+   * @param employee the Employee object to be added to the "Employee" table
    * @throws SQLException if there is a problem accessing the database
    */
   @Override
-  public void add(Employee login) throws SQLException {
+  public void add(Employee employee) throws SQLException {
     Connection connection = DataManager.DbConnection();
-    String query = "INSERT INTO \"Login\" (username, password) " + "VALUES (?, ?)";
+    String query =
+        "INSERT INTO \"Employee\" (username, password, \"employeeID\", \"firstName\", \"lastName\") "
+            + "VALUES (?, ?, ?, ?, ?)";
 
-    try (connection) {
+    try {
       PreparedStatement statement = connection.prepareStatement(query);
-      statement.setString(1, login.getUsername());
-      statement.setString(2, login.getPassword());
+      statement.setString(1, employee.getUsername());
+      statement.setString(2, employee.getPassword());
+      statement.setInt(3, employee.getEmployeeID());
+      statement.setString(4, employee.getFirstName());
+      statement.setString(5, employee.getLastName());
       statement.executeUpdate();
-      System.out.println("Login information has been successfully added to the database.");
+
+      for (EmployeeType type : employee.getType()) {
+        query = "INSERT INTO \"EmployeeType\" (username, type) VALUES (?, ?)";
+        connection = DataManager.DbConnection();
+        statement = connection.prepareStatement(query);
+        statement.setString(1, employee.getUsername());
+        statement.setString(2, type.getString());
+        statement.executeUpdate();
+      }
+      System.out.println("Employee information has been successfully added to the database.");
     } catch (SQLException e) {
       System.err.println("Error adding Login information to database: " + e.getMessage());
     }
   }
 
   /**
-   * This method deletes the given Login object from the database
+   * This method deletes the given Employee object from the database
    *
-   * @param login the Login object that will be deleted in the database
+   * @param employee the Employee object that will be deleted in the database
    * @throws SQLException if there is a problem accessing the database
    */
   @Override
-  public void delete(Employee login) throws SQLException {
+  public void delete(Employee employee) throws SQLException {
     Connection connection = DataManager.DbConnection();
-    String query = "Delete from \"Login\" where username = ?";
+    String query = "Delete from \"Employee\" where username = ?";
 
-    try (PreparedStatement statement = connection.prepareStatement(query)) {
-      statement.setString(1, login.getUsername());
+    try {
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setString(1, employee.getUsername());
+      statement.executeUpdate();
+
+      query = "DELETE FROM \"EmployeeType\" WHERE username = ?";
+      connection = DataManager.DbConnection();
+      statement = connection.prepareStatement(query);
+      statement.setString(1, employee.getUsername());
       statement.executeUpdate();
     } catch (SQLException e) {
       System.out.println("Delete in Login table error. " + e);
@@ -114,38 +193,51 @@ public class EmployeeDAOImpl implements LoginDAO {
   }
 
   /**
-   * This method retrieves a Login object with the specified username from the "Login" table in the
-   * database.
+   * This method retrieves a Employee object with the specified username from the "Employee" table
+   * in the database.
    *
-   * @param username the username of the Login object to retrieve from the "Login" table
+   * @param username the username of the username object to retrieve from the "Employee" table
    * @return the Login object with the specified username, or null if not found
    * @throws SQLException if there is a problem accessing the database
    */
-  public static Employee getLogin(String username) throws SQLException {
+  public static Employee getEmployee(String username) throws SQLException {
     Connection connection = DataManager.DbConnection();
-    String query = "SELECT * FROM \"Login\" WHERE \"username\" = ?";
-    Employee login = null;
-    try (connection) {
+    String query = "SELECT * FROM \"Employee\" WHERE \"username\" = ?";
+    Employee employee = null;
+    try {
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setString(1, username);
       ResultSet rs = statement.executeQuery();
-
-      String user = rs.getString("username");
-      String pass = rs.getString("password");
-      login = (new Employee(user, pass));
+      while (rs.next()) {
+        String user = rs.getString("username");
+        String pass = rs.getString("password");
+        int id = rs.getInt("employeeID");
+        String fname = rs.getString("firstName");
+        String lname = rs.getString("lastName");
+        employee = (new Employee(user, pass, id, fname, lname));
+      }
+      query = "SELECT type FROM \"EmployeeType\" WHERE \"username\" = ?";
+      connection = DataManager.DbConnection();
+      statement = connection.prepareStatement(query);
+      statement.setString(1, username);
+      ResultSet rs2 = statement.executeQuery();
+      while (rs2.next()) {
+        employee.addType(EmployeeType.valueOf(rs2.getString("type")));
+      }
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }
-    return login;
+
+    return employee;
   }
 
   /**
-   * Uploads CSV data to a PostgreSQL database table "Login"
+   * Uploads CSV data to a PostgreSQL database table "Employee"
    *
    * @param csvFilePath is a String representing a file path
    * @throws SQLException if an error occurs while uploading the data to the database
    */
-  public static void uploadLoginToPostgreSQL(String csvFilePath)
+  public static void uploadEmployeeToPostgreSQL(String csvFilePath)
       throws SQLException, ParseException {
     List<String[]> csvData;
     Connection connection = DataManager.DbConnection();
@@ -153,8 +245,9 @@ public class EmployeeDAOImpl implements LoginDAO {
     csvData = dataImport.parseCSVAndUploadToPostgreSQL(csvFilePath);
 
     try (connection) {
-      String query = "INSERT INTO \"Login\" (\"username\", \"password\") VALUES (?, ?)";
-      PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"Login\";");
+      String query =
+          "INSERT INTO \"Employee\" (\"username\", \"password\", \"employeeID\", \"firstName\", \"lastName\") VALUES (?, ?, ?, ?, ?)";
+      PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"Employee\";");
       statement.executeUpdate();
       statement = connection.prepareStatement(query);
 
@@ -162,6 +255,9 @@ public class EmployeeDAOImpl implements LoginDAO {
         String[] row = csvData.get(i);
         statement.setString(1, row[0]); // username is a string column
         statement.setString(2, row[1]); // password is a string column
+        statement.setInt(3, Integer.parseInt(row[2]));
+        statement.setString(4, row[3]);
+        statement.setString(5, row[4]);
         statement.executeUpdate();
       }
       System.out.println("CSV data uploaded to PostgreSQL database");
@@ -171,24 +267,86 @@ public class EmployeeDAOImpl implements LoginDAO {
   }
 
   /**
-   * Exports data from a PostgreSQL database table "Login" to a CSV file
+   * Uploads CSV data to a PostgreSQL database table "EmployeeType"
+   *
+   * @param csvFilePath is a String representing a file path
+   * @throws SQLException if an error occurs while uploading the data to the database
+   */
+  public static void uploadEmployeeTypeToPostgreSQL(String csvFilePath)
+      throws SQLException, ParseException {
+    List<String[]> csvData;
+    Connection connection = DataManager.DbConnection();
+    DataManager dataImport = new DataManager();
+    csvData = dataImport.parseCSVAndUploadToPostgreSQL(csvFilePath);
+
+    try (connection) {
+      String query = "INSERT INTO \"EmployeeType\" (\"username\", type) VALUES (?, ?)";
+      PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"EmployeeType\";");
+      statement.executeUpdate();
+      statement = connection.prepareStatement(query);
+
+      for (int i = 1; i < csvData.size(); i++) {
+        String[] row = csvData.get(i);
+        statement.setString(1, row[0]); // username is a string column
+        statement.setString(2, row[1]); // type is a string column
+        statement.executeUpdate();
+      }
+      System.out.println("CSV data uploaded to PostgreSQL database");
+    } catch (SQLException e) {
+      System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
+    }
+  }
+
+  /**
+   * Exports data from a PostgreSQL database table "Employee" to a CSV file
    *
    * @param csvFilePath is a String representing a file path
    * @throws SQLException if an error occurs while exporting the data from the database
    */
-  public static void exportLoginToCSV(String csvFilePath) throws SQLException, IOException {
+  public static void exportEmployeeToCSV(String csvFilePath) throws SQLException, IOException {
     Connection connection = DataManager.DbConnection();
-    String query = "SELECT * FROM \"Login\"";
-    Statement statement = connection.createStatement();
-    ResultSet resultSet = statement.executeQuery(query);
+    String query = "SELECT * FROM \"Employee\"";
+    PreparedStatement statement = connection.prepareStatement(query);
+    ResultSet resultSet = statement.executeQuery();
 
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(csvFilePath))) {
-      writer.write("username,password\n");
+      writer.write("username,password,employeeID,firstName,lastName\n");
       while (resultSet.next()) {
         String username = resultSet.getString("username");
         String password = resultSet.getString("password");
+        int employeeID = resultSet.getInt("employeeID");
+        String fname = resultSet.getString("firstName");
+        String lname = resultSet.getString("lastName");
 
-        String row = username + "," + password + "\n";
+        String row =
+            username + "," + password + "," + employeeID + "," + fname + "," + lname + "\n";
+        writer.write(row);
+      }
+      System.out.println("CSV data downloaded from PostgreSQL database");
+    } catch (IOException e) {
+      System.err.println("Error downloading CSV data from PostgreSQL database: " + e.getMessage());
+    }
+  }
+
+  /**
+   * Exports data from a PostgreSQL database table "EmployeeType" to a CSV file
+   *
+   * @param csvFilePath is a String representing a file path
+   * @throws SQLException if an error occurs while exporting the data from the database
+   */
+  public static void exportEmployeeTypeToCSV(String csvFilePath) throws SQLException, IOException {
+    Connection connection = DataManager.DbConnection();
+    String query = "SELECT * FROM \"EmployeeType\"";
+    PreparedStatement statement = connection.prepareStatement(query);
+    ResultSet resultSet = statement.executeQuery();
+
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(csvFilePath))) {
+      writer.write("username,type\n");
+      while (resultSet.next()) {
+        String username = resultSet.getString("username");
+        String type = resultSet.getString("type");
+
+        String row = username + "," + type + "\n";
         writer.write(row);
       }
       System.out.println("CSV data downloaded from PostgreSQL database");
