@@ -277,8 +277,8 @@ public class LocationNameDAOImpl implements LocationNameDAO {
 
   /**
    * Returns a Room object containing all information about the node with the given longName. The
-   * information includes the locationName's nodeID, short name, coordinates, node type, building, floor,
-   * and the most recent date when the node's location was updated. The function queries the
+   * information includes the locationName's nodeID, short name, coordinates, node type, building,
+   * floor, and the most recent date when the node's location was updated. The function queries the
    * database and joins the "LocationName" and "Move" tables to retrieve the necessary information.
    * It also filters the results by selecting only the information for the node with the given ID
    * and the most recent date prior to the current time. If no information is found for the given
@@ -289,27 +289,29 @@ public class LocationNameDAOImpl implements LocationNameDAO {
    *     found
    * @throws SQLException if there is an error accessing the database
    */
-  public static Room getAllInfoOfLocationName(String name, Timestamp timestamp) throws SQLException {
+  public static Room getAllInfoOfLocationName(String name, Timestamp timestamp)
+      throws SQLException {
     Connection connection = DataManager.DbConnection();
-    String query = "SELECT \"nodeID\", \"longName\", \"shortName\", xcoord, ycoord, \"nodeType\", building, floor, j.date\n" +
-            "FROM (SELECT n.\"longName\", \"shortName\", n.\"nodeID\", \"nodeType\", xcoord, ycoord, building, floor, date\n" +
-            "      FROM \"LocationName\",\n" +
-            "           (select \"Move\".\"nodeID\", xcoord, ycoord, floor, building, \"longName\", date\n" +
-            "            FROM \"Node\", \"Move\"\n" +
-            "            where \"Node\".\"nodeID\" = \"Move\".\"nodeID\") n\n" +
-            "      WHERE \"LocationName\".\"longName\" = n.\"longName\") j,\n" +
-            "     (SELECT max(date) AS date\n" +
-            "      FROM (SELECT date\n" +
-            "            FROM (SELECT n.\"longName\", date\n" +
-            "                  FROM \"LocationName\",\n" +
-            "                       (select \"Move\".\"nodeID\", xcoord, ycoord, floor, building, \"longName\", date\n" +
-            "                        FROM \"Node\", \"Move\"\n" +
-            "                        where \"Node\".\"nodeID\" = \"Move\".\"nodeID\") n\n" +
-            "                  WHERE \"LocationName\".\"longName\" = n.\"longName\") j\n" +
-            "            WHERE date < ?\n" +
-            "              AND j.\"longName\" = ?) l) q\n" +
-            "WHERE j.date = q.date\n" +
-            "  AND j.\"longName\" = ?;";
+    String query =
+        "SELECT \"nodeID\", \"longName\", \"shortName\", xcoord, ycoord, \"nodeType\", building, floor, j.date\n"
+            + "FROM (SELECT n.\"longName\", \"shortName\", n.\"nodeID\", \"nodeType\", xcoord, ycoord, building, floor, date\n"
+            + "      FROM \"LocationName\",\n"
+            + "           (select \"Move\".\"nodeID\", xcoord, ycoord, floor, building, \"longName\", date\n"
+            + "            FROM \"Node\", \"Move\"\n"
+            + "            where \"Node\".\"nodeID\" = \"Move\".\"nodeID\") n\n"
+            + "      WHERE \"LocationName\".\"longName\" = n.\"longName\") j,\n"
+            + "     (SELECT max(date) AS date\n"
+            + "      FROM (SELECT date\n"
+            + "            FROM (SELECT n.\"longName\", date\n"
+            + "                  FROM \"LocationName\",\n"
+            + "                       (select \"Move\".\"nodeID\", xcoord, ycoord, floor, building, \"longName\", date\n"
+            + "                        FROM \"Node\", \"Move\"\n"
+            + "                        where \"Node\".\"nodeID\" = \"Move\".\"nodeID\") n\n"
+            + "                  WHERE \"LocationName\".\"longName\" = n.\"longName\") j\n"
+            + "            WHERE date < ?\n"
+            + "              AND j.\"longName\" = ?) l) q\n"
+            + "WHERE j.date = q.date\n"
+            + "  AND j.\"longName\" = ?;";
     Room room = null;
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
@@ -337,11 +339,10 @@ public class LocationNameDAOImpl implements LocationNameDAO {
     return room;
   }
 
-
-  /***
-   * Gets an arraylist of the combination of Nodes and LocationNames based upon the moves.
-   * This info is gotten through looking at the most up-to-date information of the longNames
-   * See getAllRoomsCalculatedByNodeID(Timestamp) for calculations based upon nodeID's
+  /**
+   * * Gets an arraylist of the combination of Nodes and LocationNames based upon the moves. This
+   * info is gotten through looking at the most up-to-date information of the longNames See
+   * getAllRoomsCalculatedByNodeID(Timestamp) for calculations based upon nodeID's
    *
    * @param timestamp the timestamp to filter by
    * @return the list of rooms calculated by long name at the given timestamp

@@ -328,10 +328,10 @@ public class NodeDAOImpl implements NodeDAO {
     return room;
   }
 
-  /***
-   * Gets an arraylist of the combination of Nodes and LocationNames based upon the moves.
-   * This info is gotten through looking at the most up-to-date information of the node IDs
-   * See getAllRoomsCalculatedByLongName(Timestamp) for calculations based upon longNames
+  /**
+   * * Gets an arraylist of the combination of Nodes and LocationNames based upon the moves. This
+   * info is gotten through looking at the most up-to-date information of the node IDs See
+   * getAllRoomsCalculatedByLongName(Timestamp) for calculations based upon longNames
    *
    * @param timestamp the timestamp to filter by
    * @return the list of rooms calculated by node ID at the given timestamp

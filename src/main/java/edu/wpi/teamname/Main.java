@@ -3,6 +3,7 @@ package edu.wpi.teamname;
 import edu.wpi.teamname.database.DataManager;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.ParseException;
 
 public class Main {
@@ -10,11 +11,10 @@ public class Main {
     // Singleton is in DataManager, function has it so it will only return one connection when
     // called
     DataManager.configConnection(
-        "jdbc:postgresql://database.cs.wpi.edu:5432/teamddb?currentSchema=\"teamD\"",
-        "teamd",
-        "teamd40");
-    // App.launch(App.class, args);
-
+            "jdbc:postgresql://database.cs.wpi.edu:5432/teamddb?currentSchema=\"teamD\"",
+            "teamd",
+            "teamd40");
+    App.launch(App.class, args);
   }
 
   // shortcut: psvm
