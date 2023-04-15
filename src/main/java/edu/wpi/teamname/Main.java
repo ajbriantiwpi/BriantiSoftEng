@@ -10,9 +10,9 @@ public class Main {
     // Singleton is in DataManager, function has it so it will only return one connection when
     // called
     DataManager.configConnection(
-        "jdbc:postgresql://database.cs.wpi.edu:5432/teamddb?currentSchema=\"teamD\"",
-        "teamd",
-        "teamd40");
+            "jdbc:postgresql://database.cs.wpi.edu:5432/teamddb?currentSchema=\"teamD\"",
+            "teamd",
+            "teamd40");
     App.launch(App.class, args);
   }
 

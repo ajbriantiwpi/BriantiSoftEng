@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import edu.wpi.teamname.database.DataManager;
-import edu.wpi.teamname.database.Login;
+import edu.wpi.teamname.employees.Employee;
 import java.sql.SQLException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,52 +21,65 @@ public class LoginTest {
   }
 
   @Test
-  public void testLoginto() throws SQLException {
-    Login l = new Login("admin", "admin");
-    assertEquals(l.LogInto(), true);
+  public void testGoodLogin() throws SQLException {
+    Employee employee = DataManager.checkLogin("admin", "admin");
+    assertNotNull(employee);
   }
 
   @Test
-  public void testLogintofail() throws SQLException {
-    Login l = new Login("", "");
-    assertEquals(l.LogInto(), false);
+  public void testFailedPassword() throws SQLException {
+    Employee employee = DataManager.checkLogin("admin", "badadmin");
+    assertNull(employee);
   }
 
   @Test
-  public void setLogin() throws SQLException {
-    Login l = new Login("", "");
-    l.setLogin("Hunter1!", "Poulin");
-    // if inputed things r in table it works:
+  public void testFailedUsername() throws SQLException {
+    Employee employee = DataManager.checkLogin("NOTAUSER___________", "admin");
+    assertNull(employee);
   }
 
   @Test
+  public void setLoginUser() throws SQLException {
+    Employee employee = new Employee("tset", "pass", 1, "first", "kast", true);
+    employee.setLogin("newuser", "newpAss1##_");
+    assertEquals("newuser", employee.getUsername());
+  }
+
+  @Test
+  public void setLoginPass() throws SQLException {
+    Employee employee = new Employee("tset", "pass", 1, "first", "kast", true);
+    employee.setLogin("newuser", "newpAss1##_");
+    assertEquals("qhzsDvv1##_", employee.getPassword());
+  }
+
+  /*@Test
   public void testResetPass() throws SQLException {
-    Login l = new Login("Hunter1!", "Poulin");
+    LoginController.forgotPasswordPressed("")
     assertEquals(l.resetPass("Wong"), "Wong");
     // in table if password is not "Poulin anymore"
-  }
+  }*/
 
   @Test
   public void testEncrypt() {
-    Login l = new Login("user", "toencypt");
-    assertEquals("wrhqfbsw", l.getPassword());
+    Employee l = new Employee("user", "toencrypt", 0, "tes", "test", true);
+    assertEquals("wrhqfubsw", l.getPassword());
   }
 
   @Test
   public void testLegalLogin() {
-    Login l = new Login("user", "pass");
+    Employee l = new Employee("user", "test", 0, "tes", "test", true);
     assertTrue(!l.checkLegalLogin("small"));
   }
 
   @Test
   public void testLegalLogin2() {
-    Login l = new Login("user", "pass");
+    Employee l = new Employee("user", "test", 0, "tes", "test", true);
     assertTrue(!l.checkLegalLogin(";;;;badtest"));
   }
 
   @Test
   public void testLegalLogin3() {
-    Login l = new Login("user", "pass");
+    Employee l = new Employee("user", "test", 0, "tes", "test", true);
     assertTrue(l.checkLegalLogin("GoodPassword2!"));
   }
 }
