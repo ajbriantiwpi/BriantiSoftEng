@@ -1,15 +1,15 @@
 package edu.wpi.teamname.database.interfaces;
 
-import edu.wpi.teamname.database.Login;
+import edu.wpi.teamname.employees.Employee;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface LoginDAO extends DAO<Login> {
-  void sync(Login login) throws SQLException;
+public interface LoginDAO extends DAO<Employee> {
+  void sync(Employee login) throws SQLException;
 
-  ArrayList<Login> getAll() throws SQLException;
+  ArrayList<Employee> getAll() throws SQLException;
 
-  void add(Login login) throws SQLException;
+  void add(Employee login) throws SQLException;
 
-  void delete(Login login) throws SQLException;
+  void delete(Employee login) throws SQLException;
 }
