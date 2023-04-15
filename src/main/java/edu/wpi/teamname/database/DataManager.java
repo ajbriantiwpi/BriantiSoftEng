@@ -4,7 +4,6 @@ import edu.wpi.teamname.navigation.*;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import edu.wpi.teamname.servicerequest.requestitem.*;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -260,8 +259,8 @@ public class DataManager {
     officeSupplyDAO.sync(officeSupply);
   }
   /**
-   * This method updates an existing MedicalSupply object in the "MedicalSupply" table in the database
-   * with the new MedicalSupply object.
+   * This method updates an existing MedicalSupply object in the "MedicalSupply" table in the
+   * database with the new MedicalSupply object.
    *
    * @param medicalSupply the new MedicalSupply object to be updated in the "MedicalSupply" table
    * @throws SQLException if there is a problem accessing the database
@@ -981,8 +980,8 @@ public class DataManager {
   }
 
   /**
-   * Uploads CSV data to a PostgreSQL database table "MedicalSupply"-also creates one if one does not
-   * exist
+   * Uploads CSV data to a PostgreSQL database table "MedicalSupply"-also creates one if one does
+   * not exist
    *
    * @param path a string that represents a file path (/ is illegal so you must use double//)
    * @throws SQLException if an error occurs while uploading the data to the database
@@ -1123,8 +1122,8 @@ public class DataManager {
   }
 
   /**
-   * This method exports all the MedicalSupply objects from the "MedicalSupply" table in the database
-   * to a CSV file at the specified file path.
+   * This method exports all the MedicalSupply objects from the "MedicalSupply" table in the
+   * database to a CSV file at the specified file path.
    *
    * @param path the file path of the CSV file to export the MedicalSupply objects to
    * @throws SQLException if there is a problem accessing the database

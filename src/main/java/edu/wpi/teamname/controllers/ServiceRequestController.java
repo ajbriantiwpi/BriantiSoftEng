@@ -65,7 +65,11 @@ public class ServiceRequestController {
   ObservableList<String> timeValues = FXCollections.observableArrayList();
   ObservableList<String> serviceType =
       FXCollections.observableArrayList(
-          "Meal Delivery", "Flower Delivery", "Office Supply Delivery", "Furniture Delivery", "Medical Supply");
+          "Meal Delivery",
+          "Flower Delivery",
+          "Office Supply Delivery",
+          "Furniture Delivery",
+          "Medical Supply");
   @FXML ComboBox requestType;
 
   // menu item page
@@ -132,7 +136,7 @@ public class ServiceRequestController {
         ArrayList<OfficeSupply> tems = DataManager.getAllOfficeSupplies();
         items.addAll(tems);
         reqType = RequestType.OFFICESUPPLY;
-      } else if (requestType.getValue() == "Medical Supply Delivery" ){
+      } else if (requestType.getValue() == "Medical Supply Delivery") {
         folder = "MedicalIcons";
         ArrayList<MedicalSupply> temp = DataManager.getAllMedicalSupplies();
         items.addAll(temp);
