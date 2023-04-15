@@ -571,6 +571,10 @@ public class DataManager {
     return (new ServiceRequestDAOImpl()).getAll();
   }
 
+  public static ArrayList<String> getAllRequestIDs() throws SQLException {
+    return (new ServiceRequestDAOImpl()).getAllIDs();
+  }
+
   /**
    * The method retrieves all the Login objects from the "Login" table in the database.
    *
