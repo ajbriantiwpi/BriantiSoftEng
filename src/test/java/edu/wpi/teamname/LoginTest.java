@@ -1,7 +1,6 @@
 package edu.wpi.teamname;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.Employee;
@@ -12,12 +11,13 @@ import org.junit.jupiter.api.Test;
 public class LoginTest {
   // assertEquals(converter.toKibenian(), "I");
 
+
   @BeforeEach
   void setup() {
     DataManager.configConnection(
-        "jdbc:postgresql://database.cs.wpi.edu:5432/teamddb?currentSchema=\"teamD\"",
-        "teamd",
-        "teamd40");
+            "jdbc:postgresql://database.cs.wpi.edu:5432/teamddb?currentSchema=\"teamD\"",
+            "teamd",
+            "teamd40");
   }
 
   @Test
