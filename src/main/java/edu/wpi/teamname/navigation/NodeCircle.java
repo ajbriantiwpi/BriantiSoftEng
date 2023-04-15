@@ -5,8 +5,6 @@ import edu.wpi.teamname.database.DataManager;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.ArrayList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -62,8 +60,8 @@ public class NodeCircle {
 
     ArrayList<String> nameType = new ArrayList<>();
     try {
-      nameType = n.getShortName();
-    } catch (SQLException ex) {
+      nameType = null; // n.getShortName();
+    } catch (Exception ex) {
       System.out.println(ex.toString());
       System.out.println("Could not find info");
     }
@@ -233,7 +231,7 @@ public class NodeCircle {
 
           Node currNode = null;
           try {
-            currNode = DataManager.getSingleNodeInfo(nodeID).get(0);
+            currNode = DataManager.getNode(nodeID);
           } catch (SQLException e) {
             throw new RuntimeException(e);
           }
@@ -309,8 +307,8 @@ public class NodeCircle {
           TextField Location = (TextField) ((Pane) (v.getChildren().get(0))).getChildren().get(1);
           try {
             System.out.println("Start");
-            ArrayList<String> nodeInfo =
-                DataManager.getUpdatedNodeInfo(nodeID, Timestamp.from(Instant.now()));
+            ArrayList<String> nodeInfo = null;
+            // DataManager.getUpdatedNodeInfo(nodeID, Timestamp.from(Instant.now()));
             System.out.println(nodeInfo);
             nodeInfo.add("Empty");
             // Long Name, Building, Floor
@@ -330,7 +328,7 @@ public class NodeCircle {
 
           Node currNode = null;
           try {
-            currNode = DataManager.getSingleNodeInfo(nodeID).get(0);
+            currNode = DataManager.getNode(nodeID);
           } catch (SQLException e) {
             throw new RuntimeException(e);
           }

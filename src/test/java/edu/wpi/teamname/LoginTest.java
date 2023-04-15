@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 public class LoginTest {
   // assertEquals(converter.toKibenian(), "I");
-  // TODO MAKE WORK
+
   @BeforeEach
   void setup() {
     DataManager.configConnection(
@@ -50,36 +50,35 @@ public class LoginTest {
     employee.setLogin("newuser", "newpAss1##_");
     assertEquals("qhzsDvv1##_", employee.getPassword());
   }
-  /*
-  @Test
+
+  /*@Test
   public void testResetPass() throws SQLException {
-    // Employee l = new Employee("Hunter1!", "Poulin");
-    // assertEquals(l.resetPass("Wong"), "Wong");
-    // TODO FIX
+    LoginController.forgotPasswordPressed("")
+    assertEquals(l.resetPass("Wong"), "Wong");
     // in table if password is not "Poulin anymore"
-  }
+  }*/
 
   @Test
   public void testEncrypt() {
-    Employee l = new Employee("user", "toencypt");
-    assertEquals("wrhqfbsw", l.getPassword());
+    Employee l = new Employee("user", "toencrypt", 0, "tes", "test", true);
+    assertEquals("wrhqfubsw", l.getPassword());
   }
 
   @Test
   public void testLegalLogin() {
-    Employee l = new Employee("user", "pass");
+    Employee l = new Employee("user", "test", 0, "tes", "test", true);
     assertTrue(!l.checkLegalLogin("small"));
   }
 
   @Test
   public void testLegalLogin2() {
-    Employee l = new Employee("user", "pass");
+    Employee l = new Employee("user", "test", 0, "tes", "test", true);
     assertTrue(!l.checkLegalLogin(";;;;badtest"));
   }
 
   @Test
   public void testLegalLogin3() {
-    Employee l = new Employee("user", "pass");
+    Employee l = new Employee("user", "test", 0, "tes", "test", true);
     assertTrue(l.checkLegalLogin("GoodPassword2!"));
-  }*/
+  }
 }

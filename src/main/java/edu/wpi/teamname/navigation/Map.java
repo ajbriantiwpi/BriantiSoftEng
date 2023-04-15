@@ -304,9 +304,9 @@ public class Map {
       if (n.getFloor().equals(floor)) {
         ArrayList<String> nameType = new ArrayList<>();
         try {
-          nameType = n.getShortName();
-        } catch (SQLException ex) {
-          System.out.println(ex.toString());
+          nameType = null; // n.getShortName();
+        } catch (Exception ex) {
+          System.err.println(ex.toString());
           System.out.println("Could not find info");
         }
         // String shortName = "";

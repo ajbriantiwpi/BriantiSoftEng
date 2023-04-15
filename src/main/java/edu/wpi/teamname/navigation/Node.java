@@ -204,13 +204,13 @@ public class Node implements Comparable<Node> {
 
     return done;
   }
-
+  /*
   /**
    * Gets the short name for any node inputed
    *
    * @return
    * @throws SQLException
-   */
+
   public ArrayList<String> getShortName() throws SQLException {
     Connection connection = DataManager.DbConnection();
     ArrayList<String> a = new ArrayList<>();
@@ -236,5 +236,5 @@ public class Node implements Comparable<Node> {
       System.out.println("Error getting short name. " + e2);
     }
     return a;
-  }
+  }*/
 }
