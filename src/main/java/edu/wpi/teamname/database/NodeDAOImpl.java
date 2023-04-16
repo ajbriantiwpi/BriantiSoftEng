@@ -2,9 +2,7 @@ package edu.wpi.teamname.database;
 
 import com.sun.javafx.geom.Point2D;
 import edu.wpi.teamname.database.interfaces.NodeDAO;
-import edu.wpi.teamname.navigation.LocationName;
-import edu.wpi.teamname.navigation.Node;
-import edu.wpi.teamname.navigation.Room;
+import edu.wpi.teamname.navigation.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,23 +15,23 @@ public class NodeDAOImpl implements NodeDAO {
    * This method updates an existing Node object in the "Node" table in the database with the new
    * Node object.
    *
-   * @param node the new Node object to be updated in the "Node" table
+   * @param mapNode the new Node object to be updated in the "Node" table
    * @throws SQLException if there is a problem accessing the database
    */
   @Override
-  public void sync(Node node) throws SQLException {
+  public void sync(MapNode mapNode) throws SQLException {
     Connection connection = DataManager.DbConnection();
     try (connection) {
       String query =
           "UPDATE \"Node\" SET \"xcoord\" = ?, \"ycoord\" = ?, \"floor\" = ?, \"building\" = ?, \"nodeID\" = ?"
               + " WHERE \"nodeID\" = ?";
       PreparedStatement statement = connection.prepareStatement(query);
-      statement.setInt(1, node.getX());
-      statement.setInt(2, node.getY());
-      statement.setString(3, node.getFloor());
-      statement.setString(4, node.getBuilding());
-      statement.setInt(5, node.getId());
-      statement.setInt(6, node.getOriginalID());
+      statement.setInt(1, mapNode.getX());
+      statement.setInt(2, mapNode.getY());
+      statement.setString(3, mapNode.getFloor());
+      statement.setString(4, mapNode.getBuilding());
+      statement.setInt(5, mapNode.getId());
+      statement.setInt(6, mapNode.getOriginalID());
 
       statement.executeUpdate();
     } catch (SQLException e) {
@@ -49,9 +47,9 @@ public class NodeDAOImpl implements NodeDAO {
    * @throws SQLException if there is a problem accessing the database
    */
   @Override
-  public ArrayList<Node> getAll() throws SQLException {
+  public ArrayList<MapNode> getAll() throws SQLException {
     Connection connection = DataManager.DbConnection();
-    ArrayList<Node> list = new ArrayList<Node>();
+    ArrayList<MapNode> list = new ArrayList<MapNode>();
 
     try (connection) {
       String query = "SELECT * FROM \"Node\"";
@@ -64,7 +62,7 @@ public class NodeDAOImpl implements NodeDAO {
         int ycoord = rs.getInt("ycoord");
         String floor = rs.getString("floor");
         String building = rs.getString("building");
-        list.add(new Node(id, xcoord, ycoord, floor, building));
+        list.add(new MapNode(id, xcoord, ycoord, floor, building));
       }
     } catch (SQLException e) {
       System.out.println("Get all nodes error.");
@@ -75,11 +73,11 @@ public class NodeDAOImpl implements NodeDAO {
   /**
    * This method adds a new Node object to the "Node" table in the database.
    *
-   * @param node the Node object to be added to the "Node" table
+   * @param mapNode the Node object to be added to the "Node" table
    * @throws SQLException if there is a problem accessing the database
    */
   @Override
-  public void add(Node node) throws SQLException {
+  public void add(MapNode mapNode) throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query =
         "INSERT INTO \"Node\" (\"nodeID\", xcoord, ycoord, floor, building) "
@@ -87,11 +85,11 @@ public class NodeDAOImpl implements NodeDAO {
 
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
-      statement.setInt(1, node.getId());
-      statement.setInt(2, node.getX());
-      statement.setInt(3, node.getY());
-      statement.setString(4, node.getFloor());
-      statement.setString(5, node.getBuilding());
+      statement.setInt(1, mapNode.getId());
+      statement.setInt(2, mapNode.getX());
+      statement.setInt(3, mapNode.getY());
+      statement.setString(4, mapNode.getFloor());
+      statement.setString(5, mapNode.getBuilding());
       statement.executeUpdate();
       System.out.println("Node information has been successfully added to the database.");
     } catch (SQLException e) {
@@ -102,11 +100,11 @@ public class NodeDAOImpl implements NodeDAO {
   /**
    * This method deletes the given Node object from the database
    *
-   * @param node the Node object that will be deleted in the database
+   * @param mapNode the Node object that will be deleted in the database
    * @throws SQLException if there is a problem accessing the database
    */
   @Override
-  public void delete(Node node) throws SQLException {
+  public void delete(MapNode mapNode) throws SQLException {
     Connection connection = DataManager.DbConnection();
     String del = "Delete ";
     String sel = "Select * ";
@@ -114,7 +112,7 @@ public class NodeDAOImpl implements NodeDAO {
 
     try (PreparedStatement statement =
         connection.prepareStatement(del + "from \"Node\" WHERE \"nodeID\" = ?")) {
-      statement.setInt(1, node.getId());
+      statement.setInt(1, mapNode.getId());
       statement.executeUpdate();
     } catch (SQLException e) {
       System.out.println("Delete in Node table error. " + e);
@@ -221,10 +219,10 @@ public class NodeDAOImpl implements NodeDAO {
    * @return the Node object with the specified ID, or null if not found
    * @throws SQLException if there is a problem accessing the database
    */
-  public static Node getNode(int id) throws SQLException {
+  public static MapNode getNode(int id) throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query = "SELECT * FROM \"Node\" WHERE \"nodeID\" = ?";
-    Node node = null;
+    MapNode mapNode = null;
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, id);
@@ -235,11 +233,11 @@ public class NodeDAOImpl implements NodeDAO {
       int ycoord = rs.getInt("ycoord");
       String floor = rs.getString("floor");
       String building = rs.getString("building");
-      node = (new Node(nodeid, xcoord, ycoord, floor, building));
+      mapNode = (new MapNode(nodeid, xcoord, ycoord, floor, building));
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }
-    return node;
+    return mapNode;
   }
   /**
    * Display nodes located on every floor the parameter String is on within the "Node" table

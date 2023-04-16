@@ -32,10 +32,10 @@ public class Map {
   /**
    * Creates a path with circles representing the nodes from the given list of nodes.
    *
-   * @param nodes List of nodes to create the path from
+   * @param mapNodes List of nodes to create the path from
    * @return An ArrayList of Shape objects representing the path
    */
-  private ArrayList<Shape> makeShapePath(ArrayList<Node> nodes) {
+  private ArrayList<Shape> makeShapePath(ArrayList<MapNode> mapNodes) {
     ArrayList<Shape> shapes = new ArrayList<Shape>();
 
     Circle c;
@@ -50,27 +50,27 @@ public class Map {
       }
       path.setStrokeWidth(
           GlobalVariables.getLineT() - (GlobalVariables.getStrokeThickness() * 2 * j));
-      path.getElements().add(new MoveTo(nodes.get(0).getX(), nodes.get(0).getY()));
+      path.getElements().add(new MoveTo(mapNodes.get(0).getX(), mapNodes.get(0).getY()));
 
-      for (int i = 1; i < nodes.size(); i++) {
-        path.getElements().add(new LineTo(nodes.get(i).getX(), nodes.get(i).getY()));
+      for (int i = 1; i < mapNodes.size(); i++) {
+        path.getElements().add(new LineTo(mapNodes.get(i).getX(), mapNodes.get(i).getY()));
       }
       path.setStrokeLineJoin(StrokeLineJoin.ROUND);
       shapes.add(path);
     }
 
-    for (int i = 0; i < nodes.size(); i++) {
+    for (int i = 0; i < mapNodes.size(); i++) {
 
-      if (i == 0 || i == nodes.size() - 1) {
+      if (i == 0 || i == mapNodes.size() - 1) {
         c =
             new Circle(
-                nodes.get(i).getX(),
-                nodes.get(i).getY(),
+                mapNodes.get(i).getX(),
+                mapNodes.get(i).getY(),
                 GlobalVariables.getCircleR() + GlobalVariables.getStrokeThickness());
         c.setFill(GlobalVariables.getBorderColor());
         shapes.add(c);
 
-        c = new Circle(nodes.get(i).getX(), nodes.get(i).getY(), GlobalVariables.getCircleR());
+        c = new Circle(mapNodes.get(i).getX(), mapNodes.get(i).getY(), GlobalVariables.getCircleR());
         c.setFill(GlobalVariables.getInsideColor());
         shapes.add(c);
       }
@@ -93,7 +93,7 @@ public class Map {
 
     //    String floor = "L1";
 
-    List<Node> allNodes = this.graph.getNodes();
+    List<MapNode> allMapNodes = this.graph.getMapNodes();
 
     //    System.out.println(firstClick);
     //    System.out.println(secondClick); // Coordinates in inner, now goes up to 5000
@@ -121,13 +121,13 @@ public class Map {
       leastDistance = Double.MAX_VALUE;
       checkIndex = -1;
 
-      for (int i = 0; i < allNodes.size(); i++) {
+      for (int i = 0; i < allMapNodes.size(); i++) {
         if (i == startIndex) {
           continue;
         } else {
-          Node currentNode = allNodes.get(i);
-          if (currentNode.getFloor().equals(currentFloor)) {
-            nodeDist = currentClick.distance(currentNode.getX(), currentNode.getY());
+          MapNode currentMapNode = allMapNodes.get(i);
+          if (currentMapNode.getFloor().equals(currentFloor)) {
+            nodeDist = currentClick.distance(currentMapNode.getX(), currentMapNode.getY());
             if (nodeDist < leastDistance) {
               leastDistance = nodeDist;
               checkIndex = i;
@@ -147,8 +147,8 @@ public class Map {
 
     //    Node startNode = allNodes.get(startIndex);
     //    Node endNode = allNodes.get(endIndex);
-    int startId = allNodes.get(startIndex).getId();
-    int endId = allNodes.get(endIndex).getId();
+    int startId = allMapNodes.get(startIndex).getId();
+    int endId = allMapNodes.get(endIndex).getId();
 
     drawPath(parent, startId, endId);
   }
@@ -161,11 +161,11 @@ public class Map {
    * @param endNodeId the ending node ID
    */
   public void drawPath(Pane parent, int startNodeId, int endNodeId) {
-    ArrayList<Node> nodePath = this.graph.getPathBetween(startNodeId, endNodeId);
+    ArrayList<MapNode> mapNodePath = this.graph.getPathBetween(startNodeId, endNodeId);
 
-    System.out.println("SIZE: " + nodePath.size());
+    System.out.println("SIZE: " + mapNodePath.size());
 
-    ArrayList<Shape> shapes = makeShapePath(nodePath);
+    ArrayList<Shape> shapes = makeShapePath(mapNodePath);
 
     //    System.out.println(nodePath);
 
@@ -198,7 +198,7 @@ public class Map {
    */
   public ObservableList<String> getAllNodeNames(String floor) throws SQLException {
     ObservableList<String> nodeNames = FXCollections.observableArrayList();
-    for (Node n : DataManager.getAllNodes()) {
+    for (MapNode n : DataManager.getAllNodes()) {
       if (n.getFloor().equals(floor)) {
         nodeNames.addAll(("" + n.getId()));
       }
@@ -337,7 +337,7 @@ public class Map {
         new ArrayList<javafx.scene.Node>(); // list of shapes to be displayed
     ArrayList<NodeCircle> circles = new ArrayList<>(); // List of NodeCircle Objects
 
-    for (Node n : DataManager.getAllNodes()) {
+    for (MapNode n : DataManager.getAllNodes()) {
       if (n.getFloor().equals(floor)) {
         circles.add(new NodeCircle(n, isMapPage));
       }

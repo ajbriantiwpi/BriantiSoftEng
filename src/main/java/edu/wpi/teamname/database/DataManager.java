@@ -79,9 +79,9 @@ public class DataManager {
     return items;
   }
 
-  public static ArrayList<Node> getSingleNodeInfo(int nodeID) throws SQLException {
+  public static ArrayList<MapNode> getSingleNodeInfo(int nodeID) throws SQLException {
     Connection conn = DbConnection();
-    ArrayList<Node> list = new ArrayList<Node>();
+    ArrayList<MapNode> list = new ArrayList<MapNode>();
     String query = "SELECT * FROM \"Node\" Where \"nodeID\" = " + nodeID;
 
     try (conn) {
@@ -93,10 +93,10 @@ public class DataManager {
       int ycoord = rs.getInt("ycoord");
       String floor = rs.getString("floor");
       String building = rs.getString("building");
-      list.add(new Node(id, xcoord, ycoord, floor, building));
+      list.add(new MapNode(id, xcoord, ycoord, floor, building));
     }
     return list;
-  }*/
+  }
 
   /*public static ArrayList<String> getUpdatedNodeInfo(int nodeID, Timestamp date)
       throws SQLException {
@@ -174,12 +174,12 @@ public class DataManager {
    * This method updates an existing Node object in the "Node" table in the database with the new
    * Node object.
    *
-   * @param node the new Node object to be updated in the "Node" table
+   * @param mapNode the new Node object to be updated in the "Node" table
    * @throws SQLException if there is a problem accessing the database
    */
-  public static void syncNode(Node node) throws SQLException {
+  public static void syncNode(MapNode mapNode) throws SQLException {
     NodeDAOImpl nodeDAO = new NodeDAOImpl();
-    nodeDAO.sync(node);
+    nodeDAO.sync(mapNode);
   }
 
   /**
@@ -315,12 +315,12 @@ public class DataManager {
   /**
    * This method adds a new Node object to the "Node" table in the database.
    *
-   * @param node the Node object to be added to the "Node" table
+   * @param mapNode the Node object to be added to the "Node" table
    * @throws SQLException if there is a problem accessing the database
    */
-  public static void addNode(Node node) throws SQLException {
+  public static void addNode(MapNode mapNode) throws SQLException {
     NodeDAOImpl nodeDAO = new NodeDAOImpl();
-    nodeDAO.add(node);
+    nodeDAO.add(mapNode);
   }
 
   /**
@@ -447,12 +447,12 @@ public class DataManager {
   /**
    * This method deletes the given Node object from the database
    *
-   * @param node the Node object that will be deleted in the database
+   * @param mapNode the Node object that will be deleted in the database
    * @throws SQLException if there is a problem accessing the database
    */
-  public static void deleteNode(Node node) throws SQLException {
+  public static void deleteNode(MapNode mapNode) throws SQLException {
     NodeDAOImpl nodeDAO = new NodeDAOImpl();
-    nodeDAO.delete(node);
+    nodeDAO.delete(mapNode);
   }
 
   /**
@@ -594,7 +594,7 @@ public class DataManager {
    * @return an ArrayList of the Node objects in the database
    * @throws SQLException if there is a problem accessing the database
    */
-  public static ArrayList<Node> getAllNodes() throws SQLException {
+  public static ArrayList<MapNode> getAllNodes() throws SQLException {
     NodeDAOImpl nodeDAO = new NodeDAOImpl();
     return nodeDAO.getAll();
   }
@@ -792,7 +792,7 @@ public class DataManager {
    * @return the Node object with the specified ID, or null if not found
    * @throws SQLException if there is a problem accessing the database
    */
-  public static Node getNode(int id) throws SQLException {
+  public static MapNode getNode(int id) throws SQLException {
     NodeDAOImpl nodeDAO = new NodeDAOImpl();
     return nodeDAO.getNode(id);
   }
@@ -1282,7 +1282,7 @@ public class DataManager {
    *     found
    * @throws SQLException if there is an error accessing the database
    */
-  public static Node getNodeByLocationName(String name, Timestamp timestamp) throws SQLException {
+  public static MapNode getNodeByLocationName(String name, Timestamp timestamp) throws SQLException {
     return LocationNameDAOImpl.getNodeByLocationName(name, timestamp);
   }
 

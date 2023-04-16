@@ -9,6 +9,7 @@ import edu.wpi.teamname.servicerequest.requestitem.RequestItem;
 import edu.wpi.teamname.servicerequest.Status;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -22,6 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.controlsfx.control.SearchableComboBox;
@@ -241,7 +243,9 @@ public class ServiceRequestViewController {
           summaryPane.setVisible(false);
           summaryPane.setDisable(true);
           cartBox.getChildren().clear();
+          detailsLabel.setText("");
         });
+      //when table row is clicked do this
     switchButton.setOnMouseClicked( // show orders
         event -> {
           table.setVisible(false);
@@ -262,6 +266,7 @@ public class ServiceRequestViewController {
     ArrayList<ItemsOrdered> orderedItems = new ArrayList<>();
     ArrayList<RequestItem> tempItems = new ArrayList<>();
     orderedItems = DataManager.getItemsFromReq(reqID);
+    double totalPrice = 0.0;
     for (int i = 0; i < orderedItems.size(); i++) {
       ItemsOrdered item = orderedItems.get(i);
       if (item.getItemID() / 100 >= 10 && item.getItemID() / 100 < 11) { // flower
@@ -280,15 +285,27 @@ public class ServiceRequestViewController {
         folder = "MedicalIcons";
         tempItems.add(DataManager.getMedicalSupply(item.getItemID()));
       }
+        int c = 0;
+        for (RequestItem Item : tempItems) {
+            c = request.countItem(Item.getItemID());
+            if (c > 0) {
+                totalPrice += c * Item.getPrice();
+            }
+        }
       cartBox.getChildren().add(new ReqMenuItems(tempItems.get(i), folder, item.getQuantity()));
     }
     //fill in detailsLabel
-//        request.setPatientName();
-//        request.setRequestMadeBy();
-//        request.setStatus();
-//        request.getRequestID();
+        request.setRequestID(reqID);
+        request.setPatientName(DataManager.getServiceRequest(reqID).getPatientName());
+        request.setRoomNumber(DataManager.getServiceRequest(reqID).getRoomNumber());
+        request.setRequestMadeBy(DataManager.getServiceRequest(reqID).getRequestMadeBy());
+        request.setDeliverBy(DataManager.getServiceRequest(reqID).getDeliverBy());
+        request.setStatus(DataManager.getServiceRequest(reqID).getStatus());
 
         detailsLabel.setText(request.toString());
+
     //fill in totalLabel
+      DecimalFormat format = new DecimalFormat("###.00");
+      totalLabel.setText(totalLabel.getText() + format.format(totalPrice));
   }
 }

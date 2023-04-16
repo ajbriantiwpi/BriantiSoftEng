@@ -1,21 +1,20 @@
 package edu.wpi.teamname.navigation;
 
-import edu.wpi.teamname.database.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Node implements Comparable<Node> {
+public class MapNode implements Comparable<MapNode> {
   @Getter @Setter int id;
   @Getter @Setter private int x;
   @Getter @Setter private int y;
   @Getter @Setter private String floor;
   @Getter @Setter private String building;
 
-  @Getter @Setter private Node parent = null;
-  @Getter @Setter private List<Node> neighbors;
+  @Getter @Setter private MapNode parent = null;
+  @Getter @Setter private List<MapNode> neighbors;
   //  @Getter @Setter private List<Edge> edges;
   @Getter @Setter private List<Edge> edges;
   @Getter private final int originalID;
@@ -35,7 +34,7 @@ public class Node implements Comparable<Node> {
    * @param Floor the floor on which the node is located
    * @param Building the building in which the node is located
    */
-  public Node(int ID, int x, int y, String Floor, String Building) {
+  public MapNode(int ID, int x, int y, String Floor, String Building) {
     this.x = x;
     this.y = y;
     this.floor = Floor;
@@ -55,7 +54,7 @@ public class Node implements Comparable<Node> {
    *     greater than the specified node based on their f value
    */
   @Override
-  public int compareTo(Node n) {
+  public int compareTo(MapNode n) {
     return Double.compare(this.f, n.f);
   }
 
@@ -106,7 +105,7 @@ public class Node implements Comparable<Node> {
    * @param b the node to calculate the weight for
    * @return the weight of the edge between this node and the given node
    */
-  public double findWeight(Node b) {
+  public double findWeight(MapNode b) {
     int x1 = this.x;
     int x2 = b.getX();
     int y1 = this.y;
@@ -125,7 +124,7 @@ public class Node implements Comparable<Node> {
    */
   public String toString() {
     String nei = "";
-    for (Node n : neighbors) {
+    for (MapNode n : neighbors) {
       nei += " " + Integer.toString(n.getId());
     }
     return "NodeID:"
@@ -151,7 +150,7 @@ public class Node implements Comparable<Node> {
    * @param target the target node to calculate the distance to
    * @return the heuristic distance between this node and the target node
    */
-  public double calculateHeuristic(Node target) {
+  public double calculateHeuristic(MapNode target) {
     // Heuristic will return distance from target
     return Math.sqrt(
         (target.getX() - this.x) * (target.getX() - this.x)
@@ -166,7 +165,7 @@ public class Node implements Comparable<Node> {
    * @return the index of this node in the Nodes array list or in the database.
    */
   public int getIndex() {
-    return Node.idToIndex(this.id);
+    return MapNode.idToIndex(this.id);
   }
 
   public static int idToIndex(int id) {

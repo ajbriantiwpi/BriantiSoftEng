@@ -3,7 +3,7 @@ package edu.wpi.teamname;
 import static org.junit.Assert.assertEquals;
 
 import edu.wpi.teamname.navigation.*;
-import edu.wpi.teamname.navigation.Node;
+import edu.wpi.teamname.navigation.MapNode;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
@@ -13,7 +13,7 @@ import org.junit.runner.notification.Failure;
 
 public class AStarTest {
 
-  public static List<Node> nodes = new ArrayList<>();
+  public static List<MapNode> mapNodes = new ArrayList<>();
   public static List<Edge> edges = new ArrayList<>();
 
   public static void main(String[] args) {
@@ -32,12 +32,12 @@ public class AStarTest {
   public void test1() throws Exception {
 
     Graph g = new Graph();
-    ArrayList<Node> listForPath = new ArrayList<>();
+    ArrayList<MapNode> listForPath = new ArrayList<>();
 
-    listForPath = g.AStar(g.getNodes().get((120 - 100) / 5), g.getNodes().get((110 - 100) / 5));
+    listForPath = g.AStar(g.getMapNodes().get((120 - 100) / 5), g.getMapNodes().get((110 - 100) / 5));
 
     String printStr = "";
-    for (Node n : listForPath) {
+    for (MapNode n : listForPath) {
       printStr += n.getId() + " ";
     }
 
@@ -48,12 +48,12 @@ public class AStarTest {
   @Test
   public void test2() throws Exception {
     Graph g = new Graph();
-    ArrayList<Node> listForPath = new ArrayList<>();
+    ArrayList<MapNode> listForPath = new ArrayList<>();
 
-    listForPath = g.AStar(g.getNodes().get((155 - 100) / 5), g.getNodes().get((150 - 100) / 5));
+    listForPath = g.AStar(g.getMapNodes().get((155 - 100) / 5), g.getMapNodes().get((150 - 100) / 5));
 
     String printStr = "";
-    for (Node n : listForPath) {
+    for (MapNode n : listForPath) {
       printStr += n.getId() + " ";
     }
 
@@ -64,12 +64,12 @@ public class AStarTest {
   @Test
   public void test3() throws Exception {
     Graph g = new Graph();
-    ArrayList<Node> listForPath = new ArrayList<>();
+    ArrayList<MapNode> listForPath = new ArrayList<>();
 
-    listForPath = g.AStar(g.getNodes().get((1500 - 100) / 5), g.getNodes().get((1510 - 100) / 5));
+    listForPath = g.AStar(g.getMapNodes().get((1500 - 100) / 5), g.getMapNodes().get((1510 - 100) / 5));
 
     String printStr = "";
-    for (Node n : listForPath) {
+    for (MapNode n : listForPath) {
       printStr += n.getId() + " ";
     }
 

@@ -4,7 +4,7 @@ import edu.wpi.teamname.App;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.navigation.LocationName;
 import edu.wpi.teamname.navigation.Map;
-import edu.wpi.teamname.navigation.Node;
+import edu.wpi.teamname.navigation.MapNode;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.File;
 import java.io.IOException;
@@ -253,18 +253,18 @@ public class MapEditController {
             building = buildingText.getText();
           }
 
-          ArrayList<Node> allNodes;
+          ArrayList<MapNode> allMapNodes;
           try {
-            allNodes = DataManager.getAllNodes();
+            allMapNodes = DataManager.getAllNodes();
           } catch (SQLException ex) {
             throw new RuntimeException(ex);
           }
 
           // This is working on the assumption that We still want all id's to be a difference of 5
           // and that the last one in the table is the biggest ID
-          int highestID = allNodes.get(allNodes.size() - 1).getId();
+          int highestID = allMapNodes.get(allMapNodes.size() - 1).getId();
 
-          Node n = new Node(highestID + 5, xPos, yPos, floor, building);
+          MapNode n = new MapNode(highestID + 5, xPos, yPos, floor, building);
 
           try {
             DataManager.addNode(n);
@@ -313,16 +313,16 @@ public class MapEditController {
             nodeType = nodeTypeText.getText();
           }
 
-          ArrayList<Node> allNodes;
+          ArrayList<MapNode> allMapNodes;
           try {
-            allNodes = DataManager.getAllNodes();
+            allMapNodes = DataManager.getAllNodes();
           } catch (SQLException ex) {
             throw new RuntimeException(ex);
           }
 
           // This is working on the assumption that We still want all id's to be a difference of 5
           // and that the last one in the table is the biggest ID
-          int highestID = allNodes.get(allNodes.size() - 1).getId();
+          int highestID = allMapNodes.get(allMapNodes.size() - 1).getId();
 
           //              Node n = new Node(highestID + 5, xPos, yPos, floor, building);
           LocationName l = new LocationName(longName, shortName, nodeType);
@@ -463,9 +463,9 @@ public class MapEditController {
             nodeType = nodeTypeText.getText();
           }
 
-          ArrayList<Node> allNodes;
+          ArrayList<MapNode> allMapNodes;
           try {
-            allNodes = DataManager.getAllNodes();
+            allMapNodes = DataManager.getAllNodes();
           } catch (SQLException ex) {
             throw new RuntimeException(ex);
           }
