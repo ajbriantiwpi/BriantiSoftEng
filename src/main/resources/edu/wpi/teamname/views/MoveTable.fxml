@@ -74,9 +74,8 @@
                      </VBox.margin>
                   </MFXButton>
                </children></VBox>
-            <TableView prefHeight="400.0" prefWidth="251.0" HBox.hgrow="ALWAYS" fx:id="moveTable">
-            </TableView>
-
+               <TableView prefHeight="400.0" prefWidth="450.0" HBox.hgrow="ALWAYS" fx:id="moveTable">
+               </TableView>
             </children>
         </HBox>
     </children>

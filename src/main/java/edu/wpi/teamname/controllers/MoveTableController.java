@@ -1,5 +1,6 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.controllers.JFXitems.DatePickerEditingCell;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.database.MoveDAOImpl;
 import edu.wpi.teamname.navigation.Move;
@@ -14,8 +15,11 @@ import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.FileChooser;
+import javafx.util.converter.IntegerStringConverter;
 
 public class MoveTableController {
   @FXML private TableView<Move> moveTable;
@@ -36,8 +40,17 @@ public class MoveTableController {
 
     TableColumn<Move, Timestamp> dateColumn = new TableColumn<>("Date");
     dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+    dateColumn.setCellFactory(tc -> new DatePickerEditingCell());
 
     moveTable.getColumns().addAll(nodeIDColumn, longNameColumn, dateColumn);
+    moveTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+    dateColumn
+        .prefWidthProperty()
+        .bind(
+            moveTable
+                .widthProperty()
+                .subtract(nodeIDColumn.widthProperty())
+                .subtract(longNameColumn.widthProperty()));
 
     DataManager moveDAO = new DataManager();
 
@@ -98,6 +111,31 @@ public class MoveTableController {
             moveDAO.addMoves(move);
           } catch (SQLException e) {
             e.printStackTrace();
+          }
+        });
+    moveTable.setEditable(true);
+
+    nodeIDColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+    nodeIDColumn.setOnEditCommit(
+        (CellEditEvent<Move, Integer> t) -> {
+          Move move = t.getTableView().getItems().get(t.getTablePosition().getRow());
+          move.setNodeID(t.getNewValue());
+          try {
+            moveDAO.syncMove(move);
+          } catch (SQLException e) {
+            System.err.println("Error updating node ID: " + e.getMessage());
+          }
+        });
+
+    longNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+    longNameColumn.setOnEditCommit(
+        (CellEditEvent<Move, String> t) -> {
+          Move move = t.getTableView().getItems().get(t.getTablePosition().getRow());
+          move.setLongName(t.getNewValue());
+          try {
+            moveDAO.syncMove(move);
+          } catch (SQLException e) {
+            System.err.println("Error updating long name: " + e.getMessage());
           }
         });
   }
