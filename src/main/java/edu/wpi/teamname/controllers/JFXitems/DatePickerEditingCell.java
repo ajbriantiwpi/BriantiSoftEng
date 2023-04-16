@@ -60,6 +60,7 @@ public class DatePickerEditingCell extends TableCell<Move, Timestamp> {
         setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
       } else {
         setText(item.toLocalDateTime().toLocalDate().toString());
+        setGraphic(datePicker); // Add this line
         setContentDisplay(ContentDisplay.TEXT_ONLY);
       }
     }

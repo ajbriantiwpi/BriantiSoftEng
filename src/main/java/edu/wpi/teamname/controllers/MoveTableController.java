@@ -36,6 +36,7 @@ public class MoveTableController {
   @FXML private TextField searchTextField;
 
   public void initialize() {
+    ParentController.titleString.set("Move Edit Table");
     TableColumn<Move, Integer> nodeIDColumn = new TableColumn<>("Node ID");
     nodeIDColumn.setCellValueFactory(new PropertyValueFactory<>("nodeID"));
 
