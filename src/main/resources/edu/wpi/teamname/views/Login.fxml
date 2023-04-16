@@ -21,7 +21,7 @@
                     <children>
                         <VBox alignment="CENTER" maxHeight="550.0" maxWidth="480.0" spacing="24.0" style="-fx-background-color: #EEEDF1;" stylesheets="@../stylesheets/login.css" StackPane.alignment="CENTER">
                             <children>
-                        <AnchorPane maxHeight="100.0" maxWidth="444.0" prefHeight="50.0" prefWidth="444.0" styleClass="body2" stylesheets="@../stylesheets/logoScale.css" VBox.vgrow="NEVER" />
+                        <AnchorPane maxHeight="80.0" maxWidth="444.0" minHeight="60.0" prefHeight="75.0" prefWidth="444.0" styleClass="body2" stylesheets="@../stylesheets/logoScale.css" VBox.vgrow="NEVER" />
                         <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" wrappingWidth="400.0">
                            <font>
                               <Font name="Roboto Medium" size="45.0" />
