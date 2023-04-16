@@ -10,6 +10,7 @@ import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.sql.SQLException;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -42,9 +43,9 @@ public class LoginController {
       throws SQLException, ExceptionInInitializerError {
     Employee user = DataManager.checkLogin(username, password);
     if (user != null) {
-      HomeController.setLoggedIn(true);
+      HomeController.setLoggedIn(new SimpleBooleanProperty(true));
+      GlobalVariables.setCurrentUser(user);
       Navigation.navigate(Screen.HOME);
-      GlobalVariables.currentUser = user;
       return true;
     } else {
       return false;
