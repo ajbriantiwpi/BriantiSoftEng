@@ -17,7 +17,9 @@ public enum Screen {
   SERVICE_REQUEST_VIEW("views/ServiceRequestView2.fxml"),
 
   MAP_EDIT("views/MapEdit.fxml"),
+
   MOVE_TABLE("views/MoveTable.fxml");
+
   private final String filename;
 
   Screen(String filename) {

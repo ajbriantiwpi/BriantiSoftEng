@@ -1,7 +1,6 @@
 package edu.wpi.teamname.navigation;
 
 import edu.wpi.teamname.database.*;
-import edu.wpi.teamname.database.DataManager;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,10 +9,11 @@ import lombok.Setter;
 
 public class Node implements Comparable<Node> {
   @Getter @Setter int id;
-  @Getter @Setter private String floor;
-  @Getter @Setter private String building;
   @Getter @Setter private int x;
   @Getter @Setter private int y;
+  @Getter @Setter private String floor;
+  @Getter @Setter private String building;
+
   @Getter @Setter private Node parent = null;
   @Getter @Setter private List<Node> neighbors;
   //  @Getter @Setter private List<Edge> edges;
@@ -159,82 +159,17 @@ public class Node implements Comparable<Node> {
   }
 
   /**
-   * Checks if this.nodeID has switched with given nodeID to swap positions, floor and building in
-   * the table with it in the edge table also swaps correlating information as well as switching the
-   * longNames with eachother in LocationName table
+   * This method gets the (most likely correct) index of this node in the Nodes array list or in the
+   * database. This works because the first node in the table has index 100 and each next one has an
+   * index of 5 more.
    *
-   * @param move
-   * @return Boolean
+   * @return the index of this node in the Nodes array list or in the database.
    */
-  public Boolean moveNode(Move move) throws SQLException {
-    Connection connection = DataManager.DbConnection();
-    boolean done = false;
-    int swapNodeID = move.getNodeID();
-    String swapLongN = move.getLongName();
-
-    /** Might use sync functions with this feature */
-    // A starting node, B is node being swapped with
-
-    // rowAlocN = select longName from LocationName where longN = longN
-    // rowBlocN = select longName from LocationName where longN = swapLongN
-    // rowAnode = select floor, building from Node where thisNode = thisNode
-    // rowBnode = select floor, building from Node where thisNode = swapNodeID
-
-    // put rowAlocN where longN = swapLongN
-    // put rowAnode where thisNode = swapNodeID
-    // insert nodeID, longN, date into Move
-
-    // put rowBnode where thisNode = thisNode
-    // put rowBlocN where longN = longN
-
-    // insert swapNodeID, swapLongN, date into Move
-
-    //    String query = "";
-    //
-    //    try (PreparedStatement pstmtUpdate = connection.prepareStatement(query)) {
-    //      int rowsUpdated = pstmtUpdate.executeUpdate();
-    //      if (rowsUpdated > 0) {
-    //        System.out.println("successfully updated");
-    //      } else {
-    //        System.out.println("not updated");
-    //      }
-    //    } catch (SQLException e) {
-    //      System.out.println("Error updating LocationName record for node ID " + thisNode);
-    //    }
-
-    return done;
+  public int getIndex() {
+    return Node.idToIndex(this.id);
   }
-  /*
-  /**
-   * Gets the short name for any node inputed
-   *
-   * @return
-   * @throws SQLException
 
-  public ArrayList<String> getShortName() throws SQLException {
-    Connection connection = DataManager.DbConnection();
-    ArrayList<String> a = new ArrayList<>();
-    String shortN = "";
-    String nodeT = "";
-    int thisNode = this.id;
-    //    String getn = "Select \"longName\" from \"Move\" where \"nodeID\" = " + thisNode;
-
-    String getn =
-        "Select \"shortName\", \"nodeType\" from \"LocationName\" where \"longName\" = "
-            + "(Select \"longName\" from \"Move\" where \"nodeID\" = "
-            + thisNode
-            + ")";
-
-    try (PreparedStatement s = connection.prepareStatement(getn)) {
-      ResultSet rowsUpdated = s.executeQuery();
-      rowsUpdated.next();
-      shortN = rowsUpdated.getString("shortName");
-      nodeT = rowsUpdated.getString("nodeType");
-      a.add(shortN);
-      a.add(nodeT);
-    } catch (SQLException e2) {
-      System.out.println("Error getting short name. " + e2);
-    }
-    return a;
-  }*/
+  public static int idToIndex(int id) {
+    return ((id - 100) / 5);
+  }
 }
