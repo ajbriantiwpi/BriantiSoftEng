@@ -529,9 +529,9 @@ public class DataManager {
   }
 
   /**
-   * The method retrieves all the Move objects from the "Move" table in the database.
+   * The method retrieves all the Node objects from the "Node" table in the database.
    *
-   * @return an ArrayList of the Move objects in the database
+   * @return an ArrayList of the Node objects in the database
    * @throws SQLException if there is a problem accessing the database
    */
   public static ArrayList<Node> getAllNodes() throws SQLException {

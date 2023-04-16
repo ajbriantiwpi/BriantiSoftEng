@@ -12,12 +12,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Optional;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.KeyCode;
 import javafx.stage.FileChooser;
 import javafx.util.converter.IntegerStringConverter;
 
@@ -109,6 +111,12 @@ public class MoveTableController {
           Move move = new Move(nodeId, longName, date);
           try {
             moveDAO.addMoves(move);
+            // Add the new move to the table view
+            moveTable.getItems().add(move);
+            // Clear the input fields after adding the move
+            nodeIdTextField.clear();
+            longNameTextField.clear();
+            datePicker.setValue(null);
           } catch (SQLException e) {
             e.printStackTrace();
           }
@@ -136,6 +144,34 @@ public class MoveTableController {
             moveDAO.syncMove(move);
           } catch (SQLException e) {
             System.err.println("Error updating long name: " + e.getMessage());
+          }
+        });
+    moveTable.setOnKeyPressed(
+        event -> {
+          if (event.getCode() == KeyCode.DELETE) {
+            Move selectedMove = moveTable.getSelectionModel().getSelectedItem();
+            if (selectedMove != null) {
+              Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+              alert.setTitle("Delete Move");
+              alert.setHeaderText("Are you sure you want to delete this move?");
+              alert.setContentText(
+                  "Node ID: "
+                      + selectedMove.getNodeID()
+                      + "\nLong Name: "
+                      + selectedMove.getLongName()
+                      + "\nDate: "
+                      + selectedMove.getDate().toString());
+
+              Optional<ButtonType> result = alert.showAndWait();
+              if (result.isPresent() && result.get() == ButtonType.OK) {
+                try {
+                  moveDAO.deleteMove(selectedMove);
+                  moveTable.getItems().remove(selectedMove);
+                } catch (SQLException e) {
+                  e.printStackTrace();
+                }
+              }
+            }
           }
         });
   }
