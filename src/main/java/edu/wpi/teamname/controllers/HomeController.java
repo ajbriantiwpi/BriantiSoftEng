@@ -28,6 +28,7 @@ public class HomeController {
   @FXML private AnchorPane rootPane;
   @FXML MFXButton loginButton;
   @FXML MFXButton logoutButton;
+  @FXML MFXButton editMoveButton;
 
   /** logs the current user out of the application */
   private void logout() {
@@ -73,5 +74,6 @@ public class HomeController {
     editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
     exitButton.setOnMouseClicked(event -> System.exit(0));
     navigateButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
+    editMoveButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MOVE_TABLE));
   }
 }
