@@ -35,31 +35,31 @@
                   <Font name="Roboto" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="employeeIDField1" />
+            <TextField fx:id="employeeFirstNameTextField" />
             <Label alignment="CENTER" prefHeight="18.0" prefWidth="159.0" text="Last Name" textFill="#001b3b">
                <font>
                   <Font name="Roboto" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="employeeIDField11" />
+            <TextField fx:id="employeeLastNameTextField" />
             <Label alignment="CENTER" prefHeight="18.0" prefWidth="159.0" text="Employee Type" textFill="#001b3b">
                <font>
                   <Font name="Roboto" size="14.0" />
                </font>
             </Label>
-            <TextField  fx:id="employeeIDField111"/>
+            <TextField  fx:id="employeeTypeTextField"/>
             <Label alignment="CENTER" prefHeight="18.0" prefWidth="159.0" text="Username" textFill="#001b3b">
                <font>
                   <Font name="Roboto" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="employeeIDField1111" />
+            <TextField fx:id="employeeUserTextField" />
             <Label alignment="CENTER" prefHeight="29.0" prefWidth="268.0" text="CSV Manager" textFill="#235fa6">
                <font>
                   <Font name="Roboto" size="24.0" />
                </font>
             </Label>
-            <MFXButton buttonType="RAISED" prefHeight="25.0" prefWidth="118.0" rippleColor="#235fa6" text="Import">
+            <MFXButton fx:id="importButton" buttonType="RAISED" prefHeight="25.0" prefWidth="118.0" rippleColor="#235fa6" text="Import">
                <effect>
                   <ColorInput paint="#235fa6" />
                </effect>
@@ -67,7 +67,7 @@
                   <Insets left="5.0" top="15.0" />
                </VBox.margin>
             </MFXButton>
-            <MFXButton buttonType="RAISED" prefHeight="25.0" prefWidth="118.0" rippleColor="#235fa6" text="Export">
+            <MFXButton fx:id="exportButton" buttonType="RAISED" prefHeight="25.0" prefWidth="118.0" rippleColor="#235fa6" text="Export">
                <effect>
                   <ColorInput paint="#235fa6" />
                </effect>
@@ -99,6 +99,6 @@
             </TextField>
          </children>
       </HBox>
-      <TableView layoutX="248.0" layoutY="42.0" prefHeight="358.0" prefWidth="437.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="42.0" />
+      <TableView fx:id="employeeTable" layoutX="248.0" layoutY="42.0" prefHeight="358.0" prefWidth="437.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="42.0" />
    </children>
 </AnchorPane>
