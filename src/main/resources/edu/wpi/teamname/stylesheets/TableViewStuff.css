@@ -3,39 +3,47 @@
     -fx-faint-focus-color: transparent;
 }
 
-.filtered-table-view .column-header-background {
-    -fx-background-color: #D5E3FF;
-}
-
 .filtered-table-view .table-cell {
     -fx-border-color: transparent;
 }
 
-.filtered-table-view .column-header {
-    -fx-background-color: #f1f1f1;
-}
-
 .filtered-table-view .column-header .label {
-    -fx-text-fill: #012d5a;
+    -fx-text-fill: #000000;
     -fx-alignment: center-left;
+    -fx-font-family: Roboto;
 }
 
-.filtered-table-row-cell {
-    -fx-background-color: #012d5a;
-    -fx-background: #012d5a;
-    -fx-text-background-color: #f1f1f1;
-    -fx-text-fill: #f1f1f1;
+.filtered-table-view .column-header-background .odd{
+    -fx-background-color: #D5E3FF;
+}
+
+.filtered-table-view .column-header .odd {
+    -fx-background-color: #D5E3FF;
+}
+
+.filtered-table-view .column-header-background .even{
+    -fx-background-color: #D9E3F8;
+}
+
+.filtered-table-view .column-header .even{
+    -fx-background-color: #D9E3F8;
 }
 
 
-.filtered-table-row-cell:selected {
-    -fx-background-color: #012d5a;
-    -fx-text-background-color: #ffffff;
-    -fx-background: #012d5a;
+.filtered-table-view .cell:odd{
+    -fx-background-color: #D5E3FF;
+    -fx-background: #D5E3FF;
+    -fx-text-background-color: #000000;
+    -fx-text-fill: #000000;
+    -fx-font-family: Roboto;
 }
 
-.filtered-table-row-cell:hover {
-    -fx-background-color: #F6BD38;
-    -fx-text-background-color: #012D5a;
-    -fx-background: #F6BD38;
+.filtered-table-view .cell:even{
+    -fx-background-color: #D9E3F8;
+    -fx-background: #D9E3F8;
+    -fx-text-background-color: #000000;
+    -fx-text-fill: #000000;
+    -fx-font-family: Roboto;
 }
+
+
