@@ -289,7 +289,8 @@ public class LocationNameDAOImpl implements LocationNameDAO {
    *     found
    * @throws SQLException if there is an error accessing the database
    */
-  public static MapNode getNodeByLocationName(String name, Timestamp timestamp) throws SQLException {
+  public static MapNode getNodeByLocationName(String name, Timestamp timestamp)
+      throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query =
         "SELECT \"nodeID\", \"longName\", \"shortName\", xcoord, ycoord, \"nodeType\", building, floor, j.date\n"

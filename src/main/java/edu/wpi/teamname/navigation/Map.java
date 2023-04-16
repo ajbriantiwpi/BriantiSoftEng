@@ -70,7 +70,9 @@ public class Map {
         c.setFill(GlobalVariables.getBorderColor());
         shapes.add(c);
 
-        c = new Circle(mapNodes.get(i).getX(), mapNodes.get(i).getY(), GlobalVariables.getCircleR());
+        c =
+            new Circle(
+                mapNodes.get(i).getX(), mapNodes.get(i).getY(), GlobalVariables.getCircleR());
         c.setFill(GlobalVariables.getInsideColor());
         shapes.add(c);
       }

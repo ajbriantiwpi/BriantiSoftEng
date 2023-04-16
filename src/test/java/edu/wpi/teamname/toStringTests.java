@@ -104,7 +104,7 @@ public class toStringTests {
             RequestType.FLOWER);
     assertEquals(
         "[1, staff, patient, location, 1969-12-31 19:00:00.001, 1969-12-31 19:00:00.002, DONE, madeBy, Flower Request]",
-        serviceRequest.toString());
+        serviceRequest.getDetails());
   }
 
   @Test
@@ -122,7 +122,7 @@ public class toStringTests {
             RequestType.OFFICESUPPLY);
     assertEquals(
         "[2, staff, patient, location, 1969-12-31 19:00:00.001, 1969-12-31 19:00:00.003, PROCESSING, madeBy, Office Supply Request]",
-        serviceRequest.toString());
+        serviceRequest.getDetails());
     assertEquals(Status.DONE.getStatusString(), "DONE");
   }
 
@@ -141,7 +141,7 @@ public class toStringTests {
             RequestType.MEAL);
     assertEquals(
         "[5, staff1, patient, location, 1969-12-31 19:00:00.001, 1969-12-31 19:00:00.002, BLANK, madeBy, Meal Request]",
-        serviceRequest.toString());
+        serviceRequest.getDetails());
   }
 
   @Test
@@ -159,6 +159,6 @@ public class toStringTests {
             RequestType.FURNITURE);
     assertEquals(
         "[50, staff1, patient, location, 1969-12-31 19:00:00.001, 1969-12-31 19:00:00.002, BLANK, madeBy, Furniture Request]",
-        serviceRequest.toString());
+        serviceRequest.getDetails());
   }
 }

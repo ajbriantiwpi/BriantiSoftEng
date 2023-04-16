@@ -5,8 +5,8 @@ import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
 import edu.wpi.teamname.servicerequest.RequestType;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
-import edu.wpi.teamname.servicerequest.requestitem.RequestItem;
 import edu.wpi.teamname.servicerequest.Status;
+import edu.wpi.teamname.servicerequest.requestitem.RequestItem;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -19,13 +19,11 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.controlsfx.control.SearchableComboBox;
 import org.controlsfx.control.tableview2.FilteredTableColumn;
 import org.controlsfx.control.tableview2.FilteredTableView;
@@ -47,13 +45,12 @@ public class ServiceRequestViewController {
 
   @FXML MFXButton submitButton;
 
-  @FXML MFXButton switchButton;
   @FXML Label detailsLabel;
   @FXML Label totalLabel;
   @FXML MFXButton backButton;
   @FXML VBox cartBox;
   @FXML AnchorPane summaryPane;
-  @Setter @Getter private ServiceRequest request;
+  @FXML MFXButton switchButton;
 
   @FXML ComboBox<RequestType> requestTypeCombo;
 
@@ -243,26 +240,58 @@ public class ServiceRequestViewController {
           summaryPane.setVisible(false);
           summaryPane.setDisable(true);
           cartBox.getChildren().clear();
-          detailsLabel.setText("");
         });
-      //when table row is clicked do this
-    switchButton.setOnMouseClicked( // show orders
+
+    // when table row is clicked do this
+          table.setRowFactory(
+              tv -> {
+                TableRow<ServiceRequest> row = new TableRow<>();
+                row.setOnMouseClicked(
+                    event -> {
+                      if (!row.isEmpty()
+                          && event.getButton() == MouseButton.PRIMARY
+                          && event.getClickCount() == 2) {
+                        ServiceRequest clickedRow = row.getItem();
+                        totalLabel.setText(totalLabel.getText());
+                        System.out.println(totalLabel);
+                        table.setVisible(false);
+                        table.setDisable(true);
+                        summaryPane.setVisible(true);
+                        summaryPane.setDisable(false);
+                        try {
+                          String f = "";
+                          int req = clickedRow.getRequestID();
+                          fillPane(req, f);
+                        } catch (SQLException e) {
+                          System.out.println(e);
+                        }
+                      }
+                    });
+                return row;
+              });
+
+    // stub
+    switchButton.setOnMouseClicked(
         event -> {
+          totalLabel.setText(totalLabel.getText());
           table.setVisible(false);
           table.setDisable(true);
           summaryPane.setVisible(true);
           summaryPane.setDisable(false);
           try {
-            fillPane();
+
+            String f = "FlowerIcons";
+            int req = 489118;
+            fillPane(req, f);
           } catch (SQLException e) {
             System.out.println(e);
           }
         });
   }
 
-  private void fillPane() throws SQLException {
-    String folder = "FlowerIcons";
-    int reqID = 489118;
+  private void fillPane(int reqID, String folder) throws SQLException {
+    // int reqID = req.getRequestID();
+    ServiceRequest request = DataManager.getServiceRequest(reqID);
     ArrayList<ItemsOrdered> orderedItems = new ArrayList<>();
     ArrayList<RequestItem> tempItems = new ArrayList<>();
     orderedItems = DataManager.getItemsFromReq(reqID);
@@ -272,6 +301,7 @@ public class ServiceRequestViewController {
       if (item.getItemID() / 100 >= 10 && item.getItemID() / 100 < 11) { // flower
         folder = "FlowerIcons";
         tempItems.add(DataManager.getFlower(item.getItemID()));
+        totalPrice += tempItems.get(i).getPrice();
       } else if (item.getItemID() / 100 >= 11 && item.getItemID() / 100 < 12) { // meal
         folder = "MealIcons";
         tempItems.add(DataManager.getMeal(item.getItemID()));
@@ -285,27 +315,12 @@ public class ServiceRequestViewController {
         folder = "MedicalIcons";
         tempItems.add(DataManager.getMedicalSupply(item.getItemID()));
       }
-        int c = 0;
-        for (RequestItem Item : tempItems) {
-            c = request.countItem(Item.getItemID());
-            if (c > 0) {
-                totalPrice += c * Item.getPrice();
-            }
-        }
       cartBox.getChildren().add(new ReqMenuItems(tempItems.get(i), folder, item.getQuantity()));
     }
-    //fill in detailsLabel
-        request.setRequestID(reqID);
-        request.setPatientName(DataManager.getServiceRequest(reqID).getPatientName());
-        request.setRoomNumber(DataManager.getServiceRequest(reqID).getRoomNumber());
-        request.setRequestMadeBy(DataManager.getServiceRequest(reqID).getRequestMadeBy());
-        request.setDeliverBy(DataManager.getServiceRequest(reqID).getDeliverBy());
-        request.setStatus(DataManager.getServiceRequest(reqID).getStatus());
 
-        detailsLabel.setText(request.toString());
-
-    //fill in totalLabel
-      DecimalFormat format = new DecimalFormat("###.00");
-      totalLabel.setText(totalLabel.getText() + format.format(totalPrice));
+    System.out.println(request.getDetails());
+    detailsLabel.setText(request.getDetails());
+    DecimalFormat format = new DecimalFormat("###.00");
+    totalLabel.setText(totalLabel.getText() + format.format(totalPrice));
   }
 }

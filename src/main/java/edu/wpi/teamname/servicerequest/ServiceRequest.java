@@ -85,7 +85,7 @@ public class ServiceRequest {
     }
   }
 
-  public String toString() {
+  public String getDetails() {
     //    return "["
     //        + requestID
     //        + ", "

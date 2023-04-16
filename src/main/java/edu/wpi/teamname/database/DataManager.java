@@ -5,7 +5,6 @@ import edu.wpi.teamname.navigation.*;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import edu.wpi.teamname.servicerequest.requestitem.*;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -1282,7 +1281,8 @@ public class DataManager {
    *     found
    * @throws SQLException if there is an error accessing the database
    */
-  public static MapNode getNodeByLocationName(String name, Timestamp timestamp) throws SQLException {
+  public static MapNode getNodeByLocationName(String name, Timestamp timestamp)
+      throws SQLException {
     return LocationNameDAOImpl.getNodeByLocationName(name, timestamp);
   }
 

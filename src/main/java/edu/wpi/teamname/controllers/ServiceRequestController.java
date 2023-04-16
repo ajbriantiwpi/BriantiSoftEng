@@ -181,7 +181,7 @@ public class ServiceRequestController {
       setVisibleScreen(2);
       nextButton.setText("Submit");
       requestPage = 2;
-      summaryLabel.setText(request.toString());
+      summaryLabel.setText(request.getDetails());
 
       ArrayList<RequestItem> tem = new ArrayList<>();
       double totalPrice = 0.0;
