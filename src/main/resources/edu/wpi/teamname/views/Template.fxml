@@ -14,12 +14,12 @@
 <AnchorPane styleClass="body" stylesheets="@../stylesheets/Template_Background.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ParentController">
    <children>
       <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <VBox alignment="CENTER" maxWidth="228.0" minWidth="228.0" prefWidth="228.0" styleClass="body" stylesheets="@../stylesheets/SideBar.css" HBox.hgrow="NEVER">
+         <VBox alignment="CENTER" styleClass="body" stylesheets="@../stylesheets/SideBar.css" HBox.hgrow="NEVER">
             <children>
                <AnchorPane maxHeight="75.0" maxWidth="53.0" minHeight="75.0" minWidth="53.0" prefHeight="75.0" prefWidth="53.0" styleClass="body" stylesheets="@../stylesheets/logoScale.css">
                   <children>
                   </children></AnchorPane>
-               <VBox alignment="CENTER" prefWidth="200.0" styleClass="body" stylesheets="@../stylesheets/SideBar.css" VBox.vgrow="ALWAYS">
+               <VBox alignment="CENTER" styleClass="body" stylesheets="@../stylesheets/SideBar.css" VBox.vgrow="ALWAYS">
                   <children>
                      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                         <image>
@@ -157,7 +157,7 @@
          </VBox>
          <VBox HBox.hgrow="ALWAYS">
             <children>
-               <StackPane prefHeight="50.0" stylesheets="@../stylesheets/TopBar.css">
+               <StackPane stylesheets="@../stylesheets/TopBar.css">
                   <children>
                      <AnchorPane StackPane.alignment="CENTER_LEFT">
                         <StackPane.margin>

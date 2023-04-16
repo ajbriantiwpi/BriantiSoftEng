@@ -5,13 +5,13 @@ import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.Employee;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.sql.SQLException;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
@@ -25,7 +25,7 @@ public class LoginController {
   @FXML MFXButton loginButton;
   @FXML MFXButton forgotPassword;
   @FXML MFXTextField loginText;
-  @FXML MFXPasswordField passwordText;
+  @FXML PasswordField passwordText;
   @FXML MFXButton cancel;
 
   /**

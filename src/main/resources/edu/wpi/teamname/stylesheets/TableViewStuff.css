@@ -1,0 +1,53 @@
+.filtered-table-view {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.filtered-table-view .table-cell {
+    -fx-border-color: transparent;
+}
+
+.filtered-table-view .column-header .label {
+    -fx-text-fill: #000000;
+    -fx-alignment: center-left;
+    -fx-font-family: Roboto;
+}
+
+.filtered-table-view .column-header-background .odd{
+    -fx-background-color: #D5E3FF;
+}
+
+.filtered-table-view .column-header .odd {
+    -fx-background-color: #D5E3FF;
+}
+
+.filtered-table-view .column-header-background .even{
+    -fx-background-color: #D9E3F8;
+}
+
+.filtered-table-view .column-header .even{
+    -fx-background-color: #D9E3F8;
+}
+
+
+
+.filtered-table-view .cell:odd{
+    -fx-text-background-color: #000000;
+    -fx-text-fill: #000000;
+    -fx-font-family: Roboto;
+}
+
+.filtered-table-view .cell:even{
+    -fx-text-background-color: #000000;
+    -fx-text-fill: #000000;
+    -fx-font-family: Roboto;
+}
+
+
+.odd {
+    -fx-background-color: #D5E3FF;
+}
+
+.even{
+    -fx-background-color: #D9E3F8;
+}
