@@ -21,6 +21,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import lombok.Getter;
+import lombok.Setter;
 import org.controlsfx.control.tableview2.FilteredTableColumn;
 import org.controlsfx.control.tableview2.FilteredTableView;
 
@@ -47,6 +49,7 @@ public class ServiceRequestViewController {
   @FXML MFXButton backButton;
   @FXML VBox cartBox;
   @FXML AnchorPane summaryPane;
+  @Setter @Getter private ServiceRequest request;
 
   @FXML ComboBox<RequestType> requestTypeCombo;
 
@@ -273,5 +276,13 @@ public class ServiceRequestViewController {
       }
       cartBox.getChildren().add(new ReqMenuItems(tempItems.get(i), folder, item.getQuantity()));
     }
+    //fill in detailsLabel
+//        request.setPatientName();
+//        request.setRequestMadeBy();
+//        request.setStatus();
+//        request.getRequestID();
+
+        detailsLabel.setText(request.toString());
+    //fill in totalLabel
   }
 }
