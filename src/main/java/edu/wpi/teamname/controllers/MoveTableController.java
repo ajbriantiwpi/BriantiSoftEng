@@ -7,15 +7,13 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.File;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 
@@ -26,7 +24,7 @@ public class MoveTableController {
   @FXML private Button exportButton;
   @FXML private TextField nodeIdTextField;
   @FXML private TextField longNameTextField;
-  @FXML private TextField dateTextField;
+  @FXML private DatePicker datePicker;
   @FXML private MFXButton submitButton;
 
   public void initialize() {
@@ -91,8 +89,9 @@ public class MoveTableController {
         event -> {
           int nodeId = Integer.parseInt(nodeIdTextField.getText());
           String longName = longNameTextField.getText();
+          LocalDate localDate = datePicker.getValue();
           DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-          LocalDateTime dateTime = LocalDateTime.parse(dateTextField.getText(), formatter);
+          LocalDateTime dateTime = localDate.atStartOfDay();
           Timestamp date = Timestamp.valueOf(dateTime);
           Move move = new Move(nodeId, longName, date);
           try {
