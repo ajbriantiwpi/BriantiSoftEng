@@ -49,9 +49,7 @@ public class MapController {
             firstClick = new Point2D(event.getX(), event.getY());
             LocationOne.setOnAction(e -> {});
 
-            floor1 = takeFloor(FloorSelect.getValue(), true);
-
-            //            System.out.println(map.getPrevPath().equals(null));
+            floor1 = map.takeFloor(FloorSelect.getValue(), true);
 
           } else if (clickCount == 2) {
             // Capture the second click
@@ -137,48 +135,6 @@ public class MapController {
         }
       };
 
-  public String takeFloor(String f, boolean flag) {
-    String retStr = "";
-    if (f == null) {
-      return "L1";
-    }
-    //    System.out.println(f);
-    switch (f) {
-      case ("Lower Level 1"):
-        retStr = "L1";
-        return retStr;
-      case ("Lower Level 2"):
-        retStr = "L2";
-        return retStr;
-      case ("Ground Floor"):
-        retStr = "GG";
-        return retStr;
-      case ("First Floor"):
-        if (flag) {
-          retStr = "G1";
-        } else {
-          retStr = "1";
-        }
-        return retStr;
-      case ("Second Floor"):
-        if (flag) {
-          retStr = "G2";
-        } else {
-          retStr = "2";
-        }
-        return retStr;
-      case ("Third Floor"):
-        if (flag) {
-          retStr = "G3";
-        } else {
-          retStr = "3";
-        }
-        return retStr;
-      default:
-        return "You should never see this!!!";
-    }
-  }
-
   EventHandler<ActionEvent> changeFloor =
       new EventHandler<ActionEvent>() {
 
@@ -226,20 +182,18 @@ public class MapController {
           }
 
           try {
-            LocationOne.setItems(map.getAllNodeNames(takeFloor(floor, false)));
+            LocationOne.setItems(map.getAllNodeNames(map.takeFloor(floor, false)));
           } catch (SQLException ex) {
             throw new RuntimeException(ex);
           }
           try {
-            EndPointSelect.setItems(map.getAllNodeNames(takeFloor(floor, false)));
+            EndPointSelect.setItems(map.getAllNodeNames(map.takeFloor(floor, false)));
           } catch (SQLException ex) {
             throw new RuntimeException(ex);
           }
 
-          // drawPath()
-
           anchor.getStyleClass().remove(0);
-          anchor.getStyleClass().add(takeFloor(floor, true));
+          anchor.getStyleClass().add(map.takeFloor(floor, true));
 
           //                           System.out.println(LocationOne.getValue());
 
@@ -258,7 +212,7 @@ public class MapController {
   @FXML
   public void initialize() throws SQLException, IOException {
 
-    map = new Map();
+    map = new Map(anchor);
 
     //    AnchorPane.setLeftAnchor(SelectCombo, 0.0);
     //    AnchorPane.setRightAnchor(SelectCombo, 0.0);
