@@ -1,9 +1,13 @@
 package edu.wpi.teamname.database;
 
+import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.navigation.*;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
-import edu.wpi.teamname.servicerequest.requestitem.*;
+import edu.wpi.teamname.servicerequest.requestitem.Flower;
+import edu.wpi.teamname.servicerequest.requestitem.Furniture;
+import edu.wpi.teamname.servicerequest.requestitem.Meal;
+import edu.wpi.teamname.servicerequest.requestitem.OfficeSupply;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -48,6 +52,7 @@ public class DataManager {
     return connection;
   }
 
+  /*public static ArrayList<Node> getSingleNodeInfo(int nodeID) throws SQLException {
   /**
    * Get list of items ordered from a specific ID
    *
@@ -93,9 +98,9 @@ public class DataManager {
       list.add(new Node(id, xcoord, ycoord, floor, building));
     }
     return list;
-  }
+  }*/
 
-  public static ArrayList<String> getUpdatedNodeInfo(int nodeID, Timestamp date)
+  /*public static ArrayList<String> getUpdatedNodeInfo(int nodeID, Timestamp date)
       throws SQLException {
     Connection conn = DbConnection();
     ArrayList<String> update = new ArrayList<>();
@@ -120,7 +125,7 @@ public class DataManager {
       System.out.println(e.getMessage());
     }
     return update;
-  }
+  }*/
   /**
    * Main function to create all Database tables if they don't already exist
    *
@@ -216,15 +221,15 @@ public class DataManager {
   }
 
   /**
-   * This method updates an existing Login object in the "Login" table in the database with the new
-   * Login object.
+   * This method updates an existing Employee object in the "Employee" table in the database with
+   * the new Employee object.
    *
-   * @param login the new Login object to be updated in the "Login" table
+   * @param employee the new Employee object to be updated in the "Employee" table
    * @throws SQLException if there is a problem accessing the database
    */
-  public static void syncLogin(Login login) throws SQLException {
-    LoginDAOImpl loginDAO = new LoginDAOImpl();
-    loginDAO.sync(login);
+  public static void syncEmployee(Employee employee) throws SQLException {
+    EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
+    employeeDAO.sync(employee);
   }
 
   /**
@@ -354,14 +359,14 @@ public class DataManager {
   }
 
   /**
-   * This method adds a new Login object to the "Login" table in the database.
+   * This method adds a new Employee object to the "Employee" table in the database.
    *
-   * @param login the Login object to be added to the "Login" table
+   * @param employee the Employee object to be added to the "Employee" table
    * @throws SQLException if there is a problem accessing the database
    */
-  public static void addLogin(Login login) throws SQLException {
-    LoginDAOImpl loginDAO = new LoginDAOImpl();
-    loginDAO.add(login);
+  public static void addEmployee(Employee employee) throws SQLException {
+    EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
+    employeeDAO.add(employee);
   }
 
   /**
@@ -498,14 +503,14 @@ public class DataManager {
   }
 
   /**
-   * This method deletes the given Login object from the database
+   * This method deletes the given Employee object from the database
    *
-   * @param login the Login object that will be deleted in the database
+   * @param employee the Employee object that will be deleted in the database
    * @throws SQLException if there is a problem accessing the database
    */
-  public static void deleteLogin(Login login) throws SQLException {
-    LoginDAOImpl loginDAO = new LoginDAOImpl();
-    loginDAO.delete(login);
+  public static void deleteEmployee(Employee employee) throws SQLException {
+    EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
+    employeeDAO.delete(employee);
   }
 
   /**
@@ -586,9 +591,9 @@ public class DataManager {
   }
 
   /**
-   * The method retrieves all the Move objects from the "Move" table in the database.
+   * The method retrieves all the Node objects from the "Node" table in the database.
    *
-   * @return an ArrayList of the Move objects in the database
+   * @return an ArrayList of the Node objects in the database
    * @throws SQLException if there is a problem accessing the database
    */
   public static ArrayList<Node> getAllNodes() throws SQLException {
@@ -629,14 +634,22 @@ public class DataManager {
     return (new ServiceRequestDAOImpl()).getAll();
   }
 
+  public static ArrayList<String> getAllRequestIDs() throws SQLException {
+    return (new ServiceRequestDAOImpl()).getAllIDs();
+  }
+
   /**
-   * The method retrieves all the Login objects from the "Login" table in the database.
+   * The method retrieves all the Employee objects from the "Employee" table in the database.
    *
-   * @return an ArrayList of the Login objects in the database
+   * @return an ArrayList of the Employee objects in the database
    * @throws SQLException if there is a problem accessing the database
    */
-  public static ArrayList<Login> getAllLogins() throws SQLException {
-    return (new LoginDAOImpl()).getAll();
+  public static ArrayList<Employee> getAllEmployees() throws SQLException {
+    return (new EmployeeDAOImpl()).getAll();
+  }
+
+  public static ArrayList<String> getAllUsernames() throws SQLException {
+    return (new EmployeeDAOImpl()).getAllUsernames();
   }
 
   /**
@@ -748,16 +761,16 @@ public class DataManager {
   }
 
   /**
-   * This method retrieves a Login object with the specified username from the "Login" table in the
-   * database.
+   * This method retrieves a Employee object with the specified username from the "Employee" table
+   * in the database.
    *
-   * @param username the username of the Login object to retrieve from the "Login" table
-   * @return the Login object with the specified username, or null if not found
+   * @param username the username of the Employee object to retrieve from the "Employee" table
+   * @return the Employee object with the specified username, or null if not found
    * @throws SQLException if there is a problem accessing the database
    */
-  public static Login getLogin(String username) throws SQLException {
-    LoginDAOImpl loginDAO = new LoginDAOImpl();
-    return loginDAO.getLogin(username);
+  public static Employee getEmployee(String username) throws SQLException {
+    EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
+    return employeeDAO.getEmployee(username);
   }
 
   /**
@@ -957,13 +970,25 @@ public class DataManager {
   }
 
   /**
-   * Uploads CSV data to a PostgreSQL database table "Login"-also creates one if one does not exist
+   * Uploads CSV data to a PostgreSQL database table "Employee"-also creates one if one does not
+   * exist
    *
    * @param path a string that represents a file path (/ is illegal so you must use double//)
    * @throws SQLException if an error occurs while uploading the data to the database
    */
-  public static void uploadLogin(String path) throws SQLException, ParseException {
-    LoginDAOImpl.uploadLoginToPostgreSQL(path);
+  public static void uploadEmployee(String path) throws SQLException, ParseException {
+    EmployeeDAOImpl.uploadEmployeeToPostgreSQL(path);
+  }
+
+  /**
+   * Uploads CSV data to a PostgreSQL database table "EmployeeType"-also creates one if one does not
+   * exist
+   *
+   * @param path a string that represents a file path (/ is illegal so you must use double//)
+   * @throws SQLException if an error occurs while uploading the data to the database
+   */
+  public static void uploadEmployeeType(String path) throws SQLException, ParseException {
+    EmployeeDAOImpl.uploadEmployeeTypeToPostgreSQL(path);
   }
 
   /**
@@ -1090,15 +1115,42 @@ public class DataManager {
   }
 
   /**
-   * This method exports all the Login objects from the "Login" table in the database to a CSV file
-   * at the specified file path.
+   * This method exports all the Employee objects from the "Employee" table in the database to a CSV
+   * file at the specified file path.
    *
-   * @param path the file path of the CSV file to export the Login objects to
+   * @param path the file path of the CSV file to export the Employee objects to
    * @throws SQLException if there is a problem accessing the database
    * @throws IOException if there is a problem writing the CSV file
    */
-  public static void exportLoginToCSV(String path) throws SQLException, IOException {
-    LoginDAOImpl.exportLoginToCSV(path);
+  public static void exportEmployeeToCSV(String path) throws SQLException, IOException {
+    EmployeeDAOImpl.exportEmployeeToCSV(path);
+  }
+
+  /**
+   * This method exports all the EmployeeTypes from the "EmployeeType" table in the database to a
+   * CSV file at the specified file path.
+   *
+   * @param path the file path of the CSV file to export the EmployeeTypes to
+   * @throws SQLException if there is a problem accessing the database
+   * @throws IOException if there is a problem writing the CSV file
+   */
+  public static void exportEmployeeTypeToCSV(String path) throws SQLException, IOException {
+    EmployeeDAOImpl.exportEmployeeTypeToCSV(path);
+  }
+
+  /**
+   * This method exports all the Employee objects from the "Employee" table and all the
+   * EmployeeTypes from the "EmployeeType" table in the database to a CSV file at the specified file
+   * path. Will save the EmployeeTypes at path_employeeType.csv
+   *
+   * @param path the file path of the CSV file to export the Employees to
+   * @throws SQLException if there is a problem accessing the database
+   * @throws IOException if there is a problem writing the CSV file
+   */
+  public static void exportAllEmployeeDataToCSV(String path) throws SQLException, IOException {
+    EmployeeDAOImpl.exportEmployeeToCSV(path);
+    String typePath = path.replaceAll(".csv", "_employeeType.csv");
+    EmployeeDAOImpl.exportEmployeeTypeToCSV(typePath);
   }
 
   /**
@@ -1200,11 +1252,12 @@ public class DataManager {
    *     found
    * @throws SQLException if there is an error accessing the database
    */
-  public static Room getAllInfoOfNode(int id, Timestamp timestamp) throws SQLException {
-    return NodeDAOImpl.getAllInfoOfNode(id, timestamp);
+  public static ArrayList<LocationName> getLocationNameByNode(int id, Timestamp timestamp)
+      throws SQLException {
+    return NodeDAOImpl.getLocationNameByNode(id, timestamp);
   }
 
-  /**
+  /*/**
    * * Gets an arraylist of the combination of Nodes and LocationNames based upon the moves. This
    * info is gotten through looking at the most up-to-date information of the node IDs See
    * getAllRoomsCalculatedByLongName(Timestamp) for calculations based upon longNames
@@ -1212,29 +1265,27 @@ public class DataManager {
    * @param timestamp the timestamp to filter by
    * @return the list of rooms calculated by node ID at the given timestamp
    * @throws SQLException if there is an error executing the SQL query
-   */
+
   public static ArrayList<Room> getAllRoomsCalculatedByNodeID(Timestamp timestamp)
       throws SQLException {
     return NodeDAOImpl.getAllRoomsCalculatedByNodeID(timestamp);
-  }
+  }*/
 
   /**
-   * Returns a Room object containing all information about the node with the given longName. The
-   * information includes the locationName's nodeID, short name, coordinates, node type, building,
-   * floor, and the most recent date when the node's location was updated. The function queries the
-   * database and joins the "LocationName" and "Move" tables to retrieve the necessary information.
-   * It also filters the results by selecting only the information for the node with the given ID
-   * and the most recent date prior to the current time. If no information is found for the given
-   * ID, null is returned.
+   * Returns a Node object containing all information about the node with the given longName. The
+   * information includes the locationName's nodeID, coordinates, building, floor. The function
+   * queries the database and joins the "LocationName" and "Move" tables to retrieve the necessary
+   * information. It also filters the results by selecting only the information for the node with
+   * the given ID and the most recent date prior to the current time. If no information is found for
+   * the given ID, null is returned.
    *
    * @param name the longName of the LocationName to retrieve information for
    * @return a Room object containing all information about the node, or null if no information is
    *     found
    * @throws SQLException if there is an error accessing the database
    */
-  public static Room getAllInfoOfLocationName(String name, Timestamp timestamp)
-      throws SQLException {
-    return LocationNameDAOImpl.getAllInfoOfLocationName(name, timestamp);
+  public static Node getNodeByLocationName(String name, Timestamp timestamp) throws SQLException {
+    return LocationNameDAOImpl.getNodeByLocationName(name, timestamp);
   }
 
   /**
@@ -1246,8 +1297,20 @@ public class DataManager {
    * @return the list of rooms calculated by long name at the given timestamp
    * @throws SQLException if there is an error executing the SQL query
    */
-  public static ArrayList<Room> getAllRoomsCalculatedByLocationName(Timestamp timestamp)
-      throws SQLException {
-    return LocationNameDAOImpl.getAllRoomsCalculatedByLongName(timestamp);
+  public static ArrayList<Room> getAllRooms(Timestamp timestamp) throws SQLException {
+    return LocationNameDAOImpl.getAllRooms(timestamp);
+  }
+
+  /**
+   * conencts to the employee database and checks if the given username and pass are valid returns
+   * the Employee if it exists
+   *
+   * @param username the username to check
+   * @param password the password to check
+   * @return the Employee if it exists and is correct, null if no
+   * @throws SQLException
+   */
+  public static Employee checkLogin(String username, String password) throws SQLException {
+    return EmployeeDAOImpl.checkLogin(username, password);
   }
 }

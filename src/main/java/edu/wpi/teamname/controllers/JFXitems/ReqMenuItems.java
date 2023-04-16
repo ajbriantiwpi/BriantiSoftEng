@@ -3,6 +3,7 @@ package edu.wpi.teamname.controllers.JFXitems;
 import edu.wpi.teamname.controllers.ServiceRequestController;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import edu.wpi.teamname.servicerequest.requestitem.RequestItem;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
@@ -20,6 +21,8 @@ public class ReqMenuItems extends GridPane {
   private int id;
   private boolean add;
   private String folder;
+
+  private int q;
   ServiceRequest request;
   RequestItem item;
   private boolean editable = true;
@@ -67,10 +70,11 @@ public class ReqMenuItems extends GridPane {
     this.controller = controller;
     this.folder = folder;
     this.editable = true;
+    this.q = q;
 
     initialize();
 
-    quantity.setText("Quantity: " + String.valueOf(q));
+    quantity.setText("Quantity: " + String.valueOf(this.q));
     quantity.setDisable(true);
   }
 
@@ -106,7 +110,7 @@ public class ReqMenuItems extends GridPane {
           "edu/wpi/teamname/images/" + folder + "/" + name.replace(" ", "_") + ".png");
     }
     // hBox = new HBox();
-    DecimalFormat df = new DecimalFormat("0.00");
+    DecimalFormat df = new DecimalFormat("###.00");
     label = new Label(name.replace("_", " "));
     label.setFont(Font.font("Roboto", 32));
     label.setMinWidth(200);
@@ -160,14 +164,19 @@ public class ReqMenuItems extends GridPane {
   public int getQuantity() {
     int val;
     try {
-      val = Integer.parseInt(quantity.getText());
+      if (add) {
+        val = Integer.parseInt(quantity.getText());
+      } else {
+        val = this.q;
+      }
     } catch (NumberFormatException e) {
       val = 1;
     }
     return val;
   }
 
-  void delete() {
+  void delete() throws SQLException {
     controller.getCartBox().getChildren().remove(this);
+    controller.refreshPrice();
   }
 }

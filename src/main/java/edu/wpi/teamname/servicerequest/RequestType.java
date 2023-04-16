@@ -19,15 +19,15 @@ public enum RequestType {
 
   @Override
   public String toString() {
-    if (this.getString() == "MEAL") {
+    if (this.getString().equals("MEAL")) {
       return "Meal Request";
-    } else if (this.getString() == "FLOWER") {
+    } else if (this.getString().equals("FLOWER")) {
       return "Flower Request";
-    } else if (this.getString() == "OFFICESUPPLY") {
+    } else if (this.getString().equals("OFFICESUPPLY")) {
       return "Office Supply Request";
-    } else if (this.getString() == "FURNITURE") {
+    } else if (this.getString().equals("FURNITURE")) {
       return "Furniture Request";
-    } else if (this.getString() == "MEDICALSUPPLY") {
+    } else if (this.getString().equals("MEDICALSUPPLY")) {
       return "Medical Supply Request";
     } else {
       return "";

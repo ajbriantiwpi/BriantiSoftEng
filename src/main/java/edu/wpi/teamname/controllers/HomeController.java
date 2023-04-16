@@ -1,8 +1,8 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
-import edu.wpi.teamname.database.Login;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
@@ -28,13 +28,14 @@ public class HomeController {
   @FXML private AnchorPane rootPane;
   @FXML MFXButton loginButton;
   @FXML MFXButton logoutButton;
+  @FXML MFXButton editMoveButton;
 
   /** logs the current user out of the application */
   private void logout() {
     loggedIn = false;
     loginButton.setVisible(true);
     logoutButton.setVisible(false);
-    Login.setUser(null);
+    GlobalVariables.logOut();
   }
 
   @FXML
@@ -73,5 +74,6 @@ public class HomeController {
     editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
     exitButton.setOnMouseClicked(event -> System.exit(0));
     navigateButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
+    editMoveButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MOVE_TABLE));
   }
 }

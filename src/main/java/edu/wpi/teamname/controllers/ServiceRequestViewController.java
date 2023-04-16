@@ -6,6 +6,7 @@ import edu.wpi.teamname.servicerequest.ItemsOrdered;
 import edu.wpi.teamname.servicerequest.RequestType;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import edu.wpi.teamname.servicerequest.requestitem.RequestItem;
+import edu.wpi.teamname.servicerequest.Status;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 import lombok.Setter;
+import org.controlsfx.control.SearchableComboBox;
 import org.controlsfx.control.tableview2.FilteredTableColumn;
 import org.controlsfx.control.tableview2.FilteredTableView;
 
@@ -37,9 +39,9 @@ public class ServiceRequestViewController {
   @FXML FilteredTableColumn requestedForCol;
   @FXML FilteredTableColumn assignedStaffCol;
   @FXML FilteredTableColumn statusCol;
-  @FXML TextField requestIDText;
-  @FXML TextField assignStaffText;
-  @FXML TextField requestStatusText;
+  @FXML SearchableComboBox<String> requestIDText;
+  @FXML SearchableComboBox<String> assignStaffText;
+  @FXML ComboBox<Status> requestStatusText;
 
   @FXML MFXButton submitButton;
 
@@ -59,28 +61,6 @@ public class ServiceRequestViewController {
   ObservableList<String> statusValue =
       FXCollections.observableArrayList("", "PROCESSING", "BLANK", "DONE");
   @FXML ComboBox requestStatusCombo;
-
-  //  public static ObservableList<ServiceRequest> tableFilter(
-  //      RequestType requestType, String statusString) throws SQLException {
-  //    List<ServiceRequest> requests = DataManager.getAllServiceRequests();
-  //
-  //    if (requestType != null && !requestType.toString().isEmpty()) {
-  //      requests =
-  //          requests.stream()
-  //              .filter(request ->
-  // request.getRequestType().toString().equals(requestType.toString()))
-  //              .toList();
-  //    }
-  //
-  //    if (statusString != null && !statusString.isEmpty()) {
-  //      requests =
-  //          requests.stream()
-  //              .filter(request -> request.getStatus().getStatusString().equals(statusString))
-  //              .toList();
-  //    }
-  //
-  //    return FXCollections.observableArrayList(requests);
-  //  }
 
   /**
    * filters the list of service requests to add it to the table
@@ -119,9 +99,22 @@ public class ServiceRequestViewController {
    * @param requestStatus status we want to assign the request to
    * @throws SQLException if there is an error connecting to the database
    */
-  public void assignStuff(String id, String assignStaff, String requestStatus) throws SQLException {
-    DataManager.uploadStatusToServiceRequest(Integer.parseInt(id), requestStatus);
+  public void assignStuff(String id, String assignStaff, Status requestStatus) throws SQLException {
+    DataManager.uploadStatusToServiceRequest(Integer.parseInt(id), requestStatus.getStatusString());
     DataManager.uploadStaffNameToServiceRequest(Integer.parseInt(id), assignStaff);
+    requestIDText.setValue(null);
+    assignStaffText.setValue(null);
+    requestStatusText.setValue(null);
+    refreshTable();
+  }
+
+  public void refreshTable() throws SQLException {
+    ObservableList<ServiceRequest> serviceRequests =
+        FXCollections.observableList(DataManager.getAllServiceRequests());
+    FilteredList<ServiceRequest> serviceRequests1 = new FilteredList<>(serviceRequests);
+    serviceRequests1.predicateProperty().bind(table.predicateProperty());
+    SortedList<ServiceRequest> sortedServiceReq = new SortedList<>(serviceRequests1);
+    table.setItems(sortedServiceReq);
   }
 
   /**
@@ -132,22 +125,35 @@ public class ServiceRequestViewController {
   @FXML
   public void initialize() throws SQLException {
     ParentController.titleString.set("Service Request View");
-    submitButton.disableProperty().bind(Bindings.isEmpty(requestIDText.textProperty()));
-    submitButton.disableProperty().bind(Bindings.isEmpty(assignStaffText.textProperty()));
-    submitButton.disableProperty().bind(Bindings.isEmpty(requestStatusText.textProperty()));
+    submitButton.disableProperty().bind(Bindings.isNull(requestIDText.valueProperty()));
+    submitButton.disableProperty().bind(Bindings.isNull(assignStaffText.valueProperty()));
+    submitButton.disableProperty().bind(Bindings.isNull(requestStatusText.valueProperty()));
 
     submitButton.setOnMouseClicked(
         event -> {
           try {
             assignStuff(
-                requestIDText.getText(), assignStaffText.getText(), requestStatusText.getText());
+                requestIDText.valueProperty().getValue(),
+                assignStaffText.valueProperty().getValue(),
+                requestStatusText.valueProperty().getValue());
           } catch (SQLException e) {
             throw new RuntimeException(e);
           }
         });
+    ObservableList<RequestType> requestTypes =
+        FXCollections.observableArrayList(RequestType.values());
+    requestTypes.add(null);
+    requestTypeCombo.setItems(requestTypes);
 
-    requestTypeCombo.setItems(FXCollections.observableArrayList(RequestType.values()));
-    requestStatusCombo.setItems(statusValue);
+    ObservableList<Status> requestStatuses = FXCollections.observableArrayList(Status.values());
+    requestStatuses.add(null);
+    requestStatusCombo.setItems(requestStatuses);
+
+    requestIDText.setItems(FXCollections.observableList(DataManager.getAllRequestIDs()));
+    assignStaffText.setItems(FXCollections.observableList(DataManager.getAllUsernames()));
+    ObservableList<Status> requestStatuses2 = FXCollections.observableArrayList(Status.values());
+
+    requestStatusText.setItems(requestStatuses2);
 
     ObservableList<ServiceRequest> serviceRequests =
         FXCollections.observableList(DataManager.getAllServiceRequests());
