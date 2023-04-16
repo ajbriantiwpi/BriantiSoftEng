@@ -2,10 +2,20 @@ package edu.wpi.teamname;
 
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
+import javafx.scene.paint.Color;
 import lombok.Getter;
 import lombok.Setter;
 
 public class GlobalVariables {
+  @Getter @Setter private static Employee currentUser = null;
+
+  @Getter @Setter private static Color borderColor = Color.web("33567A");
+  @Getter @Setter private static Color insideColor = Color.web("2FA7B0");
+  @Getter @Setter private static float circleR = 10.0f;
+  @Getter @Setter private static float lineT = 10.0f;
+  @Getter @Setter private static int strokeThickness = 2;
+  @Getter @Setter private static Color labelColor = new Color(.835, .89, 1, 1);
+  @Getter @Setter private static Color labelTextColor = new Color(0, .106, .231, 1);
 
   private static final Employee dummyEmployee =
       new Employee("dummyU", "dummyP", -1, "dummmyF", "dummyL", true);
