@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Optional;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.TableColumn.CellEditEvent;
@@ -32,6 +33,7 @@ public class MoveTableController {
   @FXML private TextField longNameTextField;
   @FXML private DatePicker datePicker;
   @FXML private MFXButton submitButton;
+  @FXML private TextField searchTextField;
 
   public void initialize() {
     TableColumn<Move, Integer> nodeIDColumn = new TableColumn<>("Node ID");
@@ -53,6 +55,9 @@ public class MoveTableController {
                 .widthProperty()
                 .subtract(nodeIDColumn.widthProperty())
                 .subtract(longNameColumn.widthProperty()));
+    searchTextField
+        .textProperty()
+        .addListener((observable, oldValue, newValue) -> filterTable(newValue));
 
     DataManager moveDAO = new DataManager();
 
@@ -174,5 +179,30 @@ public class MoveTableController {
             }
           }
         });
+  }
+
+  private void filterTable(String searchText) {
+    DataManager moveDAO = new DataManager();
+    if (searchText == null || searchText.isEmpty()) {
+      // Show all moves when search text is empty
+      try {
+        ArrayList<Move> moves = moveDAO.getAllMoves();
+        moveTable.setItems(FXCollections.observableArrayList(moves));
+      } catch (SQLException e) {
+        System.err.println("Error getting moves from database: " + e.getMessage());
+      }
+    } else {
+      ObservableList<Move> allMoves = moveTable.getItems();
+      ObservableList<Move> filteredMoves = FXCollections.observableArrayList();
+
+      for (Move move : allMoves) {
+        if (String.valueOf(move.getNodeID()).contains(searchText)
+            || move.getLongName().toLowerCase().contains(searchText.toLowerCase())) {
+          filteredMoves.add(move);
+        }
+      }
+
+      moveTable.setItems(filteredMoves);
+    }
   }
 }

@@ -2,8 +2,8 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,10 +11,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.DatePicker?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MoveTableController">
     <children>
-        <HBox prefHeight="400.0" prefWidth="227.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox prefHeight="100.0" prefWidth="200.0" />
+        <HBox layoutY="24.0" prefHeight="423.0" prefWidth="614.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                <children>
@@ -49,8 +49,8 @@
                         <Insets left="10.0" />
                      </VBox.margin>
                   </Label>
-                  <DatePicker fx:id="datePicker"/>
-                  <MFXButton text="Submit" fx:id="submitButton">
+                  <DatePicker fx:id="datePicker" />
+                  <MFXButton fx:id="submitButton" text="Submit">
                      <VBox.margin>
                         <Insets left="80.0" top="10.0" />
                      </VBox.margin>
@@ -63,20 +63,37 @@
                         <Insets left="10.0" top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <MFXButton prefHeight="29.0" prefWidth="177.0" text="Import" fx:id="importButton">
+                  <MFXButton fx:id="importButton" prefHeight="29.0" prefWidth="177.0" text="Import">
                      <VBox.margin>
                         <Insets left="10.0" top="5.0" />
                      </VBox.margin>
                   </MFXButton>
-                  <MFXButton layoutX="20.0" layoutY="317.0" prefHeight="29.0" prefWidth="177.0" text="Export" fx:id="exportButton">
+                  <MFXButton fx:id="exportButton" layoutX="20.0" layoutY="317.0" prefHeight="29.0" prefWidth="177.0" text="Export">
                      <VBox.margin>
                         <Insets left="10.0" top="5.0" />
                      </VBox.margin>
                   </MFXButton>
                </children></VBox>
-               <TableView prefHeight="400.0" prefWidth="450.0" HBox.hgrow="ALWAYS" fx:id="moveTable">
+               <TableView fx:id="moveTable" prefHeight="400.0" prefWidth="450.0" HBox.hgrow="ALWAYS">
                </TableView>
             </children>
         </HBox>
+      <HBox layoutX="216.0" layoutY="-5.0" prefHeight="32.0" prefWidth="398.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-50.0">
+         <children>
+            <Label prefHeight="34.0" prefWidth="144.0" text="Search By ID">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" top="5.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="searchTextField">
+               <HBox.margin>
+                  <Insets top="5.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
     </children>
 </AnchorPane>
