@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.control.TextField?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.ColorInput?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.EmployeeTableController">
+   <children>
+      <VBox prefHeight="400.0" prefWidth="166.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="29.0" prefWidth="268.0" text="Add Employee" textFill="#235fa6">
+               <font>
+                  <Font name="Roboto" size="24.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="18.0" prefWidth="159.0" text="Employee ID" textFill="#001b3b">
+               <font>
+                  <Font name="Roboto" size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="employeeIDField" />
+            <Label alignment="CENTER" prefHeight="18.0" prefWidth="159.0" text="First Name" textFill="#001b3b">
+               <font>
+                  <Font name="Roboto" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="employeeIDField1" />
+            <Label alignment="CENTER" prefHeight="18.0" prefWidth="159.0" text="Last Name" textFill="#001b3b">
+               <font>
+                  <Font name="Roboto" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="employeeIDField11" />
+            <Label alignment="CENTER" prefHeight="18.0" prefWidth="159.0" text="Employee Type" textFill="#001b3b">
+               <font>
+                  <Font name="Roboto" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="employeeIDField111" />
+            <Label alignment="CENTER" prefHeight="18.0" prefWidth="159.0" text="Username" textFill="#001b3b">
+               <font>
+                  <Font name="Roboto" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="employeeIDField1111" />
+            <Label alignment="CENTER" prefHeight="29.0" prefWidth="268.0" text="CSV Manager" textFill="#235fa6">
+               <font>
+                  <Font name="Roboto" size="24.0" />
+               </font>
+            </Label>
+            <MFXButton buttonType="RAISED" prefHeight="25.0" prefWidth="118.0" rippleColor="#235fa6" text="Import">
+               <effect>
+                  <ColorInput paint="#235fa6" />
+               </effect>
+               <VBox.margin>
+                  <Insets left="5.0" top="15.0" />
+               </VBox.margin>
+            </MFXButton>
+            <MFXButton buttonType="RAISED" prefHeight="25.0" prefWidth="118.0" rippleColor="#235fa6" text="Export">
+               <effect>
+                  <ColorInput paint="#235fa6" />
+               </effect>
+               <VBox.margin>
+                  <Insets left="5.0" top="15.0" />
+               </VBox.margin>
+            </MFXButton>
+         </children>
+      </VBox>
+      <HBox layoutX="157.0" prefHeight="54.0" prefWidth="437.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="29.0" prefWidth="268.0" text="Employees" textFill="#235fa6">
+               <font>
+                  <Font name="Roboto" size="24.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="24.0" prefWidth="165.0" text="Search ">
+               <font>
+                  <Font name="Roboto" size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="searchEmployee" prefHeight="54.0" prefWidth="248.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+      <TableView layoutX="248.0" layoutY="42.0" prefHeight="358.0" prefWidth="437.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="42.0" />
+   </children>
+</AnchorPane>
