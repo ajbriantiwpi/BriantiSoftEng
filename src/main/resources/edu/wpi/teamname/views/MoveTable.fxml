@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MoveTableController">
+    <children>
+        <HBox prefHeight="400.0" prefWidth="227.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label layoutX="20.0" layoutY="267.0" prefHeight="40.0" prefWidth="228.0" text="Add Move">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="17.0" prefWidth="124.0" text="Node ID">
+                     <VBox.margin>
+                        <Insets left="10.0" top="15.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                  </Label>
+                  <TextField />
+                  <Label layoutX="20.0" layoutY="25.0" prefHeight="40.0" prefWidth="198.0" text="Long Name">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField />
+                  <Label layoutX="10.0" layoutY="91.0" prefHeight="40.0" prefWidth="198.0" text="Date">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField layoutX="10.0" layoutY="131.0" />
+                  <MFXButton text="Submit">
+                     <VBox.margin>
+                        <Insets left="80.0" top="10.0" />
+                     </VBox.margin>
+                  </MFXButton>
+                  <Label layoutX="20.0" layoutY="25.0" prefHeight="40.0" prefWidth="228.0" text="CSV Manager">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <MFXButton prefHeight="29.0" prefWidth="177.0" text="Import">
+                     <VBox.margin>
+                        <Insets left="10.0" top="5.0" />
+                     </VBox.margin>
+                  </MFXButton>
+                  <MFXButton layoutX="20.0" layoutY="317.0" prefHeight="29.0" prefWidth="177.0" text="Export">
+                     <VBox.margin>
+                        <Insets left="10.0" top="5.0" />
+                     </VBox.margin>
+                  </MFXButton>
+               </children></VBox>
+            <TableView prefHeight="400.0" prefWidth="251.0" HBox.hgrow="ALWAYS">
+              <columns>
+                <TableColumn prefWidth="117.3333740234375" text="Node ID" />
+                <TableColumn prefWidth="134.66668701171875" text="Long Name" />
+                  <TableColumn prefWidth="122.0" text="Date" />
+              </columns>
+            </TableView>
+
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>
