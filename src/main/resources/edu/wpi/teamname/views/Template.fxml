@@ -73,7 +73,7 @@
                         <graphic>
                            <ImageView>
                               <image>
-                                 <Image url="@../images/MenuIcons/edit_location_alt.png" />
+                                 <Image url="@../images/MenuIcons/edit_move.png" />
                               </image>
                            </ImageView>
                         </graphic>
