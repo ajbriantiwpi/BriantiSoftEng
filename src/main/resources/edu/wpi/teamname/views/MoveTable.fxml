@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MoveTableController">
+    <children>
+      <HBox prefHeight="100.0" prefWidth="200.0" />
+        <HBox layoutY="24.0" prefHeight="423.0" prefWidth="614.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label layoutX="20.0" layoutY="267.0" prefHeight="40.0" prefWidth="228.0" text="Add Move">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="17.0" prefWidth="124.0" text="Node ID">
+                     <VBox.margin>
+                        <Insets left="10.0" top="15.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="nodeIdTextField" />
+                  <Label layoutX="20.0" layoutY="25.0" prefHeight="40.0" prefWidth="198.0" text="Long Name">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField fx:id="longNameTextField" />
+                  <Label layoutX="10.0" layoutY="91.0" prefHeight="40.0" prefWidth="198.0" text="Date">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <DatePicker fx:id="datePicker" />
+                  <MFXButton fx:id="submitButton" text="Submit">
+                     <VBox.margin>
+                        <Insets left="80.0" top="10.0" />
+                     </VBox.margin>
+                  </MFXButton>
+                  <Label layoutX="20.0" layoutY="25.0" prefHeight="40.0" prefWidth="228.0" text="CSV Manager">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <MFXButton fx:id="importButton" prefHeight="29.0" prefWidth="177.0" text="Import">
+                     <VBox.margin>
+                        <Insets left="10.0" top="5.0" />
+                     </VBox.margin>
+                  </MFXButton>
+                  <MFXButton fx:id="exportButton" layoutX="20.0" layoutY="317.0" prefHeight="29.0" prefWidth="177.0" text="Export">
+                     <VBox.margin>
+                        <Insets left="10.0" top="5.0" />
+                     </VBox.margin>
+                  </MFXButton>
+               </children></VBox>
+               <TableView fx:id="moveTable" prefHeight="400.0" prefWidth="450.0" HBox.hgrow="ALWAYS">
+               </TableView>
+            </children>
+        </HBox>
+      <HBox layoutX="216.0" layoutY="-5.0" prefHeight="32.0" prefWidth="398.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-50.0">
+         <children>
+            <Label prefHeight="34.0" prefWidth="144.0" text="Search By ID">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" top="5.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="searchTextField">
+               <HBox.margin>
+                  <Insets top="5.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+    </children>
+</AnchorPane>

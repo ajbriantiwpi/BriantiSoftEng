@@ -42,7 +42,7 @@
                         <Insets left="20.0" top="10.0" />
                     </GridPane.margin>
                 </MFXButton>
-                <VBox alignment="CENTER" maxWidth="444.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 16;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <VBox alignment="CENTER" style="-fx-background-color: #D5E3FF; -fx-background-radius: 16;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <children>
                   <Label alignment="CENTER" minHeight="92.0" minWidth="444.0" style="-fx-background-color: #001b3b; -fx-background-radius: 16;" text="Service Requests" textFill="#fdfbff">
                      <font>
@@ -81,7 +81,7 @@
                   <Insets bottom="12.0" />
                </padding>
                 </VBox>
-                <VBox alignment="CENTER" maxWidth="444.0" prefHeight="200.0" prefWidth="444.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 16;" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                <VBox alignment="CENTER" style="-fx-background-color: #D5E3FF; -fx-background-radius: 16;" GridPane.columnIndex="2" GridPane.rowIndex="1">
                     <children>
                   <Label alignment="CENTER" minHeight="92.0" minWidth="444.0" style="-fx-background-color: #001b3b; -fx-background-radius: 16;" text="Map" textFill="#fdfbff">
                      <font>
@@ -101,7 +101,7 @@
                                 <Font name="Roboto" size="22.0" />
                             </font>
                         </MFXButton>
-                        <MFXButton alignment="BASELINE_LEFT" maxWidth="420.0" style="-fx-background-color: #faf9fd;" text="Path Plan">
+                        <MFXButton fx:id="editMoveButton" alignment="BASELINE_LEFT" maxWidth="420.0" style="-fx-background-color: #faf9fd;" text="Edit Move">
                             <font>
                                 <Font name="Roboto" size="22.0" />
                             </font>
