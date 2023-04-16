@@ -219,6 +219,7 @@ public class Map {
       } else {
         // End Node
         currentFloor = floor2;
+        System.out.println("Top: " + floor2);
         currentClick = secondClick;
       }
 
@@ -230,12 +231,15 @@ public class Map {
           continue;
         } else {
           Node currentNode = allNodes.get(i);
+          System.out.println("Bottom: " + currentNode.getFloor());
           if (currentNode.getFloor().equals(currentFloor)) {
             nodeDist = currentClick.distance(currentNode.getX(), currentNode.getY());
             if (nodeDist < leastDistance) {
+              System.out.println("--X");
               leastDistance = nodeDist;
               checkIndex = i;
             }
+            // System.out.println("--Z");
           }
         }
       }
@@ -245,7 +249,7 @@ public class Map {
         startIndex = checkIndex;
       } else {
         // End Node
-        endIndex = 171;
+        endIndex = checkIndex; // 171;
       }
     }
 
