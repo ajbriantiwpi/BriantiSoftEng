@@ -39,7 +39,7 @@ public class AStarAlgo implements IStrategyAlgo {
       for (Node nei : ex.getNeighbors()) {
         double totalWeight = ex.getG() + nei.findWeight(ex);
 
-        System.out.println(closedList.size());
+        // System.out.println(closedList.size());
 
         if (!openList.contains(nei) && !closedList.contains(nei)) {
           nei.setParent(ex);

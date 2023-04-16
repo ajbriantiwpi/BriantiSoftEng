@@ -5,8 +5,6 @@ import edu.wpi.teamname.navigation.AlgoStrategy.AStarAlgo;
 import edu.wpi.teamname.navigation.AlgoStrategy.IStrategyAlgo;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.PriorityQueue;
 import lombok.Getter;
 
 public class Graph {
@@ -89,10 +87,6 @@ public class Graph {
     }
     s.setG(0);
   }
-
-
-
-
 
   /**
    * This method returns the node with the given ID.

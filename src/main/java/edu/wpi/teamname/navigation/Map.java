@@ -25,6 +25,8 @@ public class Map {
   private Point2D centerTL;
   @Getter @Setter private ArrayList<Shape> prevPath = new ArrayList<Shape>();
 
+  @Getter @Setter private ArrayList<ArrayList<Shape>> shapes = new ArrayList<ArrayList<Shape>>();
+
   public Map() throws SQLException {
     this.graph = new Graph();
   }
@@ -42,20 +44,28 @@ public class Map {
     ArrayList<Node> listUpper2 = new ArrayList<>();
     ArrayList<Node> listUpper3 = new ArrayList<>();
 
-    ArrayList<ArrayList<Shape>> pathAllFloor = new ArrayList<>();
+    ArrayList<Shape> lF2 = new ArrayList<Shape>();
+    ArrayList<Shape> lF1 = new ArrayList<Shape>();
+    ArrayList<Shape> uF1 = new ArrayList<Shape>();
+    ArrayList<Shape> uF2 = new ArrayList<Shape>();
+    ArrayList<Shape> uF3 = new ArrayList<Shape>();
+
+    ArrayList<ArrayList<Shape>> pathAllFloor = new ArrayList<ArrayList<Shape>>();
+
+    //pathAllFloor.add(0,listFloor2);
 
     for (Node n : nodes) {
       if (n.getFloor().equals("L1")) {
         listFloor1.add(n);
       } else if (n.getFloor().equals("L2")) {
         listFloor2.add(n);
-      } /*else if (n.getFloor().equals("1") || n.getFloor().equals("G1")) {
-          listUpper1.add(n);
-        } else if (n.getFloor().equals("2") || n.getFloor().equals("G2")) {
-          listUpper2.add(n);
-        } else if (n.getFloor().equals("1") || n.getFloor().equals("G1")) {
-          listUpper3.add(n);
-        } */ else {
+      } else if (n.getFloor().equals("1") || n.getFloor().equals("G1")) {
+        listUpper1.add(n);
+      } else if (n.getFloor().equals("2") || n.getFloor().equals("G2")) {
+        listUpper2.add(n);
+      } else if (n.getFloor().equals("1") || n.getFloor().equals("G1")) {
+        listUpper3.add(n);
+      } else {
         System.out.println("This should not be here");
       }
     }
@@ -68,17 +78,17 @@ public class Map {
       pathAllFloor.add(1, makeShapePathFloor(listFloor1, "L1"));
     }
 
-    //    if (listUpper1.size() != 0) {
-    //      pathAllFloor.add(makeShapePathFloor(listUpper1, "1"));
-    //    }
-    //
-    //    if (listUpper2.size() != 0) {
-    //      pathAllFloor.add(makeShapePathFloor(listUpper2, "2"));
-    //    }
-    //
-    //    if (listUpper3.size() != 0) {
-    //      pathAllFloor.add(makeShapePathFloor(listUpper3, "3"));
-    //    }
+    if (listUpper1.size() != 0) {
+      pathAllFloor.add(2, makeShapePathFloor(listUpper1, "1"));
+    }
+
+    if (listUpper2.size() != 0) {
+      pathAllFloor.add(3, makeShapePathFloor(listUpper2, "2"));
+    }
+
+    if (listUpper3.size() != 0) {
+      pathAllFloor.add(4, makeShapePathFloor(listUpper3, "3"));
+    }
 
     return pathAllFloor;
 
@@ -136,7 +146,7 @@ public class Map {
       }
       path.setStrokeWidth(
           GlobalVariables.getLineT() - (GlobalVariables.getStrokeThickness() * 2 * j));
-      path.getElements().add(new MoveTo(nodes.get(0).getX(), nodes.get(0).getY()));
+      path.getElements().add(new MoveTo(listNode.get(0).getX(), listNode.get(0).getY()));
 
       for (int i = 1; i < listNode.size(); i++) {
         path.getElements().add(new LineTo(listNode.get(i).getX(), listNode.get(i).getY()));
@@ -147,16 +157,18 @@ public class Map {
 
     for (int i = 0; i < listNode.size(); i++) {
 
-      if (i == 0 || i == nodes.size() - 1) {
+      if (i == 0 || i == listNode.size() - 1) {
         c =
             new Circle(
-                nodes.get(i).getX(),
-                nodes.get(i).getY(),
+                listNode.get(i).getX(),
+                listNode.get(i).getY(),
                 GlobalVariables.getCircleR() + GlobalVariables.getStrokeThickness());
         c.setFill(GlobalVariables.getBorderColor());
         shapes.add(c);
 
-        c = new Circle(nodes.get(i).getX(), nodes.get(i).getY(), GlobalVariables.getCircleR());
+        c =
+            new Circle(
+                listNode.get(i).getX(), listNode.get(i).getY(), GlobalVariables.getCircleR());
         c.setFill(GlobalVariables.getInsideColor());
         shapes.add(c);
       }
@@ -174,7 +186,7 @@ public class Map {
    * @param floor1 The starting floor
    * @param floor2 The ending floor
    */
-  public String drawPath(
+  public void drawPath(
       Pane parent, Point2D firstClick, Point2D secondClick, String floor1, String floor2) {
 
     //    String floor = "L1";
@@ -227,19 +239,20 @@ public class Map {
         startIndex = checkIndex;
       } else {
         // End Node
-        endIndex = checkIndex;
+        endIndex = 124;
       }
     }
 
     //    Node startNode = allNodes.get(startIndex);
     //    Node endNode = allNodes.get(endIndex);
+    System.out.println(startIndex + " " + endIndex);
     int startId = allNodes.get(startIndex).getId();
     int endId = allNodes.get(endIndex).getId();
 
-//    drawPath(parent, startId, endId);
-    String retStr = "";
-    retStr += startIndex + "_" + endIndex;
-    return retStr;
+    drawPath(parent, startId, endId);
+    //    String retStr = "";
+    //    retStr += startIndex + "_" + endIndex;
+    //    return retStr;
   }
 
   /**
@@ -254,11 +267,13 @@ public class Map {
 
     System.out.println("SIZE: " + nodePath.size());
 
-    ArrayList<Shape> shapes = makeShapePath(nodePath);
+    shapes = makeShapePath(nodePath);
+
+    // return shapes
 
     //    System.out.println(nodePath);
 
-    parent.getChildren().addAll(shapes);
+    // parent.getChildren().addAll(shapes);
   }
 
   /**
@@ -266,22 +281,22 @@ public class Map {
    *
    * @param parent the Pane to add the path to
    */
-  public ArrayList<ArrayList<Shape>> drawAStarPath(Pane parent, int sInd, int eInd) {
-    List<Node> allNodes = this.graph.getNodes();
-
-    Node startNode = allNodes.get(sInd);
-    Node endNode = allNodes.get(eInd);
-
-    ArrayList<Node> nodePath = this.graph.AStar(startNode, endNode);
-
-    ArrayList<ArrayList<Shape>> shapes = makeShapePath(nodePath);
-
-    // System.out.println(shapes.get(1));
-    return shapes;
-
-    // parent.getChildren().addAll(shapes.get(1));
-
-  }
+  //  public ArrayList<ArrayList<Shape>> drawAStarPath(Pane parent, int sInd, int eInd) {
+  //    List<Node> allNodes = this.graph.getNodes();
+  //
+  //    Node startNode = allNodes.get(sInd);
+  //    Node endNode = allNodes.get(eInd);
+  //
+  //    ArrayList<Node> nodePath = this.graph.AStar(startNode, endNode);
+  //
+  //    ArrayList<ArrayList<Shape>> shapes = makeShapePath(nodePath);
+  //
+  //    // System.out.println(shapes.get(1));
+  //    return shapes;
+  //
+  //    // parent.getChildren().addAll(shapes.get(1));
+  //
+  //  }
 
   /**
    * Retrieves the names of all nodes on the specified floor and returns them in an ObservableList.
@@ -312,7 +327,7 @@ public class Map {
    * @return an observable list of all floor names
    * @throws SQLException if there is an error retrieving the data from the database
    */
-  public ObservableList<String> getAllFloors(String floor) throws SQLException {
+  public ObservableList<String> getAllFloors() {
     ObservableList<String> floorNames = FXCollections.observableArrayList();
 
     for (String f : floorArr) {
