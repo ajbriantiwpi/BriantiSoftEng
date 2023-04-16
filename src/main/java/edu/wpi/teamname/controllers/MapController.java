@@ -155,7 +155,7 @@ public class MapController {
         }
         return retStr;
       default:
-        return "You should never see  this!!!";
+        return "You should never see this!!!";
     }
   }
 
