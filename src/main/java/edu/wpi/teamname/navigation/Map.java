@@ -40,7 +40,93 @@ public class Map {
    * @param nodes List of nodes to create the path from
    * @return An ArrayList of Shape objects representing the path
    */
-  private ArrayList<Shape> makeShapePath(ArrayList<Node> nodes) {
+  private ArrayList<ArrayList<Shape>> makeShapePath(ArrayList<Node> nodes) {
+    ArrayList<Node> listFloor1 = new ArrayList<>();
+    ArrayList<Node> listFloor2 = new ArrayList<>();
+    ArrayList<Node> listUpper1 = new ArrayList<>();
+    ArrayList<Node> listUpper2 = new ArrayList<>();
+    ArrayList<Node> listUpper3 = new ArrayList<>();
+
+    ArrayList<ArrayList<Shape>> pathAllFloor = new ArrayList<>();
+
+    for (Node n : nodes) {
+      if (n.getFloor().equals("L1")) {
+        listFloor1.add(n);
+      } else if (n.getFloor().equals("L2")) {
+        listFloor2.add(n);
+      } /*else if (n.getFloor().equals("1") || n.getFloor().equals("G1")) {
+          listUpper1.add(n);
+        } else if (n.getFloor().equals("2") || n.getFloor().equals("G2")) {
+          listUpper2.add(n);
+        } else if (n.getFloor().equals("1") || n.getFloor().equals("G1")) {
+          listUpper3.add(n);
+        } */ else {
+        System.out.println("This should not be here");
+      }
+    }
+
+    if (listFloor2.size() != 0) {
+      pathAllFloor.add(0, makeShapePathFloor(listFloor2, "L2"));
+    }
+
+    if (listFloor1.size() != 0) {
+      pathAllFloor.add(1, makeShapePathFloor(listFloor1, "L1"));
+    }
+
+    //    if (listUpper1.size() != 0) {
+    //      pathAllFloor.add(makeShapePathFloor(listUpper1, "1"));
+    //    }
+    //
+    //    if (listUpper2.size() != 0) {
+    //      pathAllFloor.add(makeShapePathFloor(listUpper2, "2"));
+    //    }
+    //
+    //    if (listUpper3.size() != 0) {
+    //      pathAllFloor.add(makeShapePathFloor(listUpper3, "3"));
+    //    }
+
+    return pathAllFloor;
+
+    //    ArrayList<Shape> shapes = new ArrayList<Shape>();
+    //
+    //    Circle c;
+    //    Path path;
+    //
+    //    for (int j = 0; j < 2; j++) {
+    //      path = new Path();
+    //      if (j == 0) {
+    //        path.setStroke(borderColor);
+    //      } else {
+    //        path.setStroke(insideColor);
+    //      }
+    //      path.setStrokeWidth(lineT - (lineTout * 2 * j));
+    //      path.getElements().add(new MoveTo(nodes.get(0).getX(), nodes.get(0).getY()));
+    //
+    //
+    //      for (int i = 1; i < nodes.size(); i++) {
+    //        path.getElements().add(new LineTo(nodes.get(i).getX(), nodes.get(i).getY()));
+    //      }
+    //      path.setStrokeLineJoin(StrokeLineJoin.ROUND);
+    //      shapes.add(path);
+    //    }
+    //
+    //    for (int i = 0; i < nodes.size(); i++) {
+    //
+    //      if (i == 0 || i == nodes.size() - 1) {
+    //        c = new Circle(nodes.get(i).getX(), nodes.get(i).getY(), circleR + lineTout);
+    //        c.setFill(borderColor);
+    //        shapes.add(c);
+    //
+    //        c = new Circle(nodes.get(i).getX(), nodes.get(i).getY(), circleR);
+    //        c.setFill(insideColor);
+    //        shapes.add(c);
+    //      }
+    //    }
+    //    prevPath.addAll(shapes);
+    //    return shapes;
+  }
+
+  private ArrayList<Shape> makeShapePathFloor(ArrayList<Node> listNode, String floor) {
     ArrayList<Shape> shapes = new ArrayList<Shape>();
 
     Circle c;
@@ -54,23 +140,23 @@ public class Map {
         path.setStroke(insideColor);
       }
       path.setStrokeWidth(lineT - (lineTout * 2 * j));
-      path.getElements().add(new MoveTo(nodes.get(0).getX(), nodes.get(0).getY()));
+      path.getElements().add(new MoveTo(listNode.get(0).getX(), listNode.get(0).getY()));
 
-      for (int i = 1; i < nodes.size(); i++) {
-        path.getElements().add(new LineTo(nodes.get(i).getX(), nodes.get(i).getY()));
+      for (int i = 1; i < listNode.size(); i++) {
+        path.getElements().add(new LineTo(listNode.get(i).getX(), listNode.get(i).getY()));
       }
       path.setStrokeLineJoin(StrokeLineJoin.ROUND);
       shapes.add(path);
     }
 
-    for (int i = 0; i < nodes.size(); i++) {
+    for (int i = 0; i < listNode.size(); i++) {
 
-      if (i == 0 || i == nodes.size() - 1) {
-        c = new Circle(nodes.get(i).getX(), nodes.get(i).getY(), circleR + lineTout);
+      if (i == 0 || i == listNode.size() - 1) {
+        c = new Circle(listNode.get(i).getX(), listNode.get(i).getY(), circleR + lineTout);
         c.setFill(borderColor);
         shapes.add(c);
 
-        c = new Circle(nodes.get(i).getX(), nodes.get(i).getY(), circleR);
+        c = new Circle(listNode.get(i).getX(), listNode.get(i).getY(), circleR);
         c.setFill(insideColor);
         shapes.add(c);
       }
@@ -88,7 +174,7 @@ public class Map {
    * @param floor1 The starting floor
    * @param floor2 The ending floor
    */
-  public void drawAStarPath(
+  public String drawAStarPath(
       Pane parent, Point2D firstClick, Point2D secondClick, String floor1, String floor2) {
 
     //    String floor = "L1";
@@ -148,7 +234,10 @@ public class Map {
     Node startNode = allNodes.get(startIndex);
     Node endNode = allNodes.get(endIndex);
 
-    drawAStarPath(parent, startNode, endNode);
+    // drawAStarPath(parent, startNode, endNode);
+    String retStr = "";
+    retStr += startIndex + "_" + endIndex;
+    return retStr;
   }
 
   /**
@@ -172,24 +261,29 @@ public class Map {
     Node startNode = allNodes.get(/*startIndex*/ (sNode - 100) / 5);
     Node endNode = allNodes.get(/*endIndex*/ (eNode - 100) / 5);
 
-    drawAStarPath(parent, startNode, endNode);
+    drawAStarPath(parent, (startNode.getId() - 100) / 5, (endNode.getId() - 100) / 5);
   }
 
   /**
    * Draws the A* path between two given nodes and adds it to the specified parent Pane.
    *
    * @param parent the Pane to add the path to
-   * @param startNode the starting node
-   * @param endNode the ending node
    */
-  public void drawAStarPath(Pane parent, Node startNode, Node endNode) {
+  public ArrayList<ArrayList<Shape>> drawAStarPath(Pane parent, int sInd, int eInd) {
+    List<Node> allNodes = this.graph.getNodes();
+
+    Node startNode = allNodes.get(sInd);
+    Node endNode = allNodes.get(eInd);
+
     ArrayList<Node> nodePath = this.graph.AStar(startNode, endNode);
 
-    ArrayList<Shape> shapes = makeShapePath(nodePath);
+    ArrayList<ArrayList<Shape>> shapes = makeShapePath(nodePath);
 
-    System.out.println(nodePath);
+    // System.out.println(shapes.get(1));
+    return shapes;
 
-    parent.getChildren().addAll(shapes);
+    // parent.getChildren().addAll(shapes.get(1));
+
   }
 
   /**
@@ -203,7 +297,8 @@ public class Map {
     ObservableList<String> nodeNames = FXCollections.observableArrayList();
     for (Node n : DataManager.getAllNodes()) {
       if (n.getFloor().equals(floor)) {
-        nodeNames.addAll(("" + DataManager.getAllNodeInfo(n.getId()).getShortName()));
+        nodeNames.addAll(
+            ("" + n.getId() /*DataManager.getAllInfoOfNode(n.getId()).getShortName()*/));
       }
     }
     return nodeNames;

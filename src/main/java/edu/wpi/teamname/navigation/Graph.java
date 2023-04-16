@@ -112,14 +112,14 @@ public class Graph {
     while (!openList.isEmpty()) {
       Node ex = openList.peek();
       if (ex == target) {
-        System.out.println(closedList.size());
+        // System.out.println(closedList.size());
         return getPath(ex);
       }
 
       for (Node nei : ex.getNeighbors()) {
         double totalWeight = ex.getG() + nei.findWeight(ex);
 
-        System.out.println(closedList.size());
+        // System.out.println(closedList.size());
 
         if (!openList.contains(nei) && !closedList.contains(nei)) {
           nei.setParent(ex);
