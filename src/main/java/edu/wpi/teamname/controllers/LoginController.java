@@ -1,8 +1,10 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
-import edu.wpi.teamname.database.Login;
+import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.employees.Employee;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -38,11 +40,11 @@ public class LoginController {
    */
   public static boolean loginPressed(String username, String password)
       throws SQLException, ExceptionInInitializerError {
-    Login user = new Login(username, password);
-    boolean successLog = user.LogInto();
-    if (successLog) {
+    Employee user = DataManager.checkLogin(username, password);
+    if (user != null) {
       HomeController.setLoggedIn(true);
       Navigation.navigate(Screen.HOME);
+      GlobalVariables.currentUser = user;
       return true;
     } else {
       return false;
@@ -102,7 +104,13 @@ public class LoginController {
    */
   public static String forgotPasswordPressed(String username) throws SQLException {
     //    return DataManager.forgotPassword(username);
-    Login temp = new Login(username, "");
-    return temp.resetPass("NewPassword");
+    Employee employee = DataManager.getEmployee(username);
+    if (employee != null) {
+      String pass = "NewPassword1!";
+      employee.setLogin(username, pass);
+      DataManager.syncEmployee(employee);
+      return pass;
+    }
+    return "INCORRECTPASSWORD_DONOTUSE";
   }
 }
