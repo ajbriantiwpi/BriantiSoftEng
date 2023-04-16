@@ -147,10 +147,17 @@ public class MoveDAOImpl implements MoveDAO {
         String[] row = csvData.get(i);
         statement.setInt(1, Integer.parseInt(row[0])); // nodeId is an int column
         statement.setString(2, row[1]); // longName is a string column
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        java.util.Date parsedDate = dateFormat.parse(row[2]);
-        java.sql.Date date = new java.sql.Date(parsedDate.getTime());
-        statement.setDate(3, date); // date is a date column
+        try {
+          SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+          java.util.Date parsedDate = dateFormat.parse(row[2]);
+          java.sql.Date date = new java.sql.Date(parsedDate.getTime());
+          statement.setDate(3, date); // date is a date column
+        } catch (Exception e) {
+          SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
+          java.util.Date parsedDate = dateFormat.parse(row[2]);
+          java.sql.Date date = new java.sql.Date(parsedDate.getTime());
+          statement.setDate(3, date); // date is a date column
+        }
 
         statement.executeUpdate();
       }

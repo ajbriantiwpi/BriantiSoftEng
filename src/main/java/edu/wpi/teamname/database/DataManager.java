@@ -52,7 +52,7 @@ public class DataManager {
     return connection;
   }
 
-  public static ArrayList<Node> getSingleNodeInfo(int nodeID) throws SQLException {
+  /*public static ArrayList<Node> getSingleNodeInfo(int nodeID) throws SQLException {
     Connection conn = DbConnection();
     ArrayList<Node> list = new ArrayList<Node>();
     String query = "SELECT * FROM \"Node\" Where \"nodeID\" = " + nodeID;
@@ -69,9 +69,9 @@ public class DataManager {
       list.add(new Node(id, xcoord, ycoord, floor, building));
     }
     return list;
-  }
+  }*/
 
-  public static ArrayList<String> getUpdatedNodeInfo(int nodeID, Timestamp date)
+  /*public static ArrayList<String> getUpdatedNodeInfo(int nodeID, Timestamp date)
       throws SQLException {
     Connection conn = DbConnection();
     ArrayList<String> update = new ArrayList<>();
@@ -96,7 +96,7 @@ public class DataManager {
       System.out.println(e.getMessage());
     }
     return update;
-  }
+  }*/
   /**
    * Main function to create all Database tables if they don't already exist
    *
@@ -529,9 +529,9 @@ public class DataManager {
   }
 
   /**
-   * The method retrieves all the Move objects from the "Move" table in the database.
+   * The method retrieves all the Node objects from the "Node" table in the database.
    *
-   * @return an ArrayList of the Move objects in the database
+   * @return an ArrayList of the Node objects in the database
    * @throws SQLException if there is a problem accessing the database
    */
   public static ArrayList<Node> getAllNodes() throws SQLException {
@@ -572,6 +572,10 @@ public class DataManager {
     return (new ServiceRequestDAOImpl()).getAll();
   }
 
+  public static ArrayList<String> getAllRequestIDs() throws SQLException {
+    return (new ServiceRequestDAOImpl()).getAllIDs();
+  }
+
   /**
    * The method retrieves all the Employee objects from the "Employee" table in the database.
    *
@@ -580,6 +584,10 @@ public class DataManager {
    */
   public static ArrayList<Employee> getAllEmployees() throws SQLException {
     return (new EmployeeDAOImpl()).getAll();
+  }
+
+  public static ArrayList<String> getAllUsernames() throws SQLException {
+    return (new EmployeeDAOImpl()).getAllUsernames();
   }
 
   /**
@@ -1135,11 +1143,12 @@ public class DataManager {
    *     found
    * @throws SQLException if there is an error accessing the database
    */
-  public static Room getAllInfoOfNode(int id, Timestamp timestamp) throws SQLException {
-    return NodeDAOImpl.getAllInfoOfNode(id, timestamp);
+  public static ArrayList<LocationName> getLocationNameByNode(int id, Timestamp timestamp)
+      throws SQLException {
+    return NodeDAOImpl.getLocationNameByNode(id, timestamp);
   }
 
-  /**
+  /*/**
    * * Gets an arraylist of the combination of Nodes and LocationNames based upon the moves. This
    * info is gotten through looking at the most up-to-date information of the node IDs See
    * getAllRoomsCalculatedByLongName(Timestamp) for calculations based upon longNames
@@ -1147,29 +1156,27 @@ public class DataManager {
    * @param timestamp the timestamp to filter by
    * @return the list of rooms calculated by node ID at the given timestamp
    * @throws SQLException if there is an error executing the SQL query
-   */
+
   public static ArrayList<Room> getAllRoomsCalculatedByNodeID(Timestamp timestamp)
       throws SQLException {
     return NodeDAOImpl.getAllRoomsCalculatedByNodeID(timestamp);
-  }
+  }*/
 
   /**
-   * Returns a Room object containing all information about the node with the given longName. The
-   * information includes the locationName's nodeID, short name, coordinates, node type, building,
-   * floor, and the most recent date when the node's location was updated. The function queries the
-   * database and joins the "LocationName" and "Move" tables to retrieve the necessary information.
-   * It also filters the results by selecting only the information for the node with the given ID
-   * and the most recent date prior to the current time. If no information is found for the given
-   * ID, null is returned.
+   * Returns a Node object containing all information about the node with the given longName. The
+   * information includes the locationName's nodeID, coordinates, building, floor. The function
+   * queries the database and joins the "LocationName" and "Move" tables to retrieve the necessary
+   * information. It also filters the results by selecting only the information for the node with
+   * the given ID and the most recent date prior to the current time. If no information is found for
+   * the given ID, null is returned.
    *
    * @param name the longName of the LocationName to retrieve information for
    * @return a Room object containing all information about the node, or null if no information is
    *     found
    * @throws SQLException if there is an error accessing the database
    */
-  public static Room getAllInfoOfLocationName(String name, Timestamp timestamp)
-      throws SQLException {
-    return LocationNameDAOImpl.getAllInfoOfLocationName(name, timestamp);
+  public static Node getNodeByLocationName(String name, Timestamp timestamp) throws SQLException {
+    return LocationNameDAOImpl.getNodeByLocationName(name, timestamp);
   }
 
   /**
@@ -1181,9 +1188,8 @@ public class DataManager {
    * @return the list of rooms calculated by long name at the given timestamp
    * @throws SQLException if there is an error executing the SQL query
    */
-  public static ArrayList<Room> getAllRoomsCalculatedByLocationName(Timestamp timestamp)
-      throws SQLException {
-    return LocationNameDAOImpl.getAllRoomsCalculatedByLongName(timestamp);
+  public static ArrayList<Room> getAllRooms(Timestamp timestamp) throws SQLException {
+    return LocationNameDAOImpl.getAllRooms(timestamp);
   }
 
   /**

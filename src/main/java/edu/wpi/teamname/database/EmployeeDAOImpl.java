@@ -120,6 +120,24 @@ public class EmployeeDAOImpl implements LoginDAO {
     return list;
   }
 
+  public ArrayList<String> getAllUsernames() throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    ArrayList<String> list = new ArrayList<String>();
+    try {
+      String query = "SELECT * FROM \"Employee\"";
+      PreparedStatement statement = connection.prepareStatement(query);
+      ResultSet rs = statement.executeQuery();
+
+      while (rs.next()) {
+        String usern = rs.getString("username");
+        list.add(usern);
+      }
+    } catch (SQLException e) {
+      System.out.println("Get all Employees error.");
+    }
+    return list;
+  }
+
   /**
    * This method adds a new Employee object to the "Employee" table in the database.
    *

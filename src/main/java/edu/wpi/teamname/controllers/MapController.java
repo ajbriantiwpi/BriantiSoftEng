@@ -98,7 +98,8 @@ public class MapController {
           // System.out.println(EndPointSelect.getValue());
           sNode = Integer.parseInt(LocationOne.getValue());
           if (eNode != 0) {
-            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
+            //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
+            map.drawPath(anchor, sNode, eNode);
           }
         }
       };
@@ -112,7 +113,7 @@ public class MapController {
           System.out.println(EndPointSelect.getValue());
           eNode = Integer.parseInt(EndPointSelect.getValue());
           if (sNode != 0) {
-            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
+            //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
           }
         }
       };
@@ -240,7 +241,7 @@ public class MapController {
 
     //    gp.setOnMouseMoved(checkPoints);
 
-    anchor.getChildren().addAll(map.makeAllFloorNodes(defaultFloor));
+    anchor.getChildren().addAll(map.makeAllFloorNodes(defaultFloor, true));
 
     map.centerAndZoom(gp);
 

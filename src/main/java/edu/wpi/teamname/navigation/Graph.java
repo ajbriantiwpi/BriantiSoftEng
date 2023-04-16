@@ -1,6 +1,8 @@
 package edu.wpi.teamname.navigation;
 
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.navigation.AlgoStrategy.AStarAlgo;
+import edu.wpi.teamname.navigation.AlgoStrategy.IStrategyAlgo;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,6 +12,7 @@ import lombok.Getter;
 public class Graph {
   @Getter private ArrayList<Node> Nodes = new ArrayList<>();
   private ArrayList<Edge> Edges = new ArrayList<>();
+  private IStrategyAlgo pathfindingAlgo;
 
   /**
    * Creates a new Graph by retrieving Nodes and Edges from the database.
@@ -20,6 +23,7 @@ public class Graph {
     Nodes = this.getAllNodes(); // Changed based on DB team
     Edges = this.getAllEdges(); // Changed based on DB team
     this.initializeEdges();
+    pathfindingAlgo = new AStarAlgo();
   }
 
   /**
@@ -28,7 +32,7 @@ public class Graph {
    * @return an ArrayList of Nodes
    * @throws SQLException if there is an error accessing the database
    */
-  public ArrayList<Node> getAllNodes() throws SQLException {
+  private ArrayList<Node> getAllNodes() throws SQLException {
     return DataManager.getAllNodes();
   }
 
@@ -38,7 +42,7 @@ public class Graph {
    * @return an ArrayList of Edges
    * @throws SQLException if there is an error accessing the database
    */
-  public ArrayList<Edge> getAllEdges() throws SQLException {
+  private ArrayList<Edge> getAllEdges() throws SQLException {
     return DataManager.getAllEdges();
   }
 
@@ -65,11 +69,11 @@ public class Graph {
   /**
    * Prints a path from the start Node to the target Node using the A* algorithm.
    *
-   * @param s the start Node
-   * @param t the target Node
+   * @param startNodeIndex the start Node
+   * @param targetNodeIndex the target Node
    */
-  public void printPath(Node s, Node t) {
-    System.out.println(AStar(s, t));
+  public void printPath(int startNodeIndex, int targetNodeIndex) {
+    System.out.println(this.getPathBetween(startNodeIndex, targetNodeIndex));
   }
 
   /**
@@ -86,87 +90,9 @@ public class Graph {
     s.setG(0);
   }
 
-  /**
-   * Returns the shortest path between two nodes using A* algorithm.
-   *
-   * @param s the starting node.
-   * @param t the ending node.
-   * @return a list of nodes representing the shortest path between the starting node and the ending
-   *     node.
-   */
-  public ArrayList<Node> AStar(Node s, Node t) {
-    for (Node j : Nodes) {
-      j.setParent(null);
-    }
 
-    setAllG(s, t);
-    Node start = s;
-    Node target = t;
 
-    PriorityQueue<Node> closedList = new PriorityQueue<>();
-    PriorityQueue<Node> openList = new PriorityQueue<>();
 
-    start.setF(start.getG() + start.calculateHeuristic(target));
-    openList.add(start);
-
-    while (!openList.isEmpty()) {
-      Node ex = openList.peek();
-      if (ex == target) {
-        // System.out.println(closedList.size());
-        return getPath(ex);
-      }
-
-      for (Node nei : ex.getNeighbors()) {
-        double totalWeight = ex.getG() + nei.findWeight(ex);
-
-        // System.out.println(closedList.size());
-
-        if (!openList.contains(nei) && !closedList.contains(nei)) {
-          nei.setParent(ex);
-          nei.setG(totalWeight);
-          nei.setF(nei.getG() + nei.calculateHeuristic(target));
-          openList.add(nei);
-        } else {
-          if (totalWeight < nei.getG()) {
-            nei.setParent(ex);
-            nei.setG(totalWeight);
-            nei.setF(nei.getG() + nei.calculateHeuristic(target));
-
-            if (closedList.contains(nei)) {
-              closedList.remove(nei);
-              openList.add(nei);
-            }
-          }
-        }
-      }
-      openList.remove(ex);
-      closedList.add(ex);
-      // System.out.println(closedList.size());
-    }
-    return null;
-  }
-
-  /**
-   * This method returns the path from the target node to the start node.
-   *
-   * @param target The target node to start the path from
-   * @return The path from the target node to the start node
-   */
-  private static ArrayList<Node> getPath(Node target) {
-    Node n = target;
-
-    ArrayList<Node> ids = new ArrayList<>();
-    if (n == null) return ids;
-
-    while (n.getParent() != null) {
-      ids.add(n);
-      n = n.getParent();
-    }
-    ids.add(n);
-    Collections.reverse(ids);
-
-    return ids;
-  }
 
   /**
    * This method returns the node with the given ID.
@@ -175,13 +101,13 @@ public class Graph {
    * @return The node with the given ID
    */
   public Node findNodeByID(int nodeId) {
-    return Nodes.get((nodeId - 100) / 5);
+    return Nodes.get(Node.idToIndex(nodeId));
   }
 
   /**
    * This method initializes the edges in the graph by creating and setting neighbors for each node.
    */
-  public void initializeEdges() {
+  private void initializeEdges() {
     // Initialize the nodes with the node lines data
     for (int i = 0; i < Edges.size(); i++) {
       Node StartNode = this.findNodeByID(Edges.get(i).getStartNodeID());
@@ -190,5 +116,21 @@ public class Graph {
       StartNode.getNeighbors().add(EndNode);
       EndNode.getNeighbors().add(StartNode);
     }
+  }
+
+  public IStrategyAlgo getPathfindingAlgo() {
+    return pathfindingAlgo;
+  }
+
+  public void setPathfindingAlgo(IStrategyAlgo algo) {
+    this.pathfindingAlgo = algo;
+  }
+
+  public ArrayList<Node> getPathBetween(int startNodeId, int targetNodeId) {
+    return pathfindingAlgo.getPathBetween(this, startNodeId, targetNodeId);
+  }
+
+  public ArrayList<Node> getPathBetween(Node startNode, Node endNode) {
+    return pathfindingAlgo.getPathBetween(this, startNode.getId(), endNode.getId());
   }
 }
