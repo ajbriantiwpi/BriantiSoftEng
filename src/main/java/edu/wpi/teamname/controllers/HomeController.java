@@ -44,6 +44,7 @@ public class HomeController {
     disableButtonsWhenLoggedOut();
   }
 
+  /** * Disables all the buttons that can not be accessed without logging in */
   private void disableButtonsWhenLoggedOut() {
     makeRequestsButton.setDisable(true);
     makeRequestsButton1.setDisable(true);
