@@ -52,7 +52,11 @@ public class Map {
 
     ArrayList<ArrayList<Shape>> pathAllFloor = new ArrayList<ArrayList<Shape>>();
 
-    //pathAllFloor.add(0,listFloor2);
+    for (int i = 0; i < 5; i++) {
+      pathAllFloor.add(new ArrayList<Shape>());
+    }
+
+    // pathAllFloor.add(0,listFloor2);
 
     for (Node n : nodes) {
       if (n.getFloor().equals("L1")) {
@@ -75,6 +79,8 @@ public class Map {
     }
 
     if (listFloor1.size() != 0) {
+      System.out.println("size of list1: " + listFloor1.size());
+      // System.out.println("size of list in list: " + pathAllFloor.get(1).size());
       pathAllFloor.add(1, makeShapePathFloor(listFloor1, "L1"));
     }
 
@@ -239,7 +245,7 @@ public class Map {
         startIndex = checkIndex;
       } else {
         // End Node
-        endIndex = 124;
+        endIndex = 171;
       }
     }
 
@@ -317,7 +323,7 @@ public class Map {
 
   /** An array of strings that represent the names of different floors. */
   String[] floorArr = {
-    "Lower Level 2", "Lower Level 1", "Ground Floor", "First Floor", "Second Floor", "Third Floor"
+    "Lower Level 2", "Lower Level 1", "First Floor", "Second Floor", "Third Floor"
   };
 
   /**
