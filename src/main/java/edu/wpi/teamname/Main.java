@@ -1,8 +1,6 @@
 package edu.wpi.teamname;
 
 import edu.wpi.teamname.database.DataManager;
-import edu.wpi.teamname.employees.Employee;
-import edu.wpi.teamname.employees.EmployeeType;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
