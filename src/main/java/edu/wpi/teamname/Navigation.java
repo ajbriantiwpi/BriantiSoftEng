@@ -40,7 +40,8 @@ public class Navigation {
       }
       System.out.println("Loaded");
       App.getRootPane().setCenter(PFinal);
-
+      GlobalVariables.setPreviousScreen(GlobalVariables.getCurrentScreen());
+      GlobalVariables.setCurrentScreen(screen);
     } catch (IOException | NullPointerException e) {
       e.printStackTrace();
     }

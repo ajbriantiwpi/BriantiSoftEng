@@ -7,8 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class GlobalVariables {
-  @Getter @Setter private static Employee currentUser = null;
-
   @Getter @Setter private static Color borderColor = Color.web("33567A");
   @Getter @Setter private static Color insideColor = Color.web("2FA7B0");
   @Getter @Setter private static float circleR = 10.0f;
@@ -20,7 +18,8 @@ public class GlobalVariables {
   private static final Employee dummyEmployee =
       new Employee("dummyU", "dummyP", -1, "dummmyF", "dummyL", true);
   @Getter @Setter private static Employee currentUser = dummyEmployee;
-
+  @Getter @Setter private static Screen currentScreen = Screen.HOME;
+  @Getter @Setter private static Screen previousScreen = Screen.HOME;
   /** Sets the current user to be null indicating no user is logged in */
   public static void logOut() {
     currentUser = dummyEmployee;

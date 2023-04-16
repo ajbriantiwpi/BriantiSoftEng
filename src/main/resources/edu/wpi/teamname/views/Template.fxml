@@ -66,6 +66,18 @@
                            </ImageView>
                         </graphic>
                      </MFXButton>
+                     <MFXButton fx:id="editMoveButton" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="263.0" maxWidth="1.7976931348623157E308" text="Edit Move" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
+                        <font>
+                           <Font name="Roboto" size="22.0" />
+                        </font>
+                        <graphic>
+                           <ImageView>
+                              <image>
+                                 <Image url="@../images/MenuIcons/edit_location_alt.png" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </MFXButton>
                      <MFXButton fx:id="makeRequestsButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" text="Make Requests" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
                         <font>
                            <Font name="Roboto" size="22.0" />
@@ -97,16 +109,30 @@
                            </ImageView>
                         </graphic>
                      </MFXButton>
-                     <MFXButton fx:id="logoutButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" text="Logout" textFill="#1a1c1e">
-                        <font>
-                           <Font name="Roboto" size="22.0" />
-                        </font>
-                        <graphic>
-                           <ImageView>
-                              <Image url="@../images/MenuIcons/logout.png" />
-                           </ImageView>
-                        </graphic>
-                     </MFXButton>
+                     <AnchorPane>
+                        <children>
+                           <MFXButton fx:id="logoutButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" text="Logout" textFill="#1a1c1e" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <font>
+                                 <Font name="Roboto" size="22.0" />
+                              </font>
+                              <graphic>
+                                 <ImageView>
+                                    <Image url="@../images/MenuIcons/logout.png" />
+                                 </ImageView>
+                              </graphic>
+                           </MFXButton>
+                           <MFXButton fx:id="loginButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" text="Login" textFill="#1a1c1e" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <font>
+                                 <Font name="Roboto" size="22.0" />
+                              </font>
+                              <graphic>
+                                 <ImageView>
+                                    <Image url="@../images/MenuIcons/logout.png" />
+                                 </ImageView>
+                              </graphic>
+                           </MFXButton>
+                        </children>
+                     </AnchorPane>
                      <MFXButton fx:id="exitButton" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="452.0" maxWidth="1.7976931348623157E308" text="Exit" textFill="#1a1c1e">
                         <font>
                            <Font name="Times New Roman" size="19.0" />

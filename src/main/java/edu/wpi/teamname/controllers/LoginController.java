@@ -2,7 +2,6 @@ package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.Navigation;
-import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.Employee;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -43,10 +42,9 @@ public class LoginController {
       throws SQLException, ExceptionInInitializerError {
     Employee user = DataManager.checkLogin(username, password);
     if (user != null) {
+      GlobalVariables.setCurrentUser(user);
       HomeController.setLoggedIn(new SimpleBooleanProperty(true));
-      GlobalVariables.setCurrentUser(user);
-      Navigation.navigate(Screen.HOME);
-      GlobalVariables.setCurrentUser(user);
+      Navigation.navigate(GlobalVariables.getPreviousScreen());
       return true;
     } else {
       return false;
@@ -94,7 +92,7 @@ public class LoginController {
             throw new RuntimeException(e);
           }
         });
-    cancel.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    cancel.setOnMouseClicked(event -> Navigation.navigate(GlobalVariables.getPreviousScreen()));
   }
 
   /**
