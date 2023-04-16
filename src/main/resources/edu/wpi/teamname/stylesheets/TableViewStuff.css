@@ -21,10 +21,10 @@
 }
 
 .filtered-table-row-cell {
-    -fx-background-color: #f1f1f1;
-    -fx-background: #f1f1f1;
-    -fx-text-background-color: #012d5a;
-    -fx-text-fill: #012d5a;
+    -fx-background-color: #012d5a;
+    -fx-background: #012d5a;
+    -fx-text-background-color: #f1f1f1;
+    -fx-text-fill: #f1f1f1;
 }
 
 
