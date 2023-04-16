@@ -30,20 +30,24 @@
 }
 
 
+
 .filtered-table-view .cell:odd{
-    -fx-background-color: #D5E3FF;
-    -fx-background: #D5E3FF;
     -fx-text-background-color: #000000;
     -fx-text-fill: #000000;
     -fx-font-family: Roboto;
 }
 
 .filtered-table-view .cell:even{
-    -fx-background-color: #D9E3F8;
-    -fx-background: #D9E3F8;
     -fx-text-background-color: #000000;
     -fx-text-fill: #000000;
     -fx-font-family: Roboto;
 }
 
 
+.odd {
+    -fx-background-color: #D5E3FF;
+}
+
+.even{
+    -fx-background-color: #D9E3F8;
+}

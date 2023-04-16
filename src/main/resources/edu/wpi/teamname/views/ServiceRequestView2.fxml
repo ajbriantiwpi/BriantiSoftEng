@@ -12,6 +12,8 @@
 <?import org.controlsfx.control.tableview2.FilteredTableColumn?>
 <?import org.controlsfx.control.tableview2.FilteredTableView?>
 
+<!--        style="-fx-background-color: #D9E3F8;" -->
+
 <AnchorPane styleClass="body" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestViewController">
     <children>
         <HBox spacing="24.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -111,31 +113,34 @@
                                        <Insets />
                                     </VBox.margin>
                                  </SearchableComboBox>
+                                        <MFXButton fx:id="submitButton" mnemonicParsing="false" style="-fx-background-color: #003da6;" text="Assign" textFill="WHITE">
+                                            <font>
+                                                <Font name="Times New Roman" size="32.0" />
+                                            </font>
+                                    <VBox.margin>
+                                       <Insets />
+                                    </VBox.margin>
+                                        </MFXButton>
                               </children>
                            </VBox>
                         </children>
                      </VBox>
                   </children></AnchorPane>
-                      <MFXButton fx:id="submitButton" mnemonicParsing="false" style="-fx-background-color: #003da6;" text="Assign" textFill="WHITE">
-                          <font>
-                              <Font name="Times New Roman" size="32.0" />
-                          </font>
-                  <VBox.margin>
-                     <Insets />
-                  </VBox.margin>
-                      </MFXButton>
                 </children>
+            <padding>
+               <Insets left="24.0" />
+            </padding>
             </VBox>
          <FilteredTableView fx:id="table" styleClass="filtered-table-view" stylesheets="@../stylesheets/TableViewStuff.css">
             <columns>
-               <FilteredTableColumn fx:id="requestIDCol" minWidth="0.0" prefWidth="148.5" text="Request ID" style="-fx-background-color: #D5E3FF" styleClass="odd"/>
-               <FilteredTableColumn fx:id="patientNameCol" prefWidth="148.5" text="Patient Name" style="-fx-background-color: #D9E3F8;" styleClass="even"/>
-               <FilteredTableColumn fx:id="roomNumCol" prefWidth="148.5" text="Room #" style="-fx-background-color: #D5E3FF" styleClass="odd"/>
-               <FilteredTableColumn fx:id="requesterIDCol" prefWidth="148.5" text="Requester ID" style="-fx-background-color: #D9E3F8;" styleClass="odd"/>
-               <FilteredTableColumn fx:id="requestedAtCol" prefWidth="148.5" text="Requested At" style="-fx-background-color: #D5E3FF" styleClass="even"/>
-             <FilteredTableColumn fx:id="requestedForCol" prefWidth="148.5" text="Requested For" style="-fx-background-color: #D9E3F8;" styleClass="odd"/>
-             <FilteredTableColumn fx:id="assignedStaffCol" prefWidth="148.5" text="Assigned Staff" style="-fx-background-color: #D5E3FF" styleClass="even"/>
-               <FilteredTableColumn fx:id="statusCol" prefWidth="148.5" text="Status" style="-fx-background-color: #D9E3F8;" styleClass="odd"/>
+               <FilteredTableColumn fx:id="requestIDCol" minWidth="0.0" prefWidth="148.5" styleClass="odd" text="Request ID" />
+               <FilteredTableColumn fx:id="patientNameCol" prefWidth="148.5" styleClass="even" text="Patient Name" />
+               <FilteredTableColumn fx:id="roomNumCol" prefWidth="148.5" styleClass="odd" text="Room #" />
+               <FilteredTableColumn fx:id="requesterIDCol" prefWidth="148.5" styleClass="odd" text="Requester ID" />
+               <FilteredTableColumn fx:id="requestedAtCol" prefWidth="148.5" styleClass="even" text="Requested At" />
+             <FilteredTableColumn fx:id="requestedForCol" prefWidth="148.5" styleClass="odd" text="Requested For" />
+             <FilteredTableColumn fx:id="assignedStaffCol" prefWidth="148.5" styleClass="even" text="Assigned Staff" />
+               <FilteredTableColumn fx:id="statusCol" prefWidth="148.5" styleClass="odd" text="Status" />
             </columns>
             <HBox.margin>
                <Insets right="10.0" />
@@ -144,5 +149,3 @@
         </HBox>
     </children>
 </AnchorPane>
-
-<!--        style="-fx-background-color: #D9E3F8;" -->
