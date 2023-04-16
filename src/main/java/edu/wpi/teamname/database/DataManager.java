@@ -50,6 +50,7 @@ public class DataManager {
 
   /**
    * Get list of items ordered from a specific ID
+   *
    * @param reqID
    * @return ArrayList<ItemsOrdered>
    * @throws SQLException
@@ -62,11 +63,11 @@ public class DataManager {
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, reqID);
       ResultSet rs = statement.executeQuery();
-      while(rs.next()){
+      while (rs.next()) {
         int rID = rs.getInt("requestID");
         int iID = rs.getInt("itemID");
         int quantity = rs.getInt("quantity");
-        ItemsOrdered item = new ItemsOrdered(rID,iID,quantity);
+        ItemsOrdered item = new ItemsOrdered(rID, iID, quantity);
         items.add(item);
       }
     } catch (SQLException e) {

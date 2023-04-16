@@ -74,7 +74,7 @@ public class ReqMenuItems extends GridPane {
     quantity.setDisable(true);
   }
 
-  public ReqMenuItems(RequestItem item, String folder, int q){
+  public ReqMenuItems(RequestItem item, String folder, int q) {
     this.item = item;
     this.folder = folder;
     this.id = item.getItemID();
@@ -115,9 +115,9 @@ public class ReqMenuItems extends GridPane {
     labelP.setFont(Font.font("Roboto", 32));
     labelP.setMinWidth(200);
     labelP.setMaxWidth(200);
-    if(editable){
+    if (editable) {
       button =
-              new RequestMenuItemButton(name.replace("_", " "), this.id, this, this.request, this.add);
+          new RequestMenuItemButton(name.replace("_", " "), this.id, this, this.request, this.add);
       vBox = new VBox();
       vBox.setAlignment(Pos.CENTER);
       vBox.setMinWidth(button.getWidth() + 15);
@@ -130,11 +130,11 @@ public class ReqMenuItems extends GridPane {
       button.setPadding(new Insets(this.getHeight() / 2 - button.getHeight() / 2, 25, 0, 25));
       button.setAlignment(Pos.CENTER_RIGHT);
       button.setStyle(
-              "-fx-background-color: #555F71; "
-                      + "-fx-text-fill:  #FFFFFF; "
-                      + "-fx-background-radius: 100;"
-                      + " -fx-font-family: Roboto;"
-                      + " -fx-font-size: 32 ");
+          "-fx-background-color: #555F71; "
+              + "-fx-text-fill:  #FFFFFF; "
+              + "-fx-background-radius: 100;"
+              + " -fx-font-family: Roboto;"
+              + " -fx-font-size: 32 ");
     }
     quantity = new TextField("");
     quantity.setPromptText("Quantity");
@@ -155,7 +155,6 @@ public class ReqMenuItems extends GridPane {
     setHalignment(quantity, HPos.LEFT);
 
     setStyle("-fx-background-color: #D5E3FF;" + "-fx-background-radius: 8");
-
   }
 
   public int getQuantity() {

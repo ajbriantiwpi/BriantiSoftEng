@@ -143,7 +143,7 @@ public class FlowerDAOImpl implements FlowerDAO {
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, id);
       ResultSet rs = statement.executeQuery();
-
+      rs.next();
       int flowerID = rs.getInt("flowerID");
       String name = rs.getString("Name");
       float price = rs.getFloat("price");

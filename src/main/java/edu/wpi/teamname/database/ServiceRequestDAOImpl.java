@@ -1,13 +1,10 @@
 package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.ServiceRequestDAO;
-import edu.wpi.teamname.servicerequest.ItemsOrdered;
 import edu.wpi.teamname.servicerequest.RequestType;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import edu.wpi.teamname.servicerequest.Status;
 import edu.wpi.teamname.servicerequest.requestitem.RequestItem;
-import oracle.ucp.common.FailoverStats;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;

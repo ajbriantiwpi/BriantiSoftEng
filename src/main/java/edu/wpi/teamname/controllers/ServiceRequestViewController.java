@@ -9,7 +9,6 @@ import edu.wpi.teamname.servicerequest.requestitem.RequestItem;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -226,34 +225,53 @@ public class ServiceRequestViewController {
               }
             }));
 
-    backButton.setOnMouseClicked(
+    backButton.setOnMouseClicked( // show service reqs
         event -> {
           table.setVisible(true);
           table.setDisable(false);
           summaryPane.setVisible(false);
           summaryPane.setDisable(true);
+          cartBox.getChildren().clear();
         });
-    switchButton.setOnMouseClicked(
+    switchButton.setOnMouseClicked( // show orders
         event -> {
           table.setVisible(false);
           table.setDisable(true);
           summaryPane.setVisible(true);
           summaryPane.setDisable(false);
+          try {
+            fillPane();
+          } catch (SQLException e) {
+            System.out.println(e);
+          }
         });
   }
+
   private void fillPane() throws SQLException {
     String folder = "FlowerIcons";
-    int reqID = 242812;
+    int reqID = 489118;
     ArrayList<ItemsOrdered> orderedItems = new ArrayList<>();
     ArrayList<RequestItem> tempItems = new ArrayList<>();
     orderedItems = DataManager.getItemsFromReq(reqID);
-    for(int i=0;i<orderedItems.size();i++){
-        ItemsOrdered item = orderedItems.get(i);
-        if(item.getItemID()/10 == 10){//flower
-            folder = "FlowerIcons";
-            tempItems.add(DataManager.getFlower(item.getItemID()));
-        }
-        cartBox.getChildren().add(new ReqMenuItems(tempItems.get(i), folder, item.getQuantity()));
+    for (int i = 0; i < orderedItems.size(); i++) {
+      ItemsOrdered item = orderedItems.get(i);
+      if (item.getItemID() / 100 >= 10 && item.getItemID() / 100 < 11) { // flower
+        folder = "FlowerIcons";
+        tempItems.add(DataManager.getFlower(item.getItemID()));
+      } else if (item.getItemID() / 100 >= 11 && item.getItemID() / 100 < 12) { // meal
+        folder = "MealIcons";
+        tempItems.add(DataManager.getMeal(item.getItemID()));
+      } else if (item.getItemID() / 100 >= 13 && item.getItemID() / 100 < 14) { // furniture
+        folder = "FurnitureIcons";
+        tempItems.add(DataManager.getFurniture(item.getItemID()));
+      } else if (item.getItemID() / 100 >= 14 && item.getItemID() / 100 < 15) { // office supply
+        folder = "OfficeIcons";
+        tempItems.add(DataManager.getOfficeSupply(item.getItemID()));
+      } else if (item.getItemID() / 100 >= 15 && item.getItemID() / 100 < 16) { // medical Supply
+        folder = "MedicalIcons";
+        tempItems.add(DataManager.getMedicalSupply(item.getItemID()));
+      }
+      cartBox.getChildren().add(new ReqMenuItems(tempItems.get(i), folder, item.getQuantity()));
     }
   }
 }
