@@ -55,7 +55,10 @@ public class MapController {
             floor2 = takeFloor(FloorSelect.getValue(), true);
 
             // Call drawAStarPath with both points
-            map.drawAStarPath(anchor, firstClick, secondClick, floor1, floor2);
+            //            map.drawAStarPath(anchor, firstClick, secondClick, floor1, floor2);
+
+            System.out.println("CLICKPATH");
+            map.drawPath(anchor, firstClick, secondClick, floor1, floor2);
 
             clickCount = 0;
           }
@@ -88,7 +91,8 @@ public class MapController {
           // System.out.println(EndPointSelect.getValue());
           sNode = Integer.parseInt(LocationOne.getValue());
           if (eNode != 0) {
-            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
+            //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
+            map.drawPath(anchor, sNode, eNode);
           }
         }
       };
@@ -102,7 +106,7 @@ public class MapController {
           System.out.println(EndPointSelect.getValue());
           eNode = Integer.parseInt(EndPointSelect.getValue());
           if (sNode != 0) {
-            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
+            //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
           }
         }
       };
@@ -202,7 +206,7 @@ public class MapController {
 
     //    gp.setOnMouseMoved(checkPoints);
 
-    anchor.getChildren().addAll(map.makeAllFloorNodes(defaultFloor));
+    anchor.getChildren().addAll(map.makeAllFloorNodes(defaultFloor, true));
 
     map.centerAndZoom(gp);
 

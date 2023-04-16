@@ -575,12 +575,12 @@ public class MapEditController {
     map = new Map();
 
     gp.setMinScale(0.11);
-    //    anchor.setOnMouseClicked(e);
 
     map.centerAndZoom(gp);
 
     ParentController.titleString.set("Map");
-    anchor.getChildren().addAll(map.makeAllFloorNodes(defaultFloor));
+
+    anchor.getChildren().addAll(map.makeAllFloorNodes(defaultFloor, false));
 
     ObservableList<String> tableNames = FXCollections.observableArrayList();
     tableNames.addAll("Nodes", "Edges", "Location Names", "Moves");
