@@ -4,14 +4,13 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.ColorInput?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<?import javafx.scene.control.TextField?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.EmployeeTableController">
    <children>
       <VBox prefHeight="400.0" prefWidth="166.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -47,13 +46,19 @@
                   <Font name="Roboto" size="14.0" />
                </font>
             </Label>
-            <TextField  fx:id="employeeTypeTextField"/>
+            <TextField fx:id="employeeTypeTextField" />
             <Label alignment="CENTER" prefHeight="18.0" prefWidth="159.0" text="Username" textFill="#001b3b">
                <font>
                   <Font name="Roboto" size="14.0" />
                </font>
             </Label>
             <TextField fx:id="employeeUserTextField" />
+            <Label alignment="CENTER" prefHeight="18.0" prefWidth="159.0" text="Password" textFill="#001b3b">
+               <font>
+                  <Font name="Roboto" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="employeePasswordTextField" />
             <Label alignment="CENTER" prefHeight="29.0" prefWidth="268.0" text="CSV Manager" textFill="#235fa6">
                <font>
                   <Font name="Roboto" size="24.0" />

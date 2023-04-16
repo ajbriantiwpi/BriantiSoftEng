@@ -27,6 +27,7 @@ public class EmployeeTableController {
     @FXML private Button exportButton;
     @FXML private Button importButton;
     @FXML private TextField searchEmployee;
+    @FXML private TextField employeePasswordTextField;
 
     public void initialize() {
         ParentController.titleString.set("Employee Edit Table");
@@ -45,9 +46,13 @@ public class EmployeeTableController {
         TableColumn<Employee, String> userColumn = new TableColumn<>("Username");
         userColumn.setCellValueFactory(new PropertyValueFactory<>("Username"));
 
+        TableColumn<Employee, String> passColumn = new TableColumn<>("Password");
+        passColumn.setCellValueFactory(new PropertyValueFactory<>("Password"));
 
 
-        employeeTable.getColumns().addAll(employeeIDColumn, firstNameColumn, lastNameColumn, employeeIDColumn, userColumn);
+
+
+        employeeTable.getColumns().addAll(employeeIDColumn, firstNameColumn, lastNameColumn, employeeIDColumn, userColumn, passColumn);
         employeeTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
 
