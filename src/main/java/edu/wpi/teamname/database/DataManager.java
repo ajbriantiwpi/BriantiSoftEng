@@ -1,6 +1,7 @@
 package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.employees.Employee;
+import edu.wpi.teamname.employees.EmployeeType;
 import edu.wpi.teamname.navigation.*;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
@@ -263,7 +264,21 @@ public class DataManager {
     OfficeSupplyDAOImpl officeSupplyDAO = new OfficeSupplyDAOImpl();
     officeSupplyDAO.sync(officeSupply);
   }
+  /**
+   * This method returns the employee type of a user
+   *
+   * @param username the Employees username
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static ArrayList<EmployeeType> getEmployeeType(String username){
+    EmployeeDAOImpl employeeDAO= new EmployeeDAOImpl();
+    return getEmployeeType(username);
+  }
 
+  public static ArrayList<Employee> getAllEmployee() throws SQLException {
+    EmployeeDAOImpl employeeDAO= new EmployeeDAOImpl();
+    return employeeDAO.getAllEmployees();
+  }
   /**
    * This method adds a new Move object to the "Move" table in the database.
    *

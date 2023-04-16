@@ -5,6 +5,7 @@ import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
 import edu.wpi.teamname.navigation.Move;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -12,7 +13,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 public class EmployeeTableController {
     @FXML private TableView<Employee> employeeTable;
@@ -49,5 +52,11 @@ public class EmployeeTableController {
 
 
         DataManager employeeDAO = new DataManager();
+        try {
+            ArrayList<Employee> employees = employeeDAO.getAllEmployee();
+            employeeTable.setItems(FXCollections.observableArrayList(employees));
+        } catch (SQLException e) {
+            System.err.println("Error getting moves from database: " + e.getMessage());
+        }
     }
 }
