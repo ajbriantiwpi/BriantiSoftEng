@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.*;
 import javafx.scene.shape.Shape;
@@ -24,9 +25,28 @@ public class Map {
   private Point2D centerPoint;
   private Point2D centerTL;
   @Getter @Setter private ArrayList<Shape> prevPath = new ArrayList<Shape>();
+  @Getter private String currentDisplayFloor;
+  private AnchorPane subAnchor;
 
-  public Map() throws SQLException {
+  /** An array of strings that represent the names of different floors. */
+  private String[] floorArr = {
+    "Lower Level 2", "Lower Level 1", "Ground Floor", "First Floor", "Second Floor", "Third Floor"
+  };
+
+  public Map(AnchorPane subAnchor) throws SQLException {
     this.graph = new Graph();
+    this.currentDisplayFloor = "Lower Level 1";
+    this.subAnchor = subAnchor;
+  }
+
+  public void setCurrentDisplayFloor(String currentDisplayFloor) {
+    this.currentDisplayFloor = currentDisplayFloor;
+
+    subAnchor.getStyleClass().remove(0);
+
+    String shortFloorName = this.takeFloor(currentDisplayFloor, true);
+
+    subAnchor.getStyleClass().add(shortFloorName);
   }
 
   /**
@@ -206,19 +226,12 @@ public class Map {
     return nodeNames;
   }
 
-  /** An array of strings that represent the names of different floors. */
-  String[] floorArr = {
-    "Lower Level 2", "Lower Level 1", "Ground Floor", "First Floor", "Second Floor", "Third Floor"
-  };
-
   /**
    * Returns an observable list of all floor names.
    *
-   * @param floor the floor to retrieve information for
    * @return an observable list of all floor names
-   * @throws SQLException if there is an error retrieving the data from the database
    */
-  public ObservableList<String> getAllFloors(String floor) throws SQLException {
+  public ObservableList<String> getAllFloors() {
     ObservableList<String> floorNames = FXCollections.observableArrayList();
 
     for (String f : floorArr) {
@@ -226,6 +239,48 @@ public class Map {
     }
 
     return floorNames;
+  }
+
+  public String takeFloor(String f, boolean flag) {
+    String retStr = "";
+    if (f == null) {
+      return "L1";
+    }
+    //    System.out.println(f);
+    switch (f) {
+      case ("Lower Level 1"):
+        retStr = "L1";
+        return retStr;
+      case ("Lower Level 2"):
+        retStr = "L2";
+        return retStr;
+      case ("Ground Floor"):
+        retStr = "GG";
+        return retStr;
+      case ("First Floor"):
+        if (flag) {
+          retStr = "G1";
+        } else {
+          retStr = "1";
+        }
+        return retStr;
+      case ("Second Floor"):
+        if (flag) {
+          retStr = "G2";
+        } else {
+          retStr = "2";
+        }
+        return retStr;
+      case ("Third Floor"):
+        if (flag) {
+          retStr = "G3";
+        } else {
+          retStr = "3";
+        }
+        return retStr;
+      default:
+        return "You should never see  this!!!";
+    }
   }
 
   /**

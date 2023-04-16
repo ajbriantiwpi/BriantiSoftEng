@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,6 +44,11 @@ public class MapEditController {
   @FXML TableColumn nodeTypeColumn;
   //  @FXML MFXComboBox<String> selectTable = new MFXComboBox<>();
   @FXML ComboBox<String> selectTable = new ComboBox<>();
+  @FXML ComboBox<String> FloorSelect = new ComboBox<>();
+
+  @FXML MFXButton downFloor;
+  @FXML MFXButton upFloor;
+
   String defaultFloor = "L1";
   int defaultX = 0;
   int defaultY = 0;
@@ -569,10 +575,55 @@ public class MapEditController {
         }
       };
 
+  EventHandler<ActionEvent> triggerChangeFloor =
+      new EventHandler<ActionEvent>() {
+
+        @Override
+        public void handle(ActionEvent event) {
+          System.out.println("CF");
+          String floor = FloorSelect.getValue();
+          System.out.println(floor);
+
+          map.setCurrentDisplayFloor(floor);
+
+          // Update Nodes
+        }
+      };
+
+  EventHandler<MouseEvent> changeFloorUp =
+      new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent event) {
+          System.out.println("CFU");
+
+          ObservableList<String> floors = map.getAllFloors();
+          int currFlorIndex = floors.indexOf(map.getCurrentDisplayFloor());
+          String newFloor = floors.get((currFlorIndex + 1) % floors.size());
+
+          map.setCurrentDisplayFloor(newFloor);
+        }
+      };
+
+  EventHandler<MouseEvent> changeFloorDown =
+      new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent event) {
+          System.out.println("CFU");
+
+          ObservableList<String> floors = map.getAllFloors();
+          int currFlorIndex = floors.indexOf(map.getCurrentDisplayFloor());
+          String newFloor = floors.get((currFlorIndex - 1) % floors.size());
+
+          map.setCurrentDisplayFloor(newFloor);
+        }
+      };
+
   @FXML
   public void initialize() throws SQLException, IOException {
 
-    map = new Map();
+    map = new Map(anchor);
 
     gp.setMinScale(0.11);
 
@@ -616,6 +667,13 @@ public class MapEditController {
 
           return row;
         });
+
+    FloorSelect.setPromptText("Select floor");
+    FloorSelect.setItems(map.getAllFloors());
+    FloorSelect.setOnAction(triggerChangeFloor);
+
+    upFloor.setOnMouseClicked(changeFloorUp);
+    downFloor.setOnMouseClicked(changeFloorDown);
 
     //    table
     //        .getSelectionModel()
