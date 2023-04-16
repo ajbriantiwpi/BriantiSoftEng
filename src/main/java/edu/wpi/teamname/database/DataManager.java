@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.StringTokenizer;
 import lombok.Getter;
@@ -1137,15 +1138,14 @@ public class DataManager {
    * and the most recent date prior to the current time. If no information is found for the given
    * ID, null is returned.
    *
-   * @param id the ID of the node to retrieve information for
    * @param timestamp the timestamp to get the most up-to-date info at
    * @return a Room object containing all information about the node, or null if no information is
    *     found
    * @throws SQLException if there is an error accessing the database
    */
-  public static ArrayList<LocationName> getLocationNameByNode(int id, Timestamp timestamp)
-      throws SQLException {
-    return NodeDAOImpl.getLocationNameByNode(id, timestamp);
+  public static HashMap<Integer, ArrayList<LocationName>> getAllLocationNamesMappedByNode(
+      Timestamp timestamp) throws SQLException {
+    return NodeDAOImpl.getAllLocationNamesMappedByNode(timestamp);
   }
 
   /*/**

@@ -10,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class NodeDAOImpl implements NodeDAO {
@@ -275,24 +276,28 @@ public class NodeDAOImpl implements NodeDAO {
    * and the most recent date prior to the current time. If no information is found for the given
    * ID, null is returned.
    *
-   * @param id the ID of the node to retrieve information for
+   * @param timestamp the timestamp to base the moves off of
    * @return a Room object containing all information about the node, or null if no information is
    *     found
    * @throws SQLException if there is an error accessing the database
    */
-  public static ArrayList<LocationName> getLocationNameByNode(int id, Timestamp timestamp)
-      throws SQLException {
+  public static HashMap<Integer, ArrayList<LocationName>> getAllLocationNamesMappedByNode(
+      Timestamp timestamp) throws SQLException {
     Connection connection = DataManager.DbConnection();
     ArrayList<Room> rooms = DataManager.getAllRooms(timestamp);
-    ArrayList<LocationName> locationNames = new ArrayList<>();
+    HashMap<Integer, ArrayList<LocationName>> map = new HashMap<>();
     for (Room room : rooms) {
-      if (room.getNodeID() == id) {
-        locationNames.add(
-            new LocationName(room.getLongName(), room.getShortName(), room.getNodeType()));
+      if (map.containsKey(room.getNodeID())) {
+        ArrayList<LocationName> names = map.get(room.getNodeID());
+        names.add(new LocationName(room.getLongName(), room.getShortName(), room.getNodeType()));
+        map.replace(room.getNodeID(), names);
+      } else {
+        ArrayList<LocationName> names = new ArrayList<LocationName>();
+        names.add(new LocationName(room.getLongName(), room.getShortName(), room.getNodeType()));
+        map.put(room.getNodeID(), names);
       }
     }
-
-    return locationNames;
+    return map;
   }
 
   /**
