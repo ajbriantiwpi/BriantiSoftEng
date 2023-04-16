@@ -323,7 +323,6 @@ public class Map {
   /**
    * Returns an observable list of all floor names.
    *
-   * @param floor the floor to retrieve information for
    * @return an observable list of all floor names
    * @throws SQLException if there is an error retrieving the data from the database
    */
