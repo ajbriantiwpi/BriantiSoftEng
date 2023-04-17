@@ -1215,12 +1215,7 @@ public class DataManager {
     return EmployeeDAOImpl.checkLogin(username, password);
   }
 
-  public void addUser(
-      String firstName,
-      String lastName,
-      String username,
-      String password,
-      EmployeeType employeeType) {
-    Employee.addUser(username, password, firstName, lastName, employeeType);
+  public void deleteEmployeeType(String username) throws SQLException {
+    EmployeeDAOImpl.deleteEmployeeType(username);
   }
 }

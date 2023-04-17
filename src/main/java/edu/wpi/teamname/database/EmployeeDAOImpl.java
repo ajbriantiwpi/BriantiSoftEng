@@ -477,4 +477,14 @@ public class EmployeeDAOImpl implements LoginDAO {
 
     statement.executeUpdate();
   }
+
+  public static void deleteEmployeeType(String username) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    String query = "DELETE FROM \"EmployeeType\" WHERE \"username\" = ?";
+    PreparedStatement statement = connection.prepareStatement(query);
+
+    statement.setString(1, username);
+
+    statement.executeUpdate();
+  }
 }

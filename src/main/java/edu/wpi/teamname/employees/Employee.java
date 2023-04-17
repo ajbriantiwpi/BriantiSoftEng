@@ -83,7 +83,7 @@ public class Employee {
     }
   }
 
-  public void removeType(EmployeeType employeeType) {
+  public static void removeType(EmployeeType employeeType) {
     type.remove(employeeType);
   }
 

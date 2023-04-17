@@ -5,11 +5,14 @@ import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Optional;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.util.converter.IntegerStringConverter;
 
 public class EmployeeTableController {
@@ -146,6 +149,43 @@ public class EmployeeTableController {
             System.err.println("Error updating employee in the database: " + e.getMessage());
           }
         });
+    employeeTable.addEventFilter(
+        KeyEvent.KEY_PRESSED,
+        event -> {
+          if (event.getCode() == KeyCode.DELETE) {
+            deleteSelectedEmployee();
+          }
+        });
+  }
+
+  private void deleteSelectedEmployee() {
+    DataManager employeeDAO = new DataManager();
+    Employee selectedEmployee = employeeTable.getSelectionModel().getSelectedItem();
+    if (selectedEmployee != null) {
+      Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+      alert.setTitle("Delete Employee");
+      alert.setHeaderText("Are you sure you want to delete this employee?");
+      alert.setContentText(
+          "Employee ID: "
+              + selectedEmployee.getEmployeeID()
+              + "\nFirst Name: "
+              + selectedEmployee.getFirstName()
+              + "\nLast Name: "
+              + selectedEmployee.getLastName()
+              + "\nUsername: "
+              + selectedEmployee.getUsername());
+
+      Optional<ButtonType> result = alert.showAndWait();
+      if (result.isPresent() && result.get() == ButtonType.OK) {
+        try {
+          employeeDAO.deleteEmployee(selectedEmployee);
+          employeeDAO.deleteEmployeeType(selectedEmployee.getUsername());
+          employeeTable.getItems().remove(selectedEmployee);
+        } catch (SQLException e) {
+          e.printStackTrace();
+        }
+      }
+    }
   }
 
   @FXML
