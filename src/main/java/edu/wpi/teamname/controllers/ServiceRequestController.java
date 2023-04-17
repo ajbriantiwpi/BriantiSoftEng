@@ -69,7 +69,7 @@ public class ServiceRequestController {
           "Flower Delivery",
           "Office Supply Delivery",
           "Furniture Delivery",
-          "Medical Supply");
+          "Medical Supply Delivery");
   @FXML ComboBox requestType;
 
   // menu item page
@@ -196,6 +196,9 @@ public class ServiceRequestController {
       } else if (t == "Office Supply Request") {
         f = "OfficeIcons";
         tem.addAll(DataManager.getAllOfficeSupplies());
+      } else if (t == "Medical Supply Request") {
+        f = "MedicalIcons";
+        tem.addAll(DataManager.getAllMedicalSupplies());
       } else {
         f = "FurnitureIcons";
         System.out.println(t);
