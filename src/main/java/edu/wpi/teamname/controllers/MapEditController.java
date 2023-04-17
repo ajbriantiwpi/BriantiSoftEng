@@ -584,7 +584,13 @@ public class MapEditController {
           String floor = FloorSelect.getValue();
           System.out.println(floor);
 
-          map.setCurrentDisplayFloor(floor);
+          try {
+            map.setCurrentDisplayFloor(floor);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
 
           // Update Nodes
         }
@@ -601,7 +607,13 @@ public class MapEditController {
           int currFlorIndex = floors.indexOf(map.getCurrentDisplayFloor());
           String newFloor = floors.get((currFlorIndex + 1) % floors.size());
 
-          map.setCurrentDisplayFloor(newFloor);
+          try {
+            map.setCurrentDisplayFloor(newFloor);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
         }
       };
 
@@ -616,7 +628,13 @@ public class MapEditController {
           int currFlorIndex = floors.indexOf(map.getCurrentDisplayFloor());
           String newFloor = floors.get((currFlorIndex - 1) % floors.size());
 
-          map.setCurrentDisplayFloor(newFloor);
+          try {
+            map.setCurrentDisplayFloor(newFloor);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
         }
       };
 
@@ -631,7 +649,11 @@ public class MapEditController {
 
     ParentController.titleString.set("Map");
 
-    anchor.getChildren().addAll(map.makeAllFloorNodes(defaultFloor, false));
+    ArrayList<javafx.scene.Node> currentFloorNodes = (map.makeAllFloorShapes(defaultFloor, false));
+    anchor.getChildren().addAll(currentFloorNodes);
+    map.setCurrentFloorShapes(currentFloorNodes);
+
+    //    anchor.getChildren().addAll(map.makeAllFloorNodes(defaultFloor, false));
 
     ObservableList<String> tableNames = FXCollections.observableArrayList();
     tableNames.addAll("Nodes", "Edges", "Location Names", "Moves");
