@@ -298,8 +298,8 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, id);
       ResultSet rs = statement.executeQuery();
-
-      int rID = rs.getInt("mealID");
+      rs.next();
+      int rID = rs.getInt("requestID");
       String roomNum = rs.getString("roomNum");
       String staffName = rs.getString("staffName");
       String patientName = rs.getString("patientName");

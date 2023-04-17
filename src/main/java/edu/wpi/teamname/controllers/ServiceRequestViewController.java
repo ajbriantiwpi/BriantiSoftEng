@@ -46,6 +46,7 @@ public class ServiceRequestViewController {
   @FXML MFXButton submitButton;
 
   @FXML Label detailsLabel;
+  @FXML Label detailsLabel1;
   @FXML Label totalLabel;
   @FXML MFXButton backButton;
   @FXML VBox cartBox;
@@ -243,32 +244,32 @@ public class ServiceRequestViewController {
         });
 
     // when table row is clicked do this
-          table.setRowFactory(
-              tv -> {
-                TableRow<ServiceRequest> row = new TableRow<>();
-                row.setOnMouseClicked(
-                    event -> {
-                      if (!row.isEmpty()
-                          && event.getButton() == MouseButton.PRIMARY
-                          && event.getClickCount() == 2) {
-                        ServiceRequest clickedRow = row.getItem();
-                        totalLabel.setText(totalLabel.getText());
-                        System.out.println(totalLabel);
-                        table.setVisible(false);
-                        table.setDisable(true);
-                        summaryPane.setVisible(true);
-                        summaryPane.setDisable(false);
-                        try {
-                          String f = "";
-                          int req = clickedRow.getRequestID();
-                          fillPane(req, f);
-                        } catch (SQLException e) {
-                          System.out.println(e);
-                        }
-                      }
-                    });
-                return row;
+    table.setRowFactory(
+        tv -> {
+          TableRow<ServiceRequest> row = new TableRow<>();
+          row.setOnMouseClicked(
+              event -> {
+                if (!row.isEmpty()
+                    && event.getButton() == MouseButton.PRIMARY
+                    && event.getClickCount() == 2) {
+                  ServiceRequest clickedRow = row.getItem();
+                  totalLabel.setText(totalLabel.getText());
+                  System.out.println(totalLabel);
+                  table.setVisible(false);
+                  table.setDisable(true);
+                  summaryPane.setVisible(true);
+                  summaryPane.setDisable(false);
+                  try {
+                    String f = "";
+                    int req = clickedRow.getRequestID();
+                    fillPane(req, f);
+                  } catch (SQLException e) {
+                    System.out.println(e);
+                  }
+                }
               });
+          return row;
+        });
 
     // stub
     switchButton.setOnMouseClicked(
@@ -305,21 +306,27 @@ public class ServiceRequestViewController {
       } else if (item.getItemID() / 100 >= 11 && item.getItemID() / 100 < 12) { // meal
         folder = "MealIcons";
         tempItems.add(DataManager.getMeal(item.getItemID()));
+        totalPrice += tempItems.get(i).getPrice();
       } else if (item.getItemID() / 100 >= 13 && item.getItemID() / 100 < 14) { // furniture
         folder = "FurnitureIcons";
         tempItems.add(DataManager.getFurniture(item.getItemID()));
+        totalPrice += tempItems.get(i).getPrice();
       } else if (item.getItemID() / 100 >= 14 && item.getItemID() / 100 < 15) { // office supply
         folder = "OfficeIcons";
         tempItems.add(DataManager.getOfficeSupply(item.getItemID()));
+        totalPrice += tempItems.get(i).getPrice();
       } else if (item.getItemID() / 100 >= 15 && item.getItemID() / 100 < 16) { // medical Supply
         folder = "MedicalIcons";
         tempItems.add(DataManager.getMedicalSupply(item.getItemID()));
+        totalPrice += tempItems.get(i).getPrice();
       }
       cartBox.getChildren().add(new ReqMenuItems(tempItems.get(i), folder, item.getQuantity()));
     }
 
-    System.out.println(request.getDetails());
-    detailsLabel.setText(request.getDetails());
+    String details = request.getDetails();
+    int d = details.indexOf("Deliver");
+    detailsLabel.setText(details.substring(0, d)); // cut string at Deliver by
+    detailsLabel1.setText(details.substring(d) + "   Status: " + request.getStatus());
     DecimalFormat format = new DecimalFormat("###.00");
     totalLabel.setText(totalLabel.getText() + format.format(totalPrice));
   }

@@ -170,6 +170,11 @@
                                                             <Font name="Times New Roman" size="28.0" />
                                                         </font>
                                                     </Label>
+                                       <Label fx:id="detailsLabel1" style="-fx-font-family: Roboto; -fx-font-size: 24;" text="..." textFill="#001b3b">
+                                          <font>
+                                             <Font name="Times New Roman" size="28.0" />
+                                          </font>
+                                       </Label>
                                                     <Label fx:id="totalLabel" alignment="CENTER_RIGHT" style="-fx-font-family: Roboto;" stylesheets="@../stylesheets/RowLabel.css" text="Order Total: $" textFill="#001b3b">
                                                         <font>
                                                             <Font name="Roboto" size="40.0" />
