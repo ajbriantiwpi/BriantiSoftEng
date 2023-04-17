@@ -585,7 +585,7 @@ public class MapEditController {
           System.out.println(floor);
 
           try {
-            map.setCurrentDisplayFloor(floor);
+            map.setCurrentDisplayFloor(floor, false);
           } catch (SQLException e) {
             throw new RuntimeException(e);
           } catch (IOException e) {
@@ -608,7 +608,7 @@ public class MapEditController {
           String newFloor = floors.get((currFlorIndex + 1) % floors.size());
 
           try {
-            map.setCurrentDisplayFloor(newFloor);
+            map.setCurrentDisplayFloor(newFloor, false);
           } catch (SQLException e) {
             throw new RuntimeException(e);
           } catch (IOException e) {
@@ -629,7 +629,7 @@ public class MapEditController {
           String newFloor = floors.get((currFlorIndex - 1) % floors.size());
 
           try {
-            map.setCurrentDisplayFloor(newFloor);
+            map.setCurrentDisplayFloor(newFloor, false);
           } catch (SQLException e) {
             throw new RuntimeException(e);
           } catch (IOException e) {

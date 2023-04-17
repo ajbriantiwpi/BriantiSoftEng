@@ -7,8 +7,8 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -202,18 +202,27 @@ public class NodeCircle {
           TextField Location =
               (TextField) ((Pane) (changeBox.getChildren().get(0))).getChildren().get(1);
 
-          ArrayList<LocationName> locations;
+          HashMap<Integer, ArrayList<LocationName>> map;
           try {
-            locations = null;
-            DataManager.getAllLocationNamesMappedByNode(Timestamp.from(Instant.now()));
+            map =
+                DataManager.getAllLocationNamesMappedByNode(
+                    new Timestamp(System.currentTimeMillis()));
           } catch (SQLException e) {
             throw new RuntimeException(e);
           }
 
-          //          if(l)
-          if (locations.size() > 0) {
-            Location.setText(locations.get(0).getLongName());
+          //          for (Integer key : map.keySet()) {
+          //            System.out.println("Key: " + key + " Val: " + map.get(key));
+          //          }
+          //          System.out.println(map);
+
+          String location;
+          if (map.get(nodeID).size() > 0) {
+            location = map.get(nodeID).get(0).getLongName();
+          } else {
+            location = "" + nodeID;
           }
+          Location.setText(location);
 
           // Set X
           TextField XText =
