@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -156,6 +157,9 @@ public class EmployeeTableController {
             deleteSelectedEmployee();
           }
         });
+    searchEmployee
+        .textProperty()
+        .addListener((observable, oldValue, newValue) -> filterTable(newValue));
   }
 
   private void deleteSelectedEmployee() {
@@ -213,5 +217,32 @@ public class EmployeeTableController {
     employeeUserTextField.clear();
     employeePasswordTextField.clear();
     employeeTypeTextField.clear();
+  }
+
+  private void filterTable(String searchText) {
+    DataManager employeeDAO = new DataManager();
+    if (searchText == null || searchText.isEmpty()) {
+      // Show all employees when search text is empty
+      try {
+        ArrayList<Employee> employees = employeeDAO.getAllEmployees();
+        employeeTable.setItems(FXCollections.observableArrayList(employees));
+      } catch (SQLException e) {
+        System.err.println("Error getting employees from database: " + e.getMessage());
+      }
+    } else {
+      ObservableList<Employee> allEmployees = employeeTable.getItems();
+      ObservableList<Employee> filteredEmployees = FXCollections.observableArrayList();
+
+      for (Employee employee : allEmployees) {
+        if (String.valueOf(employee.getEmployeeID()).contains(searchText)
+            || employee.getFirstName().toLowerCase().contains(searchText.toLowerCase())
+            || employee.getLastName().toLowerCase().contains(searchText.toLowerCase())
+            || employee.getUsername().toLowerCase().contains(searchText.toLowerCase())) {
+          filteredEmployees.add(employee);
+        }
+      }
+
+      employeeTable.setItems(filteredEmployees);
+    }
   }
 }
