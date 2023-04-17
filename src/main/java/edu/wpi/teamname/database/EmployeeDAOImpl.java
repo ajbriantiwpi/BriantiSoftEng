@@ -465,4 +465,16 @@ public class EmployeeDAOImpl implements LoginDAO {
       }
     }
   }
+
+  public static void addEmployeeType(String username, EmployeeType employeeType)
+      throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    String query = "INSERT INTO \"EmployeeType\" (\"username\", \"type\") VALUES (?, ?)";
+    PreparedStatement statement = connection.prepareStatement(query);
+
+    statement.setString(1, username);
+    statement.setString(2, employeeType.name());
+
+    statement.executeUpdate();
+  }
 }

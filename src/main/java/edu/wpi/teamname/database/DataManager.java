@@ -1041,6 +1041,10 @@ public class DataManager {
     EmployeeDAOImpl.exportEmployeeToCSV(path);
   }
 
+  public void addEmployeeType(String username, EmployeeType employeeType) throws SQLException {
+    EmployeeDAOImpl.addEmployeeType(username, employeeType);
+  }
+
   /**
    * This method exports all the EmployeeTypes from the "EmployeeType" table in the database to a
    * CSV file at the specified file path.
@@ -1209,5 +1213,14 @@ public class DataManager {
    */
   public static Employee checkLogin(String username, String password) throws SQLException {
     return EmployeeDAOImpl.checkLogin(username, password);
+  }
+
+  public void addUser(
+      String firstName,
+      String lastName,
+      String username,
+      String password,
+      EmployeeType employeeType) {
+    Employee.addUser(username, password, firstName, lastName, employeeType);
   }
 }

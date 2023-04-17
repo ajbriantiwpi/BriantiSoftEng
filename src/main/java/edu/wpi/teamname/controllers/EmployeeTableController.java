@@ -147,4 +147,31 @@ public class EmployeeTableController {
           }
         });
   }
+
+  @FXML
+  private void handleSubmitButton() throws SQLException {
+    DataManager employeeDAO = new DataManager();
+    int employeeIDInput = Integer.parseInt(employeeIDField.getText());
+    String firstName = employeeFirstNameTextField.getText();
+    String lastName = employeeLastNameTextField.getText();
+    String username = employeeUserTextField.getText();
+    String password = employeePasswordTextField.getText();
+    EmployeeType employeeType = EmployeeType.valueOf(employeeTypeTextField.getText());
+
+    Employee employee =
+        new Employee(username, password, employeeIDInput, firstName, lastName, true);
+
+    employee.addType(employeeType);
+    employeeDAO.addEmployeeType(username, employeeType);
+    employeeDAO.addEmployee(employee);
+    employeeTable.getItems().add(employee);
+
+    // Clear the input fields
+    employeeFirstNameTextField.clear();
+    employeeIDField.clear();
+    employeeLastNameTextField.clear();
+    employeeUserTextField.clear();
+    employeePasswordTextField.clear();
+    employeeTypeTextField.clear();
+  }
 }

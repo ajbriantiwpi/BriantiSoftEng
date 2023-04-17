@@ -80,6 +80,17 @@
                <VBox.margin>
                   <Insets left="5.0" right="5.0" />
                </VBox.margin></TextField>
+            <MFXButton fx:id="submitButton" buttonType="RAISED" onAction="#handleSubmitButton" prefHeight="25.0" prefWidth="118.0" rippleColor="#235fa6" text="Submit">
+               <effect>
+                  <ColorInput paint="#235fa6" />
+               </effect>
+               <font>
+                  <Font name="Roboto" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="10.0" top="5.0" />
+               </VBox.margin>
+            </MFXButton>
             <Label alignment="CENTER" prefHeight="29.0" prefWidth="268.0" text="CSV Manager" textFill="#235fa6">
                <font>
                   <Font name="Roboto" size="24.0" />
