@@ -428,7 +428,6 @@ public class Map {
   }
 
 
-
   /**
    * Returns an observable list of all floor names.
    *
