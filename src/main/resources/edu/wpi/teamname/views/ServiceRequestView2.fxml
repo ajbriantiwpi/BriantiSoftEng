@@ -160,19 +160,19 @@
                                         <children>
                                             <VBox fx:id="pane" prefHeight="200.0" prefWidth="100.0" spacing="12.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                 <children>
-                                                    <Label layoutX="10.0" layoutY="10.0" style="-fx-font-family: Roboto; -fx-font-size: 24;" text="Request Details" textFill="#001b3b">
+                                                    <Label layoutX="10.0" layoutY="10.0" style="-fx-font-family: Roboto; -fx-font-size: 30;" text="Request Details" textFill="#001b3b">
                                                         <font>
                                                             <Font name="Roboto" size="40.0" />
                                                         </font>
                                                     </Label>
                                                     <Label fx:id="detailsLabel" style="-fx-font-family: Roboto; -fx-font-size: 24;" text="..." textFill="#001b3b">
                                                         <font>
-                                                            <Font name="Times New Roman" size="28.0" />
+                                                            <Font name="Times New Roman" size="40.0" />
                                                         </font>
                                                     </Label>
                                        <Label fx:id="detailsLabel1" style="-fx-font-family: Roboto; -fx-font-size: 24;" text="..." textFill="#001b3b">
                                           <font>
-                                             <Font name="Times New Roman" size="28.0" />
+                                             <Font name="Roboto" size="40.0" />
                                           </font>
                                        </Label>
                                                     <Label fx:id="totalLabel" alignment="CENTER_RIGHT" style="-fx-font-family: Roboto;" stylesheets="@../stylesheets/RowLabel.css" text="Order Total: $" textFill="#001b3b">
