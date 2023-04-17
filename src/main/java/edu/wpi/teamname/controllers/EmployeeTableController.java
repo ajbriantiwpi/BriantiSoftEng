@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Optional;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -46,30 +47,29 @@ public class EmployeeTableController {
     TableColumn<Employee, String> lastNameColumn = new TableColumn<>("Last Name");
     lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
 
-    TableColumn<Employee, EmployeeType> employeeTypeColumn = new TableColumn<>("Employee Type");
-    employeeTypeColumn.setCellValueFactory(new PropertyValueFactory<>("employeeType"));
+    TableColumn<Employee, String> employeeTypeColumn = new TableColumn<>("Employee Type");
+    employeeTypeColumn.setCellValueFactory(
+        cellData -> {
+          Employee employee = cellData.getValue();
+          if (employee.getType() != null) {
+            StringBuilder typeNames = new StringBuilder();
+            for (EmployeeType type : employee.getType()) {
+              if (typeNames.length() > 0) {
+                typeNames.append(", ");
+              }
+              typeNames.append(type.toString());
+            }
+            return new SimpleStringProperty(typeNames.toString());
+          } else {
+            return new SimpleStringProperty("");
+          }
+        });
 
     TableColumn<Employee, String> userColumn = new TableColumn<>("Username");
     userColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
 
     TableColumn<Employee, String> passColumn = new TableColumn<>("Password");
     passColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
-
-    // set the cell factory for employeeTypeColumn to display the EmployeeType's type field
-    employeeTypeColumn.setCellFactory(
-        column ->
-            new TableCell<Employee, EmployeeType>() {
-              @Override
-              protected void updateItem(EmployeeType item, boolean empty) {
-                super.updateItem(item, empty);
-                if (item == null || empty) {
-                  setText(null);
-                } else {
-                  setText(item.getString());
-                }
-              }
-            });
-
     employeeTable
         .getColumns()
         .addAll(
@@ -79,6 +79,7 @@ public class EmployeeTableController {
             employeeTypeColumn,
             userColumn,
             passColumn);
+
     employeeTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
     DataManager employeeDAO = new DataManager();
