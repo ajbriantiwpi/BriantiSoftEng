@@ -6,10 +6,12 @@ import edu.wpi.teamname.navigation.Map;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -49,14 +51,13 @@ public class MapController {
             firstClick = new Point2D(event.getX(), event.getY());
             LocationOne.setOnAction(e -> {});
 
-            floor1 = map.takeFloor(FloorSelect.getValue(), true);
+            floor1 = map.takeFloor(FloorSelect.getValue(), false);
 
           } else if (clickCount == 2) {
             // Capture the second click
             secondClick = new Point2D(event.getX(), event.getY());
 
-
-            floor2 = map.takeFloor(FloorSelect.getValue(), true);
+            floor2 = map.takeFloor(FloorSelect.getValue(), false);
 
             // Call drawAStarPath with both points
             map.drawPath(anchor, firstClick, secondClick, floor1, floor2);
@@ -143,58 +144,69 @@ public class MapController {
         public void handle(ActionEvent event) {
           System.out.println("CF");
 
-          if (!map.getPrevPath().isEmpty()) {
-            for (int i = anchor.getChildren().size() - 1; i >= 0; i--) {
-              if (map.getPrevPath().contains(anchor.getChildren().get(i))) {
-                anchor.getChildren().remove(i);
-              }
-            }
-            map.setPrevPath(null);
-          }
+          //          if (!map.getPrevPath().isEmpty()) {
+          //            for (int i = anchor.getChildren().size() - 1; i >= 0; i--) {
+          //              if (map.getPrevPath().contains(anchor.getChildren().get(i))) {
+          //                anchor.getChildren().remove(i);
+          //              }
+          //            }
+          //            map.setPrevPath(null);
+          //          }
 
           String floor = FloorSelect.getValue();
+
           System.out.println(floor);
-          currFloor = map.takeFloor(floor, true);
-
-          if (!map.getShapes().isEmpty()) {
-
-            if (currFloor.equals("L1")) {
-              //            for (int i = 0; i < map.getShapes().get(1).size(); i++) {
-              //              System.out.print(" " + map.getShapes().get(1).get(i));
-              //            }
-
-              anchor.getChildren().addAll(map.getShapes().get(1));
-              map.setPrevPath(map.getShapes().get(1));
-            } else if (currFloor.equals("L2") && clickCount == 0) {
-              anchor.getChildren().addAll(map.getShapes().get(0));
-              map.setPrevPath(map.getShapes().get(0));
-            } else if (currFloor.equals("1") || currFloor.equals("G1")) {
-              anchor.getChildren().addAll(map.getShapes().get(2));
-              map.setPrevPath(map.getShapes().get(2));
-            } else if (currFloor.equals("2") || currFloor.equals("G2")) {
-              anchor.getChildren().addAll(map.getShapes().get(3));
-              map.setPrevPath(map.getShapes().get(3));
-            } else if (currFloor.equals("3") || currFloor.equals("G3")) {
-              anchor.getChildren().addAll(map.getShapes().get(4));
-              map.setPrevPath(map.getShapes().get(4));
-            } else {
-              System.out.println("What are you doing?");
-            }
-          }
 
           try {
-            LocationOne.setItems(map.getAllNodeNames(map.takeFloor(floor, false)));
-          } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-          }
-          try {
-            EndPointSelect.setItems(map.getAllNodeNames(map.takeFloor(floor, false)));
-          } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+            map.setCurrentDisplayFloor(floor, true);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
           }
 
-          anchor.getStyleClass().remove(0);
-          anchor.getStyleClass().add(map.takeFloor(floor, true));
+          //          System.out.println(floor);
+          //          currFloor = map.takeFloor(floor, true);
+
+          //          if (!map.getShapes().isEmpty()) {
+          //
+          //            if (currFloor.equals("L1")) {
+          //              //            for (int i = 0; i < map.getShapes().get(1).size(); i++) {
+          //              //              System.out.print(" " + map.getShapes().get(1).get(i));
+          //              //            }
+          //
+          //              anchor.getChildren().addAll(map.getShapes().get(1));
+          //              map.setPrevPath(map.getShapes().get(1));
+          //            } else if (currFloor.equals("L2") && clickCount == 0) {
+          //              anchor.getChildren().addAll(map.getShapes().get(0));
+          //              map.setPrevPath(map.getShapes().get(0));
+          //            } else if (currFloor.equals("1") || currFloor.equals("G1")) {
+          //              anchor.getChildren().addAll(map.getShapes().get(2));
+          //              map.setPrevPath(map.getShapes().get(2));
+          //            } else if (currFloor.equals("2") || currFloor.equals("G2")) {
+          //              anchor.getChildren().addAll(map.getShapes().get(3));
+          //              map.setPrevPath(map.getShapes().get(3));
+          //            } else if (currFloor.equals("3") || currFloor.equals("G3")) {
+          //              anchor.getChildren().addAll(map.getShapes().get(4));
+          //              map.setPrevPath(map.getShapes().get(4));
+          //            } else {
+          //              System.out.println("What are you doing?");
+          //            }
+          //          }
+
+          //          try {
+          //            LocationOne.setItems(map.getAllNodeNames(map.takeFloor(floor, false)));
+          //          } catch (SQLException ex) {
+          //            throw new RuntimeException(ex);
+          //          }
+          //          try {
+          //            EndPointSelect.setItems(map.getAllNodeNames(map.takeFloor(floor, false)));
+          //          } catch (SQLException ex) {
+          //            throw new RuntimeException(ex);
+          //          }
+
+          //          anchor.getStyleClass().remove(0);
+          //          anchor.getStyleClass().add(map.takeFloor(floor, true));
 
           //                           System.out.println(LocationOne.getValue());
 
@@ -227,7 +239,10 @@ public class MapController {
 
     //    gp.setOnMouseMoved(checkPoints);
 
-    anchor.getChildren().addAll(map.makeAllFloorNodes(defaultFloor, true));
+    ArrayList<Node> currentFloorNodes = (map.makeAllFloorShapes(defaultFloor, true));
+    anchor.getChildren().addAll(currentFloorNodes);
+    map.setCurrentFloorShapes(currentFloorNodes);
+    //  anchor.getChildren().addAll(map.makeAllFloorNodes(defaultFloor, true));
 
     map.centerAndZoom(gp);
 

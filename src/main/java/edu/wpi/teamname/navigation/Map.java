@@ -50,7 +50,9 @@ public class Map {
   public ArrayList<javafx.scene.Node> makeAllFloorShapes(String floor, boolean isMapPage)
       throws SQLException, IOException {
     ArrayList<javafx.scene.Node> allCirclesAndEdges = new ArrayList<>();
-    allCirclesAndEdges.addAll(this.makeAllFloorEdges(floor));
+    if (!isMapPage) {
+      allCirclesAndEdges.addAll(this.makeAllFloorEdges(floor));
+    }
     allCirclesAndEdges.addAll(this.makeAllFloorNodes(floor, isMapPage));
     return allCirclesAndEdges;
   }
@@ -95,8 +97,13 @@ public class Map {
       Node n = allNodes.get(i);
       if (n.getFloor().equals(floor)) {
         String defShortName;
-        if (i < sortedKeys.size()) {
-          defShortName = map.get(sortedKeys.get(i)).get(0).getShortName();
+        //        if (i < sortedKeys.size()) {
+        //          defShortName = map.get(sortedKeys.get(i)).get(0).getShortName();
+        //        } else {
+        //          defShortName = "" + n.getId();
+        //        }
+        if (map.get(n.getId()) != null) {
+          defShortName = map.get(n.getId()).get(0).getShortName();
         } else {
           defShortName = "" + n.getId();
         }
@@ -109,7 +116,8 @@ public class Map {
     return nodes;
   }
 
-  public void setCurrentDisplayFloor(String currentDisplayFloor) throws SQLException, IOException {
+  public void setCurrentDisplayFloor(String currentDisplayFloor, boolean isMapPage)
+      throws SQLException, IOException {
     this.currentDisplayFloor = currentDisplayFloor;
 
     subAnchor.getStyleClass().remove(0);
@@ -127,12 +135,48 @@ public class Map {
           subAnchor.getChildren().remove(i);
         }
       }
+      //      this.setPrevPath(null);
+      this.setCurrentFloorShapes(null);
+    }
+
+    if (!this.getPrevPath().isEmpty()) {
+      for (int i = subAnchor.getChildren().size() - 1; i >= 0; i--) {
+        if (this.getPrevPath().contains(subAnchor.getChildren().get(i))) {
+          subAnchor.getChildren().remove(i);
+        }
+      }
       this.setPrevPath(null);
+    }
+
+    if (!this.getShapes().isEmpty()) {
+
+      if (cssFloorName.equals("L1")) {
+        //            for (int i = 0; i < map.getShapes().get(1).size(); i++) {
+        //              System.out.print(" " + map.getShapes().get(1).get(i));
+        //            }
+
+        subAnchor.getChildren().addAll(this.getShapes().get(1));
+        this.setPrevPath(this.getShapes().get(1));
+      } else if (cssFloorName.equals("L2")) {
+        subAnchor.getChildren().addAll(this.getShapes().get(0));
+        this.setPrevPath(this.getShapes().get(0));
+      } else if (cssFloorName.equals("1") || cssFloorName.equals("G1")) {
+        subAnchor.getChildren().addAll(this.getShapes().get(2));
+        this.setPrevPath(this.getShapes().get(2));
+      } else if (cssFloorName.equals("2") || cssFloorName.equals("G2")) {
+        subAnchor.getChildren().addAll(this.getShapes().get(3));
+        this.setPrevPath(this.getShapes().get(3));
+      } else if (cssFloorName.equals("3") || cssFloorName.equals("G3")) {
+        subAnchor.getChildren().addAll(this.getShapes().get(4));
+        this.setPrevPath(this.getShapes().get(4));
+      } else {
+        System.out.println("What are you doing?");
+      }
     }
 
     // Re add based on new floor
 
-    currentFloorShapes = (this.makeAllFloorShapes(shortRealFloorName, false));
+    currentFloorShapes = (this.makeAllFloorShapes(shortRealFloorName, isMapPage));
     System.out.println("SetFloor :" + shortRealFloorName);
     subAnchor.getChildren().addAll(currentFloorShapes);
 
@@ -426,7 +470,6 @@ public class Map {
     }
     return nodeNames;
   }
-
 
   /**
    * Returns an observable list of all floor names.
