@@ -83,14 +83,14 @@ public class EmployeeDAOImpl implements LoginDAO {
     connection.close();
   }
 
-  public ArrayList<Employee> getAllEmployees() throws SQLException {
+  public static ArrayList<Employee> getAllEmployeesWithType() throws SQLException {
     Connection connection = DataManager.DbConnection();
     ArrayList<Employee> employees = new ArrayList<>();
 
     String query =
-        "SELECT e.username, e.password, e.employeeID, e.firstName, e.lastName, t.type "
-            + "FROM Employee e "
-            + "LEFT JOIN EmployeeType t "
+        "SELECT e.username, e.password, e.\"employeeID\", e.\"firstName\", e.\"lastName\", t.type "
+            + "FROM \"Employee\" e "
+            + "LEFT JOIN \"EmployeeType\" t "
             + "ON e.username = t.username "
             + "ORDER BY e.username ASC";
 
@@ -486,5 +486,30 @@ public class EmployeeDAOImpl implements LoginDAO {
     statement.setString(1, username);
 
     statement.executeUpdate();
+  }
+
+  public ArrayList<Employee> getAllEmployees() throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    ArrayList<Employee> employees = new ArrayList<>();
+    String query = "SELECT * FROM Employee";
+    PreparedStatement statement = connection.prepareStatement(query);
+    ResultSet resultSet = statement.executeQuery();
+
+    while (resultSet.next()) {
+      String username = resultSet.getString("username");
+      String password = resultSet.getString("password");
+      int employeeID = resultSet.getInt("employeeID");
+      String firstName = resultSet.getString("firstName");
+      String lastName = resultSet.getString("lastName");
+      boolean active = resultSet.getBoolean("active");
+
+      // Fetch the EmployeeType for the current employee
+      ArrayList<EmployeeType> employeeType = getEmployeeType(username);
+
+      employees.add(
+          new Employee(username, password, employeeID, firstName, lastName, employeeType, true));
+    }
+
+    return employees;
   }
 }

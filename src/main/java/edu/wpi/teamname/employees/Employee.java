@@ -76,6 +76,28 @@ public class Employee {
     }
   }
 
+  public Employee(
+      String username,
+      String password,
+      int employeeID,
+      String firstName,
+      String lastName,
+      ArrayList<EmployeeType> employeeType,
+      boolean encrypt) {
+    this.username = username;
+    this.originalUsername = username;
+    this.employeeID = employeeID;
+    type = employeeType;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    // encrypt the password using Caesar cipher
+    if (encrypt) {
+      this.password = encrypt(password, 3);
+    } else {
+      this.password = password;
+    }
+  }
+
   public static void addType(EmployeeType employeeType) {
     if (!type.contains(employeeType)) {
       type.add(employeeType);

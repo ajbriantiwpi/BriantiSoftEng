@@ -595,6 +595,7 @@ public class DataManager {
    * @throws SQLException if there is a problem accessing the database
    */
   public static ArrayList<Employee> getAllEmployees() throws SQLException {
+
     return (new EmployeeDAOImpl()).getAll();
   }
 
@@ -1217,5 +1218,9 @@ public class DataManager {
 
   public void deleteEmployeeType(String username) throws SQLException {
     EmployeeDAOImpl.deleteEmployeeType(username);
+  }
+
+  public ArrayList<Employee> getAllEmployeesWithType() throws SQLException {
+    return EmployeeDAOImpl.getAllEmployeesWithType();
   }
 }

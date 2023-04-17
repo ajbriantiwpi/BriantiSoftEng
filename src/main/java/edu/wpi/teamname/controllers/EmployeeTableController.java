@@ -3,7 +3,10 @@ package edu.wpi.teamname.controllers;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Optional;
 import javafx.collections.FXCollections;
@@ -14,15 +17,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.FileChooser;
 import javafx.util.converter.IntegerStringConverter;
 
 public class EmployeeTableController {
   // TODO
-  // populate UI data
-  // make table fields editable
-  // make columns fill space
-  // make submit and add work
-  // implement employee search
   // create CSV method for splitting the data between CSV
   // Fix password encryption
   @FXML private TableView<Employee> employeeTable;
@@ -84,7 +83,7 @@ public class EmployeeTableController {
 
     DataManager employeeDAO = new DataManager();
     try {
-      ArrayList<Employee> employees = employeeDAO.getAllEmployees();
+      ArrayList<Employee> employees = employeeDAO.getAllEmployeesWithType();
       employeeTable.setItems(FXCollections.observableArrayList(employees));
     } catch (SQLException e) {
       System.err.println("Error getting employees from database: " + e.getMessage());
@@ -97,6 +96,44 @@ public class EmployeeTableController {
     // For EmployeeType TODO
     userColumn.setCellFactory(TextFieldTableCell.forTableColumn());
     passColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+    exportButton.setOnAction(
+        event -> {
+          FileChooser fileChooser = new FileChooser();
+          fileChooser.setTitle("Save CSV File");
+          fileChooser.setInitialFileName("employees.csv");
+          fileChooser
+              .getExtensionFilters()
+              .addAll(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+          File file = fileChooser.showSaveDialog(exportButton.getScene().getWindow());
+          if (file != null) {
+            try {
+              employeeDAO.exportEmployeeToCSV(file.getAbsolutePath());
+            } catch (SQLException | IOException e) {
+              System.err.println("Error exporting data to CSV file: " + e.getMessage());
+            }
+          }
+        });
+    importButton.setOnAction(
+        event -> {
+          FileChooser fileChooser = new FileChooser();
+          fileChooser.setTitle("Select CSV File");
+          fileChooser
+              .getExtensionFilters()
+              .addAll(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+          File file = fileChooser.showOpenDialog(importButton.getScene().getWindow());
+          if (file != null) {
+            try {
+              employeeDAO.uploadEmployee(file.getAbsolutePath());
+              // refresh table view
+              employeeTable.getItems().clear();
+              employeeTable.getItems().addAll(employeeDAO.getAllEmployeesWithType());
+            } catch (SQLException e) {
+              System.err.println("Error uploading data to database: " + e.getMessage());
+            } catch (ParseException e) {
+              throw new RuntimeException(e);
+            }
+          }
+        });
     employeeIDColumn.setOnEditCommit(
         event -> {
           Employee employee = event.getRowValue();
