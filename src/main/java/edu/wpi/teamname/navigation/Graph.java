@@ -9,7 +9,7 @@ import lombok.Getter;
 
 public class Graph {
   @Getter private ArrayList<Node> Nodes = new ArrayList<>();
-  private ArrayList<Edge> Edges = new ArrayList<>();
+  @Getter private ArrayList<Edge> Edges = new ArrayList<>();
   private IStrategyAlgo pathfindingAlgo;
 
   /**
