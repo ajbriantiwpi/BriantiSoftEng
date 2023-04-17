@@ -4,13 +4,16 @@ import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.database.DataManager;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.*;
 import javafx.scene.shape.Shape;
@@ -25,8 +28,113 @@ public class Map {
   private Point2D centerTL;
   @Getter @Setter private ArrayList<Shape> prevPath = new ArrayList<Shape>();
 
-  public Map() throws SQLException {
+  @Getter @Setter
+  private ArrayList<javafx.scene.Node> currentFloorShapes = new ArrayList<javafx.scene.Node>();
+
+  @Getter private String currentDisplayFloor;
+  private AnchorPane subAnchor;
+
+  /** An array of strings that represent the names of different floors. */
+  private String[] floorArr = {
+    "Lower Level 2", "Lower Level 1", "First Floor", "Second Floor", "Third Floor"
+  };
+
+  public Map(AnchorPane subAnchor) throws SQLException {
     this.graph = new Graph();
+    this.currentDisplayFloor = "Lower Level 1";
+    this.subAnchor = subAnchor;
+  }
+
+  public ArrayList<javafx.scene.Node> makeAllFloorShapes(String floor, boolean isMapPage)
+      throws SQLException, IOException {
+    ArrayList<javafx.scene.Node> allCirclesAndEdges = new ArrayList<>();
+    allCirclesAndEdges.addAll(this.makeAllFloorEdges(floor));
+    allCirclesAndEdges.addAll(this.makeAllFloorNodes(floor, isMapPage));
+    return allCirclesAndEdges;
+  }
+
+  public ArrayList<javafx.scene.Node> makeAllFloorEdges(String floor) {
+
+    ArrayList<javafx.scene.Node> allEdges = new ArrayList<>();
+
+    ArrayList<Edge> mapEdges = this.graph.getEdges();
+    for (int i = 0; i < mapEdges.size(); i++) {
+      Node StartNode = this.graph.findNodeByID(mapEdges.get(i).getStartNodeID());
+      Node EndNode = this.graph.findNodeByID(mapEdges.get(i).getEndNodeID());
+
+      if (StartNode.getFloor().equals(floor) || EndNode.getFloor().equals(floor)) {
+        EdgeRectangle er = new EdgeRectangle(StartNode, EndNode);
+        allEdges.add(er.p);
+      }
+    }
+
+    return allEdges;
+  }
+
+  /**
+   * Generates a list of all nodes to display for a given floor, including nodes with type "HALL".
+   *
+   * @param floor the floor for which to generate nodes
+   * @return the list of nodes to display
+   * @throws SQLException if there is an error accessing the database
+   * @throws IOException if there is an error loading image resources
+   */
+  public ArrayList<javafx.scene.Node> makeAllFloorNodes(String floor, boolean isMapPage)
+      throws SQLException, IOException {
+    ArrayList<javafx.scene.Node> nodes = new ArrayList<>(); // list of shapes to be displayed
+    ArrayList<NodeCircle> circles = new ArrayList<>(); // List of NodeCircle Objects
+    HashMap<Integer, ArrayList<LocationName>> map =
+        DataManager.getAllLocationNamesMappedByNode(new Timestamp(System.currentTimeMillis()));
+    ArrayList<Integer> sortedKeys = new ArrayList<>(map.keySet());
+    System.out.println("FloorIN: " + floor);
+
+    ArrayList<Node> allNodes = DataManager.getAllNodes();
+    for (int i = 0; i < allNodes.size(); i++) {
+      Node n = allNodes.get(i);
+      if (n.getFloor().equals(floor)) {
+        String defShortName;
+        if (i < sortedKeys.size()) {
+          defShortName = map.get(sortedKeys.get(i)).get(0).getShortName();
+        } else {
+          defShortName = "" + n.getId();
+        }
+        circles.add(new NodeCircle(n, isMapPage, defShortName));
+      }
+    }
+    for (NodeCircle c : circles) {
+      nodes.add(c.p);
+    }
+    return nodes;
+  }
+
+  public void setCurrentDisplayFloor(String currentDisplayFloor) throws SQLException, IOException {
+    this.currentDisplayFloor = currentDisplayFloor;
+
+    subAnchor.getStyleClass().remove(0);
+
+    String cssFloorName = this.takeFloor(currentDisplayFloor, true);
+    String shortRealFloorName = this.takeFloor(currentDisplayFloor, false);
+
+    // Delete all nodeCircles
+
+    //    subAnchor.getChildren();currentFloorNodes;
+    if (!this.currentFloorShapes.isEmpty()) {
+      for (int i = subAnchor.getChildren().size() - 1; i >= 0; i--) {
+        if (this.currentFloorShapes.contains(subAnchor.getChildren().get(i))) {
+          System.out.println("Rem: " + i);
+          subAnchor.getChildren().remove(i);
+        }
+      }
+      this.setPrevPath(null);
+    }
+
+    // Re add based on new floor
+
+    currentFloorShapes = (this.makeAllFloorShapes(shortRealFloorName, false));
+    System.out.println("SetFloor :" + shortRealFloorName);
+    subAnchor.getChildren().addAll(currentFloorShapes);
+
+    subAnchor.getStyleClass().add(cssFloorName);
   }
 
   /**
@@ -206,19 +314,12 @@ public class Map {
     return nodeNames;
   }
 
-  /** An array of strings that represent the names of different floors. */
-  String[] floorArr = {
-    "Lower Level 2", "Lower Level 1", "Ground Floor", "First Floor", "Second Floor", "Third Floor"
-  };
-
   /**
    * Returns an observable list of all floor names.
    *
-   * @param floor the floor to retrieve information for
    * @return an observable list of all floor names
-   * @throws SQLException if there is an error retrieving the data from the database
    */
-  public ObservableList<String> getAllFloors(String floor) throws SQLException {
+  public ObservableList<String> getAllFloors() {
     ObservableList<String> floorNames = FXCollections.observableArrayList();
 
     for (String f : floorArr) {
@@ -226,6 +327,48 @@ public class Map {
     }
 
     return floorNames;
+  }
+
+  public String takeFloor(String f, boolean flag) {
+    String retStr = "";
+    if (f == null) {
+      return "L1";
+    }
+    //    System.out.println(f);
+    switch (f) {
+      case ("Lower Level 1"):
+        retStr = "L1";
+        return retStr;
+      case ("Lower Level 2"):
+        retStr = "L2";
+        return retStr;
+      case ("Ground Floor"):
+        retStr = "GG";
+        return retStr;
+      case ("First Floor"):
+        if (flag) {
+          retStr = "G1";
+        } else {
+          retStr = "1";
+        }
+        return retStr;
+      case ("Second Floor"):
+        if (flag) {
+          retStr = "G2";
+        } else {
+          retStr = "2";
+        }
+        return retStr;
+      case ("Third Floor"):
+        if (flag) {
+          retStr = "G3";
+        } else {
+          retStr = "3";
+        }
+        return retStr;
+      default:
+        return "You should never see  this!!!";
+    }
   }
 
   /**
@@ -322,32 +465,6 @@ public class Map {
   //    }
   //    return nodes;
   //  }
-
-  /**
-   * Generates a list of all nodes to display for a given floor, including nodes with type "HALL".
-   *
-   * @param floor the floor for which to generate nodes
-   * @return the list of nodes to display
-   * @throws SQLException if there is an error accessing the database
-   * @throws IOException if there is an error loading image resources
-   */
-  public ArrayList<javafx.scene.Node> makeAllFloorNodes(String floor, boolean isMapPage)
-      throws SQLException, IOException {
-    ArrayList<javafx.scene.Node> nodes =
-        new ArrayList<javafx.scene.Node>(); // list of shapes to be displayed
-    ArrayList<NodeCircle> circles = new ArrayList<>(); // List of NodeCircle Objects
-
-    for (Node n : DataManager.getAllNodes()) {
-      if (n.getFloor().equals(floor)) {
-        circles.add(new NodeCircle(n, isMapPage));
-      }
-    }
-    for (NodeCircle c : circles) {
-      nodes.add(c.p);
-    }
-
-    return nodes;
-  }
 
   /** Draws location names on the map. */
   public void drawLocationNames() throws SQLException {}
