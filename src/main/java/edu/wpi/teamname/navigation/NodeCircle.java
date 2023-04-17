@@ -106,7 +106,6 @@ public class NodeCircle {
     //    v.setOpacity(0);
     //    v.setDisable(true);
 
-    //    text.setOpacity(0);
     p.setOnMouseEntered(makeVisible);
     p.setOnMouseExited(hide);
     p.setOnMouseClicked(boxVisible);
