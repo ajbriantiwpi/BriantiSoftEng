@@ -1,9 +1,14 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
+import edu.wpi.teamname.employees.EmployeeType;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
@@ -20,24 +25,75 @@ public class ParentController {
   @FXML MFXButton showRequestsButton;
   @FXML MFXButton editMapButton;
   @FXML MFXButton exitButton;
-
+  @FXML MFXButton logoutButton;
+  @FXML MFXButton loginButton;
+  @FXML MFXButton editMoveButton;
   @FXML Label titleLabel;
 
+  ArrayList<Screen> secureScreens =
+      new ArrayList<>(
+          Arrays.asList(
+              Screen.MAP_EDIT,
+              Screen.MOVE_TABLE,
+              Screen.SERVICE_REQUEST,
+              Screen.SERVICE_REQUEST_VIEW));
+
   @Setter public static StringProperty titleString = new SimpleStringProperty();
+
+  /** * Disables all the buttons that can not be accessed without logging in */
+  public void disableButtonsWhenNotLoggedIn() {
+    makeRequestsButton.setDisable(true);
+    showRequestsButton.setDisable(true);
+    editMapButton.setDisable(true);
+    editMoveButton.setDisable(true);
+  }
+
+  /** logs the current user out of the application */
+  private void logout() {
+    HomeController.setLoggedIn(new SimpleBooleanProperty(false));
+    loginButton.setVisible(true);
+    logoutButton.setVisible(false);
+    GlobalVariables.logOut();
+    disableButtonsWhenNotLoggedIn();
+
+    if (secureScreens.contains(GlobalVariables.getCurrentScreen())) {
+      Navigation.navigate(Screen.HOME);
+    }
+  }
 
   @FXML
   public void initialize() throws IOException {
     titleLabel.setText(titleString.getValue());
     System.out.println("Parent!");
+    disableButtonsWhenNotLoggedIn();
 
+    if (HomeController.getLoggedIn().getValue()) {
+      loginButton.setVisible(false);
+      logoutButton.setVisible(true);
+    } else {
+      loginButton.setVisible(true);
+      logoutButton.setVisible(false);
+    }
+
+    if (GlobalVariables.userIsType(EmployeeType.STAFF)) {
+      makeRequestsButton.setDisable(false);
+      showRequestsButton.setDisable(false);
+    }
+    if (GlobalVariables.userIsType(EmployeeType.ADMIN)) {
+      editMapButton.setDisable(false);
+      editMoveButton.setDisable(false);
+    }
     homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     //    helpButton.setOnMouseClicked(event -> Navigation.navigate(Screen.));
     mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
     //        directionsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
     makeRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
-    //        showRequestsButton.setOnMouseClicked(event ->
+    showRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST_VIEW));
+    loginButton.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN));
+    logoutButton.setOnMouseClicked(event -> logout());
     // Navigation.navigate(Screen.SERVICE_REQUEST_VIEW));
-    //        editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
+    editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
+    editMoveButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MOVE_TABLE));
     exitButton.setOnMouseClicked(event -> System.exit(0));
 
     // titleLabel.setText(titleString.getValue());
