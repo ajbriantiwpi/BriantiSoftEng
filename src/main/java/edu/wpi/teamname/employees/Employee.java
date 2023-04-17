@@ -180,4 +180,8 @@ public class Employee {
     }
     return false;
   }
+
+  public void setPassword(String newValue) {
+    this.password = newValue;
+  }
 }

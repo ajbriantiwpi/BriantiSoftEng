@@ -9,6 +9,8 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.converter.IntegerStringConverter;
 
 public class EmployeeTableController {
   // TODO
@@ -83,5 +85,66 @@ public class EmployeeTableController {
     } catch (SQLException e) {
       System.err.println("Error getting employees from database: " + e.getMessage());
     }
+    employeeTable.setEditable(true);
+    employeeIDColumn.setCellFactory(
+        TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+    firstNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+    lastNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+    // For EmployeeType TODO
+    userColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+    passColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+    employeeIDColumn.setOnEditCommit(
+        event -> {
+          Employee employee = event.getRowValue();
+          employee.setEmployeeID(event.getNewValue());
+          try {
+            employeeDAO.syncEmployee(employee);
+          } catch (SQLException e) {
+            System.err.println("Error updating employee in the database: " + e.getMessage());
+          }
+        });
+    firstNameColumn.setOnEditCommit(
+        event -> {
+          Employee employee = event.getRowValue();
+          employee.setFirstName(event.getNewValue());
+          try {
+            employeeDAO.syncEmployee(employee);
+          } catch (SQLException e) {
+            System.err.println("Error updating employee in the database: " + e.getMessage());
+          }
+        });
+
+    lastNameColumn.setOnEditCommit(
+        event -> {
+          Employee employee = event.getRowValue();
+          employee.setLastName(event.getNewValue());
+          try {
+            employeeDAO.syncEmployee(employee);
+          } catch (SQLException e) {
+            System.err.println("Error updating employee in the database: " + e.getMessage());
+          }
+        });
+    // TODO Employee Type
+    userColumn.setOnEditCommit(
+        event -> {
+          Employee employee = event.getRowValue();
+          employee.setUsername(event.getNewValue());
+          try {
+            employeeDAO.syncEmployee(employee);
+          } catch (SQLException e) {
+            System.err.println("Error updating employee in the database: " + e.getMessage());
+          }
+        });
+
+    passColumn.setOnEditCommit(
+        event -> {
+          Employee employee = event.getRowValue();
+          employee.setPassword(event.getNewValue());
+          try {
+            employeeDAO.syncEmployee(employee);
+          } catch (SQLException e) {
+            System.err.println("Error updating employee in the database: " + e.getMessage());
+          }
+        });
   }
 }
