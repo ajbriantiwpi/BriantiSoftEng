@@ -153,7 +153,7 @@ public class MapController {
 
           String floor = FloorSelect.getValue();
           System.out.println(floor);
-          currFloor = takeFloor(floor, true);
+          currFloor = map.takeFloor(floor, true);
 
           if (!map.getShapes().isEmpty()) {
 

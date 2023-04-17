@@ -28,6 +28,8 @@ public class Map {
   private Point2D centerTL;
   @Getter @Setter private ArrayList<Shape> prevPath = new ArrayList<Shape>();
 
+  @Getter @Setter private ArrayList<ArrayList<Shape>> shapes = new ArrayList<ArrayList<Shape>>();
+
   @Getter @Setter
   private ArrayList<javafx.scene.Node> currentFloorShapes = new ArrayList<javafx.scene.Node>();
 
