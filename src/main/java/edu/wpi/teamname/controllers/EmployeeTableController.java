@@ -78,7 +78,7 @@ public class EmployeeTableController {
 
     DataManager employeeDAO = new DataManager();
     try {
-      ArrayList<Employee> employees = employeeDAO.getAllEmployee();
+      ArrayList<Employee> employees = employeeDAO.getAllEmployees();
       employeeTable.setItems(FXCollections.observableArrayList(employees));
     } catch (SQLException e) {
       System.err.println("Error getting employees from database: " + e.getMessage());

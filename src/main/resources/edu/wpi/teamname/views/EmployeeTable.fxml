@@ -13,7 +13,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.EmployeeTableController">
    <children>
-      <VBox prefHeight="400.0" prefWidth="166.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox prefHeight="400.0" prefWidth="166.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="434.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label alignment="CENTER" prefHeight="29.0" prefWidth="268.0" text="Add Employee" textFill="#235fa6">
                <font>
@@ -28,37 +28,58 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="employeeIDField" />
+            <TextField fx:id="employeeIDField">
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin></TextField>
             <Label alignment="CENTER" prefHeight="18.0" prefWidth="159.0" text="First Name" textFill="#001b3b">
                <font>
                   <Font name="Roboto" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="employeeFirstNameTextField" />
+            <TextField fx:id="employeeFirstNameTextField">
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin></TextField>
             <Label alignment="CENTER" prefHeight="18.0" prefWidth="159.0" text="Last Name" textFill="#001b3b">
                <font>
                   <Font name="Roboto" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="employeeLastNameTextField" />
+            <TextField fx:id="employeeLastNameTextField">
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin></TextField>
             <Label alignment="CENTER" prefHeight="18.0" prefWidth="159.0" text="Employee Type" textFill="#001b3b">
                <font>
                   <Font name="Roboto" size="14.0" />
                </font>
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin>
             </Label>
-            <TextField fx:id="employeeTypeTextField" />
+            <TextField fx:id="employeeTypeTextField">
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin></TextField>
             <Label alignment="CENTER" prefHeight="18.0" prefWidth="159.0" text="Username" textFill="#001b3b">
                <font>
                   <Font name="Roboto" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="employeeUserTextField" />
+            <TextField fx:id="employeeUserTextField">
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin></TextField>
             <Label alignment="CENTER" prefHeight="18.0" prefWidth="159.0" text="Password" textFill="#001b3b">
                <font>
                   <Font name="Roboto" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="employeePasswordTextField" />
+            <TextField fx:id="employeePasswordTextField">
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin></TextField>
             <Label alignment="CENTER" prefHeight="29.0" prefWidth="268.0" text="CSV Manager" textFill="#235fa6">
                <font>
                   <Font name="Roboto" size="24.0" />
@@ -71,6 +92,9 @@
                <VBox.margin>
                   <Insets left="5.0" top="15.0" />
                </VBox.margin>
+               <font>
+                  <Font name="Roboto" size="12.0" />
+               </font>
             </MFXButton>
             <MFXButton fx:id="exportButton" buttonType="RAISED" prefHeight="25.0" prefWidth="118.0" rippleColor="#235fa6" text="Export">
                <effect>
@@ -79,6 +103,9 @@
                <VBox.margin>
                   <Insets left="5.0" top="15.0" />
                </VBox.margin>
+               <font>
+                  <Font name="Roboto" size="12.0" />
+               </font>
             </MFXButton>
          </children>
       </VBox>
@@ -94,16 +121,19 @@
                   <Font name="Roboto" size="18.0" />
                </font>
                <HBox.margin>
-                  <Insets left="50.0" />
+                  <Insets left="50.0" top="10.0" />
                </HBox.margin>
             </Label>
             <TextField fx:id="searchEmployee" prefHeight="54.0" prefWidth="248.0">
                <HBox.margin>
-                  <Insets />
+                  <Insets bottom="20.0" right="20.0" top="10.0" />
                </HBox.margin>
+               <padding>
+                  <Insets bottom="-10.0" />
+               </padding>
             </TextField>
          </children>
       </HBox>
-      <TableView fx:id="employeeTable" layoutX="248.0" layoutY="42.0" prefHeight="358.0" prefWidth="437.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="42.0" />
+      <TableView fx:id="employeeTable" layoutX="248.0" layoutY="42.0" prefHeight="358.0" prefWidth="437.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="42.0" />
    </children>
 </AnchorPane>

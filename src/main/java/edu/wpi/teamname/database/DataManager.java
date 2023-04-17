@@ -275,10 +275,6 @@ public class DataManager {
     return getEmployeeType(username);
   }
 
-  public static ArrayList<Employee> getAllEmployee() throws SQLException {
-    EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
-    return employeeDAO.getAllEmployees();
-  }
   /**
    * This method adds a new Move object to the "Move" table in the database.
    *
