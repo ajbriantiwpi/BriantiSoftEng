@@ -16,6 +16,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.SearchableComboBox?>
 
 <AnchorPane style="-fx-background-color: #EEEDF1;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestController">
     <children>
@@ -36,24 +37,24 @@
                                                             <VBox spacing="12.0">
                                                                 <children>
                                                                     <Label style="-fx-font-family: Roboto;" stylesheets="@../stylesheets/RowLabel.css" text="Patient Name" textFill="#001b3b" VBox.vgrow="ALWAYS" />
-                                                                    <TextField fx:id="patientName" prefHeight="49.0" style="-fx-background-color: #D5E3FF; -fx-font-fill: #001B3B; -fx-background-radius: 8;" stylesheets="@../stylesheets/RowLabel.css" VBox.vgrow="ALWAYS">
+                                                                    <TextField fx:id="patientName" maxWidth="500.0" prefHeight="49.0" style="-fx-background-color: #D5E3FF; -fx-font-fill: #001B3B; -fx-background-radius: 8;" stylesheets="@../stylesheets/RowLabel.css" VBox.vgrow="ALWAYS">
                                                                          <font>
                                                                             <Font name="Roboto" size="28.0" />
                                                                          </font>
                                                                     </TextField>
                                                                     <Separator prefWidth="200.0" />
                                                       <Label style="-fx-font-family: Roboto;" stylesheets="@../stylesheets/RowLabel.css" text="Location" textFill="#001b3b" />
-                                                                    <ComboBox fx:id="nodeBox" prefHeight="49.0" prefWidth="500.0" promptText="Choose Location" stylesheets="@../stylesheets/combo.css" />
+                                                                    <SearchableComboBox fx:id="nodeBox" maxWidth="500.0" prefHeight="49.0" prefWidth="500.0" promptText="Choose Location" stylesheets="@../stylesheets/combo.css" />
                                                                     <Separator prefWidth="200.0" />
                                                                     <Label style="-fx-font-family: Roboto;" stylesheets="@../stylesheets/RowLabel.css" text="Date" textFill="#001b3b" />
-                                                                    <DatePicker fx:id="dateBox" style="-fx-background-color: #D5E3FF;" styleClass="text-field" stylesheets="@../stylesheets/dateBox.css" GridPane.rowIndex="1" />
+                                                                    <DatePicker fx:id="dateBox" maxWidth="500.0" style="-fx-background-color: #D5E3FF;" styleClass="text-field" stylesheets="@../stylesheets/dateBox.css" GridPane.rowIndex="1" />
                                                       <Separator prefWidth="200.0" />
                                                                     <Label style="-fx-font-family: Roboto;" stylesheets="@../stylesheets/RowLabel.css" text="Time" textFill="#001b3b" GridPane.columnIndex="1" />
-                                                                    <ComboBox fx:id="timeBox" prefHeight="49.0" promptText="Choose Time of Delivery" stylesheets="@../stylesheets/combo.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                                    <SearchableComboBox fx:id="timeBox" maxWidth="500.0" prefHeight="49.0" promptText="Choose Time of Delivery" stylesheets="@../stylesheets/combo.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                                     
                                                                                 <Separator prefWidth="200.0" VBox.vgrow="ALWAYS" />
                                                                     <Label stylesheets="@../stylesheets/RowLabel.css" text="Service Request Type" textFill="#001b3b" VBox.vgrow="ALWAYS" />
-                                                                    <ComboBox fx:id="requestType" prefHeight="49.0" promptText="Choose Service Request Type" style="-fx-background-color: #D5E3FF;" stylesheets="@../stylesheets/combo.css" VBox.vgrow="ALWAYS" />
+                                                                    <ComboBox fx:id="requestType" maxWidth="500.0" prefHeight="49.0" promptText="Choose Service Request Type" style="-fx-background-color: #D5E3FF;" stylesheets="@../stylesheets/combo.css" VBox.vgrow="ALWAYS" />
                                                                 </children>
                                                    <padding>
                                                       <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />

@@ -97,8 +97,8 @@ public class ReqMenuItems extends GridPane {
     DecimalFormat df = new DecimalFormat("###.00");
     label = new Label(name.replace("_", " "));
     label.setFont(Font.font("Roboto", 32));
-    label.setMinWidth(200);
-    label.setMaxWidth(200);
+    label.setMinWidth(300);
+    label.setMaxWidth(300);
     labelP = new Label("Price: $" + df.format(item.getPrice()));
     labelP.setFont(Font.font("Roboto", 32));
     labelP.setMinWidth(200);
