@@ -25,6 +25,7 @@ public class HomeController {
   @FXML MFXButton editMapButton;
   @FXML MFXButton exitButton;
   @FXML MFXButton navigateButton;
+  @FXML MFXButton employeeButton;
 
   // test push
   @Setter @Getter private static ObservableBooleanValue loggedIn = new SimpleBooleanProperty(false);
@@ -121,5 +122,6 @@ public class HomeController {
     exitButton.setOnMouseClicked(event -> System.exit(0));
     navigateButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
     editMoveButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MOVE_TABLE));
+    employeeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.EMPLOYEE_TABLE));
   }
 }

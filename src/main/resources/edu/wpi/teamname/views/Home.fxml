@@ -76,6 +76,11 @@
                                 <Font name="Roboto" size="22.0" />
                             </font>
                         </MFXButton>
+                  <MFXButton fx:id="employeeButton" alignment="BASELINE_LEFT" layoutX="22.0" layoutY="289.0" maxWidth="420.0" style="-fx-background-color: #faf9fd;" text="View Employees">
+                     <font>
+                        <Font name="Roboto" size="22.0" />
+                     </font>
+                  </MFXButton>
                     </children>
                     <padding>
                         <Insets bottom="12.0" />

@@ -82,15 +82,17 @@ public class EmployeeDAOImpl implements LoginDAO {
     }
     connection.close();
   }
+
   public ArrayList<Employee> getAllEmployees() throws SQLException {
     Connection connection = DataManager.DbConnection();
     ArrayList<Employee> employees = new ArrayList<>();
 
-    String query = "SELECT e.username, e.password, e.employeeID, e.firstName, e.lastName, t.type " +
-            "FROM Employee e " +
-            "LEFT JOIN EmployeeType t " +
-            "ON e.username = t.username " +
-            "ORDER BY e.username ASC";
+    String query =
+        "SELECT e.username, e.password, e.employeeID, e.firstName, e.lastName, t.type "
+            + "FROM Employee e "
+            + "LEFT JOIN EmployeeType t "
+            + "ON e.username = t.username "
+            + "ORDER BY e.username ASC";
 
     PreparedStatement statement = connection.prepareStatement(query);
     ResultSet rs = statement.executeQuery();
@@ -106,7 +108,8 @@ public class EmployeeDAOImpl implements LoginDAO {
       String type = rs.getString("type");
 
       if (!employeeMap.containsKey(username)) {
-        Employee employee = new Employee(username, password, employeeID, firstName, lastName, false);
+        Employee employee =
+            new Employee(username, password, employeeID, firstName, lastName, false);
         employee.addType(EmployeeType.valueOf(type));
         employeeMap.put(username, employee);
       } else {
@@ -122,10 +125,11 @@ public class EmployeeDAOImpl implements LoginDAO {
   }
 
   /**
-   * This method retrieves the types of an Employee object with the specified username from the "EmployeeType" table
-   * in the database.
+   * This method retrieves the types of an Employee object with the specified username from the
+   * "EmployeeType" table in the database.
    *
-   * @param username the username of the Employee object to retrieve types from the "EmployeeType" table
+   * @param username the username of the Employee object to retrieve types from the "EmployeeType"
+   *     table
    * @return a list of EmployeeType objects of the Employee with the specified username
    * @throws SQLException if there is a problem accessing the database
    */

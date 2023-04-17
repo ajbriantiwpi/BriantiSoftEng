@@ -270,13 +270,13 @@ public class DataManager {
    * @param username the Employees username
    * @throws SQLException if there is a problem accessing the database
    */
-  public static ArrayList<EmployeeType> getEmployeeType(String username){
-    EmployeeDAOImpl employeeDAO= new EmployeeDAOImpl();
+  public static ArrayList<EmployeeType> getEmployeeType(String username) {
+    EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
     return getEmployeeType(username);
   }
 
   public static ArrayList<Employee> getAllEmployee() throws SQLException {
-    EmployeeDAOImpl employeeDAO= new EmployeeDAOImpl();
+    EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
     return employeeDAO.getAllEmployees();
   }
   /**
