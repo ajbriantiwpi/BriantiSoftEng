@@ -230,7 +230,7 @@ public class NodeDAOImpl implements NodeDAO {
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, id);
       ResultSet rs = statement.executeQuery();
-
+      rs.next();
       int nodeid = rs.getInt("nodeID");
       int xcoord = rs.getInt("xcoord");
       int ycoord = rs.getInt("ycoord");

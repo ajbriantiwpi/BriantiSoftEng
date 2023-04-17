@@ -18,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
+import org.controlsfx.control.PopOver;
 
 public class NodeCircle {
 
@@ -233,14 +234,13 @@ public class NodeCircle {
               (TextField) ((Pane) (changeBox.getChildren().get(2))).getChildren().get(1);
           YText.setText("" + nodeCords.getY());
 
-          Node currNode;
-
+          Node currNode = null;
           try {
-            //            System.out.println("Add");
             currNode = DataManager.getNode(nodeID);
-          } catch (Exception e2) {
-            //            System.out.println("RTE");
-            throw new RuntimeException(e2);
+            //            System.out.println("Done: " + currNode.toString());
+          } catch (SQLException e) {
+            System.out.println("ERROR: " + e.toString());
+            throw new RuntimeException(e);
           }
 
           TextField floorText =
@@ -269,7 +269,12 @@ public class NodeCircle {
 
           System.out.println("AddBox");
 
-          p.getChildren().addAll(changeBox);
+          PopOver pop = new PopOver(changeBox);
+          pop.show(inner);
+
+          //          p.getChildren().addAll(changeBox);
+
+          //
         }
       };
 
