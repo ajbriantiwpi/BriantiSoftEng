@@ -10,6 +10,7 @@ public class Edge {
   @Getter private final int originalEndNodeID;
   @Getter @Setter private int startNodeID;
   @Getter @Setter private int endNodeID;
+  @Getter @Setter private float weight;
 
   /**
    * Constructs a new Edge object with the specified starting and ending node IDs.
@@ -22,6 +23,14 @@ public class Edge {
     this.endNodeID = endNodeID;
     this.originalStartNodeID = startNodeID;
     this.originalEndNodeID = endNodeID;
+  }
+
+  public Edge(int startNodeID, int endNodeID, float weight) {
+    this.startNodeID = startNodeID;
+    this.endNodeID = endNodeID;
+    this.originalStartNodeID = startNodeID;
+    this.originalEndNodeID = endNodeID;
+    this.weight = weight;
   }
 
   /**

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.SearchableComboBox?>
+<?import org.controlsfx.control.tableview2.FilteredTableColumn?>
+<?import org.controlsfx.control.tableview2.FilteredTableView?>
+
+<!--        style="-fx-background-color: #D9E3F8;" -->
+
+<AnchorPane styleClass="body" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestViewController">
+    <children>
+        <HBox spacing="24.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox HBox.hgrow="ALWAYS">
+                <children>
+                    <AnchorPane VBox.vgrow="ALWAYS">
+                  <children>
+                     <VBox layoutX="14.0" layoutY="3.0" spacing="12.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <children>
+                           <VBox spacing="12.0">
+                              <children>
+                                 <Label text="Filter Table" textFill="#001b3b">
+                                    <font>
+                                       <Font name="Roboto" size="32.0" />
+                                    </font>
+                                    <VBox.margin>
+                                       <Insets />
+                                    </VBox.margin>
+                                 </Label>
+                                 <Label text="Request Type" textFill="#001b3b">
+                                    <font>
+                                        <Font name="Roboto" size="28.0" />
+                                    </font>
+                                    <VBox.margin>
+                                       <Insets />
+                                    </VBox.margin>
+                                 </Label>
+                                 <ComboBox fx:id="requestTypeCombo" maxHeight="71.0" maxWidth="396.0" promptText="Choose Request Type" styleClass="combo-box" stylesheets="@../stylesheets/combo.css">
+                                    <VBox.margin>
+                                       <Insets />
+                                    </VBox.margin>
+                                 </ComboBox>
+                                 <Label text="Request Status" textFill="#001b3b">
+                                    <font>
+                                        <Font name="Roboto" size="28.0" />
+                                    </font>
+                                    <VBox.margin>
+                                       <Insets />
+                                    </VBox.margin>
+                                 </Label>
+                                 <ComboBox fx:id="requestStatusCombo" maxHeight="71.0" maxWidth="396.0" promptText="Choose Status" stylesheets="@../stylesheets/combo.css">
+                                    <VBox.margin>
+                                       <Insets />
+                                    </VBox.margin>
+                                 </ComboBox>
+                              </children>
+                              <VBox.margin>
+                                 <Insets />
+                              </VBox.margin>
+                           </VBox>
+                           <VBox spacing="12.0">
+                              <children>
+                                 <Label text="Assign Staff to Request" textFill="#001b3b">
+                                    <font>
+                                       <Font name="Roboto" size="32.0" />
+                                    </font>
+                                    <VBox.margin>
+                                       <Insets />
+                                    </VBox.margin>
+                                 </Label>
+                                 <Label text="Request ID" textFill="#001b3b">
+                                    <font>
+                                        <Font name="Roboto" size="28.0" />
+                                    </font>
+                                    <VBox.margin>
+                                       <Insets />
+                                    </VBox.margin>
+                                 </Label>
+                                 <SearchableComboBox fx:id="requestIDText" maxHeight="71.0" maxWidth="396.0" promptText="Select Request ID" stylesheets="@../stylesheets/combo.css">
+                                    <VBox.margin>
+                                       <Insets />
+                                    </VBox.margin>
+                                 </SearchableComboBox>
+                                 <Label text="Assign Staff" textFill="#001b3b">
+                                    <font>
+                                        <Font name="Roboto" size="28.0" />
+                                    </font>
+                                    <VBox.margin>
+                                       <Insets />
+                                    </VBox.margin>
+                                 </Label>
+                                 <SearchableComboBox fx:id="assignStaffText" maxHeight="71.0" maxWidth="396.0" promptText="Select Staff" stylesheets="@../stylesheets/combo.css">
+                                    <VBox.margin>
+                                       <Insets />
+                                    </VBox.margin>
+                                 </SearchableComboBox>
+                                 <Label text="Set Request Status" textFill="#001b3b">
+                                    <font>
+                                       <Font name="Roboto" size="28.0" />
+                                    </font>
+                                    <VBox.margin>
+                                       <Insets />
+                                    </VBox.margin>
+                                 </Label>
+                                 <SearchableComboBox fx:id="requestStatusText" maxHeight="71.0" maxWidth="396.0" promptText="Select Request Status" stylesheets="@../stylesheets/combo.css">
+                                    <VBox.margin>
+                                       <Insets />
+                                    </VBox.margin>
+                                 </SearchableComboBox>
+                                        <MFXButton fx:id="submitButton" mnemonicParsing="false" style="-fx-background-color: #003da6;" text="Assign" textFill="WHITE">
+                                            <font>
+                                                <Font name="Times New Roman" size="32.0" />
+                                            </font>
+                                    <VBox.margin>
+                                       <Insets />
+                                    </VBox.margin>
+                                        </MFXButton>
+                              </children>
+                           </VBox>
+                        </children>
+                     </VBox>
+                  </children></AnchorPane>
+                </children>
+            <padding>
+               <Insets left="24.0" />
+            </padding>
+            </VBox>
+         <FilteredTableView fx:id="table" styleClass="filtered-table-view" stylesheets="@../stylesheets/TableViewStuff.css">
+            <columns>
+               <FilteredTableColumn fx:id="requestIDCol" minWidth="0.0" prefWidth="148.5" styleClass="odd" text="Request ID" />
+               <FilteredTableColumn fx:id="patientNameCol" prefWidth="148.5" styleClass="even" text="Patient Name" />
+               <FilteredTableColumn fx:id="roomNumCol" prefWidth="148.5" styleClass="odd" text="Room #" />
+               <FilteredTableColumn fx:id="requesterIDCol" prefWidth="148.5" styleClass="odd" text="Requester ID" />
+               <FilteredTableColumn fx:id="requestedAtCol" prefWidth="148.5" styleClass="even" text="Requested At" />
+             <FilteredTableColumn fx:id="requestedForCol" prefWidth="148.5" styleClass="odd" text="Requested For" />
+             <FilteredTableColumn fx:id="assignedStaffCol" prefWidth="148.5" styleClass="even" text="Assigned Staff" />
+               <FilteredTableColumn fx:id="statusCol" prefWidth="148.5" styleClass="odd" text="Status" />
+            </columns>
+            <HBox.margin>
+               <Insets right="10.0" />
+            </HBox.margin>
+         </FilteredTableView>
+        </HBox>
+    </children>
+</AnchorPane>

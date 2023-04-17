@@ -2,6 +2,8 @@ package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.LocationNameDAO;
 import edu.wpi.teamname.navigation.LocationName;
+import edu.wpi.teamname.navigation.Node;
+import edu.wpi.teamname.navigation.Room;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
@@ -272,5 +274,112 @@ public class LocationNameDAOImpl implements LocationNameDAO {
     }
     connection.close();
     return list;
+  }
+
+  /**
+   * Returns a Node object containing all information about the node with the given longName. The
+   * information includes the locationName's nodeID, coordinates, building, floor. The function
+   * queries the database and joins the "LocationName" and "Move" tables to retrieve the necessary
+   * information. It also filters the results by selecting only the information for the node with
+   * the given ID and the most recent date prior to the current time. If no information is found for
+   * the given ID, null is returned.
+   *
+   * @param name the longName of the LocationName to retrieve information for
+   * @return a Room object containing all information about the node, or null if no information is
+   *     found
+   * @throws SQLException if there is an error accessing the database
+   */
+  public static Node getNodeByLocationName(String name, Timestamp timestamp) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    String query =
+        "SELECT \"nodeID\", \"longName\", \"shortName\", xcoord, ycoord, \"nodeType\", building, floor, j.date\n"
+            + "FROM (SELECT max(date) AS maxDate\n"
+            + "      FROM \"Move\"\n"
+            + "      WHERE \"longName\" = ?\n"
+            + "        AND date < ?) l,\n"
+            + "     (SELECT n.\"longName\", \"shortName\", n.\"nodeID\", \"nodeType\", xcoord, ycoord, building, floor, date\n"
+            + "      FROM \"LocationName\",\n"
+            + "           (select \"Move\".\"nodeID\", xcoord, ycoord, floor, building, \"longName\", date\n"
+            + "            FROM \"Node\", \"Move\"\n"
+            + "            where \"Node\".\"nodeID\" = \"Move\".\"nodeID\") n\n"
+            + "      WHERE \"LocationName\".\"longName\" = n.\"longName\") j\n"
+            + "WHERE j.date = l.maxDate\n"
+            + "  AND j.\"longName\" = ?;";
+    Node node = null;
+    try (connection) {
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setString(1, name);
+      statement.setTimestamp(2, timestamp);
+      statement.setString(3, name);
+
+      ResultSet rs = statement.executeQuery();
+      while (rs.next()) {
+        int id2 = rs.getInt("nodeID");
+        String longName = rs.getString("longName");
+        String shortN = rs.getString("shortName");
+        int xcoord = rs.getInt("xcoord");
+        int ycoord = rs.getInt("ycoord");
+        String nodeType = rs.getString("nodeType");
+        String building = rs.getString("building");
+        String floor = rs.getString("floor");
+        Timestamp date = rs.getTimestamp("date");
+
+        node = new Node(id2, xcoord, ycoord, floor, building);
+      }
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+    }
+    return node;
+  }
+
+  /**
+   * * Gets an arraylist of the combination of Nodes and LocationNames based upon the moves. This
+   * info is gotten from the perspective of the LocationName
+   *
+   * @param timestamp the timestamp to filter by
+   * @return the list of rooms calculated by long name at the given timestamp
+   * @throws SQLException if there is an error executing the SQL query
+   */
+  public static ArrayList<Room> getAllRooms(Timestamp timestamp) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    String query =
+        "SELECT DISTINCT l.\"nodeID\", nd.\"longName\", \"shortName\", \"nodeType\", xcoord, ycoord, building, floor, l.date\n"
+            + "FROM (SELECT \"longName\", max(date) date\n"
+            + "      FROM \"Move\"\n"
+            + "      WHERE date < ?\n"
+            + "      GROUP BY \"longName\") nd,\n"
+            + "     (SELECT n.\"longName\", \"shortName\", n.\"nodeID\", \"nodeType\", xcoord, ycoord, building, floor, date\n"
+            + "      FROM \"LocationName\",\n"
+            + "           (select \"Move\".\"nodeID\", xcoord, ycoord, floor, building, \"longName\", date\n"
+            + "            FROM \"Node\", \"Move\"\n"
+            + "            where \"Node\".\"nodeID\" = \"Move\".\"nodeID\") n\n"
+            + "      WHERE n.\"longName\" = \"LocationName\".\"longName\") l\n"
+            + "WHERE nd.\"longName\" = l.\"longName\"\n"
+            + "  AND nd.date = l.date\n"
+            + "ORDER BY date DESC;";
+    ArrayList<Room> rooms = new ArrayList<>();
+    Room room = null;
+    try (connection) {
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setTimestamp(1, timestamp);
+
+      ResultSet rs = statement.executeQuery();
+      while (rs.next()) {
+        int id2 = rs.getInt("nodeID");
+        String longName = rs.getString("longName");
+        String shortN = rs.getString("shortName");
+        int xcoord = rs.getInt("xcoord");
+        int ycoord = rs.getInt("ycoord");
+        String nodeType = rs.getString("nodeType");
+        String building = rs.getString("building");
+        String floor = rs.getString("floor");
+        Timestamp date = rs.getTimestamp("date");
+
+        rooms.add(new Room(id2, longName, date, xcoord, ycoord, floor, building, shortN, nodeType));
+      }
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+    }
+    return rooms;
   }
 }

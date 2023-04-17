@@ -1,15 +1,17 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.Navigation;
-import edu.wpi.teamname.Screen;
-import edu.wpi.teamname.database.Login;
+import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.employees.Employee;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.sql.SQLException;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
@@ -23,7 +25,7 @@ public class LoginController {
   @FXML MFXButton loginButton;
   @FXML MFXButton forgotPassword;
   @FXML MFXTextField loginText;
-  @FXML MFXPasswordField passwordText;
+  @FXML PasswordField passwordText;
   @FXML MFXButton cancel;
 
   /**
@@ -38,11 +40,11 @@ public class LoginController {
    */
   public static boolean loginPressed(String username, String password)
       throws SQLException, ExceptionInInitializerError {
-    Login user = new Login(username, password);
-    boolean successLog = user.LogInto();
-    if (successLog) {
-      HomeController.setLoggedIn(true);
-      Navigation.navigate(Screen.HOME);
+    Employee user = DataManager.checkLogin(username, password);
+    if (user != null) {
+      GlobalVariables.setCurrentUser(user);
+      HomeController.setLoggedIn(new SimpleBooleanProperty(true));
+      Navigation.navigate(GlobalVariables.getPreviousScreen());
       return true;
     } else {
       return false;
@@ -90,7 +92,7 @@ public class LoginController {
             throw new RuntimeException(e);
           }
         });
-    cancel.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    cancel.setOnMouseClicked(event -> Navigation.navigate(GlobalVariables.getPreviousScreen()));
   }
 
   /**
@@ -102,7 +104,13 @@ public class LoginController {
    */
   public static String forgotPasswordPressed(String username) throws SQLException {
     //    return DataManager.forgotPassword(username);
-    Login temp = new Login(username, "");
-    return temp.resetPass("NewPassword");
+    Employee employee = DataManager.getEmployee(username);
+    if (employee != null) {
+      String pass = "NewPassword1!";
+      employee.setLogin(username, pass);
+      DataManager.syncEmployee(employee);
+      return pass;
+    }
+    return "INCORRECTPASSWORD_DONOTUSE";
   }
 }

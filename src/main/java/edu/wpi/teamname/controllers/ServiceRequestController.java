@@ -226,12 +226,13 @@ public class ServiceRequestController {
         // System.out.println(c);
         if (c > 0) {
           cartBox.getChildren().add(new ReqMenuItems(item, f, this.request, false, this, c));
-          totalPrice += c * item.getPrice();
+          // totalPrice += c * item.getPrice();
         }
       }
-      System.out.println(totalPrice);
-      DecimalFormat format = new DecimalFormat("###.##");
-      totalLabel.setText(totalLabel.getText() + format.format(totalPrice));
+      refreshPrice();
+      //      System.out.println(totalPrice);
+      //      DecimalFormat format = new DecimalFormat("###.00");
+      //      totalLabel.setText(totalLabel.getText() + format.format(totalPrice));
 
     } else if (requestPage == 2) {
       setVisibleScreen(0);
@@ -272,7 +273,7 @@ public class ServiceRequestController {
    *
    * @param n the page number for the page to display 0 is the form 1 is the menu 2 is the summary
    */
-  private void setVisibleScreen(int n) {
+  public void setVisibleScreen(int n) {
     if (n == 1) {
       formPane.setVisible(false);
       formPane.setDisable(true);
@@ -351,5 +352,35 @@ public class ServiceRequestController {
           double height = glitchyPane.getHeight();
           glitchyPane.setMaxHeight(height);
         });
+  }
+
+  public void refreshPrice() throws SQLException {
+    totalLabel.setText("Quantity: ");
+    ArrayList<RequestItem> tem = new ArrayList<>();
+    double totalPrice = 0.0;
+    String t = request.getRequestType().toString();
+    if (t == "Meal Request") {
+      tem.addAll(DataManager.getAllMeals());
+    } else if (t == "Flower Request") {
+      tem.addAll(DataManager.getAllFlowers());
+    } else if (t == "Office Supply Request") {
+      tem.addAll(DataManager.getAllOfficeSupplies());
+    } else {
+      System.out.println(t);
+      tem.addAll(DataManager.getAllFurniture());
+    }
+    int c = 0;
+    // System.out.println(tem);
+    // System.out.println(request.getItems());
+    for (RequestItem item : tem) {
+      c = request.countItem(item.getItemID());
+      // System.out.println(c);
+      if (c > 0) {
+        totalPrice += c * item.getPrice();
+      }
+    }
+    System.out.println(totalPrice);
+    DecimalFormat format = new DecimalFormat("###.00");
+    totalLabel.setText(totalLabel.getText() + format.format(totalPrice));
   }
 }

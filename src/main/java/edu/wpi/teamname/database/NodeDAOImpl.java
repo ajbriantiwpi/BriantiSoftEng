@@ -2,6 +2,7 @@ package edu.wpi.teamname.database;
 
 import com.sun.javafx.geom.Point2D;
 import edu.wpi.teamname.database.interfaces.NodeDAO;
+import edu.wpi.teamname.navigation.LocationName;
 import edu.wpi.teamname.navigation.Node;
 import edu.wpi.teamname.navigation.Room;
 import java.io.BufferedWriter;
@@ -9,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class NodeDAOImpl implements NodeDAO {
@@ -266,47 +268,63 @@ public class NodeDAOImpl implements NodeDAO {
     return ret;
   }
   /**
-   * Returns a Room object containing all information about the node with the given ID. The
-   * information includes the node's long name, short name, coordinates, node type, building, floor,
-   * and the most recent date when the node's location was updated. The function queries the
-   * database and joins the "LocationName" and "Move" tables to retrieve the necessary information.
-   * It also filters the results by selecting only the information for the node with the given ID
-   * and the most recent date prior to the current time. If no information is found for the given
-   * ID, null is returned.
+   * Returns a HashMap of node IDs mapped to a list of LocationName objects for all rooms that
+   * existed at the specified timestamp. If a node is not mapped to a LocationName, it will have an
+   * empty ArrayList while nodes mapped to multiple LocationNames will have them sorted with the
+   * most up-to-date one being first.
    *
-   * @param id the ID of the node to retrieve information for
-   * @return a Room object containing all information about the node, or null if no information is
-   *     found
+   * @param timestamp a Timestamp object representing the time at which to retrieve the data
+   * @return a HashMap containing node IDs mapped to a list of LocationName objects
    * @throws SQLException if there is an error accessing the database
    */
-  public static Room getAllInfoOfNode(int id) throws SQLException {
+  public static HashMap<Integer, ArrayList<LocationName>> getAllLocationNamesMappedByNode(
+      Timestamp timestamp) throws SQLException {
     Connection connection = DataManager.DbConnection();
-    String query =
-        "SELECT \"nodeID\", \"longName\", \"shortName\", xcoord, ycoord, \"nodeType\", building, floor, j.date "
-            + "FROM (SELECT n.\"longName\", \"shortName\", n.\"nodeID\", \"nodeType\", xcoord, ycoord, building, floor, date "
-            + "      FROM \"LocationName\", "
-            + "           (select \"Move\".\"nodeID\", xcoord, ycoord, floor, building, \"longName\", date "
-            + "            FROM \"Node\", \"Move\" "
-            + "            where \"Node\".\"nodeID\" = \"Move\".\"nodeID\") n "
-            + "      WHERE \"LocationName\".\"longName\" = n.\"longName\") j, "
-            + "     (SELECT max(date) AS date "
-            + "      FROM (SELECT date "
-            + "            FROM (SELECT n.\"nodeID\", date "
-            + "                  FROM \"LocationName\", "
-            + "                       (select \"Move\".\"nodeID\", xcoord, ycoord, floor, building, \"longName\", date "
-            + "                        FROM \"Node\", \"Move\" "
-            + "                        where \"Node\".\"nodeID\" = \"Move\".\"nodeID\") n "
-            + "                  WHERE \"LocationName\".\"longName\" = n.\"longName\") j "
-            + "            WHERE date < (SELECT NOW()::timestamp) "
-            + "              AND j.\"nodeID\" = ?) l) q "
-            + "WHERE j.date = q.date "
-            + "AND j.\"nodeID\" = ?;";
-    Room room = null;
+    ArrayList<Room> rooms = DataManager.getAllRooms(timestamp);
+    HashMap<Integer, ArrayList<LocationName>> map = new HashMap<>();
+    for (Room room : rooms) {
+      if (map.containsKey(room.getNodeID())) {
+        ArrayList<LocationName> names = map.get(room.getNodeID());
+        names.add(new LocationName(room.getLongName(), room.getShortName(), room.getNodeType()));
+        map.replace(room.getNodeID(), names);
+      } else {
+        ArrayList<LocationName> names = new ArrayList<LocationName>();
+        names.add(new LocationName(room.getLongName(), room.getShortName(), room.getNodeType()));
+        map.put(room.getNodeID(), names);
+      }
+    }
+    return map;
+  }
+
+  /**
+   * * Gets an arraylist of the combination of Nodes and LocationNames based upon the moves. This
+   * info is gotten through looking at the most up-to-date information of the node IDs See
+   * getAllRoomsCalculatedByLongName(Timestamp) for calculations based upon longNames
+   *
+   * @param timestamp the timestamp to filter by
+   * @return the list of rooms calculated by node ID at the given timestamp
+   * @throws SQLException if there is an error executing the SQL query
+   */
+  /*public static ArrayList<Room> getAllRoomsCalculatedByNodeID(Timestamp timestamp)
+      throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    String query = "SELECT DISTINCT l.\"nodeID\", \"longName\", \"shortName\", \"nodeType\", xcoord, ycoord, building, floor, l.date\n" +
+            "FROM (SELECT \"nodeID\", max(date) date\n" +
+            "                FROM \"Move\"\n" +
+            "                WHERE date < ?\n" +
+            "                GROUP BY \"nodeID\") nd,\n" +
+            "              (SELECT n.\"longName\", \"shortName\", n.\"nodeID\", \"nodeType\", xcoord, ycoord, building, floor, date\n" +
+            "               FROM \"LocationName\",\n" +
+            "                    (select \"Move\".\"nodeID\", xcoord, ycoord, floor, building, \"longName\", date\n" +
+            "                     FROM \"Node\", \"Move\"\n" +
+            "                     where \"Node\".\"nodeID\" = \"Move\".\"nodeID\") n\n" +
+            "               WHERE n.\"longName\" = \"LocationName\".\"longName\") l\n" +
+            "WHERE nd.\"nodeID\" = l.\"nodeID\"\n" +
+            "AND nd.date = l.date;";
+    ArrayList<Room> rooms = new ArrayList<>();
     try (connection) {
-      int one = 1;
       PreparedStatement statement = connection.prepareStatement(query);
-      statement.setInt(one, id);
-      statement.setInt(2, id);
+      statement.setTimestamp(1, timestamp);
 
       ResultSet rs = statement.executeQuery();
       while (rs.next()) {
@@ -320,11 +338,11 @@ public class NodeDAOImpl implements NodeDAO {
         String floor = rs.getString("floor");
         Timestamp date = rs.getTimestamp("date");
 
-        room = new Room(id2, longName, date, xcoord, ycoord, floor, building, shortN, nodeType);
+        rooms.add(new Room(id2, longName, date, xcoord, ycoord, floor, building, shortN, nodeType));
       }
     } catch (SQLException e) {
       System.err.println(e.getMessage());
     }
-    return room;
-  }
+    return rooms;
+  }*/
 }
