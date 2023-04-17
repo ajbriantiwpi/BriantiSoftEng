@@ -1,5 +1,7 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.Navigation;
+import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.navigation.Map;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
@@ -23,6 +25,7 @@ public class MapController {
   @FXML ComboBox<String> LocationOne = new ComboBox<>();
   @FXML ComboBox<String> EndPointSelect = new ComboBox<>();
   @FXML MFXButton DeleteNodeButton = new MFXButton();
+  @FXML MFXButton findPathButton = new MFXButton();
   @FXML ComboBox<String> FloorSelect = new ComboBox<>();
   String defaultFloor = "L1";
   int clickCount = 0;
@@ -76,14 +79,31 @@ public class MapController {
         @Override
         public void handle(MouseEvent event) {
           System.out.println("DN");
-          if (!map.getPrevPath().isEmpty()) {
-            for (int i = anchor.getChildren().size() - 1; i >= 0; i--) {
-              if (map.getPrevPath().contains(anchor.getChildren().get(i))) {
-                anchor.getChildren().remove(i);
-              }
-            }
-            map.setPrevPath(null);
+          //          if (!map.getPrevPath().isEmpty()) {
+          //            for (int i = anchor.getChildren().size() - 1; i >= 0; i--) {
+          //              if (map.getPrevPath().contains(anchor.getChildren().get(i))) {
+          //                anchor.getChildren().remove(i);
+          //              }
+          //            }
+          //            map.setPrevPath(null);
+          //          }
+          try {
+            initialize();
+          } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+          } catch (IOException ex) {
+            throw new RuntimeException(ex);
           }
+        }
+      };
+
+  EventHandler<MouseEvent> findPathWButton =
+      new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+          map.drawPath(anchor, sNode, eNode);
+          int secInd = map.getAllFloors().indexOf(FloorSelect.getValue());
+          anchor.getChildren().addAll(map.getShapes().get(secInd));
         }
       };
 
@@ -92,14 +112,14 @@ public class MapController {
 
         @Override
         public void handle(ActionEvent event) {
-          System.out.println("T");
-          System.out.println(LocationOne.getValue());
+          System.out.println("changed start " + LocationOne.getValue());
+          // System.out.println(LocationOne.getValue());
           // System.out.println(EndPointSelect.getValue());
           sNode = Integer.parseInt(LocationOne.getValue());
-          if (eNode != 0) {
-            //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
-            map.drawPath(anchor, sNode, eNode);
-          }
+          //          if (eNode != 0) {
+          //            //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
+          //            map.drawPath(anchor, sNode, eNode);
+          //          }
         }
       };
 
@@ -111,9 +131,9 @@ public class MapController {
           System.out.println("changed end " + EndPointSelect.getValue());
           System.out.println(EndPointSelect.getValue());
           eNode = Integer.parseInt(EndPointSelect.getValue());
-          if (sNode != 0) {
-            //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
-          }
+          //          if (sNode != 0) {
+          //            //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
+          //          }
         }
       };
 
@@ -256,7 +276,9 @@ public class MapController {
 
     map.centerAndZoom(gp);
 
-    DeleteNodeButton.setOnMouseClicked(deleteNodeButton);
+    // DeleteNodeButton.setOnMouseClicked(deleteNodeButton);
+    DeleteNodeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
+    findPathButton.setOnMouseClicked(findPathWButton);
 
     //    LocationOne.setStyle("-fx-padding: 5 25 5 5;");
     LocationOne.setPromptText("Select start");
@@ -265,7 +287,7 @@ public class MapController {
     LocationOne.setOnAction(changeStart);
 
     EndPointSelect.setPromptText("Select end");
-    EndPointSelect.setItems(map.getAllNodeNames("L1"));
+    EndPointSelect.setItems(map.getAllNodeNames("L1")); // switched to every node in map
     EndPointSelect.setOnAction(changeEnd);
 
     FloorSelect.setPromptText("Select floor");

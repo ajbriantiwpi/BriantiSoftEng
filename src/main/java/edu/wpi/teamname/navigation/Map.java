@@ -318,9 +318,10 @@ public class Map {
   public ObservableList<String> getAllNodeNames(String floor) throws SQLException {
     ObservableList<String> nodeNames = FXCollections.observableArrayList();
     for (Node n : DataManager.getAllNodes()) {
-      if (n.getFloor().equals(floor)) {
-        nodeNames.addAll(("" + n.getId()));
-      }
+      //      if (n.getFloor().equals(floor)) {
+      //        nodeNames.addAll(("" + n.getId()));
+      //      }
+      nodeNames.addAll(("" + n.getId()));
     }
     return nodeNames;
   }
