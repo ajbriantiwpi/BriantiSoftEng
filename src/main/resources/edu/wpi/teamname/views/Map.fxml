@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -28,6 +29,14 @@
                <font>
                   <Font name="Roboto" size="13.0" />
                </font></MFXButton>
+            <MFXButton fx:id="findPathButton" prefHeight="61.0" prefWidth="171.0" style="-fx-background-color: #D5E3FF;" text="Find Path" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font name="Roboto" size="13.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="200.0" top="20.0" />
+               </StackPane.margin>
+            </MFXButton>
             </children>
         </StackPane>
       <HBox fx:id="SelectCombo" alignment="BOTTOM_CENTER" layoutX="136.0" layoutY="493.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="72.0" prefWidth="810.0" spacing="20.0">

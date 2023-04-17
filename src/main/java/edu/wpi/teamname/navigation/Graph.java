@@ -89,15 +89,6 @@ public class Graph {
   }
 
   /**
-   * Returns the shortest path between two nodes using A* algorithm.
-   *
-   * @param s the starting node.
-   * @param t the ending node.
-   * @return a list of nodes representing the shortest path between the starting node and the ending
-   *     node.
-   */
-
-  /**
    * This method returns the node with the given ID.
    *
    * @param nodeId The ID of the node to be returned

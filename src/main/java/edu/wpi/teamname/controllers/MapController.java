@@ -1,5 +1,7 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.Navigation;
+import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.navigation.Map;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
@@ -23,6 +25,7 @@ public class MapController {
   @FXML ComboBox<String> LocationOne = new ComboBox<>();
   @FXML ComboBox<String> EndPointSelect = new ComboBox<>();
   @FXML MFXButton DeleteNodeButton = new MFXButton();
+  @FXML MFXButton findPathButton = new MFXButton();
   @FXML ComboBox<String> FloorSelect = new ComboBox<>();
   String defaultFloor = "L1";
   int clickCount = 0;
@@ -52,13 +55,18 @@ public class MapController {
             // Capture the second click
             secondClick = new Point2D(event.getX(), event.getY());
 
+
             floor2 = map.takeFloor(FloorSelect.getValue(), true);
 
             // Call drawAStarPath with both points
-            //            map.drawAStarPath(anchor, firstClick, secondClick, floor1, floor2);
-
-            System.out.println("CLICKPATH");
             map.drawPath(anchor, firstClick, secondClick, floor1, floor2);
+            //            String[] parts = nToPars.split("_");
+            //            int sInd = Integer.parseInt(parts[0]);
+            //            int eInd = Integer.parseInt(parts[1]);
+            // listPaths = map.drawAStarPath(anchor, sInd, eInd);
+            int secInd = map.getAllFloors().indexOf(FloorSelect.getValue());
+            System.out.println(FloorSelect.getValue() + " " + secInd);
+            anchor.getChildren().addAll(map.getShapes().get(secInd));
 
             clickCount = 0;
           }
@@ -70,14 +78,31 @@ public class MapController {
         @Override
         public void handle(MouseEvent event) {
           System.out.println("DN");
-          if (!map.getPrevPath().isEmpty()) {
-            for (int i = anchor.getChildren().size() - 1; i >= 0; i--) {
-              if (map.getPrevPath().contains(anchor.getChildren().get(i))) {
-                anchor.getChildren().remove(i);
-              }
-            }
-            map.setPrevPath(null);
+          //          if (!map.getPrevPath().isEmpty()) {
+          //            for (int i = anchor.getChildren().size() - 1; i >= 0; i--) {
+          //              if (map.getPrevPath().contains(anchor.getChildren().get(i))) {
+          //                anchor.getChildren().remove(i);
+          //              }
+          //            }
+          //            map.setPrevPath(null);
+          //          }
+          try {
+            initialize();
+          } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+          } catch (IOException ex) {
+            throw new RuntimeException(ex);
           }
+        }
+      };
+
+  EventHandler<MouseEvent> findPathWButton =
+      new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+          map.drawPath(anchor, sNode, eNode);
+          int secInd = map.getAllFloors().indexOf(FloorSelect.getValue());
+          anchor.getChildren().addAll(map.getShapes().get(secInd));
         }
       };
 
@@ -86,14 +111,14 @@ public class MapController {
 
         @Override
         public void handle(ActionEvent event) {
-          System.out.println("T");
-          System.out.println(LocationOne.getValue());
+          System.out.println("changed start " + LocationOne.getValue());
+          // System.out.println(LocationOne.getValue());
           // System.out.println(EndPointSelect.getValue());
           sNode = Integer.parseInt(LocationOne.getValue());
-          if (eNode != 0) {
-            //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
-            map.drawPath(anchor, sNode, eNode);
-          }
+          //          if (eNode != 0) {
+          //            //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
+          //            map.drawPath(anchor, sNode, eNode);
+          //          }
         }
       };
 
@@ -105,9 +130,9 @@ public class MapController {
           System.out.println("changed end " + EndPointSelect.getValue());
           System.out.println(EndPointSelect.getValue());
           eNode = Integer.parseInt(EndPointSelect.getValue());
-          if (sNode != 0) {
-            //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
-          }
+          //          if (sNode != 0) {
+          //            //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
+          //          }
         }
       };
 
@@ -117,8 +142,46 @@ public class MapController {
         @Override
         public void handle(ActionEvent event) {
           System.out.println("CF");
+
+          if (!map.getPrevPath().isEmpty()) {
+            for (int i = anchor.getChildren().size() - 1; i >= 0; i--) {
+              if (map.getPrevPath().contains(anchor.getChildren().get(i))) {
+                anchor.getChildren().remove(i);
+              }
+            }
+            map.setPrevPath(null);
+          }
+
           String floor = FloorSelect.getValue();
           System.out.println(floor);
+          currFloor = map.takeFloor(floor, true);
+
+          if (!map.getShapes().isEmpty()) {
+
+            if (currFloor.equals("L1")) {
+              //            for (int i = 0; i < map.getShapes().get(1).size(); i++) {
+              //              System.out.print(" " + map.getShapes().get(1).get(i));
+              //            }
+
+              anchor.getChildren().addAll(map.getShapes().get(1));
+              map.setPrevPath(map.getShapes().get(1));
+            } else if (currFloor.equals("L2") && clickCount == 0) {
+              anchor.getChildren().addAll(map.getShapes().get(0));
+              map.setPrevPath(map.getShapes().get(0));
+            } else if (currFloor.equals("1") || currFloor.equals("G1")) {
+              anchor.getChildren().addAll(map.getShapes().get(2));
+              map.setPrevPath(map.getShapes().get(2));
+            } else if (currFloor.equals("2") || currFloor.equals("G2")) {
+              anchor.getChildren().addAll(map.getShapes().get(3));
+              map.setPrevPath(map.getShapes().get(3));
+            } else if (currFloor.equals("3") || currFloor.equals("G3")) {
+              anchor.getChildren().addAll(map.getShapes().get(4));
+              map.setPrevPath(map.getShapes().get(4));
+            } else {
+              System.out.println("What are you doing?");
+            }
+          }
+
           try {
             LocationOne.setItems(map.getAllNodeNames(map.takeFloor(floor, false)));
           } catch (SQLException ex) {
@@ -168,7 +231,9 @@ public class MapController {
 
     map.centerAndZoom(gp);
 
-    DeleteNodeButton.setOnMouseClicked(deleteNodeButton);
+    // DeleteNodeButton.setOnMouseClicked(deleteNodeButton);
+    DeleteNodeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
+    findPathButton.setOnMouseClicked(findPathWButton);
 
     //    LocationOne.setStyle("-fx-padding: 5 25 5 5;");
     LocationOne.setPromptText("Select start");
@@ -177,12 +242,13 @@ public class MapController {
     LocationOne.setOnAction(changeStart);
 
     EndPointSelect.setPromptText("Select end");
-    EndPointSelect.setItems(map.getAllNodeNames("L1"));
+    EndPointSelect.setItems(map.getAllNodeNames("L1")); // switched to every node in map
     EndPointSelect.setOnAction(changeEnd);
 
     FloorSelect.setPromptText("Select floor");
     FloorSelect.setItems(map.getAllFloors());
     FloorSelect.setOnAction(changeFloor);
+    FloorSelect.setValue("Lower Level 1");
 
     anchor.setOnMouseClicked(e);
 
