@@ -40,6 +40,7 @@ public class ParentController {
 
   @Setter public static StringProperty titleString = new SimpleStringProperty();
 
+  /** * Disables all the buttons that can not be accessed without logging in */
   public void disableButtonsWhenNotLoggedIn() {
     makeRequestsButton.setDisable(true);
     showRequestsButton.setDisable(true);

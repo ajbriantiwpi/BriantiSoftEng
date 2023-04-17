@@ -52,8 +52,8 @@ public class NodeCircle {
     nodeCords = new Point2D(n.getX(), n.getY());
     nodeID = n.getId();
 
-    ArrayList<LocationName> locations =
-        DataManager.getLocationNameByNode(nodeID, Timestamp.from(Instant.now()));
+    ArrayList<LocationName> locations = null;
+    // DataManager.getLocationNameByNode(nodeID, Timestamp.from(Instant.now()));
 
     p = new Pane();
 
@@ -197,7 +197,8 @@ public class NodeCircle {
 
           ArrayList<LocationName> locations;
           try {
-            locations = DataManager.getLocationNameByNode(nodeID, Timestamp.from(Instant.now()));
+            locations = null;
+            DataManager.getAllLocationNamesMappedByNode(Timestamp.from(Instant.now()));
           } catch (SQLException e) {
             throw new RuntimeException(e);
           }

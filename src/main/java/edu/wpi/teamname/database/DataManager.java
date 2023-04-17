@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.StringTokenizer;
 import lombok.Getter;
@@ -1235,23 +1236,18 @@ public class DataManager {
   }
 
   /**
-   * Returns a Room object containing all information about the node with the given ID. The
-   * information includes the node's long name, short name, coordinates, node type, building, floor,
-   * and the most recent date when the node's location was updated. The function queries the
-   * database and joins the "LocationName" and "Move" tables to retrieve the necessary information.
-   * It also filters the results by selecting only the information for the node with the given ID
-   * and the most recent date prior to the current time. If no information is found for the given
-   * ID, null is returned.
+   * Returns a HashMap of node IDs mapped to a list of LocationName objects for all rooms that
+   * existed at the specified timestamp. If a node is not mapped to a LocationName, it will have an
+   * empty ArrayList while nodes mapped to multiple LocationNames will have them sorted with the
+   * most up-to-date one being first.
    *
-   * @param id the ID of the node to retrieve information for
-   * @param timestamp the timestamp to get the most up-to-date info at
-   * @return a Room object containing all information about the node, or null if no information is
-   *     found
+   * @param timestamp a Timestamp object representing the time at which to retrieve the data
+   * @return a HashMap containing node IDs mapped to a list of LocationName objects
    * @throws SQLException if there is an error accessing the database
    */
-  public static ArrayList<LocationName> getLocationNameByNode(int id, Timestamp timestamp)
-      throws SQLException {
-    return NodeDAOImpl.getLocationNameByNode(id, timestamp);
+  public static HashMap<Integer, ArrayList<LocationName>> getAllLocationNamesMappedByNode(
+      Timestamp timestamp) throws SQLException {
+    return NodeDAOImpl.getAllLocationNamesMappedByNode(timestamp);
   }
 
   /*/**
@@ -1288,8 +1284,7 @@ public class DataManager {
 
   /**
    * * Gets an arraylist of the combination of Nodes and LocationNames based upon the moves. This
-   * info is gotten through looking at the most up-to-date information of the longNames See
-   * getAllRoomsCalculatedByNodeID(Timestamp) for calculations based upon nodeID's
+   * info is gotten through looking at the most up-to-date information of the longNames
    *
    * @param timestamp the timestamp to filter by
    * @return the list of rooms calculated by long name at the given timestamp

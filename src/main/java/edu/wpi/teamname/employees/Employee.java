@@ -52,6 +52,14 @@ public class Employee {
     type.remove(employeeType);
   }
 
+  /**
+   * Takes a new username and password and sets them as this Employee's username and password. The
+   * assigned password is encrypted before being assigned
+   *
+   * @param newUser the new username
+   * @param newPass the new password
+   * @throws SQLException
+   */
   public void setLogin(String newUser, String newPass) throws SQLException {
     if (!checkLegalLogin(newPass)) {
       System.out.println(
@@ -86,6 +94,13 @@ public class Employee {
         + '}';
   }
 
+  /**
+   * Performs a caesar cypher on the given password
+   *
+   * @param plaintext the string to be converted
+   * @param shift how much should the string be shifted by
+   * @return the encrypted string
+   */
   public static String encrypt(String plaintext, int shift) {
     StringBuilder ciphertext = new StringBuilder();
     for (int i = 0; i < plaintext.length(); i++) {
@@ -101,6 +116,13 @@ public class Employee {
 
   // ---------------Login requirements-----------
 
+  /**
+   * * checks if the given password doesn't violate the password requirements: A password must be 8
+   * characters, 1 uppercase letter and 1 special character
+   *
+   * @param u the given string
+   * @return whether the password meets the requirements
+   */
   public boolean checkLegalLogin(String u) {
     if (u.contains("\'") || u.contains(";")) {
       return false;
@@ -111,6 +133,12 @@ public class Employee {
     }
   }
 
+  /**
+   * checks if the given string has at least 1 capital letter
+   *
+   * @param u the given string
+   * @return if the string has a capital letter
+   */
   private boolean capital(String u) {
     for (int i = 0; i < u.length(); i++) {
       char c = u.charAt(i);
@@ -121,6 +149,12 @@ public class Employee {
     return false;
   }
 
+  /**
+   * checks if the given string has at least 1 number
+   *
+   * @param u the given string
+   * @return if the string contains a number
+   */
   private boolean number(String u) {
     for (int i = 0; i < u.length(); i++) {
       char c = u.charAt(i);
@@ -131,6 +165,12 @@ public class Employee {
     return false;
   }
 
+  /**
+   * checks if the given string has at least 1 special character
+   *
+   * @param u the give string
+   * @return if the string has a special character
+   */
   private boolean special(String u) {
     for (int i = 0; i < u.length(); i++) {
       char c = u.charAt(i);
