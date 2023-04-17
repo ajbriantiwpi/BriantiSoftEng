@@ -7,7 +7,8 @@ import java.util.Collections;
 import java.util.PriorityQueue;
 
 public class DijkstraAlgo implements IStrategyAlgo {
-  //This method is different from the A* method in only one way: every getHeuristic method is deleted (Same as having it return 0)
+  // This method is different from the A* method in only one way: every getHeuristic method is
+  // deleted (Same as having it return 0)
   @Override
   public ArrayList<Node> getPathBetween(Graph g, int startNodeId, int targetNodeId) {
     System.out.println("ASTAR T");
@@ -27,7 +28,7 @@ public class DijkstraAlgo implements IStrategyAlgo {
     PriorityQueue<Node> closedList = new PriorityQueue<>();
     PriorityQueue<Node> openList = new PriorityQueue<>();
 
-    start.setF(start.getG());//get rid of h value
+    start.setF(start.getG()); // get rid of h value
     openList.add(start);
 
     while (!openList.isEmpty()) {
@@ -45,13 +46,13 @@ public class DijkstraAlgo implements IStrategyAlgo {
         if (!openList.contains(nei) && !closedList.contains(nei)) {
           nei.setParent(ex);
           nei.setG(totalWeight);
-          nei.setF(nei.getG());//get rid of h value
+          nei.setF(nei.getG()); // get rid of h value
           openList.add(nei);
         } else {
           if (totalWeight < nei.getG()) {
             nei.setParent(ex);
             nei.setG(totalWeight);
-            nei.setF(nei.getG());//get rid of h value
+            nei.setF(nei.getG()); // get rid of h value
 
             if (closedList.contains(nei)) {
               closedList.remove(nei);

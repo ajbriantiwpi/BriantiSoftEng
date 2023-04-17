@@ -2,11 +2,8 @@ package edu.wpi.teamname.navigation.AlgoStrategy;
 
 import edu.wpi.teamname.navigation.Graph;
 import edu.wpi.teamname.navigation.Node;
-
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Stack;
 
 public class DFSAlgo implements IStrategyAlgo {
@@ -25,12 +22,11 @@ public class DFSAlgo implements IStrategyAlgo {
     visited[nodes.indexOf(start)] = true;
     prev[nodes.indexOf(start)] = null;
 
-    while(!stack.isEmpty()){
+    while (!stack.isEmpty()) {
       Node curr = stack.pop();
-      if(curr.equals(target))
-        break;
-      for(Node neighbor: curr.getNeighbors()){
-        if(!visited[nodes.indexOf(neighbor)]){
+      if (curr.equals(target)) break;
+      for (Node neighbor : curr.getNeighbors()) {
+        if (!visited[nodes.indexOf(neighbor)]) {
           stack.push(neighbor);
           prev[nodes.indexOf(neighbor)] = curr;
           visited[nodes.indexOf(neighbor)] = true;
@@ -39,7 +35,7 @@ public class DFSAlgo implements IStrategyAlgo {
     }
 
     ArrayList<Node> finalPath = new ArrayList<Node>();
-    for(Node n = target; n!=null; n = prev[nodes.indexOf(n)]){
+    for (Node n = target; n != null; n = prev[nodes.indexOf(n)]) {
       finalPath.add(n);
     }
 

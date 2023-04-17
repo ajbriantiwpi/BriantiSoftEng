@@ -2,11 +2,8 @@ package edu.wpi.teamname.navigation.AlgoStrategy;
 
 import edu.wpi.teamname.navigation.Graph;
 import edu.wpi.teamname.navigation.Node;
-
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.PriorityQueue;
 
 public class AStarAlgo implements IStrategyAlgo {

@@ -2,7 +2,6 @@ package edu.wpi.teamname.navigation.AlgoStrategy;
 
 import edu.wpi.teamname.navigation.Graph;
 import edu.wpi.teamname.navigation.Node;
-
 import java.util.*;
 
 public class BFSAlgo implements IStrategyAlgo {
@@ -16,16 +15,15 @@ public class BFSAlgo implements IStrategyAlgo {
     Queue<ArrayList<Node>> queue = new LinkedList<>();
     queue.offer(new ArrayList<>(Collections.singletonList(start)));
 
-    while (!queue.isEmpty()){
+    while (!queue.isEmpty()) {
       ArrayList<Node> path = queue.poll();
-      Node n = path.get(path.size()-1);
-      if(n.equals(target))
-        return path;
-      if(!visited.contains(n)){
+      Node n = path.get(path.size() - 1);
+      if (n.equals(target)) return path;
+      if (!visited.contains(n)) {
         visited.add(n);
         List<Node> neighbors = n.getNeighbors();
-        if(neighbors!=null){
-          for (Node a: neighbors){
+        if (neighbors != null) {
+          for (Node a : neighbors) {
             ArrayList<Node> path2 = new ArrayList<>(path);
             path2.add(a);
             queue.offer(path2);
