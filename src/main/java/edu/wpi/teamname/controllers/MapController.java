@@ -55,7 +55,7 @@ public class MapController {
             // Capture the second click
             secondClick = new Point2D(event.getX(), event.getY());
 
-            floor2 = takeFloor(FloorSelect.getValue(), false);
+            floor2 = map.takeFloor(FloorSelect.getValue(), false);
 
             // Call drawAStarPath with both points
             map.drawPath(anchor, firstClick, secondClick, floor1, floor2);
