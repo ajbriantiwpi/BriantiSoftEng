@@ -23,6 +23,12 @@ public class Graph {
     this.initializeEdges();
     pathfindingAlgo = new AStarAlgo();
   }
+  public Graph(ArrayList<Node> nodes, ArrayList<Edge> edges){
+    Nodes = nodes; // Changed based on DB team
+    Edges = edges; // Changed based on DB team
+    this.initializeEdges();
+    pathfindingAlgo = null;
+  }
 
   /**
    * Retrieves all the Nodes from the database.

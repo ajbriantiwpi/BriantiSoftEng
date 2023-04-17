@@ -2,8 +2,11 @@ package edu.wpi.teamname.navigation.AlgoStrategy;
 
 import edu.wpi.teamname.navigation.Graph;
 import edu.wpi.teamname.navigation.Node;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.PriorityQueue;
 
 public class AStarAlgo implements IStrategyAlgo {
@@ -72,7 +75,7 @@ public class AStarAlgo implements IStrategyAlgo {
    * @param target The target node to start the path from
    * @return The path from the target node to the start node
    */
-  private ArrayList<Node> getPath(Node target) {
+  public ArrayList<Node> getPath(Node target) {
     System.out.println("Path");
     Node n = target;
 
