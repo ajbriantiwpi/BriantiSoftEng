@@ -1,7 +1,7 @@
 package edu.wpi.teamname.navigation;
 
 import edu.wpi.teamname.database.DataManager;
-import edu.wpi.teamname.navigation.AlgoStrategy.DFSAlgo;
+import edu.wpi.teamname.navigation.AlgoStrategy.AStarAlgo;
 import edu.wpi.teamname.navigation.AlgoStrategy.IStrategyAlgo;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class Graph {
     this.initializeEdges();
     // pathfindingAlgo = new AStarAlgo();
     // pathfindingAlgo = new BFSAlgo();
-    pathfindingAlgo = new DFSAlgo();
+    pathfindingAlgo = new AStarAlgo();
     // pathfindingAlgo = new DijkstraAlgo();
   }
 
