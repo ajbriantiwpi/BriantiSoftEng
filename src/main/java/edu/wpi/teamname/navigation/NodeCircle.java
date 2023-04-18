@@ -218,6 +218,7 @@ public class NodeCircle {
           //          System.out.println(map);
 
           String location;
+
           if (map.get(nodeID) != null) {
             //          if (map.get(nodeID).size() > 0) {
             location = map.get(nodeID).get(0).getLongName();
