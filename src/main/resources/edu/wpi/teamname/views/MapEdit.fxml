@@ -84,7 +84,7 @@
                                 <TableColumn fx:id="nodeTypeColumn" prefWidth="62.0" text="nodeType" />
                             </columns>
                         </TableView>
-                  <HBox alignment="TOP_CENTER" maxHeight="0.0" maxWidth="0.0" spacing="20.0" StackPane.alignment="TOP_CENTER">
+                  <HBox fx:id="floorSelector" alignment="TOP_CENTER" maxHeight="0.0" maxWidth="0.0" spacing="20.0" StackPane.alignment="TOP_CENTER">
                      <children>
                         <MFXButton fx:id="downFloor" prefHeight="50.0" prefWidth="56.0" style="-fx-background-color: #D5E3ff;" text="&lt;">
                            <font>

@@ -2,10 +2,7 @@ package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.App;
 import edu.wpi.teamname.database.DataManager;
-import edu.wpi.teamname.navigation.Edge;
-import edu.wpi.teamname.navigation.LocationName;
-import edu.wpi.teamname.navigation.Map;
-import edu.wpi.teamname.navigation.Node;
+import edu.wpi.teamname.navigation.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -33,7 +31,7 @@ public class MapEditController {
 
   Map map;
   @FXML GesturePane gp;
-  @FXML TableView table;
+  @FXML TableView<LocationName> table;
   @FXML AnchorPane anchor;
   @FXML MFXButton exportButton;
   @FXML MFXButton importButton;
@@ -50,6 +48,8 @@ public class MapEditController {
 
   @FXML MFXButton downFloor;
   @FXML MFXButton upFloor;
+
+  @FXML HBox floorSelector;
 
   String defaultFloor = "L1";
   int defaultX = 0;
@@ -276,6 +276,7 @@ public class MapEditController {
 
           try {
             DataManager.addNode(n);
+//            changeFloor();
           } catch (SQLException ex) {
             System.out.println(ex);
             //            throw new RuntimeException(ex);
@@ -337,6 +338,7 @@ public class MapEditController {
 
           try {
             DataManager.addLocationName(l);
+//            changeFloor();
           } catch (SQLException ex) {
             System.out.println(ex);
             //            throw new RuntimeException(ex);
@@ -371,6 +373,7 @@ public class MapEditController {
 
             try {
               DataManager.addEdge(e);
+//              changeFloor();
             } catch (SQLException ex) {
               System.out.println(ex);
               //            throw new RuntimeException(ex);
@@ -500,12 +503,18 @@ public class MapEditController {
 
             table.setVisible(false);
             table.setDisable(true);
+
+            floorSelector.setVisible(true);
+            floorSelector.setDisable(false);
           } else {
             gp.setVisible(false);
             gp.setDisable(true);
 
             table.setVisible(true);
             table.setDisable(false);
+
+            floorSelector.setVisible(false);
+            floorSelector.setDisable(true);
           }
         }
       };
@@ -621,50 +630,47 @@ public class MapEditController {
             throw new RuntimeException(ex);
           }
 
-          MFXButton Submit = (MFXButton) ((Pane) (v.getChildren().get(7))).getChildren().get(1);
-          Submit.setOnMouseClicked(saveLocationChanges);
-
           MFXButton Remove = (MFXButton) ((Pane) (v.getChildren().get(7))).getChildren().get(0);
+          Remove.setText("Remove Location");
+
           Remove.setOnMouseClicked(removeLocation);
 
-          TextField locationText =
-              (TextField) ((Pane) (v.getChildren().get(0))).getChildren().get(1);
-          locationText.setText(currLocation.getLongName());
-          TextField shortNameText =
-              (TextField) ((Pane) (v.getChildren().get(5))).getChildren().get(1);
-          shortNameText.setText(currLocation.getShortName());
-          TextField nodeTypeText =
-              (TextField) ((Pane) (v.getChildren().get(6))).getChildren().get(1);
-          nodeTypeText.setText(currLocation.getNodeType());
+          ((Pane) (v.getChildren().get(7))).getChildren().remove(1);
 
-          //                ((Pane) (v.getChildren().get(7))).getChildren().remove(0);
+          v.getChildren().remove(6);
+          v.getChildren().remove(5);
           v.getChildren().remove(4);
           v.getChildren().remove(3);
           v.getChildren().remove(2);
           v.getChildren().remove(1);
+          v.getChildren().remove(0);
 
           PopOver pop = new PopOver(v);
           pop.show(row);
         }
       };
 
+  public void changeFloor() {
+    System.out.println("CF");
+    String floor = FloorSelect.getValue();
+    System.out.println(floor);
+
+    try {
+      map.setCurrentDisplayFloor(floor, false);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
   EventHandler<ActionEvent> triggerChangeFloor =
       new EventHandler<ActionEvent>() {
 
         @Override
         public void handle(ActionEvent event) {
-          System.out.println("CF");
-          String floor = FloorSelect.getValue();
-          System.out.println(floor);
 
-          try {
-            map.setCurrentDisplayFloor(floor, false);
-          } catch (SQLException e) {
-            throw new RuntimeException(e);
-          } catch (IOException e) {
-            throw new RuntimeException(e);
-          }
-
+          changeFloor();
           // Update Nodes
         }
       };
@@ -750,6 +756,71 @@ public class MapEditController {
     shortNameColumn.setCellValueFactory(
         new PropertyValueFactory<LocationName, String>("shortName"));
     nodeTypeColumn.setCellValueFactory(new PropertyValueFactory<LocationName, String>("nodeType"));
+
+    table.setEditable(true);
+
+    longNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+    shortNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+    nodeTypeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+
+    //        longNameColumn.setOnEditCommit(
+    //          (TableColumn.CellEditEvent<LocationName, String> t) -> {
+    //            LocationName l = t.getTableView().getItems().get(t.getTablePosition().getRow());
+    //            l.setLongName(t.getNewValue());
+    //            try {
+    //              DataManager.syncLocationName(l);
+    //            } catch (SQLException e) {
+    //              System.err.println("Error updating long name: " + e.getMessage());
+    //            }
+    //          });
+
+    longNameColumn.setOnEditCommit(
+        new EventHandler<TableColumn.CellEditEvent>() {
+          @Override
+          public void handle(TableColumn.CellEditEvent event) {
+            LocationName l =
+                (LocationName)
+                    event.getTableView().getItems().get(event.getTablePosition().getRow());
+            l.setLongName((String) event.getNewValue());
+            try {
+              DataManager.syncLocationName(l);
+            } catch (SQLException e) {
+              System.err.println("Error updating long name: " + e.getMessage());
+            }
+          }
+        });
+
+    shortNameColumn.setOnEditCommit(
+        new EventHandler<TableColumn.CellEditEvent>() {
+          @Override
+          public void handle(TableColumn.CellEditEvent event) {
+            LocationName l =
+                (LocationName)
+                    event.getTableView().getItems().get(event.getTablePosition().getRow());
+            l.setShortName((String) event.getNewValue());
+            try {
+              DataManager.syncLocationName(l);
+            } catch (SQLException e) {
+              System.err.println("Error updating long name: " + e.getMessage());
+            }
+          }
+        });
+
+    nodeTypeColumn.setOnEditCommit(
+        new EventHandler<TableColumn.CellEditEvent>() {
+          @Override
+          public void handle(TableColumn.CellEditEvent event) {
+            LocationName l =
+                (LocationName)
+                    event.getTableView().getItems().get(event.getTablePosition().getRow());
+            l.setNodeType((String) event.getNewValue());
+            try {
+              DataManager.syncLocationName(l);
+            } catch (SQLException e) {
+              System.err.println("Error updating long name: " + e.getMessage());
+            }
+          }
+        });
 
     table.setItems(locations);
 

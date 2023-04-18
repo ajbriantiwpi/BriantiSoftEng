@@ -10,10 +10,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import org.controlsfx.control.PopOver;
 
@@ -62,7 +60,7 @@ public class EdgeRectangle {
     p.setTranslateX(minX - shiftX);
     p.setTranslateY(minY - shiftY);
 
-//    p.setBackground(Background.fill(Color.RED));
+    //    p.setBackground(Background.fill(Color.RED));
 
     //    p.getChildren().add(this.label);
   }
