@@ -194,7 +194,7 @@
                                              <Font name="Roboto" size="40.0" />
                                           </font>
                                        </Label>
-                                                    <Label fx:id="totalLabel" alignment="CENTER_RIGHT" style="-fx-font-family: Roboto;" stylesheets="@../stylesheets/RowLabel.css" text="Order Total: $" textFill="#001b3b">
+                                                    <Label fx:id="totalLabel" alignment="CENTER_RIGHT" style="-fx-font-family: Roboto;" stylesheets="@../stylesheets/TextField.css" text="Order Total: $" textFill="#001b3b">
                                                         <font>
                                                             <Font name="Roboto" size="40.0" />
                                                         </font>
