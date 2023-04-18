@@ -73,6 +73,7 @@ public class HomeController {
     if (loggedIn.getValue()) {
       loginButton.setVisible(false);
       logoutButton.setVisible(true);
+      logoutButton.setDisable(false);
     } else {
       loginButton.setVisible(true);
       logoutButton.setVisible(false);

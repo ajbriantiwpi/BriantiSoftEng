@@ -123,7 +123,7 @@
                   <Font size="20.0" />
                </font>
                <HBox.margin>
-                  <Insets right="48.0" />
+                  <Insets right="20.0" />
                </HBox.margin>
             </MFXButton>
               <MFXButton fx:id="exit" alignment="CENTER" style="-fx-background-radius: 10; -fx-border-radius: 8; -fx-border-color: #BA1A1A; -fx-border-width: 3;" styleClass="primary-on-container" text="Exit" textAlignment="CENTER" textFill="#d5e3ff">
