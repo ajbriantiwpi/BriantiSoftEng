@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import lombok.Getter;
 
 public class Graph {
-  @Getter private ArrayList<Node> Nodes = new ArrayList<>();
+  @Getter private ArrayList<MapNode> mapNodes = new ArrayList<>();
   @Getter private ArrayList<Edge> Edges = new ArrayList<>();
   private IStrategyAlgo pathfindingAlgo;
 
@@ -18,7 +18,7 @@ public class Graph {
    * @throws SQLException if there is an error accessing the database
    */
   public Graph() throws SQLException {
-    Nodes = this.getAllNodes(); // Changed based on DB team
+    mapNodes = this.getAllNodes(); // Changed based on DB team
     Edges = this.getAllEdges(); // Changed based on DB team
     this.initializeEdges();
     // pathfindingAlgo = new AStarAlgo();
@@ -27,8 +27,8 @@ public class Graph {
     // pathfindingAlgo = new DijkstraAlgo();
   }
 
-  public Graph(ArrayList<Node> nodes, ArrayList<Edge> edges) {
-    Nodes = nodes; // Changed based on DB team
+  public Graph(ArrayList<MapNode> mapNodes, ArrayList<Edge> edges) {
+    this.mapNodes = mapNodes; // Changed based on DB team
     Edges = edges; // Changed based on DB team
     this.initializeEdges();
     pathfindingAlgo = null;
@@ -40,7 +40,7 @@ public class Graph {
    * @return an ArrayList of Nodes
    * @throws SQLException if there is an error accessing the database
    */
-  private ArrayList<Node> getAllNodes() throws SQLException {
+  private ArrayList<MapNode> getAllNodes() throws SQLException {
     return DataManager.getAllNodes();
   }
 
@@ -70,7 +70,7 @@ public class Graph {
    * @param b the second Node
    * @return the weight between the two Nodes
    */
-  public double findWeight(Node a, Node b) {
+  public double findWeight(MapNode a, MapNode b) {
     return 0;
   }
 
@@ -81,8 +81,8 @@ public class Graph {
    * @param targetNodeIndex the target Node
    */
   public void printPath(int startNodeIndex, int targetNodeIndex) {
-    ArrayList<Node> path = this.getPathBetween(startNodeIndex, targetNodeIndex);
-    for (Node n : path) System.out.print(n.getId() + " ");
+    ArrayList<MapNode> path = this.getPathBetween(startNodeIndex, targetNodeIndex);
+    for (MapNode n : path) System.out.print(n.getId() + " ");
   }
 
   /**
@@ -91,9 +91,9 @@ public class Graph {
    * @param s the start Node
    * @param t the target Node
    */
-  public void setAllG(Node s, Node t) {
+  public void setAllG(MapNode s, MapNode t) {
     if (s == null || t == null) return;
-    for (Node n : this.Nodes) {
+    for (MapNode n : this.mapNodes) {
       n.setG(findWeight(n, s));
     }
     s.setG(0);
@@ -105,8 +105,8 @@ public class Graph {
    * @param nodeId The ID of the node to be returned
    * @return The node with the given ID
    */
-  public Node findNodeByID(int nodeId) {
-    return Nodes.get(Node.idToIndex(nodeId));
+  public MapNode findNodeByID(int nodeId) {
+    return mapNodes.get(MapNode.idToIndex(nodeId));
   }
 
   /**
@@ -115,11 +115,11 @@ public class Graph {
   private void initializeEdges() {
     // Initialize the nodes with the node lines data
     for (int i = 0; i < Edges.size(); i++) {
-      Node StartNode = this.findNodeByID(Edges.get(i).getStartNodeID());
-      Node EndNode = this.findNodeByID(Edges.get(i).getEndNodeID());
+      MapNode startMapNode = this.findNodeByID(Edges.get(i).getStartNodeID());
+      MapNode endMapNode = this.findNodeByID(Edges.get(i).getEndNodeID());
 
-      StartNode.getNeighbors().add(EndNode);
-      EndNode.getNeighbors().add(StartNode);
+      startMapNode.getNeighbors().add(endMapNode);
+      endMapNode.getNeighbors().add(startMapNode);
     }
   }
 
@@ -131,11 +131,11 @@ public class Graph {
     this.pathfindingAlgo = algo;
   }
 
-  public ArrayList<Node> getPathBetween(int startNodeId, int targetNodeId) {
+  public ArrayList<MapNode> getPathBetween(int startNodeId, int targetNodeId) {
     return pathfindingAlgo.getPathBetween(this, startNodeId, targetNodeId);
   }
 
-  public ArrayList<Node> getPathBetween(Node startNode, Node endNode) {
-    return pathfindingAlgo.getPathBetween(this, startNode.getId(), endNode.getId());
+  public ArrayList<MapNode> getPathBetween(MapNode startMapNode, MapNode endMapNode) {
+    return pathfindingAlgo.getPathBetween(this, startMapNode.getId(), endMapNode.getId());
   }
 }
