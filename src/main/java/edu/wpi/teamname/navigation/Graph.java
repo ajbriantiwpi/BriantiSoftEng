@@ -1,7 +1,7 @@
 package edu.wpi.teamname.navigation;
 
 import edu.wpi.teamname.database.DataManager;
-import edu.wpi.teamname.navigation.AlgoStrategy.DFSAlgo;
+import edu.wpi.teamname.navigation.AlgoStrategy.AStarAlgo;
 import edu.wpi.teamname.navigation.AlgoStrategy.IStrategyAlgo;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,6 +11,7 @@ public class Graph {
   @Getter private ArrayList<Node> Nodes = new ArrayList<>();
   @Getter private ArrayList<Edge> Edges = new ArrayList<>();
   private IStrategyAlgo pathfindingAlgo;
+  private final int FLOORCHANGEDIST = 100;
 
   /**
    * Creates a new Graph by retrieving Nodes and Edges from the database.
@@ -21,9 +22,9 @@ public class Graph {
     Nodes = this.getAllNodes(); // Changed based on DB team
     Edges = this.getAllEdges(); // Changed based on DB team
     this.initializeEdges();
-    // pathfindingAlgo = new AStarAlgo();
+    pathfindingAlgo = new AStarAlgo();
     // pathfindingAlgo = new BFSAlgo();
-    pathfindingAlgo = new DFSAlgo();
+    // pathfindingAlgo = new DFSAlgo();
     // pathfindingAlgo = new DijkstraAlgo();
   }
 
@@ -41,7 +42,15 @@ public class Graph {
    * @throws SQLException if there is an error accessing the database
    */
   private ArrayList<Node> getAllNodes() throws SQLException {
-    return DataManager.getAllNodes();
+    ArrayList<Node> nodes = DataManager.getAllNodes();
+    for (Node n : nodes) {
+      if (n.getFloor().equals("L2")) n.setZ(0);
+      else if (n.getFloor().equals("L1")) n.setZ(FLOORCHANGEDIST);
+      else if (n.getFloor().equals("1")) n.setZ(FLOORCHANGEDIST * 2);
+      else if (n.getFloor().equals("2")) n.setZ(FLOORCHANGEDIST * 3);
+      else if (n.getFloor().equals("3")) n.setZ(FLOORCHANGEDIST * 4);
+    }
+    return nodes;
   }
 
   /**
@@ -64,17 +73,6 @@ public class Graph {
   }
 
   /**
-   * Finds the weight between two Nodes.
-   *
-   * @param a the first Node
-   * @param b the second Node
-   * @return the weight between the two Nodes
-   */
-  public double findWeight(Node a, Node b) {
-    return 0;
-  }
-
-  /**
    * Prints a path from the start Node to the target Node using the A* algorithm.
    *
    * @param startNodeIndex the start Node
@@ -94,7 +92,7 @@ public class Graph {
   public void setAllG(Node s, Node t) {
     if (s == null || t == null) return;
     for (Node n : this.Nodes) {
-      n.setG(findWeight(n, s));
+      n.setG(n.findWeight(s));
     }
     s.setG(0);
   }
