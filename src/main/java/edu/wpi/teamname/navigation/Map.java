@@ -4,13 +4,16 @@ import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.database.DataManager;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.*;
 import javafx.scene.shape.Shape;
@@ -25,17 +28,268 @@ public class Map {
   private Point2D centerTL;
   @Getter @Setter private ArrayList<Shape> prevPath = new ArrayList<Shape>();
 
-  public Map() throws SQLException {
+  @Getter @Setter private ArrayList<ArrayList<Shape>> shapes = new ArrayList<ArrayList<Shape>>();
+
+  @Getter @Setter
+  private ArrayList<javafx.scene.Node> currentFloorShapes = new ArrayList<javafx.scene.Node>();
+
+  @Getter private String currentDisplayFloor;
+  private AnchorPane subAnchor;
+
+  /** An array of strings that represent the names of different floors. */
+  private String[] floorArr = {
+    "Lower Level 2", "Lower Level 1", "First Floor", "Second Floor", "Third Floor"
+  };
+
+  public Map(AnchorPane subAnchor) throws SQLException {
     this.graph = new Graph();
+    this.currentDisplayFloor = "Lower Level 1";
+    this.subAnchor = subAnchor;
+  }
+
+  public ArrayList<javafx.scene.Node> makeAllFloorShapes(String floor, boolean isMapPage)
+      throws SQLException, IOException {
+    ArrayList<javafx.scene.Node> allCirclesAndEdges = new ArrayList<>();
+    if (!isMapPage) {
+      allCirclesAndEdges.addAll(this.makeAllFloorEdges(floor));
+    }
+    allCirclesAndEdges.addAll(this.makeAllFloorNodes(floor, isMapPage));
+    return allCirclesAndEdges;
+  }
+
+  public ArrayList<javafx.scene.Node> makeAllFloorEdges(String floor) {
+
+    ArrayList<javafx.scene.Node> allEdges = new ArrayList<>();
+
+    ArrayList<Edge> mapEdges = this.graph.getEdges();
+    for (int i = 0; i < mapEdges.size(); i++) {
+      Node StartNode = this.graph.findNodeByID(mapEdges.get(i).getStartNodeID());
+      Node EndNode = this.graph.findNodeByID(mapEdges.get(i).getEndNodeID());
+
+      if (StartNode.getFloor().equals(floor) || EndNode.getFloor().equals(floor)) {
+        EdgeRectangle er = new EdgeRectangle(StartNode, EndNode);
+        allEdges.add(er.p);
+      }
+    }
+
+    return allEdges;
+  }
+
+  /**
+   * Generates a list of all nodes to display for a given floor, including nodes with type "HALL".
+   *
+   * @param floor the floor for which to generate nodes
+   * @return the list of nodes to display
+   * @throws SQLException if there is an error accessing the database
+   * @throws IOException if there is an error loading image resources
+   */
+  public ArrayList<javafx.scene.Node> makeAllFloorNodes(String floor, boolean isMapPage)
+      throws SQLException, IOException {
+    ArrayList<javafx.scene.Node> nodes = new ArrayList<>(); // list of shapes to be displayed
+    ArrayList<NodeCircle> circles = new ArrayList<>(); // List of NodeCircle Objects
+    HashMap<Integer, ArrayList<LocationName>> map =
+        DataManager.getAllLocationNamesMappedByNode(new Timestamp(System.currentTimeMillis()));
+    ArrayList<Integer> sortedKeys = new ArrayList<>(map.keySet());
+    System.out.println("FloorIN: " + floor);
+
+    ArrayList<Node> allNodes = DataManager.getAllNodes();
+    for (int i = 0; i < allNodes.size(); i++) {
+      Node n = allNodes.get(i);
+      if (n.getFloor().equals(floor)) {
+        String defShortName;
+        //        if (i < sortedKeys.size()) {
+        //          defShortName = map.get(sortedKeys.get(i)).get(0).getShortName();
+        //        } else {
+        //          defShortName = "" + n.getId();
+        //        }
+        if (map.get(n.getId()) != null) {
+          defShortName = map.get(n.getId()).get(0).getShortName();
+        } else {
+          defShortName = "" + n.getId();
+        }
+        circles.add(new NodeCircle(n, isMapPage, defShortName));
+      }
+    }
+    for (NodeCircle c : circles) {
+      nodes.add(c.p);
+    }
+    return nodes;
+  }
+
+  public void setCurrentDisplayFloor(String currentDisplayFloor, boolean isMapPage)
+      throws SQLException, IOException {
+    this.currentDisplayFloor = currentDisplayFloor;
+
+    subAnchor.getStyleClass().remove(0);
+
+    String cssFloorName = this.takeFloor(currentDisplayFloor, true);
+    String shortRealFloorName = this.takeFloor(currentDisplayFloor, false);
+
+    // Delete all nodeCircles
+
+    //    subAnchor.getChildren();currentFloorNodes;
+    if (!this.currentFloorShapes.isEmpty()) {
+      for (int i = subAnchor.getChildren().size() - 1; i >= 0; i--) {
+        if (this.currentFloorShapes.contains(subAnchor.getChildren().get(i))) {
+          System.out.println("Rem: " + i);
+          subAnchor.getChildren().remove(i);
+        }
+      }
+      //      this.setPrevPath(null);
+      this.setCurrentFloorShapes(null);
+    }
+
+    if (!this.getPrevPath().isEmpty()) {
+      for (int i = subAnchor.getChildren().size() - 1; i >= 0; i--) {
+        if (this.getPrevPath().contains(subAnchor.getChildren().get(i))) {
+          subAnchor.getChildren().remove(i);
+        }
+      }
+      this.setPrevPath(null);
+    }
+
+    if (!this.getShapes().isEmpty()) {
+
+      if (cssFloorName.equals("L1")) {
+        //            for (int i = 0; i < map.getShapes().get(1).size(); i++) {
+        //              System.out.print(" " + map.getShapes().get(1).get(i));
+        //            }
+
+        subAnchor.getChildren().addAll(this.getShapes().get(1));
+        this.setPrevPath(this.getShapes().get(1));
+      } else if (cssFloorName.equals("L2")) {
+        subAnchor.getChildren().addAll(this.getShapes().get(0));
+        this.setPrevPath(this.getShapes().get(0));
+      } else if (cssFloorName.equals("1") || cssFloorName.equals("G1")) {
+        subAnchor.getChildren().addAll(this.getShapes().get(2));
+        this.setPrevPath(this.getShapes().get(2));
+      } else if (cssFloorName.equals("2") || cssFloorName.equals("G2")) {
+        subAnchor.getChildren().addAll(this.getShapes().get(3));
+        this.setPrevPath(this.getShapes().get(3));
+      } else if (cssFloorName.equals("3") || cssFloorName.equals("G3")) {
+        subAnchor.getChildren().addAll(this.getShapes().get(4));
+        this.setPrevPath(this.getShapes().get(4));
+      } else {
+        System.out.println("What are you doing?");
+      }
+    }
+
+    // Re add based on new floor
+
+    currentFloorShapes = (this.makeAllFloorShapes(shortRealFloorName, isMapPage));
+    System.out.println("SetFloor :" + shortRealFloorName);
+    subAnchor.getChildren().addAll(currentFloorShapes);
+
+    subAnchor.getStyleClass().add(cssFloorName);
   }
 
   /**
    * Creates a path with circles representing the nodes from the given list of nodes.
    *
-   * @param mapNodes List of nodes to create the path from
+   * @param nodes List of nodes to create the path from
    * @return An ArrayList of Shape objects representing the path
    */
-  private ArrayList<Shape> makeShapePath(ArrayList<MapNode> mapNodes) {
+  private ArrayList<ArrayList<Shape>> makeShapePath(ArrayList<Node> nodes) {
+    ArrayList<Node> listFloor1 = new ArrayList<>();
+    ArrayList<Node> listFloor2 = new ArrayList<>();
+    ArrayList<Node> listUpper1 = new ArrayList<>();
+    ArrayList<Node> listUpper2 = new ArrayList<>();
+    ArrayList<Node> listUpper3 = new ArrayList<>();
+
+    ArrayList<Shape> lF2 = new ArrayList<Shape>();
+    ArrayList<Shape> lF1 = new ArrayList<Shape>();
+    ArrayList<Shape> uF1 = new ArrayList<Shape>();
+    ArrayList<Shape> uF2 = new ArrayList<Shape>();
+    ArrayList<Shape> uF3 = new ArrayList<Shape>();
+
+    ArrayList<ArrayList<Shape>> pathAllFloor = new ArrayList<ArrayList<Shape>>();
+
+    for (int i = 0; i < 5; i++) {
+      pathAllFloor.add(new ArrayList<Shape>());
+    }
+
+    // pathAllFloor.add(0,listFloor2);
+
+    for (Node n : nodes) {
+      if (n.getFloor().equals("L1")) {
+        listFloor1.add(n);
+      } else if (n.getFloor().equals("L2")) {
+        listFloor2.add(n);
+      } else if (n.getFloor().equals("1") || n.getFloor().equals("G1")) {
+        listUpper1.add(n);
+      } else if (n.getFloor().equals("2") || n.getFloor().equals("G2")) {
+        listUpper2.add(n);
+      } else if (n.getFloor().equals("1") || n.getFloor().equals("G1")) {
+        listUpper3.add(n);
+      } else {
+        System.out.println("This should not be here");
+      }
+    }
+
+    if (listFloor2.size() != 0) {
+      pathAllFloor.add(0, makeShapePathFloor(listFloor2, "L2"));
+    }
+
+    if (listFloor1.size() != 0) {
+      System.out.println("size of list1: " + listFloor1.size());
+      // System.out.println("size of list in list: " + pathAllFloor.get(1).size());
+      pathAllFloor.add(1, makeShapePathFloor(listFloor1, "L1"));
+    }
+
+    if (listUpper1.size() != 0) {
+      pathAllFloor.add(2, makeShapePathFloor(listUpper1, "1"));
+    }
+
+    if (listUpper2.size() != 0) {
+      pathAllFloor.add(3, makeShapePathFloor(listUpper2, "2"));
+    }
+
+    if (listUpper3.size() != 0) {
+      pathAllFloor.add(4, makeShapePathFloor(listUpper3, "3"));
+    }
+
+    return pathAllFloor;
+
+    //    ArrayList<Shape> shapes = new ArrayList<Shape>();
+    //
+    //    Circle c;
+    //    Path path;
+    //
+    //    for (int j = 0; j < 2; j++) {
+    //      path = new Path();
+    //      if (j == 0) {
+    //        path.setStroke(borderColor);
+    //      } else {
+    //        path.setStroke(insideColor);
+    //      }
+    //      path.setStrokeWidth(lineT - (lineTout * 2 * j));
+    //      path.getElements().add(new MoveTo(nodes.get(0).getX(), nodes.get(0).getY()));
+    //
+    //
+    //      for (int i = 1; i < nodes.size(); i++) {
+    //        path.getElements().add(new LineTo(nodes.get(i).getX(), nodes.get(i).getY()));
+    //      }
+    //      path.setStrokeLineJoin(StrokeLineJoin.ROUND);
+    //      shapes.add(path);
+    //    }
+    //
+    //    for (int i = 0; i < nodes.size(); i++) {
+    //
+    //      if (i == 0 || i == nodes.size() - 1) {
+    //        c = new Circle(nodes.get(i).getX(), nodes.get(i).getY(), circleR + lineTout);
+    //        c.setFill(borderColor);
+    //        shapes.add(c);
+    //
+    //        c = new Circle(nodes.get(i).getX(), nodes.get(i).getY(), circleR);
+    //        c.setFill(insideColor);
+    //        shapes.add(c);
+    //      }
+    //    }
+    //    prevPath.addAll(shapes);
+    //    return shapes;
+  }
+
+  private ArrayList<Shape> makeShapePathFloor(ArrayList<Node> listNode, String floor) {
     ArrayList<Shape> shapes = new ArrayList<Shape>();
 
     Circle c;
@@ -50,29 +304,29 @@ public class Map {
       }
       path.setStrokeWidth(
           GlobalVariables.getLineT() - (GlobalVariables.getStrokeThickness() * 2 * j));
-      path.getElements().add(new MoveTo(mapNodes.get(0).getX(), mapNodes.get(0).getY()));
+      path.getElements().add(new MoveTo(listNode.get(0).getX(), listNode.get(0).getY()));
 
-      for (int i = 1; i < mapNodes.size(); i++) {
-        path.getElements().add(new LineTo(mapNodes.get(i).getX(), mapNodes.get(i).getY()));
+      for (int i = 1; i < listNode.size(); i++) {
+        path.getElements().add(new LineTo(listNode.get(i).getX(), listNode.get(i).getY()));
       }
       path.setStrokeLineJoin(StrokeLineJoin.ROUND);
       shapes.add(path);
     }
 
-    for (int i = 0; i < mapNodes.size(); i++) {
+    for (int i = 0; i < listNode.size(); i++) {
 
-      if (i == 0 || i == mapNodes.size() - 1) {
+      if (i == 0 || i == listNode.size() - 1) {
         c =
             new Circle(
-                mapNodes.get(i).getX(),
-                mapNodes.get(i).getY(),
+                listNode.get(i).getX(),
+                listNode.get(i).getY(),
                 GlobalVariables.getCircleR() + GlobalVariables.getStrokeThickness());
         c.setFill(GlobalVariables.getBorderColor());
         shapes.add(c);
 
         c =
             new Circle(
-                mapNodes.get(i).getX(), mapNodes.get(i).getY(), GlobalVariables.getCircleR());
+                listNode.get(i).getX(), listNode.get(i).getY(), GlobalVariables.getCircleR());
         c.setFill(GlobalVariables.getInsideColor());
         shapes.add(c);
       }
@@ -95,7 +349,7 @@ public class Map {
 
     //    String floor = "L1";
 
-    List<MapNode> allMapNodes = this.graph.getMapNodes();
+    List<Node> allNodes = this.graph.getNodes();
 
     //    System.out.println(firstClick);
     //    System.out.println(secondClick); // Coordinates in inner, now goes up to 5000
@@ -123,13 +377,13 @@ public class Map {
       leastDistance = Double.MAX_VALUE;
       checkIndex = -1;
 
-      for (int i = 0; i < allMapNodes.size(); i++) {
+      for (int i = 0; i < allNodes.size(); i++) {
         if (i == startIndex) {
           continue;
         } else {
-          MapNode currentMapNode = allMapNodes.get(i);
-          if (currentMapNode.getFloor().equals(currentFloor)) {
-            nodeDist = currentClick.distance(currentMapNode.getX(), currentMapNode.getY());
+          Node currentNode = allNodes.get(i);
+          if (currentNode.getFloor().equals(currentFloor)) {
+            nodeDist = currentClick.distance(currentNode.getX(), currentNode.getY());
             if (nodeDist < leastDistance) {
               leastDistance = nodeDist;
               checkIndex = i;
@@ -149,8 +403,9 @@ public class Map {
 
     //    Node startNode = allNodes.get(startIndex);
     //    Node endNode = allNodes.get(endIndex);
-    int startId = allMapNodes.get(startIndex).getId();
-    int endId = allMapNodes.get(endIndex).getId();
+    System.out.println(startIndex + " " + endIndex);
+    int startId = allNodes.get(startIndex).getId();
+    int endId = allNodes.get(endIndex).getId();
 
     drawPath(parent, startId, endId);
   }
@@ -163,32 +418,39 @@ public class Map {
    * @param endNodeId the ending node ID
    */
   public void drawPath(Pane parent, int startNodeId, int endNodeId) {
-    ArrayList<MapNode> mapNodePath = this.graph.getPathBetween(startNodeId, endNodeId);
+    ArrayList<Node> nodePath = this.graph.getPathBetween(startNodeId, endNodeId);
 
-    System.out.println("SIZE: " + mapNodePath.size());
+    System.out.println("SIZE: " + nodePath.size());
 
-    ArrayList<Shape> shapes = makeShapePath(mapNodePath);
+    shapes = makeShapePath(nodePath);
+
+    // return shapes
 
     //    System.out.println(nodePath);
 
-    parent.getChildren().addAll(shapes);
+    // parent.getChildren().addAll(shapes);
   }
 
   /**
    * Draws the A* path between two given nodes and adds it to the specified parent Pane.
    *
    * @param parent the Pane to add the path to
-   * @param startNode the starting node
-   * @param endNode the ending node
    */
-  //  public void drawAStarPath(Pane parent, Node startNode, Node endNode) {
+  //  public ArrayList<ArrayList<Shape>> drawAStarPath(Pane parent, int sInd, int eInd) {
+  //    List<Node> allNodes = this.graph.getNodes();
+  //
+  //    Node startNode = allNodes.get(sInd);
+  //    Node endNode = allNodes.get(eInd);
+  //
   //    ArrayList<Node> nodePath = this.graph.AStar(startNode, endNode);
   //
-  //    ArrayList<Shape> shapes = makeShapePath(nodePath);
+  //    ArrayList<ArrayList<Shape>> shapes = makeShapePath(nodePath);
   //
-  //    System.out.println(nodePath);
+  //    // System.out.println(shapes.get(1));
+  //    return shapes;
   //
-  //    parent.getChildren().addAll(shapes);
+  //    // parent.getChildren().addAll(shapes.get(1));
+  //
   //  }
 
   /**
@@ -200,27 +462,21 @@ public class Map {
    */
   public ObservableList<String> getAllNodeNames(String floor) throws SQLException {
     ObservableList<String> nodeNames = FXCollections.observableArrayList();
-    for (MapNode n : DataManager.getAllNodes()) {
-      if (n.getFloor().equals(floor)) {
-        nodeNames.addAll(("" + n.getId()));
-      }
+    for (Node n : DataManager.getAllNodes()) {
+      //      if (n.getFloor().equals(floor)) {
+      //        nodeNames.addAll(("" + n.getId()));
+      //      }
+      nodeNames.addAll(("" + n.getId()));
     }
     return nodeNames;
   }
 
-  /** An array of strings that represent the names of different floors. */
-  String[] floorArr = {
-    "Lower Level 2", "Lower Level 1", "Ground Floor", "First Floor", "Second Floor", "Third Floor"
-  };
-
   /**
    * Returns an observable list of all floor names.
    *
-   * @param floor the floor to retrieve information for
    * @return an observable list of all floor names
-   * @throws SQLException if there is an error retrieving the data from the database
    */
-  public ObservableList<String> getAllFloors(String floor) throws SQLException {
+  public ObservableList<String> getAllFloors() {
     ObservableList<String> floorNames = FXCollections.observableArrayList();
 
     for (String f : floorArr) {
@@ -228,6 +484,48 @@ public class Map {
     }
 
     return floorNames;
+  }
+
+  public String takeFloor(String f, boolean flag) {
+    String retStr = "";
+    if (f == null) {
+      return "L1";
+    }
+    //    System.out.println(f);
+    switch (f) {
+      case ("Lower Level 1"):
+        retStr = "L1";
+        return retStr;
+      case ("Lower Level 2"):
+        retStr = "L2";
+        return retStr;
+      case ("Ground Floor"):
+        retStr = "GG";
+        return retStr;
+      case ("First Floor"):
+        if (flag) {
+          retStr = "G1";
+        } else {
+          retStr = "1";
+        }
+        return retStr;
+      case ("Second Floor"):
+        if (flag) {
+          retStr = "G2";
+        } else {
+          retStr = "2";
+        }
+        return retStr;
+      case ("Third Floor"):
+        if (flag) {
+          retStr = "G3";
+        } else {
+          retStr = "3";
+        }
+        return retStr;
+      default:
+        return "You should never see  this!!!";
+    }
   }
 
   /**
@@ -324,32 +622,6 @@ public class Map {
   //    }
   //    return nodes;
   //  }
-
-  /**
-   * Generates a list of all nodes to display for a given floor, including nodes with type "HALL".
-   *
-   * @param floor the floor for which to generate nodes
-   * @return the list of nodes to display
-   * @throws SQLException if there is an error accessing the database
-   * @throws IOException if there is an error loading image resources
-   */
-  public ArrayList<javafx.scene.Node> makeAllFloorNodes(String floor, boolean isMapPage)
-      throws SQLException, IOException {
-    ArrayList<javafx.scene.Node> nodes =
-        new ArrayList<javafx.scene.Node>(); // list of shapes to be displayed
-    ArrayList<NodeCircle> circles = new ArrayList<>(); // List of NodeCircle Objects
-
-    for (MapNode n : DataManager.getAllNodes()) {
-      if (n.getFloor().equals(floor)) {
-        circles.add(new NodeCircle(n, isMapPage));
-      }
-    }
-    for (NodeCircle c : circles) {
-      nodes.add(c.p);
-    }
-
-    return nodes;
-  }
 
   /** Draws location names on the map. */
   public void drawLocationNames() throws SQLException {}

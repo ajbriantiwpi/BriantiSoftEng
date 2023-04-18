@@ -58,13 +58,13 @@ public class ServiceRequest {
    * @throws SQLException if there is an error accessing the database
    */
   public void addItem(int requestID) throws SQLException {
-    if (requestID < 1100) {
+    if (requestType.equals(RequestType.FLOWER)) {
       items.add(new Flower(requestID));
-    } else if (requestID < 1200) {
+    } else if (requestType.equals(RequestType.MEAL)) {
       items.add(new Meal(requestID));
-    } else if (requestID < 1400) {
+    } else if (requestType.equals(RequestType.FURNITURE)) {
       items.add(new Furniture(requestID));
-    } else if (requestID < 1500) {
+    } else if (requestType.equals(RequestType.OFFICESUPPLY)) {
       items.add(new OfficeSupply(requestID));
     } else if (requestID < 1600) {
       items.add(new MedicalSupply(requestID));
