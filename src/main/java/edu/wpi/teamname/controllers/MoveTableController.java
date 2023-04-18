@@ -1,8 +1,10 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.controllers.JFXitems.DatePickerEditingCell;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.database.MoveDAOImpl;
+import edu.wpi.teamname.employees.EmployeeType;
 import edu.wpi.teamname.navigation.Move;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.File;
@@ -152,7 +154,9 @@ public class MoveTableController {
             e.printStackTrace();
           }
         });
-    moveTable.setEditable(true);
+    if (GlobalVariables.userIsType(EmployeeType.ADMIN)) {
+      moveTable.setEditable(true);
+    }
 
     nodeIDColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
     nodeIDColumn.setOnEditCommit(
