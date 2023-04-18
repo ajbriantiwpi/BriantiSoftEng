@@ -177,7 +177,7 @@
                      </AnchorPane>
                   </children>
                </StackPane>
-               <HBox style="-fx-background-radius: 16; -fx-border-radius: 16;" VBox.vgrow="ALWAYS" />
+               <HBox style="-fx-background-radius: 16; -fx-background-color: #FAF9FD; -fx-border-radius: 16;" VBox.vgrow="ALWAYS" />
             </children>
          </VBox>
       </HBox>

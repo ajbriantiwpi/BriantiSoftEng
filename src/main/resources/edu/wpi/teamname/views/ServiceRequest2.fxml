@@ -18,11 +18,11 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.SearchableComboBox?>
 
-<AnchorPane style="-fx-background-color: #FAF9FD;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestController">
+<AnchorPane style="-fx-background-color: #EEEDF1;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestController">
     <children>
         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <VBox style="-fx-background-color: #EEEDF1; -fx-background-radius: 16;" HBox.hgrow="ALWAYS">
+                <VBox style="-fx-background-color: #FAF9FD; -fx-background-radius: 16;" HBox.hgrow="ALWAYS">
                     <children>
                         <StackPane prefWidth="500.0" VBox.vgrow="ALWAYS">
                             <children>
@@ -32,9 +32,9 @@
                                  <children>
                                     <AnchorPane VBox.vgrow="ALWAYS">
                                        <children>
-                                                  <ScrollPane fitToHeight="true" fitToWidth="true" pannable="true" style="-fx-background-color: #EEEDF1;" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                  <ScrollPane fitToHeight="true" fitToWidth="true" pannable="true" style="-fx-border-radius: 8; -fx-background-color: #FAF9FD;" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                       <content>
-                                                            <VBox spacing="24.0" style="-fx-background-color: #EEEDF1;">
+                                                            <VBox spacing="24.0" style="-fx-background-color: #FAF9FD;">
                                                                 <children>
                                                                     <Label style="-fx-font-family: Roboto;" stylesheets="@../stylesheets/RowLabel.css" text="Patient Name" textFill="#001b3b" VBox.vgrow="ALWAYS" />
                                                                     <TextField fx:id="patientName" maxWidth="500.0" prefHeight="49.0" style="-fx-background-color: #D5E3FF; -fx-font-fill: #001B3B; -fx-background-radius: 8;" stylesheets="@../stylesheets/RowLabel.css" VBox.vgrow="ALWAYS">
@@ -109,7 +109,7 @@
                                                          <Insets />
                                                      </VBox.margin>
                                                  </ScrollPane>
-                                                <HBox>
+                                                <HBox alignment="CENTER">
                                                    <children>
                                                       <MFXButton fx:id="forgotButton" minWidth="150.0" style="-fx-background-color: #235FA6; -fx-background-radius: 100; -fx-border-radius: 100; -fx-border-color: #6F797A; -fx-text-fill: #ffffff; -fx-font-family: Roboto;" stylesheets="@../stylesheets/menuItemButton.css" text="Forgot something?">
                                                          <font>

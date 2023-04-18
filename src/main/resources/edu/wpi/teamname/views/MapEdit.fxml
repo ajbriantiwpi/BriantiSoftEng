@@ -13,13 +13,13 @@
 <?import javafx.scene.text.Font?>
 <?import net.kurobako.gesturefx.GesturePane?>
 
-<HBox xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MapEditController">
+<HBox style="-fx-background-color: #FAF9FD; -fx-background-radius: 16;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MapEditController">
     <children>
-        <AnchorPane prefHeight="340.0" prefWidth="300.0">
+        <AnchorPane prefHeight="340.0" prefWidth="450.0">
             <children>
-                <VBox prefHeight="200.0" prefWidth="323.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <VBox spacing="20.0" style="-fx-background-color: #FAF9FD;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <ComboBox fx:id="selectTable" promptText="Choose Table To Import/Export" style="-fx-background-color: #D5E3ff;" stylesheets="@../stylesheets/combo.css">
+                        <ComboBox fx:id="selectTable" prefWidth="400.0" promptText="Choose Table To Import/Export" style="-fx-background-color: #D5E3ff;" stylesheets="@../stylesheets/combo.css">
                             <!--                      <font>-->
                             <!--                          <Font name="Roboto" size="16.0" />-->
                             <!--                      </font>-->
@@ -67,7 +67,7 @@
                             <content>
                                 <Group>
                                     <children>
-                                        <AnchorPane fx:id="anchor" prefHeight="3400.0" prefWidth="5000.0" styleClass="L1" stylesheets="@../stylesheets/mapCssOptions.css" visible="true" />
+                                        <AnchorPane fx:id="anchor" prefHeight="3400.0" prefWidth="5000.0" style="-fx-background-color: #FAF9FD;" styleClass="L1" stylesheets="@../stylesheets/mapCssOptions.css" visible="true" />
                                     </children>
                                 </Group>
                             </content>
