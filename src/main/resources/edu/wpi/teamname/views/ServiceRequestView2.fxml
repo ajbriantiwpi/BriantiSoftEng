@@ -6,7 +6,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -115,19 +118,35 @@
                            </SearchableComboBox>
                         </children>
                      </VBox>
-                            <MFXButton fx:id="submitButton" mnemonicParsing="false" style="-fx-background-color: #003da6;" text="Assign" textFill="WHITE">
-                                <font>
-                                    <Font name="Times New Roman" size="32.0" />
-                                </font>
-                        <VBox.margin>
-                           <Insets bottom="4.0" top="12.0" />
-                        </VBox.margin>
-                            </MFXButton>
-                     <MFXButton fx:id="switchButton" mnemonicParsing="false" style="-fx-background-color: #003da6;" text="Switch" textFill="WHITE">
-                        <font>
-                           <Font name="Times New Roman" size="32.0" />
-                        </font>
-                     </MFXButton>
+                     <GridPane>
+                       <columnConstraints>
+                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="240.0" minWidth="10.0" prefWidth="193.0" />
+                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="256.0" minWidth="10.0" prefWidth="203.0" />
+                       </columnConstraints>
+                       <rowConstraints>
+                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       </rowConstraints>
+                        <children>
+                                        <MFXButton fx:id="backButton" disable="true" minWidth="150.0" style="-fx-background-color: #235FA6; -fx-background-radius: 100; -fx-border-radius: 100; -fx-border-color: #6F797A; -fx-text-fill: #ffffff; -fx-font-family: Roboto;" stylesheets="@../stylesheets/menuItemButton.css" text="Back" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                            <font>
+                                                <Font name="Roboto" size="36.0" />
+                                            </font>
+                                        </MFXButton>
+                           <MFXButton fx:id="submitButton" minWidth="150.0" style="-fx-background-color: #235FA6; -fx-background-radius: 100; -fx-border-radius: 100; -fx-border-color: #6F797A; -fx-text-fill: #ffffff; -fx-font-family: Roboto;" stylesheets="@../stylesheets/menuItemButton.css" text="Assign" GridPane.rowIndex="1">
+                              <font>
+                                 <Font name="Roboto" size="36.0" />
+                              </font>
+                           </MFXButton>
+                           <MFXButton fx:id="ViewButton" disable="true" maxWidth="183.0" minHeight="83.0" minWidth="83.0" style="-fx-background-color: #235FA6; -fx-background-radius: 100; -fx-border-radius: 100; -fx-border-color: #6F797A; -fx-text-fill: #ffffff; -fx-font-family: Roboto; -fx-font-size: 20;" stylesheets="@../stylesheets/menuItemButton.css" text="View Order #" textAlignment="CENTER" visible="false" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <font>
+                                 <Font name="Roboto" size="36.0" />
+                              </font>
+                           </MFXButton>
+                        </children>
+                     </GridPane>
                   </children>
                   <padding>
                      <Insets left="12.0" right="12.0" />
@@ -140,7 +159,7 @@
                     <Insets right="10.0" />
                 </HBox.margin>
                 <children>
-                    <FilteredTableView fx:id="table">
+                    <FilteredTableView fx:id="table" editable="true">
                         <columns>
                             <FilteredTableColumn fx:id="requestIDCol" minWidth="0.0" prefWidth="148.5" style="-fx-background-color: #D5E3FF;" text="Request ID" />
                             <FilteredTableColumn fx:id="patientNameCol" prefWidth="148.5" style="-fx-background-color: #D9E3F8;" text="Patient Name" />
@@ -152,7 +171,7 @@
                             <FilteredTableColumn fx:id="statusCol" prefWidth="148.5" style="-fx-background-color: #D9E3F8;" text="Status" />
                         </columns>
                     </FilteredTableView>
-                    <AnchorPane fx:id="summaryPane" disable="true" visible="false">
+                    <AnchorPane fx:id="summaryPane" disable="true" mouseTransparent="true" visible="false">
                         <children>
                             <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" pannable="true" style="-fx-background-color: #ffffff;" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <content>
@@ -195,11 +214,6 @@
                                                             <Insets />
                                                         </VBox.margin>
                                                     </ScrollPane>
-                                                    <MFXButton fx:id="backButton" minWidth="150.0" style="-fx-background-color: #235FA6; -fx-background-radius: 100; -fx-border-radius: 100; -fx-border-color: #6F797A; -fx-text-fill: #ffffff; -fx-font-family: Roboto;" stylesheets="@../stylesheets/menuItemButton.css" text="Back">
-                                                        <font>
-                                                            <Font name="Roboto" size="36.0" />
-                                                        </font>
-                                                    </MFXButton>
                                                     <HBox />
                                                 </children>
                                             </VBox>

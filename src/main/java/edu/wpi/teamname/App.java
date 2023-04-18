@@ -47,4 +47,9 @@ public class App extends Application {
     connection.close();
     log.info("Shutting Down");
   }
+
+  //  public void screenSaver(){//every 5 minutes
+  //    Timer timer;
+  //    timer.schedule(showScreenSaver(), 300000);
+  //  }
 }

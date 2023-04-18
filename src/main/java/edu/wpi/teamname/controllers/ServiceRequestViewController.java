@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javafx.beans.binding.Bindings;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -19,9 +21,7 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.SearchableComboBox;
@@ -51,7 +51,8 @@ public class ServiceRequestViewController {
   @FXML MFXButton backButton;
   @FXML VBox cartBox;
   @FXML AnchorPane summaryPane;
-  @FXML MFXButton switchButton;
+  @FXML MFXButton ViewButton;
+  private double totalPrice = 0.0;
 
   @FXML ComboBox<RequestType> requestTypeCombo;
 
@@ -160,7 +161,6 @@ public class ServiceRequestViewController {
     FilteredList<ServiceRequest> serviceRequests1 = new FilteredList<>(serviceRequests);
     serviceRequests1.predicateProperty().bind(table.predicateProperty());
     SortedList<ServiceRequest> sortedServiceReq = new SortedList<>(serviceRequests1);
-    table.setItems(sortedServiceReq);
     requestIDCol.setCellValueFactory(new PropertyValueFactory<ServiceRequest, String>("requestID"));
     roomNumCol.setCellValueFactory(new PropertyValueFactory<ServiceRequest, String>("roomNumber"));
     assignedStaffCol.setCellValueFactory(
@@ -233,94 +233,97 @@ public class ServiceRequestViewController {
                 }
               }
             }));
+    table
+        .getSelectionModel()
+        .selectedItemProperty()
+        .addListener(
+            new ChangeListener<ServiceRequest>() {
+              @Override
+              public void changed(
+                  ObservableValue<? extends ServiceRequest> observable,
+                  ServiceRequest oldValue,
+                  ServiceRequest newValue) {
 
-    backButton.setOnMouseClicked( // show service reqs
+                table.setOnMouseClicked(
+                    event -> {
+                      ViewButton.setVisible(true);
+                      ViewButton.setDisable(false);
+                      ViewButton.setText("View Order #" + newValue.getRequestID());
+                    });
+
+                if (newValue != null) {
+                  ViewButton.setOnMouseClicked(
+                      event -> {
+                        table.setVisible(false);
+                        table.setDisable(true);
+                        ViewButton.setVisible(false);
+                        ViewButton.setDisable(true);
+                        summaryPane.setVisible(true);
+                        summaryPane.setDisable(false);
+                        backButton.setVisible(true);
+                        backButton.setDisable(false);
+                        try {
+                          System.out.println("Display");
+                          String f = "";
+                          int req = newValue.getRequestID();
+                          totalPrice = 0.0;
+                          fillPane(req, f);
+                        } catch (SQLException e) {
+                          System.out.println(e);
+                        }
+                      });
+                }
+              }
+            });
+
+    table.setItems(sortedServiceReq);
+
+    backButton.setOnMouseClicked(
         event -> {
+          totalPrice = 0.0;
+          System.out.println("Back " + totalPrice);
           table.setVisible(true);
           table.setDisable(false);
           summaryPane.setVisible(false);
           summaryPane.setDisable(true);
+          backButton.setVisible(false);
+          backButton.setDisable(true);
+          ViewButton.setVisible(true);
+          ViewButton.setDisable(false);
           cartBox.getChildren().clear();
-        });
-
-    // when table row is clicked do this
-    table.setRowFactory(
-        tv -> {
-          TableRow<ServiceRequest> row = new TableRow<>();
-          row.setOnMouseClicked(
-              event -> {
-                if (!row.isEmpty()
-                    && event.getButton() == MouseButton.PRIMARY
-                    && event.getClickCount() == 2) {
-                  ServiceRequest clickedRow = row.getItem();
-                  totalLabel.setText(totalLabel.getText());
-                  System.out.println(totalLabel);
-                  table.setVisible(false);
-                  table.setDisable(true);
-                  summaryPane.setVisible(true);
-                  summaryPane.setDisable(false);
-                  try {
-                    String f = "";
-                    int req = clickedRow.getRequestID();
-                    fillPane(req, f);
-                  } catch (SQLException e) {
-                    System.out.println(e);
-                  }
-                }
-              });
-          return row;
-        });
-
-    // stub
-    switchButton.setOnMouseClicked(
-        event -> {
-          totalLabel.setText(totalLabel.getText());
-          table.setVisible(false);
-          table.setDisable(true);
-          summaryPane.setVisible(true);
-          summaryPane.setDisable(false);
-          try {
-
-            String f = "FlowerIcons";
-            int req = 489118;
-            fillPane(req, f);
-          } catch (SQLException e) {
-            System.out.println(e);
-          }
         });
   }
 
   private void fillPane(int reqID, String folder) throws SQLException {
-    // int reqID = req.getRequestID();
     ServiceRequest request = DataManager.getServiceRequest(reqID);
     ArrayList<ItemsOrdered> orderedItems = new ArrayList<>();
     ArrayList<RequestItem> tempItems = new ArrayList<>();
     orderedItems = DataManager.getItemsFromReq(reqID);
-    double totalPrice = 0.0;
     for (int i = 0; i < orderedItems.size(); i++) {
       ItemsOrdered item = orderedItems.get(i);
       if (item.getItemID() / 100 >= 10 && item.getItemID() / 100 < 11) { // flower
         folder = "FlowerIcons";
         tempItems.add(DataManager.getFlower(item.getItemID()));
-        totalPrice += tempItems.get(i).getPrice();
       } else if (item.getItemID() / 100 >= 11 && item.getItemID() / 100 < 12) { // meal
         folder = "MealIcons";
         tempItems.add(DataManager.getMeal(item.getItemID()));
-        totalPrice += tempItems.get(i).getPrice();
       } else if (item.getItemID() / 100 >= 13 && item.getItemID() / 100 < 14) { // furniture
         folder = "FurnitureIcons";
         tempItems.add(DataManager.getFurniture(item.getItemID()));
-        totalPrice += tempItems.get(i).getPrice();
       } else if (item.getItemID() / 100 >= 14 && item.getItemID() / 100 < 15) { // office supply
         folder = "OfficeIcons";
         tempItems.add(DataManager.getOfficeSupply(item.getItemID()));
-        totalPrice += tempItems.get(i).getPrice();
       } else if (item.getItemID() / 100 >= 15 && item.getItemID() / 100 < 16) { // medical Supply
         folder = "MedicalIcons";
         tempItems.add(DataManager.getMedicalSupply(item.getItemID()));
-        totalPrice += tempItems.get(i).getPrice();
       }
-      cartBox.getChildren().add(new ReqMenuItems(tempItems.get(i), folder, item.getQuantity()));
+      try {
+        tempItems.get(i).getItemID();
+        totalPrice += (orderedItems.get(i).getQuantity() * tempItems.get(i).getPrice());
+        cartBox.getChildren().add(new ReqMenuItems(tempItems.get(i), folder, item.getQuantity()));
+      } catch (NullPointerException e) { // no items in request
+        totalPrice = 0.0;
+      }
     }
 
     String details = request.getDetails();
@@ -328,6 +331,7 @@ public class ServiceRequestViewController {
     detailsLabel.setText(details.substring(0, d)); // cut string at Deliver by
     detailsLabel1.setText(details.substring(d) + "   Status: " + request.getStatus());
     DecimalFormat format = new DecimalFormat("###.00");
-    totalLabel.setText(totalLabel.getText() + format.format(totalPrice));
+    if (totalPrice < 1) totalLabel.setText("Order Total: $0" + format.format(totalPrice));
+    else totalLabel.setText("Order Total: $" + format.format(totalPrice));
   }
 }
