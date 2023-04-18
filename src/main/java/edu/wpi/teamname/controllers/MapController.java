@@ -137,6 +137,27 @@ public class MapController {
             eNode = endId;
 
             findPathButton.setVisible(true);
+            try {
+              LocationOne.setValue(
+                  DataManager.getAllLocationNamesMappedByNode(
+                          new Timestamp(System.currentTimeMillis()))
+                      .get(sNode)
+                      .get(0)
+                      .getLongName());
+            } catch (SQLException ex) {
+              throw new RuntimeException(ex);
+            }
+
+            try {
+              EndPointSelect.setValue(
+                  DataManager.getAllLocationNamesMappedByNode(
+                          new Timestamp(System.currentTimeMillis()))
+                      .get(eNode)
+                      .get(0)
+                      .getLongName());
+            } catch (SQLException ex) {
+              throw new RuntimeException(ex);
+            }
 
             // Call drawAStarPath with both points
             // map.drawPath(anchor, firstClick, secondClick, floor1, floor2);
