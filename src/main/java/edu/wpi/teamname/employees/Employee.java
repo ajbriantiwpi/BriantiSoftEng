@@ -8,7 +8,7 @@ import lombok.Setter;
 public class Employee {
   @Getter @Setter private String username;
   @Getter private String password;
-  @Getter @Setter private static int employeeID;
+  @Getter @Setter private int employeeID;
   @Getter @Setter private String firstName;
   @Getter @Setter private String lastName;
   @Getter private final String originalUsername;
@@ -19,25 +19,6 @@ public class Employee {
   private static ArrayList<EmployeeType> allTypes = new ArrayList<>();
 
   // The rest of the fields and methods remain unchanged
-
-  /**
-   * Adds a new user to the list of employees.
-   *
-   * @param firstName the first name of the user
-   * @param lastName the last name of the user
-   * @param username the username of the user
-   * @param password the password of the user
-   * @param employeeType the employee type of the user
-   */
-  public static void addUser(
-      String firstName,
-      String lastName,
-      String username,
-      String password,
-      EmployeeType employeeType) {
-    Employee newEmployee = new Employee(username, password, employeeID, firstName, lastName, true);
-    allEmployees.add(newEmployee);
-  }
 
   /**
    * Gets all employees as an ArrayList.

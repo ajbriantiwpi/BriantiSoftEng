@@ -9,9 +9,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class EmployeeDAOImpl implements LoginDAO {
   /**
@@ -81,47 +79,6 @@ public class EmployeeDAOImpl implements LoginDAO {
       }
     }
     connection.close();
-  }
-
-  public static ArrayList<Employee> getAllEmployeesWithType() throws SQLException {
-    Connection connection = DataManager.DbConnection();
-    ArrayList<Employee> employees = new ArrayList<>();
-
-    String query =
-        "SELECT e.username, e.password, e.\"employeeID\", e.\"firstName\", e.\"lastName\", t.type "
-            + "FROM \"Employee\" e "
-            + "LEFT JOIN \"EmployeeType\" t "
-            + "ON e.username = t.username "
-            + "ORDER BY e.username ASC";
-
-    PreparedStatement statement = connection.prepareStatement(query);
-    ResultSet rs = statement.executeQuery();
-
-    Map<String, Employee> employeeMap = new HashMap<>();
-
-    while (rs.next()) {
-      String username = rs.getString("username");
-      String password = rs.getString("password");
-      int employeeID = rs.getInt("employeeID");
-      String firstName = rs.getString("firstName");
-      String lastName = rs.getString("lastName");
-      String type = rs.getString("type");
-
-      if (!employeeMap.containsKey(username)) {
-        Employee employee =
-            new Employee(username, password, employeeID, firstName, lastName, false);
-        employee.addType(EmployeeType.valueOf(type));
-        employeeMap.put(username, employee);
-      } else {
-        Employee employee = employeeMap.get(username);
-        employee.addType(EmployeeType.valueOf(type));
-      }
-    }
-
-    employees.addAll(employeeMap.values());
-
-    connection.close();
-    return employees;
   }
 
   /**
@@ -486,30 +443,5 @@ public class EmployeeDAOImpl implements LoginDAO {
     statement.setString(1, username);
 
     statement.executeUpdate();
-  }
-
-  public ArrayList<Employee> getAllEmployees() throws SQLException {
-    Connection connection = DataManager.DbConnection();
-    ArrayList<Employee> employees = new ArrayList<>();
-    String query = "SELECT * FROM Employee";
-    PreparedStatement statement = connection.prepareStatement(query);
-    ResultSet resultSet = statement.executeQuery();
-
-    while (resultSet.next()) {
-      String username = resultSet.getString("username");
-      String password = resultSet.getString("password");
-      int employeeID = resultSet.getInt("employeeID");
-      String firstName = resultSet.getString("firstName");
-      String lastName = resultSet.getString("lastName");
-      boolean active = resultSet.getBoolean("active");
-
-      // Fetch the EmployeeType for the current employee
-      ArrayList<EmployeeType> employeeType = getEmployeeType(username);
-
-      employees.add(
-          new Employee(username, password, employeeID, firstName, lastName, employeeType, true));
-    }
-
-    return employees;
   }
 }

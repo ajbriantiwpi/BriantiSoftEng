@@ -1219,8 +1219,4 @@ public class DataManager {
   public void deleteEmployeeType(String username) throws SQLException {
     EmployeeDAOImpl.deleteEmployeeType(username);
   }
-
-  public ArrayList<Employee> getAllEmployeesWithType() throws SQLException {
-    return EmployeeDAOImpl.getAllEmployeesWithType();
-  }
 }

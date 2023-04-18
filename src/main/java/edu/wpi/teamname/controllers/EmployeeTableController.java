@@ -24,9 +24,6 @@ import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
 
 public class EmployeeTableController {
-  // TODO
-  // create CSV method for splitting the data between CSV
-  // Fix password encryption
   @FXML private TableView<Employee> employeeTable;
   @FXML private TextField employeeIDField;
   @FXML private TextField employeeFirstNameTextField;
@@ -98,7 +95,7 @@ public class EmployeeTableController {
 
     DataManager employeeDAO = new DataManager();
     try {
-      ArrayList<Employee> employees = employeeDAO.getAllEmployeesWithType();
+      ArrayList<Employee> employees = employeeDAO.getAllEmployees();
       employeeTable.setItems(FXCollections.observableArrayList(employees));
     } catch (SQLException e) {
       System.err.println("Error getting employees from database: " + e.getMessage());
@@ -141,7 +138,7 @@ public class EmployeeTableController {
               employeeDAO.uploadEmployee(file.getAbsolutePath());
               // refresh table view
               employeeTable.getItems().clear();
-              employeeTable.getItems().addAll(employeeDAO.getAllEmployeesWithType());
+              employeeTable.getItems().addAll(employeeDAO.getAllEmployees());
             } catch (SQLException e) {
               System.err.println("Error uploading data to database: " + e.getMessage());
             } catch (ParseException e) {
