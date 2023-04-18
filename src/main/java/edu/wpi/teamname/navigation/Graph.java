@@ -44,8 +44,6 @@ public class Graph {
    * @throws SQLException if there is an error accessing the database
    */
   private ArrayList<MapNode> getAllNodes() throws SQLException {
-    return DataManager.getAllNodes();
-  private ArrayList<MapNode> getAllNodes() throws SQLException {
     ArrayList<MapNode> nodes = DataManager.getAllNodes();
     for (MapNode n : nodes) {
       if (n.getFloor().equals("L2")) n.setZ(0);
@@ -107,7 +105,7 @@ public class Graph {
   public void setAllG(MapNode s, MapNode t) {
     if (s == null || t == null) return;
     for (MapNode n : this.mapNodes) {
-      n.setG(findWeight(s));
+      n.setG(findWeight(t, s));
     }
     s.setG(0);
   }
