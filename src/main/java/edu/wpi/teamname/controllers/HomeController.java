@@ -18,9 +18,9 @@ public class HomeController {
   @FXML MFXButton mapButton;
   @FXML MFXButton directionsButton;
   @FXML MFXButton makeRequestsButton;
-  @FXML MFXButton makeRequestsButton1;
-  @FXML MFXButton makeRequestsButton2;
-  @FXML MFXButton makeRequestsButton3;
+  //  @FXML MFXButton makeRequestsButton1;
+  //  @FXML MFXButton makeRequestsButton2;
+  //  @FXML MFXButton makeRequestsButton3;
   @FXML MFXButton showRequestsButton;
   @FXML MFXButton editMapButton;
   @FXML MFXButton exitButton;
@@ -48,9 +48,9 @@ public class HomeController {
   /** * Disables all the buttons that can not be accessed without logging in */
   private void disableButtonsWhenLoggedOut() {
     makeRequestsButton.setDisable(true);
-    makeRequestsButton1.setDisable(true);
-    makeRequestsButton2.setDisable(true);
-    makeRequestsButton3.setDisable(true);
+    //    makeRequestsButton1.setDisable(true);
+    //    makeRequestsButton2.setDisable(true);
+    //    makeRequestsButton3.setDisable(true);
     showRequestsButton.setDisable(true);
     editMapButton.setDisable(true);
     editMoveButton.setDisable(true);
@@ -85,9 +85,9 @@ public class HomeController {
     disableButtonsWhenLoggedOut();
     if (GlobalVariables.userIsType(EmployeeType.STAFF)) {
       makeRequestsButton.setDisable(false);
-      makeRequestsButton1.setDisable(false);
-      makeRequestsButton2.setDisable(false);
-      makeRequestsButton3.setDisable(false);
+      //      makeRequestsButton1.setDisable(false);
+      //      makeRequestsButton2.setDisable(false);
+      //      makeRequestsButton3.setDisable(false);
       showRequestsButton.setDisable(false);
     }
     if (GlobalVariables.userIsType(EmployeeType.ADMIN)) {
@@ -116,9 +116,12 @@ public class HomeController {
     mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
     // directionsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
     makeRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
-    makeRequestsButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
-    makeRequestsButton2.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
-    makeRequestsButton3.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
+    //    makeRequestsButton1.setOnMouseClicked(event ->
+    // Navigation.navigate(Screen.SERVICE_REQUEST));
+    //    makeRequestsButton2.setOnMouseClicked(event ->
+    // Navigation.navigate(Screen.SERVICE_REQUEST));
+    //    makeRequestsButton3.setOnMouseClicked(event ->
+    // Navigation.navigate(Screen.SERVICE_REQUEST));
     showRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST_VIEW));
     editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
     exitButton.setOnMouseClicked(event -> System.exit(0));

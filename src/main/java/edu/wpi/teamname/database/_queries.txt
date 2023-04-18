@@ -35,7 +35,7 @@ FROM (SELECT max(date) AS maxDate
 WHERE j.date = l.maxDate
   AND j."longName" = 'Hallway 12 Floor L1';
 
---Gets all up-to-date info by node
+--Gets all up-to-date info by mapNode
 SELECT DISTINCT l."nodeID", "longName", "shortName", "nodeType", xcoord, ycoord, building, floor, l.date
 FROM (SELECT "nodeID", max(date) date
                 FROM "Move"

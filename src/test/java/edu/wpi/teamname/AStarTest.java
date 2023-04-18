@@ -1,7 +1,7 @@
 package edu.wpi.teamname;
 
 import edu.wpi.teamname.navigation.*;
-import edu.wpi.teamname.navigation.Node;
+import edu.wpi.teamname.navigation.MapNode;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.runner.JUnitCore;
@@ -10,7 +10,7 @@ import org.junit.runner.notification.Failure;
 
 public class AStarTest {
 
-  public static List<Node> nodes = new ArrayList<>();
+  public static List<MapNode> mapNodes = new ArrayList<>();
   public static List<Edge> edges = new ArrayList<>();
 
   public static void main(String[] args) {
