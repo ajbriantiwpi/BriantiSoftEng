@@ -1,7 +1,7 @@
 Label{
-    -fx-font-family: --md-sys-typescale-headline-medium-font-family-name;
+    -fx-font-family: Roboto;
     -fx-font-style: normal;
-    -fx-font-weight: 400px;
+    /*-fx-font-weight: 400px;*/
     -fx-font-size: 28px;
     -fx-line-height: 36px;
     -fx-letter-spacing: 0px;
@@ -11,14 +11,14 @@ Label{
 
 
 Textfield{
-    -fx-font-family: --md-sys-typescale-headline-medium-font-family-name;
-    -fx-font-style: --md-sys-typescale-headline-medium-font-family-style;
-    -fx-font-weight: --md-sys-typescale-headline-medium-font-weight;
+    -fx-font-family: Roboto;
+    -fx-font-style: Normal;
+    /*-fx-font-weight: 400px;*/
     -fx-font-size: 28;
     -fx-line-height: 36;
-    -fx-letter-spacing:--md-sys-typescale-headline-medium-letter-spacing;
+    -fx-letter-spacing:0px;
     -fx-text-fill:  #001B3B;
-    -fx-font-fill:  #001B3B;
+    /*-fx-font-fill:  #001B3B;*/
     -fx-background-color: #D5E3FF;
     -fx-background-radius: 8;
     -fx-border-radius: 8;
