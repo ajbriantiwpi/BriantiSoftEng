@@ -7,6 +7,7 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -59,15 +60,81 @@ public class MapController {
 
             floor2 = map.takeFloor(FloorSelect.getValue(), false);
 
+            List<edu.wpi.teamname.navigation.Node> allNodes = map.graph.getNodes();
+
+            //    System.out.println(firstClick);
+            //    System.out.println(secondClick); // Coordinates in inner, now goes up to 5000
+
+            int startIndex = -1;
+            int endIndex = -1;
+            double leastDistance;
+            double nodeDist;
+
+            Point2D currentClick;
+            String currentFloor;
+            int checkIndex;
+
+            for (int j = 0; j < 2; j++) {
+              if (j == 0) {
+                // Start Node
+                currentFloor = floor1;
+                currentClick = firstClick;
+              } else {
+                // End Node
+                currentFloor = floor2;
+                currentClick = secondClick;
+              }
+
+              leastDistance = Double.MAX_VALUE;
+              checkIndex = -1;
+
+              for (int i = 0; i < allNodes.size(); i++) {
+                if (i == startIndex) {
+                  continue;
+                } else {
+                  edu.wpi.teamname.navigation.Node currentNode = allNodes.get(i);
+                  if (currentNode.getFloor().equals(currentFloor)) {
+                    nodeDist = currentClick.distance(currentNode.getX(), currentNode.getY());
+                    if (nodeDist < leastDistance) {
+                      leastDistance = nodeDist;
+                      checkIndex = i;
+                    }
+                  }
+                }
+              }
+
+              if (j == 0) {
+                // Start Node
+                startIndex = checkIndex;
+              } else {
+                // End Node
+                endIndex = checkIndex;
+              }
+            }
+
+            //    Node startNode = allNodes.get(startIndex);
+            //    Node endNode = allNodes.get(endIndex);
+            System.out.println(startIndex + " " + endIndex);
+            int startId = (startIndex * 5) + 100; // allNodes.get(startIndex).getId();
+            int endId = (endIndex * 5) + 100; // allNodes.get(endIndex).getId();
+
+            System.out.println("startId: " + startId);
+            System.out.println("endId: " + endId);
+
+            sNode = startId;
+            eNode = endId;
+
+            findPathButton.setVisible(true);
+
             // Call drawAStarPath with both points
-            map.drawPath(anchor, firstClick, secondClick, floor1, floor2);
+            // map.drawPath(anchor, firstClick, secondClick, floor1, floor2);
             //            String[] parts = nToPars.split("_");
             //            int sInd = Integer.parseInt(parts[0]);
             //            int eInd = Integer.parseInt(parts[1]);
             // listPaths = map.drawAStarPath(anchor, sInd, eInd);
-            int secInd = map.getAllFloors().indexOf(FloorSelect.getValue());
-            System.out.println(FloorSelect.getValue() + " " + secInd);
-            anchor.getChildren().addAll(map.getShapes().get(secInd));
+            //            int secInd = map.getAllFloors().indexOf(FloorSelect.getValue());
+            //            System.out.println(FloorSelect.getValue() + " " + secInd);
+            //            anchor.getChildren().addAll(map.getShapes().get(secInd));
 
             clickCount = 0;
           }
@@ -104,6 +171,11 @@ public class MapController {
           map.drawPath(anchor, sNode, eNode);
           int secInd = map.getAllFloors().indexOf(FloorSelect.getValue());
           anchor.getChildren().addAll(map.getShapes().get(secInd));
+
+          int indOfStart = edu.wpi.teamname.navigation.Node.idToIndex(sNode);
+          String floorForSNode =
+              map.takeFloor(map.graph.getNodes().get(indOfStart).getFloor(), true);
+          FloorSelect.setValue(floorForSNode);
         }
       };
 
@@ -116,10 +188,11 @@ public class MapController {
           // System.out.println(LocationOne.getValue());
           // System.out.println(EndPointSelect.getValue());
           sNode = Integer.parseInt(LocationOne.getValue());
-          //          if (eNode != 0) {
-          //            //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
-          //            map.drawPath(anchor, sNode, eNode);
-          //          }
+          if (eNode != 0 && sNode != 0) {
+            findPathButton.setVisible(true);
+            //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
+            // map.drawPath(anchor, sNode, eNode);
+          }
         }
       };
 
@@ -131,9 +204,10 @@ public class MapController {
           System.out.println("changed end " + EndPointSelect.getValue());
           System.out.println(EndPointSelect.getValue());
           eNode = Integer.parseInt(EndPointSelect.getValue());
-          //          if (sNode != 0) {
-          //            //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
-          //          }
+          if (sNode != 0 && eNode != 0) {
+            findPathButton.setVisible(true);
+            //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
+          }
         }
       };
 
@@ -249,6 +323,7 @@ public class MapController {
     // DeleteNodeButton.setOnMouseClicked(deleteNodeButton);
     DeleteNodeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
     findPathButton.setOnMouseClicked(findPathWButton);
+    findPathButton.setVisible(false);
 
     //    LocationOne.setStyle("-fx-padding: 5 25 5 5;");
     LocationOne.setPromptText("Select start");

@@ -25,7 +25,7 @@
                         </Group>
                     </content>
                 </GesturePane>
-            <MFXButton fx:id="DeleteNodeButton" prefHeight="61.0" prefWidth="171.0" style="-fx-background-color: #D5E3FF;" text="Delete Path" translateX="20.0" translateY="20.0" StackPane.alignment="TOP_LEFT">
+            <MFXButton fx:id="DeleteNodeButton" prefHeight="61.0" prefWidth="171.0" style="-fx-background-color: #D5E3FF;" text="Reset" translateX="20.0" translateY="20.0" StackPane.alignment="TOP_LEFT">
                <font>
                   <Font name="Roboto" size="13.0" />
                </font></MFXButton>
