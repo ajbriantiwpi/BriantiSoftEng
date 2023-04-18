@@ -8,6 +8,8 @@ import lombok.Setter;
 
 public class GlobalVariables {
   @Getter @Setter private static boolean futureMovesPressed = false;
+  @Getter @Setter private static boolean activeRequestsPressed = false;
+  @Getter @Setter private static boolean doneRequestsPressed = false;
   @Getter @Setter private static Color borderColor = Color.web("33567A");
   @Getter @Setter private static Color insideColor = Color.web("2FA7B0");
   @Getter @Setter private static float circleR = 10.0f;
