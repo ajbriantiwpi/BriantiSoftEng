@@ -241,4 +241,8 @@ public class Employee {
   public void setPassword(String newValue) {
     this.password = newValue;
   }
+
+  public void removeTypes(ArrayList<EmployeeType> em) {
+    type.remove(em);
+  }
 }

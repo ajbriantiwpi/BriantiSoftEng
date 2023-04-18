@@ -9,16 +9,18 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Optional;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
+import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
 
 public class EmployeeTableController {
@@ -47,23 +49,35 @@ public class EmployeeTableController {
     TableColumn<Employee, String> lastNameColumn = new TableColumn<>("Last Name");
     lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
 
-    TableColumn<Employee, String> employeeTypeColumn = new TableColumn<>("Employee Type");
+    TableColumn<Employee, EmployeeType> employeeTypeColumn = new TableColumn<>("Employee Type");
     employeeTypeColumn.setCellValueFactory(
         cellData -> {
           Employee employee = cellData.getValue();
-          if (employee.getType() != null) {
-            StringBuilder typeNames = new StringBuilder();
-            for (EmployeeType type : employee.getType()) {
-              if (typeNames.length() > 0) {
-                typeNames.append(", ");
-              }
-              typeNames.append(type.toString());
-            }
-            return new SimpleStringProperty(typeNames.toString());
+          if (employee.getType() != null && !employee.getType().isEmpty()) {
+            return new SimpleObjectProperty<>(employee.getType().get(0));
           } else {
-            return new SimpleStringProperty("");
+            return new SimpleObjectProperty<>(null);
           }
         });
+
+    employeeTypeColumn.setCellFactory(
+        ComboBoxTableCell.forTableColumn(
+            new StringConverter<>() {
+              @Override
+              public String toString(EmployeeType employeeType) {
+                if (employeeType == null) {
+                  return "";
+                } else {
+                  return employeeType.toString();
+                }
+              }
+
+              @Override
+              public EmployeeType fromString(String string) {
+                return EmployeeType.valueOf(string);
+              }
+            },
+            EmployeeType.values()));
 
     TableColumn<Employee, String> userColumn = new TableColumn<>("Username");
     userColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
@@ -94,7 +108,7 @@ public class EmployeeTableController {
         TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
     firstNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
     lastNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-    // For EmployeeType TODO
+    employeeTypeColumn.setCellFactory(ComboBoxTableCell.forTableColumn(EmployeeType.values()));
     userColumn.setCellFactory(TextFieldTableCell.forTableColumn());
     passColumn.setCellFactory(TextFieldTableCell.forTableColumn());
     exportButton.setOnAction(
@@ -166,7 +180,13 @@ public class EmployeeTableController {
             System.err.println("Error updating employee in the database: " + e.getMessage());
           }
         });
-    // TODO Employee Type
+    employeeTypeColumn.setOnEditCommit(
+        event -> {
+          Employee employee = event.getRowValue();
+          employee.removeTypes(employee.getType());
+          employee.addType(EmployeeType.valueOf(String.valueOf(event.getNewValue())));
+          updateEmployeeType(employee);
+        });
     userColumn.setOnEditCommit(
         event -> {
           Employee employee = event.getRowValue();
@@ -281,6 +301,18 @@ public class EmployeeTableController {
       }
 
       employeeTable.setItems(filteredEmployees);
+    }
+  }
+
+  private void updateEmployeeType(Employee employee) {
+    DataManager employeeDAO = new DataManager();
+    try {
+      employeeDAO.deleteEmployeeType(employee.getUsername());
+      for (EmployeeType type : employee.getType()) {
+        employeeDAO.addEmployeeType(employee.getUsername(), type);
+      }
+    } catch (SQLException e) {
+      System.err.println("Error updating employee type in the database: " + e.getMessage());
     }
   }
 }
