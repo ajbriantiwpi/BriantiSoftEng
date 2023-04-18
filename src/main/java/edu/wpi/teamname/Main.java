@@ -16,17 +16,17 @@ public class Main {
     // Singleton is in DataManager, function has it so it will only return one connection when
     // called
     DataManager.configConnection(
-        "jdbc:postgresql://database.cs.wpi.edu:5432/teamddb?currentSchema=\"teamD\"",
-        "teamd",
-        "teamd40");
+            "jdbc:postgresql://database.cs.wpi.edu:5432/teamddb?currentSchema=\"teamD\"",
+            "teamd",
+            "teamd40");
     GlobalVariables.setCurrentUser(DataManager.getEmployee("admin"));
-    // App.launch(App.class, args);
+    //App.launch(App.class, args);
     // create a Retrofit instance
     Retrofit retrofit =
-        new Retrofit.Builder()
-            .baseUrl("https://official-joke-api.appspot.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
+            new Retrofit.Builder()
+                    .baseUrl("https://official-joke-api.appspot.com/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
 
     // create an instance of the API interface
     JokeAPI jokeApi = retrofit.create(JokeAPI.class);
@@ -44,7 +44,7 @@ public class Main {
     } else {
       System.out.println("Request failed: " + response.code());
     }
+    System.out.println("MAIN IS COMMENTED OUT!!!!UNCOMMENT IF PUSHING TO MAIN");
   }
-
   // shortcut: psvm
 }
