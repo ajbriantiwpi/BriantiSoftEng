@@ -196,7 +196,7 @@ public class MapController {
 
         @Override
         public void handle(ActionEvent event) {
-          edu.wpi.teamname.navigation.Node nodeForStart;
+          edu.wpi.teamname.navigation.MapNode nodeForStart;
           System.out.println("changed start " + LocationOne.getValue());
           // System.out.println(LocationOne.getValue());
           // System.out.println(EndPointSelect.getValue());
@@ -223,7 +223,7 @@ public class MapController {
 
         @Override
         public void handle(ActionEvent event) {
-          edu.wpi.teamname.navigation.Node nodeForEnd;
+          edu.wpi.teamname.navigation.MapNode nodeForEnd;
 
           System.out.println("changed end " + EndPointSelect.getValue());
           String endLName = EndPointSelect.getValue();
