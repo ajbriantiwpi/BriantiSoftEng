@@ -43,7 +43,7 @@ public class NodeCircle {
    * @param n The Node that this NodeCircle represents.
    * @throws IOException If there was an error reading from the FXML file for the Node editing menu.
    */
-  public NodeCircle(MapNode n, boolean isMapPage, String firstShortName)
+  public NodeCircle(Node n, boolean isMapPage, String firstShortName)
       throws IOException, SQLException {
     float shiftX = 0; // circleR;
     float shiftY = 0; // circleR;
@@ -233,11 +233,11 @@ public class NodeCircle {
               (TextField) ((Pane) (changeBox.getChildren().get(2))).getChildren().get(1);
           YText.setText("" + nodeCords.getY());
 
-          MapNode currMapNode;
+          Node currNode;
 
           try {
             //            System.out.println("Add");
-            currMapNode = DataManager.getNode(nodeID);
+            currNode = DataManager.getNode(nodeID);
           } catch (Exception e2) {
             //            System.out.println("RTE");
             throw new RuntimeException(e2);
@@ -249,9 +249,9 @@ public class NodeCircle {
           TextField buildingText =
               (TextField) ((Pane) (changeBox.getChildren().get(4))).getChildren().get(1);
 
-          if (currMapNode != null) {
-            floorText.setText(currMapNode.getFloor());
-            buildingText.setText(currMapNode.getBuilding());
+          if (currNode != null) {
+            floorText.setText(currNode.getFloor());
+            buildingText.setText(currNode.getBuilding());
           }
 
           // Set Remove Node. On Click
@@ -288,7 +288,7 @@ public class NodeCircle {
           System.out.println("REM");
 
           // Only the Node ID is important for Deletion
-          MapNode n = new MapNode(nodeID, 0, 0, "", "");
+          Node n = new Node(nodeID, 0, 0, "", "");
 
           try {
             DataManager.deleteNode(n);
@@ -319,42 +319,42 @@ public class NodeCircle {
           TextField buildingText =
               (TextField) ((Pane) (v.getChildren().get(3))).getChildren().get(1);
 
-          MapNode currMapNode = null;
+          Node currNode = null;
           try {
-            currMapNode = DataManager.getNode(nodeID);
+            currNode = DataManager.getNode(nodeID);
           } catch (SQLException e) {
             throw new RuntimeException(e);
           }
 
-          int xPos = currMapNode.getX();
+          int xPos = currNode.getX();
           if (!(xText.getText().equals(""))) {
             xPos = (int) Double.parseDouble(xText.getText());
           }
-          int yPos = currMapNode.getY();
+          int yPos = currNode.getY();
           if (!(yText.getText().equals(""))) {
             yPos = (int) Double.parseDouble(yText.getText());
           }
-          String floor = currMapNode.getFloor();
+          String floor = currNode.getFloor();
           if (!(floorText.getText().equals(""))) {
             floor = floorText.getText();
           }
-          String building = currMapNode.getBuilding();
+          String building = currNode.getBuilding();
           if (!(buildingText.getText().equals(""))) {
             building = buildingText.getText();
           }
 
-          ArrayList<MapNode> allMapNodes;
+          ArrayList<Node> allNodes;
           try {
-            allMapNodes = DataManager.getAllNodes();
+            allNodes = DataManager.getAllNodes();
           } catch (SQLException ex) {
             throw new RuntimeException(ex);
           }
 
           // This is working on the assumption that We still want all id's to be a difference of 5
           // and that the last one in the table is the biggest ID
-          int highestID = allMapNodes.get(allMapNodes.size() - 1).getId();
+          int highestID = allNodes.get(allNodes.size() - 1).getId();
 
-          MapNode n = new MapNode(nodeID, xPos, yPos, floor, building);
+          Node n = new Node(nodeID, xPos, yPos, floor, building);
 
           try {
             DataManager.syncNode(n);

@@ -13,12 +13,12 @@ public class EdgeRectangle {
   public Label label = new Label();
   private VBox changeBox;
 
-  private MapNode startMapNode;
-  private MapNode endMapNode;
+  private Node startNode;
+  private Node endNode;
 
-  public EdgeRectangle(MapNode startMapNode, MapNode endMapNode) {
-    this.startMapNode = startMapNode;
-    this.endMapNode = endMapNode;
+  public EdgeRectangle(Node startNode, Node endNode) {
+    this.startNode = startNode;
+    this.endNode = endNode;
 
     p = new Pane();
 
@@ -32,8 +32,8 @@ public class EdgeRectangle {
       path.setStrokeWidth(
           GlobalVariables.getLineT() - (GlobalVariables.getStrokeThickness() * 2 * j));
 
-      path.getElements().add(new MoveTo(this.startMapNode.getX(), this.startMapNode.getY()));
-      path.getElements().add(new LineTo(this.endMapNode.getX(), this.endMapNode.getY()));
+      path.getElements().add(new MoveTo(this.startNode.getX(), this.startNode.getY()));
+      path.getElements().add(new LineTo(this.endNode.getX(), this.endNode.getY()));
 
       path.setStrokeLineJoin(StrokeLineJoin.ROUND);
       p.getChildren().add(path);

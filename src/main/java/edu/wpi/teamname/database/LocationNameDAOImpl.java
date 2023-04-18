@@ -2,7 +2,7 @@ package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.LocationNameDAO;
 import edu.wpi.teamname.navigation.LocationName;
-import edu.wpi.teamname.navigation.MapNode;
+import edu.wpi.teamname.navigation.Node;
 import edu.wpi.teamname.navigation.Room;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -290,8 +290,7 @@ public class LocationNameDAOImpl implements LocationNameDAO {
    *     found
    * @throws SQLException if there is an error accessing the database
    */
-  public static MapNode getNodeByLocationName(String name, Timestamp timestamp)
-      throws SQLException {
+  public static Node getNodeByLocationName(String name, Timestamp timestamp) throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query =
         "SELECT \"nodeID\", \"longName\", \"shortName\", xcoord, ycoord, \"nodeType\", building, floor, j.date\n"
@@ -307,7 +306,7 @@ public class LocationNameDAOImpl implements LocationNameDAO {
             + "      WHERE \"LocationName\".\"longName\" = n.\"longName\") j\n"
             + "WHERE j.date = l.maxDate\n"
             + "  AND j.\"longName\" = ?;";
-    MapNode mapNode = null;
+    Node node = null;
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setString(1, name);
@@ -326,12 +325,12 @@ public class LocationNameDAOImpl implements LocationNameDAO {
         String floor = rs.getString("floor");
         Timestamp date = rs.getTimestamp("date");
 
-        mapNode = new MapNode(id2, xcoord, ycoord, floor, building);
+        node = new Node(id2, xcoord, ycoord, floor, building);
       }
     } catch (SQLException e) {
       System.err.println(e.getMessage());
     }
-    return mapNode;
+    return node;
   }
 
   /**
