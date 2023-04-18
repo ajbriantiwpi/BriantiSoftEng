@@ -18,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
+import org.controlsfx.control.PopOver;
 
 public class NodeCircle {
 
@@ -56,7 +57,7 @@ public class NodeCircle {
     nodeCords = new Point2D(n.getX(), n.getY());
     nodeID = n.getId();
 
-    ArrayList<LocationName> locations = null;
+    //    ArrayList<LocationName> locations = null;
     // DataManager.getLocationNameByNode(nodeID, Timestamp.from(Instant.now()));
 
     p = new Pane();
@@ -87,12 +88,12 @@ public class NodeCircle {
 
     // Get short name(s) from table
 
-    if (!(locations == null) && locations.size() > 0) {
-      label.setText(locations.get(0).getShortName());
-    } else {
-      //      label.setText(" " + nodeID);
-      label.setText(firstShortName);
-    }
+    //    if (!(locations == null) && locations.size() > 0) {
+    //      label.setText(locations.get(0).getShortName());
+    //    } else {
+    //      label.setText(" " + nodeID);
+    label.setText(firstShortName);
+    //    }
 
     CornerRadii corn = new CornerRadii(7);
     label.setBackground(
@@ -217,7 +218,9 @@ public class NodeCircle {
           //          System.out.println(map);
 
           String location;
-          if (map.get(nodeID).size() > 0) {
+
+          if (map.get(nodeID) != null) {
+            //          if (map.get(nodeID).size() > 0) {
             location = map.get(nodeID).get(0).getLongName();
           } else {
             location = "" + nodeID;
@@ -233,14 +236,13 @@ public class NodeCircle {
               (TextField) ((Pane) (changeBox.getChildren().get(2))).getChildren().get(1);
           YText.setText("" + nodeCords.getY());
 
-          Node currNode;
-
+          Node currNode = null;
           try {
-            //            System.out.println("Add");
             currNode = DataManager.getNode(nodeID);
-          } catch (Exception e2) {
-            //            System.out.println("RTE");
-            throw new RuntimeException(e2);
+            //            System.out.println("Done: " + currNode.toString());
+          } catch (SQLException e) {
+            System.out.println("ERROR: " + e.toString());
+            throw new RuntimeException(e);
           }
 
           TextField floorText =
@@ -269,7 +271,12 @@ public class NodeCircle {
 
           System.out.println("AddBox");
 
-          p.getChildren().addAll(changeBox);
+          PopOver pop = new PopOver(changeBox);
+          pop.show(inner);
+
+          //          p.getChildren().addAll(changeBox);
+
+          //
         }
       };
 
@@ -313,11 +320,11 @@ public class NodeCircle {
           MFXButton SubmitButton = ((MFXButton) event.getSource());
           VBox v = (VBox) ((HBox) SubmitButton.getParent()).getParent();
 
-          TextField xText = (TextField) ((Pane) (v.getChildren().get(0))).getChildren().get(1);
-          TextField yText = (TextField) ((Pane) (v.getChildren().get(1))).getChildren().get(1);
-          TextField floorText = (TextField) ((Pane) (v.getChildren().get(2))).getChildren().get(1);
+          TextField xText = (TextField) ((Pane) (v.getChildren().get(1))).getChildren().get(1);
+          TextField yText = (TextField) ((Pane) (v.getChildren().get(2))).getChildren().get(1);
+          TextField floorText = (TextField) ((Pane) (v.getChildren().get(3))).getChildren().get(1);
           TextField buildingText =
-              (TextField) ((Pane) (v.getChildren().get(3))).getChildren().get(1);
+              (TextField) ((Pane) (v.getChildren().get(4))).getChildren().get(1);
 
           Node currNode = null;
           try {
