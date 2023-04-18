@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" styleClass="body" stylesheets="@../stylesheets/imageScale.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.HomeController">
+<AnchorPane fx:id="rootPane" prefHeight="720.0" prefWidth="1280.0" styleClass="body" stylesheets="@../stylesheets/imageScale.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.HomeController">
     <children>
         <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
@@ -42,35 +42,20 @@
                         <Insets left="20.0" top="10.0" />
                     </GridPane.margin>
                 </MFXButton>
-                <VBox alignment="CENTER" maxWidth="444.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 16;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <VBox alignment="CENTER" maxHeight="242.0" maxWidth="444.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 16;" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
                     <children>
                         <Label alignment="CENTER" minHeight="92.0" minWidth="444.0" style="-fx-background-color: #001b3b; -fx-background-radius: 16;" text="Service Requests" textFill="#fdfbff">
                             <font>
                                 <Font name="Roboto" size="36.0" />
                             </font>
                         </Label>
-                        <MFXButton fx:id="makeRequestsButton" alignment="BASELINE_LEFT" maxWidth="420.0" style="-fx-background-color: #faf9fd;" text="Meal Delivery">
+                        <MFXButton fx:id="makeRequestsButton" alignment="BASELINE_LEFT" maxWidth="420.0" style="-fx-background-color: #faf9fd;" text="Make A Request">
                             <font>
                                 <Font name="Roboto" size="22.0" />
                             </font>
                             <VBox.margin>
                                 <Insets left="2.0" />
                             </VBox.margin></MFXButton>
-                        <MFXButton fx:id="makeRequestsButton1" alignment="BASELINE_LEFT" maxWidth="420.0" style="-fx-background-color: #faf9fd;" text="Flower Delivery">
-                            <font>
-                                <Font name="Roboto" size="22.0" />
-                            </font>
-                        </MFXButton>
-                        <MFXButton fx:id="makeRequestsButton2" alignment="BASELINE_LEFT" maxWidth="420.0" style="-fx-background-color: #faf9fd;" text="Office Supply Delivery">
-                            <font>
-                                <Font name="Roboto" size="22.0" />
-                            </font>
-                        </MFXButton>
-                        <MFXButton fx:id="makeRequestsButton3" alignment="BASELINE_LEFT" maxWidth="420.0" style="-fx-background-color: #faf9fd;" text="Furniture Delivery">
-                            <font>
-                                <Font name="Roboto" size="22.0" />
-                            </font>
-                        </MFXButton>
                         <MFXButton fx:id="showRequestsButton" alignment="BASELINE_LEFT" maxWidth="420.0" style="-fx-background-color: #faf9fd;" text="View Service Requests">
                             <font>
                                 <Font name="Roboto" size="22.0" />
@@ -86,7 +71,7 @@
                         <Insets bottom="12.0" />
                     </padding>
                 </VBox>
-                <VBox alignment="CENTER" maxWidth="444.0" prefHeight="200.0" prefWidth="444.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 16;" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                <VBox alignment="CENTER" maxHeight="334.0" maxWidth="444.0" prefHeight="200.0" prefWidth="444.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 16;" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
                     <children>
                         <Label alignment="CENTER" minHeight="92.0" minWidth="444.0" style="-fx-background-color: #001b3b; -fx-background-radius: 16;" text="Map" textFill="#fdfbff">
                             <font>

@@ -1,7 +1,7 @@
 package edu.wpi.teamname.navigation.AlgoStrategy;
 
 import edu.wpi.teamname.navigation.Graph;
-import edu.wpi.teamname.navigation.Node;
+import edu.wpi.teamname.navigation.MapNode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.PriorityQueue;
@@ -10,35 +10,35 @@ public class DijkstraAlgo implements IStrategyAlgo {
   // This method is different from the A* method in only one way: every getHeuristic method is
   // deleted (Same as having it return 0)
   @Override
-  public ArrayList<Node> getPathBetween(Graph g, int startNodeId, int targetNodeId) {
+  public ArrayList<MapNode> getPathBetween(Graph g, int startNodeId, int targetNodeId) {
     System.out.println("ASTAR T");
 
-    ArrayList<Node> nodes = g.getNodes();
-    Node s = nodes.get(Node.idToIndex(startNodeId));
-    Node t = nodes.get(Node.idToIndex(targetNodeId));
+    ArrayList<MapNode> mapNodes = g.getMapNodes();
+    MapNode s = mapNodes.get(MapNode.idToIndex(startNodeId));
+    MapNode t = mapNodes.get(MapNode.idToIndex(targetNodeId));
 
-    for (Node j : nodes) {
+    for (MapNode j : mapNodes) {
       j.setParent(null);
     }
 
     g.setAllG(s, t);
-    Node start = s;
-    Node target = t;
+    MapNode start = s;
+    MapNode target = t;
 
-    PriorityQueue<Node> closedList = new PriorityQueue<>();
-    PriorityQueue<Node> openList = new PriorityQueue<>();
+    PriorityQueue<MapNode> closedList = new PriorityQueue<>();
+    PriorityQueue<MapNode> openList = new PriorityQueue<>();
 
     start.setF(start.getG()); // get rid of h value
     openList.add(start);
 
     while (!openList.isEmpty()) {
-      Node ex = openList.peek();
+      MapNode ex = openList.peek();
       if (ex == target) {
         System.out.println(closedList.size());
         return getPath(ex);
       }
 
-      for (Node nei : ex.getNeighbors()) {
+      for (MapNode nei : ex.getNeighbors()) {
         double totalWeight = ex.getG() + nei.findWeight(ex);
 
         System.out.println(closedList.size());
@@ -74,11 +74,11 @@ public class DijkstraAlgo implements IStrategyAlgo {
    * @param target The target node to start the path from
    * @return The path from the target node to the start node
    */
-  public ArrayList<Node> getPath(Node target) {
+  public ArrayList<MapNode> getPath(MapNode target) {
     System.out.println("Path");
-    Node n = target;
+    MapNode n = target;
 
-    ArrayList<Node> ids = new ArrayList<>();
+    ArrayList<MapNode> ids = new ArrayList<>();
     if (n == null) return ids;
 
     while (n.getParent() != null) {

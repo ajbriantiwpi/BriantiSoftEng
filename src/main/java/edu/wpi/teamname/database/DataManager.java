@@ -5,10 +5,7 @@ import edu.wpi.teamname.employees.EmployeeType;
 import edu.wpi.teamname.navigation.*;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
-import edu.wpi.teamname.servicerequest.requestitem.Flower;
-import edu.wpi.teamname.servicerequest.requestitem.Furniture;
-import edu.wpi.teamname.servicerequest.requestitem.Meal;
-import edu.wpi.teamname.servicerequest.requestitem.OfficeSupply;
+import edu.wpi.teamname.servicerequest.requestitem.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -55,8 +52,37 @@ public class DataManager {
   }
 
   /*public static ArrayList<Node> getSingleNodeInfo(int nodeID) throws SQLException {
+  /**
+   * Get list of items ordered from a specific ID
+   *
+   * @param reqID
+   * @return ArrayList<ItemsOrdered>
+   * @throws SQLException
+   */
+  public static ArrayList<ItemsOrdered> getItemsFromReq(int reqID) throws SQLException {
+    ArrayList<ItemsOrdered> items = new ArrayList<>();
+    Connection connection = DataManager.DbConnection();
+    String query = "SELECT * FROM \"ItemsOrdered\" WHERE \"requestID\" = ?";
+    try (connection) {
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setInt(1, reqID);
+      ResultSet rs = statement.executeQuery();
+      while (rs.next()) {
+        int rID = rs.getInt("requestID");
+        int iID = rs.getInt("itemID");
+        int quantity = rs.getInt("quantity");
+        ItemsOrdered item = new ItemsOrdered(rID, iID, quantity);
+        items.add(item);
+      }
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return items;
+  }
+
+  public static ArrayList<MapNode> getSingleNodeInfo(int nodeID) throws SQLException {
     Connection conn = DbConnection();
-    ArrayList<Node> list = new ArrayList<Node>();
+    ArrayList<MapNode> list = new ArrayList<MapNode>();
     String query = "SELECT * FROM \"Node\" Where \"nodeID\" = " + nodeID;
 
     try (conn) {
@@ -68,10 +94,10 @@ public class DataManager {
       int ycoord = rs.getInt("ycoord");
       String floor = rs.getString("floor");
       String building = rs.getString("building");
-      list.add(new Node(id, xcoord, ycoord, floor, building));
+      list.add(new MapNode(id, xcoord, ycoord, floor, building));
     }
     return list;
-  }*/
+  }
 
   /*public static ArrayList<String> getUpdatedNodeInfo(int nodeID, Timestamp date)
       throws SQLException {
@@ -149,12 +175,12 @@ public class DataManager {
    * This method updates an existing Node object in the "Node" table in the database with the new
    * Node object.
    *
-   * @param node the new Node object to be updated in the "Node" table
+   * @param mapNode the new Node object to be updated in the "Node" table
    * @throws SQLException if there is a problem accessing the database
    */
-  public static void syncNode(Node node) throws SQLException {
+  public static void syncNode(MapNode mapNode) throws SQLException {
     NodeDAOImpl nodeDAO = new NodeDAOImpl();
-    nodeDAO.sync(node);
+    nodeDAO.sync(mapNode);
   }
 
   /**
@@ -265,6 +291,17 @@ public class DataManager {
     officeSupplyDAO.sync(officeSupply);
   }
   /**
+   * This method updates an existing MedicalSupply object in the "MedicalSupply" table in the
+   * database with the new MedicalSupply object.
+   *
+   * @param medicalSupply the new MedicalSupply object to be updated in the "MedicalSupply" table
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static void syncMedicalSupply(MedicalSupply medicalSupply) throws SQLException {
+    MedicalSupplyDAOImpl medicalSupplyDAO = new MedicalSupplyDAOImpl();
+    medicalSupplyDAO.sync(medicalSupply);
+  }
+  /**
    * This method returns the employee type of a user
    *
    * @param username the Employees username
@@ -289,12 +326,12 @@ public class DataManager {
   /**
    * This method adds a new Node object to the "Node" table in the database.
    *
-   * @param node the Node object to be added to the "Node" table
+   * @param mapNode the Node object to be added to the "Node" table
    * @throws SQLException if there is a problem accessing the database
    */
-  public static void addNode(Node node) throws SQLException {
+  public static void addNode(MapNode mapNode) throws SQLException {
     NodeDAOImpl nodeDAO = new NodeDAOImpl();
-    nodeDAO.add(node);
+    nodeDAO.add(mapNode);
   }
 
   /**
@@ -397,6 +434,17 @@ public class DataManager {
   }
 
   /**
+   * This method adds a new MedicalSupply object to the "MedicalSupply" table in the database.
+   *
+   * @param medicalSupply the MedicalSupply object to be added to the "MedicalSupply" table
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static void addMedicalSupply(MedicalSupply medicalSupply) throws SQLException {
+    MedicalSupplyDAOImpl medicalSupplyDAO = new MedicalSupplyDAOImpl();
+    medicalSupplyDAO.add(medicalSupply);
+  }
+
+  /**
    * This method deletes the given Move object from the database
    *
    * @param move the Move object that will be deleted in the database
@@ -410,12 +458,12 @@ public class DataManager {
   /**
    * This method deletes the given Node object from the database
    *
-   * @param node the Node object that will be deleted in the database
+   * @param mapNode the Node object that will be deleted in the database
    * @throws SQLException if there is a problem accessing the database
    */
-  public static void deleteNode(Node node) throws SQLException {
+  public static void deleteNode(MapNode mapNode) throws SQLException {
     NodeDAOImpl nodeDAO = new NodeDAOImpl();
-    nodeDAO.delete(node);
+    nodeDAO.delete(mapNode);
   }
 
   /**
@@ -530,6 +578,17 @@ public class DataManager {
   }
 
   /**
+   * This method deletes the given MedicalSupply object from the database
+   *
+   * @param medicalSupply the MedicalSupply object that will be deleted in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static void deleteMedicalSupply(MedicalSupply medicalSupply) throws SQLException {
+    MedicalSupplyDAOImpl medicalSupplyDAO = new MedicalSupplyDAOImpl();
+    medicalSupplyDAO.delete(medicalSupply);
+  }
+
+  /**
    * The method retrieves all the Move objects from the "Move" table in the database.
    *
    * @return an ArrayList of the Move objects in the database
@@ -546,7 +605,7 @@ public class DataManager {
    * @return an ArrayList of the Node objects in the database
    * @throws SQLException if there is a problem accessing the database
    */
-  public static ArrayList<Node> getAllNodes() throws SQLException {
+  public static ArrayList<MapNode> getAllNodes() throws SQLException {
     NodeDAOImpl nodeDAO = new NodeDAOImpl();
     return nodeDAO.getAll();
   }
@@ -659,6 +718,18 @@ public class DataManager {
   }
 
   /**
+   * The method retrieves all the MedicalSupply objects from the "MedicalSupply" table in the
+   * database.
+   *
+   * @return an ArrayList of the MedicalSupply objects in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static ArrayList<MedicalSupply> getAllMedicalSupplies() throws SQLException {
+    MedicalSupplyDAOImpl medicalSupplyDAO = new MedicalSupplyDAOImpl();
+    return medicalSupplyDAO.getAll();
+  }
+
+  /**
    * This method retrieves a Flower object with the specified ID from the "Flowers" table in the
    * database.
    *
@@ -733,7 +804,7 @@ public class DataManager {
    * @return the Node object with the specified ID, or null if not found
    * @throws SQLException if there is a problem accessing the database
    */
-  public static Node getNode(int id) throws SQLException {
+  public static MapNode getNode(int id) throws SQLException {
     NodeDAOImpl nodeDAO = new NodeDAOImpl();
     return nodeDAO.getNode(id);
   }
@@ -773,6 +844,18 @@ public class DataManager {
    */
   public static OfficeSupply getOfficeSupply(int id) throws SQLException {
     return OfficeSupplyDAOImpl.getOfficeSupply(id);
+  }
+
+  /**
+   * This method retrieves an MedicalSupply object with the specified ID from the "MedicalSupply"
+   * table in the database.
+   *
+   * @param id the ID of the MedicalSupply object to retrieve from the "MedicalSupply" table
+   * @return the Flower object with the specified ID, or null if not found
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static MedicalSupply getMedicalSupply(int id) throws SQLException {
+    return MedicalSupplyDAOImpl.getMedicalSupply(id);
   }
 
   /**
@@ -960,6 +1043,17 @@ public class DataManager {
   }
 
   /**
+   * Uploads CSV data to a PostgreSQL database table "MedicalSupply"-also creates one if one does
+   * not exist
+   *
+   * @param path a string that represents a file path (/ is illegal so you must use double//)
+   * @throws SQLException if an error occurs while uploading the data to the database
+   */
+  public static void uploadMedicalSupply(String path) throws SQLException, ParseException {
+    MedicalSupplyDAOImpl.uploadMedicalSupplyToPostgreSQL(path);
+  }
+
+  /**
    * Uploads CSV data to a PostgreSQL database table "ServiceRequest"-also creates one if one does
    * not exist
    *
@@ -1122,6 +1216,18 @@ public class DataManager {
   }
 
   /**
+   * This method exports all the MedicalSupply objects from the "MedicalSupply" table in the
+   * database to a CSV file at the specified file path.
+   *
+   * @param path the file path of the CSV file to export the MedicalSupply objects to
+   * @throws SQLException if there is a problem accessing the database
+   * @throws IOException if there is a problem writing the CSV file
+   */
+  public static void exportMedicalSupplyToCSV(String path) throws SQLException, IOException {
+    MedicalSupplyDAOImpl.exportMedicalSupplyToCSV(path);
+  }
+
+  /**
    * This method exports all the ServiceRequest objects from the "ServiceRequest" table in the
    * database to a CSV file at the specified file path.
    *
@@ -1187,7 +1293,8 @@ public class DataManager {
    *     found
    * @throws SQLException if there is an error accessing the database
    */
-  public static Node getNodeByLocationName(String name, Timestamp timestamp) throws SQLException {
+  public static MapNode getNodeByLocationName(String name, Timestamp timestamp)
+      throws SQLException {
     return LocationNameDAOImpl.getNodeByLocationName(name, timestamp);
   }
 
