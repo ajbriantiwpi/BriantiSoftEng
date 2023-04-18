@@ -61,7 +61,7 @@ public class ServiceRequestViewController {
   //          "", "Meal Request", "Flower Request", "Furniture Request", "Office Supply Request");
   ObservableList<String> statusValue =
       FXCollections.observableArrayList("", "PROCESSING", "BLANK", "DONE");
-  @FXML ComboBox requestStatusCombo;
+  @FXML ComboBox<Status> requestStatusCombo;
 
   /**
    * filters the list of service requests to add it to the table
@@ -72,7 +72,7 @@ public class ServiceRequestViewController {
    * @throws SQLException if there is an error when connecting to the database
    */
   public static ObservableList<ServiceRequest> tableFilter(
-      RequestType one, String two, String username) throws SQLException {
+      RequestType one, Status two, String username) throws SQLException {
     ObservableList<ServiceRequest> requestList =
         FXCollections.observableList(DataManager.getAllServiceRequests());
     if (!(one == (null)) && !(one.toString().equals(""))) {
@@ -82,14 +82,14 @@ public class ServiceRequestViewController {
                   .filter((request) -> request.getRequestType().toString().equals(one.toString()))
                   .toList());
     }
-    if (!(two == (null)) && !(two.equals(""))) {
+    if (!(two == (null)) && !(two.toString().equals(""))) {
       requestList =
           FXCollections.observableList(
               requestList.stream()
-                  .filter((request) -> request.getStatus().getStatusString().equals(two))
+                  .filter((request) -> request.getStatus().toString().equals(two.toString()))
                   .toList());
     }
-    if (!(username == (null)) && !(username.equals(""))) {
+    if (!(username == (null)) && !(username.toString().equals(""))) {
       requestList =
           FXCollections.observableList(
               requestList.stream()
@@ -155,6 +155,7 @@ public class ServiceRequestViewController {
 
     ObservableList<String> staffNames =
         FXCollections.observableArrayList(DataManager.getAllUsernames());
+    staffNames.add(null);
     requestStaffCombo.setItems(staffNames);
     ObservableList<Status> requestStatuses = FXCollections.observableArrayList(Status.values());
     requestStatuses.add(null);
@@ -192,7 +193,7 @@ public class ServiceRequestViewController {
             table.setItems(
                 tableFilter(
                     requestTypeCombo.getValue(),
-                    requestStatusCombo.getValue().toString(),
+                    requestStatusCombo.getValue(),
                     requestStaffCombo.getValue()));
           } catch (SQLException e) {
             e.printStackTrace();
@@ -206,7 +207,7 @@ public class ServiceRequestViewController {
             table.setItems(
                 tableFilter(
                     requestTypeCombo.getValue(),
-                    requestStatusCombo.getValue().toString(),
+                    requestStatusCombo.getValue(),
                     requestStaffCombo.getValue()));
           } catch (SQLException e) {
             e.printStackTrace();
@@ -220,7 +221,7 @@ public class ServiceRequestViewController {
             table.setItems(
                 tableFilter(
                     requestTypeCombo.getValue(),
-                    requestStatusCombo.getValue().toString(),
+                    requestStatusCombo.getValue(),
                     requestStaffCombo.getValue()));
           } catch (SQLException e) {
             e.printStackTrace();
