@@ -12,7 +12,7 @@ public class Employee {
   @Getter @Setter private String firstName;
   @Getter @Setter private String lastName;
   @Getter private final String originalUsername;
-  @Getter private static ArrayList<EmployeeType> type;
+  @Getter @Setter private ArrayList<EmployeeType> type;
 
   // Add a static ArrayList to store all employees
   private static ArrayList<Employee> allEmployees = new ArrayList<>();
@@ -79,14 +79,14 @@ public class Employee {
     }
   }
 
-  public static void addType(EmployeeType employeeType) {
+  public void addType(EmployeeType employeeType) {
     if (!type.contains(employeeType)) {
       type.add(employeeType);
       allTypes.add(employeeType);
     }
   }
 
-  public static void removeType(EmployeeType employeeType) {
+  public void removeType(EmployeeType employeeType) {
     type.remove(employeeType);
   }
 

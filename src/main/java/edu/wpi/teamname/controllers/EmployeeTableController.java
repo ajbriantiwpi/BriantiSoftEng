@@ -92,15 +92,18 @@ public class EmployeeTableController {
             passColumn);
 
     employeeTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-
     DataManager employeeDAO = new DataManager();
     try {
-      ArrayList<Employee> employees = employeeDAO.getAllEmployees();
+      ArrayList<Employee> employees = DataManager.getAllEmployees();
+
       employeeTable.setItems(FXCollections.observableArrayList(employees));
+
     } catch (SQLException e) {
       System.err.println("Error getting employees from database: " + e.getMessage());
     }
+
     employeeTable.setEditable(true);
+
     employeeIDColumn.setCellFactory(
         TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
     firstNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -108,6 +111,7 @@ public class EmployeeTableController {
     employeeTypeColumn.setCellFactory(ComboBoxTableCell.forTableColumn(EmployeeType.values()));
     userColumn.setCellFactory(TextFieldTableCell.forTableColumn());
     passColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+
     exportButton.setOnAction(
         event -> {
           FileChooser fileChooser = new FileChooser();
@@ -125,6 +129,7 @@ public class EmployeeTableController {
             }
           }
         });
+
     importButton.setOnAction(
         event -> {
           FileChooser fileChooser = new FileChooser();
@@ -146,6 +151,7 @@ public class EmployeeTableController {
             }
           }
         });
+
     employeeIDColumn.setOnEditCommit(
         event -> {
           Employee employee = event.getRowValue();
