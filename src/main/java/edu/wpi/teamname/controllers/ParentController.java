@@ -28,6 +28,7 @@ public class ParentController {
   @FXML MFXButton logoutButton;
   @FXML MFXButton loginButton;
   @FXML MFXButton editMoveButton;
+  @FXML MFXButton showEmployeesButton;
   @FXML Label titleLabel;
 
   ArrayList<Screen> secureScreens =
@@ -36,7 +37,8 @@ public class ParentController {
               Screen.MAP_EDIT,
               Screen.MOVE_TABLE,
               Screen.SERVICE_REQUEST,
-              Screen.SERVICE_REQUEST_VIEW));
+              Screen.SERVICE_REQUEST_VIEW,
+              Screen.EMPLOYEE_TABLE));
 
   @Setter public static StringProperty titleString = new SimpleStringProperty();
 
@@ -46,6 +48,7 @@ public class ParentController {
     showRequestsButton.setDisable(true);
     editMapButton.setDisable(true);
     editMoveButton.setDisable(true);
+    showEmployeesButton.setDisable(true);
   }
 
   /** logs the current user out of the application */
@@ -82,6 +85,7 @@ public class ParentController {
     if (GlobalVariables.userIsType(EmployeeType.ADMIN)) {
       editMapButton.setDisable(false);
       editMoveButton.setDisable(false);
+      showEmployeesButton.setDisable(false);
     }
     homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     //    helpButton.setOnMouseClicked(event -> Navigation.navigate(Screen.));
@@ -90,6 +94,7 @@ public class ParentController {
     makeRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
     showRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST_VIEW));
     loginButton.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN));
+    showEmployeesButton.setOnMouseClicked(event -> Navigation.navigate(Screen.EMPLOYEE_TABLE));
     logoutButton.setOnMouseClicked(event -> logout());
     // Navigation.navigate(Screen.SERVICE_REQUEST_VIEW));
     editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));

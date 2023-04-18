@@ -2,21 +2,23 @@ package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
+import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.navigation.AlgoStrategy.AStarAlgo;
 import edu.wpi.teamname.navigation.AlgoStrategy.BFSAlgo;
 import edu.wpi.teamname.navigation.AlgoStrategy.DFSAlgo;
 import edu.wpi.teamname.navigation.AlgoStrategy.DijkstraAlgo;
 import edu.wpi.teamname.navigation.Map;
+import edu.wpi.teamname.navigation.Node;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
-import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -67,7 +69,7 @@ public class MapController {
 
             floor2 = map.takeFloor(FloorSelect.getValue(), false);
 
-            List<edu.wpi.teamname.navigation.Node> allNodes = map.graph.getNodes();
+            List<Node> allNodes = map.graph.getNodes();
 
             //    System.out.println(firstClick);
             //    System.out.println(secondClick); // Coordinates in inner, now goes up to 5000
@@ -99,7 +101,7 @@ public class MapController {
                 if (i == startIndex) {
                   continue;
                 } else {
-                  edu.wpi.teamname.navigation.Node currentNode = allNodes.get(i);
+                  Node currentNode = allNodes.get(i);
                   if (currentNode.getFloor().equals(currentFloor)) {
                     nodeDist = currentClick.distance(currentNode.getX(), currentNode.getY());
                     if (nodeDist < leastDistance) {
@@ -179,7 +181,7 @@ public class MapController {
           int secInd = map.getAllFloors().indexOf(FloorSelect.getValue());
           anchor.getChildren().addAll(map.getShapes().get(secInd));
 
-          int indOfStart = edu.wpi.teamname.navigation.Node.idToIndex(sNode);
+          int indOfStart = Node.idToIndex(sNode);
           String floorForSNode =
               map.takeFloor(map.graph.getNodes().get(indOfStart).getFloor(), true);
           FloorSelect.setValue(floorForSNode);
@@ -193,10 +195,20 @@ public class MapController {
 
         @Override
         public void handle(ActionEvent event) {
+          Node nodeForStart;
           System.out.println("changed start " + LocationOne.getValue());
           // System.out.println(LocationOne.getValue());
           // System.out.println(EndPointSelect.getValue());
-          sNode = Integer.parseInt(LocationOne.getValue());
+          String startLName = LocationOne.getValue();
+          try {
+            nodeForStart =
+                DataManager.getNodeByLocationName(
+                    startLName, new Timestamp(System.currentTimeMillis()));
+          } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+          }
+          sNode = nodeForStart.getId(); // Integer.parseInt(LocationOne.getValue());
+          // System.out.println("sNode: " + sNode);
           if (eNode != 0 && sNode != 0) {
             findPathButton.setVisible(true);
             //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
@@ -210,9 +222,20 @@ public class MapController {
 
         @Override
         public void handle(ActionEvent event) {
+          Node nodeForEnd;
+
           System.out.println("changed end " + EndPointSelect.getValue());
-          System.out.println(EndPointSelect.getValue());
-          eNode = Integer.parseInt(EndPointSelect.getValue());
+          String endLName = EndPointSelect.getValue();
+          try {
+            nodeForEnd =
+                DataManager.getNodeByLocationName(
+                    endLName, new Timestamp(System.currentTimeMillis()));
+          } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+          }
+          eNode = nodeForEnd.getId();
+          //          System.out.println("eNode LName: " + endLName);
+          //          System.out.println("eNode: " + eNode);
           if (sNode != 0 && eNode != 0) {
             findPathButton.setVisible(true);
             //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
@@ -348,7 +371,7 @@ public class MapController {
 
     //    gp.setOnMouseMoved(checkPoints);
 
-    ArrayList<Node> currentFloorNodes = (map.makeAllFloorShapes(defaultFloor, true));
+    ArrayList<javafx.scene.Node> currentFloorNodes = (map.makeAllFloorShapes(defaultFloor, true));
     anchor.getChildren().addAll(currentFloorNodes);
     map.setCurrentFloorShapes(currentFloorNodes);
     //  anchor.getChildren().addAll(map.makeAllFloorNodes(defaultFloor, true));
@@ -363,11 +386,11 @@ public class MapController {
     //    LocationOne.setStyle("-fx-padding: 5 25 5 5;");
     LocationOne.setPromptText("Select start");
     LocationOne.setItems(
-        map.getAllNodeNames("L1")); // change for when the floor changes to update the nodes shown
+        map.getAllNodeNames()); // change for when the floor changes to update the nodes shown
     LocationOne.setOnAction(changeStart);
 
     EndPointSelect.setPromptText("Select end");
-    EndPointSelect.setItems(map.getAllNodeNames("L1")); // switched to every node in map
+    EndPointSelect.setItems(map.getAllNodeNames()); // switched to every node in map
     EndPointSelect.setOnAction(changeEnd);
 
     FloorSelect.setPromptText("Select floor");
