@@ -2,6 +2,10 @@ package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
+import edu.wpi.teamname.navigation.AlgoStrategy.AStarAlgo;
+import edu.wpi.teamname.navigation.AlgoStrategy.BFSAlgo;
+import edu.wpi.teamname.navigation.AlgoStrategy.DFSAlgo;
+import edu.wpi.teamname.navigation.AlgoStrategy.DijkstraAlgo;
 import edu.wpi.teamname.navigation.Map;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
@@ -30,6 +34,7 @@ public class MapController {
   @FXML MFXButton DeleteNodeButton = new MFXButton();
   @FXML MFXButton findPathButton = new MFXButton();
   @FXML ComboBox<String> FloorSelect = new ComboBox<>();
+  @FXML ComboBox<String> AlgoSelect = new ComboBox<>();
   String defaultFloor = "L1";
   int clickCount = 0;
   Point2D firstClick = null;
@@ -39,6 +44,8 @@ public class MapController {
   String currFloor = "L1";
   int sNode = 0;
   int eNode = 0;
+
+  String currentAlgo = "";
 
   EventHandler<MouseEvent> e =
       new EventHandler<MouseEvent>() {
@@ -287,6 +294,32 @@ public class MapController {
         }
       };
 
+  EventHandler<ActionEvent> selectAlgo =
+      new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+          System.out.println("Algo Changed");
+          currentAlgo = AlgoSelect.getValue();
+
+          switch (AlgoSelect.getValue()) {
+            case ("A-Star"):
+              map.graph.setPathfindingAlgo(new AStarAlgo());
+              break;
+            case ("Breadth First Search"):
+              map.graph.setPathfindingAlgo(new BFSAlgo());
+              break;
+            case ("Depth First Search"):
+              map.graph.setPathfindingAlgo(new DFSAlgo());
+              break;
+            case ("Dijkstra's Algorithm"):
+              map.graph.setPathfindingAlgo(new DijkstraAlgo());
+              break;
+            default:
+              System.out.println("Not supposed to be here: Wrong Algo");
+          }
+        }
+      };
+
   EventHandler<MouseEvent> checkPoints =
       new EventHandler<MouseEvent>() {
 
@@ -339,6 +372,11 @@ public class MapController {
     FloorSelect.setItems(map.getAllFloors());
     FloorSelect.setOnAction(changeFloor);
     FloorSelect.setValue("Lower Level 1");
+
+    AlgoSelect.setPromptText("Select Algorithm");
+    AlgoSelect.setItems(map.getAllAlgos());
+    AlgoSelect.setOnAction(selectAlgo);
+    AlgoSelect.setValue("A-Star");
 
     anchor.setOnMouseClicked(e);
 

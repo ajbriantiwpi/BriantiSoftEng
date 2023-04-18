@@ -41,6 +41,10 @@ public class Map {
     "Lower Level 2", "Lower Level 1", "First Floor", "Second Floor", "Third Floor"
   };
 
+  private String[] algoArr = {
+    "A-Star", "Breadth First Search", "Depth First Search", "Dijkstra's Algorithm"
+  };
+
   public Map(AnchorPane subAnchor) throws SQLException {
     this.graph = new Graph();
     this.currentDisplayFloor = "Lower Level 1";
@@ -219,7 +223,7 @@ public class Map {
         listUpper1.add(n);
       } else if (n.getFloor().equals("2") || n.getFloor().equals("G2")) {
         listUpper2.add(n);
-      } else if (n.getFloor().equals("1") || n.getFloor().equals("G1")) {
+      } else if (n.getFloor().equals("3") || n.getFloor().equals("G3")) {
         listUpper3.add(n);
       } else {
         System.out.println("This should not be here");
@@ -484,6 +488,16 @@ public class Map {
     }
 
     return floorNames;
+  }
+
+  public ObservableList<String> getAllAlgos() {
+    ObservableList<String> algoNames = FXCollections.observableArrayList();
+
+    for (String a : algoArr) {
+      algoNames.addAll(a);
+    }
+
+    return algoNames;
   }
 
   public String takeFloor(String f, boolean flag) {
