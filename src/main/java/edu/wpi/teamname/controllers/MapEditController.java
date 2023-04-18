@@ -276,7 +276,7 @@ public class MapEditController {
 
           try {
             DataManager.addNode(n);
-//            changeFloor();
+            //            changeFloor();
           } catch (SQLException ex) {
             System.out.println(ex);
             //            throw new RuntimeException(ex);
@@ -338,7 +338,7 @@ public class MapEditController {
 
           try {
             DataManager.addLocationName(l);
-//            changeFloor();
+            //            changeFloor();
           } catch (SQLException ex) {
             System.out.println(ex);
             //            throw new RuntimeException(ex);
@@ -373,7 +373,7 @@ public class MapEditController {
 
             try {
               DataManager.addEdge(e);
-//              changeFloor();
+              //              changeFloor();
             } catch (SQLException ex) {
               System.out.println(ex);
               //            throw new RuntimeException(ex);
