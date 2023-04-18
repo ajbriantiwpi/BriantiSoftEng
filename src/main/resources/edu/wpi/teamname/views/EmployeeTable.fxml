@@ -125,7 +125,7 @@
                   <Font name="Roboto" size="24.0" />
                </font>
                <VBox.margin>
-                  <Insets top="70.0" />
+                  <Insets top="40.0" />
                </VBox.margin>
             </Label>
             <MFXButton fx:id="importButton" buttonType="RAISED" prefHeight="25.0" prefWidth="118.0" rippleColor="#235fa6" style="-fx-background-color: #D5E3FF;" text="Import">
