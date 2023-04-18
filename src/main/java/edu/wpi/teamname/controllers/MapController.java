@@ -10,6 +10,7 @@ import edu.wpi.teamname.navigation.AlgoStrategy.DijkstraAlgo;
 import edu.wpi.teamname.navigation.Map;
 import edu.wpi.teamname.navigation.Node;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -37,6 +38,8 @@ public class MapController {
   @FXML MFXButton findPathButton = new MFXButton();
   @FXML ComboBox<String> FloorSelect = new ComboBox<>();
   @FXML ComboBox<String> AlgoSelect = new ComboBox<>();
+  @FXML MFXToggleButton FloorsToggle = new MFXToggleButton();
+
   String defaultFloor = "L1";
   int clickCount = 0;
   Point2D firstClick = null;
@@ -186,6 +189,8 @@ public class MapController {
               map.takeFloor(map.graph.getNodes().get(indOfStart).getFloor(), true);
           FloorSelect.setValue(floorForSNode);
 
+          FloorsToggle.setVisible(true);
+
           clickCount = 0;
         }
       };
@@ -319,6 +324,14 @@ public class MapController {
         }
       };
 
+  private void showPathFloors() {
+    if (FloorsToggle.isSelected()) {
+      FloorSelect.setItems(map.getAllFloorsInPath());
+    } else {
+      FloorSelect.setItems(map.getAllFloors());
+    }
+  }
+
   EventHandler<ActionEvent> selectAlgo =
       new EventHandler<ActionEvent>() {
         @Override
@@ -342,6 +355,15 @@ public class MapController {
             default:
               System.out.println("Not supposed to be here: Wrong Algo");
           }
+        }
+      };
+
+  EventHandler<MouseEvent> toggleFloorMethod =
+      new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+          System.out.println("This is the toggle");
+          showPathFloors();
         }
       };
 
@@ -402,6 +424,11 @@ public class MapController {
     AlgoSelect.setItems(map.getAllAlgos());
     AlgoSelect.setOnAction(selectAlgo);
     AlgoSelect.setValue("A-Star");
+
+    FloorsToggle.setOnMouseClicked(toggleFloorMethod);
+    FloorsToggle.setSelected(false);
+    FloorsToggle.setDisable(false);
+    FloorsToggle.setVisible(false);
 
     anchor.setOnMouseClicked(e);
 

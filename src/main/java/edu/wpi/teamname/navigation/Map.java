@@ -506,6 +506,28 @@ public class Map {
     return floorNames;
   }
 
+  public ObservableList<String> getAllFloorsInPath() {
+    ObservableList<String> floorNames = FXCollections.observableArrayList();
+    ArrayList<String> floorPathArr = new ArrayList<>();
+
+    for (int i = 0; i < shapes.size(); i++) {
+      if (!shapes.get(i).isEmpty()) {
+        if (i == 0) {
+          floorNames.add("Lower Level 2");
+        } else if (i == 1) {
+          floorNames.add("Lower Level 1");
+        } else if (i == 2) {
+          floorNames.add("First Floor");
+        } else if (i == 3) {
+          floorNames.add("Second Floor");
+        } else if (i == 4) {
+          floorNames.add("Third Floor");
+        }
+      }
+    }
+    return floorNames;
+  }
+
   public ObservableList<String> getAllAlgos() {
     ObservableList<String> algoNames = FXCollections.observableArrayList();
 
