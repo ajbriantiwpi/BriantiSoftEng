@@ -2,6 +2,7 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
@@ -87,19 +88,27 @@
                </TableView>
             </children>
         </HBox>
-      <HBox layoutX="216.0" layoutY="-5.0" prefHeight="32.0" prefWidth="398.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-50.0">
+      <HBox layoutX="117.0" layoutY="-42.0" prefHeight="41.0" prefWidth="475.0" AnchorPane.rightAnchor="7.6666666666667425" AnchorPane.topAnchor="-42.0">
          <children>
+            <CheckBox fx:id="newMovesCheck" mnemonicParsing="false" prefHeight="25.0" prefWidth="151.0" text="Future Moves">
+               <font>
+                  <Font name="Roboto" size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets top="15.0" />
+               </HBox.margin>
+            </CheckBox>
             <Label prefHeight="34.0" prefWidth="144.0" text="Search By ID">
                <font>
                   <Font name="Roboto" size="18.0" />
                </font>
                <HBox.margin>
-                  <Insets left="20.0" top="5.0" />
+                  <Insets left="20.0" top="15.0" />
                </HBox.margin>
             </Label>
             <TextField fx:id="searchTextField">
                <HBox.margin>
-                  <Insets top="5.0" />
+                  <Insets right="10.0" top="15.0" />
                </HBox.margin>
             </TextField>
          </children>

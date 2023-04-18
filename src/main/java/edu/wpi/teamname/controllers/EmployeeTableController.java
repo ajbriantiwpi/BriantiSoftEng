@@ -251,30 +251,54 @@ public class EmployeeTableController {
   }
 
   @FXML
-  private void handleSubmitButton() throws SQLException {
-    DataManager employeeDAO = new DataManager();
-    int employeeIDInput = Integer.parseInt(employeeIDField.getText());
-    String firstName = employeeFirstNameTextField.getText();
-    String lastName = employeeLastNameTextField.getText();
-    String username = employeeUserTextField.getText();
-    String password = employeePasswordTextField.getText();
-    EmployeeType employeeType = EmployeeType.valueOf(employeeTypeTextField.getText());
+  private void handleSubmitButton() {
+    try {
+      DataManager employeeDAO = new DataManager();
+      int employeeIDInput = Integer.parseInt(employeeIDField.getText());
+      String firstName = employeeFirstNameTextField.getText();
+      String lastName = employeeLastNameTextField.getText();
+      String username = employeeUserTextField.getText();
+      String password = employeePasswordTextField.getText();
+      EmployeeType employeeType = EmployeeType.valueOf(employeeTypeTextField.getText());
 
-    Employee employee =
-        new Employee(username, password, employeeIDInput, firstName, lastName, true);
+      Employee employee =
+          new Employee(username, password, employeeIDInput, firstName, lastName, true);
 
-    employee.addType(employeeType);
-    employeeDAO.addEmployeeType(username, employeeType);
-    employeeDAO.addEmployee(employee);
-    employeeTable.getItems().add(employee);
+      // Validate the password using checkLegalLogin method
+      if (employee.checkLegalLogin(password)) {
+        employee.addType(employeeType);
+        employeeDAO.addEmployeeType(username, employeeType);
+        employeeDAO.addEmployee(employee);
+        employeeTable.getItems().add(employee);
 
-    // Clear the input fields
-    employeeFirstNameTextField.clear();
-    employeeIDField.clear();
-    employeeLastNameTextField.clear();
-    employeeUserTextField.clear();
-    employeePasswordTextField.clear();
-    employeeTypeTextField.clear();
+        // Clear the input fields
+        employeeFirstNameTextField.clear();
+        employeeIDField.clear();
+        employeeLastNameTextField.clear();
+        employeeUserTextField.clear();
+        employeePasswordTextField.clear();
+        employeeTypeTextField.clear();
+      } else {
+        // Display an error message if password validation fails
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Invalid Password");
+        alert.setContentText(
+            "The provided password does not meet the required criteria. \n "
+                + "At least 8 Characters\n"
+                + "One special character\n"
+                + "One capital letter\n"
+                + "One number");
+        alert.showAndWait();
+      }
+    } catch (Exception e) {
+      // Display an error message if an exception occurs
+      Alert alert = new Alert(Alert.AlertType.ERROR);
+      alert.setTitle("Error");
+      alert.setHeaderText("An error occurred");
+      alert.setContentText("An error occurred while processing your request:\n " + e.getMessage());
+      alert.showAndWait();
+    }
   }
 
   private void filterTable(String searchText) {
