@@ -230,13 +230,14 @@ public class NodeDAOImpl implements NodeDAO {
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, id);
       ResultSet rs = statement.executeQuery();
-
-      int nodeid = rs.getInt("nodeID");
-      int xcoord = rs.getInt("xcoord");
-      int ycoord = rs.getInt("ycoord");
-      String floor = rs.getString("floor");
-      String building = rs.getString("building");
-      node = (new Node(nodeid, xcoord, ycoord, floor, building));
+      while (rs.next()) {
+        int nodeid = rs.getInt("nodeID");
+        int xcoord = rs.getInt("xcoord");
+        int ycoord = rs.getInt("ycoord");
+        String floor = rs.getString("floor");
+        String building = rs.getString("building");
+        node = (new Node(nodeid, xcoord, ycoord, floor, building));
+      }
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }
