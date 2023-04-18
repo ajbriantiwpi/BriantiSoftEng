@@ -1,12 +1,8 @@
 package edu.wpi.teamname;
 
 import edu.wpi.teamname.database.DataManager;
-import edu.wpi.teamname.servicerequest.RequestType;
-import edu.wpi.teamname.servicerequest.ServiceRequest;
-import edu.wpi.teamname.servicerequest.Status;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.text.ParseException;
 
 public class Main {
