@@ -10,7 +10,6 @@ import edu.wpi.teamname.navigation.AlgoStrategy.DijkstraAlgo;
 import edu.wpi.teamname.navigation.Map;
 import edu.wpi.teamname.navigation.Node;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -20,6 +19,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -38,7 +38,7 @@ public class MapController {
   @FXML MFXButton findPathButton = new MFXButton();
   @FXML ComboBox<String> FloorSelect = new ComboBox<>();
   @FXML ComboBox<String> AlgoSelect = new ComboBox<>();
-  @FXML MFXToggleButton FloorsToggle = new MFXToggleButton();
+  @FXML CheckBox FloorsToggle = new CheckBox();
 
   String defaultFloor = "L1";
   int clickCount = 0;

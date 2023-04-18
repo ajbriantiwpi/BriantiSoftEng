@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -38,11 +38,11 @@
                   <Insets left="200.0" top="20.0" />
                </StackPane.margin>
             </MFXButton>
-            <MFXToggleButton fx:id="FloorsToggle" style="-fx-background-color: #ffffff; -mfx-toggle-color: #fafafa; -mfx-untoggle-color: #90ee90;" StackPane.alignment="TOP_LEFT">
+            <CheckBox fx:id="FloorsToggle" mnemonicParsing="false" text="Only Show Path Floors" StackPane.alignment="TOP_LEFT">
                <StackPane.margin>
-                  <Insets left="385.0" top="40.0" />
+                  <Insets left="400.0" top="45.0" />
                </StackPane.margin>
-            </MFXToggleButton>
+            </CheckBox>
             </children>
         </StackPane>
       <HBox fx:id="SelectCombo" alignment="BOTTOM_CENTER" layoutX="136.0" layoutY="493.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="72.0" prefWidth="810.0" spacing="20.0">
