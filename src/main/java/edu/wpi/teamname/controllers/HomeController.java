@@ -5,9 +5,11 @@ import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.EmployeeType;
+import edu.wpi.teamname.navigation.Move;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.FXCollections;
@@ -64,6 +66,9 @@ public class HomeController {
     editMapButton.setDisable(true);
     editMoveButton.setDisable(true);
     employeeButton.setDisable(true);
+    activeRequests.setDisable(true);
+    upcomingMoves.setDisable(true);
+    doneRequests.setDisable(true);
   }
 
   @FXML
@@ -105,6 +110,16 @@ public class HomeController {
       int doneSize = doneRequestsList.size();
       activeRequests.setText(processingSize + " Active Request(s)");
       doneRequests.setText(doneSize + " Done Request(s)");
+      ObservableList<Move> allMoves = FXCollections.observableArrayList(DataManager.getAllMoves());
+      LocalDate today = LocalDate.now();
+      int futureMoves = 0;
+      for (Move move : allMoves) {
+        if (move.getDate().toLocalDateTime().toLocalDate().isAfter(today)
+            || move.getDate().toLocalDateTime().toLocalDate().isEqual(today)) {
+          futureMoves++;
+        }
+      }
+      upcomingMoves.setText(futureMoves + " Upcoming Moves");
 
     } else {
       activeRequests.setText("Log in to see Active Requests");
@@ -125,13 +140,25 @@ public class HomeController {
       //      makeRequestsButton1.setDisable(false);
       //      makeRequestsButton2.setDisable(false);
       //      makeRequestsButton3.setDisable(false);
+      activeRequests.setDisable(false);
+      upcomingMoves.setDisable(false);
+      doneRequests.setDisable(false);
       showRequestsButton.setDisable(false);
     }
     if (GlobalVariables.userIsType(EmployeeType.ADMIN)) {
       editMapButton.setDisable(false);
       editMoveButton.setDisable(false);
       employeeButton.setDisable(false);
+      activeRequests.setDisable(false);
+      upcomingMoves.setDisable(false);
+      doneRequests.setDisable(false);
     }
+
+    upcomingMoves.setOnMouseClicked(
+        event -> {
+          GlobalVariables.setFutureMovesPressed(true);
+          Navigation.navigate(Screen.MOVE_TABLE);
+        });
 
     /*loggedIn.addListener(
     (loggedIn, old, newV) -> {
