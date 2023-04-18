@@ -11,6 +11,7 @@ public class Graph {
   @Getter private ArrayList<MapNode> mapNodes = new ArrayList<>();
   @Getter private ArrayList<Edge> Edges = new ArrayList<>();
   private IStrategyAlgo pathfindingAlgo;
+  private final int FLOORCHANGEDIST = 100;
 
   /**
    * Creates a new Graph by retrieving Nodes and Edges from the database.
@@ -21,9 +22,11 @@ public class Graph {
     mapNodes = this.getAllNodes(); // Changed based on DB team
     Edges = this.getAllEdges(); // Changed based on DB team
     this.initializeEdges();
-    // pathfindingAlgo = new AStarAlgo();
-    // pathfindingAlgo = new BFSAlgo();
     pathfindingAlgo = new AStarAlgo();
+    // pathfindingAlgo = new BFSAlgo();
+
+    pathfindingAlgo = new AStarAlgo();
+
     // pathfindingAlgo = new DijkstraAlgo();
   }
 
@@ -42,6 +45,16 @@ public class Graph {
    */
   private ArrayList<MapNode> getAllNodes() throws SQLException {
     return DataManager.getAllNodes();
+  private ArrayList<MapNode> getAllNodes() throws SQLException {
+    ArrayList<MapNode> nodes = DataManager.getAllNodes();
+    for (MapNode n : nodes) {
+      if (n.getFloor().equals("L2")) n.setZ(0);
+      else if (n.getFloor().equals("L1")) n.setZ(FLOORCHANGEDIST);
+      else if (n.getFloor().equals("1")) n.setZ(FLOORCHANGEDIST * 2);
+      else if (n.getFloor().equals("2")) n.setZ(FLOORCHANGEDIST * 3);
+      else if (n.getFloor().equals("3")) n.setZ(FLOORCHANGEDIST * 4);
+    }
+    return nodes;
   }
 
   /**
@@ -94,7 +107,7 @@ public class Graph {
   public void setAllG(MapNode s, MapNode t) {
     if (s == null || t == null) return;
     for (MapNode n : this.mapNodes) {
-      n.setG(findWeight(n, s));
+      n.setG(findWeight(s));
     }
     s.setG(0);
   }

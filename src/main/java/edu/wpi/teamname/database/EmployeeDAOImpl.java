@@ -123,7 +123,6 @@ public class EmployeeDAOImpl implements LoginDAO {
       String query = "SELECT * FROM \"Employee\"";
       PreparedStatement statement = connection.prepareStatement(query);
       ResultSet rs = statement.executeQuery();
-
       while (rs.next()) {
         String usern = rs.getString("username");
         String passw = rs.getString("password");

@@ -54,6 +54,7 @@ public class HomeController {
     showRequestsButton.setDisable(true);
     editMapButton.setDisable(true);
     editMoveButton.setDisable(true);
+    employeeButton.setDisable(true);
   }
 
   @FXML
@@ -92,6 +93,7 @@ public class HomeController {
     if (GlobalVariables.userIsType(EmployeeType.ADMIN)) {
       editMapButton.setDisable(false);
       editMoveButton.setDisable(false);
+      employeeButton.setDisable(false);
     }
 
     /*loggedIn.addListener(

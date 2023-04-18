@@ -10,6 +10,7 @@ public class MapNode implements Comparable<MapNode> {
   @Getter @Setter int id;
   @Getter @Setter private int x;
   @Getter @Setter private int y;
+  @Getter @Setter private int z;
   @Getter @Setter private String floor;
   @Getter @Setter private String building;
 
@@ -102,18 +103,21 @@ public class MapNode implements Comparable<MapNode> {
    * Calculates the weight of the edge between this node and the given node. The weight is the
    * Euclidean distance between the coordinates of the two nodes.
    *
-   * @param b the node to calculate the weight for
+   * @param target the node to calculate the weight for
    * @return the weight of the edge between this node and the given node
    */
-  public double findWeight(MapNode b) {
+  public double findWeight(MapNode target) {
     int x1 = this.x;
-    int x2 = b.getX();
+    int x2 = target.getX();
     int y1 = this.y;
-    int y2 = b.getY();
+    int y2 = target.getY();
+    int z1 = this.z;
+    int z2 = target.z;
 
     double x = Math.pow((x2 - x1), 2);
     double y = Math.pow((y2 - y1), 2);
-    return Math.sqrt(x + y);
+    double z = Math.pow((z2 - z1), 2);
+    return Math.sqrt(x + y + z);
   }
 
   /**
@@ -152,9 +156,18 @@ public class MapNode implements Comparable<MapNode> {
    */
   public double calculateHeuristic(MapNode target) {
     // Heuristic will return distance from target
-    return Math.sqrt(
-        (target.getX() - this.x) * (target.getX() - this.x)
-            + (target.getY() - this.y) * (target.getY() - this.y));
+
+    int x1 = this.x;
+    int x2 = target.getX();
+    int y1 = this.y;
+    int y2 = target.getY();
+    int z1 = this.z;
+    int z2 = target.z;
+
+    double x = Math.pow((x2 - x1), 2);
+    double y = Math.pow((y2 - y1), 2);
+    double z = Math.pow((z2 - z1), 2);
+    return Math.sqrt(x + y + z);
   }
 
   /**

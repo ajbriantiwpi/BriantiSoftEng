@@ -13,7 +13,6 @@ public class Main {
         "jdbc:postgresql://database.cs.wpi.edu:5432/teamddb?currentSchema=\"teamD\"",
         "teamd",
         "teamd40");
-    GlobalVariables.setCurrentUser(DataManager.getEmployee("admin"));
     App.launch(App.class, args);
   }
 
