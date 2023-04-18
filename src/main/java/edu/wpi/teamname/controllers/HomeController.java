@@ -3,10 +3,15 @@ package edu.wpi.teamname.controllers;
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
+import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.EmployeeType;
+import edu.wpi.teamname.servicerequest.ServiceRequest;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.sql.SQLException;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableBooleanValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import lombok.Getter;
@@ -26,6 +31,10 @@ public class HomeController {
   @FXML MFXButton exitButton;
   @FXML MFXButton navigateButton;
   @FXML MFXButton employeeButton;
+
+  @FXML MFXButton activeRequests;
+  @FXML MFXButton upcomingMoves;
+  @FXML MFXButton doneRequests;
 
   // test push
   @Setter @Getter private static ObservableBooleanValue loggedIn = new SimpleBooleanProperty(false);
@@ -58,7 +67,7 @@ public class HomeController {
   }
 
   @FXML
-  public void initialize() {
+  public void initialize() throws SQLException {
 
     // set the width and height to be bound to the panes width and height
     //    imageView.fitWidthProperty().bind(rootPane.widthProperty());
@@ -73,7 +82,33 @@ public class HomeController {
     if (loggedIn.getValue()) {
       loginButton.setVisible(false);
       logoutButton.setVisible(true);
+      ObservableList<ServiceRequest> requestList =
+          FXCollections.observableList(
+              DataManager.getAllServiceRequests().stream()
+                  .filter(
+                      (request) ->
+                          request
+                              .getStaffName()
+                              .equals(GlobalVariables.getCurrentUser().getUsername()))
+                  .toList());
+      ObservableList<ServiceRequest> processingRequestsList =
+          FXCollections.observableList(
+              requestList.stream()
+                  .filter((request) -> request.getStatus().getStatusString().equals("PROCESSING"))
+                  .toList());
+      ObservableList<ServiceRequest> doneRequestsList =
+          FXCollections.observableList(
+              requestList.stream()
+                  .filter((request) -> request.getStatus().getStatusString().equals("DONE"))
+                  .toList());
+      int processingSize = processingRequestsList.size();
+      int doneSize = doneRequestsList.size();
+      activeRequests.setText(processingSize + " Active Request(s)");
+      doneRequests.setText(doneSize + " Done Request(s)");
+
     } else {
+      activeRequests.setText("Log in to see Active Requests");
+      doneRequests.setText("Log in to see Done Request(s)");
       loginButton.setVisible(true);
       logoutButton.setVisible(false);
     }
