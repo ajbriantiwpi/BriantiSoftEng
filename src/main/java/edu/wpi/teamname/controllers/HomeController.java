@@ -109,6 +109,7 @@ public class HomeController {
     } else {
       activeRequests.setText("Log in to see Active Requests");
       doneRequests.setText("Log in to see Done Request(s)");
+      upcomingMoves.setText("Log in to see Upcoming Moves");
       loginButton.setVisible(true);
       logoutButton.setVisible(false);
     }
@@ -120,6 +121,7 @@ public class HomeController {
     disableButtonsWhenLoggedOut();
     if (GlobalVariables.userIsType(EmployeeType.STAFF)) {
       makeRequestsButton.setDisable(false);
+      editMoveButton.setDisable(false);
       //      makeRequestsButton1.setDisable(false);
       //      makeRequestsButton2.setDisable(false);
       //      makeRequestsButton3.setDisable(false);
