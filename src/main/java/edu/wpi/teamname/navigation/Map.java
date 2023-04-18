@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -484,6 +485,8 @@ public class Map {
     for (Integer i : hMap.keySet()) {
       nodeNames.add(hMap.get(i).get(0).getLongName());
     }
+
+    Collections.sort(nodeNames);
 
     return nodeNames;
   }
