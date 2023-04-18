@@ -1,5 +1,8 @@
 package edu.wpi.teamname.employees;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import lombok.Getter;
@@ -36,6 +39,7 @@ public class Employee {
    * @param username
    * @param password
    */
+  // Updated constructor
   public Employee(
       String username,
       String password,
@@ -49,14 +53,15 @@ public class Employee {
     this.employeeID = employeeID;
     this.firstName = firstName;
     this.lastName = lastName;
-    // encrypt the password using Caesar cipher
+    // encrypt the password using SHA-256
     if (encrypt) {
-      this.password = encrypt(password, 3);
+      this.password = hash(password);
     } else {
       this.password = password;
     }
   }
 
+  // Updated constructor
   public Employee(
       String username,
       String password,
@@ -71,18 +76,11 @@ public class Employee {
     type = employeeType;
     this.firstName = firstName;
     this.lastName = lastName;
-    // encrypt the password using Caesar cipher
+    // encrypt the password using SHA-256
     if (encrypt) {
-      this.password = encrypt(password, 3);
+      this.password = hash(password);
     } else {
       this.password = password;
-    }
-  }
-
-  public void addType(EmployeeType employeeType) {
-    if (!type.contains(employeeType)) {
-      type.add(employeeType);
-      allTypes.add(employeeType);
     }
   }
 
@@ -103,8 +101,7 @@ public class Employee {
       System.out.println(
           "Password does not meet the requirements: 8 Characters, 1 uppercase, 1 number, 1 special.");
     } else { // meets password req
-      // encrypt the password using Caesar cipher
-      String encryptedPass = encrypt(newPass, 3);
+      String encryptedPass = hash(newPass);
       this.username = newUser;
       this.password = encryptedPass;
     }
@@ -131,25 +128,28 @@ public class Employee {
         + type
         + '}';
   }
-
   /**
-   * Performs a caesar cypher on the given password
+   * Hashes the given password using SHA-256
    *
-   * @param plaintext the string to be converted
-   * @param shift how much should the string be shifted by
-   * @return the encrypted string
+   * @param plaintext the string to be hashed
+   * @return the hashed string
    */
-  public static String encrypt(String plaintext, int shift) {
-    StringBuilder ciphertext = new StringBuilder();
-    for (int i = 0; i < plaintext.length(); i++) {
-      char c = plaintext.charAt(i);
-      if (Character.isLetter(c)) {
-        char base = Character.isUpperCase(c) ? 'A' : 'a';
-        c = (char) (base + (c - base + shift) % 26);
+  public static String hash(String plaintext) {
+    try {
+      MessageDigest digest = MessageDigest.getInstance("SHA-256");
+      byte[] hash = digest.digest(plaintext.getBytes(StandardCharsets.UTF_8));
+      StringBuilder hexString = new StringBuilder();
+      for (byte b : hash) {
+        String hex = Integer.toHexString(0xff & b);
+        if (hex.length() == 1) {
+          hexString.append('0');
+        }
+        hexString.append(hex);
       }
-      ciphertext.append(c);
+      return hexString.toString();
+    } catch (NoSuchAlgorithmException e) {
+      throw new RuntimeException("Error hashing password", e);
     }
-    return ciphertext.toString();
   }
 
   // ---------------Login requirements-----------
@@ -168,6 +168,13 @@ public class Employee {
       return true;
     } else {
       return false;
+    }
+  }
+
+  public void addType(EmployeeType employeeType) {
+    if (!type.contains(employeeType)) {
+      type.add(employeeType);
+      allTypes.add(employeeType);
     }
   }
 
