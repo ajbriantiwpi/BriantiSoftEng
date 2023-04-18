@@ -82,6 +82,34 @@ public class EmployeeDAOImpl implements LoginDAO {
   }
 
   /**
+   * This method retrieves the types of an Employee object with the specified username from the
+   * "EmployeeType" table in the database.
+   *
+   * @param username the username of the Employee object to retrieve types from the "EmployeeType"
+   *     table
+   * @return a list of EmployeeType objects of the Employee with the specified username
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public ArrayList<EmployeeType> getEmployeeType(String username) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    ArrayList<EmployeeType> employeeTypes = new ArrayList<>();
+    try {
+      String query = "SELECT * FROM \"EmployeeType\" WHERE \"username\" = ?";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setString(1, username);
+      ResultSet rs = statement.executeQuery();
+      while (rs.next()) {
+        EmployeeType employeeType = EmployeeType.valueOf(rs.getString("type"));
+        employeeTypes.add(employeeType);
+      }
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+
+    return employeeTypes;
+  }
+
+  /**
    * The method retrieves all the Employee objects from the "Employee" table in the database.
    *
    * @return an ArrayList of the Employee objects in the database
@@ -393,5 +421,27 @@ public class EmployeeDAOImpl implements LoginDAO {
         return null;
       }
     }
+  }
+
+  public static void addEmployeeType(String username, EmployeeType employeeType)
+      throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    String query = "INSERT INTO \"EmployeeType\" (\"username\", \"type\") VALUES (?, ?)";
+    PreparedStatement statement = connection.prepareStatement(query);
+
+    statement.setString(1, username);
+    statement.setString(2, employeeType.name());
+
+    statement.executeUpdate();
+  }
+
+  public static void deleteEmployeeType(String username) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    String query = "DELETE FROM \"EmployeeType\" WHERE \"username\" = ?";
+    PreparedStatement statement = connection.prepareStatement(query);
+
+    statement.setString(1, username);
+
+    statement.executeUpdate();
   }
 }

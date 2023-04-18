@@ -24,7 +24,9 @@ public class Graph {
     this.initializeEdges();
     pathfindingAlgo = new AStarAlgo();
     // pathfindingAlgo = new BFSAlgo();
-    // pathfindingAlgo = new DFSAlgo();
+
+    pathfindingAlgo = new AStarAlgo();
+
     // pathfindingAlgo = new DijkstraAlgo();
   }
 
