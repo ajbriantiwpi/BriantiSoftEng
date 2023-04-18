@@ -102,6 +102,8 @@ public class Map {
         //        } else {
         //          defShortName = "" + n.getId();
         //        }
+
+        //        if (!(locations == null) && locations.size() > 0) {
         if (map.get(n.getId()) != null) {
           defShortName = map.get(n.getId()).get(0).getShortName();
         } else {

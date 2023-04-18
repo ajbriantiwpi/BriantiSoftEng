@@ -4,9 +4,10 @@ import edu.wpi.teamname.App;
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.database.DataManager;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.io.IOException;
+import java.sql.SQLException;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -14,17 +15,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.*;
 import org.controlsfx.control.PopOver;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 public class EdgeRectangle {
 
   public Pane p;
   public Path path;
-  public Label label = new Label();
+  //  public Label label = new Label();
   private VBox changeBox;
 
   private Node startNode;
@@ -34,7 +29,7 @@ public class EdgeRectangle {
     this.startNode = startNode;
     this.endNode = endNode;
 
-    p = new Pane();
+    this.p = new Pane();
 
     for (int j = 0; j < 2; j++) {
       path = new Path();
@@ -53,101 +48,100 @@ public class EdgeRectangle {
       p.getChildren().add(path);
     }
 
-    p.setOnMouseClicked();
+    p.setOnMouseClicked(boxVisible);
 
-    p.getChildren().add(this.label);
+    //    p.getChildren().add(this.label);
   }
 
   EventHandler<MouseEvent> boxVisible =
-    new EventHandler<MouseEvent>() {
-      public void handle(MouseEvent event) {
-        Pane p = ((Pane) event.getSource());
-        p.setOpacity(1);
+      new EventHandler<MouseEvent>() {
+        public void handle(MouseEvent event) {
+          //          Pane p = ((Pane) event.getSource());
+          //          p.setOpacity(1);
 
-        final var resource = App.class.getResource("views/ChangeNode.fxml");
-        final FXMLLoader loader = new FXMLLoader(resource);
-        try {
-          changeBox = loader.load();
-        } catch (IOException e) {
-          throw new RuntimeException(e);
+          final var resource = App.class.getResource("views/EditEdge.fxml");
+          // StartNodeID, EndNodeID, RemoveEdge, Submit
+          final FXMLLoader loader = new FXMLLoader(resource);
+          try {
+            changeBox = loader.load();
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+
+          TextField startNodeIdText =
+              (TextField) ((Pane) (changeBox.getChildren().get(0))).getChildren().get(1);
+          TextField endNodeIdText =
+              (TextField) ((Pane) (changeBox.getChildren().get(1))).getChildren().get(1);
+
+          startNodeIdText.setText("" + startNode.getId());
+          endNodeIdText.setText("" + endNode.getId());
+
+          MFXButton removeEdgeButton =
+              (MFXButton) ((Pane) (changeBox.getChildren().get(2))).getChildren().get(0);
+          MFXButton submitButton =
+              (MFXButton) ((Pane) (changeBox.getChildren().get(2))).getChildren().get(1);
+          removeEdgeButton.setOnMouseClicked(removeEdge);
+          submitButton.setOnMouseClicked(saveEdgeChanges);
+
+          PopOver pop = new PopOver(changeBox);
+          //          pop.show(p);
+          pop.show(path);
         }
+      };
+  EventHandler<MouseEvent> removeEdge =
+      new EventHandler<MouseEvent>() {
+        public void handle(MouseEvent event) {
+          System.out.println("REM");
 
-        // Set Location Name
-        TextField Location =
-                (TextField) ((Pane) (changeBox.getChildren().get(0))).getChildren().get(1);
+          // Only the Node ID is important for Deletion
+          Edge e = new Edge(startNode.getId(), endNode.getId());
 
-        HashMap<Integer, ArrayList<LocationName>> map;
-        try {
-          map =
-                  DataManager.getAllLocationNamesMappedByNode(
-                          new Timestamp(System.currentTimeMillis()));
-        } catch (SQLException e) {
-          throw new RuntimeException(e);
+          try {
+            DataManager.deleteEdge(e);
+          } catch (SQLException ex) {
+            System.out.println(ex);
+          }
         }
+      };
 
-        //          for (Integer key : map.keySet()) {
-        //            System.out.println("Key: " + key + " Val: " + map.get(key));
-        //          }
-        //          System.out.println(map);
+  EventHandler<MouseEvent> saveEdgeChanges =
+      new EventHandler<MouseEvent>() {
+        public void handle(MouseEvent event) {
+          System.out.println("SEC");
 
-        String location;
-        if (map.get(nodeID).size() > 0) {
-          location = map.get(nodeID).get(0).getLongName();
-        } else {
-          location = "" + nodeID;
+          MFXButton SubmitButton = ((MFXButton) event.getSource());
+          VBox v = (VBox) ((SubmitButton.getParent()).getParent());
+
+          int startId = -1;
+          int endId = -1;
+
+          TextField startNodeIdText =
+              (TextField) ((Pane) (v.getChildren().get(0))).getChildren().get(1);
+          TextField endNodeIdText =
+              (TextField) ((Pane) (v.getChildren().get(1))).getChildren().get(1);
+
+          if (!startNodeIdText.getText().equals("")) {
+            startId = Integer.parseInt(startNodeIdText.getText());
+          }
+          if (!endNodeIdText.getText().equals("")) {
+            endId = Integer.parseInt(endNodeIdText.getText());
+          }
+
+          if (!(startId == -1 || endId == -1)) {
+            Edge e = new Edge(startNode.getId(), endNode.getId());
+            e.setStartNodeID(startId);
+            e.setEndNodeID(endId);
+            //            Edge e = new Edge(startId, endId);
+
+            try {
+              DataManager.syncEdge(e);
+            } catch (SQLException ex) {
+              System.out.println(ex);
+              //            throw new RuntimeException(ex);
+            }
+          } else {
+            System.out.println("Not enough info to make an edge");
+          }
         }
-        Location.setText(location);
-
-        // Set X
-        TextField XText =
-                (TextField) ((Pane) (changeBox.getChildren().get(1))).getChildren().get(1);
-        XText.setText("" + nodeCords.getX());
-        // Set Y
-        TextField YText =
-                (TextField) ((Pane) (changeBox.getChildren().get(2))).getChildren().get(1);
-        YText.setText("" + nodeCords.getY());
-
-        Node currNode = null;
-        try {
-          currNode = DataManager.getNode(nodeID);
-          //            System.out.println("Done: " + currNode.toString());
-        } catch (SQLException e) {
-          System.out.println("ERROR: " + e.toString());
-          throw new RuntimeException(e);
-        }
-
-        TextField floorText =
-                (TextField) ((Pane) (changeBox.getChildren().get(3))).getChildren().get(1);
-
-        TextField buildingText =
-                (TextField) ((Pane) (changeBox.getChildren().get(4))).getChildren().get(1);
-
-        if (currNode != null) {
-          floorText.setText(currNode.getFloor());
-          buildingText.setText(currNode.getBuilding());
-        }
-
-        // Set Remove Node. On Click
-        MFXButton removeNodeButton =
-                (MFXButton) ((Pane) (changeBox.getChildren().get(7))).getChildren().get(0);
-        removeNodeButton.setOnMouseClicked(removeNode);
-        // Set Submit
-        MFXButton submitButton =
-                (MFXButton) ((Pane) (changeBox.getChildren().get(7))).getChildren().get(1);
-        submitButton.setOnMouseClicked(saveNodeChanges);
-
-        changeBox.getChildren().remove(6);
-        changeBox.getChildren().remove(5);
-        //          changeBox.getChildren().remove(0);
-
-        System.out.println("AddBox");
-
-        PopOver pop = new PopOver(changeBox);
-        pop.show(inner);
-
-        //          p.getChildren().addAll(changeBox);
-
-        //
-      }
-    };
+      };
 }

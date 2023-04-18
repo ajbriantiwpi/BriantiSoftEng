@@ -2,6 +2,7 @@ package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.App;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.navigation.Edge;
 import edu.wpi.teamname.navigation.LocationName;
 import edu.wpi.teamname.navigation.Map;
 import edu.wpi.teamname.navigation.Node;
@@ -38,6 +39,7 @@ public class MapEditController {
   @FXML MFXButton importButton;
   @FXML MFXButton addNodeButton;
   @FXML MFXButton addLocationButton;
+  @FXML MFXButton addEdgeButton;
   @FXML MFXButton toggleTableButton;
   @FXML TableColumn longNameColumn;
   @FXML TableColumn shortNameColumn;
@@ -342,6 +344,43 @@ public class MapEditController {
         }
       };
 
+  EventHandler<MouseEvent> makeNewEdge =
+      new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+          MFXButton SubmitButton = ((MFXButton) event.getSource());
+          VBox v = (VBox) ((SubmitButton.getParent()).getParent());
+
+          int startId = -1;
+          int endId = -1;
+
+          TextField startNodeIdText =
+              (TextField) ((Pane) (v.getChildren().get(0))).getChildren().get(1);
+          TextField endNodeIdText =
+              (TextField) ((Pane) (v.getChildren().get(1))).getChildren().get(1);
+
+          if (!startNodeIdText.getText().equals("")) {
+            startId = Integer.parseInt(startNodeIdText.getText());
+          }
+          if (!endNodeIdText.getText().equals("")) {
+            endId = Integer.parseInt(endNodeIdText.getText());
+          }
+
+          if (!(startId == -1 || endId == -1)) {
+            Edge e = new Edge(startId, endId);
+
+            try {
+              DataManager.addEdge(e);
+            } catch (SQLException ex) {
+              System.out.println(ex);
+              //            throw new RuntimeException(ex);
+            }
+          } else {
+            System.out.println("Not enough info to make an edge");
+          }
+        }
+      };
+
   EventHandler<MouseEvent> addNodePopup =
       new EventHandler<MouseEvent>() {
         @Override
@@ -370,7 +409,9 @@ public class MapEditController {
 
           Submit.setOnMouseClicked(makeNewNode);
 
-          outerPane.getChildren().add(v);
+          //          outerPane.getChildren().add(v);
+          PopOver pop = new PopOver(v);
+          pop.show(addButton);
         }
       };
 
@@ -412,7 +453,39 @@ public class MapEditController {
 
           Submit.setOnMouseClicked(makeNewLocation);
 
-          outerPane.getChildren().add(v);
+          //          outerPane.getChildren().add(v);
+          PopOver pop = new PopOver(v);
+          pop.show(addButton);
+        }
+      };
+
+  EventHandler<MouseEvent> addEdgePopup =
+      new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+          MFXButton addButton = ((MFXButton) event.getSource());
+
+          final var resource = App.class.getResource("views/EditEdge.fxml");
+          // StartNodeID, EndNodeID, RemoveEdge, Submit
+          final FXMLLoader loader = new FXMLLoader(resource);
+
+          VBox v;
+
+          try {
+            v = loader.load();
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+
+          MFXButton Submit = (MFXButton) ((Pane) (v.getChildren().get(2))).getChildren().get(1);
+
+          // Remove Remove Button
+          ((Pane) (v.getChildren().get(2))).getChildren().remove(0);
+
+          Submit.setOnMouseClicked(makeNewEdge);
+
+          PopOver pop = new PopOver(v);
+          pop.show(addButton);
         }
       };
 
@@ -666,6 +739,7 @@ public class MapEditController {
     importButton.setOnMouseClicked(importCSV);
     addNodeButton.setOnMouseClicked(addNodePopup);
     addLocationButton.setOnMouseClicked(addLocationPopup);
+    addEdgeButton.setOnMouseClicked(addEdgePopup);
     toggleTableButton.setOnMouseClicked(toggleTable);
 
     //    table;
