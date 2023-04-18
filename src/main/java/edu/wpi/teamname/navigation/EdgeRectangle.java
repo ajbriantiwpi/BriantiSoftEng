@@ -10,8 +10,10 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import org.controlsfx.control.PopOver;
 
@@ -29,6 +31,9 @@ public class EdgeRectangle {
     this.startNode = startNode;
     this.endNode = endNode;
 
+    float minX = Math.min(this.startNode.getX(), this.endNode.getX());
+    float minY = Math.min(this.startNode.getY(), this.endNode.getY());
+
     this.p = new Pane();
 
     for (int j = 0; j < 2; j++) {
@@ -41,14 +46,23 @@ public class EdgeRectangle {
       path.setStrokeWidth(
           GlobalVariables.getLineT() - (GlobalVariables.getStrokeThickness() * 2 * j));
 
-      path.getElements().add(new MoveTo(this.startNode.getX(), this.startNode.getY()));
-      path.getElements().add(new LineTo(this.endNode.getX(), this.endNode.getY()));
+      path.getElements()
+          .add(new MoveTo(this.startNode.getX() - minX, this.startNode.getY() - minY));
+      path.getElements().add(new LineTo(this.endNode.getX() - minX, this.endNode.getY() - minY));
 
       path.setStrokeLineJoin(StrokeLineJoin.ROUND);
       p.getChildren().add(path);
     }
 
     p.setOnMouseClicked(boxVisible);
+
+    float shiftX = 0; // circleR;
+    float shiftY = 0; // circleR;
+
+    p.setTranslateX(minX - shiftX);
+    p.setTranslateY(minY - shiftY);
+
+//    p.setBackground(Background.fill(Color.RED));
 
     //    p.getChildren().add(this.label);
   }

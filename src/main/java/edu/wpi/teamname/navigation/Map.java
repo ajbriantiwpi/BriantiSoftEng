@@ -96,6 +96,8 @@ public class Map {
     ArrayList<Integer> sortedKeys = new ArrayList<>(map.keySet());
     System.out.println("FloorIN: " + floor);
 
+    //    DataManager.getNodeByLocationName()
+
     ArrayList<Node> allNodes = DataManager.getAllNodes();
     for (int i = 0; i < allNodes.size(); i++) {
       Node n = allNodes.get(i);
@@ -108,11 +110,13 @@ public class Map {
         //        }
 
         //        if (!(locations == null) && locations.size() > 0) {
+
         if (map.get(n.getId()) != null) {
           defShortName = map.get(n.getId()).get(0).getShortName();
         } else {
           defShortName = "" + n.getId();
         }
+
         circles.add(new NodeCircle(n, isMapPage, defShortName));
       }
     }
