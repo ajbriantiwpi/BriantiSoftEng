@@ -9,7 +9,7 @@ import lombok.Getter;
 
 public class Graph {
   @Getter private ArrayList<Node> Nodes = new ArrayList<>();
-  private ArrayList<Edge> Edges = new ArrayList<>();
+  @Getter private ArrayList<Edge> Edges = new ArrayList<>();
   private IStrategyAlgo pathfindingAlgo;
 
   /**
@@ -94,15 +94,6 @@ public class Graph {
     }
     s.setG(0);
   }
-
-  /**
-   * Returns the shortest path between two nodes using A* algorithm.
-   *
-   * @param s the starting node.
-   * @param t the ending node.
-   * @return a list of nodes representing the shortest path between the starting node and the ending
-   *     node.
-   */
 
   /**
    * This method returns the node with the given ID.

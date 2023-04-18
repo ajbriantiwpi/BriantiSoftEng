@@ -7,8 +7,8 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -29,6 +29,7 @@ public class NodeCircle {
 
   private Point2D nodeCords;
   private int nodeID;
+  private String firstShortName;
 
   private VBox changeBox;
 
@@ -42,9 +43,12 @@ public class NodeCircle {
    * @param n The Node that this NodeCircle represents.
    * @throws IOException If there was an error reading from the FXML file for the Node editing menu.
    */
-  public NodeCircle(Node n, boolean isMapPage) throws IOException, SQLException {
+  public NodeCircle(Node n, boolean isMapPage, String firstShortName)
+      throws IOException, SQLException {
     float shiftX = 0; // circleR;
     float shiftY = 0; // circleR;
+
+    this.firstShortName = firstShortName;
 
     float circleRCopy = GlobalVariables.getCircleR();
     float scaleDown;
@@ -57,19 +61,21 @@ public class NodeCircle {
 
     p = new Pane();
 
-    if (locations.size() > 0 && locations.get(0).getNodeType().equals("HALL")) {
-      if (isMapPage) {
-        //        System.out.println("HM");
-        //        p.getChildren().addAll(this.label);
-        return;
-      } else {
-        //        System.out.println("HME");
-        scaleDown = 0.5f;
-      }
-      //      scaleDown = 0.5f;
-    } else {
-      scaleDown = 0.75f;
-    }
+    //    if (locations.size() > 0 && locations.get(0).getNodeType().equals("HALL")) {
+    //      if (isMapPage) {
+    //        //        System.out.println("HM");
+    //        //        p.getChildren().addAll(this.label);
+    //        return;
+    //      } else {
+    //        //        System.out.println("HME");
+    //        scaleDown = 0.5f;
+    //      }
+    //      //      scaleDown = 0.5f;
+    //    } else {
+    //      scaleDown = 0.75f;
+    //    }
+
+    scaleDown = 0.75f;
 
     this.outer =
         new Circle(
@@ -81,10 +87,11 @@ public class NodeCircle {
 
     // Get short name(s) from table
 
-    if (locations.size() > 0) {
+    if (!(locations == null) && locations.size() > 0) {
       label.setText(locations.get(0).getShortName());
     } else {
-      label.setText(" " + nodeID);
+      //      label.setText(" " + nodeID);
+      label.setText(firstShortName);
     }
 
     CornerRadii corn = new CornerRadii(7);
@@ -195,18 +202,27 @@ public class NodeCircle {
           TextField Location =
               (TextField) ((Pane) (changeBox.getChildren().get(0))).getChildren().get(1);
 
-          ArrayList<LocationName> locations;
+          HashMap<Integer, ArrayList<LocationName>> map;
           try {
-            locations = null;
-            DataManager.getAllLocationNamesMappedByNode(Timestamp.from(Instant.now()));
+            map =
+                DataManager.getAllLocationNamesMappedByNode(
+                    new Timestamp(System.currentTimeMillis()));
           } catch (SQLException e) {
             throw new RuntimeException(e);
           }
 
-          //          if(l)
-          if (locations.size() > 0) {
-            Location.setText(locations.get(0).getLongName());
+          //          for (Integer key : map.keySet()) {
+          //            System.out.println("Key: " + key + " Val: " + map.get(key));
+          //          }
+          //          System.out.println(map);
+
+          String location;
+          if (map.get(nodeID).size() > 0) {
+            location = map.get(nodeID).get(0).getLongName();
+          } else {
+            location = "" + nodeID;
           }
+          Location.setText(location);
 
           // Set X
           TextField XText =
@@ -347,6 +363,7 @@ public class NodeCircle {
           }
 
           System.out.println("DONE SYNC");
+
           // Update Based On text
         }
       };
