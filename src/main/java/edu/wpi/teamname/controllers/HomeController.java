@@ -83,7 +83,6 @@ public class HomeController {
 
     //        helpButton.setOnMouseClicked(event -> Navigation.navigate(Screen));
     disableButtonsWhenLoggedOut();
-    System.out.println(GlobalVariables.getCurrentUser());
     if (GlobalVariables.userIsType(EmployeeType.STAFF)) {
       makeRequestsButton.setDisable(false);
       makeRequestsButton1.setDisable(false);
