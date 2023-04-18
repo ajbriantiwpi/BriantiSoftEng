@@ -460,18 +460,25 @@ public class Map {
   /**
    * Retrieves the names of all nodes on the specified floor and returns them in an ObservableList.
    *
-   * @param floor the floor to retrieve node names from
    * @return an ObservableList of node names on the specified floor
    * @throws SQLException if there is an error with the SQL database
    */
-  public ObservableList<String> getAllNodeNames(String floor) throws SQLException {
+  public ObservableList<String> getAllNodeNames() throws SQLException {
     ObservableList<String> nodeNames = FXCollections.observableArrayList();
-    for (Node n : DataManager.getAllNodes()) {
-      //      if (n.getFloor().equals(floor)) {
-      //        nodeNames.addAll(("" + n.getId()));
-      //      }
-      nodeNames.addAll(("" + n.getId()));
+    //    for (Node n : DataManager.getAllNodes()) {
+    //      //      if (n.getFloor().equals(floor)) {
+    //      //        nodeNames.addAll(("" + n.getId()));
+    //      //      }
+    //      nodeNames.addAll(("" + n.getId()));
+    //    }
+
+    HashMap<Integer, ArrayList<LocationName>> hMap =
+        DataManager.getAllLocationNamesMappedByNode(new Timestamp(System.currentTimeMillis()));
+
+    for (Integer i : hMap.keySet()) {
+      nodeNames.add(hMap.get(i).get(0).getLongName());
     }
+
     return nodeNames;
   }
 
