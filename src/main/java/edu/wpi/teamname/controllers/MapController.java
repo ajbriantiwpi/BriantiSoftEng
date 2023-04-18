@@ -2,11 +2,16 @@ package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
+import edu.wpi.teamname.navigation.AlgoStrategy.AStarAlgo;
+import edu.wpi.teamname.navigation.AlgoStrategy.BFSAlgo;
+import edu.wpi.teamname.navigation.AlgoStrategy.DFSAlgo;
+import edu.wpi.teamname.navigation.AlgoStrategy.DijkstraAlgo;
 import edu.wpi.teamname.navigation.Map;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -29,6 +34,7 @@ public class MapController {
   @FXML MFXButton DeleteNodeButton = new MFXButton();
   @FXML MFXButton findPathButton = new MFXButton();
   @FXML ComboBox<String> FloorSelect = new ComboBox<>();
+  @FXML ComboBox<String> AlgoSelect = new ComboBox<>();
   String defaultFloor = "L1";
   int clickCount = 0;
   Point2D firstClick = null;
@@ -38,6 +44,8 @@ public class MapController {
   String currFloor = "L1";
   int sNode = 0;
   int eNode = 0;
+
+  String currentAlgo = "";
 
   EventHandler<MouseEvent> e =
       new EventHandler<MouseEvent>() {
@@ -59,17 +67,83 @@ public class MapController {
 
             floor2 = map.takeFloor(FloorSelect.getValue(), false);
 
+            List<edu.wpi.teamname.navigation.Node> allNodes = map.graph.getNodes();
+
+            //    System.out.println(firstClick);
+            //    System.out.println(secondClick); // Coordinates in inner, now goes up to 5000
+
+            int startIndex = -1;
+            int endIndex = -1;
+            double leastDistance;
+            double nodeDist;
+
+            Point2D currentClick;
+            String currentFloor;
+            int checkIndex;
+
+            for (int j = 0; j < 2; j++) {
+              if (j == 0) {
+                // Start Node
+                currentFloor = floor1;
+                currentClick = firstClick;
+              } else {
+                // End Node
+                currentFloor = floor2;
+                currentClick = secondClick;
+              }
+
+              leastDistance = Double.MAX_VALUE;
+              checkIndex = -1;
+
+              for (int i = 0; i < allNodes.size(); i++) {
+                if (i == startIndex) {
+                  continue;
+                } else {
+                  edu.wpi.teamname.navigation.Node currentNode = allNodes.get(i);
+                  if (currentNode.getFloor().equals(currentFloor)) {
+                    nodeDist = currentClick.distance(currentNode.getX(), currentNode.getY());
+                    if (nodeDist < leastDistance) {
+                      leastDistance = nodeDist;
+                      checkIndex = i;
+                    }
+                  }
+                }
+              }
+
+              if (j == 0) {
+                // Start Node
+                startIndex = checkIndex;
+              } else {
+                // End Node
+                endIndex = checkIndex;
+              }
+            }
+
+            //    Node startNode = allNodes.get(startIndex);
+            //    Node endNode = allNodes.get(endIndex);
+            System.out.println(startIndex + " " + endIndex);
+            int startId = (startIndex * 5) + 100; // allNodes.get(startIndex).getId();
+            int endId = (endIndex * 5) + 100; // allNodes.get(endIndex).getId();
+
+            System.out.println("startId: " + startId);
+            System.out.println("endId: " + endId);
+
+            sNode = startId;
+            eNode = endId;
+
+            findPathButton.setVisible(true);
+
             // Call drawAStarPath with both points
-            map.drawPath(anchor, firstClick, secondClick, floor1, floor2);
+            // map.drawPath(anchor, firstClick, secondClick, floor1, floor2);
             //            String[] parts = nToPars.split("_");
             //            int sInd = Integer.parseInt(parts[0]);
             //            int eInd = Integer.parseInt(parts[1]);
             // listPaths = map.drawAStarPath(anchor, sInd, eInd);
-            int secInd = map.getAllFloors().indexOf(FloorSelect.getValue());
-            System.out.println(FloorSelect.getValue() + " " + secInd);
-            anchor.getChildren().addAll(map.getShapes().get(secInd));
+            //            int secInd = map.getAllFloors().indexOf(FloorSelect.getValue());
+            //            System.out.println(FloorSelect.getValue() + " " + secInd);
+            //            anchor.getChildren().addAll(map.getShapes().get(secInd));
 
-            clickCount = 0;
+            // clickCount = 0;
           }
         }
       };
@@ -104,6 +178,13 @@ public class MapController {
           map.drawPath(anchor, sNode, eNode);
           int secInd = map.getAllFloors().indexOf(FloorSelect.getValue());
           anchor.getChildren().addAll(map.getShapes().get(secInd));
+
+          int indOfStart = edu.wpi.teamname.navigation.Node.idToIndex(sNode);
+          String floorForSNode =
+              map.takeFloor(map.graph.getNodes().get(indOfStart).getFloor(), true);
+          FloorSelect.setValue(floorForSNode);
+
+          clickCount = 0;
         }
       };
 
@@ -116,10 +197,11 @@ public class MapController {
           // System.out.println(LocationOne.getValue());
           // System.out.println(EndPointSelect.getValue());
           sNode = Integer.parseInt(LocationOne.getValue());
-          //          if (eNode != 0) {
-          //            //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
-          //            map.drawPath(anchor, sNode, eNode);
-          //          }
+          if (eNode != 0 && sNode != 0) {
+            findPathButton.setVisible(true);
+            //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
+            // map.drawPath(anchor, sNode, eNode);
+          }
         }
       };
 
@@ -131,9 +213,10 @@ public class MapController {
           System.out.println("changed end " + EndPointSelect.getValue());
           System.out.println(EndPointSelect.getValue());
           eNode = Integer.parseInt(EndPointSelect.getValue());
-          //          if (sNode != 0) {
-          //            //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
-          //          }
+          if (sNode != 0 && eNode != 0) {
+            findPathButton.setVisible(true);
+            //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
+          }
         }
       };
 
@@ -213,6 +296,32 @@ public class MapController {
         }
       };
 
+  EventHandler<ActionEvent> selectAlgo =
+      new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+          System.out.println("Algo Changed");
+          currentAlgo = AlgoSelect.getValue();
+
+          switch (AlgoSelect.getValue()) {
+            case ("A-Star"):
+              map.graph.setPathfindingAlgo(new AStarAlgo());
+              break;
+            case ("Breadth First Search"):
+              map.graph.setPathfindingAlgo(new BFSAlgo());
+              break;
+            case ("Depth First Search"):
+              map.graph.setPathfindingAlgo(new DFSAlgo());
+              break;
+            case ("Dijkstra's Algorithm"):
+              map.graph.setPathfindingAlgo(new DijkstraAlgo());
+              break;
+            default:
+              System.out.println("Not supposed to be here: Wrong Algo");
+          }
+        }
+      };
+
   EventHandler<MouseEvent> checkPoints =
       new EventHandler<MouseEvent>() {
 
@@ -249,6 +358,7 @@ public class MapController {
     // DeleteNodeButton.setOnMouseClicked(deleteNodeButton);
     DeleteNodeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
     findPathButton.setOnMouseClicked(findPathWButton);
+    findPathButton.setVisible(false);
 
     //    LocationOne.setStyle("-fx-padding: 5 25 5 5;");
     LocationOne.setPromptText("Select start");
@@ -264,6 +374,11 @@ public class MapController {
     FloorSelect.setItems(map.getAllFloors());
     FloorSelect.setOnAction(changeFloor);
     FloorSelect.setValue("Lower Level 1");
+
+    AlgoSelect.setPromptText("Select Algorithm");
+    AlgoSelect.setItems(map.getAllAlgos());
+    AlgoSelect.setOnAction(selectAlgo);
+    AlgoSelect.setValue("A-Star");
 
     anchor.setOnMouseClicked(e);
 
