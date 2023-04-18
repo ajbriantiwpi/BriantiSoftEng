@@ -2,7 +2,7 @@ package edu.wpi.teamname.navigation;
 
 public class Emergency {
 
-  public MapNode emergencyPosition;
+  public Node emergencyPosition;
 
   public Emergency() {}
 
@@ -18,7 +18,7 @@ public class Emergency {
    *
    * @param n
    */
-  public void updateEmergencyNode(MapNode n) {}
+  public void updateEmergencyNode(Node n) {}
 
   /**
    * Sets given nodes emergency status

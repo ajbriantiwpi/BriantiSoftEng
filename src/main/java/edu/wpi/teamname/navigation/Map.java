@@ -67,8 +67,8 @@ public class Map {
 
     ArrayList<Edge> mapEdges = this.graph.getEdges();
     for (int i = 0; i < mapEdges.size(); i++) {
-      MapNode StartNode = this.graph.findNodeByID(mapEdges.get(i).getStartNodeID());
-      MapNode EndNode = this.graph.findNodeByID(mapEdges.get(i).getEndNodeID());
+      Node StartNode = this.graph.findNodeByID(mapEdges.get(i).getStartNodeID());
+      Node EndNode = this.graph.findNodeByID(mapEdges.get(i).getEndNodeID());
 
       if (StartNode.getFloor().equals(floor) || EndNode.getFloor().equals(floor)) {
         EdgeRectangle er = new EdgeRectangle(StartNode, EndNode);
@@ -96,9 +96,11 @@ public class Map {
     ArrayList<Integer> sortedKeys = new ArrayList<>(map.keySet());
     System.out.println("FloorIN: " + floor);
 
-    ArrayList<MapNode> allNodes = DataManager.getAllNodes();
+    //    DataManager.getNodeByLocationName()
+
+    ArrayList<Node> allNodes = DataManager.getAllNodes();
     for (int i = 0; i < allNodes.size(); i++) {
-      MapNode n = allNodes.get(i);
+      Node n = allNodes.get(i);
       if (n.getFloor().equals(floor)) {
         String defShortName;
         //        if (i < sortedKeys.size()) {
@@ -106,11 +108,15 @@ public class Map {
         //        } else {
         //          defShortName = "" + n.getId();
         //        }
+
+        //        if (!(locations == null) && locations.size() > 0) {
+
         if (map.get(n.getId()) != null) {
           defShortName = map.get(n.getId()).get(0).getShortName();
         } else {
           defShortName = "" + n.getId();
         }
+
         circles.add(new NodeCircle(n, isMapPage, defShortName));
       }
     }
@@ -193,12 +199,12 @@ public class Map {
    * @param nodes List of nodes to create the path from
    * @return An ArrayList of Shape objects representing the path
    */
-  private ArrayList<ArrayList<Shape>> makeShapePath(ArrayList<MapNode> nodes) {
-    ArrayList<MapNode> listFloor1 = new ArrayList<>();
-    ArrayList<MapNode> listFloor2 = new ArrayList<>();
-    ArrayList<MapNode> listUpper1 = new ArrayList<>();
-    ArrayList<MapNode> listUpper2 = new ArrayList<>();
-    ArrayList<MapNode> listUpper3 = new ArrayList<>();
+  private ArrayList<ArrayList<Shape>> makeShapePath(ArrayList<Node> nodes) {
+    ArrayList<Node> listFloor1 = new ArrayList<>();
+    ArrayList<Node> listFloor2 = new ArrayList<>();
+    ArrayList<Node> listUpper1 = new ArrayList<>();
+    ArrayList<Node> listUpper2 = new ArrayList<>();
+    ArrayList<Node> listUpper3 = new ArrayList<>();
 
     ArrayList<Shape> lF2 = new ArrayList<Shape>();
     ArrayList<Shape> lF1 = new ArrayList<Shape>();
@@ -214,7 +220,7 @@ public class Map {
 
     // pathAllFloor.add(0,listFloor2);
 
-    for (MapNode n : nodes) {
+    for (Node n : nodes) {
       if (n.getFloor().equals("L1")) {
         listFloor1.add(n);
       } else if (n.getFloor().equals("L2")) {
@@ -293,7 +299,7 @@ public class Map {
     //    return shapes;
   }
 
-  private ArrayList<Shape> makeShapePathFloor(ArrayList<MapNode> listNode, String floor) {
+  private ArrayList<Shape> makeShapePathFloor(ArrayList<Node> listNode, String floor) {
     ArrayList<Shape> shapes = new ArrayList<Shape>();
 
     Circle c;
@@ -353,7 +359,7 @@ public class Map {
 
     //    String floor = "L1";
 
-    List<MapNode> allNodes = this.graph.getMapNodes();
+    List<Node> allNodes = this.graph.getNodes();
 
     //    System.out.println(firstClick);
     //    System.out.println(secondClick); // Coordinates in inner, now goes up to 5000
@@ -385,7 +391,7 @@ public class Map {
         if (i == startIndex) {
           continue;
         } else {
-          MapNode currentNode = allNodes.get(i);
+          Node currentNode = allNodes.get(i);
           if (currentNode.getFloor().equals(currentFloor)) {
             nodeDist = currentClick.distance(currentNode.getX(), currentNode.getY());
             if (nodeDist < leastDistance) {
@@ -422,7 +428,7 @@ public class Map {
    * @param endNodeId the ending MapNode ID
    */
   public void drawPath(Pane parent, int startNodeId, int endNodeId) {
-    ArrayList<MapNode> nodePath = this.graph.getPathBetween(startNodeId, endNodeId);
+    ArrayList<Node> nodePath = this.graph.getPathBetween(startNodeId, endNodeId);
 
     System.out.println("SIZE: " + nodePath.size());
 

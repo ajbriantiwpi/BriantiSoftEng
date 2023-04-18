@@ -6,7 +6,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
-public class MapNode implements Comparable<MapNode> {
+public class Node implements Comparable<Node> {
   @Getter @Setter int id;
   @Getter @Setter private int x;
   @Getter @Setter private int y;
@@ -14,8 +14,8 @@ public class MapNode implements Comparable<MapNode> {
   @Getter @Setter private String floor;
   @Getter @Setter private String building;
 
-  @Getter @Setter private MapNode parent = null;
-  @Getter @Setter private List<MapNode> neighbors;
+  @Getter @Setter private Node parent = null;
+  @Getter @Setter private List<Node> neighbors;
   //  @Getter @Setter private List<Edge> edges;
   @Getter @Setter private List<Edge> edges;
   @Getter private final int originalID;
@@ -35,7 +35,7 @@ public class MapNode implements Comparable<MapNode> {
    * @param Floor the floor on which the node is located
    * @param Building the building in which the node is located
    */
-  public MapNode(int ID, int x, int y, String Floor, String Building) {
+  public Node(int ID, int x, int y, String Floor, String Building) {
     this.x = x;
     this.y = y;
     this.floor = Floor;
@@ -55,7 +55,7 @@ public class MapNode implements Comparable<MapNode> {
    *     greater than the specified node based on their f value
    */
   @Override
-  public int compareTo(MapNode n) {
+  public int compareTo(Node n) {
     return Double.compare(this.f, n.f);
   }
 
@@ -106,7 +106,7 @@ public class MapNode implements Comparable<MapNode> {
    * @param target the node to calculate the weight for
    * @return the weight of the edge between this node and the given node
    */
-  public double findWeight(MapNode target) {
+  public double findWeight(Node target) {
     int x1 = this.x;
     int x2 = target.getX();
     int y1 = this.y;
@@ -128,7 +128,7 @@ public class MapNode implements Comparable<MapNode> {
    */
   public String toString() {
     String nei = "";
-    for (MapNode n : neighbors) {
+    for (Node n : neighbors) {
       nei += " " + Integer.toString(n.getId());
     }
     return "NodeID:"
@@ -154,7 +154,7 @@ public class MapNode implements Comparable<MapNode> {
    * @param target the target node to calculate the distance to
    * @return the heuristic distance between this node and the target node
    */
-  public double calculateHeuristic(MapNode target) {
+  public double calculateHeuristic(Node target) {
     // Heuristic will return distance from target
 
     int x1 = this.x;
@@ -178,10 +178,25 @@ public class MapNode implements Comparable<MapNode> {
    * @return the index of this node in the Nodes array list or in the database.
    */
   public int getIndex() {
-    return MapNode.idToIndex(this.id);
+    return Node.idToIndex(this.id);
   }
 
   public static int idToIndex(int id) {
-    return ((id - 100) / 5);
+    int index = ((id - 100) / 5);
+
+    //    ArrayList<Node> nodes;
+    //
+    //    try {
+    //      nodes = DataManager.getAllNodes();
+    //    } catch (SQLException e) {
+    //      throw new RuntimeException(e);
+    //    }
+    //
+    //    while (!(nodes.get(index).getId() == id)) {
+    //      index--;
+    //    }
+    //    return index;
+
+    return index;
   }
 }

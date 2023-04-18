@@ -8,7 +8,7 @@ import edu.wpi.teamname.navigation.AlgoStrategy.BFSAlgo;
 import edu.wpi.teamname.navigation.AlgoStrategy.DFSAlgo;
 import edu.wpi.teamname.navigation.AlgoStrategy.DijkstraAlgo;
 import edu.wpi.teamname.navigation.Map;
-import edu.wpi.teamname.navigation.MapNode;
+import edu.wpi.teamname.navigation.Node;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -19,7 +19,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
-import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -70,7 +69,7 @@ public class MapController {
 
             floor2 = map.takeFloor(FloorSelect.getValue(), false);
 
-            List<MapNode> allMapNodes = map.graph.getMapNodes();
+            List<Node> allNodes = map.graph.getNodes();
 
             //    System.out.println(firstClick);
             //    System.out.println(secondClick); // Coordinates in inner, now goes up to 5000
@@ -98,13 +97,13 @@ public class MapController {
               leastDistance = Double.MAX_VALUE;
               checkIndex = -1;
 
-              for (int i = 0; i < allMapNodes.size(); i++) {
+              for (int i = 0; i < allNodes.size(); i++) {
                 if (i == startIndex) {
                   continue;
                 } else {
-                  MapNode currentMapNode = allMapNodes.get(i);
-                  if (currentMapNode.getFloor().equals(currentFloor)) {
-                    nodeDist = currentClick.distance(currentMapNode.getX(), currentMapNode.getY());
+                  Node currentNode = allNodes.get(i);
+                  if (currentNode.getFloor().equals(currentFloor)) {
+                    nodeDist = currentClick.distance(currentNode.getX(), currentNode.getY());
                     if (nodeDist < leastDistance) {
                       leastDistance = nodeDist;
                       checkIndex = i;
@@ -182,9 +181,9 @@ public class MapController {
           int secInd = map.getAllFloors().indexOf(FloorSelect.getValue());
           anchor.getChildren().addAll(map.getShapes().get(secInd));
 
-          int indOfStart = MapNode.idToIndex(sNode);
+          int indOfStart = Node.idToIndex(sNode);
           String floorForSNode =
-              map.takeFloor(map.graph.getMapNodes().get(indOfStart).getFloor(), true);
+              map.takeFloor(map.graph.getNodes().get(indOfStart).getFloor(), true);
           FloorSelect.setValue(floorForSNode);
 
           clickCount = 0;
@@ -196,7 +195,7 @@ public class MapController {
 
         @Override
         public void handle(ActionEvent event) {
-          edu.wpi.teamname.navigation.MapNode nodeForStart;
+          Node nodeForStart;
           System.out.println("changed start " + LocationOne.getValue());
           // System.out.println(LocationOne.getValue());
           // System.out.println(EndPointSelect.getValue());
@@ -223,7 +222,7 @@ public class MapController {
 
         @Override
         public void handle(ActionEvent event) {
-          edu.wpi.teamname.navigation.MapNode nodeForEnd;
+          Node nodeForEnd;
 
           System.out.println("changed end " + EndPointSelect.getValue());
           String endLName = EndPointSelect.getValue();
@@ -372,7 +371,7 @@ public class MapController {
 
     //    gp.setOnMouseMoved(checkPoints);
 
-    ArrayList<Node> currentFloorNodes = (map.makeAllFloorShapes(defaultFloor, true));
+    ArrayList<javafx.scene.Node> currentFloorNodes = (map.makeAllFloorShapes(defaultFloor, true));
     anchor.getChildren().addAll(currentFloorNodes);
     map.setCurrentFloorShapes(currentFloorNodes);
     //  anchor.getChildren().addAll(map.makeAllFloorNodes(defaultFloor, true));

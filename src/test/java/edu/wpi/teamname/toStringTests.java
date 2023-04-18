@@ -45,10 +45,10 @@ public class toStringTests {
 
   @Test
   public void nodeToString() {
-    MapNode mapNode = new MapNode(1, 24, 25, "floor", "building");
+    Node node = new Node(1, 24, 25, "floor", "building");
     assertEquals(
         "NodeID:1 Xcord:24 Ycord:25 Heu:0.0 Neighbors: Floor:floor Building:building",
-        mapNode.toString());
+        node.toString());
   }
 
   @Test
