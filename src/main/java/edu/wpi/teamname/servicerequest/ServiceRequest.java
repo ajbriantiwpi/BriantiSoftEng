@@ -66,8 +66,9 @@ public class ServiceRequest {
       items.add(new Furniture(requestID));
     } else if (requestType.equals(RequestType.OFFICESUPPLY)) {
       items.add(new OfficeSupply(requestID));
-    } else if (requestID < 1600) {
-      items.add(new MedicalSupply(requestID));
+    } else if (requestType.equals(RequestType.MEDICALSUPPLY)) {
+      int aLvl = 3;
+      items.add(new MedicalSupply(requestID, aLvl));
     }
   }
 

@@ -330,8 +330,7 @@ public class ServiceRequestViewController {
     int d = details.indexOf("Deliver");
     detailsLabel.setText(details.substring(0, d)); // cut string at Deliver by
     detailsLabel1.setText(details.substring(d) + "   Status: " + request.getStatus());
-    DecimalFormat format = new DecimalFormat("###.00");
-    if (totalPrice < 1) totalLabel.setText("Order Total: $0" + format.format(totalPrice));
-    else totalLabel.setText("Order Total: $" + format.format(totalPrice));
+    DecimalFormat format = new DecimalFormat("###0.00");
+    totalLabel.setText("Order Total: $" + format.format(totalPrice));
   }
 }

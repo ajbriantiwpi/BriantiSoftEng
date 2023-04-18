@@ -110,7 +110,7 @@ public class ReqMenuItems extends GridPane {
           "edu/wpi/teamname/images/" + folder + "/" + name.replace(" ", "_") + ".png");
     }
     // hBox = new HBox();
-    DecimalFormat df = new DecimalFormat("###.00");
+    DecimalFormat df = new DecimalFormat("###0.00");
     label = new Label(name.replace("_", " "));
     label.setFont(Font.font("Roboto", 32));
     label.setMinWidth(200);

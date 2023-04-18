@@ -330,7 +330,7 @@ public class ServiceRequestController {
         event -> {
           setVisibleScreen(1);
           cartBox.getChildren().clear();
-          totalLabel.setText("Quantity: ");
+          totalLabel.setText("Total Price: ");
         });
 
     Platform.runLater(
@@ -341,7 +341,7 @@ public class ServiceRequestController {
   }
 
   public void refreshPrice() throws SQLException {
-    totalLabel.setText("Quantity: ");
+    totalLabel.setText("Total Price: ");
     ArrayList<RequestItem> tem = new ArrayList<>();
     double totalPrice = 0.0;
     String t = request.getRequestType().toString();
@@ -351,6 +351,8 @@ public class ServiceRequestController {
       tem.addAll(DataManager.getAllFlowers());
     } else if (t == "Office Supply Request") {
       tem.addAll(DataManager.getAllOfficeSupplies());
+    } else if (t == "Medical Supply Request") {
+      tem.addAll(DataManager.getAllMedicalSupplies());
     } else {
       System.out.println(t);
       tem.addAll(DataManager.getAllFurniture());
@@ -360,13 +362,13 @@ public class ServiceRequestController {
     // System.out.println(request.getItems());
     for (RequestItem item : tem) {
       c = request.countItem(item.getItemID());
-      // System.out.println(c);
+      System.out.println(c);
       if (c > 0) {
         totalPrice += c * item.getPrice();
       }
     }
     System.out.println(totalPrice);
-    DecimalFormat format = new DecimalFormat("###.00");
+    DecimalFormat format = new DecimalFormat("###0.00");
     totalLabel.setText(totalLabel.getText() + format.format(totalPrice));
   }
 }

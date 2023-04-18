@@ -27,14 +27,24 @@ public class MedicalSupply extends RequestItem {
     this.accessLvl = accessLvl;
   }
 
-  public MedicalSupply(int id) throws SQLException {
+  /**
+   * Constructor alternative
+   *
+   * @param id
+   * @throws SQLException
+   */
+  public MedicalSupply(int id, int aLvl)
+      throws SQLException { // Could possibly have it pass in an access lvl of the user and only
+    // display items with that access
     super(id);
     Connection connection = DataManager.DbConnection();
-    String query = "SELECT * FROM \"Flowers\" WHERE \"flowerID\" = ?;";
+    String query =
+        "SELECT * FROM \"MedicalSupplies\" WHERE \"supplyID\" = ? AND \"AccessLevel\" <= ?;";
 
     String name = null;
     try (PreparedStatement statement = connection.prepareStatement(query)) {
       statement.setInt(1, id);
+      statement.setInt(2, aLvl);
       ResultSet rs = statement.executeQuery();
       while (rs.next()) {
         super.setItemID(id);
