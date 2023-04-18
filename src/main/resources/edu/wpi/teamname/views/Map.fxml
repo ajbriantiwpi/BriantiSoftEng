@@ -25,7 +25,7 @@
                         </Group>
                     </content>
                 </GesturePane>
-            <MFXButton fx:id="DeleteNodeButton" prefHeight="61.0" prefWidth="171.0" style="-fx-background-color: #D5E3FF;" text="Delete Path" translateX="20.0" translateY="20.0" StackPane.alignment="TOP_LEFT">
+            <MFXButton fx:id="DeleteNodeButton" prefHeight="61.0" prefWidth="171.0" style="-fx-background-color: #D5E3FF;" text="Reset" translateX="20.0" translateY="20.0" StackPane.alignment="TOP_LEFT">
                <font>
                   <Font name="Roboto" size="13.0" />
                </font></MFXButton>
@@ -44,6 +44,7 @@
             <ComboBox fx:id="LocationOne" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #D5E3ff;" stylesheets="@../stylesheets/combo.css" />
             <ComboBox fx:id="FloorSelect" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #D5E3ff;" stylesheets="@../stylesheets/combo.css" />
             <ComboBox fx:id="EndPointSelect" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #D5E3ff;" stylesheets="@../stylesheets/combo.css" />
+            <ComboBox fx:id="AlgoSelect" layoutX="255.0" layoutY="32.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #D5E3ff;" stylesheets="@../stylesheets/combo.css" />
          </children>
       </HBox>
     </children>

@@ -12,7 +12,22 @@ public class Employee {
   @Getter @Setter private String firstName;
   @Getter @Setter private String lastName;
   @Getter private final String originalUsername;
-  @Getter private ArrayList<EmployeeType> type;
+  @Getter private static ArrayList<EmployeeType> type;
+
+  // Add a static ArrayList to store all employees
+  private static ArrayList<Employee> allEmployees = new ArrayList<>();
+  private static ArrayList<EmployeeType> allTypes = new ArrayList<>();
+
+  // The rest of the fields and methods remain unchanged
+
+  /**
+   * Gets all employees as an ArrayList.
+   *
+   * @return the ArrayList of employees
+   */
+  public static ArrayList<Employee> getAllEmployees() {
+    return allEmployees;
+  }
 
   /**
    * Constructor for login that sets the username and password for every instance of someone logging
@@ -42,13 +57,36 @@ public class Employee {
     }
   }
 
-  public void addType(EmployeeType employeeType) {
-    if (!type.contains(employeeType)) {
-      type.add(employeeType);
+  public Employee(
+      String username,
+      String password,
+      int employeeID,
+      String firstName,
+      String lastName,
+      ArrayList<EmployeeType> employeeType,
+      boolean encrypt) {
+    this.username = username;
+    this.originalUsername = username;
+    this.employeeID = employeeID;
+    type = employeeType;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    // encrypt the password using Caesar cipher
+    if (encrypt) {
+      this.password = encrypt(password, 3);
+    } else {
+      this.password = password;
     }
   }
 
-  public void removeType(EmployeeType employeeType) {
+  public static void addType(EmployeeType employeeType) {
+    if (!type.contains(employeeType)) {
+      type.add(employeeType);
+      allTypes.add(employeeType);
+    }
+  }
+
+  public static void removeType(EmployeeType employeeType) {
     type.remove(employeeType);
   }
 
@@ -179,5 +217,13 @@ public class Employee {
       }
     }
     return false;
+  }
+
+  public void setPassword(String newValue) {
+    this.password = newValue;
+  }
+
+  public void removeTypes(ArrayList<EmployeeType> em) {
+    type.remove(em);
   }
 }

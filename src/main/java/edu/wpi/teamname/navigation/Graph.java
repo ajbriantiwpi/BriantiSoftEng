@@ -21,7 +21,17 @@ public class Graph {
     Nodes = this.getAllNodes(); // Changed based on DB team
     Edges = this.getAllEdges(); // Changed based on DB team
     this.initializeEdges();
+    // pathfindingAlgo = new AStarAlgo();
+    // pathfindingAlgo = new BFSAlgo();
     pathfindingAlgo = new AStarAlgo();
+    // pathfindingAlgo = new DijkstraAlgo();
+  }
+
+  public Graph(ArrayList<Node> nodes, ArrayList<Edge> edges) {
+    Nodes = nodes; // Changed based on DB team
+    Edges = edges; // Changed based on DB team
+    this.initializeEdges();
+    pathfindingAlgo = null;
   }
 
   /**
@@ -71,7 +81,8 @@ public class Graph {
    * @param targetNodeIndex the target Node
    */
   public void printPath(int startNodeIndex, int targetNodeIndex) {
-    System.out.println(this.getPathBetween(startNodeIndex, targetNodeIndex));
+    ArrayList<Node> path = this.getPathBetween(startNodeIndex, targetNodeIndex);
+    for (Node n : path) System.out.print(n.getId() + " ");
   }
 
   /**
