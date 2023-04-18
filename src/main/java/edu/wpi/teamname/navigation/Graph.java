@@ -8,9 +8,10 @@ import java.util.ArrayList;
 import lombok.Getter;
 
 public class Graph {
-  @Getter private ArrayList<Node> Nodes = new ArrayList<>();
+  @Getter private ArrayList<Node> nodes = new ArrayList<>();
   @Getter private ArrayList<Edge> Edges = new ArrayList<>();
   private IStrategyAlgo pathfindingAlgo;
+  private final int FLOORCHANGEDIST = 100;
 
   /**
    * Creates a new Graph by retrieving Nodes and Edges from the database.
@@ -18,10 +19,22 @@ public class Graph {
    * @throws SQLException if there is an error accessing the database
    */
   public Graph() throws SQLException {
-    Nodes = this.getAllNodes(); // Changed based on DB team
+    nodes = this.getAllNodes(); // Changed based on DB team
     Edges = this.getAllEdges(); // Changed based on DB team
     this.initializeEdges();
     pathfindingAlgo = new AStarAlgo();
+    // pathfindingAlgo = new BFSAlgo();
+
+    pathfindingAlgo = new AStarAlgo();
+
+    // pathfindingAlgo = new DijkstraAlgo();
+  }
+
+  public Graph(ArrayList<Node> nodes, ArrayList<Edge> edges) {
+    this.nodes = nodes; // Changed based on DB team
+    Edges = edges; // Changed based on DB team
+    this.initializeEdges();
+    pathfindingAlgo = null;
   }
 
   /**
@@ -31,7 +44,15 @@ public class Graph {
    * @throws SQLException if there is an error accessing the database
    */
   private ArrayList<Node> getAllNodes() throws SQLException {
-    return DataManager.getAllNodes();
+    ArrayList<Node> nodes = DataManager.getAllNodes();
+    for (Node n : nodes) {
+      if (n.getFloor().equals("L2")) n.setZ(0);
+      else if (n.getFloor().equals("L1")) n.setZ(FLOORCHANGEDIST);
+      else if (n.getFloor().equals("1")) n.setZ(FLOORCHANGEDIST * 2);
+      else if (n.getFloor().equals("2")) n.setZ(FLOORCHANGEDIST * 3);
+      else if (n.getFloor().equals("3")) n.setZ(FLOORCHANGEDIST * 4);
+    }
+    return nodes;
   }
 
   /**
@@ -71,7 +92,8 @@ public class Graph {
    * @param targetNodeIndex the target Node
    */
   public void printPath(int startNodeIndex, int targetNodeIndex) {
-    System.out.println(this.getPathBetween(startNodeIndex, targetNodeIndex));
+    ArrayList<Node> path = this.getPathBetween(startNodeIndex, targetNodeIndex);
+    for (Node n : path) System.out.print(n.getId() + " ");
   }
 
   /**
@@ -82,8 +104,8 @@ public class Graph {
    */
   public void setAllG(Node s, Node t) {
     if (s == null || t == null) return;
-    for (Node n : this.Nodes) {
-      n.setG(findWeight(n, s));
+    for (Node n : this.nodes) {
+      n.setG(findWeight(t, s));
     }
     s.setG(0);
   }
@@ -95,7 +117,7 @@ public class Graph {
    * @return The node with the given ID
    */
   public Node findNodeByID(int nodeId) {
-    return Nodes.get(Node.idToIndex(nodeId));
+    return nodes.get(Node.idToIndex(nodeId));
   }
 
   /**
@@ -104,11 +126,11 @@ public class Graph {
   private void initializeEdges() {
     // Initialize the nodes with the node lines data
     for (int i = 0; i < Edges.size(); i++) {
-      Node StartNode = this.findNodeByID(Edges.get(i).getStartNodeID());
-      Node EndNode = this.findNodeByID(Edges.get(i).getEndNodeID());
+      Node startNode = this.findNodeByID(Edges.get(i).getStartNodeID());
+      Node endNode = this.findNodeByID(Edges.get(i).getEndNodeID());
 
-      StartNode.getNeighbors().add(EndNode);
-      EndNode.getNeighbors().add(StartNode);
+      startNode.getNeighbors().add(endNode);
+      endNode.getNeighbors().add(startNode);
     }
   }
 

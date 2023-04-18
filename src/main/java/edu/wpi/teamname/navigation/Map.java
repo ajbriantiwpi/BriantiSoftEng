@@ -41,6 +41,10 @@ public class Map {
     "Lower Level 2", "Lower Level 1", "First Floor", "Second Floor", "Third Floor"
   };
 
+  private String[] algoArr = {
+    "A-Star", "Breadth First Search", "Depth First Search", "Dijkstra's Algorithm"
+  };
+
   public Map(AnchorPane subAnchor) throws SQLException {
     this.graph = new Graph();
     this.currentDisplayFloor = "Lower Level 1";
@@ -92,6 +96,8 @@ public class Map {
     ArrayList<Integer> sortedKeys = new ArrayList<>(map.keySet());
     System.out.println("FloorIN: " + floor);
 
+    //    DataManager.getNodeByLocationName()
+
     ArrayList<Node> allNodes = DataManager.getAllNodes();
     for (int i = 0; i < allNodes.size(); i++) {
       Node n = allNodes.get(i);
@@ -102,11 +108,15 @@ public class Map {
         //        } else {
         //          defShortName = "" + n.getId();
         //        }
+
+        //        if (!(locations == null) && locations.size() > 0) {
+
         if (map.get(n.getId()) != null) {
           defShortName = map.get(n.getId()).get(0).getShortName();
         } else {
           defShortName = "" + n.getId();
         }
+
         circles.add(new NodeCircle(n, isMapPage, defShortName));
       }
     }
@@ -219,7 +229,7 @@ public class Map {
         listUpper1.add(n);
       } else if (n.getFloor().equals("2") || n.getFloor().equals("G2")) {
         listUpper2.add(n);
-      } else if (n.getFloor().equals("1") || n.getFloor().equals("G1")) {
+      } else if (n.getFloor().equals("3") || n.getFloor().equals("G3")) {
         listUpper3.add(n);
       } else {
         System.out.println("This should not be here");
@@ -401,8 +411,8 @@ public class Map {
       }
     }
 
-    //    Node startNode = allNodes.get(startIndex);
-    //    Node endNode = allNodes.get(endIndex);
+    //    MapNode startNode = allNodes.get(startIndex);
+    //    MapNode endNode = allNodes.get(endIndex);
     System.out.println(startIndex + " " + endIndex);
     int startId = allNodes.get(startIndex).getId();
     int endId = allNodes.get(endIndex).getId();
@@ -414,8 +424,8 @@ public class Map {
    * Draws the A* path between two nodes on a given floor and adds it to the specified parent Pane.
    *
    * @param parent the Pane to add the path to
-   * @param startNodeId the starting node ID
-   * @param endNodeId the ending node ID
+   * @param startNodeId the starting MapNode ID
+   * @param endNodeId the ending MapNode ID
    */
   public void drawPath(Pane parent, int startNodeId, int endNodeId) {
     ArrayList<Node> nodePath = this.graph.getPathBetween(startNodeId, endNodeId);
@@ -439,8 +449,8 @@ public class Map {
   //  public ArrayList<ArrayList<Shape>> drawAStarPath(Pane parent, int sInd, int eInd) {
   //    List<Node> allNodes = this.graph.getNodes();
   //
-  //    Node startNode = allNodes.get(sInd);
-  //    Node endNode = allNodes.get(eInd);
+  //    MapNode startNode = allNodes.get(sInd);
+  //    MapNode endNode = allNodes.get(eInd);
   //
   //    ArrayList<Node> nodePath = this.graph.AStar(startNode, endNode);
   //
@@ -456,18 +466,25 @@ public class Map {
   /**
    * Retrieves the names of all nodes on the specified floor and returns them in an ObservableList.
    *
-   * @param floor the floor to retrieve node names from
    * @return an ObservableList of node names on the specified floor
    * @throws SQLException if there is an error with the SQL database
    */
-  public ObservableList<String> getAllNodeNames(String floor) throws SQLException {
+  public ObservableList<String> getAllNodeNames() throws SQLException {
     ObservableList<String> nodeNames = FXCollections.observableArrayList();
-    for (Node n : DataManager.getAllNodes()) {
-      //      if (n.getFloor().equals(floor)) {
-      //        nodeNames.addAll(("" + n.getId()));
-      //      }
-      nodeNames.addAll(("" + n.getId()));
+    //    for (Node n : DataManager.getAllNodes()) {
+    //      //      if (n.getFloor().equals(floor)) {
+    //      //        nodeNames.addAll(("" + n.getId()));
+    //      //      }
+    //      nodeNames.addAll(("" + n.getId()));
+    //    }
+
+    HashMap<Integer, ArrayList<LocationName>> hMap =
+        DataManager.getAllLocationNamesMappedByNode(new Timestamp(System.currentTimeMillis()));
+
+    for (Integer i : hMap.keySet()) {
+      nodeNames.add(hMap.get(i).get(0).getLongName());
     }
+
     return nodeNames;
   }
 
@@ -486,6 +503,16 @@ public class Map {
     return floorNames;
   }
 
+  public ObservableList<String> getAllAlgos() {
+    ObservableList<String> algoNames = FXCollections.observableArrayList();
+
+    for (String a : algoArr) {
+      algoNames.addAll(a);
+    }
+
+    return algoNames;
+  }
+
   public String takeFloor(String f, boolean flag) {
     String retStr = "";
     if (f == null) {
@@ -494,11 +521,9 @@ public class Map {
     //    System.out.println(f);
     switch (f) {
       case ("Lower Level 1"):
-        retStr = "L1";
-        return retStr;
+        return "L1";
       case ("Lower Level 2"):
-        retStr = "L2";
-        return retStr;
+        return "L2";
       case ("Ground Floor"):
         retStr = "GG";
         return retStr;
@@ -523,6 +548,16 @@ public class Map {
           retStr = "3";
         }
         return retStr;
+      case ("L1"):
+        return "Lower Level 1";
+      case ("L2"):
+        return "Lower Level 2";
+      case ("1"):
+        return "First Floor";
+      case ("2"):
+        return "Second Floor";
+      case ("3"):
+        return "Third Floor";
       default:
         return "You should never see  this!!!";
     }
@@ -575,7 +610,7 @@ public class Map {
 
   //  public ObservableList<String> getAllNodeNames(String floor) throws SQLException {
   //    ObservableList<String> nodeNames = FXCollections.observableArrayList();
-  //    for (Node n : DataManager.getAllNodes()) {
+  //    for MapNode n : DataManager.getAllNodes()) {
   //      if (n.getFloor().equals(floor)) {
   //        nodeNames.addAll(("" + n.getId()));
   //      }
@@ -597,7 +632,7 @@ public class Map {
   // to be displayed
   //    List<NodeCircle> circles = new ArrayList<>(); // List of NodeCircle Objects
   //
-  //    for (Node n : DataManager.getAllNodes()) {
+  //    for MapNode n : DataManager.getAllNodes()) {
   //      if (n.getFloor().equals(floor)) {
   //        ArrayList<String> nameType = new ArrayList<>();
   //        try {

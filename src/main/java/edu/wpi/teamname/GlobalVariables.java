@@ -22,6 +22,7 @@ public class GlobalVariables {
   @Getter @Setter private static Screen previousScreen = Screen.HOME;
   /** Sets the current user to be null indicating no user is logged in */
   public static void logOut() {
+    // dummyEmployee.setType(new ArrayList<>());
     currentUser = dummyEmployee;
   }
 

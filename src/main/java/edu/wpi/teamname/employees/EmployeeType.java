@@ -2,15 +2,15 @@ package edu.wpi.teamname.employees;
 
 public enum EmployeeType {
   ADMIN("ADMIN"),
-  STAFF("STAFF"),
-  CHEF("CHEF"),
-  NURSE("NURSE"),
-  RECEPTIONIST("RECEPTIONIST"),
-  DOCTOR("DOCTOR"),
-  JANITOR("JANITOR"),
-  MAINTENANCE("MAINTENANCE"),
-  DELIVERY("DELIVERY"),
-  SECURITY("SECURITY");
+  STAFF("STAFF");
+  // CHEF("CHEF"),
+  // NURSE("NURSE"),
+  // RECEPTIONIST("RECEPTIONIST"),
+  // DOCTOR("DOCTOR"),
+  // JANITOR("JANITOR"),
+  // MAINTENANCE("MAINTENANCE"),
+  // DELIVERY("DELIVERY"),
+  // SECURITY("SECURITY");
 
   private final String type;
 
