@@ -65,14 +65,14 @@ public class AlgoTests {
     assertEquals(printStr, "1500 1505 1510 ");
   }
 
-  //Test3: tests BFS pathfinding: this will return a path with the smallest number of nodes visited
-  //This will not necessarily be the shortest path
+  // Test3: tests BFS pathfinding: this will return a path with the smallest number of nodes visited
+  // This will not necessarily be the shortest path
   @Test
   public void test3() throws Exception {
 
     Graph g = new Graph();
     ArrayList<Node> listForPath = new ArrayList<>();
-    //AStarAlgo A = new AStarAlgo();
+    // AStarAlgo A = new AStarAlgo();
     BFSAlgo B = new BFSAlgo();
     int startId = g.getNodes().get((120 - 100) / 5).getId();
     int targetId = g.getNodes().get((110 - 100) / 5).getId();
@@ -87,14 +87,14 @@ public class AlgoTests {
     assertEquals(printStr, "120 115 200 1795 100 190 130 110 ");
   }
 
-  //Test4: tests BFS pathfinding: this will return a path with the smallest number of nodes visited
-  //This will not necessarily be the shortest path
+  // Test4: tests BFS pathfinding: this will return a path with the smallest number of nodes visited
+  // This will not necessarily be the shortest path
   @Test
   public void test4() throws Exception {
 
     Graph g = new Graph();
     ArrayList<Node> listForPath = new ArrayList<>();
-    //AStarAlgo A = new AStarAlgo();
+    // AStarAlgo A = new AStarAlgo();
     BFSAlgo B = new BFSAlgo();
     int startId = g.getNodes().get((1500 - 100) / 5).getId();
     int targetId = g.getNodes().get((1510 - 100) / 5).getId();
@@ -109,15 +109,15 @@ public class AlgoTests {
     assertEquals(printStr, "1500 1505 1510 ");
   }
 
-  //Test5: tests DFS pathfinding: this will return a path with the smallest number of nodes visited
-  //This will not necessarily be the shortest path
+  // Test5: tests DFS pathfinding: this will return a path with the smallest number of nodes visited
+  // This will not necessarily be the shortest path
   @Test
   public void test5() throws Exception {
 
     Graph g = new Graph();
     ArrayList<Node> listForPath = new ArrayList<>();
-    //AStarAlgo A = new AStarAlgo();
-    //BFSAlgo B = new BFSAlgo();
+    // AStarAlgo A = new AStarAlgo();
+    // BFSAlgo B = new BFSAlgo();
     DFSAlgo D = new DFSAlgo();
     int startId = g.getNodes().get((120 - 100) / 5).getId();
     int targetId = g.getNodes().get((1010 - 100) / 5).getId();
@@ -132,15 +132,15 @@ public class AlgoTests {
     assertEquals(printStr, "120 115 200 1795 100 190 130 110 ");
   }
 
-  //Test6: tests DFS pathfinding: this will return a path with the smallest number of nodes visited
-  //This will not necessarily be the shortest path
+  // Test6: tests DFS pathfinding: this will return a path with the smallest number of nodes visited
+  // This will not necessarily be the shortest path
   @Test
   public void test6() throws Exception {
 
     Graph g = new Graph();
     ArrayList<Node> listForPath = new ArrayList<>();
-    //AStarAlgo A = new AStarAlgo();
-    //BFSAlgo B = new BFSAlgo();
+    // AStarAlgo A = new AStarAlgo();
+    // BFSAlgo B = new BFSAlgo();
     DFSAlgo D = new DFSAlgo();
     int startId = g.getNodes().get((1500 - 100) / 5).getId();
     int targetId = g.getNodes().get((1510 - 100) / 5).getId();
