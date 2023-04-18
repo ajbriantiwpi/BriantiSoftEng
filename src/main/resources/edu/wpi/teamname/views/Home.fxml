@@ -3,6 +3,8 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -26,13 +28,20 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <MFXButton fx:id="logoutButton" alignment="CENTER" style="-fx-background-color: #001B3B; -fx-border-color: #fdfbff; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" text="Logout" textAlignment="CENTER" textFill="#fdfbff" visible="false" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                <MFXButton fx:id="logoutButton" alignment="CENTER" defaultButton="true" disable="true" style="-fx-background-color: #001B3B; -fx-border-color: #fdfbff; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" text="Logout" textAlignment="CENTER" textFill="#fdfbff" visible="false" GridPane.halignment="LEFT" GridPane.valignment="TOP">
                     <font>
                         <Font size="20.0" />
                     </font>
                     <GridPane.margin>
                         <Insets left="20.0" top="10.0" />
                     </GridPane.margin>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0">
+                     <image>
+                        <Image url="@../images/MenuIcons/logout.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
                 </MFXButton>
                 <MFXButton fx:id="loginButton" alignment="CENTER" style="-fx-background-color: #001B3B; -fx-border-color: #fdfbff; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" text="Login" textAlignment="CENTER" textFill="#fdfbff" GridPane.halignment="LEFT" GridPane.valignment="TOP">
                     <font>
@@ -55,16 +64,37 @@
                             </font>
                             <VBox.margin>
                                 <Insets left="2.0" />
-                            </VBox.margin></MFXButton>
+                            </VBox.margin>
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                           <image>
+                              <Image url="@../images/MenuIcons/edit_note.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></MFXButton>
                         <MFXButton fx:id="showRequestsButton" alignment="BASELINE_LEFT" maxWidth="420.0" style="-fx-background-color: #faf9fd;" text="View Service Requests">
                             <font>
                                 <Font name="Roboto" size="22.0" />
                             </font>
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                           <image>
+                              <Image url="@../images/MenuIcons/assignment.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                         </MFXButton>
                   <MFXButton fx:id="employeeButton" alignment="BASELINE_LEFT" layoutX="22.0" layoutY="289.0" maxWidth="420.0" style="-fx-background-color: #faf9fd;" text="View Employees">
                      <font>
                         <Font name="Roboto" size="22.0" />
                      </font>
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                           <image>
+                              <Image url="@../images/MenuIcons/employeetable.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </MFXButton>
                     </children>
                     <padding>
@@ -85,26 +115,61 @@
                             <VBox.margin>
                                 <Insets left="2.0" />
                             </VBox.margin>
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                           <image>
+                              <Image url="@../images/MenuIcons/map.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                         </MFXButton>
                         <MFXButton fx:id="directionsButton" alignment="BASELINE_LEFT" maxWidth="420.0" style="-fx-background-color: #faf9fd;" text="Get Directions">
                             <font>
                                 <Font name="Roboto" size="22.0" />
                             </font>
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                           <image>
+                              <Image url="@../images/MenuIcons/directions.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                         </MFXButton>
                         <MFXButton fx:id="navigateButton" alignment="BASELINE_LEFT" maxWidth="420.0" style="-fx-background-color: #faf9fd;" text="Navigate">
                             <font>
                                 <Font name="Roboto" size="22.0" />
                             </font>
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                           <image>
+                              <Image url="@../images/MenuIcons/route.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                         </MFXButton>
                         <MFXButton fx:id="editMoveButton" alignment="BASELINE_LEFT" maxWidth="420.0" style="-fx-background-color: #faf9fd;" text="Edit Move">
                             <font>
                                 <Font name="Roboto" size="22.0" />
                             </font>
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                           <image>
+                              <Image url="@../images/MenuIcons/edit_location.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                         </MFXButton>
                         <MFXButton fx:id="editMapButton" alignment="BASELINE_LEFT" maxWidth="420.0" style="-fx-background-color: #faf9fd;" text="Edit Map">
                             <font>
                                 <Font name="Roboto" size="22.0" />
                             </font>
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                           <image>
+                              <Image url="@../images/MenuIcons/edit_location_alt.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                         </MFXButton>
                     </children>
                     <padding>
@@ -117,11 +182,25 @@
                             <font>
                                 <Font size="20.0" />
                             </font>
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                           <image>
+                              <Image url="@../images/MenuIcons/help.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                         </MFXButton>
                         <MFXButton fx:id="exitButton" alignment="CENTER" style="-fx-background-color: #001B3B; -fx-border-color: #BA1A1A; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" text="Exit" textAlignment="CENTER" textFill="#fdfbff" HBox.hgrow="ALWAYS">
                             <font>
                                 <Font size="20.0" />
                             </font>
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                           <image>
+                              <Image url="@../images/MenuIcons/power_rounded.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                         </MFXButton>
                     </children>
                     <GridPane.margin>
