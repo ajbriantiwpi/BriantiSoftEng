@@ -143,7 +143,7 @@ public class MapController {
             //            System.out.println(FloorSelect.getValue() + " " + secInd);
             //            anchor.getChildren().addAll(map.getShapes().get(secInd));
 
-            clickCount = 0;
+            // clickCount = 0;
           }
         }
       };
@@ -183,6 +183,8 @@ public class MapController {
           String floorForSNode =
               map.takeFloor(map.graph.getNodes().get(indOfStart).getFloor(), true);
           FloorSelect.setValue(floorForSNode);
+
+          clickCount = 0;
         }
       };
 
