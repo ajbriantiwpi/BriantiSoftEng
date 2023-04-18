@@ -201,16 +201,6 @@ public class EmployeeTableController {
           }
         });
 
-    passColumn.setOnEditCommit(
-        event -> {
-          Employee employee = event.getRowValue();
-          employee.setPassword(event.getNewValue());
-          try {
-            employeeDAO.syncEmployee(employee);
-          } catch (SQLException e) {
-            System.err.println("Error updating employee in the database: " + e.getMessage());
-          }
-        });
     employeeTable.addEventFilter(
         KeyEvent.KEY_PRESSED,
         event -> {
