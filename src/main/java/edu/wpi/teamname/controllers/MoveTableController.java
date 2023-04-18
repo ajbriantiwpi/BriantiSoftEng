@@ -34,6 +34,7 @@ public class MoveTableController {
   @FXML private DatePicker datePicker;
   @FXML private MFXButton submitButton;
   @FXML private TextField searchTextField;
+  @FXML private CheckBox newMovesCheck;
 
   public void initialize() {
     ParentController.titleString.set("Move Edit Table");
@@ -103,6 +104,30 @@ public class MoveTableController {
               MoveDAOImpl.exportMoveToCSV(file.getAbsolutePath());
             } catch (SQLException e) {
               System.err.println("Error exporting data to CSV file: " + e.getMessage());
+            }
+          }
+        });
+    newMovesCheck.setOnAction(
+        event -> {
+          if (newMovesCheck.isSelected()) {
+            ObservableList<Move> allMoves = moveTable.getItems();
+            ObservableList<Move> filteredMoves = FXCollections.observableArrayList();
+
+            LocalDate today = LocalDate.now();
+            for (Move move : allMoves) {
+              if (move.getDate().toLocalDateTime().toLocalDate().isAfter(today)
+                  || move.getDate().toLocalDateTime().toLocalDate().isEqual(today)) {
+                filteredMoves.add(move);
+              }
+            }
+
+            moveTable.setItems(filteredMoves);
+          } else {
+            try {
+              ArrayList<Move> moves = moveDAO.getAllMoves();
+              moveTable.setItems(FXCollections.observableArrayList(moves));
+            } catch (SQLException e) {
+              System.err.println("Error getting moves from database: " + e.getMessage());
             }
           }
         });

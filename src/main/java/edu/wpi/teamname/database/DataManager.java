@@ -1,6 +1,7 @@
 package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.employees.Employee;
+import edu.wpi.teamname.employees.EmployeeType;
 import edu.wpi.teamname.navigation.*;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
@@ -299,6 +300,16 @@ public class DataManager {
   public static void syncMedicalSupply(MedicalSupply medicalSupply) throws SQLException {
     MedicalSupplyDAOImpl medicalSupplyDAO = new MedicalSupplyDAOImpl();
     medicalSupplyDAO.sync(medicalSupply);
+  }
+  /**
+   * This method returns the employee type of a user
+   *
+   * @param username the Employees username
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static ArrayList<EmployeeType> getEmployeeType(String username) {
+    EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
+    return getEmployeeType(username);
   }
 
   /**
@@ -643,6 +654,7 @@ public class DataManager {
    * @throws SQLException if there is a problem accessing the database
    */
   public static ArrayList<Employee> getAllEmployees() throws SQLException {
+
     return (new EmployeeDAOImpl()).getAll();
   }
 
@@ -1124,6 +1136,10 @@ public class DataManager {
     EmployeeDAOImpl.exportEmployeeToCSV(path);
   }
 
+  public void addEmployeeType(String username, EmployeeType employeeType) throws SQLException {
+    EmployeeDAOImpl.addEmployeeType(username, employeeType);
+  }
+
   /**
    * This method exports all the EmployeeTypes from the "EmployeeType" table in the database to a
    * CSV file at the specified file path.
@@ -1305,5 +1321,9 @@ public class DataManager {
    */
   public static Employee checkLogin(String username, String password) throws SQLException {
     return EmployeeDAOImpl.checkLogin(username, password);
+  }
+
+  public void deleteEmployeeType(String username) throws SQLException {
+    EmployeeDAOImpl.deleteEmployeeType(username);
   }
 }
