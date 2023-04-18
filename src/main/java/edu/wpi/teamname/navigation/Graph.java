@@ -1,7 +1,7 @@
 package edu.wpi.teamname.navigation;
 
 import edu.wpi.teamname.database.DataManager;
-import edu.wpi.teamname.navigation.AlgoStrategy.AStarAlgo;
+import edu.wpi.teamname.navigation.AlgoStrategy.DFSAlgo;
 import edu.wpi.teamname.navigation.AlgoStrategy.IStrategyAlgo;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,7 +21,10 @@ public class Graph {
     Nodes = this.getAllNodes(); // Changed based on DB team
     Edges = this.getAllEdges(); // Changed based on DB team
     this.initializeEdges();
-    pathfindingAlgo = new AStarAlgo();
+    // pathfindingAlgo = new AStarAlgo();
+    // pathfindingAlgo = new BFSAlgo();
+    pathfindingAlgo = new DFSAlgo();
+    // pathfindingAlgo = new DijkstraAlgo();
   }
 
   public Graph(ArrayList<Node> nodes, ArrayList<Edge> edges) {
@@ -78,7 +81,8 @@ public class Graph {
    * @param targetNodeIndex the target Node
    */
   public void printPath(int startNodeIndex, int targetNodeIndex) {
-    System.out.println(this.getPathBetween(startNodeIndex, targetNodeIndex));
+    ArrayList<Node> path = this.getPathBetween(startNodeIndex, targetNodeIndex);
+    for (Node n : path) System.out.print(n.getId() + " ");
   }
 
   /**

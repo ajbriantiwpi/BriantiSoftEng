@@ -104,6 +104,7 @@ public class MapController {
           map.drawPath(anchor, sNode, eNode);
           int secInd = map.getAllFloors().indexOf(FloorSelect.getValue());
           anchor.getChildren().addAll(map.getShapes().get(secInd));
+          map.graph.printPath(sNode, eNode);
         }
       };
 
