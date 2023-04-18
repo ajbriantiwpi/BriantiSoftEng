@@ -190,12 +190,12 @@
                                         <Font name="Roboto" size="36.0" />
                                     </font>
                                 </MFXButton>
-                                <MFXButton fx:id="clearButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #F1F0F4; -fx-border-stroke: right; -fx-border-color: #ffffffe0; -fx-border-width: 2;" styleClass="inv-on-surface" text="Clear" textFill="#2f3033">
+                                <MFXButton fx:id="clearButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-stroke: right; -fx-border-color: #ffffffe0; -fx-border-width: 2;" styleClass="inv-on-surface" text="Clear" textFill="#2f3033">
                                     <font>
                                         <Font name="Roboto" size="36.0" />
                                     </font>
                                 </MFXButton>
-                                <MFXButton fx:id="cancelButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #F1F0F4; -fx-border-color: #ffffffE0; -fx-border-width: 2;" styleClass="inv-on-surface" text="Cancel" textFill="#2f3033" GridPane.columnIndex="1">
+                                <MFXButton fx:id="cancelButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-color: #ffffffE0; -fx-border-width: 2;" styleClass="inv-on-surface" text="Cancel" textFill="#2f3033" GridPane.columnIndex="1">
                                     <font>
                                         <Font name="Roboto" size="36.0" />
                                     </font>
