@@ -140,13 +140,13 @@ public class MedicalSupplyDAOImpl {
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, id);
       ResultSet rs = statement.executeQuery();
-
-      int mealid = rs.getInt("furnitureID");
+      rs.next();
+      int supid = rs.getInt("supplyID");
       String name = rs.getString("Name");
       float price = rs.getFloat("Price");
       String type = rs.getString("Type");
       int accessLvl = rs.getInt("AccessLevel");
-      MedicalSupply = (new MedicalSupply(mealid, name, price, type, accessLvl));
+      MedicalSupply = (new MedicalSupply(supid, name, price, type, accessLvl));
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }

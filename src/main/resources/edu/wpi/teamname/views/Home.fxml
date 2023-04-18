@@ -49,7 +49,7 @@
                                 <Font name="Roboto" size="36.0" />
                             </font>
                         </Label>
-                        <MFXButton fx:id="makeRequestsButton" alignment="BASELINE_LEFT" maxWidth="420.0" style="-fx-background-color: #faf9fd;" text="Make Request">
+                        <MFXButton fx:id="makeRequestsButton" alignment="BASELINE_LEFT" maxWidth="420.0" style="-fx-background-color: #faf9fd;" text="Make A Request">
                             <font>
                                 <Font name="Roboto" size="22.0" />
                             </font>
