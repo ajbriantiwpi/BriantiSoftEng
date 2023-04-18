@@ -10,8 +10,6 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableBooleanValue;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -114,23 +112,6 @@ public class HomeController {
         disableButtonsWhenLoggedOut();
       }
     });*/
-    String musicFile = "src/main/java/edu/wpi/teamname/controllers/editmap.mp3";
-    Media sound = new Media(new File(musicFile).toURI().toString());
-    MediaPlayer mediaPlayer = new MediaPlayer(sound);
-    // Media sound2 = new Media(new File(musicFile1).toURI().toString());
-    // MediaPlayer mediaPlayer2 = new MediaPlayer(sound2);
-    // mediaPlayer2.play();
-
-    editMapButton
-        .hoverProperty()
-        .addListener(
-            (observable, oldV, newV) -> {
-              if (newV) {
-                mediaPlayer.play();
-              } else {
-                mediaPlayer.stop();
-              }
-            });
     mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
     // directionsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
     makeRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
