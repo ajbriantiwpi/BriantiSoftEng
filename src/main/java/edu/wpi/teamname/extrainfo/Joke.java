@@ -1,4 +1,4 @@
-package edu.wpi.teamname.controllers;
+package edu.wpi.teamname.extrainfo;
 
 import lombok.Getter;
 import lombok.Setter;

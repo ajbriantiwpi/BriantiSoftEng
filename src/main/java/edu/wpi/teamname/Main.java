@@ -1,8 +1,8 @@
 package edu.wpi.teamname;
 
-import edu.wpi.teamname.controllers.Joke;
-import edu.wpi.teamname.controllers.JokeAPI;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.extrainfo.Joke;
+import edu.wpi.teamname.extrainfo.JokeAPI;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -31,18 +31,19 @@ public class Main {
     // create an instance of the API interface
     JokeAPI jokeApi = retrofit.create(JokeAPI.class);
 
-      // make a request to the API
-      Call<Joke> call = jokeApi.getRandomJoke("programming");
-      Response<Joke> response = call.execute();
+    // make a request to the API
+    Call<Joke> call = jokeApi.getRandomJoke("programming", new int[] {53, 92, 45});
+    Response<Joke> response = call.execute();
 
-      // check if the request was successful
-      if (response.isSuccessful()) {
-        Joke joke = response.body();
-        System.out.println(joke.getSetup());
-        System.out.println(joke.getPunchline());
-      } else {
-        System.out.println("Request failed: " + response.code());
-      }
+    // check if the request was successful
+    if (response.isSuccessful()) {
+      Joke joke = response.body();
+      System.out.println("Joke ID: " + joke.getId());
+      System.out.println(joke.getSetup());
+      System.out.println(joke.getPunchline());
+    } else {
+      System.out.println("Request failed: " + response.code());
+    }
   }
 
   // shortcut: psvm
