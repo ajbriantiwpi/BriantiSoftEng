@@ -77,6 +77,7 @@ public class HomeController {
     } else {
       loginButton.setVisible(true);
       logoutButton.setVisible(false);
+      logoutButton.setDisable(true);
     }
     loginButton.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN));
     logoutButton.setOnMouseClicked(event -> logout());
