@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -496,6 +497,8 @@ public class Map {
       nodeNames.add(hMap.get(i).get(0).getLongName());
     }
 
+    Collections.sort(nodeNames);
+
     return nodeNames;
   }
 
@@ -511,6 +514,28 @@ public class Map {
       floorNames.addAll(f);
     }
 
+    return floorNames;
+  }
+
+  public ObservableList<String> getAllFloorsInPath() {
+    ObservableList<String> floorNames = FXCollections.observableArrayList();
+    ArrayList<String> floorPathArr = new ArrayList<>();
+
+    for (int i = 0; i < shapes.size(); i++) {
+      if (!shapes.get(i).isEmpty()) {
+        if (i == 0) {
+          floorNames.add("Lower Level 2");
+        } else if (i == 1) {
+          floorNames.add("Lower Level 1");
+        } else if (i == 2) {
+          floorNames.add("First Floor");
+        } else if (i == 3) {
+          floorNames.add("Second Floor");
+        } else if (i == 4) {
+          floorNames.add("Third Floor");
+        }
+      }
+    }
     return floorNames;
   }
 

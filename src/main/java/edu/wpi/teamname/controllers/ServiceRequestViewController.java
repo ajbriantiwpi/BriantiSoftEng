@@ -1,5 +1,6 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.controllers.JFXitems.ReqMenuItems;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
@@ -55,13 +56,13 @@ public class ServiceRequestViewController {
   private double totalPrice = 0.0;
 
   @FXML ComboBox<RequestType> requestTypeCombo;
-
+  @FXML ComboBox<String> requestStaffCombo;
   //  ObservableList<String> serviceType =
   //      FXCollections.observableArrayList(
   //          "", "Meal Request", "Flower Request", "Furniture Request", "Office Supply Request");
   ObservableList<String> statusValue =
       FXCollections.observableArrayList("", "PROCESSING", "BLANK", "DONE");
-  @FXML ComboBox requestStatusCombo;
+  @FXML ComboBox<Status> requestStatusCombo;
 
   /**
    * filters the list of service requests to add it to the table
@@ -71,22 +72,29 @@ public class ServiceRequestViewController {
    * @return the list of filtered items
    * @throws SQLException if there is an error when connecting to the database
    */
-  public static ObservableList<ServiceRequest> tableFilter(RequestType one, String two)
-      throws SQLException {
+  public static ObservableList<ServiceRequest> tableFilter(
+      RequestType one, Status two, String username) throws SQLException {
     ObservableList<ServiceRequest> requestList =
         FXCollections.observableList(DataManager.getAllServiceRequests());
-    if (!one.equals(null) && !(one.toString().equals(""))) {
+    if (!(one == (null)) && !(one.toString().equals(""))) {
       requestList =
           FXCollections.observableList(
               requestList.stream()
                   .filter((request) -> request.getRequestType().toString().equals(one.toString()))
                   .toList());
     }
-    if (!(two.equals(null)) && !(two.equals(""))) {
+    if (!(two == (null)) && !(two.toString().equals(""))) {
       requestList =
           FXCollections.observableList(
               requestList.stream()
-                  .filter((request) -> request.getStatus().getStatusString().equals(two))
+                  .filter((request) -> request.getStatus().toString().equals(two.toString()))
+                  .toList());
+    }
+    if (!(username == (null)) && !(username.toString().equals(""))) {
+      requestList =
+          FXCollections.observableList(
+              requestList.stream()
+                  .filter((request) -> request.getStaffName().equals(username))
                   .toList());
     }
     return requestList;
@@ -146,6 +154,10 @@ public class ServiceRequestViewController {
     requestTypes.add(null);
     requestTypeCombo.setItems(requestTypes);
 
+    ObservableList<String> staffNames =
+        FXCollections.observableArrayList(DataManager.getAllUsernames());
+    staffNames.add(null);
+    requestStaffCombo.setItems(staffNames);
     ObservableList<Status> requestStatuses = FXCollections.observableArrayList(Status.values());
     requestStatuses.add(null);
     requestStatusCombo.setItems(requestStatuses);
@@ -180,7 +192,10 @@ public class ServiceRequestViewController {
           try {
             // update the table when the status combo box is changed
             table.setItems(
-                tableFilter(requestTypeCombo.getValue(), requestStatusCombo.getValue().toString()));
+                tableFilter(
+                    requestTypeCombo.getValue(),
+                    requestStatusCombo.getValue(),
+                    requestStaffCombo.getValue()));
           } catch (SQLException e) {
             e.printStackTrace();
           }
@@ -191,48 +206,29 @@ public class ServiceRequestViewController {
           try {
             // update the table when the status combo box is changed
             table.setItems(
-                tableFilter(requestTypeCombo.getValue(), requestStatusCombo.getValue().toString()));
+                tableFilter(
+                    requestTypeCombo.getValue(),
+                    requestStatusCombo.getValue(),
+                    requestStaffCombo.getValue()));
           } catch (SQLException e) {
             e.printStackTrace();
           }
         });
 
-    requestStatusCombo
-        .valueProperty()
-        .addListener(
-            ((observable, oldValue, one) -> {
-              if (!one.equals(null) && !(one.toString().equals(""))) {
-                try {
-                  table.setItems(
-                      FXCollections.observableList(
-                          DataManager.getAllServiceRequests().stream()
-                              .filter(
-                                  (request) ->
-                                      request.getStatus().getStatusString().equals(one.toString()))
-                              .toList()));
-                } catch (SQLException e) {
-                  throw new RuntimeException(e);
-                }
-              }
-            }));
-    requestTypeCombo
-        .valueProperty()
-        .addListener(
-            ((observable, oldValue, one) -> {
-              if (!one.equals(null) && !(one.toString().equals(""))) {
-                try {
-                  table.setItems(
-                      FXCollections.observableList(
-                          DataManager.getAllServiceRequests().stream()
-                              .filter(
-                                  (request) ->
-                                      request.getRequestType().toString().equals(one.toString()))
-                              .toList()));
-                } catch (SQLException e) {
-                  throw new RuntimeException(e);
-                }
-              }
-            }));
+    requestStaffCombo.setOnAction(
+        event -> {
+          try {
+            // update the table when the status combo box is changed
+            table.setItems(
+                tableFilter(
+                    requestTypeCombo.getValue(),
+                    requestStatusCombo.getValue(),
+                    requestStaffCombo.getValue()));
+          } catch (SQLException e) {
+            e.printStackTrace();
+          }
+        });
+
     table
         .getSelectionModel()
         .selectedItemProperty()
@@ -292,6 +288,25 @@ public class ServiceRequestViewController {
           ViewButton.setDisable(false);
           cartBox.getChildren().clear();
         });
+    if (GlobalVariables.isDoneRequestsPressed()) {
+      GlobalVariables.setDoneRequestsPressed(false);
+      requestStatusCombo.setValue(Status.DONE);
+      requestStaffCombo.setValue(GlobalVariables.getCurrentUser().getUsername());
+      table.setItems(
+          tableFilter(
+              requestTypeCombo.getValue(),
+              requestStatusCombo.getValue(),
+              requestStaffCombo.getValue()));
+    } else if (GlobalVariables.isActiveRequestsPressed()) {
+      requestStatusCombo.setValue(Status.PROCESSING);
+      requestStaffCombo.setValue(GlobalVariables.getCurrentUser().getUsername());
+      GlobalVariables.setActiveRequestsPressed(false);
+      table.setItems(
+          tableFilter(
+              requestTypeCombo.getValue(),
+              requestStatusCombo.getValue(),
+              requestStaffCombo.getValue()));
+    }
   }
 
   private void fillPane(int reqID, String folder) throws SQLException {

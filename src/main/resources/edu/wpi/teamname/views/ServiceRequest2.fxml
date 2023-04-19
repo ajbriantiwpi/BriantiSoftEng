@@ -71,75 +71,83 @@
                               </VBox>
                            </children>
                         </AnchorPane>
-                                <AnchorPane fx:id="summaryPane" disable="true" visible="false" StackPane.alignment="TOP_CENTER">
+                                <AnchorPane fx:id="summaryPane" disable="true" styleClass="surface-container" StackPane.alignment="TOP_CENTER">
                                     <children>
-                                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" pannable="true" style="-fx-background-color: #ffffff;" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                            <content>
-                                                <AnchorPane>
-                                                    <children>
-                                          <VBox prefHeight="200.0" prefWidth="100.0" spacing="12.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                             <children>
-                                                <Label style="-fx-font-family: Roboto;" stylesheets="@../stylesheets/TextField.css" text="Order Details" textFill="#001b3b">
-                                                   <font>
-                                                      <Font size="40.0" />
-                                                   </font>
-                                                </Label>
-                                                                <Label fx:id="summaryLabel" style="-fx-font-family: Roboto; -fx-font-size: 24;" text="Order detes" textFill="#001b3b">
-                                                                    <font>
-                                                                        <Font name="Times New Roman" size="28.0" />
-                                                                    </font>
-                                                                </Label>
-                                                <Label style="-fx-font-family: Roboto;" stylesheets="@../stylesheets/TextField.css" text="Your Cart" textFill="#001b3b">
-                                                   <font>
-                                                      <Font name="Roboto" size="40.0" />
-                                                   </font>
-                                                </Label>
-                                                 <ScrollPane fitToHeight="true" fitToWidth="true" pannable="true" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
-                                                     <content>
-                                                         <AnchorPane VBox.vgrow="ALWAYS">
-                                                             <children>
-                                                                 <VBox fx:id="cartBox" fillWidth="true" spacing="12.0" style="-fx-background-color: #E3E2E6; -fx-background-radius: 8;" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="0.0">
-                                                                     <children>
+                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="12.0" style="-fx-background-radius: 16;" styleClass="surface" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Label style="-fx-font-family: Roboto;" styleClass="primary-text-container" stylesheets="@../stylesheets/TextField.css" text="Order Details" textFill="#001b3b">
+                                       <font>
+                                          <Font size="40.0" />
+                                       </font>
+                                    </Label>
+                                                    <Label fx:id="summaryLabel" style="-fx-font-family: Roboto; -fx-font-size: 24;" styleClass="primary-text-container" text="Order detes" textFill="#001b3b">
+                                                        <font>
+                                                            <Font name="Times New Roman" size="28.0" />
+                                                        </font>
+                                                    </Label>
+                                    <Label style="-fx-font-family: Roboto;" styleClass="primary-text-container" stylesheets="@../stylesheets/TextField.css" text="Your Cart" textFill="#001b3b">
+                                       <font>
+                                          <Font name="Roboto" size="40.0" />
+                                       </font>
+                                    </Label>
+                                     <ScrollPane fitToHeight="true" fitToWidth="true" pannable="true" style="-fx-background-radius: 8;" styleClass="surface-container-highest" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
+                                         <content>
+                                             <AnchorPane style="-fx-background-radius: 8;" styleClass="surface-container-highest" VBox.vgrow="ALWAYS">
+                                                 <children>
+                                                     <VBox fx:id="cartBox" fillWidth="true" spacing="12.0" style="-fx-background-radius: 8;" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="0.0">
+                                                         <children>
                                                                      </children>
-                                                                 </VBox>
-                                                             </children>
-                                                         </AnchorPane>
-                                                     </content>
-                                                     <VBox.margin>
-                                                         <Insets />
-                                                     </VBox.margin>
-                                                 </ScrollPane>
-                                                <HBox alignment="CENTER">
-                                                   <children>
-                                                      <MFXButton fx:id="forgotButton" minWidth="150.0" style="-fx-background-color: #235FA6; -fx-background-radius: 100; -fx-border-radius: 100; -fx-border-color: #6F797A; -fx-text-fill: #ffffff; -fx-font-family: Roboto;" stylesheets="@../stylesheets/menuItemButton.css" text="Forgot something?">
-                                                         <font>
-                                                            <Font name="Roboto" size="36.0" />
-                                                         </font>
-                                                      </MFXButton>
-                                                      <Label fx:id="totalLabel" alignment="CENTER_RIGHT" style="-fx-font-family: Roboto;" stylesheets="@../stylesheets/TextField.css" text="Order Total: $" textFill="#001b3b" HBox.hgrow="ALWAYS">
-                                                         <font>
-                                                            <Font name="Roboto" size="40.0" />
-                                                         </font>
-                                                      </Label>
-                                                   </children>
-                                                </HBox>
-                                             </children>
-                                          </VBox>
-                                                    </children>
-                                                </AnchorPane>
-                                            </content>
-                                        </ScrollPane>
+                                                     </VBox>
+                                                 </children>
+                                             </AnchorPane>
+                                         </content>
+                                         <VBox.margin>
+                                             <Insets />
+                                         </VBox.margin>
+                                     </ScrollPane>
+                                    <GridPane>
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label fx:id="totalLabel" alignment="CENTER_RIGHT" style="-fx-font-family: Roboto;" styleClass="primary-text-container" stylesheets="@../stylesheets/TextField.css" text="Order Total: $" textFill="#001b3b" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+                                             <font>
+                                                <Font name="Roboto" size="40.0" />
+                                             </font>
+                                             <GridPane.margin>
+                                                <Insets right="12.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                          <MFXButton fx:id="forgotButton" minWidth="150.0" style="-fx-background-radius: 100; -fx-border-radius: 100; -fx-border-color: #6F797A; -fx-font-family: Roboto;" styleClass="primary" text="Forgot something?" GridPane.halignment="LEFT" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                             <font>
+                                                <Font size="36.0" />
+                                             </font>
+                                          </MFXButton>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="12.0" top="12.0" />
+                                       </padding>
+                                    </GridPane>
+                                 </children>
+                                 <padding>
+                                    <Insets left="12.0" right="12.0" top="12.0" />
+                                 </padding>
+                              </VBox>
                                     </children>
                                 </AnchorPane>
 
-                                <AnchorPane fx:id="menuPane" disable="true" visible="false" StackPane.alignment="TOP_CENTER" VBox.vgrow="ALWAYS">
+                                <AnchorPane fx:id="menuPane" disable="true" styleClass="surface" visible="false" StackPane.alignment="TOP_CENTER" VBox.vgrow="ALWAYS">
                                     <children>
 
                                         <VBox alignment="CENTER" stylesheets="@../stylesheets/TextField.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <children>
                                                 <HBox minHeight="100.0" spacing="30.0" VBox.vgrow="SOMETIMES">
                                                     <children>
-                                                        <TextField fx:id="searchBar" prefWidth="1700.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 100; -fx-border-radius: 100;" styleClass="text-field" stylesheets="@../stylesheets/TextField.css" text="Search">
+                                                        <TextField fx:id="searchBar" prefWidth="1700.0" style="-fx-background-radius: 100; -fx-border-radius: 100;" styleClass="primary-container" stylesheets="@../stylesheets/TextField.css" text="Search">
                                                             <font>
                                                                 <Font name="Roboto" size="28.0" />
                                                             </font>
@@ -155,10 +163,10 @@
                                        </VBox.margin>
                                        <children>
       
-                                                      <ScrollPane fx:id="glitchyPane" fitToHeight="true" fitToWidth="true" layoutY="0.79998779296875" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="12.0">
+                                                      <ScrollPane fx:id="glitchyPane" fitToHeight="true" fitToWidth="true" layoutY="0.79998779296875" styleClass="surface-container-highest" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="12.0">
                                                           <content>
       
-                                                                      <VBox fx:id="itemBox" fillWidth="false" spacing="12.0" style="-fx-background-color: #e3e2e6; -fx-background-radius: 8;">
+                                                                      <VBox fx:id="itemBox" fillWidth="false" spacing="12.0" style="-fx-background-radius: 8;" styleClass="surface-container-highest">
                                                                           <children>
                                                                     </children>
                                                                       </VBox>
