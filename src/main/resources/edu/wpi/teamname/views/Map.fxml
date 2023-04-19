@@ -11,6 +11,8 @@
 <?import javafx.scene.text.Font?>
 <?import net.kurobako.gesturefx.GesturePane?>
 
+<?import javafx.scene.control.CheckBox?>
+<?import java.lang.String?>
 <AnchorPane id="AP" fx:id="OuterMapAnchor" prefHeight="668.0" prefWidth="951.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MapController">
     <children>
         <StackPane fx:id="sp" prefHeight="602.0" prefWidth="800.0" style="-fx-background-radius: 16;" styleClass="surface" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
