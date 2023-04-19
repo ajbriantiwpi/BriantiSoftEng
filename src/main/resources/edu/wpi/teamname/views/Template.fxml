@@ -47,16 +47,16 @@
                            </ImageView>
                         </graphic>
                      </MFXButton>
-                     <MFXButton fx:id="directionsButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="surface-container" text="Directions" textFill="#1a1c1e" textOverrun="CLIP">
-                        <font>
-                           <Font name="Roboto" size="22.0" />
-                        </font>
-                        <graphic>
-                           <ImageView>
-                              <Image url="@../images/MenuIcons/compare_arrows.png" />
-                           </ImageView>
-                        </graphic>
-                     </MFXButton>
+<!--                     <MFXButton fx:id="directionsButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="surface-container" text="Directions" textFill="#1a1c1e" textOverrun="CLIP">-->
+<!--                        <font>-->
+<!--                           <Font name="Roboto" size="22.0" />-->
+<!--                        </font>-->
+<!--                        <graphic>-->
+<!--                           <ImageView>-->
+<!--                              <Image url="@../images/MenuIcons/compare_arrows.png" />-->
+<!--                           </ImageView>-->
+<!--                        </graphic>-->
+<!--                     </MFXButton>-->
                      <MFXButton fx:id="editMapButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="surface-container" text="Edit Map" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
                         <font>
                            <Font name="Roboto" size="22.0" />
@@ -112,16 +112,16 @@
                         </graphic>
                      </MFXButton>
                      <AnchorPane styleClass="surface-container" VBox.vgrow="ALWAYS" />
-                     <MFXButton fx:id="helpButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="surface-container" stylesheets="@../stylesheets/SideBar.css" text="Help" textFill="#1a1c1e">
-                        <font>
-                           <Font name="Roboto" size="22.0" />
-                        </font>
-                        <graphic>
-                           <ImageView>
-                              <Image url="@../images/MenuIcons/help.png" />
-                           </ImageView>
-                        </graphic>
-                     </MFXButton>
+<!--                     <MFXButton fx:id="helpButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="surface-container" stylesheets="@../stylesheets/SideBar.css" text="Help" textFill="#1a1c1e">-->
+<!--                        <font>-->
+<!--                           <Font name="Roboto" size="22.0" />-->
+<!--                        </font>-->
+<!--                        <graphic>-->
+<!--                           <ImageView>-->
+<!--                              <Image url="@../images/MenuIcons/help.png" />-->
+<!--                           </ImageView>-->
+<!--                        </graphic>-->
+<!--                     </MFXButton>-->
                      <AnchorPane>
                         <children>
                            <MFXButton fx:id="logoutButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="surface-container" text="Logout" textFill="#1a1c1e" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

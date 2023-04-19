@@ -20,7 +20,7 @@ public class ParentController {
   @FXML MFXButton homeButton;
   @FXML MFXButton helpButton;
   @FXML MFXButton mapButton;
-  @FXML MFXButton directionsButton;
+  // @FXML MFXButton directionsButton;
   @FXML MFXButton makeRequestsButton;
   @FXML MFXButton showRequestsButton;
   @FXML MFXButton editMapButton;
