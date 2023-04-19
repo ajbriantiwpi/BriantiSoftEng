@@ -233,6 +233,22 @@ public class MoveTableController {
         }
       }
     }
+    if (!(GlobalVariables.userIsType(EmployeeType.ADMIN))) {
+      nodeIdTextField.setDisable(true);
+      longNameTextField.setDisable(true);
+      submitButton.setDisable(true);
+      datePicker.setDisable(true);
+      importButton.setDisable(true);
+      exportButton.setDisable(true);
+    }
+    /*
+      @FXML private TextField nodeIdTextField;
+    @FXML private TextField longNameTextField;
+    @FXML private DatePicker datePicker;
+    @FXML private MFXButton submitButton;
+    @FXML private TextField searchTextField;
+    @FXML private CheckBox newMovesCheck;
+       */
   }
 
   private void filterTable(String searchText) {
