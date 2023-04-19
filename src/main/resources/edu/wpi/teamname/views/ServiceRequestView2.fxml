@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -19,16 +20,16 @@
 
 <!--        style="-fx-background-color: #D9E3F8;" -->
 
-<AnchorPane styleClass="body" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestViewController">
+<AnchorPane styleClass="surface-container" stylesheets="@../stylesheets/Colors/lightTheme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestViewController">
     <children>
-        <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <HBox style="-fx-background-radius: 16;" styleClass="surface" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <VBox HBox.hgrow="ALWAYS">
                 <children>
-               <VBox>
+               <VBox styleClass="surface-container-high">
                   <children>
                      <VBox spacing="12.0">
                         <children>
-                           <Label text="Filter Table" textFill="#001b3b">
+                           <Label styleClass="primary-text-container" text="Filter Table" textFill="#001b3b">
                               <font>
                                  <Font name="Roboto" size="32.0" />
                               </font>
@@ -36,7 +37,7 @@
                                  <Insets bottom="4.0" />
                               </VBox.margin>
                            </Label>
-                           <Label text="Request Type" textFill="#001b3b">
+                           <Label styleClass="primary-text-container" text="Request Type" textFill="#001b3b">
                               <font>
                                   <Font name="Roboto" size="28.0" />
                               </font>
@@ -49,7 +50,7 @@
                                  <Insets bottom="4.0" />
                               </VBox.margin>
                            </ComboBox>
-                           <Label text="Request Status" textFill="#001b3b">
+                           <Label styleClass="primary-text-container" text="Request Status" textFill="#001b3b">
                               <font>
                                   <Font name="Roboto" size="28.0" />
                               </font>
@@ -62,7 +63,7 @@
                                  <Insets bottom="12.0" />
                               </VBox.margin>
                            </ComboBox>
-                           <Label text="Assigned Staff" textFill="#001b3b">
+                           <Label styleClass="primary-text-container" text="Assigned Staff" textFill="#001b3b">
                               <font>
                                  <Font name="Roboto" size="28.0" />
                               </font>
@@ -72,10 +73,13 @@
                         <VBox.margin>
                            <Insets bottom="32.0" top="24.0" />
                         </VBox.margin>
+                        <padding>
+                           <Insets left="12.0" right="12.0" />
+                        </padding>
                      </VBox>
-                     <VBox spacing="12.0">
+                     <VBox maxWidth="-Infinity" spacing="12.0" style="-fx-background-radius: 16;" styleClass="surface-container-highest">
                         <children>
-                           <Label text="Assign Staff to Request" textFill="#001b3b">
+                           <Label styleClass="primary-text-container" text="Assign Staff to Request" textFill="#001b3b">
                               <font>
                                  <Font name="Roboto" size="32.0" />
                               </font>
@@ -83,7 +87,7 @@
                                  <Insets bottom="4.0" />
                               </VBox.margin>
                            </Label>
-                           <Label text="Request ID" textFill="#001b3b">
+                           <Label styleClass="primary-text-container" text="Request ID" textFill="#001b3b">
                               <font>
                                   <Font name="Roboto" size="28.0" />
                               </font>
@@ -96,7 +100,7 @@
                                  <Insets bottom="4.0" />
                               </VBox.margin>
                            </SearchableComboBox>
-                           <Label text="Assign Staff" textFill="#001b3b">
+                           <Label styleClass="primary-text-container" text="Assign Staff" textFill="#001b3b">
                               <font>
                                   <Font name="Roboto" size="28.0" />
                               </font>
@@ -109,7 +113,7 @@
                                  <Insets bottom="4.0" />
                               </VBox.margin>
                            </SearchableComboBox>
-                           <Label text="Set Request Status" textFill="#001b3b">
+                           <Label styleClass="primary-text-container" text="Set Request Status" textFill="#001b3b">
                               <font>
                                  <Font name="Roboto" size="28.0" />
                               </font>
@@ -123,6 +127,9 @@
                               </VBox.margin>
                            </SearchableComboBox>
                         </children>
+                        <padding>
+                           <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+                        </padding>
                      </VBox>
                      <GridPane>
                        <columnConstraints>
@@ -136,22 +143,38 @@
                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                        </rowConstraints>
                         <children>
-                                        <MFXButton fx:id="backButton" disable="true" minWidth="150.0" style="-fx-background-color: #235FA6; -fx-background-radius: 100; -fx-border-radius: 100; -fx-border-color: #6F797A; -fx-text-fill: #ffffff; -fx-font-family: Roboto;" stylesheets="@../stylesheets/menuItemButton.css" text="Back" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                        <MFXButton fx:id="backButton" disable="true" minWidth="150.0" style="-fx-background-color: #235FA6; -fx-background-radius: 100; -fx-border-radius: 100; -fx-border-color: #6F797A; -fx-text-fill: #ffffff; -fx-font-family: Roboto;" stylesheets="@../stylesheets/button.css" text="Back" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                             <font>
                                                 <Font name="Roboto" size="36.0" />
                                             </font>
+                              <styleClass>
+                                 <String fx:value="primary" />
+                                 <String fx:value="headline-med" />
+                              </styleClass>
                                         </MFXButton>
-                           <MFXButton fx:id="submitButton" minWidth="150.0" style="-fx-background-color: #235FA6; -fx-background-radius: 100; -fx-border-radius: 100; -fx-border-color: #6F797A; -fx-text-fill: #ffffff; -fx-font-family: Roboto;" stylesheets="@../stylesheets/menuItemButton.css" text="Assign" GridPane.rowIndex="1">
+                           <MFXButton fx:id="submitButton" minWidth="150.0" stylesheets="@../stylesheets/button.css" text="Assign" GridPane.rowIndex="1">
                               <font>
                                  <Font name="Roboto" size="36.0" />
                               </font>
+                              <styleClass>
+                                 <String fx:value="display-med" />
+                                 <String fx:value="primary" />
+                                 <String fx:value="outline" />
+                              </styleClass>
                            </MFXButton>
-                           <MFXButton fx:id="ViewButton" disable="true" maxWidth="183.0" minHeight="83.0" minWidth="83.0" style="-fx-background-color: #235FA6; -fx-background-radius: 100; -fx-border-radius: 100; -fx-border-color: #6F797A; -fx-text-fill: #ffffff; -fx-font-family: Roboto; -fx-font-size: 20;" stylesheets="@../stylesheets/menuItemButton.css" text="View Order #" textAlignment="CENTER" visible="false" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <MFXButton fx:id="ViewButton" disable="true" maxWidth="183.0" minHeight="83.0" minWidth="83.0" style="-fx-background-color: #235FA6; -fx-background-radius: 100; -fx-border-radius: 100; -fx-border-color: #6F797A; -fx-text-fill: #ffffff; -fx-font-family: Roboto; -fx-font-size: 20;" stylesheets="@../stylesheets/button.css" text="View Order #" textAlignment="CENTER" visible="false" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                               <font>
                                  <Font name="Roboto" size="36.0" />
                               </font>
+                              <styleClass>
+                                 <String fx:value="primary" />
+                                 <String fx:value="headline-med" />
+                              </styleClass>
                            </MFXButton>
                         </children>
+                        <VBox.margin>
+                           <Insets top="12.0" />
+                        </VBox.margin>
                      </GridPane>
                   </children>
                   <padding>
@@ -165,16 +188,16 @@
                     <Insets right="10.0" />
                 </HBox.margin>
                 <children>
-                    <FilteredTableView fx:id="table" editable="true">
+                    <FilteredTableView fx:id="table" editable="true" styleClass="surface">
                         <columns>
-                            <FilteredTableColumn fx:id="requestIDCol" minWidth="0.0" prefWidth="148.5" style="-fx-background-color: #D5E3FF;" text="Request ID" />
-                            <FilteredTableColumn fx:id="patientNameCol" prefWidth="148.5" style="-fx-background-color: #D9E3F8;" text="Patient Name" />
-                            <FilteredTableColumn fx:id="roomNumCol" prefWidth="148.5" style="-fx-background-color: #D5E3FF;" text="Room #" />
-                            <FilteredTableColumn fx:id="requesterIDCol" prefWidth="148.5" style="-fx-background-color: #D9E3F8;" text="Requester ID" />
-                            <FilteredTableColumn fx:id="requestedAtCol" prefWidth="148.5" style="-fx-background-color: #D5E3FF;" text="Requested At" />
-                            <FilteredTableColumn fx:id="requestedForCol" prefWidth="148.5" style="-fx-background-color: #D9E3F8;" text="Requested For" />
-                            <FilteredTableColumn fx:id="assignedStaffCol" prefWidth="148.5" style="-fx-background-color: #D5E3FF;" text="Assigned Staff" />
-                            <FilteredTableColumn fx:id="statusCol" prefWidth="148.5" style="-fx-background-color: #D9E3F8;" text="Status" />
+                            <FilteredTableColumn fx:id="requestIDCol" minWidth="0.0" prefWidth="148.5" style="-fx-background-color: #D5E3FF;" styleClass="primary-container" text="Request ID" />
+                            <FilteredTableColumn fx:id="patientNameCol" prefWidth="148.5" styleClass="primary-fixed-dim" text="Patient Name" />
+                            <FilteredTableColumn fx:id="roomNumCol" prefWidth="148.5" styleClass="primary-container" text="Room #" />
+                            <FilteredTableColumn fx:id="requesterIDCol" prefWidth="148.5" styleClass="primary-fixed-dim" text="Requester ID" />
+                            <FilteredTableColumn fx:id="requestedAtCol" prefWidth="148.5" styleClass="primary-container" text="Requested At" />
+                            <FilteredTableColumn fx:id="requestedForCol" prefWidth="148.5" styleClass="primary-fixed-dim" text="Requested For" />
+                            <FilteredTableColumn fx:id="assignedStaffCol" prefWidth="148.5" styleClass="primary-container" text="Assigned Staff" />
+                            <FilteredTableColumn fx:id="statusCol" prefWidth="148.5" styleClass="primary-fixed-dim" text="Status" />
                         </columns>
                     </FilteredTableView>
                     <AnchorPane fx:id="summaryPane" disable="true" mouseTransparent="true" visible="false">

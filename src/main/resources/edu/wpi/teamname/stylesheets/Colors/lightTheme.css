@@ -72,3 +72,7 @@
 .outline{
     -fx-border-color: #6F797A;
 }
+.primary-fixed-dim{
+    -fx-background-color: #A7C8FF;
+    -fx-text-fill: #001B3B;
+}
