@@ -20,6 +20,8 @@
 
 <!--        style="-fx-background-color: #D9E3F8;" -->
 
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
 <AnchorPane styleClass="surface-container" stylesheets="@../stylesheets/Colors/lightTheme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestViewController">
     <children>
         <HBox style="-fx-background-radius: 16;" styleClass="surface" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -188,18 +190,20 @@
                     <Insets right="10.0" />
                 </HBox.margin>
                 <children>
-                    <FilteredTableView fx:id="table" editable="true" styleClass="surface">
+                    <TableView fx:id="table" editable="true" styleClass="surface" >
                         <columns>
-                            <FilteredTableColumn fx:id="requestIDCol" minWidth="0.0" prefWidth="148.5" style="-fx-background-color: #D5E3FF;" styleClass="primary-container" text="Request ID" />
-                            <FilteredTableColumn fx:id="patientNameCol" prefWidth="148.5" styleClass="primary-fixed-dim" text="Patient Name" />
-                            <FilteredTableColumn fx:id="roomNumCol" prefWidth="148.5" styleClass="primary-container" text="Room #" />
-                            <FilteredTableColumn fx:id="requesterIDCol" prefWidth="148.5" styleClass="primary-fixed-dim" text="Requester ID" />
-                            <FilteredTableColumn fx:id="requestedAtCol" prefWidth="148.5" styleClass="primary-container" text="Requested At" />
-                            <FilteredTableColumn fx:id="requestedForCol" prefWidth="148.5" styleClass="primary-fixed-dim" text="Requested For" />
-                            <FilteredTableColumn fx:id="assignedStaffCol" prefWidth="148.5" styleClass="primary-container" text="Assigned Staff" />
-                            <FilteredTableColumn fx:id="statusCol" prefWidth="148.5" styleClass="primary-fixed-dim" text="Status" />
+                            <TableColumn fx:id="requestIDCol" minWidth="0.0" prefWidth="148.5" text="Request ID"/>
+                            <TableColumn fx:id="patientNameCol" prefWidth="148.5"  text="Patient Name" />
+                            <TableColumn fx:id="roomNumCol" prefWidth="148.5"  text="Room #" />
+                            <TableColumn fx:id="requesterIDCol" prefWidth="148.5"  text="Requester ID" />
+                            <TableColumn fx:id="requestedAtCol" prefWidth="148.5" text="Requested At" />
+                            <TableColumn fx:id="requestedForCol" prefWidth="148.5" text="Requested For" />
+                            <TableColumn fx:id="assignedStaffCol" prefWidth="148.5"  text="Assigned Staff" />
+                            <TableColumn fx:id="statusCol" prefWidth="148.5" text="Status" />
+<!--                            styleClass="primary-container"-->
+<!--                            styleClass="primary-fixed-dim"-->
                         </columns>
-                    </FilteredTableView>
+                    </TableView>
                     <AnchorPane fx:id="summaryPane" disable="true" mouseTransparent="true" visible="false">
                         <children>
                             <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" pannable="true" style="-fx-background-color: #ffffff;" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
