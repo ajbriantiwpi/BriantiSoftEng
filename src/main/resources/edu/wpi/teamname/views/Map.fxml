@@ -32,7 +32,7 @@
                       </GesturePane>
                </children>
             </AnchorPane>
-            <HBox spacing="12.0" StackPane.alignment="TOP_LEFT">
+            <HBox maxHeight="-Infinity" spacing="12.0" StackPane.alignment="TOP_LEFT">
                <children>
                   <MFXButton fx:id="DeleteNodeButton" prefHeight="61.0" prefWidth="171.0" style="-fx-background-radius: 100; -fx-border-radius: 100;" text="Reset">
                      <font>
