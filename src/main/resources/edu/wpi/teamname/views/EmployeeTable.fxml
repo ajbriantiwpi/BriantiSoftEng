@@ -30,7 +30,7 @@
                   <Insets bottom="8.0" />
                </padding>
             </Label>
-            <TextField fx:id="employeeIDField" maxWidth="156.0">
+            <TextField fx:id="employeeIDField" maxWidth="156.0" style="-fx-background-color: #D5E3FF;" stylesheets="@../stylesheets/TextField.css">
                <VBox.margin>
                   <Insets left="10.0" right="5.0" />
                </VBox.margin></TextField>
@@ -45,7 +45,7 @@
                   <Insets bottom="8.0" />
                </padding>
             </Label>
-            <TextField fx:id="employeeFirstNameTextField" maxWidth="156.0">
+            <TextField fx:id="employeeFirstNameTextField" maxWidth="156.0" style="-fx-background-color: #D5E3FF;" stylesheets="@../stylesheets/TextField.css">
                <VBox.margin>
                   <Insets left="10.0" right="5.0" />
                </VBox.margin></TextField>
@@ -60,7 +60,7 @@
                   <Insets bottom="8.0" />
                </padding>
             </Label>
-            <TextField fx:id="employeeLastNameTextField" maxWidth="156.0">
+            <TextField fx:id="employeeLastNameTextField" maxWidth="156.0" style="-fx-background-color: #D5E3FF;" stylesheets="@../stylesheets/TextField.css">
                <VBox.margin>
                   <Insets left="10.0" right="5.0" />
                </VBox.margin></TextField>
@@ -75,7 +75,7 @@
                   <Insets bottom="8.0" />
                </padding>
             </Label>
-            <TextField fx:id="employeeTypeTextField" maxWidth="156.0">
+            <TextField fx:id="employeeTypeTextField" maxWidth="156.0" style="-fx-background-color: #D5E3FF;" stylesheets="@../stylesheets/TextField.css">
                <VBox.margin>
                   <Insets left="10.0" right="5.0" />
                </VBox.margin></TextField>
@@ -90,7 +90,7 @@
                   <Insets bottom="8.0" />
                </padding>
             </Label>
-            <TextField fx:id="employeeUserTextField" maxWidth="156.0">
+            <TextField fx:id="employeeUserTextField" maxWidth="156.0" style="-fx-background-color: #D5E3FF;" stylesheets="@../stylesheets/TextField.css">
                <VBox.margin>
                   <Insets left="10.0" right="5.0" />
                </VBox.margin></TextField>
@@ -105,7 +105,7 @@
                   <Insets bottom="8.0" />
                </padding>
             </Label>
-            <TextField fx:id="employeePasswordTextField" maxWidth="156.0">
+            <TextField fx:id="employeePasswordTextField" maxWidth="156.0" style="-fx-background-color: #D5E3FF;" stylesheets="@../stylesheets/TextField.css">
                <VBox.margin>
                   <Insets left="10.0" right="5.0" />
                </VBox.margin></TextField>
@@ -167,7 +167,7 @@
                   <Insets left="50.0" top="10.0" />
                </HBox.margin>
             </Label>
-            <TextField fx:id="searchEmployee" prefHeight="54.0" prefWidth="248.0">
+            <TextField fx:id="searchEmployee" prefHeight="54.0" prefWidth="248.0" style="-fx-background-color: #D5E3FF;" stylesheets="@../stylesheets/TextField.css">
                <HBox.margin>
                   <Insets bottom="20.0" right="20.0" top="10.0" />
                </HBox.margin>
