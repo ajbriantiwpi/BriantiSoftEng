@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Optional;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -131,6 +132,7 @@ public class MoveTableController {
             }
           }
         });
+    setupRowFactory();
     submitButton.setOnAction(
         event -> {
           int nodeId = Integer.parseInt(nodeIdTextField.getText());
@@ -240,5 +242,48 @@ public class MoveTableController {
 
       moveTable.setItems(filteredMoves);
     }
+  }
+
+  private void setupRowFactory() {
+    moveTable.setRowFactory(
+        tableView -> {
+          TableRow<Move> row = new TableRow<>();
+          ContextMenu contextMenu = new ContextMenu();
+          MenuItem deleteMenuItem = new MenuItem("Delete");
+          deleteMenuItem.setOnAction(
+              event -> {
+                Move move = row.getItem();
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Delete Move");
+                alert.setHeaderText("Are you sure you want to delete this move?");
+                alert.setContentText(
+                    "Node ID: "
+                        + move.getNodeID()
+                        + "\nLong Name: "
+                        + move.getLongName()
+                        + "\nDate: "
+                        + move.getDate().toString());
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                  try {
+                    DataManager moveDAO = new DataManager();
+                    moveDAO.deleteMove(move);
+                    moveTable.getItems().remove(move);
+                  } catch (SQLException e) {
+                    e.printStackTrace();
+                  }
+                }
+              });
+          contextMenu.getItems().add(deleteMenuItem);
+
+          row.contextMenuProperty()
+              .bind(
+                  Bindings.when(row.emptyProperty())
+                      .then((ContextMenu) null)
+                      .otherwise(contextMenu));
+
+          return row;
+        });
   }
 }
