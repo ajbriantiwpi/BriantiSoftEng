@@ -25,9 +25,15 @@ public class EdgeRectangle {
   private Node startNode;
   private Node endNode;
 
-  public EdgeRectangle(Node startNode, Node endNode) {
+  boolean isMapPage;
+  Map map;
+
+  public EdgeRectangle(Node startNode, Node endNode, boolean isMapPage, Map map) {
     this.startNode = startNode;
     this.endNode = endNode;
+
+    this.isMapPage = isMapPage;
+    this.map = map;
 
     float minX = Math.min(this.startNode.getX(), this.endNode.getX());
     float minY = Math.min(this.startNode.getY(), this.endNode.getY());
@@ -110,8 +116,11 @@ public class EdgeRectangle {
 
           try {
             DataManager.deleteEdge(e);
+            map.setCurrentDisplayFloor(map.getCurrentDisplayFloor(), isMapPage);
           } catch (SQLException ex) {
             System.out.println(ex);
+          } catch (IOException ex) {
+            throw new RuntimeException(ex);
           }
         }
       };
@@ -147,9 +156,12 @@ public class EdgeRectangle {
 
             try {
               DataManager.syncEdge(e);
+              map.setCurrentDisplayFloor(map.getCurrentDisplayFloor(), isMapPage);
             } catch (SQLException ex) {
               System.out.println(ex);
               //            throw new RuntimeException(ex);
+            } catch (IOException ex) {
+              throw new RuntimeException(ex);
             }
           } else {
             System.out.println("Not enough info to make an edge");
