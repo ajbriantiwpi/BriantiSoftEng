@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -47,6 +48,8 @@ public class MapController {
   @FXML MFXButton upFloor;
 
   @FXML HBox floorSelector;
+
+  @FXML AnchorPane OuterMapAnchor;
 
   String defaultFloor = "L1";
   int clickCount = 0;
@@ -393,6 +396,24 @@ public class MapController {
         @Override
         public void handle(MouseEvent event) {
           System.out.println("This is the toggle");
+
+          double parentW = map.getMapWitdh(OuterMapAnchor);
+          double parentH = map.getMapHeight(OuterMapAnchor);
+
+          System.out.println(
+              "Check"
+                  + parentW
+                  + ", "
+                  + parentH
+                  + " :"
+                  + gp.getCurrentScale()
+                  + ", "
+                  + gp.getCurrentX()
+                  + ", "
+                  + gp.getCurrentY());
+
+          // -1627.2856715232545, -690.8681650647059
+
           showPathFloors();
         }
       };
@@ -488,14 +509,21 @@ public class MapController {
 
     gp.setMinScale(0.11);
 
+    //    double parentW = map.getMapWitdh(OuterMapAnchor);
+    //    double parentH = map.getMapHeight(OuterMapAnchor);
+    //
+    //    System.out.println("" + parentW + ", " + parentH);
+
     //    gp.setOnMouseMoved(checkPoints);
+
+    //    anchor.on
 
     ArrayList<javafx.scene.Node> currentFloorNodes = (map.makeAllFloorShapes(defaultFloor, true));
     anchor.getChildren().addAll(currentFloorNodes);
     map.setCurrentFloorShapes(currentFloorNodes);
     //  anchor.getChildren().addAll(map.makeAllFloorNodes(defaultFloor, true));
 
-    map.centerAndZoom(gp);
+    Platform.runLater(() -> map.centerAndZoom(gp, OuterMapAnchor));
 
     // DeleteNodeButton.setOnMouseClicked(deleteNodeButton);
     DeleteNodeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));

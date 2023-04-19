@@ -23,57 +23,57 @@
 
                         <HBox prefHeight="0.0" prefWidth="0.0" spacing="20.0">
                             <children>
-                                <MFXButton fx:id="importButton" stylesheets="@../stylesheets/button.css" text="Import">
+                                <MFXButton fx:id="importButton" style="-fx-font-size: 18;" stylesheets="@../stylesheets/button.css" text="Import">
                                     <font>
                                         <Font size="18.0" />
                                     </font>
                            <styleClass>
                               <String fx:value="outline" />
-                              <String fx:value="primary-container" />
+                              <String fx:value="primary" />
                            </styleClass></MFXButton>
-                                <MFXButton fx:id="exportButton" stylesheets="@../stylesheets/button.css" text="Export">
+                                <MFXButton fx:id="exportButton" style="-fx-font-size: 18;" stylesheets="@../stylesheets/button.css" text="Export">
                                     <font>
                                         <Font size="18.0" />
                                     </font>
                            <styleClass>
-                              <String fx:value="primary-container" />
+                              <String fx:value="primary" />
                               <String fx:value="outline" />
                            </styleClass></MFXButton>
                             </children>
                         </HBox>
-                        <MFXButton fx:id="addNodeButton" stylesheets="@../stylesheets/button.css" text="AddNode">
+                        <MFXButton fx:id="addNodeButton" style="-fx-font-size: 18;" stylesheets="@../stylesheets/button.css" text="AddNode">
                             <font>
                                 <Font size="18.0" />
                             </font>
                      <styleClass>
-                        <String fx:value="primary-container" />
+                        <String fx:value="primary" />
                         <String fx:value="outline" />
                      </styleClass>
                         </MFXButton>
-                        <MFXButton fx:id="addLocationButton" stylesheets="@../stylesheets/button.css" text="AddLocation">
+                        <MFXButton fx:id="addLocationButton" style="-fx-font-size: 18;" stylesheets="@../stylesheets/button.css" text="AddLocation">
                             <font>
                                 <Font size="18.0" />
                             </font>
                      <styleClass>
-                        <String fx:value="primary-container" />
+                        <String fx:value="primary" />
                         <String fx:value="outline" />
                      </styleClass>
                         </MFXButton>
-                  <MFXButton fx:id="addEdgeButton" stylesheets="@../stylesheets/button.css" text="AddEdge">
+                  <MFXButton fx:id="addEdgeButton" style="-fx-font-size: 18;" stylesheets="@../stylesheets/button.css" text="AddEdge">
                      <font>
                         <Font size="18.0" />
                      </font>
                      <styleClass>
-                        <String fx:value="primary-container" />
+                        <String fx:value="primary" />
                         <String fx:value="outline" />
                      </styleClass>
                   </MFXButton>
-                        <MFXButton fx:id="toggleTableButton" stylesheets="@../stylesheets/button.css" text="Modify/Remove Locations">
+                        <MFXButton fx:id="toggleTableButton" style="-fx-font-size: 18;" stylesheets="@../stylesheets/button.css" text="Modify/Remove Locations">
                             <font>
                                 <Font size="18.0" />
                             </font>
                      <styleClass>
-                        <String fx:value="primary-container" />
+                        <String fx:value="primary" />
                         <String fx:value="outline" />
                      </styleClass>
                         </MFXButton>
@@ -84,7 +84,7 @@
                 </VBox>
             </children>
         </AnchorPane>
-        <AnchorPane id="AP" HBox.hgrow="ALWAYS">
+        <AnchorPane id="AP" fx:id="OuterMapAnchor" HBox.hgrow="ALWAYS">
             <children>
                 <StackPane fx:id="sp" prefHeight="340.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
