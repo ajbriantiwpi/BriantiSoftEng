@@ -51,7 +51,7 @@
                         <Insets left="20.0" top="10.0" />
                     </GridPane.margin>
                 </MFXButton>
-                <VBox alignment="CENTER" maxHeight="242.0" maxWidth="444.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 16;" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
+                <VBox alignment="CENTER" maxHeight="242.0" maxWidth="444.0" prefHeight="200.0" prefWidth="100.0" spacing="12.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 16;" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
                     <children>
                         <Label alignment="CENTER" minHeight="92.0" minWidth="444.0" style="-fx-background-color: #001b3b; -fx-background-radius: 16;" text="Service Requests" textFill="#fdfbff">
                             <font>
@@ -101,7 +101,7 @@
                         <Insets bottom="12.0" />
                     </padding>
                 </VBox>
-                <VBox alignment="CENTER" maxHeight="334.0" maxWidth="444.0" prefHeight="200.0" prefWidth="444.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 16;" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
+                <VBox alignment="CENTER" maxHeight="334.0" maxWidth="444.0" prefHeight="200.0" prefWidth="444.0" spacing="12.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 16;" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
                     <children>
                         <Label alignment="CENTER" minHeight="92.0" minWidth="444.0" style="-fx-background-color: #001b3b; -fx-background-radius: 16;" text="Map" textFill="#fdfbff">
                             <font>
@@ -176,38 +176,60 @@
                         <Insets bottom="12.0" />
                     </padding>
                 </VBox>
+            <VBox alignment="CENTER" maxHeight="280.0" maxWidth="500.0" spacing="12.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 16;" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <children>
+                  <Label alignment="CENTER" maxWidth="500.0" minHeight="92.0" minWidth="444.0" style="-fx-background-color: #001b3b; -fx-background-radius: 16;" text="Action Items" textFill="#fdfbff">
+                     <font>
+                        <Font name="Roboto" size="36.0" />
+                     </font>
+                  </Label>
+                  <HBox maxHeight="192.0" maxWidth="500.0" spacing="12.0">
+                     <children>
+                        <MFXButton fx:id="upcomingMoves" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="10.0" maxHeight="168.0" maxWidth="151.0" prefHeight="168.0" style="-fx-background-color: #faf9fd; -fx-wrap-text: true;" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="Roboto" size="22.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="activeRequests" alignment="BASELINE_LEFT" maxHeight="168.0" maxWidth="151.0" style="-fx-background-color: #faf9fd; -fx-wrap-text: true;" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="Roboto" size="22.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="doneRequests" alignment="BASELINE_LEFT" layoutX="205.0" layoutY="10.0" maxHeight="168.0" maxWidth="151.0" style="-fx-background-color: #faf9fd; -fx-wrap-text: true;" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="Roboto" size="22.0" />
+                           </font>
+                        </MFXButton>
+                     </children>
+                     <padding>
+                        <Insets left="12.0" right="12.0" />
+                     </padding></HBox>
+               </children>
+               <padding>
+                  <Insets bottom="12.0" />
+               </padding>
+            </VBox>
                 <HBox alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                     <children>
                         <MFXButton fx:id="helpButton" alignment="CENTER" style="-fx-background-color: #001B3B; -fx-border-color: #f6bd38; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" text="Help" textAlignment="CENTER" textFill="#fdfbff" HBox.hgrow="ALWAYS">
                             <font>
                                 <Font size="20.0" />
                             </font>
-                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
-                           <image>
-                              <Image url="@../images/MenuIcons/help.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
                         </MFXButton>
                         <MFXButton fx:id="exitButton" alignment="CENTER" style="-fx-background-color: #001B3B; -fx-border-color: #BA1A1A; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" text="Exit" textAlignment="CENTER" textFill="#fdfbff" HBox.hgrow="ALWAYS">
                             <font>
                                 <Font size="20.0" />
                             </font>
-                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
-                           <image>
-                              <Image url="@../images/MenuIcons/power_rounded.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
                         </MFXButton>
                     </children>
                     <GridPane.margin>
                         <Insets right="20.0" top="10.0" />
                     </GridPane.margin>
                 </HBox>
-                <AnchorPane maxHeight="400.0" maxWidth="400.0" prefHeight="120.0" prefWidth="120.0" styleClass="body3" stylesheets="@../stylesheets/logoScale.css" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER" />
+                <AnchorPane maxHeight="200.0" maxWidth="200.0" prefHeight="120.0" prefWidth="120.0" styleClass="body3" stylesheets="@../stylesheets/logoScale.css" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER" />
             </children>
         </GridPane>
 

@@ -34,6 +34,9 @@ public class NodeCircle {
 
   private VBox changeBox;
 
+  private Map map;
+  private boolean isMapPage;
+
   /**
    * A NodeCircle is a circle that represents a Node in the GUI. It is composed of two circles, an
    * inner one that is filled with a color that represents the Node type, and an outer one that
@@ -44,10 +47,13 @@ public class NodeCircle {
    * @param n The Node that this NodeCircle represents.
    * @throws IOException If there was an error reading from the FXML file for the Node editing menu.
    */
-  public NodeCircle(Node n, boolean isMapPage, String firstShortName)
+  public NodeCircle(Node n, boolean isMapPage, String firstShortName, Map map)
       throws IOException, SQLException {
     float shiftX = 0; // circleR;
     float shiftY = 0; // circleR;
+
+    this.isMapPage = isMapPage;
+    this.map = map;
 
     this.firstShortName = firstShortName;
 
@@ -299,7 +305,8 @@ public class NodeCircle {
 
           try {
             DataManager.deleteNode(n);
-          } catch (SQLException ex) {
+            map.setCurrentDisplayFloor(map.getCurrentDisplayFloor(), isMapPage);
+          } catch (SQLException | IOException ex) {
             System.out.println(ex);
           }
         }
@@ -365,8 +372,11 @@ public class NodeCircle {
 
           try {
             DataManager.syncNode(n);
+            map.setCurrentDisplayFloor(map.getCurrentDisplayFloor(), isMapPage);
           } catch (SQLException ex) {
             System.out.println(ex);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
           }
 
           System.out.println("DONE SYNC");
