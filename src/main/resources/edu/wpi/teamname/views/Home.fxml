@@ -117,31 +117,31 @@
                         </ImageView>
                      </graphic>
                         </MFXButton>
-                        <MFXButton fx:id="directionsButton" alignment="BASELINE_LEFT" maxWidth="476.0" style="-fx-background-color: #faf9fd;" styleClass="surface-container" text="Get Directions">
-                            <font>
-                                <Font name="Roboto" size="22.0" />
-                            </font>
-                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
-                           <image>
-                              <Image url="@../images/MenuIcons/directions.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                        </MFXButton>
-                        <MFXButton fx:id="navigateButton" alignment="BASELINE_LEFT" maxWidth="476.0" style="-fx-background-color: #faf9fd;" styleClass="surface-container" text="Navigate">
-                            <font>
-                                <Font name="Roboto" size="22.0" />
-                            </font>
-                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
-                           <image>
-                              <Image url="@../images/MenuIcons/route.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                        </MFXButton>
-                        <MFXButton fx:id="editMoveButton" alignment="BASELINE_LEFT" maxWidth="476.0" style="-fx-background-color: #faf9fd;" styleClass="surface-container" text="Edit Move">
+<!--                        <MFXButton fx:id="directionsButton" alignment="BASELINE_LEFT" maxWidth="420.0" style="-fx-background-color: #faf9fd;" text="Get Directions">-->
+<!--                            <font>-->
+<!--                                <Font name="Roboto" size="22.0" />-->
+<!--                            </font>-->
+<!--                     <graphic>-->
+<!--                        <ImageView fitHeight="30.0" fitWidth="30.0">-->
+<!--                           <image>-->
+<!--                              <Image url="@../images/MenuIcons/directions.png" />-->
+<!--                           </image>-->
+<!--                        </ImageView>-->
+<!--                     </graphic>-->
+<!--                        </MFXButton>-->
+<!--                        <MFXButton fx:id="navigateButton" alignment="BASELINE_LEFT" maxWidth="420.0" style="-fx-background-color: #faf9fd;" text="Navigate">-->
+<!--                            <font>-->
+<!--                                <Font name="Roboto" size="22.0" />-->
+<!--                            </font>-->
+<!--                     <graphic>-->
+<!--                        <ImageView fitHeight="30.0" fitWidth="30.0">-->
+<!--                           <image>-->
+<!--                              <Image url="@../images/MenuIcons/route.png" />-->
+<!--                           </image>-->
+<!--                        </ImageView>-->
+<!--                     </graphic>-->
+<!--                        </MFXButton>-->
+                        <MFXButton fx:id="editMoveButton" alignment="BASELINE_LEFT" maxWidth="476.0" style="-fx-background-color: #faf9fd;" text="Edit Move">
                             <font>
                                 <Font name="Roboto" size="22.0" />
                             </font>

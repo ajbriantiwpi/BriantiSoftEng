@@ -31,7 +31,7 @@ public class HomeController {
   @FXML MFXButton showRequestsButton;
   @FXML MFXButton editMapButton;
   @FXML MFXButton exitButton;
-  @FXML MFXButton navigateButton;
+  // @FXML MFXButton navigateButton;
   @FXML MFXButton employeeButton;
 
   @FXML MFXButton activeRequests;
@@ -84,6 +84,7 @@ public class HomeController {
     // Lambda Expression. parameter -> expression
     // Basically just runs the Navigation.navigate Function
     // "event" is a parameter, but there is no
+    helpButton.setVisible(false);
     if (loggedIn.getValue()) {
       loginButton.setVisible(false);
       logoutButton.setVisible(true);
@@ -184,7 +185,7 @@ public class HomeController {
     showRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST_VIEW));
     editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
     exitButton.setOnMouseClicked(event -> System.exit(0));
-    navigateButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
+    // navigateButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
     editMoveButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MOVE_TABLE));
     employeeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.EMPLOYEE_TABLE));
   }
