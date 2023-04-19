@@ -1,5 +1,6 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.controllers.JFXitems.ReqMenuItems;
@@ -157,7 +158,7 @@ public class ServiceRequestController {
               reqTS,
               Timestamp.from(Instant.now()),
               Status.BLANK,
-              "test",
+              GlobalVariables.getCurrentUser().getUsername(),
               reqType));
       // glitchyPane.setMaxHeight(glitchyPane.getHvalue());
       for (int a = 0; a < items.size(); a++) {
