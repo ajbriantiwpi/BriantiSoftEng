@@ -12,6 +12,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
@@ -93,6 +94,24 @@ public class LoginController {
           }
         });
     cancel.setOnMouseClicked(event -> Navigation.navigate(GlobalVariables.getPreviousScreen()));
+
+    passwordText.setOnKeyPressed(
+        event -> {
+          if (event.getCode() == KeyCode.ENTER
+              && !passwordText.textProperty().equals("")
+              && !loginText.textProperty().equals("")) {
+            try {
+              boolean temp = loginPressed(loginText.getText(), passwordText.getText());
+              if (!temp) {
+                paneOfStuff.setDisable(true);
+                success.setVisible(true);
+                passwordText.clear();
+              }
+            } catch (SQLException e) {
+              throw new RuntimeException(e);
+            }
+          }
+        });
   }
 
   /**

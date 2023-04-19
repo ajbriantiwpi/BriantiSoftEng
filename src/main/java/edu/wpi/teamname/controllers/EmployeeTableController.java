@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Optional;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -111,6 +112,22 @@ public class EmployeeTableController {
     employeeTypeColumn.setCellFactory(ComboBoxTableCell.forTableColumn(EmployeeType.values()));
     userColumn.setCellFactory(TextFieldTableCell.forTableColumn());
     passColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+    ContextMenu contextMenu = new ContextMenu();
+    MenuItem deleteMenuItem = new MenuItem("Delete");
+    contextMenu.getItems().add(deleteMenuItem);
+
+    employeeTable.setRowFactory(
+        tableView -> {
+          TableRow<Employee> row = new TableRow<>();
+          row.contextMenuProperty()
+              .bind(
+                  Bindings.when(row.emptyProperty())
+                      .then((ContextMenu) null)
+                      .otherwise(contextMenu));
+          return row;
+        });
+
+    deleteMenuItem.setOnAction(event -> deleteSelectedEmployee());
 
     exportButton.setOnAction(
         event -> {
@@ -186,9 +203,16 @@ public class EmployeeTableController {
     employeeTypeColumn.setOnEditCommit(
         event -> {
           Employee employee = event.getRowValue();
-          employee.removeTypes(employee.getType());
-          employee.addType(EmployeeType.valueOf(String.valueOf(event.getNewValue())));
-          updateEmployeeType(employee);
+          if (employee.getType().contains(EmployeeType.ADMIN)) {
+            employee.removeType(EmployeeType.ADMIN);
+          } else {
+            employee.addType(EmployeeType.ADMIN);
+          }
+          try {
+            DataManager.syncEmployee(employee);
+          } catch (SQLException e) {
+            System.out.println(e.getMessage());
+          }
         });
     userColumn.setOnEditCommit(
         event -> {

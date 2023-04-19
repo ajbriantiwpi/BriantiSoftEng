@@ -13,7 +13,7 @@
             <children>
                 <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Label layoutX="20.0" layoutY="267.0" prefHeight="40.0" prefWidth="228.0" text="Add Move">
+                  <Label layoutX="20.0" layoutY="267.0" prefHeight="40.0" prefWidth="228.0" text="Add Move" textFill="#235fa6">
                      <font>
                         <Font name="Roboto" size="28.0" />
                      </font>
@@ -29,7 +29,7 @@
                         <Font name="Roboto" size="28.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="nodeIdTextField" maxWidth="-Infinity" prefHeight="35.0" prefWidth="450.0" style="-fx-background-color: #D5E3FF;" stylesheets="@../stylesheets/TextField.css">
+                  <TextField fx:id="nodeIdTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="60.0" prefWidth="450.0" style="-fx-background-color: #D5E3FF;" stylesheets="@../stylesheets/TextField.css">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin></TextField>
@@ -41,7 +41,7 @@
                         <Insets left="10.0" top="40.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField fx:id="longNameTextField" maxWidth="-Infinity" prefHeight="35.0" prefWidth="450.0" style="-fx-background-color: #D5E3FF;" stylesheets="@../stylesheets/TextField.css">
+                  <TextField fx:id="longNameTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="60.0" prefWidth="450.0" style="-fx-background-color: #D5E3FF;" stylesheets="@../stylesheets/TextField.css">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin></TextField>
@@ -57,12 +57,12 @@
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin></DatePicker>
-                  <MFXButton fx:id="submitButton" style="-fx-background-color: #235FA6;" stylesheets="@../stylesheets/menuItemButton.css" text="Submit">
+                  <MFXButton fx:id="submitButton" maxWidth="-Infinity" prefWidth="230.0" style="-fx-background-color: #235FA6;" stylesheets="@../stylesheets/menuItemButton.css" text="Submit">
                      <VBox.margin>
                         <Insets left="55.0" top="15.0" />
                      </VBox.margin>
                      <font>
-                        <Font name="Roboto" size="12.0" />
+                        <Font name="Roboto" size="20.0" />
                      </font>
                   </MFXButton>
                   <Label layoutX="20.0" layoutY="25.0" prefHeight="40.0" prefWidth="228.0" text="CSV Manager">
@@ -73,20 +73,20 @@
                         <Insets left="10.0" top="40.0" />
                      </VBox.margin>
                   </Label>
-                  <MFXButton fx:id="importButton" style="-fx-background-color: #235FA6;" stylesheets="@../stylesheets/menuItemButton.css" text="Import">
+                  <MFXButton fx:id="importButton" maxWidth="-Infinity" prefWidth="230.0" stylesheets="@../stylesheets/menuItemButton.css" text="Import">
                      <VBox.margin>
                         <Insets left="55.0" top="15.0" />
                      </VBox.margin>
                      <font>
-                        <Font name="Roboto" size="12.0" />
+                        <Font name="Roboto" size="20.0" />
                      </font>
                   </MFXButton>
-                  <MFXButton fx:id="exportButton" layoutX="20.0" layoutY="317.0" style="-fx-background-color: #235FA6;" stylesheets="@../stylesheets/menuItemButton.css" text="Export">
+                  <MFXButton fx:id="exportButton" layoutX="20.0" layoutY="317.0" maxWidth="-Infinity" prefWidth="230.0" style="-fx-background-color: #235FA6;" stylesheets="@../stylesheets/menuItemButton.css" text="Export">
                      <VBox.margin>
                         <Insets left="55.0" top="15.0" />
                      </VBox.margin>
                      <font>
-                        <Font name="Roboto" size="12.0" />
+                        <Font name="Roboto" size="20.0" />
                      </font>
                   </MFXButton>
                </children></VBox>
