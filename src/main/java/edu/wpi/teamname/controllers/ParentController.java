@@ -69,7 +69,6 @@ public class ParentController {
     titleLabel.setText(titleString.getValue());
     System.out.println("Parent!");
     disableButtonsWhenNotLoggedIn();
-
     if (HomeController.getLoggedIn().getValue()) {
       loginButton.setVisible(false);
       logoutButton.setVisible(true);
