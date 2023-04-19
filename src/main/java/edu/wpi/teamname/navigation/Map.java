@@ -56,23 +56,32 @@ public class Map {
       throws SQLException, IOException {
     ArrayList<javafx.scene.Node> allCirclesAndEdges = new ArrayList<>();
     if (!isMapPage) {
-      allCirclesAndEdges.addAll(this.makeAllFloorEdges(floor));
+      System.out.println("ADDEDGES");
+      allCirclesAndEdges.addAll(this.makeAllFloorEdges(floor, isMapPage));
     }
     allCirclesAndEdges.addAll(this.makeAllFloorNodes(floor, isMapPage));
     return allCirclesAndEdges;
   }
 
-  public ArrayList<javafx.scene.Node> makeAllFloorEdges(String floor) {
+  public ArrayList<javafx.scene.Node> makeAllFloorEdges(String floor, boolean isMapPage) {
 
     ArrayList<javafx.scene.Node> allEdges = new ArrayList<>();
 
-    ArrayList<Edge> mapEdges = this.graph.getEdges();
+    ArrayList<Edge> mapEdges;
+    mapEdges = this.graph.getEdges();
+
+    try {
+      mapEdges = DataManager.getAllEdges();
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+
     for (int i = 0; i < mapEdges.size(); i++) {
       Node StartNode = this.graph.findNodeByID(mapEdges.get(i).getStartNodeID());
       Node EndNode = this.graph.findNodeByID(mapEdges.get(i).getEndNodeID());
 
       if (StartNode.getFloor().equals(floor) || EndNode.getFloor().equals(floor)) {
-        EdgeRectangle er = new EdgeRectangle(StartNode, EndNode);
+        EdgeRectangle er = new EdgeRectangle(StartNode, EndNode, isMapPage, this);
         allEdges.add(er.p);
       }
     }
@@ -118,7 +127,7 @@ public class Map {
           defShortName = "" + n.getId();
         }
 
-        circles.add(new NodeCircle(n, isMapPage, defShortName));
+        circles.add(new NodeCircle(n, isMapPage, defShortName, this));
       }
     }
     for (NodeCircle c : circles) {
@@ -138,11 +147,13 @@ public class Map {
 
     // Delete all nodeCircles
 
+    System.out.println("Change Floor");
+
     //    subAnchor.getChildren();currentFloorNodes;
     if (!this.currentFloorShapes.isEmpty()) {
       for (int i = subAnchor.getChildren().size() - 1; i >= 0; i--) {
         if (this.currentFloorShapes.contains(subAnchor.getChildren().get(i))) {
-          System.out.println("Rem: " + i);
+          //          System.out.println("Rem: " + i);
           subAnchor.getChildren().remove(i);
         }
       }

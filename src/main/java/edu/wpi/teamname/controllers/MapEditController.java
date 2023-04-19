@@ -276,10 +276,13 @@ public class MapEditController {
 
           try {
             DataManager.addNode(n);
-            //            changeFloor();
+            map.setCurrentDisplayFloor(map.getCurrentDisplayFloor(), false);
+            //                        changeFloor();
           } catch (SQLException ex) {
             System.out.println(ex);
             //            throw new RuntimeException(ex);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
           }
         }
       };
@@ -335,13 +338,18 @@ public class MapEditController {
 
           //              Node n = new Node(highestID + 5, xPos, yPos, floor, building);
           LocationName l = new LocationName(longName, shortName, nodeType);
-
           try {
             DataManager.addLocationName(l);
+            map.setCurrentDisplayFloor(map.getCurrentDisplayFloor(), false);
+            ObservableList<LocationName> locations =
+                FXCollections.observableArrayList(DataManager.getAllLocationNames());
+            table.setItems(locations);
             //            changeFloor();
           } catch (SQLException ex) {
             System.out.println(ex);
             //            throw new RuntimeException(ex);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
           }
         }
       };
@@ -373,10 +381,13 @@ public class MapEditController {
 
             try {
               DataManager.addEdge(e);
+              map.setCurrentDisplayFloor(map.getCurrentDisplayFloor(), false);
               //              changeFloor();
             } catch (SQLException ex) {
               System.out.println(ex);
               //            throw new RuntimeException(ex);
+            } catch (IOException ex) {
+              throw new RuntimeException(ex);
             }
           } else {
             System.out.println("Not enough info to make an edge");
@@ -572,7 +583,8 @@ public class MapEditController {
 
           try {
             DataManager.syncLocationName(l);
-          } catch (SQLException ex) {
+            map.setCurrentDisplayFloor(map.getCurrentDisplayFloor(), false);
+          } catch (SQLException | IOException ex) {
             System.out.println(ex);
             //            throw new RuntimeException(ex);
           }
@@ -598,9 +610,15 @@ public class MapEditController {
 
           try {
             DataManager.deleteLocationName(l);
+            map.setCurrentDisplayFloor(map.getCurrentDisplayFloor(), false);
+            ObservableList<LocationName> locations =
+                FXCollections.observableArrayList(DataManager.getAllLocationNames());
+            table.setItems(locations);
           } catch (SQLException ex) {
             System.out.println(ex);
             //            throw new RuntimeException(ex);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
           }
         }
       };
@@ -684,7 +702,7 @@ public class MapEditController {
 
           ObservableList<String> floors = map.getAllFloors();
           int currFlorIndex = floors.indexOf(map.getCurrentDisplayFloor());
-          String newFloor = floors.get((currFlorIndex + 1) % floors.size());
+          String newFloor = floors.get(((currFlorIndex + 1) % floors.size()));
 
           try {
             map.setCurrentDisplayFloor(newFloor, false);
@@ -705,7 +723,7 @@ public class MapEditController {
 
           ObservableList<String> floors = map.getAllFloors();
           int currFlorIndex = floors.indexOf(map.getCurrentDisplayFloor());
-          String newFloor = floors.get((currFlorIndex - 1) % floors.size());
+          String newFloor = floors.get(((currFlorIndex - 1) % floors.size()));
 
           try {
             map.setCurrentDisplayFloor(newFloor, false);
@@ -749,8 +767,6 @@ public class MapEditController {
     toggleTableButton.setOnMouseClicked(toggleTable);
 
     //    table;
-    ObservableList<LocationName> locations =
-        FXCollections.observableArrayList(DataManager.getAllLocationNames());
 
     longNameColumn.setCellValueFactory(new PropertyValueFactory<LocationName, String>("longName"));
     shortNameColumn.setCellValueFactory(
@@ -784,8 +800,11 @@ public class MapEditController {
             l.setLongName((String) event.getNewValue());
             try {
               DataManager.syncLocationName(l);
+              map.setCurrentDisplayFloor(map.getCurrentDisplayFloor(), false);
             } catch (SQLException e) {
               System.err.println("Error updating long name: " + e.getMessage());
+            } catch (IOException e) {
+              throw new RuntimeException(e);
             }
           }
         });
@@ -800,8 +819,11 @@ public class MapEditController {
             l.setShortName((String) event.getNewValue());
             try {
               DataManager.syncLocationName(l);
+              map.setCurrentDisplayFloor(map.getCurrentDisplayFloor(), false);
             } catch (SQLException e) {
               System.err.println("Error updating long name: " + e.getMessage());
+            } catch (IOException e) {
+              throw new RuntimeException(e);
             }
           }
         });
@@ -816,12 +838,17 @@ public class MapEditController {
             l.setNodeType((String) event.getNewValue());
             try {
               DataManager.syncLocationName(l);
+              map.setCurrentDisplayFloor(map.getCurrentDisplayFloor(), false);
             } catch (SQLException e) {
               System.err.println("Error updating long name: " + e.getMessage());
+            } catch (IOException e) {
+              throw new RuntimeException(e);
             }
           }
         });
 
+    ObservableList<LocationName> locations =
+        FXCollections.observableArrayList(DataManager.getAllLocationNames());
     table.setItems(locations);
 
     table.setRowFactory(
