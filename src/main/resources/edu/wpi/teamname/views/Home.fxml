@@ -111,7 +111,7 @@
                         <Insets bottom="12.0" />
                     </padding>
                 </VBox>
-            <VBox alignment="CENTER" maxHeight="304.0" maxWidth="500.0" spacing="12.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 16;" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <VBox alignment="CENTER" maxHeight="280.0" maxWidth="500.0" spacing="12.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 16;" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <children>
                   <Label alignment="CENTER" maxWidth="500.0" minHeight="92.0" minWidth="444.0" style="-fx-background-color: #001b3b; -fx-background-radius: 16;" text="Action Items" textFill="#fdfbff">
                      <font>
@@ -120,17 +120,17 @@
                   </Label>
                   <HBox maxHeight="192.0" maxWidth="500.0" spacing="12.0">
                      <children>
-                        <MFXButton fx:id="upcomingMoves" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="10.0" maxHeight="168.0" maxWidth="151.0" prefHeight="168.0" prefWidth="151.0" style="-fx-background-color: #faf9fd; -fx-wrap-text: true;"  textAlignment="CENTER"  HBox.hgrow="ALWAYS">
+                        <MFXButton fx:id="upcomingMoves" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="10.0" maxHeight="168.0" maxWidth="151.0" prefHeight="168.0" style="-fx-background-color: #faf9fd; -fx-wrap-text: true;" textAlignment="CENTER" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="Roboto" size="22.0" />
                            </font>
                         </MFXButton>
-                        <MFXButton fx:id="activeRequests" alignment="BASELINE_LEFT" maxHeight="168.0" maxWidth="151.0" style="-fx-background-color: #faf9fd; -fx-wrap-text: true;"  textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                        <MFXButton fx:id="activeRequests" alignment="BASELINE_LEFT" maxHeight="168.0" maxWidth="151.0" style="-fx-background-color: #faf9fd; -fx-wrap-text: true;" textAlignment="CENTER" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="Roboto" size="22.0" />
                            </font>
                         </MFXButton>
-                        <MFXButton fx:id="doneRequests" alignment="BASELINE_LEFT" layoutX="205.0" layoutY="10.0" maxHeight="168.0" maxWidth="151.0" style="-fx-background-color: #faf9fd; -fx-wrap-text: true;"  textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                        <MFXButton fx:id="doneRequests" alignment="BASELINE_LEFT" layoutX="205.0" layoutY="10.0" maxHeight="168.0" maxWidth="151.0" style="-fx-background-color: #faf9fd; -fx-wrap-text: true;" textAlignment="CENTER" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="Roboto" size="22.0" />
                            </font>

@@ -170,23 +170,6 @@ public class HomeController {
           Navigation.navigate(Screen.SERVICE_REQUEST_VIEW);
         });
 
-    /*loggedIn.addListener(
-    (loggedIn, old, newV) -> {
-      if (newV && GlobalVariables.userIsType(EmployeeType.STAFF)) {
-        makeRequestsButton.setDisable(false);
-        makeRequestsButton1.setDisable(false);
-        makeRequestsButton2.setDisable(false);
-        makeRequestsButton3.setDisable(false);
-        showRequestsButton.setDisable(false);
-      }
-      if (newV && GlobalVariables.userIsType(EmployeeType.ADMIN)) {
-        editMapButton.setDisable(false);
-        editMoveButton.setDisable(false);
-      }
-      if (!newV) {
-        disableButtonsWhenLoggedOut();
-      }
-    });*/
     mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
     // directionsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
     makeRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
