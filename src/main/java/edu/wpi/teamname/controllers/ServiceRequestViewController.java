@@ -22,24 +22,24 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.SearchableComboBox;
-import org.controlsfx.control.tableview2.FilteredTableColumn;
-import org.controlsfx.control.tableview2.FilteredTableView;
 
 public class ServiceRequestViewController {
 
-  @FXML FilteredTableView<ServiceRequest> table;
-  @FXML FilteredTableColumn requestIDCol;
-  @FXML FilteredTableColumn patientNameCol;
-  @FXML FilteredTableColumn roomNumCol;
-  @FXML FilteredTableColumn requesterIDCol;
-  @FXML FilteredTableColumn requestedAtCol;
-  @FXML FilteredTableColumn requestedForCol;
-  @FXML FilteredTableColumn assignedStaffCol;
-  @FXML FilteredTableColumn statusCol;
+  @FXML TableView<ServiceRequest> table;
+  @FXML TableColumn requestIDCol;
+  @FXML TableColumn patientNameCol;
+  @FXML TableColumn roomNumCol;
+  @FXML TableColumn requesterIDCol;
+  @FXML TableColumn requestedAtCol;
+  @FXML TableColumn requestedForCol;
+  @FXML TableColumn assignedStaffCol;
+  @FXML TableColumn statusCol;
   @FXML SearchableComboBox<String> requestIDText;
   @FXML SearchableComboBox<String> assignStaffText;
   @FXML ComboBox<Status> requestStatusText;
@@ -121,7 +121,7 @@ public class ServiceRequestViewController {
     ObservableList<ServiceRequest> serviceRequests =
         FXCollections.observableList(DataManager.getAllServiceRequests());
     FilteredList<ServiceRequest> serviceRequests1 = new FilteredList<>(serviceRequests);
-    serviceRequests1.predicateProperty().bind(table.predicateProperty());
+    //    serviceRequests1.predicateProperty().bind(table.predicateProperty());
     SortedList<ServiceRequest> sortedServiceReq = new SortedList<>(serviceRequests1);
     table.setItems(sortedServiceReq);
   }
@@ -171,7 +171,7 @@ public class ServiceRequestViewController {
     ObservableList<ServiceRequest> serviceRequests =
         FXCollections.observableList(DataManager.getAllServiceRequests());
     FilteredList<ServiceRequest> serviceRequests1 = new FilteredList<>(serviceRequests);
-    serviceRequests1.predicateProperty().bind(table.predicateProperty());
+    //    serviceRequests1.predicateProperty().bind(table.predicateProperty());
     SortedList<ServiceRequest> sortedServiceReq = new SortedList<>(serviceRequests1);
     requestIDCol.setCellValueFactory(new PropertyValueFactory<ServiceRequest, String>("requestID"));
     roomNumCol.setCellValueFactory(new PropertyValueFactory<ServiceRequest, String>("roomNumber"));
