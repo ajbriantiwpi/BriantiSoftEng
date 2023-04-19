@@ -181,7 +181,7 @@
                               <children>
                                  <Label fx:id="titleLabel" maxHeight="96.0" minHeight="96.0" prefHeight="96.0" stylesheets="@../stylesheets/TopBar.css" text="Template Page" VBox.vgrow="ALWAYS">
                                     <padding>
-                                       <Insets left="24.0" />
+                                       <Insets left="10.0" />
                                     </padding>
                                  </Label>
                               </children>
