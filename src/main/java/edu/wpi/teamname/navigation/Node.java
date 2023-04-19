@@ -183,20 +183,6 @@ public class Node implements Comparable<Node> {
 
   public static int idToIndex(int id) {
     int index = ((id - 100) / 5);
-
-    //    ArrayList<Node> nodes;
-    //
-    //    try {
-    //      nodes = DataManager.getAllNodes();
-    //    } catch (SQLException e) {
-    //      throw new RuntimeException(e);
-    //    }
-    //
-    //    while (!(nodes.get(index).getId() == id)) {
-    //      index--;
-    //    }
-    //    return index;
-
     return index;
   }
 }
