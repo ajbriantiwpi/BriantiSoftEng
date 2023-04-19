@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Optional;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -241,14 +242,9 @@ public class MoveTableController {
       importButton.setDisable(true);
       exportButton.setDisable(true);
     }
-    /*
-      @FXML private TextField nodeIdTextField;
-    @FXML private TextField longNameTextField;
-    @FXML private DatePicker datePicker;
-    @FXML private MFXButton submitButton;
-    @FXML private TextField searchTextField;
-    @FXML private CheckBox newMovesCheck;
-       */
+    submitButton.disableProperty().bind(Bindings.isEmpty(nodeIdTextField.textProperty()));
+    submitButton.disableProperty().bind(Bindings.isEmpty(longNameTextField.textProperty()));
+    submitButton.disableProperty().bind(Bindings.isNull(datePicker.valueProperty()));
   }
 
   private void filterTable(String searchText) {
