@@ -13,7 +13,7 @@
             <children>
                 <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Label layoutX="20.0" layoutY="267.0" prefHeight="40.0" prefWidth="228.0" text="Add Move">
+                  <Label layoutX="20.0" layoutY="267.0" prefHeight="40.0" prefWidth="228.0" text="Add Move" textFill="#235fa6">
                      <font>
                         <Font name="Roboto" size="28.0" />
                      </font>
@@ -62,7 +62,7 @@
                         <Insets left="55.0" top="15.0" />
                      </VBox.margin>
                      <font>
-                        <Font name="Roboto" size="12.0" />
+                        <Font name="Roboto" size="20.0" />
                      </font>
                   </MFXButton>
                   <Label layoutX="20.0" layoutY="25.0" prefHeight="40.0" prefWidth="228.0" text="CSV Manager">
@@ -78,7 +78,7 @@
                         <Insets left="55.0" top="15.0" />
                      </VBox.margin>
                      <font>
-                        <Font name="Roboto" size="12.0" />
+                        <Font name="Roboto" size="20.0" />
                      </font>
                   </MFXButton>
                   <MFXButton fx:id="exportButton" layoutX="20.0" layoutY="317.0" style="-fx-background-color: #235FA6;" stylesheets="@../stylesheets/menuItemButton.css" text="Export">
@@ -86,7 +86,7 @@
                         <Insets left="55.0" top="15.0" />
                      </VBox.margin>
                      <font>
-                        <Font name="Roboto" size="12.0" />
+                        <Font name="Roboto" size="20.0" />
                      </font>
                   </MFXButton>
                </children></VBox>
