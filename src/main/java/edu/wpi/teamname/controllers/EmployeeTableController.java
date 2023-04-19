@@ -186,9 +186,16 @@ public class EmployeeTableController {
     employeeTypeColumn.setOnEditCommit(
         event -> {
           Employee employee = event.getRowValue();
-          employee.removeTypes(employee.getType());
-          employee.addType(EmployeeType.valueOf(String.valueOf(event.getNewValue())));
-          updateEmployeeType(employee);
+          if (employee.getType().contains(EmployeeType.ADMIN)) {
+            employee.removeType(EmployeeType.ADMIN);
+          } else {
+            employee.addType(EmployeeType.ADMIN);
+          }
+          try {
+            DataManager.syncEmployee(employee);
+          } catch (SQLException e) {
+            System.out.println(e.getMessage());
+          }
         });
     userColumn.setOnEditCommit(
         event -> {

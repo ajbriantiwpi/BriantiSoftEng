@@ -215,25 +215,14 @@
                             <font>
                                 <Font size="20.0" />
                             </font>
-                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
-                           <image>
-                              <Image url="@../images/MenuIcons/help.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
                         </MFXButton>
                         <MFXButton fx:id="exitButton" alignment="CENTER" style="-fx-background-color: #001B3B; -fx-border-color: #BA1A1A; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" text="Exit" textAlignment="CENTER" textFill="#fdfbff" HBox.hgrow="ALWAYS">
                             <font>
                                 <Font size="20.0" />
                             </font>
-                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
-                           <image>
-                              <Image url="@../images/MenuIcons/power_rounded.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
                         </MFXButton>
                     </children>
                     <GridPane.margin>
