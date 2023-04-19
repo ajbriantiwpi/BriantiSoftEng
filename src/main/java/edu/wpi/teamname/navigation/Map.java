@@ -705,8 +705,8 @@ public class Map {
    *
    * @return the width of the map
    */
-  private double getMapWitdh() {
-    return 0;
+  public double getMapWitdh(AnchorPane outerMapAnchor) {
+    return outerMapAnchor.getWidth();
   }
 
   /**
@@ -714,8 +714,8 @@ public class Map {
    *
    * @return the height of the map
    */
-  private double getMapHeight() {
-    return 0;
+  public double getMapHeight(AnchorPane outerMapAnchor) {
+    return outerMapAnchor.getHeight();
   }
 
   /**
@@ -756,6 +756,6 @@ public class Map {
     //    centerTL = centerPoint.subtract(CMin);
 
     parent.zoomTo(scaleFactor, Point2D.ZERO);
-    parent.centreOn(centerTL); // Actually Moves the Top left corner
+    parent.centreOn(centerPoint); // Actually Moves the Top left corner
   }
 }
