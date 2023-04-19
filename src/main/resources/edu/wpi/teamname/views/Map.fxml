@@ -3,7 +3,6 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -16,20 +15,25 @@
     <children>
         <StackPane fx:id="sp" prefHeight="602.0" prefWidth="800.0" AnchorPane.bottomAnchor="-8.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-7.0" AnchorPane.topAnchor="0.0">
             <children>
-                <GesturePane fx:id="gp" prefHeight="340.0" prefWidth="500.0" VBox.vgrow="ALWAYS">
-                    <content>
-                        <Group>
-                            <children>
-                                <AnchorPane fx:id="anchor" prefHeight="3400.0" prefWidth="5000.0" styleClass="L1" stylesheets="@../stylesheets/mapCssOptions.css" visible="true" />
-<!--                                <Label fx:id="destText" layoutX="66.0" layoutY="138.0" styleClass="outline" stylesheets="@../stylesheets/textOutline.css" text="Click Your Destination!" />-->
-                            </children>
-                        </Group>
-                    </content>
-                </GesturePane>
+            <AnchorPane style="-fx-background-radius: 16; -fx-background-color: #FAF9FD;" VBox.vgrow="ALWAYS">
+               <children>
+                      <GesturePane fx:id="gp" prefHeight="340.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <content>
+                              <Group>
+                                  <children>
+                                      <AnchorPane fx:id="anchor" prefHeight="3400.0" prefWidth="5000.0" styleClass="L1" stylesheets="@../stylesheets/mapCssOptions.css" visible="true" />
+      <!--                                <Label fx:id="destText" layoutX="66.0" layoutY="138.0" styleClass="outline" stylesheets="@../stylesheets/textOutline.css" text="Click Your Destination!" />-->
+                                  </children>
+                              </Group>
+                          </content>
+                      </GesturePane>
+               </children>
+            </AnchorPane>
             <MFXButton fx:id="DeleteNodeButton" prefHeight="61.0" prefWidth="171.0" style="-fx-background-color: #D5E3FF;" text="Reset" translateX="20.0" translateY="20.0" StackPane.alignment="TOP_LEFT">
                <font>
                   <Font name="Roboto" size="13.0" />
-               </font></MFXButton>
+               </font>
+            </MFXButton>
             <MFXButton fx:id="findPathButton" prefHeight="61.0" prefWidth="171.0" style="-fx-background-color: #D5E3FF;" text="Find Path" StackPane.alignment="TOP_LEFT">
                <font>
                   <Font name="Roboto" size="13.0" />

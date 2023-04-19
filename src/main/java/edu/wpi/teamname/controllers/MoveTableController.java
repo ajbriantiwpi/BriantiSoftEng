@@ -1,8 +1,10 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.controllers.JFXitems.DatePickerEditingCell;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.database.MoveDAOImpl;
+import edu.wpi.teamname.employees.EmployeeType;
 import edu.wpi.teamname.navigation.Move;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.File;
@@ -13,6 +15,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Optional;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -37,6 +40,8 @@ public class MoveTableController {
   @FXML private CheckBox newMovesCheck;
 
   public void initialize() {
+    DataManager moveDAO = new DataManager();
+
     ParentController.titleString.set("Move Edit Table");
     TableColumn<Move, Integer> nodeIDColumn = new TableColumn<>("Node ID");
     nodeIDColumn.setCellValueFactory(new PropertyValueFactory<>("nodeID"));
@@ -60,8 +65,6 @@ public class MoveTableController {
     searchTextField
         .textProperty()
         .addListener((observable, oldValue, newValue) -> filterTable(newValue));
-
-    DataManager moveDAO = new DataManager();
 
     try {
       ArrayList<Move> moves = moveDAO.getAllMoves();
@@ -152,7 +155,9 @@ public class MoveTableController {
             e.printStackTrace();
           }
         });
-    moveTable.setEditable(true);
+    if (GlobalVariables.userIsType(EmployeeType.ADMIN)) {
+      moveTable.setEditable(true);
+    }
 
     nodeIDColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
     nodeIDColumn.setOnEditCommit(
@@ -175,6 +180,16 @@ public class MoveTableController {
             moveDAO.syncMove(move);
           } catch (SQLException e) {
             System.err.println("Error updating long name: " + e.getMessage());
+          }
+        });
+    dateColumn.setOnEditCommit(
+        (CellEditEvent<Move, Timestamp> t) -> {
+          Move move = t.getTableView().getItems().get(t.getTablePosition().getRow());
+          move.setDate(t.getNewValue());
+          try {
+            moveDAO.syncMove(move);
+          } catch (SQLException e) {
+            System.err.println("Error updating date: " + e.getMessage());
           }
         });
     moveTable.setOnKeyPressed(
@@ -205,6 +220,41 @@ public class MoveTableController {
             }
           }
         });
+    if (GlobalVariables.isFutureMovesPressed()) {
+      newMovesCheck.setSelected(true);
+      if (newMovesCheck.isSelected()) {
+        ObservableList<Move> allMoves = moveTable.getItems();
+        ObservableList<Move> filteredMoves = FXCollections.observableArrayList();
+
+        LocalDate today = LocalDate.now();
+        for (Move move : allMoves) {
+          if (move.getDate().toLocalDateTime().toLocalDate().isAfter(today)
+              || move.getDate().toLocalDateTime().toLocalDate().isEqual(today)) {
+            filteredMoves.add(move);
+          }
+        }
+
+        moveTable.setItems(filteredMoves);
+      } else {
+        try {
+          ArrayList<Move> moves = moveDAO.getAllMoves();
+          moveTable.setItems(FXCollections.observableArrayList(moves));
+        } catch (SQLException e) {
+          System.err.println("Error getting moves from database: " + e.getMessage());
+        }
+      }
+    }
+    if (!(GlobalVariables.userIsType(EmployeeType.ADMIN))) {
+      nodeIdTextField.setDisable(true);
+      longNameTextField.setDisable(true);
+      submitButton.setDisable(true);
+      datePicker.setDisable(true);
+      importButton.setDisable(true);
+      exportButton.setDisable(true);
+    }
+    submitButton.disableProperty().bind(Bindings.isEmpty(nodeIdTextField.textProperty()));
+    submitButton.disableProperty().bind(Bindings.isEmpty(longNameTextField.textProperty()));
+    submitButton.disableProperty().bind(Bindings.isNull(datePicker.valueProperty()));
   }
 
   private void filterTable(String searchText) {

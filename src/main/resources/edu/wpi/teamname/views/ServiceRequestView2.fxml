@@ -62,6 +62,12 @@
                                  <Insets bottom="12.0" />
                               </VBox.margin>
                            </ComboBox>
+                           <Label text="Assigned Staff" textFill="#001b3b">
+                              <font>
+                                 <Font name="Roboto" size="28.0" />
+                              </font>
+                           </Label>
+                           <ComboBox fx:id="requestStaffCombo" prefHeight="71.0" prefWidth="396.0" promptText="Choose Staff" stylesheets="@../stylesheets/combo.css" />
                         </children>
                         <VBox.margin>
                            <Insets bottom="32.0" top="24.0" />
@@ -194,7 +200,7 @@
                                              <Font name="Roboto" size="40.0" />
                                           </font>
                                        </Label>
-                                                    <Label fx:id="totalLabel" alignment="CENTER_RIGHT" style="-fx-font-family: Roboto;" stylesheets="@../stylesheets/RowLabel.css" text="Order Total: $" textFill="#001b3b">
+                                                    <Label fx:id="totalLabel" alignment="CENTER_RIGHT" style="-fx-font-family: Roboto;" stylesheets="@../stylesheets/TextField.css" text="Order Total: $" textFill="#001b3b">
                                                         <font>
                                                             <Font name="Roboto" size="40.0" />
                                                         </font>

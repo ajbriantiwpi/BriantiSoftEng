@@ -414,7 +414,7 @@ public class EmployeeDAOImpl implements LoginDAO {
     if (employee == null) {
       return null;
     } else {
-      if (employee.getPassword().equals(Employee.encrypt(pass, 3))) {
+      if (employee.getPassword().equals(Employee.hash(pass))) {
         return employee;
       } else {
         return null;
