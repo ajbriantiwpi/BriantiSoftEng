@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -50,6 +51,8 @@ public class MapEditController {
   @FXML MFXButton upFloor;
 
   @FXML HBox floorSelector;
+
+  @FXML AnchorPane OuterMapAnchor;
 
   String defaultFloor = "L1";
   int defaultX = 0;
@@ -742,7 +745,8 @@ public class MapEditController {
 
     gp.setMinScale(0.11);
 
-    map.centerAndZoom(gp);
+    //    map.centerAndZoom(gp, OuterMapAnchor);
+    Platform.runLater(() -> map.centerAndZoom(gp, OuterMapAnchor));
 
     ParentController.titleString.set("Map");
 
