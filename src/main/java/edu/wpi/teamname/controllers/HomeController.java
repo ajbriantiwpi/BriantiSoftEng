@@ -87,6 +87,7 @@ public class HomeController {
     if (loggedIn.getValue()) {
       loginButton.setVisible(false);
       logoutButton.setVisible(true);
+
       ObservableList<ServiceRequest> requestList =
           FXCollections.observableList(
               DataManager.getAllServiceRequests().stream()
@@ -121,12 +122,14 @@ public class HomeController {
       }
       upcomingMoves.setText(futureMoves + " Upcoming Moves");
 
+
     } else {
       activeRequests.setText("Log in to see Active Requests");
       doneRequests.setText("Log in to see Done Request(s)");
       upcomingMoves.setText("Log in to see Upcoming Moves");
       loginButton.setVisible(true);
       logoutButton.setVisible(false);
+      logoutButton.setDisable(true);
     }
     loginButton.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN));
     logoutButton.setOnMouseClicked(event -> logout());

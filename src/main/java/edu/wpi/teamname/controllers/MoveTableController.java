@@ -182,6 +182,16 @@ public class MoveTableController {
             System.err.println("Error updating long name: " + e.getMessage());
           }
         });
+    dateColumn.setOnEditCommit(
+        (CellEditEvent<Move, Timestamp> t) -> {
+          Move move = t.getTableView().getItems().get(t.getTablePosition().getRow());
+          move.setDate(t.getNewValue());
+          try {
+            moveDAO.syncMove(move);
+          } catch (SQLException e) {
+            System.err.println("Error updating date: " + e.getMessage());
+          }
+        });
     moveTable.setOnKeyPressed(
         event -> {
           if (event.getCode() == KeyCode.DELETE) {
