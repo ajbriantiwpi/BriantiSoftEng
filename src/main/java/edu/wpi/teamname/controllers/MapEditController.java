@@ -338,7 +338,6 @@ public class MapEditController {
 
           //              Node n = new Node(highestID + 5, xPos, yPos, floor, building);
           LocationName l = new LocationName(longName, shortName, nodeType);
-
           try {
             DataManager.addLocationName(l);
             map.setCurrentDisplayFloor(map.getCurrentDisplayFloor(), false);
