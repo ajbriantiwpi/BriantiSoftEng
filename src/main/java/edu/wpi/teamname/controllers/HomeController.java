@@ -160,17 +160,15 @@ public class HomeController {
           Navigation.navigate(Screen.MOVE_TABLE);
         });
     activeRequests.setOnMouseClicked(
-            event -> {
-              GlobalVariables.setActiveRequestsPressed(true);
-              Navigation.navigate(Screen.SERVICE_REQUEST_VIEW);
-            }
-    );
+        event -> {
+          GlobalVariables.setActiveRequestsPressed(true);
+          Navigation.navigate(Screen.SERVICE_REQUEST_VIEW);
+        });
     doneRequests.setOnMouseClicked(
-            event -> {
-              GlobalVariables.setDoneRequestsPressed(true);
-              Navigation.navigate(Screen.SERVICE_REQUEST_VIEW);
-            }
-    );
+        event -> {
+          GlobalVariables.setDoneRequestsPressed(true);
+          Navigation.navigate(Screen.SERVICE_REQUEST_VIEW);
+        });
 
     /*loggedIn.addListener(
     (loggedIn, old, newV) -> {

@@ -1,5 +1,6 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.controllers.JFXitems.ReqMenuItems;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
@@ -228,44 +229,6 @@ public class ServiceRequestViewController {
           }
         });
 
-    //    requestStatusCombo
-    //        .valueProperty()
-    //        .addListener(
-    //            ((observable, oldValue, one) -> {
-    //              if (!one.equals(null) && !(one.toString().equals(""))) {
-    //                try {
-    //                  table.setItems(
-    //                      FXCollections.observableList(
-    //                          DataManager.getAllServiceRequests().stream()
-    //                              .filter(
-    //                                  (request) ->
-    //
-    // request.getStatus().getStatusString().equals(one.toString()))
-    //                              .toList()));
-    //                } catch (SQLException e) {
-    //                  throw new RuntimeException(e);
-    //                }
-    //              }
-    //            }));
-    //    requestTypeCombo
-    //        .valueProperty()
-    //        .addListener(
-    //            ((observable, oldValue, one) -> {
-    //              if (!one.equals(null) && !(one.toString().equals(""))) {
-    //                try {
-    //                  table.setItems(
-    //                      FXCollections.observableList(
-    //                          DataManager.getAllServiceRequests().stream()
-    //                              .filter(
-    //                                  (request) ->
-    //
-    // request.getRequestType().toString().equals(one.toString()))
-    //                              .toList()));
-    //                } catch (SQLException e) {
-    //                  throw new RuntimeException(e);
-    //                }
-    //              }
-    //            }));
     table
         .getSelectionModel()
         .selectedItemProperty()
@@ -325,6 +288,25 @@ public class ServiceRequestViewController {
           ViewButton.setDisable(false);
           cartBox.getChildren().clear();
         });
+    if (GlobalVariables.isDoneRequestsPressed()) {
+      GlobalVariables.setDoneRequestsPressed(false);
+      requestStatusCombo.setValue(Status.DONE);
+      requestStaffCombo.setValue(GlobalVariables.getCurrentUser().getUsername());
+      table.setItems(
+          tableFilter(
+              requestTypeCombo.getValue(),
+              requestStatusCombo.getValue(),
+              requestStaffCombo.getValue()));
+    } else if (GlobalVariables.isActiveRequestsPressed()) {
+      requestStatusCombo.setValue(Status.PROCESSING);
+      requestStaffCombo.setValue(GlobalVariables.getCurrentUser().getUsername());
+      GlobalVariables.setActiveRequestsPressed(false);
+      table.setItems(
+          tableFilter(
+              requestTypeCombo.getValue(),
+              requestStatusCombo.getValue(),
+              requestStaffCombo.getValue()));
+    }
   }
 
   private void fillPane(int reqID, String folder) throws SQLException {
