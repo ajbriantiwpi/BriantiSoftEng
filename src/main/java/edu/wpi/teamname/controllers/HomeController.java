@@ -87,7 +87,7 @@ public class HomeController {
     if (loggedIn.getValue()) {
       loginButton.setVisible(false);
       logoutButton.setVisible(true);
-
+      logoutButton.setDisable(false);
       ObservableList<ServiceRequest> requestList =
           FXCollections.observableList(
               DataManager.getAllServiceRequests().stream()
