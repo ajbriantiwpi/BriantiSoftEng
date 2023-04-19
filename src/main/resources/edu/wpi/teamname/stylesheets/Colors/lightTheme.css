@@ -1,5 +1,6 @@
 @import "lightCombo.css";
 @import "lightDate.css";
+@import "typography.css";
 
 .primary-container{
     -fx-background-color: #D5E3FF;
