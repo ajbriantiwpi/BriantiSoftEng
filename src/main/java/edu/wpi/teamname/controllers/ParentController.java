@@ -20,7 +20,7 @@ public class ParentController {
   @FXML MFXButton homeButton;
   @FXML MFXButton helpButton;
   @FXML MFXButton mapButton;
-  @FXML MFXButton directionsButton;
+  // @FXML MFXButton directionsButton;
   @FXML MFXButton makeRequestsButton;
   @FXML MFXButton showRequestsButton;
   @FXML MFXButton editMapButton;
@@ -80,10 +80,10 @@ public class ParentController {
     if (GlobalVariables.userIsType(EmployeeType.STAFF)) {
       makeRequestsButton.setDisable(false);
       showRequestsButton.setDisable(false);
+      editMoveButton.setDisable(false);
     }
     if (GlobalVariables.userIsType(EmployeeType.ADMIN)) {
       editMapButton.setDisable(false);
-      editMoveButton.setDisable(false);
       showEmployeesButton.setDisable(false);
     }
     homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));

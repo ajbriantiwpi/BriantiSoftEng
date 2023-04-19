@@ -98,7 +98,7 @@ public class Employee {
    */
   public void setLogin(String newUser, String newPass) throws SQLException {
 
-    if (!checkLegalLogin(newPass)) {
+    if (checkLegalLogin(newPass)) {
       System.out.println(
           "Password does not meet the requirements: 8 Characters, 1 uppercase, 1 number, 1 special.");
     } else { // meets password req
