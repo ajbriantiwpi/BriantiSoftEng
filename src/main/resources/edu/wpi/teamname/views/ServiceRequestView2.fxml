@@ -190,7 +190,7 @@
                     <Insets right="10.0" />
                 </HBox.margin>
                 <children>
-                    <TableView fx:id="table" editable="true" styleClass="surface" >
+                    <TableView fx:id="table" editable="true" styleClass="surface">
                         <columns>
                             <TableColumn fx:id="requestIDCol" minWidth="0.0" prefWidth="148.5" text="Request ID"/>
                             <TableColumn fx:id="patientNameCol" prefWidth="148.5"  text="Patient Name" />
