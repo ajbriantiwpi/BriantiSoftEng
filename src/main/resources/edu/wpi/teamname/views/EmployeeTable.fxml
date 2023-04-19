@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorInput?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.EmployeeTableController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.EmployeeTableController">
    <children>
       <VBox prefHeight="400.0" prefWidth="166.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="434.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -33,7 +37,7 @@
                   <Insets bottom="8.0" left="10.0" />
                </padding>
             </Label>
-            <TextField fx:id="employeeIDField" maxWidth="280.0" style="-fx-background-color: #D5E3FF;" stylesheets="@../stylesheets/TextField.css">
+            <TextField fx:id="employeeIDField" maxWidth="280.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 10;" stylesheets="@../stylesheets/TextField.css">
                <VBox.margin>
                   <Insets left="10.0" right="5.0" />
                </VBox.margin></TextField>
@@ -48,7 +52,7 @@
                   <Insets bottom="8.0" left="10.0" />
                </padding>
             </Label>
-            <TextField fx:id="employeeFirstNameTextField" maxWidth="280.0" style="-fx-background-color: #D5E3FF;" stylesheets="@../stylesheets/TextField.css">
+            <TextField fx:id="employeeFirstNameTextField" maxWidth="280.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 10;" stylesheets="@../stylesheets/TextField.css">
                <VBox.margin>
                   <Insets left="10.0" right="5.0" />
                </VBox.margin></TextField>
@@ -63,7 +67,7 @@
                   <Insets bottom="8.0" left="10.0" />
                </padding>
             </Label>
-            <TextField fx:id="employeeLastNameTextField" maxWidth="280.0" style="-fx-background-color: #D5E3FF;" stylesheets="@../stylesheets/TextField.css">
+            <TextField fx:id="employeeLastNameTextField" maxWidth="280.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 10;" stylesheets="@../stylesheets/TextField.css">
                <VBox.margin>
                   <Insets left="10.0" right="5.0" />
                </VBox.margin></TextField>
@@ -78,7 +82,7 @@
                   <Insets bottom="8.0" left="10.0" />
                </padding>
             </Label>
-            <TextField fx:id="employeeTypeTextField" maxWidth="280.0" style="-fx-background-color: #D5E3FF;" stylesheets="@../stylesheets/TextField.css">
+            <TextField fx:id="employeeTypeTextField" maxWidth="280.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 10;" stylesheets="@../stylesheets/TextField.css">
                <VBox.margin>
                   <Insets left="10.0" right="5.0" />
                </VBox.margin></TextField>
@@ -93,7 +97,7 @@
                   <Insets bottom="8.0" left="10.0" />
                </padding>
             </Label>
-            <TextField fx:id="employeeUserTextField" maxWidth="280.0" style="-fx-background-color: #D5E3FF;" stylesheets="@../stylesheets/TextField.css">
+            <TextField fx:id="employeeUserTextField" maxWidth="280.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 10;" stylesheets="@../stylesheets/TextField.css">
                <VBox.margin>
                   <Insets left="10.0" right="5.0" />
                </VBox.margin></TextField>
@@ -108,7 +112,7 @@
                   <Insets bottom="8.0" />
                </padding>
             </Label>
-            <TextField fx:id="employeePasswordTextField" maxWidth="280.0" style="-fx-background-color: #D5E3FF;" stylesheets="@../stylesheets/TextField.css">
+            <TextField fx:id="employeePasswordTextField" maxWidth="280.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 10;" stylesheets="@../stylesheets/TextField.css">
                <VBox.margin>
                   <Insets left="10.0" right="5.0" />
                </VBox.margin></TextField>
@@ -147,7 +151,7 @@
                   <ColorInput paint="#235fa6" />
                </effect>
                <VBox.margin>
-                  <Insets left="25.0" top="20.0" />
+                  <Insets bottom="10.0" left="25.0" top="10.0" />
                </VBox.margin>
                <font>
                   <Font name="Roboto" size="20.0" />
@@ -155,11 +159,11 @@
             </MFXButton>
          </children>
       </VBox>
-      <HBox layoutX="157.0" prefHeight="54.0" prefWidth="437.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox alignment="CENTER" layoutX="157.0" prefHeight="43.0" prefWidth="438.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label alignment="CENTER" prefHeight="29.0" prefWidth="268.0" text="Employees" textFill="#235fa6">
                <font>
-                  <Font name="Roboto" size="24.0" />
+                  <Font name="Roboto" size="18.0" />
                </font>
             </Label>
             <Label alignment="CENTER" prefHeight="24.0" prefWidth="165.0" text="Search ">
@@ -167,12 +171,12 @@
                   <Font name="Roboto" size="18.0" />
                </font>
                <HBox.margin>
-                  <Insets left="50.0" top="10.0" />
+                  <Insets left="50.0" />
                </HBox.margin>
             </Label>
-            <TextField fx:id="searchEmployee" prefHeight="54.0" prefWidth="248.0" style="-fx-background-color: #D5E3FF;" stylesheets="@../stylesheets/TextField.css">
+            <TextField fx:id="searchEmployee" prefHeight="54.0" prefWidth="248.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 10;" stylesheets="@../stylesheets/TextField.css">
                <HBox.margin>
-                  <Insets bottom="20.0" right="20.0" top="10.0" />
+                  <Insets bottom="7.0" right="10.0" top="7.0" />
                </HBox.margin>
                <padding>
                   <Insets bottom="-10.0" />
@@ -180,6 +184,6 @@
             </TextField>
          </children>
       </HBox>
-      <TableView fx:id="employeeTable" layoutX="297.0" layoutY="42.0" prefHeight="809.0" prefWidth="293.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="297.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="42.0" stylesheets="@../stylesheets/Colors/lightTheme.css" styleClass="surface"/>
+      <TableView fx:id="employeeTable" layoutX="297.0" layoutY="42.0" prefHeight="809.0" prefWidth="293.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="297.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="42.0" stylesheets="@../stylesheets/Colors/lightTheme.css" styleClass="surface"/>
    </children>
 </AnchorPane>

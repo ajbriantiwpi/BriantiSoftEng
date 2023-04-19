@@ -46,12 +46,25 @@ public class Map {
     "A-Star", "Breadth First Search", "Depth First Search", "Dijkstra's Algorithm"
   };
 
+  /**
+   * Constructs a Map object with the given sub-anchor pane.
+   * @param subAnchor the sub-anchor pane used to display the map.
+   * @throws SQLException if there is an error accessing the database.
+   */
   public Map(AnchorPane subAnchor) throws SQLException {
     this.graph = new Graph();
     this.currentDisplayFloor = "Lower Level 1";
     this.subAnchor = subAnchor;
   }
 
+  /**
+   * Creates and returns an ArrayList of all nodes and edges on the given floor.
+   * @param floor the floor to retrieve nodes and edges from.
+   * @param isMapPage whether or not the map is currently being displayed.
+   * @return an ArrayList of all nodes and edges on the given floor as JavaFX Node objects.
+   * @throws SQLException if there is an error accessing the database.
+   * @throws IOException if there is an error reading a file.
+   */
   public ArrayList<javafx.scene.Node> makeAllFloorShapes(String floor, boolean isMapPage)
       throws SQLException, IOException {
     ArrayList<javafx.scene.Node> allCirclesAndEdges = new ArrayList<>();
@@ -63,6 +76,12 @@ public class Map {
     return allCirclesAndEdges;
   }
 
+  /**
+   * Creates and returns an ArrayList of all edges on the given floor.
+   * @param floor the floor to retrieve edges from.
+   * @param isMapPage whether or not the map is currently being displayed.
+   * @return an ArrayList of all edges on the given floor as JavaFX Node objects.
+   */
   public ArrayList<javafx.scene.Node> makeAllFloorEdges(String floor, boolean isMapPage) {
 
     ArrayList<javafx.scene.Node> allEdges = new ArrayList<>();
