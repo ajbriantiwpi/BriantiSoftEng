@@ -10,28 +10,48 @@
 
 <VBox prefHeight="0.0" prefWidth="300.0" spacing="10.0" style="-fx-background-color: #E3E2E6;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
             <children>
                 <Label text="Start Node ID">
                     <font>
                         <Font name="Roboto" size="13.0" />
-                    </font></Label>
-                <TextField style="-fx-background-color: D5E3ff; -fx-border-color: #000000; -fx-border-width: 2;" />
+                    </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets></Label>
+                <TextField style="-fx-background-color: D5E3ff; -fx-background-radius: 10;" styleClass="text-field" stylesheets="@../stylesheets/TextField.css" />
             </children>
         </HBox>
-        <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
             <children>
                 <Label text="End Node ID">
                     <font>
                         <Font name="Roboto" size="13.0" />
-                    </font></Label>
-                <TextField style="-fx-background-color: D5E3ff; -fx-border-color: #000000; -fx-border-width: 2;" />
+                    </font>
+               <HBox.margin>
+                  <Insets left="3.0" />
+               </HBox.margin>
+            </Label>
+                <TextField style="-fx-background-color: D5E3ff; -fx-background-radius: 10;" styleClass="text-field" stylesheets="@../stylesheets/TextField.css">
+               <HBox.margin>
+                  <Insets left="2.5" />
+               </HBox.margin>
+            </TextField>
             </children>
         </HBox>
-        <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
             <children>
-                <MFXButton style="-fx-background-color: D5E3ff; -fx-border-color: #000000; -fx-border-width: 2;" text="Remove Edge" />
-                <MFXButton style="-fx-background-color: D5E3ff; -fx-border-color: #000000; -fx-border-width: 2;" text="Submit" />
+                <MFXButton style="-fx-background-color: #012D5A; -fx-background-radius: 5;" stylesheets="@../stylesheets/textOutline.css" text="Remove Edge" textFill="WHITE">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></MFXButton>
+                <MFXButton alignment="TOP_RIGHT" style="-fx-background-color: #012D5A; -fx-background-radius: 5;" styleClass="text-field" stylesheets="@../stylesheets/Colors/lightCombo.css" text="Submit" textFill="WHITE">
+               <font>
+                  <Font name="Roboto" size="12.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></MFXButton>
             </children>
         </HBox>
     </children>
