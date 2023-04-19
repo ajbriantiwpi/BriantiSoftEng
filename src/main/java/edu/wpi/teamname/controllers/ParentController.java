@@ -80,10 +80,10 @@ public class ParentController {
     if (GlobalVariables.userIsType(EmployeeType.STAFF)) {
       makeRequestsButton.setDisable(false);
       showRequestsButton.setDisable(false);
+      editMoveButton.setDisable(false);
     }
     if (GlobalVariables.userIsType(EmployeeType.ADMIN)) {
       editMapButton.setDisable(false);
-      editMoveButton.setDisable(false);
       showEmployeesButton.setDisable(false);
     }
     homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
