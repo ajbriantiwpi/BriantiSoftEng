@@ -97,7 +97,9 @@ public class LoginController {
 
     passwordText.setOnKeyPressed(
         event -> {
-          if (event.getCode() == KeyCode.ENTER && !passwordText.textProperty().equals("") && !loginText.textProperty().equals("")) {
+          if (event.getCode() == KeyCode.ENTER
+              && !passwordText.textProperty().equals("")
+              && !loginText.textProperty().equals("")) {
             try {
               boolean temp = loginPressed(loginText.getText(), passwordText.getText());
               if (!temp) {

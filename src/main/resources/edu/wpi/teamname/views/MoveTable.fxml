@@ -29,7 +29,7 @@
                         <Font name="Roboto" size="28.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="nodeIdTextField" maxWidth="-Infinity" prefHeight="35.0" prefWidth="450.0" style="-fx-background-color: #D5E3FF;" stylesheets="@../stylesheets/TextField.css">
+                  <TextField fx:id="nodeIdTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="60.0" prefWidth="450.0" style="-fx-background-color: #D5E3FF;" stylesheets="@../stylesheets/TextField.css">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin></TextField>
@@ -41,7 +41,7 @@
                         <Insets left="10.0" top="40.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField fx:id="longNameTextField" maxWidth="-Infinity" prefHeight="35.0" prefWidth="450.0" style="-fx-background-color: #D5E3FF;" stylesheets="@../stylesheets/TextField.css">
+                  <TextField fx:id="longNameTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="60.0" prefWidth="450.0" style="-fx-background-color: #D5E3FF;" stylesheets="@../stylesheets/TextField.css">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin></TextField>
