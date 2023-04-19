@@ -29,14 +29,14 @@
                                     </font>
                            <styleClass>
                               <String fx:value="outline" />
-                              <String fx:value="primary-container" />
+                              <String fx:value="primary" />
                            </styleClass></MFXButton>
                                 <MFXButton fx:id="exportButton" stylesheets="@../stylesheets/button.css" text="Export">
                                     <font>
                                         <Font size="18.0" />
                                     </font>
                            <styleClass>
-                              <String fx:value="primary-container" />
+                              <String fx:value="primary" />
                               <String fx:value="outline" />
                            </styleClass></MFXButton>
                             </children>
@@ -46,7 +46,7 @@
                                 <Font size="18.0" />
                             </font>
                      <styleClass>
-                        <String fx:value="primary-container" />
+                        <String fx:value="primary" />
                         <String fx:value="outline" />
                      </styleClass>
                         </MFXButton>
@@ -55,7 +55,7 @@
                                 <Font size="18.0" />
                             </font>
                      <styleClass>
-                        <String fx:value="primary-container" />
+                        <String fx:value="primary" />
                         <String fx:value="outline" />
                      </styleClass>
                         </MFXButton>
@@ -64,7 +64,7 @@
                         <Font size="18.0" />
                      </font>
                      <styleClass>
-                        <String fx:value="primary-container" />
+                        <String fx:value="primary" />
                         <String fx:value="outline" />
                      </styleClass>
                   </MFXButton>
@@ -73,7 +73,7 @@
                                 <Font size="18.0" />
                             </font>
                      <styleClass>
-                        <String fx:value="primary-container" />
+                        <String fx:value="primary" />
                         <String fx:value="outline" />
                      </styleClass>
                         </MFXButton>
