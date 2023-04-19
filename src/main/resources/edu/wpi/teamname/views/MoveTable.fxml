@@ -57,7 +57,7 @@
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin></DatePicker>
-                  <MFXButton fx:id="submitButton" style="-fx-background-color: #D5E3FF;" stylesheets="@../stylesheets/menuItemButton.css" text="Submit">
+                  <MFXButton fx:id="submitButton" style="-fx-background-color: #235FA6;" stylesheets="@../stylesheets/menuItemButton.css" text="Submit">
                      <VBox.margin>
                         <Insets left="55.0" top="15.0" />
                      </VBox.margin>
@@ -73,7 +73,7 @@
                         <Insets left="10.0" top="40.0" />
                      </VBox.margin>
                   </Label>
-                  <MFXButton fx:id="importButton" style="-fx-background-color: #D5E3FF;" stylesheets="@../stylesheets/menuItemButton.css" text="Import">
+                  <MFXButton fx:id="importButton" style="-fx-background-color: #235FA6;" stylesheets="@../stylesheets/menuItemButton.css" text="Import">
                      <VBox.margin>
                         <Insets left="55.0" top="15.0" />
                      </VBox.margin>
@@ -81,7 +81,7 @@
                         <Font name="Roboto" size="12.0" />
                      </font>
                   </MFXButton>
-                  <MFXButton fx:id="exportButton" layoutX="20.0" layoutY="317.0" style="-fx-background-color: #D5E3FF;" stylesheets="@../stylesheets/menuItemButton.css" text="Export">
+                  <MFXButton fx:id="exportButton" layoutX="20.0" layoutY="317.0" style="-fx-background-color: #235FA6;" stylesheets="@../stylesheets/menuItemButton.css" text="Export">
                      <VBox.margin>
                         <Insets left="55.0" top="15.0" />
                      </VBox.margin>
@@ -112,7 +112,7 @@
                   <Insets left="20.0" top="15.0" />
                </HBox.margin>
             </Label>
-            <TextField fx:id="searchTextField">
+            <TextField fx:id="searchTextField" style="-fx-background-color: #D5E3FF;" stylesheets="@../stylesheets/TextField.css">
                <HBox.margin>
                   <Insets right="10.0" top="15.0" />
                </HBox.margin>
