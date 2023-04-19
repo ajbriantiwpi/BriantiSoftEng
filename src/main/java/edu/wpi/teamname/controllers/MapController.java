@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -36,9 +37,16 @@ public class MapController {
   @FXML ComboBox<String> EndPointSelect = new ComboBox<>();
   @FXML MFXButton DeleteNodeButton = new MFXButton();
   @FXML MFXButton findPathButton = new MFXButton();
-  @FXML ComboBox<String> FloorSelect = new ComboBox<>();
+  // @FXML ComboBox<String> FloorSelect = new ComboBox<>();
   @FXML ComboBox<String> AlgoSelect = new ComboBox<>();
   @FXML CheckBox FloorsToggle = new CheckBox();
+
+  @FXML ComboBox<String> FloorSelect = new ComboBox<>();
+
+  @FXML MFXButton downFloor;
+  @FXML MFXButton upFloor;
+
+  @FXML HBox floorSelector;
 
   String defaultFloor = "L1";
   int clickCount = 0;
@@ -203,6 +211,7 @@ public class MapController {
         public void handle(MouseEvent event) {
           map.drawPath(anchor, sNode, eNode);
           int secInd = map.getAllFloors().indexOf(FloorSelect.getValue());
+          System.out.println("secInd: " + FloorSelect.getValue());
           anchor.getChildren().addAll(map.getShapes().get(secInd));
 
           int indOfStart = Node.idToIndex(sNode);
@@ -388,6 +397,73 @@ public class MapController {
         }
       };
 
+  public void changeFloor() {
+    System.out.println("CF");
+    String floor = FloorSelect.getValue();
+    System.out.println(floor);
+
+    try {
+      map.setCurrentDisplayFloor(floor, true);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  EventHandler<ActionEvent> triggerChangeFloor =
+      new EventHandler<ActionEvent>() {
+
+        @Override
+        public void handle(ActionEvent event) {
+
+          changeFloor();
+          // Update Nodes
+        }
+      };
+
+  EventHandler<MouseEvent> changeFloorUp =
+      new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent event) {
+          System.out.println("CFU");
+
+          ObservableList<String> floors = map.getAllFloors();
+          int currFlorIndex = floors.indexOf(map.getCurrentDisplayFloor());
+          String newFloor = floors.get((currFlorIndex + 1) % floors.size());
+
+          try {
+            map.setCurrentDisplayFloor(newFloor, true);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+        }
+      };
+
+  EventHandler<MouseEvent> changeFloorDown =
+      new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent event) {
+          System.out.println("CFU");
+
+          ObservableList<String> floors = map.getAllFloors();
+          int currFlorIndex = floors.indexOf(map.getCurrentDisplayFloor());
+          String newFloor = floors.get((currFlorIndex - 1) % floors.size());
+
+          try {
+            map.setCurrentDisplayFloor(newFloor, true);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+        }
+      };
+
   EventHandler<MouseEvent> checkPoints =
       new EventHandler<MouseEvent>() {
 
@@ -436,10 +512,18 @@ public class MapController {
     EndPointSelect.setItems(map.getAllNodeNames()); // switched to every node in map
     EndPointSelect.setOnAction(changeEnd);
 
+    //    FloorSelect.setPromptText("Select floor");
+    //    FloorSelect.setItems(map.getAllFloors());
+    //    FloorSelect.setOnAction(changeFloor);
+    //    FloorSelect.setValue("Lower Level 1");
+
     FloorSelect.setPromptText("Select floor");
     FloorSelect.setItems(map.getAllFloors());
     FloorSelect.setOnAction(changeFloor);
     FloorSelect.setValue("Lower Level 1");
+
+    upFloor.setOnMouseClicked(changeFloorUp);
+    downFloor.setOnMouseClicked(changeFloorDown);
 
     AlgoSelect.setPromptText("Select Algorithm");
     AlgoSelect.setItems(map.getAllAlgos());

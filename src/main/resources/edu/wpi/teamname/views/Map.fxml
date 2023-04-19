@@ -11,6 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import net.kurobako.gesturefx.GesturePane?>
 
+<?import javafx.scene.control.CheckBox?>
 <AnchorPane id="AP" prefHeight="668.0" prefWidth="951.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MapController">
     <children>
         <StackPane fx:id="sp" prefHeight="602.0" prefWidth="800.0" AnchorPane.bottomAnchor="-8.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-7.0" AnchorPane.topAnchor="0.0">
@@ -44,15 +45,35 @@
             </MFXButton>
             <CheckBox fx:id="FloorsToggle" mnemonicParsing="false" text="Only Show Path Floors" StackPane.alignment="TOP_LEFT">
                <StackPane.margin>
-                  <Insets left="400.0" top="45.0" />
+                  <Insets left="775.0" top="45.0" />
                </StackPane.margin>
             </CheckBox>
+            <HBox fx:id="floorSelector" alignment="TOP_CENTER" maxHeight="0.0" maxWidth="0.0" spacing="20.0" StackPane.alignment="TOP_LEFT">
+               <children>
+                  <MFXButton fx:id="downFloor" prefHeight="61.0" prefWidth="56.0" style="-fx-background-color: #D5E3ff;" text="&lt;">
+                     <font>
+                        <Font name="Roboto" size="16.0" />
+                     </font>
+                  </MFXButton>
+                  <ComboBox fx:id="FloorSelect" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="61.0" prefWidth="250.0" style="-fx-background-color: #D5E3ff;" stylesheets="@../stylesheets/combo.css" />
+                  <MFXButton fx:id="upFloor" prefHeight="61.0" prefWidth="31.0" style="-fx-background-color: #D5E3ff;" text="&gt;">
+                     <font>
+                        <Font name="Roboto" size="16.0" />
+                     </font>
+                  </MFXButton>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <StackPane.margin>
+                  <Insets left="400.0" top="20.0" />
+               </StackPane.margin>
+            </HBox>
             </children>
         </StackPane>
       <HBox fx:id="SelectCombo" alignment="BOTTOM_CENTER" layoutX="136.0" layoutY="493.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="72.0" prefWidth="810.0" spacing="20.0">
          <children>
             <ComboBox fx:id="LocationOne" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #D5E3ff;" stylesheets="@../stylesheets/combo.css" />
-            <ComboBox fx:id="FloorSelect" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #D5E3ff;" stylesheets="@../stylesheets/combo.css" />
             <ComboBox fx:id="EndPointSelect" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #D5E3ff;" stylesheets="@../stylesheets/combo.css" />
             <ComboBox fx:id="AlgoSelect" layoutX="255.0" layoutY="32.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #D5E3ff;" stylesheets="@../stylesheets/combo.css" />
          </children>
