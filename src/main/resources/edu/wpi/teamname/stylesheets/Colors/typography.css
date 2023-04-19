@@ -42,15 +42,15 @@
 }
 .title-med{
     -fx-font-size: 16px;
-    -fx-font-family: Roboto;
-    -fx-font-style: Medium;
+    -fx-font-family: Roboto Medium;
+    /*-fx-font-style: ;*/
     -fx-line-height: 24px;
     -fx-letter-spacing: 0.15px;
 }
 .label-large{
     -fx-font-size: 14px;
-    -fx-font-family: Roboto;
-    -fx-font-style: Medium;
+    -fx-font-family: Roboto Medium;
+    /*-fx-font-style: ;*/
     -fx-line-height: 20px;
     -fx-letter-spacing: 0.10px;
 }
