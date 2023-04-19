@@ -122,7 +122,6 @@ public class HomeController {
       }
       upcomingMoves.setText(futureMoves + " Upcoming Moves");
 
-
     } else {
       activeRequests.setText("Log in to see Active Requests");
       doneRequests.setText("Log in to see Done Request(s)");
