@@ -112,7 +112,7 @@
                <VBox.margin>
                   <Insets left="10.0" right="5.0" />
                </VBox.margin></TextField>
-            <MFXButton fx:id="submitButton" buttonType="RAISED" maxWidth="-Infinity" onAction="#handleSubmitButton" prefHeight="25.0" prefWidth="230.0" rippleColor="#235fa6" style="-fx-background-color: #235FA6;" stylesheets="@../stylesheets/menuItemButton.css" text="Submit">
+            <MFXButton fx:id="submitButton" buttonType="RAISED" depthLevel="LEVEL0" maxWidth="-Infinity" onAction="#handleSubmitButton" prefHeight="25.0" prefWidth="230.0" rippleColor="#235fa6" style="-fx-font-size: 20;" stylesheets="@../stylesheets/menuItemButton.css" text="Submit">
                <effect>
                   <ColorInput paint="#235fa6" />
                </effect>
@@ -131,7 +131,7 @@
                   <Insets top="40.0" />
                </VBox.margin>
             </Label>
-            <MFXButton fx:id="importButton" buttonType="RAISED" maxWidth="-Infinity" prefHeight="25.0" prefWidth="230.0" rippleColor="#235fa6" style="-fx-background-color: #235FA6;" stylesheets="@../stylesheets/menuItemButton.css" text="Import">
+            <MFXButton fx:id="importButton" buttonType="RAISED" depthLevel="LEVEL0" maxWidth="-Infinity" prefHeight="25.0" prefWidth="230.0" rippleColor="#235fa6" style="-fx-font-size: 20;" stylesheets="@../stylesheets/menuItemButton.css" text="Import">
                <effect>
                   <ColorInput paint="#235fa6" />
                </effect>
@@ -142,7 +142,7 @@
                   <Font name="Roboto" size="20.0" />
                </font>
             </MFXButton>
-            <MFXButton fx:id="exportButton" buttonType="RAISED" maxWidth="-Infinity" prefHeight="25.0" prefWidth="230.0" rippleColor="#235fa6" style="-fx-background-color: #235FA6;" stylesheets="@../stylesheets/menuItemButton.css" text="Export">
+            <MFXButton fx:id="exportButton" buttonType="RAISED" depthLevel="LEVEL0" maxWidth="-Infinity" prefHeight="25.0" prefWidth="230.0" rippleColor="#235fa6" style="-fx-font-size: 20;" stylesheets="@../stylesheets/menuItemButton.css" text="Export">
                <effect>
                   <ColorInput paint="#235fa6" />
                </effect>
