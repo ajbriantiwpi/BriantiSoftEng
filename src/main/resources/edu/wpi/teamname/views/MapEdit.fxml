@@ -64,7 +64,7 @@
                 </VBox>
             </children>
         </AnchorPane>
-        <AnchorPane id="AP" HBox.hgrow="ALWAYS">
+        <AnchorPane id="AP" fx:id="OuterMapAnchor" HBox.hgrow="ALWAYS">
             <children>
                 <StackPane fx:id="sp" prefHeight="340.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>

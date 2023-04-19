@@ -723,14 +723,17 @@ public class Map {
    *
    * @param parent the GesturePane to center and zoom
    */
-  public void centerAndZoom(GesturePane parent) {
-    double parentW = getMapWitdh();
-    double parentH = getMapHeight();
-    parentW = 760;
-    parentH = 512;
+  public void centerAndZoom(GesturePane parent, AnchorPane outerMapAnchor) {
+    double parentW = getMapWitdh(outerMapAnchor); // 1335;
+    double parentH = getMapHeight(outerMapAnchor); // 720;
+
+    System.out.println("PW: " + parentW + ", " + parentH);
+
+    //        parentW = 1662;
+    //        parentH = 880;
 
     //    Point2D scaleOneDim = new Point2D(760 * 2, 512 * 2); // hard Coded
-    Point2D scaleOneDim = new Point2D(1500, 2000);
+    Point2D scaleOneDim = new Point2D(1335, 768);
 
     double scaleX = parentW / scaleOneDim.getX();
     double scaleY = parentH / scaleOneDim.getY();
@@ -739,10 +742,18 @@ public class Map {
 
     double scaleFactor = Double.min(scaleX, scaleY);
 
-    centerPoint = new Point2D(2250, 1000); // Hard Coded
-    double scale = parent.getCurrentScale();
-    Point2D CMin = new Point2D((parentW / 2) * (1 / scale), (parentH / 2) * (1 / scale));
-    centerTL = centerPoint.subtract(CMin);
+    centerPoint = new Point2D(2215, 1045); // Hard Coded
+    //    // -1627.2856715232545, -690.8681650647059
+    //    Point2D CMin = centerPoint.add(new Point2D(-1610, -648));
+    //
+    //    System.out.println("CorC: " + CMin.getX() + ", " + CMin.getY());
+    //
+    //    Point2D CDiff =
+    //        new Point2D((parentW / 2) * (1 / scaleFactor), (parentH / 2) * (1 / scaleFactor));
+    //
+    //    System.out.println("AkC: " + CDiff.getX() + ", " + CDiff.getY());
+    //
+    //    centerTL = centerPoint.subtract(CMin);
 
     parent.zoomTo(scaleFactor, Point2D.ZERO);
     parent.centreOn(centerTL); // Actually Moves the Top left corner
