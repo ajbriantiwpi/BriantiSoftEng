@@ -145,18 +145,18 @@
 
                                         <VBox alignment="CENTER" stylesheets="@../stylesheets/TextField.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <children>
-                                                <HBox minHeight="100.0" spacing="30.0" VBox.vgrow="SOMETIMES">
-                                                    <children>
-                                                        <TextField fx:id="searchBar" prefWidth="1700.0" style="-fx-background-radius: 100; -fx-border-radius: 100;" styleClass="primary-container" stylesheets="@../stylesheets/TextField.css" text="Search">
-                                                            <font>
-                                                                <Font name="Roboto" size="28.0" />
-                                                            </font>
-                                                        </TextField>
-                                                    </children>
-                                                    <padding>
-                                                        <Insets left="25.0" right="25.0" top="32.0" />
-                                                    </padding>
-                                                </HBox>
+<!--                                                <HBox minHeight="100.0" spacing="30.0" VBox.vgrow="SOMETIMES">-->
+<!--                                                    <children>-->
+<!--&lt;!&ndash;                                                        <TextField fx:id="searchBar" prefWidth="1700.0" style="-fx-background-radius: 100; -fx-border-radius: 100;" styleClass="primary-container" stylesheets="@../stylesheets/TextField.css" text="Search">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <font>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                                <Font name="Roboto" size="28.0" />&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            </font>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                        </TextField>&ndash;&gt;-->
+<!--                                                    </children>-->
+<!--                                                    <padding>-->
+<!--                                                        <Insets left="25.0" right="25.0" top="32.0" />-->
+<!--                                                    </padding>-->
+<!--                                                </HBox>-->
                                     <AnchorPane VBox.vgrow="ALWAYS">
                                        <VBox.margin>
                                           <Insets />
