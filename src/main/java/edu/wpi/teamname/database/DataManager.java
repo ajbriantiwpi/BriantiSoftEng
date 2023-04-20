@@ -51,12 +51,12 @@ public class DataManager {
     return connection;
   }
 
-  public static String isNodeType(String lName) throws SQLException {
+  public static String isNodeType(int nID) throws SQLException {
     Connection connection = DataManager.DbConnection();
-    String query = "SELECT \"nodeType\" FROM \"LocationName\" WHERE \"longName\" = ?";
+    String query = "SELECT \"nodeType\" FROM \"LocationName\" WHERE \"longName\" = (SELECT \"longName\" FROM \"Move\" WHERE \"nodeID\" = ?)";
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
-      statement.setString(1, lName);
+      statement.setInt(1, nID);
       ResultSet rs = statement.executeQuery();
         return rs.getString("nodeType");
     } catch (SQLException e) {
