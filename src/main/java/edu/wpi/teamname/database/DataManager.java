@@ -51,6 +51,20 @@ public class DataManager {
     return connection;
   }
 
+  public static String isNodeType(String lName) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    String query = "SELECT \"nodeType\" FROM \"LocationName\" WHERE \"longName\" = ?";
+    try (connection) {
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setString(1, lName);
+      ResultSet rs = statement.executeQuery();
+        return rs.getString("nodeType");
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return "";
+  }
+
   /*public static ArrayList<Node> getSingleNodeInfo(int nodeID) throws SQLException {
   /**
    * Get list of items ordered from a specific ID
