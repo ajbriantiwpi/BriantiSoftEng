@@ -5,7 +5,6 @@ import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.employees.EmployeeType;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import java.io.File;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableBooleanValue;
 import javafx.fxml.FXML;
