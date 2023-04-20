@@ -58,7 +58,7 @@ public class DataManager {
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setString(1, lName);
       ResultSet rs = statement.executeQuery();
-        return rs.getString("nodeType");
+      return rs.getString("nodeType");
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }

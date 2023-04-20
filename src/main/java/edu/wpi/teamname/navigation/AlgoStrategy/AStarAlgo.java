@@ -5,13 +5,24 @@ import edu.wpi.teamname.navigation.Node;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.PriorityQueue;
+import lombok.Getter;
+import lombok.Setter;
 
 public class AStarAlgo implements IStrategyAlgo {
+
+  @Getter @Setter private boolean wheelChair = false;
+
   @Override
   public ArrayList<Node> getPathBetween(Graph g, int startNodeId, int targetNodeId) {
     System.out.println("ASTAR T");
 
     ArrayList<Node> nodes = g.getNodes();
+    //    if(wheelChair==true){
+    //      for(Node n: nodes){
+    //        if(DataManager.isNodeType(n.getL))
+    //      }
+    //    }
+
     Node s = nodes.get(Node.idToIndex(startNodeId));
     Node t = nodes.get(Node.idToIndex(targetNodeId));
 
