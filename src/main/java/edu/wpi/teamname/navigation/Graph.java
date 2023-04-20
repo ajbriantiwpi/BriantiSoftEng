@@ -2,6 +2,7 @@ package edu.wpi.teamname.navigation;
 
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.navigation.AlgoStrategy.AStarAlgo;
+import edu.wpi.teamname.navigation.AlgoStrategy.DFSAlgo;
 import edu.wpi.teamname.navigation.AlgoStrategy.IStrategyAlgo;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class Graph {
 
   /**
    * Creates a new Graph by retrieving Nodes and Edges from the database.
+   *
    * @throws SQLException if there is an error accessing the database
    */
   public Graph() throws SQLException {
@@ -23,14 +25,13 @@ public class Graph {
     this.initializeEdges();
     pathfindingAlgo = new AStarAlgo();
     // pathfindingAlgo = new BFSAlgo();
-
-    pathfindingAlgo = new AStarAlgo();
-
+    //pathfindingAlgo = new DFSAlgo();
     // pathfindingAlgo = new DijkstraAlgo();
   }
 
   /**
    * Constructs a Graph object with the given list of nodes and edges.
+   *
    * @param nodes the list of nodes in the graph.
    * @param edges the list of edges connecting the nodes in the graph.
    */
@@ -43,6 +44,7 @@ public class Graph {
 
   /**
    * Retrieves all the Nodes from the database.
+   *
    * @return an ArrayList of Nodes
    * @throws SQLException if there is an error accessing the database
    */
@@ -59,7 +61,18 @@ public class Graph {
   }
 
   /**
+   * Retrieves all the Nodes from the database, except elevator nodes
+   *
+   * @return an ArrayList of Nodes
+   * @throws SQLException if there is an error accessing the database
+   */
+  private ArrayList<Node> getAllNodesWheelChair() throws SQLException{
+    return null;
+  }
+
+  /**
    * Retrieves all the Edges from the database.
+   *
    * @return an ArrayList of Edges
    * @throws SQLException if there is an error accessing the database
    */
@@ -69,6 +82,7 @@ public class Graph {
 
   /**
    * Adds a new Edge to the graph.
+   *
    * @param e the Edge to be added
    */
   public void addEdge(Edge e) {
@@ -77,6 +91,7 @@ public class Graph {
 
   /**
    * Finds the weight between two Nodes.
+   *
    * @param a the first Node
    * @param b the second Node
    * @return the weight between the two Nodes
@@ -87,6 +102,7 @@ public class Graph {
 
   /**
    * Prints a path from the start Node to the target Node using the A* algorithm.
+   *
    * @param startNodeIndex the start Node
    * @param targetNodeIndex the target Node
    */
@@ -97,6 +113,7 @@ public class Graph {
 
   /**
    * Sets the G value of all Nodes in the graph.
+   *
    * @param s the start Node
    * @param t the target Node
    */
@@ -110,6 +127,7 @@ public class Graph {
 
   /**
    * This method returns the node with the given ID.
+   *
    * @param nodeId The ID of the node to be returned
    * @return The node with the given ID
    */
@@ -133,6 +151,7 @@ public class Graph {
 
   /**
    * Returns the pathfinding algorithm used by this object.
+   *
    * @return the pathfinding algorithm used by this object.
    */
   public IStrategyAlgo getPathfindingAlgo() {
@@ -141,6 +160,7 @@ public class Graph {
 
   /**
    * Sets the pathfinding algorithm to be used by this object.
+   *
    * @param algo the pathfinding algorithm to be used by this object.
    */
   public void setPathfindingAlgo(IStrategyAlgo algo) {
@@ -149,6 +169,7 @@ public class Graph {
 
   /**
    * Returns the path between two nodes using the pathfinding algorithm assigned to this object.
+   *
    * @param startNodeId the ID of the starting node.
    * @param targetNodeId the ID of the target node.
    * @return the path between the start and target nodes as an ArrayList of Node objects.
@@ -159,6 +180,7 @@ public class Graph {
 
   /**
    * Returns the path between two nodes using the pathfinding algorithm assigned to this object.
+   *
    * @param startNode the starting node.
    * @param endNode the target node.
    * @return the path between the start and target nodes as an ArrayList of Node objects.
