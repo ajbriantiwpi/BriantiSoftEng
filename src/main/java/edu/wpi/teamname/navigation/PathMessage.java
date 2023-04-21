@@ -27,6 +27,12 @@ public class PathMessage {
     this.message = message;
   }
 
+  public PathMessage(String message, int adminID, Timestamp date) {
+    this.date = date;
+    this.adminID = adminID;
+    this.message = message;
+  }
+
   /**
    * Returns a string representation of this PathMessage object.
    *

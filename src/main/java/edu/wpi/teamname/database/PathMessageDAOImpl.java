@@ -134,7 +134,8 @@ public class PathMessageDAOImpl implements PathMessageDAO {
    * This method retrieves an PathMessage object with the specified ID from the "PathMessages" table
    * in the database.
    *
-   * @param id the ID of the PathMessage object to retrieve from the "PathMessages" table
+   * @param startNode, endNode, mes the ID of the PathMessage object to retrieve from the
+   *     "PathMessages" table
    * @return the PathMessage object with the specified ID, or null if not found
    * @throws SQLException if there is a problem accessing the database
    */
@@ -158,7 +159,7 @@ public class PathMessageDAOImpl implements PathMessageDAO {
         Timestamp date = rs.getTimestamp("date");
         int adminID = rs.getInt("adminID");
         String message = rs.getString("message");
-        pm.add((new PathMessage(sNode, eNdoe, alg, date, adminID, message)));
+        pm.add((new PathMessage(message, adminID, date)));
       }
     } catch (SQLException e) {
       System.out.println(e.getMessage());

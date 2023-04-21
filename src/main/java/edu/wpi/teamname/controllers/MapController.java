@@ -17,7 +17,9 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -28,40 +30,41 @@ import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import net.kurobako.gesturefx.GesturePane;
-import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
-
-import javax.sound.midi.Soundbank;
 
 public class MapController {
 
   Map map;
   @FXML GesturePane gp;
   @FXML AnchorPane anchor;
-  @FXML HBox SelectCombo = new HBox();
-  @FXML ComboBox<String> LocationOne = new ComboBox<>();
-  @FXML ComboBox<String> EndPointSelect = new ComboBox<>();
-  @FXML MFXButton DeleteNodeButton = new MFXButton();
-  @FXML MFXButton findPathButton = new MFXButton();
+  @FXML HBox SelectCombo;
+  @FXML ComboBox<String> LocationOne;
+  @FXML ComboBox<String> EndPointSelect;
+  @FXML MFXButton DeleteNodeButton;
+  @FXML MFXButton findPathButton;
   // @FXML ComboBox<String> FloorSelect = new ComboBox<>();
-  @FXML ComboBox<String> AlgoSelect = new ComboBox<>();
-  @FXML CheckBox FloorsToggle = new CheckBox();
+  @FXML ComboBox<String> AlgoSelect;
+  @FXML CheckBox FloorsToggle;
 
-  @FXML ComboBox<String> FloorSelect = new ComboBox<>();
+  @FXML ComboBox<String> FloorSelect;
 
   @FXML MFXButton downFloor;
   @FXML MFXButton upFloor;
-  @FXML MFXButton ViewMessageButton = new MFXButton();
-  @FXML MFXButton AddMessageButton = new MFXButton();
+  @FXML MFXButton ViewMessageButton;
+  @FXML MFXButton AddMessageButton;
 
   @FXML HBox floorSelector;
   @FXML AnchorPane OuterMapAnchor;
-  @FXML TableView<PathMessage> MessageTable;
+  @FXML TableView<PathMessage> MessageTableView;
 
+  @FXML TableColumn<PathMessage, Timestamp> DateColumn;
+  @FXML TableColumn<PathMessage, Integer> AdminColumn;
+  @FXML TableColumn<PathMessage, String> MessageColumn;
 
   String defaultFloor = "L1";
   int clickCount = 0;
@@ -225,49 +228,74 @@ public class MapController {
         @Override
         public void handle(MouseEvent event) {
           System.out.println("Viewing Message");
+          MessageTableView.setVisible(true);
+          MessageTableView.setDisable(false);
           int currentSNode = sNode;
           int currentENode = eNode;
           String currentAlgo = AlgoSelect.getValue();
-          System.out.println("Viewing Message: " + currentENode + ", " + currentSNode + ", " + currentAlgo);
+          System.out.println(
+              "Viewing Message: " + currentSNode + ", " + currentENode + ", " + currentAlgo);
 
-          //displaying messages
+          // displaying messages
           ObservableList<PathMessage> PMS = null;
           try {
-            PMS = FXCollections.observableList(DataManager.getPathMessage(currentSNode, currentENode, currentAlgo));
+            PMS =
+                FXCollections.observableList(
+                    DataManager.getPathMessage(currentSNode, currentENode, currentAlgo).stream()
+                        .filter(Objects::nonNull)
+                        .toList());
           } catch (SQLException ex) {
             System.out.println("Error viewing: " + ex);
           }
+
+          System.out.println(PMS.size());
           FilteredList<PathMessage> PMS1 = new FilteredList<>(PMS);
           SortedList<PathMessage> sortedPM = new SortedList<>(PMS1);
-          MessageTable.setItems(sortedPM);
-
+          MessageTableView.setItems(sortedPM);
+          System.out.println(sortedPM);
         }
       };
 
-  EventHandler<MouseEvent> addMessage = new EventHandler<MouseEvent>() {
-    @Override
-    public void handle(MouseEvent event) {
-      int currentSNode = sNode;
-      int currentENode = eNode;
-      String currentAlgo = AlgoSelect.getValue();
-      Timestamp date = new Timestamp(System.currentTimeMillis());
-      int adminID = 0;
-      String message = "";
-      System.out.println("Adding Message: " + currentENode + ", " + currentSNode + ", " + currentAlgo + ", " + date + ", " + adminID + ", " + message);
-      PathMessage pm = new PathMessage(currentSNode, currentENode, currentAlgo, date, adminID, message);
-      PathMessageDAOImpl pmdao = new PathMessageDAOImpl();
-      try {
-        pmdao.add(pm);
-      } catch (SQLException ex) {
-        System.out.println("Error adding: " + ex);
-      }
-    }
-  };
+  EventHandler<MouseEvent> addMessage =
+      new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+          int currentSNode = sNode;
+          int currentENode = eNode;
+          String currentAlgo = AlgoSelect.getValue();
+          Timestamp date = new Timestamp(System.currentTimeMillis());
+          int adminID = 0;
+          String message = "";
+          System.out.println(
+              "Adding Message: "
+                  + currentENode
+                  + ", "
+                  + currentSNode
+                  + ", "
+                  + currentAlgo
+                  + ", "
+                  + date
+                  + ", "
+                  + adminID
+                  + ", "
+                  + message);
+          PathMessage pm =
+              new PathMessage(currentSNode, currentENode, currentAlgo, date, adminID, message);
+          PathMessageDAOImpl pmdao = new PathMessageDAOImpl();
+          try {
+            pmdao.add(pm);
+          } catch (SQLException ex) {
+            System.out.println("Error adding: " + ex);
+          }
+        }
+      };
 
   EventHandler<MouseEvent> findPathWButton =
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
+          ViewMessageButton.setVisible(true);
+          ViewMessageButton.setDisable(false);
           map.drawPath(anchor, sNode, eNode);
           int secInd = map.getAllFloors().indexOf(FloorSelect.getValue());
           System.out.println("secInd: " + FloorSelect.getValue());
@@ -620,10 +648,19 @@ public class MapController {
     FloorsToggle.setVisible(false);
 
     ViewMessageButton.setOnMouseClicked(viewMessage);
+    ViewMessageButton.setVisible(false);
 
     AddMessageButton.setOnMouseClicked(addMessage);
 
+    MessageTableView.setVisible(false);
+
     anchor.setOnMouseClicked(e);
+
+    DateColumn.setCellValueFactory((row) -> new SimpleObjectProperty<>(row.getValue().getDate()));
+    AdminColumn.setCellValueFactory(
+        (row) -> new SimpleObjectProperty<>(row.getValue().getAdminID()));
+    MessageColumn.setCellValueFactory(
+        (row) -> new SimpleObjectProperty<>(row.getValue().getMessage()));
 
     //    System.out.println(getAllNodeNames("L1"));
 
