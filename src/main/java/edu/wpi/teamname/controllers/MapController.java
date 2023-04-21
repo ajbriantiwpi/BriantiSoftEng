@@ -46,6 +46,7 @@ public class MapController {
 
   @FXML MFXButton downFloor;
   @FXML MFXButton upFloor;
+  @FXML MFXButton ViewMessageButton = new MFXButton();
 
   @FXML HBox floorSelector;
 
@@ -205,6 +206,14 @@ public class MapController {
           } catch (IOException ex) {
             throw new RuntimeException(ex);
           }
+        }
+      };
+
+  EventHandler<MouseEvent> viewMessage =
+      new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+          System.out.println("Viewing Message");
         }
       };
 
@@ -562,6 +571,8 @@ public class MapController {
     FloorsToggle.setSelected(false);
     FloorsToggle.setDisable(false);
     FloorsToggle.setVisible(false);
+
+    ViewMessageButton.setOnMouseClicked(viewMessage);
 
     anchor.setOnMouseClicked(e);
 
