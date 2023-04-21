@@ -27,8 +27,6 @@ public class App extends Application {
 
   @Override
   public void start(Stage primaryStage) throws IOException {
-    //    LoadingScreen l = new LoadingScreen();
-    //    l.displayLoading();
 
     /* primaryStage is generally only used if one of your components require the stage to display */
     App.primaryStage = primaryStage;
