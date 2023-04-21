@@ -75,12 +75,19 @@ public class ParentController {
     } else {
       loginButton.setVisible(true);
       logoutButton.setVisible(false);
+      makeRequestsButton.setVisible(false);
+      showRequestsButton.setVisible(false);
+      editMoveButton.setVisible(false);
+      editMapButton.setVisible(false);
+      showEmployeesButton.setVisible(false);
     }
 
     if (GlobalVariables.userIsType(EmployeeType.STAFF)) {
       makeRequestsButton.setDisable(false);
       showRequestsButton.setDisable(false);
-      editMoveButton.setDisable(false);
+      editMoveButton.setVisible(false);
+      editMapButton.setVisible(false);
+      showEmployeesButton.setVisible(false);
     }
     if (GlobalVariables.userIsType(EmployeeType.ADMIN)) {
       editMapButton.setDisable(false);
