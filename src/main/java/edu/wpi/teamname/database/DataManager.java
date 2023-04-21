@@ -53,10 +53,12 @@ public class DataManager {
 
   public static String isNodeType(int nID) throws SQLException {
     Connection connection = DataManager.DbConnection();
-    String query = "SELECT \"nodeType\" FROM \"LocationName\" WHERE \"longName\" = (SELECT \"longName\" FROM \"Move\" WHERE \"nodeID\" = ?)";
+    String query =
+        "SELECT \"nodeType\" FROM \"LocationName\" WHERE \"longName\" = (SELECT \"longName\" FROM \"Move\" WHERE \"nodeID\" = ? AND \"date\" = (SELECT max(\"date\") from \"Move\" where \"nodeID\" = ?))";
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, nID);
+      statement.setInt(2, nID);
       ResultSet rs = statement.executeQuery();
       rs.next();
       return rs.getString("nodeType");

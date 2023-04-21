@@ -1,7 +1,9 @@
 package edu.wpi.teamname.navigation.AlgoStrategy;
 
+import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.navigation.Graph;
 import edu.wpi.teamname.navigation.Node;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.PriorityQueue;
@@ -10,18 +12,13 @@ import lombok.Setter;
 
 public class AStarAlgo implements IStrategyAlgo {
 
-  @Getter @Setter private boolean wheelChair = false;
+  @Getter @Setter private boolean wheelChair = true;
 
   @Override
   public ArrayList<Node> getPathBetween(Graph g, int startNodeId, int targetNodeId) {
     System.out.println("ASTAR T");
 
     ArrayList<Node> nodes = g.getNodes();
-    //    if(wheelChair==true){
-    //      for(Node n: nodes){
-    //        if(DataManager.isNodeType(n.getL))
-    //      }
-    //    }
 
     Node s = nodes.get(Node.idToIndex(startNodeId));
     Node t = nodes.get(Node.idToIndex(targetNodeId));
@@ -42,12 +39,28 @@ public class AStarAlgo implements IStrategyAlgo {
 
     while (!openList.isEmpty()) {
       Node ex = openList.peek();
+
+      if (wheelChair == true) {
+        try {
+          if (DataManager.isNodeType(ex.getId()).equals("STAI")) continue;
+        } catch (SQLException e) {
+          throw new RuntimeException(e);
+        }
+      }
       if (ex == target) {
         System.out.println(closedList.size());
         return getPath(ex);
       }
 
       for (Node nei : ex.getNeighbors()) {
+        if (wheelChair == true) {
+          try {
+            if (DataManager.isNodeType(nei.getId()).equals("STAI")) continue;
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          }
+        }
+
         double totalWeight = ex.getG() + nei.findWeight(ex);
 
         //        System.out.println(closedList.size());

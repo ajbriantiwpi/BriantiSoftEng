@@ -13,6 +13,7 @@ public class Node implements Comparable<Node> {
   @Getter @Setter private int z;
   @Getter @Setter private String floor;
   @Getter @Setter private String building;
+  //  @Getter@Setter private String type;
 
   @Getter @Setter private Node parent = null;
   @Getter @Setter private List<Node> neighbors;
@@ -156,6 +157,20 @@ public class Node implements Comparable<Node> {
    */
   public double calculateHeuristic(Node target) {
     // Heuristic will return distance from target
+
+    //    if (wheelChair == true) {
+    //      try {
+    //        String s = DataManager.isNodeType(this.getId());
+    //        // System.out.println(s);
+    //        if (s.equals("STAI")) {
+    //          return 100000; // returning a high h value will cause AStar to pass up this node
+    // when
+    //          // creating a path
+    //        }
+    //      } catch (SQLException e) {
+    //        throw new RuntimeException(e);
+    //      }
+    //    }
 
     int x1 = this.x;
     int x2 = target.getX();
