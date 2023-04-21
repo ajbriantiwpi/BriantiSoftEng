@@ -75,13 +75,22 @@ public class ParentController {
     } else {
       loginButton.setVisible(true);
       logoutButton.setVisible(false);
+      makeRequestsButton.setVisible(false);
+      showRequestsButton.setVisible(false);
+      editMoveButton.setVisible(false);
+      editMapButton.setVisible(false);
+      showEmployeesButton.setVisible(false);
     }
 
     if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.STAFF)) {
       makeRequestsButton.setDisable(false);
       showRequestsButton.setDisable(false);
       editMoveButton.setDisable(false);
-    } else if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.ADMIN)) {
+      editMoveButton.setVisible(false);
+      editMapButton.setVisible(false);
+      showEmployeesButton.setVisible(false);
+    }
+    if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.ADMIN)) {
       editMapButton.setDisable(false);
       showEmployeesButton.setDisable(false);
       makeRequestsButton.setDisable(false);

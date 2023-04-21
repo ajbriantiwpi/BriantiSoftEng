@@ -47,15 +47,23 @@
                            </ImageView>
                         </graphic>
                      </MFXButton>
-                     <MFXButton fx:id="showEmployeesButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="surface-container" text="View Employees" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
+                     <MFXButton fx:id="makeRequestsButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="surface-container" text="Make Requests" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
                         <font>
                            <Font name="Roboto" size="22.0" />
                         </font>
                         <graphic>
                            <ImageView>
-                              <image>
-                                 <Image url="@../images/MenuIcons/employeetable.png" />
-                              </image>
+                              <Image url="@../images/MenuIcons/assignment.png" />
+                           </ImageView>
+                        </graphic>
+                     </MFXButton>
+                     <MFXButton fx:id="showRequestsButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="surface-container" text="View Requests" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
+                        <font>
+                           <Font name="Roboto" size="22.0" />
+                        </font>
+                        <graphic>
+                           <ImageView>
+                              <Image url="@../images/MenuIcons/edit_note.png" />
                            </ImageView>
                         </graphic>
                      </MFXButton>
@@ -91,23 +99,15 @@
                            </ImageView>
                         </graphic>
                      </MFXButton>
-                     <MFXButton fx:id="makeRequestsButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="surface-container" text="Make Requests" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
+                     <MFXButton fx:id="showEmployeesButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="surface-container" text="View Employees" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
                         <font>
                            <Font name="Roboto" size="22.0" />
                         </font>
                         <graphic>
                            <ImageView>
-                              <Image url="@../images/MenuIcons/assignment.png" />
-                           </ImageView>
-                        </graphic>
-                     </MFXButton>
-                     <MFXButton fx:id="showRequestsButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="surface-container" text="View Requests" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
-                        <font>
-                           <Font name="Roboto" size="22.0" />
-                        </font>
-                        <graphic>
-                           <ImageView>
-                              <Image url="@../images/MenuIcons/edit_note.png" />
+                              <image>
+                                 <Image url="@../images/MenuIcons/employeetable.png" />
+                              </image>
                            </ImageView>
                         </graphic>
                      </MFXButton>

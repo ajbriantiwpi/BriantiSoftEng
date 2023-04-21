@@ -63,7 +63,7 @@ public class HomeController {
     //    makeRequestsButton2.setDisable(true);
     //    makeRequestsButton3.setDisable(true);
     showRequestsButton.setDisable(true);
-    editMapButton.setDisable(true);
+    editMapButton.setDisable(true); // these have to be set to visible false for staff/logged out
     editMoveButton.setDisable(true);
     employeeButton.setDisable(true);
     activeRequests.setDisable(true);
