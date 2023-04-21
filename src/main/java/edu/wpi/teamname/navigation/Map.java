@@ -1,6 +1,7 @@
 package edu.wpi.teamname.navigation;
 
 import edu.wpi.teamname.GlobalVariables;
+import edu.wpi.teamname.controllers.MapController;
 import edu.wpi.teamname.database.DataManager;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -470,6 +471,7 @@ public class Map {
     //    System.out.println(nodePath);
 
     // parent.getChildren().addAll(shapes);
+
   }
 
   /**

@@ -26,6 +26,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import lombok.Getter;
+import lombok.Setter;
 import net.kurobako.gesturefx.GesturePane;
 
 public class MapController {
