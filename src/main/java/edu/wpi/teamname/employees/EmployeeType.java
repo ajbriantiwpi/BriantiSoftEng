@@ -10,8 +10,9 @@ public enum EmployeeType {
   DELIVERY("DELIVERY"),
   MANAGER("MANAGER"),
   ADMINISTRATOR("ADMINISTRATOR"),
-
-  SECURITY("SECURITY");
+  SECURITY("SECURITY"),
+  PLUMBER("PLUMBER"),
+  GUEST("GUEST");
 
   private final String type;
 

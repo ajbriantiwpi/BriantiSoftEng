@@ -66,7 +66,7 @@ public class Employee {
   }
 
   // Updated constructor
-  public Employee(
+  /*public Employee(
       String username,
       String password,
       int employeeID,
@@ -86,7 +86,7 @@ public class Employee {
     } else {
       this.password = password;
     }
-  }
+  }*/
 
   /**
    * Takes a new username and password and sets them as this Employee's username and password. The
@@ -127,8 +127,11 @@ public class Employee {
         + '\''
         + ", type="
         + type
+        + ", level="
+        + level
         + '}';
   }
+
   /**
    * Hashes the given password using SHA-256
    *

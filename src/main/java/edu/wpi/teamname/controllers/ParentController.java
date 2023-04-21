@@ -3,7 +3,7 @@ package edu.wpi.teamname.controllers;
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
-import edu.wpi.teamname.employees.EmployeeType;
+import edu.wpi.teamname.employees.ClearanceLevel;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -77,14 +77,16 @@ public class ParentController {
       logoutButton.setVisible(false);
     }
 
-    if (GlobalVariables.userIsType(EmployeeType.STAFF)) {
+    if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.STAFF)) {
       makeRequestsButton.setDisable(false);
       showRequestsButton.setDisable(false);
       editMoveButton.setDisable(false);
-    }
-    if (GlobalVariables.userIsType(EmployeeType.ADMIN)) {
+    } else if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.ADMIN)) {
       editMapButton.setDisable(false);
       showEmployeesButton.setDisable(false);
+      makeRequestsButton.setDisable(false);
+      showRequestsButton.setDisable(false);
+      editMoveButton.setDisable(false);
     }
     homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     //    helpButton.setOnMouseClicked(event -> Navigation.navigate(Screen.));

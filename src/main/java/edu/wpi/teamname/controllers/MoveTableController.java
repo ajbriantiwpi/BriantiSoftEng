@@ -4,7 +4,7 @@ import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.controllers.JFXitems.DatePickerEditingCell;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.database.MoveDAOImpl;
-import edu.wpi.teamname.employees.EmployeeType;
+import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.navigation.Move;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.File;
@@ -156,7 +156,7 @@ public class MoveTableController {
             e.printStackTrace();
           }
         });
-    if (GlobalVariables.userIsType(EmployeeType.ADMIN)) {
+    if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.ADMIN)) {
       moveTable.setEditable(true);
     }
 
@@ -245,7 +245,7 @@ public class MoveTableController {
         }
       }
     }
-    if (!(GlobalVariables.userIsType(EmployeeType.ADMIN))) {
+    if (!(GlobalVariables.userIsClearanceLevel(ClearanceLevel.ADMIN))) {
       nodeIdTextField.setDisable(true);
       longNameTextField.setDisable(true);
       submitButton.setDisable(true);
