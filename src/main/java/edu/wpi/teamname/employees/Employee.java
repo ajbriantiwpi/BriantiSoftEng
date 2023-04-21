@@ -15,7 +15,8 @@ public class Employee {
   @Getter @Setter private String firstName;
   @Getter @Setter private String lastName;
   @Getter private final String originalUsername;
-  @Getter @Setter private ArrayList<EmployeeType> type;
+  @Getter @Setter private EmployeeType type;
+  @Getter @Setter private ClearanceLevel level;
 
   // Add a static ArrayList to store all employees
   private static ArrayList<Employee> allEmployees = new ArrayList<>();
@@ -46,13 +47,16 @@ public class Employee {
       int employeeID,
       String firstName,
       String lastName,
+      ClearanceLevel level,
+      EmployeeType type,
       Boolean encrypt) {
-    type = new ArrayList<EmployeeType>();
     this.username = username;
     this.originalUsername = username;
     this.employeeID = employeeID;
     this.firstName = firstName;
     this.lastName = lastName;
+    this.level = level;
+    this.type = type;
     // encrypt the password using SHA-256
     if (encrypt) {
       this.password = hash(password);
@@ -82,10 +86,6 @@ public class Employee {
     } else {
       this.password = password;
     }
-  }
-
-  public void removeType(EmployeeType employeeType) {
-    type.remove(employeeType);
   }
 
   /**
@@ -172,13 +172,6 @@ public class Employee {
     }
   }
 
-  public void addType(EmployeeType employeeType) {
-    if (!type.contains(employeeType)) {
-      type.add(employeeType);
-      allTypes.add(employeeType);
-    }
-  }
-
   /**
    * checks if the given string has at least 1 capital letter
    *
@@ -225,13 +218,5 @@ public class Employee {
       }
     }
     return false;
-  }
-
-  public void setPassword(String newValue) {
-    this.password = newValue;
-  }
-
-  public void removeTypes(ArrayList<EmployeeType> em) {
-    type.remove(em);
   }
 }

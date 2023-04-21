@@ -1,6 +1,7 @@
 package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.LoginDAO;
+import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
 import java.io.BufferedWriter;
@@ -27,21 +28,23 @@ public class EmployeeDAOImpl implements LoginDAO {
     try {
       // Updating data in employee
       query =
-          "UPDATE \"Employee\" SET \"password\" = ?, \"username\" = ?, \"employeeID\" = ?, \"firstName\" = ?, \"lastName\" = ? WHERE \"username\" = ?";
+          "UPDATE \"Employee\" SET \"password\" = ?, \"username\" = ?, \"employeeID\" = ?, \"firstName\" = ?, \"lastName\" = ?, \"clearanceLevel\" = ?, \"type\" = ? WHERE \"username\" = ?";
       statement = connection.prepareStatement(query);
       statement.setString(1, employee.getPassword());
       statement.setString(2, employee.getUsername());
       statement.setInt(3, employee.getEmployeeID());
       statement.setString(4, employee.getFirstName());
       statement.setString(5, employee.getLastName());
-      statement.setString(6, employee.getOriginalUsername());
+      statement.setString(6, employee.getLevel().getString());
+      statement.setString(7, employee.getType().getString());
+      statement.setString(8, employee.getOriginalUsername());
       statement.executeUpdate();
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }
 
     // Adding new types
-    for (EmployeeType type : employee.getType()) {
+    /*for (EmployeeType type : employee.getType()) {
       connection = DataManager.DbConnection();
       query = "SELECT count(*) count FROM \"EmployeeType\" WHERE \"username\" = ? AND \"type\" = ?";
       statement = connection.prepareStatement(query);
@@ -77,7 +80,7 @@ public class EmployeeDAOImpl implements LoginDAO {
         statement.setString(2, dbEmployeeType.getString());
         statement.executeUpdate();
       }
-    }
+    }*/
     connection.close();
   }
 
