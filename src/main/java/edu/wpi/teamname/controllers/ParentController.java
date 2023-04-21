@@ -68,8 +68,8 @@ public class ParentController {
   public void initialize() throws IOException {
     titleLabel.setText(titleString.getValue());
     System.out.println("Parent!");
-    // disableButtonsWhenNotLoggedIn();
     if (HomeController.getLoggedIn().getValue()) {
+      // disableButtonsWhenNotLoggedIn();
       loginButton.setVisible(false);
       logoutButton.setVisible(true);
     } else {
@@ -85,7 +85,7 @@ public class ParentController {
     if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.STAFF)) {
       makeRequestsButton.setDisable(false);
       showRequestsButton.setDisable(false);
-      editMoveButton.setVisible(false);
+      editMoveButton.setVisible(true);
       editMapButton.setVisible(false);
       showEmployeesButton.setVisible(false);
     }

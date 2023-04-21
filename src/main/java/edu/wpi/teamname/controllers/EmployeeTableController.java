@@ -40,11 +40,11 @@ public class EmployeeTableController {
   @FXML private TextField employeePasswordTextField;
 
   public void initialize() {
-    ObservableList<EmployeeType> employeeTypes =
-        FXCollections.observableArrayList(EmployeeType.values());
+    ObservableList<String> employeeTypes =
+        FXCollections.observableArrayList(EmployeeType.formattedValues());
     employeeTypeText.setItems(employeeTypes);
-    ObservableList<ClearanceLevel> clearanceLevels =
-        FXCollections.observableArrayList(ClearanceLevel.values());
+    ObservableList<String> clearanceLevels =
+        FXCollections.observableArrayList(ClearanceLevel.formattedValues());
     employeeLevelText.setItems(clearanceLevels);
     ParentController.titleString.set("Employee Edit Table");
     TableColumn<Employee, Integer> employeeIDColumn = new TableColumn<>("Employee ID");
@@ -314,8 +314,12 @@ public class EmployeeTableController {
       String lastName = employeeLastNameTextField.getText();
       String username = employeeUserTextField.getText();
       String password = employeePasswordTextField.getText();
-      EmployeeType employeeType = (EmployeeType) employeeTypeText.valueProperty().getValue();
-      ClearanceLevel clearanceLevel = (ClearanceLevel) employeeLevelText.valueProperty().getValue();
+      EmployeeType employeeType =
+          EmployeeType.valueOf(
+              employeeTypeText.valueProperty().getValue().toString().toUpperCase());
+      ClearanceLevel clearanceLevel =
+          ClearanceLevel.valueOf(
+              employeeLevelText.valueProperty().getValue().toString().toUpperCase());
 
       Employee employee =
           new Employee(
