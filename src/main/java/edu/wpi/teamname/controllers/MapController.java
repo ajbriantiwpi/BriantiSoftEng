@@ -214,6 +214,9 @@ public class MapController {
         @Override
         public void handle(MouseEvent event) {
           System.out.println("Viewing Message");
+          int currentSNode = sNode;
+          int currentENode = eNode;
+          String currentAlgo = AlgoSelect.getValue();
         }
       };
 
