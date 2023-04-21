@@ -3,6 +3,7 @@ package edu.wpi.teamname.database;
 import edu.wpi.teamname.database.interfaces.PathMessageDAO;
 import edu.wpi.teamname.navigation.Edge;
 import edu.wpi.teamname.navigation.PathMessage;
+import edu.wpi.teamname.servicerequest.requestitem.MedicalSupply;
 import oracle.sql.TIMESTAMP;
 
 import java.io.BufferedWriter;
@@ -132,6 +133,40 @@ public class PathMessageDAOImpl implements PathMessageDAO {
             System.out.println("Error checking delete. " + e2);
         }
         connection.close();
+    }
+
+    /**
+     * This method retrieves an PathMessage object with the specified ID from the "PathMessages"
+     * table in the database.
+     *
+     * @param id the ID of the PathMessage object to retrieve from the "PathMessages" table
+     * @return the PathMessage object with the specified ID, or null if not found
+     * @throws SQLException if there is a problem accessing the database
+     */
+    public static ArrayList<PathMessage> getPathMessage(int startNode, int endNode, String algr) throws SQLException {
+        Connection connection = DataManager.DbConnection();
+        ArrayList<PathMessage> pm = new ArrayList<>();
+        String query = "SELECT * FROM \"PathMessages\" WHERE \"startNode\" = ? AND \"endNode\" = ? AND algorithm = ?";
+        try (connection) {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, startNode);
+            statement.setInt(2, endNode);
+            statement.setString(3, algr);
+            ResultSet rs = statement.executeQuery();
+
+            while(rs.next()){
+                int sNode = rs.getInt("startNode");
+                int eNdoe = rs.getInt("endNode");
+                String alg = rs.getString("algorithm");
+                Timestamp date = rs.getTimestamp("date");
+                int adminID = rs.getInt("adminID");
+                String message = rs.getString("message");
+                pm.add((new PathMessage(sNode, eNdoe, alg, date, adminID, message)));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return pm;
     }
 
     /**

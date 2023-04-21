@@ -302,6 +302,17 @@ public class DataManager {
     medicalSupplyDAO.sync(medicalSupply);
   }
   /**
+   * This method updates an existing PathMessage object in the "PathMessages" table in the
+   * database with the new PathMessage object.
+   *
+   * @param pm the new MedicalSupply object to be updated in the "PathMessages" table
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static void syncPM(PathMessage pm) throws SQLException {
+    PathMessageDAOImpl pmDAO = new PathMessageDAOImpl();
+    pmDAO.sync(pm);
+  }
+  /**
    * This method returns the employee type of a user
    *
    * @param username the Employees username
@@ -311,6 +322,8 @@ public class DataManager {
     EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
     return getEmployeeType(username);
   }
+
+  //--------------------------------ADDS----------------------------------
 
   /**
    * This method adds a new Move object to the "Move" table in the database.
@@ -443,6 +456,19 @@ public class DataManager {
     MedicalSupplyDAOImpl medicalSupplyDAO = new MedicalSupplyDAOImpl();
     medicalSupplyDAO.add(medicalSupply);
   }
+
+  /**
+   * This method adds a new PathMessage object to the "PathMessages" table in the database.
+   *
+   * @param pm the PathMessage object to be added to the "PathMessages" table
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static void addMedicalSupply(PathMessage pm) throws SQLException {
+    PathMessageDAOImpl pmDAO = new  PathMessageDAOImpl();
+    pmDAO.add(pm);
+  }
+
+  //--------------------------------DELETES----------------------------------
 
   /**
    * This method deletes the given Move object from the database
@@ -589,6 +615,19 @@ public class DataManager {
   }
 
   /**
+   * This method deletes the given PathMessage object from the database
+   *
+   * @param pm the PathMessage object that will be deleted in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static void deletePathMessage(PathMessage pm) throws SQLException {
+    PathMessageDAOImpl pmDAO = new  PathMessageDAOImpl();
+    pmDAO.delete(pm);
+  }
+
+  //--------------------------------GET ALLS----------------------------------
+
+  /**
    * The method retrieves all the Move objects from the "Move" table in the database.
    *
    * @return an ArrayList of the Move objects in the database
@@ -730,6 +769,20 @@ public class DataManager {
   }
 
   /**
+   * The method retrieves all the PathMessages objects from the "PathMessage" table in the
+   * database.
+   *
+   * @return an ArrayList of the PathMessage objects in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static ArrayList<PathMessage> getAllPathMessages() throws SQLException {
+    PathMessageDAOImpl pmDAO = new PathMessageDAOImpl();
+    return pmDAO.getAll();
+  }
+
+  //--------------------------------GETSINGLE----------------------------------
+
+  /**
    * This method retrieves a Flower object with the specified ID from the "Flowers" table in the
    * database.
    *
@@ -839,7 +892,7 @@ public class DataManager {
    * table in the database.
    *
    * @param id the ID of the OfficeSupply object to retrieve from the "OfficeSupply" table
-   * @return the Flower object with the specified ID, or null if not found
+   * @return the OfficeSupply object with the specified ID, or null if not found
    * @throws SQLException if there is a problem accessing the database
    */
   public static OfficeSupply getOfficeSupply(int id) throws SQLException {
@@ -851,12 +904,25 @@ public class DataManager {
    * table in the database.
    *
    * @param id the ID of the MedicalSupply object to retrieve from the "MedicalSupply" table
-   * @return the Flower object with the specified ID, or null if not found
+   * @return the MedicalSupply object with the specified ID, or null if not found
    * @throws SQLException if there is a problem accessing the database
    */
   public static MedicalSupply getMedicalSupply(int id) throws SQLException {
     return MedicalSupplyDAOImpl.getMedicalSupply(id);
   }
+
+  /**
+   * This method retrieves an PathMessage object with the specified ID from the "PathMessages"
+   * table in the database.
+   *
+   * @param sNode, eNode, alg as the ID of the PathMessage object to retrieve from the "PathMessages" table
+   * @return the PathMessage object with the specified ID, or null if not found
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static ArrayList<PathMessage> getPathMessage(int sNode, int eNode, String alg) throws SQLException {
+    return PathMessageDAOImpl.getPathMessage(sNode, eNode, alg);
+  }
+  //--------------------------------UPLOADS----------------------------------
 
   /**
    * * Parses a CSV after being given a String path and then returns a list of Strings after it
@@ -1065,6 +1131,19 @@ public class DataManager {
   }
 
   /**
+   * Uploads CSV data to a PostgreSQL database table "PathMessages"-also creates one if one does
+   * not exist
+   *
+   * @param path a string that represents a file path (/ is illegal so you must use double//)
+   * @throws SQLException if an error occurs while uploading the data to the database
+   */
+  public static void uploadPathMessage(String path) throws SQLException, ParseException {
+    PathMessageDAOImpl.uploadPMToPostgreSQL(path);
+  }
+
+  //--------------------------------EXPORTS----------------------------------
+
+  /**
    * This method exports all the Edge objects from the "Edge" table in the database to a CSV file at
    * the specified file path.
    *
@@ -1238,6 +1317,21 @@ public class DataManager {
   public static void exportServiceRequestToCSV(String path) throws SQLException, IOException {
     ServiceRequestDAOImpl.exportServiceRequestToCSV(path);
   }
+
+  /**
+   * This method exports all the PathMessages objects from the "PathMessages" table in the
+   * database to a CSV file at the specified file path.
+   *
+   * @param path the file path of the CSV file to export the PathMessage objects to
+   * @throws SQLException if there is a problem accessing the database
+   * @throws IOException if there is a problem writing the CSV file
+   */
+  public static void exportPathMessageToCSV(String path) throws SQLException, IOException {
+    PathMessageDAOImpl.exportPMToCSV(path);
+  }
+
+  //--------------------------OTHER----------------------
+
 
   /**
    * This method retrieves a list of all the long names of locations from the "LocationName" table
