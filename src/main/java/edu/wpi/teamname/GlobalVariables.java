@@ -27,7 +27,7 @@ public class GlobalVariables {
           "dummmyF",
           "dummyL",
           ClearanceLevel.GUEST,
-          EmployeeType.GUEST,
+          EmployeeType.NONE,
           false);
   @Getter @Setter private static Employee currentUser = dummyEmployee;
   @Getter @Setter private static Screen currentScreen = Screen.HOME;

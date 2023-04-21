@@ -3,7 +3,6 @@ package edu.wpi.teamname.controllers;
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
-import edu.wpi.teamname.employees.ClearanceLevel;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,11 +43,11 @@ public class ParentController {
 
   /** * Disables all the buttons that can not be accessed without logging in */
   public void disableButtonsWhenNotLoggedIn() {
-    makeRequestsButton.setDisable(true);
-    showRequestsButton.setDisable(true);
-    editMapButton.setDisable(true);
-    editMoveButton.setDisable(true);
-    showEmployeesButton.setDisable(true);
+    makeRequestsButton.setVisible(false);
+    showRequestsButton.setVisible(false);
+    editMapButton.setVisible(false);
+    editMoveButton.setVisible(false);
+    showEmployeesButton.setVisible(false);
   }
 
   /** logs the current user out of the application */
@@ -68,7 +67,7 @@ public class ParentController {
   public void initialize() throws IOException {
     titleLabel.setText(titleString.getValue());
     System.out.println("Parent!");
-    disableButtonsWhenNotLoggedIn();
+    // disableButtonsWhenNotLoggedIn();
     if (HomeController.getLoggedIn().getValue()) {
       loginButton.setVisible(false);
       logoutButton.setVisible(true);
@@ -82,11 +81,11 @@ public class ParentController {
       showEmployeesButton.setVisible(false);
     }
 
-    if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.STAFF)) {
+    /*if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.STAFF)) {
       makeRequestsButton.setDisable(false);
       showRequestsButton.setDisable(false);
       editMoveButton.setDisable(false);
-      editMoveButton.setVisible(false);
+      editMoveButton.setVisible(true);
       editMapButton.setVisible(false);
       showEmployeesButton.setVisible(false);
     }
@@ -96,7 +95,7 @@ public class ParentController {
       makeRequestsButton.setDisable(false);
       showRequestsButton.setDisable(false);
       editMoveButton.setDisable(false);
-    }
+    }*/
     homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     //    helpButton.setOnMouseClicked(event -> Navigation.navigate(Screen.));
     mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));

@@ -12,7 +12,7 @@ public enum EmployeeType {
   ADMINISTRATOR("ADMINISTRATOR"),
   SECURITY("SECURITY"),
   PLUMBER("PLUMBER"),
-  GUEST("GUEST");
+  NONE("NONE");
 
   private final String type;
 

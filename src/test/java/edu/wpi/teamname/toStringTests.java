@@ -18,7 +18,16 @@ public class toStringTests {
 
   @Test
   public void employeeToString() {
-    Employee employee = new Employee("username", "password", 1, "First", "Last", ClearanceLevel.STAFF, EmployeeType.DELIVERY, false);
+    Employee employee =
+        new Employee(
+            "username",
+            "password",
+            1,
+            "First",
+            "Last",
+            ClearanceLevel.STAFF,
+            EmployeeType.DELIVERY,
+            false);
     assertEquals(
         "Employee{username='username', password='password', employeeID=1, firstName='First', lastName='Last', type=[JANITOR, STAFF]}",
         employee.toString());
