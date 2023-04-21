@@ -3,12 +3,14 @@ package edu.wpi.teamname.controllers;
 import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.database.PathMessageDAOImpl;
 import edu.wpi.teamname.navigation.AlgoStrategy.AStarAlgo;
 import edu.wpi.teamname.navigation.AlgoStrategy.BFSAlgo;
 import edu.wpi.teamname.navigation.AlgoStrategy.DFSAlgo;
 import edu.wpi.teamname.navigation.AlgoStrategy.DijkstraAlgo;
 import edu.wpi.teamname.navigation.Map;
 import edu.wpi.teamname.navigation.Node;
+import edu.wpi.teamname.navigation.PathMessage;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -16,19 +18,24 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import lombok.Getter;
-import lombok.Setter;
 import net.kurobako.gesturefx.GesturePane;
+import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
+
+import javax.sound.midi.Soundbank;
 
 public class MapController {
 
@@ -49,10 +56,11 @@ public class MapController {
   @FXML MFXButton downFloor;
   @FXML MFXButton upFloor;
   @FXML MFXButton ViewMessageButton = new MFXButton();
-
   @FXML HBox floorSelector;
-
   @FXML AnchorPane OuterMapAnchor;
+  @FXML TableView<PathMessage> MessageTable;
+  @FXML MFXButton AddMessage;
+
 
   String defaultFloor = "L1";
   int clickCount = 0;
@@ -215,12 +223,44 @@ public class MapController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          System.out.println("Viewing Message");
           int currentSNode = sNode;
           int currentENode = eNode;
           String currentAlgo = AlgoSelect.getValue();
+          System.out.println("Viewing Message: " + currentENode + ", " + currentSNode + ", " + currentAlgo);
+
+          //displaying messages
+          ObservableList<PathMessage> PMS = null;
+          try {
+            PMS = FXCollections.observableList(DataManager.getPathMessage(currentSNode, currentENode, currentAlgo));
+          } catch (SQLException ex) {
+            System.out.println("Error viewing: " + ex);
+          }
+          FilteredList<PathMessage> PMS1 = new FilteredList<>(PMS);
+          SortedList<PathMessage> sortedPM = new SortedList<>(PMS1);
+          MessageTable.setItems(sortedPM);
+
         }
       };
+
+  EventHandler<MouseEvent> addMessage = new EventHandler<MouseEvent>() {
+    @Override
+    public void handle(MouseEvent event) {
+      int currentSNode = sNode;
+      int currentENode = eNode;
+      String currentAlgo = AlgoSelect.getValue();
+      Timestamp date = new Timestamp(System.currentTimeMillis());
+      int adminID = 0;
+      String message = "";
+      System.out.println("Adding Message: " + currentENode + ", " + currentSNode + ", " + currentAlgo + ", " + date + ", " + adminID + ", " + message);
+      PathMessage pm = new PathMessage(currentSNode, currentENode, currentAlgo, date, adminID, message);
+      PathMessageDAOImpl pmdao = new PathMessageDAOImpl();
+      try {
+        pmdao.add(pm);
+      } catch (SQLException ex) {
+        System.out.println("Error adding: " + ex);
+      }
+    }
+  };
 
   EventHandler<MouseEvent> findPathWButton =
       new EventHandler<MouseEvent>() {
