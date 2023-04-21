@@ -4,7 +4,7 @@ import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.database.DataManager;
-import edu.wpi.teamname.employees.EmployeeType;
+import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.navigation.Move;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -137,7 +137,7 @@ public class HomeController {
 
     //        helpButton.setOnMouseClicked(event -> Navigation.navigate(Screen));
     disableButtonsWhenLoggedOut();
-    if (GlobalVariables.userIsType(EmployeeType.STAFF)) {
+    if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.STAFF)) {
       makeRequestsButton.setDisable(false);
       editMoveButton.setDisable(false);
       //      makeRequestsButton1.setDisable(false);
@@ -147,14 +147,19 @@ public class HomeController {
       upcomingMoves.setDisable(false);
       doneRequests.setDisable(false);
       showRequestsButton.setDisable(false);
-    }
-    if (GlobalVariables.userIsType(EmployeeType.ADMIN)) {
+    } else if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.ADMIN)) {
       editMapButton.setDisable(false);
       editMoveButton.setDisable(false);
       employeeButton.setDisable(false);
       activeRequests.setDisable(false);
       upcomingMoves.setDisable(false);
       doneRequests.setDisable(false);
+      activeRequests.setDisable(false);
+      upcomingMoves.setDisable(false);
+      doneRequests.setDisable(false);
+      showRequestsButton.setDisable(false);
+      makeRequestsButton.setDisable(false);
+      editMoveButton.setDisable(false);
     }
 
     upcomingMoves.setOnMouseClicked(
