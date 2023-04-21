@@ -67,6 +67,18 @@
                            </ImageView>
                         </graphic>
                      </MFXButton>
+                     <MFXButton fx:id="editMoveButton" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="263.0" maxWidth="1.7976931348623157E308" styleClass="surface-container" text="View Moves" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
+                        <font>
+                           <Font name="Roboto" size="22.0" />
+                        </font>
+                        <graphic>
+                           <ImageView>
+                              <image>
+                                 <Image url="@../images/MenuIcons/edit_move.png" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </MFXButton>
 <!--                     <MFXButton fx:id="directionsButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="surface-container" text="Directions" textFill="#1a1c1e" textOverrun="CLIP">-->
 <!--                        <font>-->
 <!--                           <Font name="Roboto" size="22.0" />-->
@@ -84,18 +96,6 @@
                         <graphic>
                            <ImageView>
                               <Image url="@../images/MenuIcons/edit_location_alt.png" />
-                           </ImageView>
-                        </graphic>
-                     </MFXButton>
-                     <MFXButton fx:id="editMoveButton" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="263.0" maxWidth="1.7976931348623157E308" styleClass="surface-container" text="Edit Move" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
-                        <font>
-                           <Font name="Roboto" size="22.0" />
-                        </font>
-                        <graphic>
-                           <ImageView>
-                              <image>
-                                 <Image url="@../images/MenuIcons/edit_move.png" />
-                              </image>
                            </ImageView>
                         </graphic>
                      </MFXButton>

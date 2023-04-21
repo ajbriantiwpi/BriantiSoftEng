@@ -17,7 +17,7 @@
 
 .combo-box{
     /*-fx-background-color: #D5E3FF;*/
-    -fx-font-size: 22px;
+    -fx-font-size: 12px;
     -fx-font-family: Roboto Thin;
     -fx-line-height: 36px;
     -fx-letter-spacing: 0px;
@@ -26,5 +26,5 @@
     -fx-border-radius: 8;
     -fx-border-color: #6F797A;
     -fx-border-width: 1;
-    -fx-min-height: 60;
+    -fx-min-height: 30;
 }
