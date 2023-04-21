@@ -15,7 +15,7 @@
 
 <AnchorPane id="AP" fx:id="OuterMapAnchor" prefHeight="668.0" prefWidth="951.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MapController">
     <children>
-        <StackPane fx:id="sp" prefHeight="602.0" prefWidth="800.0" style="-fx-background-radius: 16;" styleClass="surface" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <StackPane fx:id="sp" layoutX="110.0" layoutY="163.0" prefHeight="505.0" prefWidth="841.0" style="-fx-background-radius: 16;" styleClass="surface" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
             <children>
             <AnchorPane style="-fx-background-radius: 16;" styleClass="surface" VBox.vgrow="ALWAYS">
@@ -76,6 +76,7 @@
                      </HBox.margin>
                   </CheckBox>
                   <MFXButton fx:id="ViewMessageButton" prefHeight="26.0" prefWidth="136.0" text="View Message" />
+                  <MFXButton fx:id="AddMessageButton" prefHeight="26.0" prefWidth="126.0" text="Add Message" />
                </children>
                <StackPane.margin>
                   <Insets left="24.0" top="12.0" />
@@ -90,5 +91,6 @@
             <ComboBox fx:id="AlgoSelect" layoutX="255.0" layoutY="32.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #D5E3ff;" stylesheets="@../stylesheets/combo.css" />
          </children>
       </HBox>
+      <VBox layoutX="46.0" layoutY="138.0" prefHeight="218.0" prefWidth="250.0" />
     </children>
 </AnchorPane>

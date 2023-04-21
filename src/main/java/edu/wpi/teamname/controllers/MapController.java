@@ -47,6 +47,7 @@ public class MapController {
   @FXML MFXButton downFloor;
   @FXML MFXButton upFloor;
   @FXML MFXButton ViewMessageButton = new MFXButton();
+  @FXML MFXButton AddMessageButton = new MFXButton();
 
   @FXML HBox floorSelector;
 
@@ -219,6 +220,17 @@ public class MapController {
           String currentAlgo = AlgoSelect.getValue();
         }
       };
+
+  EventHandler<MouseEvent> addMessage =
+          new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+              System.out.println("Adding Message");
+              int currentSNode = sNode;
+              int currentENode = eNode;
+              String currentAlgo = AlgoSelect.getValue();
+            }
+          };
 
   EventHandler<MouseEvent> findPathWButton =
       new EventHandler<MouseEvent>() {
@@ -576,6 +588,8 @@ public class MapController {
     FloorsToggle.setVisible(false);
 
     ViewMessageButton.setOnMouseClicked(viewMessage);
+
+    AddMessageButton.setOnMouseClicked(addMessage);
 
     anchor.setOnMouseClicked(e);
 
