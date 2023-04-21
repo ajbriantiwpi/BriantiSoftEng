@@ -11,7 +11,7 @@
       <HBox prefHeight="100.0" prefWidth="200.0" />
         <HBox layoutY="24.0" prefHeight="423.0" prefWidth="614.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                <VBox fx:id="adminMoveView" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                <children>
                   <Label layoutX="20.0" layoutY="267.0" prefHeight="40.0" prefWidth="228.0" text="Add Move" textFill="#235fa6">
                      <font>
@@ -90,7 +90,7 @@
                      </font>
                   </MFXButton>
                </children></VBox>
-               <TableView fx:id="moveTable" prefHeight="400.0" prefWidth="450.0" HBox.hgrow="ALWAYS" stylesheets="@../stylesheets/Colors/lightTheme.css" styleClass="surface">
+               <TableView fx:id="moveTable" prefHeight="400.0" prefWidth="450.0" styleClass="surface" stylesheets="@../stylesheets/Colors/lightTheme.css" HBox.hgrow="ALWAYS">
                </TableView>
             </children>
         </HBox>
