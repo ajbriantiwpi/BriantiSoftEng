@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -26,7 +25,7 @@ public class NodeCircle {
   private Circle inner;
   private Circle outer;
 
-  public Label label = new Label();
+  public Label label;
 
   private Point2D nodeCords;
   private int nodeID;
@@ -98,13 +97,22 @@ public class NodeCircle {
     //      label.setText(locations.get(0).getShortName());
     //    } else {
     //      label.setText(" " + nodeID);
-    label.setText(firstShortName);
-    //    }
 
-    CornerRadii corn = new CornerRadii(7);
-    label.setBackground(
-        new Background(new BackgroundFill(GlobalVariables.getLabelColor(), corn, Insets.EMPTY)));
+    final var resource = App.class.getResource("views/TextLabel.fxml");
+
+    final FXMLLoader loader = new FXMLLoader(resource);
+    try {
+      label = loader.load();
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+
+    label.setText(firstShortName);
+    //    CornerRadii corn = new CornerRadii(7);
+    //    label.setBackground(new Background(new BackgroundFill(GlobalVariables.getLabelColor(),
+    // corn, Insets.EMPTY)));
     label.setTextFill(GlobalVariables.getLabelTextColor());
+
     label.setTranslateX(-GlobalVariables.getCircleR());
     label.setTranslateY(-30);
 
@@ -207,7 +215,7 @@ public class NodeCircle {
 
           // Set Location Name
           TextField Location =
-              (TextField) ((Pane) (changeBox.getChildren().get(0))).getChildren().get(1);
+              (TextField) ((Pane) (changeBox.getChildren().get(0))).getChildren().get(2);
 
           HashMap<Integer, ArrayList<LocationName>> map;
           try {
@@ -235,11 +243,11 @@ public class NodeCircle {
 
           // Set X
           TextField XText =
-              (TextField) ((Pane) (changeBox.getChildren().get(1))).getChildren().get(1);
+              (TextField) ((Pane) (changeBox.getChildren().get(1))).getChildren().get(2);
           XText.setText("" + nodeCords.getX());
           // Set Y
           TextField YText =
-              (TextField) ((Pane) (changeBox.getChildren().get(2))).getChildren().get(1);
+              (TextField) ((Pane) (changeBox.getChildren().get(2))).getChildren().get(2);
           YText.setText("" + nodeCords.getY());
 
           Node currNode = null;
@@ -252,10 +260,10 @@ public class NodeCircle {
           }
 
           TextField floorText =
-              (TextField) ((Pane) (changeBox.getChildren().get(3))).getChildren().get(1);
+              (TextField) ((Pane) (changeBox.getChildren().get(3))).getChildren().get(2);
 
           TextField buildingText =
-              (TextField) ((Pane) (changeBox.getChildren().get(4))).getChildren().get(1);
+              (TextField) ((Pane) (changeBox.getChildren().get(4))).getChildren().get(2);
 
           if (currNode != null) {
             floorText.setText(currNode.getFloor());
@@ -268,7 +276,7 @@ public class NodeCircle {
           removeNodeButton.setOnMouseClicked(removeNode);
           // Set Submit
           MFXButton submitButton =
-              (MFXButton) ((Pane) (changeBox.getChildren().get(7))).getChildren().get(1);
+              (MFXButton) ((Pane) (changeBox.getChildren().get(7))).getChildren().get(2);
           submitButton.setOnMouseClicked(saveNodeChanges);
 
           changeBox.getChildren().remove(6);
@@ -327,11 +335,11 @@ public class NodeCircle {
           MFXButton SubmitButton = ((MFXButton) event.getSource());
           VBox v = (VBox) ((HBox) SubmitButton.getParent()).getParent();
 
-          TextField xText = (TextField) ((Pane) (v.getChildren().get(1))).getChildren().get(1);
-          TextField yText = (TextField) ((Pane) (v.getChildren().get(2))).getChildren().get(1);
-          TextField floorText = (TextField) ((Pane) (v.getChildren().get(3))).getChildren().get(1);
+          TextField xText = (TextField) ((Pane) (v.getChildren().get(1))).getChildren().get(2);
+          TextField yText = (TextField) ((Pane) (v.getChildren().get(2))).getChildren().get(2);
+          TextField floorText = (TextField) ((Pane) (v.getChildren().get(3))).getChildren().get(2);
           TextField buildingText =
-              (TextField) ((Pane) (v.getChildren().get(4))).getChildren().get(1);
+              (TextField) ((Pane) (v.getChildren().get(4))).getChildren().get(2);
 
           Node currNode = null;
           try {

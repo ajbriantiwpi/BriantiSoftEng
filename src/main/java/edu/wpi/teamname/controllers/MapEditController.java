@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,8 +33,8 @@ public class MapEditController {
   @FXML GesturePane gp;
   @FXML TableView<LocationName> table;
   @FXML AnchorPane anchor;
-  @FXML MFXButton exportButton;
-  @FXML MFXButton importButton;
+  //  @FXML MFXButton exportButton;
+  //  @FXML MFXButton importButton;
   @FXML MFXButton addNodeButton;
   @FXML MFXButton addLocationButton;
   @FXML MFXButton addEdgeButton;
@@ -45,12 +44,20 @@ public class MapEditController {
   @FXML TableColumn nodeTypeColumn;
   //  @FXML MFXComboBox<String> selectTable = new MFXComboBox<>();
   @FXML ComboBox<String> selectTable = new ComboBox<>();
-  @FXML ComboBox<String> FloorSelect = new ComboBox<>();
+  //  @FXML ComboBox<String> FloorSelect = new ComboBox<>();
 
-  @FXML MFXButton downFloor;
-  @FXML MFXButton upFloor;
+  //  @FXML MFXButton downFloor;
+  //  @FXML MFXButton upFloor;
 
-  @FXML HBox floorSelector;
+  //  @FXML HBox floorSelector;
+
+  @FXML MFXButton ThirdFloorButton;
+  @FXML MFXButton SecondFloorButton;
+  @FXML MFXButton FirstFloorButton;
+  @FXML MFXButton LowerLevelOneButton;
+  @FXML MFXButton LowerLevelTwoButton;
+
+  ArrayList<MFXButton> floorButtons = new ArrayList<>();
 
   @FXML AnchorPane OuterMapAnchor;
 
@@ -235,11 +242,11 @@ public class MapEditController {
 
           //          TextField locText = (TextField) ((Pane)
           // (v.getChildren().get(0))).getChildren().get(1);
-          TextField xText = (TextField) ((Pane) (v.getChildren().get(0))).getChildren().get(1);
-          TextField yText = (TextField) ((Pane) (v.getChildren().get(1))).getChildren().get(1);
-          TextField floorText = (TextField) ((Pane) (v.getChildren().get(2))).getChildren().get(1);
+          TextField xText = (TextField) ((Pane) (v.getChildren().get(0))).getChildren().get(2);
+          TextField yText = (TextField) ((Pane) (v.getChildren().get(1))).getChildren().get(2);
+          TextField floorText = (TextField) ((Pane) (v.getChildren().get(2))).getChildren().get(2);
           TextField buildingText =
-              (TextField) ((Pane) (v.getChildren().get(3))).getChildren().get(1);
+              (TextField) ((Pane) (v.getChildren().get(3))).getChildren().get(2);
 
           //          String locationNameValue = popupVbox.g
 
@@ -300,11 +307,11 @@ public class MapEditController {
           //          TextField locText = (TextField) ((Pane)
           // (v.getChildren().get(0))).getChildren().get(1);
           TextField locationText =
-              (TextField) ((Pane) (v.getChildren().get(0))).getChildren().get(1);
+              (TextField) ((Pane) (v.getChildren().get(0))).getChildren().get(2);
           TextField shortNameText =
-              (TextField) ((Pane) (v.getChildren().get(1))).getChildren().get(1);
+              (TextField) ((Pane) (v.getChildren().get(1))).getChildren().get(2);
           TextField nodeTypeText =
-              (TextField) ((Pane) (v.getChildren().get(2))).getChildren().get(1);
+              (TextField) ((Pane) (v.getChildren().get(2))).getChildren().get(2);
 
           //          String locationNameValue = popupVbox.g
 
@@ -368,9 +375,9 @@ public class MapEditController {
           int endId = -1;
 
           TextField startNodeIdText =
-              (TextField) ((Pane) (v.getChildren().get(0))).getChildren().get(1);
+              (TextField) ((Pane) (v.getChildren().get(0))).getChildren().get(2);
           TextField endNodeIdText =
-              (TextField) ((Pane) (v.getChildren().get(1))).getChildren().get(1);
+              (TextField) ((Pane) (v.getChildren().get(1))).getChildren().get(2);
 
           if (!startNodeIdText.getText().equals("")) {
             startId = Integer.parseInt(startNodeIdText.getText());
@@ -404,7 +411,7 @@ public class MapEditController {
         public void handle(MouseEvent event) {
 
           MFXButton addButton = ((MFXButton) event.getSource());
-          VBox outerPane = (VBox) addButton.getParent();
+          //          VBox outerPane = (VBox) addButton.getParent();
 
           final var resource = App.class.getResource("views/ChangeNode.fxml");
           final FXMLLoader loader = new FXMLLoader(resource);
@@ -415,7 +422,7 @@ public class MapEditController {
             throw new RuntimeException(e);
           }
 
-          MFXButton Submit = (MFXButton) ((Pane) (v.getChildren().get(7))).getChildren().get(1);
+          MFXButton Submit = (MFXButton) ((Pane) (v.getChildren().get(7))).getChildren().get(2);
           // Remove the "Remove Node" Button
           ((Pane) (v.getChildren().get(7))).getChildren().remove(0);
 
@@ -438,7 +445,7 @@ public class MapEditController {
         public void handle(MouseEvent event) {
 
           MFXButton addButton = ((MFXButton) event.getSource());
-          VBox outerPane = (VBox) addButton.getParent();
+          //          VBox outerPane = (VBox) addButton.getParent();
 
           final var resource = App.class.getResource("views/ChangeNode.fxml");
           final FXMLLoader loader = new FXMLLoader(resource);
@@ -449,18 +456,18 @@ public class MapEditController {
             throw new RuntimeException(e);
           }
 
-          MFXButton Submit = (MFXButton) ((Pane) (v.getChildren().get(7))).getChildren().get(1);
+          MFXButton Submit = (MFXButton) ((Pane) (v.getChildren().get(7))).getChildren().get(2);
           // Remove the "Remove Node" Button
           ((Pane) (v.getChildren().get(7))).getChildren().remove(0);
 
           TextField locationText =
-              (TextField) ((Pane) (v.getChildren().get(0))).getChildren().get(1);
+              (TextField) ((Pane) (v.getChildren().get(0))).getChildren().get(2);
 
           TextField shortNameText =
-              (TextField) ((Pane) (v.getChildren().get(5))).getChildren().get(1);
+              (TextField) ((Pane) (v.getChildren().get(5))).getChildren().get(2);
 
           TextField nodeTypeText =
-              (TextField) ((Pane) (v.getChildren().get(5))).getChildren().get(1);
+              (TextField) ((Pane) (v.getChildren().get(5))).getChildren().get(2);
 
           // This is theAdd Node Popup so remove the shortName and node type.
           v.getChildren().remove(4);
@@ -494,7 +501,7 @@ public class MapEditController {
             throw new RuntimeException(e);
           }
 
-          MFXButton Submit = (MFXButton) ((Pane) (v.getChildren().get(2))).getChildren().get(1);
+          MFXButton Submit = (MFXButton) ((Pane) (v.getChildren().get(2))).getChildren().get(2);
 
           // Remove Remove Button
           ((Pane) (v.getChildren().get(2))).getChildren().remove(0);
@@ -518,8 +525,8 @@ public class MapEditController {
             table.setVisible(false);
             table.setDisable(true);
 
-            floorSelector.setVisible(true);
-            floorSelector.setDisable(false);
+            //            floorSelector.setVisible(true);
+            //            floorSelector.setDisable(false);
           } else {
             gp.setVisible(false);
             gp.setDisable(true);
@@ -527,8 +534,8 @@ public class MapEditController {
             table.setVisible(true);
             table.setDisable(false);
 
-            floorSelector.setVisible(false);
-            floorSelector.setDisable(true);
+            //            floorSelector.setVisible(false);
+            //            floorSelector.setDisable(true);
           }
         }
       };
@@ -671,28 +678,62 @@ public class MapEditController {
         }
       };
 
-  public void changeFloor() {
-    System.out.println("CF");
-    String floor = FloorSelect.getValue();
-    System.out.println(floor);
+  //  public void changeFloor(String floor) {
+  //    System.out.println("CF");
+  //    String floor = FloorSelect.getValue();
+  //    System.out.println(floor);
+  //
+  //    try {
+  //      map.setCurrentDisplayFloor(floor, false);
+  //    } catch (SQLException e) {
+  //      throw new RuntimeException(e);
+  //    } catch (IOException e) {
+  //      throw new RuntimeException(e);
+  //    }
+  //  }
+  //
+  //  EventHandler<ActionEvent> triggerChangeFloor =
+  //      new EventHandler<ActionEvent>() {
+  //
+  //        @Override
+  //        public void handle(ActionEvent event) {
+  //
+  //          changeFloor(map.getCurrentDisplayFloor());
+  //          // Update Nodes
+  //        }
+  //      };
 
-    try {
-      map.setCurrentDisplayFloor(floor, false);
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  EventHandler<ActionEvent> triggerChangeFloor =
-      new EventHandler<ActionEvent>() {
+  EventHandler<MouseEvent> changeFloors =
+      new EventHandler<MouseEvent>() {
 
         @Override
-        public void handle(ActionEvent event) {
+        public void handle(MouseEvent event) {
 
-          changeFloor();
-          // Update Nodes
+          MFXButton newButton = ((MFXButton) event.getSource());
+
+          String oldFloor = map.getCurrentDisplayFloor();
+          //          System.out.println("OF: " + oldFloor);
+
+          for (MFXButton floorButton : floorButtons) {
+            //            System.out.println("F: " + floorButton.getId());
+            if (floorButton.getId().equals(oldFloor)) {
+              //              System.out.println("Old");
+              floorButton.getStyleClass().remove("primary");
+              floorButton.getStyleClass().add("primary-container");
+            }
+          }
+
+          // re-color new button
+          newButton.getStyleClass().remove("primary-container");
+          newButton.getStyleClass().add("primary");
+
+          try {
+            map.setCurrentDisplayFloor(newButton.getId(), false);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
         }
       };
 
@@ -763,8 +804,8 @@ public class MapEditController {
     //    selectTable.setDefault()
     //    selectTable.setOnAction(changeFloor);
 
-    exportButton.setOnMouseClicked(exportCSV);
-    importButton.setOnMouseClicked(importCSV);
+    //    exportButton.setOnMouseClicked(exportCSV);
+    //    importButton.setOnMouseClicked(importCSV);
     addNodeButton.setOnMouseClicked(addNodePopup);
     addLocationButton.setOnMouseClicked(addLocationPopup);
     addEdgeButton.setOnMouseClicked(addEdgePopup);
@@ -866,12 +907,28 @@ public class MapEditController {
           return row;
         });
 
-    FloorSelect.setPromptText("Select floor");
-    FloorSelect.setItems(map.getAllFloors());
-    FloorSelect.setOnAction(triggerChangeFloor);
+    //    FloorSelect.setPromptText("Select floor");
+    //    FloorSelect.setItems(map.getAllFloors());
+    //    FloorSelect.setOnAction(triggerChangeFloor);
 
-    upFloor.setOnMouseClicked(changeFloorUp);
-    downFloor.setOnMouseClicked(changeFloorDown);
+    //    upFloor.setOnMouseClicked(changeFloorUp);
+    //    downFloor.setOnMouseClicked(changeFloorDown);
+
+    floorButtons.add(ThirdFloorButton);
+    floorButtons.add(SecondFloorButton);
+    floorButtons.add(FirstFloorButton);
+    floorButtons.add(LowerLevelOneButton);
+    floorButtons.add(LowerLevelTwoButton);
+
+    for (MFXButton floorButton : floorButtons) {
+      floorButton.setOnMouseClicked(changeFloors);
+    }
+
+    //    ThirdFloorButton.setOnMouseClicked(changeFloors);
+    //    SecondFloorButton.setOnMouseClicked(changeFloors);
+    //    FirstFloorButton.setOnMouseClicked(changeFloors);
+    //    LowerLevelOneButton.setOnMouseClicked(changeFloors);
+    //    LowerLevelTwoButton.setOnMouseClicked(changeFloors);
 
     //    table
     //        .getSelectionModel()
