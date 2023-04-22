@@ -148,7 +148,7 @@
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0">
                            <image>
-                              <Image url="@../images/MenuIcons/edit_location.png" />
+                              <Image url="@../images/MenuIcons/edit_move.png" />
                            </image>
                         </ImageView>
                      </graphic>
