@@ -6,7 +6,9 @@ public enum Direction {
   RIGHT("Right"),
   BACK("Back"),
   UP("Up"),
+  STOP("stop here"),
   DOWN("Down");
+
 
   private final String type;
 

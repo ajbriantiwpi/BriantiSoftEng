@@ -8,11 +8,11 @@ public class Signage {
   @Getter private String longName;
   @Getter private String shortName;
   @Getter @Setter private Timestamp date;
-  @Getter @Setter private String arrowDirection;
+  @Getter @Setter private Direction arrowDirection;
   @Getter @Setter private int signId;
 
   public Signage(
-      String longName, String shortName, Timestamp date, String arrowDirection, int signId) {
+      String longName, String shortName, Timestamp date, Direction arrowDirection, int signId) {
     this.longName = longName;
     this.shortName = shortName;
     this.date = date;
@@ -60,5 +60,13 @@ public class Signage {
         && this.date.equals(otherSignage.getDate())
         && this.arrowDirection.equals(otherSignage.getArrowDirection())
         && this.signId == otherSignage.getSignId();
+  }
+  // getter and setter methods
+  public Direction getArrowDirection() {
+    return arrowDirection;
+  }
+
+  public void setArrowDirection(Direction arrowDirection) {
+    this.arrowDirection = arrowDirection;
   }
 }

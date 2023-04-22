@@ -1,6 +1,7 @@
 package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.SignageDAO;
+import edu.wpi.teamname.navigation.Direction;
 import edu.wpi.teamname.navigation.Signage;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -23,12 +24,12 @@ public class SignageDAOImpl implements SignageDAO {
     Connection connection = DataManager.DbConnection();
     try (connection) {
       String query =
-          "UPDATE \"Signage\" SET \"shortName\" = ?, \"date\" = ?, \"arrowDirection\" = ?, \"signID\" = ?"
-              + " WHERE \"longName\" = ?";
+              "UPDATE \"Signage\" SET \"shortName\" = ?, \"date\" = ?, \"arrowDirection\" = ?, \"signID\" = ?"
+                      + " WHERE \"longName\" = ?";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setString(1, signage.getShortName());
       statement.setTimestamp(2, signage.getDate());
-      statement.setString(3, signage.getArrowDirection());
+      statement.setString(3, signage.getArrowDirection().name());
       statement.setInt(4, signage.getSignId());
       statement.setString(5, signage.getLongName());
 
@@ -58,7 +59,7 @@ public class SignageDAOImpl implements SignageDAO {
         String longn = rs.getString("longName");
         String shortn = rs.getString("shortName");
         Timestamp date = rs.getTimestamp("date");
-        String arrowDirection = rs.getString("arrowDirection");
+        Direction arrowDirection = Direction.valueOf(rs.getString("arrowDirection"));
         int signId = rs.getInt("signID");
         list.add(new Signage(longn, shortn, date, arrowDirection, signId));
       }
@@ -78,15 +79,15 @@ public class SignageDAOImpl implements SignageDAO {
   public void add(Signage signage) throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query =
-        "INSERT INTO \"Signage\" (\"longName\", \"shortName\", \"date\", \"arrowDirection\", \"signID\") "
-            + "VALUES (?, ?, ?, ?, ?)";
+            "INSERT INTO \"Signage\" (\"longName\", \"shortName\", \"date\", \"arrowDirection\", \"signID\") "
+                    + "VALUES (?, ?, ?, ?, ?)";
 
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setString(1, signage.getLongName());
       statement.setString(2, signage.getShortName());
       statement.setTimestamp(3, signage.getDate());
-      statement.setString(4, signage.getArrowDirection());
+      statement.setString(4, signage.getArrowDirection().toString());
       statement.setInt(5, signage.getSignId());
       statement.executeUpdate();
       System.out.println("Signage information has been successfully added to the database.");
@@ -121,11 +122,16 @@ public class SignageDAOImpl implements SignageDAO {
       while (rs2.next()) count++;
       if (count == 0) System.out.println("Signage information deleted successfully.");
       else System.out.println("Signage information did not delete.");
-    } catch (SQLException e2) {
-      System.out.println("Error checking delete. " + e2);
+    } catch (SQLException e) {
+      System.err.println("Error importing CSV data to PostgreSQL database: " + e.getMessage());
     }
   }
-
+  /**
+   * Imports data from a CSV file to the "Signage" table in the database
+   *
+   * @param csvFilePath a String representing the csv data (must use "//" not "/")
+   * @throws SQLException if an error occurs while importing the data to the database
+   */
   public static void importSignageFromCSV(String csvFilePath) throws SQLException {
     List<String[]> csvData;
     Connection connection = DataManager.DbConnection();
@@ -134,19 +140,19 @@ public class SignageDAOImpl implements SignageDAO {
 
     try (connection) {
       String createTableQuery =
-          "CREATE TABLE IF NOT EXISTS \"Signage\" ("
-              + "\"longName\" varchar(255),"
-              + "\"shortName\" varchar(255),"
-              + "\"date\" timestamp,"
-              + "\"arrowDirection\" varchar(255),"
-              + "\"signID\" SERIAL PRIMARY KEY"
-              + ");";
+              "CREATE TABLE IF NOT EXISTS \"Signage\" ("
+                      + "\"longName\" varchar(255),"
+                      + "\"shortName\" varchar(255),"
+                      + "\"date\" timestamp,"
+                      + "\"arrowDirection\" varchar(255),"
+                      + "\"signID\" SERIAL PRIMARY KEY"
+                      + ");";
       PreparedStatement createTableStatement = connection.prepareStatement(createTableQuery);
       createTableStatement.execute();
 
       String query =
-          "INSERT INTO \"Signage\" (\"longName\", \"shortName\", \"date\", \"arrowDirection\", \"signID\") "
-              + "VALUES (?, ?, ?, ?, ?)";
+              "INSERT INTO \"Signage\" (\"longName\", \"shortName\", \"date\", \"arrowDirection\", \"signID\") "
+                      + "VALUES (?, ?, ?, ?, ?)";
       PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"Signage\";");
       statement.executeUpdate();
       statement = connection.prepareStatement(query);
@@ -160,7 +166,8 @@ public class SignageDAOImpl implements SignageDAO {
         java.util.Date parsedDate = dateFormat.parse(timestampString);
         java.sql.Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
         statement.setTimestamp(3, timestamp);
-        statement.setString(4, row[3]); // arrowDirection is a string column
+        Direction arrowDirection = Direction.valueOf(row[3].toUpperCase()); // arrowDirection is now an enum
+        statement.setString(4, arrowDirection.toString()); // convert the enum to a string for storage in the database
         statement.setInt(5, Integer.parseInt(row[4]));
         statement.executeUpdate();
       }
