@@ -4,7 +4,7 @@ import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.controllers.JFXitems.DatePickerEditingCell;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.database.MoveDAOImpl;
-import edu.wpi.teamname.employees.EmployeeType;
+import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.navigation.Move;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.File;
@@ -24,6 +24,7 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.util.converter.IntegerStringConverter;
 
@@ -38,9 +39,17 @@ public class MoveTableController {
   @FXML private MFXButton submitButton;
   @FXML private TextField searchTextField;
   @FXML private CheckBox newMovesCheck;
+  @FXML private VBox adminMoveView;
 
   public void initialize() {
     DataManager moveDAO = new DataManager();
+
+    // Implement to disable buttons for staff
+
+    // if (GlobalVariables.userIsType(EmployeeType.STAFF)) {
+    //      adminMoveView.setVisible(false);
+    //      // EXTEND TABLEVIEW SOMEHOW
+    //    }
 
     ParentController.titleString.set("Move Edit Table");
     TableColumn<Move, Integer> nodeIDColumn = new TableColumn<>("Node ID");
@@ -156,7 +165,7 @@ public class MoveTableController {
             e.printStackTrace();
           }
         });
-    if (GlobalVariables.userIsType(EmployeeType.ADMIN)) {
+    if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.ADMIN)) {
       moveTable.setEditable(true);
     }
 
@@ -245,7 +254,7 @@ public class MoveTableController {
         }
       }
     }
-    if (!(GlobalVariables.userIsType(EmployeeType.ADMIN))) {
+    if (!(GlobalVariables.userIsClearanceLevel(ClearanceLevel.ADMIN))) {
       nodeIdTextField.setDisable(true);
       longNameTextField.setDisable(true);
       submitButton.setDisable(true);

@@ -2,6 +2,7 @@ package edu.wpi.teamname;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
 import edu.wpi.teamname.navigation.*;
@@ -17,9 +18,16 @@ public class toStringTests {
 
   @Test
   public void employeeToString() {
-    Employee employee = new Employee("username", "password", 1, "First", "Last", false);
-    employee.addType(EmployeeType.JANITOR);
-    employee.addType(EmployeeType.STAFF);
+    Employee employee =
+        new Employee(
+            "username",
+            "password",
+            1,
+            "First",
+            "Last",
+            ClearanceLevel.STAFF,
+            EmployeeType.DELIVERY,
+            false);
     assertEquals(
         "Employee{username='username', password='password', employeeID=1, firstName='First', lastName='Last', type=[JANITOR, STAFF]}",
         employee.toString());

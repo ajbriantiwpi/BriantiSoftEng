@@ -1,6 +1,7 @@
 package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
 import java.io.File;
@@ -23,13 +24,15 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
+import org.controlsfx.control.SearchableComboBox;
 
 public class EmployeeTableController {
   @FXML private TableView<Employee> employeeTable;
   @FXML private TextField employeeIDField;
   @FXML private TextField employeeFirstNameTextField;
   @FXML private TextField employeeLastNameTextField;
-  @FXML private TextField employeeTypeTextField;
+  @FXML private SearchableComboBox employeeTypeText;
+  @FXML private ComboBox employeeLevelText;
   @FXML private TextField employeeUserTextField;
   @FXML private Button exportButton;
   @FXML private Button importButton;
@@ -37,6 +40,12 @@ public class EmployeeTableController {
   @FXML private TextField employeePasswordTextField;
 
   public void initialize() {
+    ObservableList<String> employeeTypes =
+        FXCollections.observableArrayList(EmployeeType.formattedValues());
+    employeeTypeText.setItems(employeeTypes);
+    ObservableList<String> clearanceLevels =
+        FXCollections.observableArrayList(ClearanceLevel.formattedValues());
+    employeeLevelText.setItems(clearanceLevels);
     ParentController.titleString.set("Employee Edit Table");
     TableColumn<Employee, Integer> employeeIDColumn = new TableColumn<>("Employee ID");
     employeeIDColumn.setCellValueFactory(new PropertyValueFactory<>("employeeID"));
@@ -51,8 +60,8 @@ public class EmployeeTableController {
     employeeTypeColumn.setCellValueFactory(
         cellData -> {
           Employee employee = cellData.getValue();
-          if (employee.getType() != null && !employee.getType().isEmpty()) {
-            return new SimpleObjectProperty<>(employee.getType().get(0));
+          if (employee.getType() != null) {
+            return new SimpleObjectProperty<>(employee.getType());
           } else {
             return new SimpleObjectProperty<>(null);
           }
@@ -77,6 +86,37 @@ public class EmployeeTableController {
             },
             EmployeeType.values()));
 
+    TableColumn<Employee, ClearanceLevel> employeeLevelColumn =
+        new TableColumn<>("Clearance Level");
+    employeeLevelColumn.setCellValueFactory(
+        cellData -> {
+          Employee employee = cellData.getValue();
+          if (employee.getType() != null) {
+            return new SimpleObjectProperty<>(employee.getLevel());
+          } else {
+            return new SimpleObjectProperty<>(null);
+          }
+        });
+
+    employeeLevelColumn.setCellFactory(
+        ComboBoxTableCell.forTableColumn(
+            new StringConverter<>() {
+              @Override
+              public String toString(ClearanceLevel clearanceLevel) {
+                if (clearanceLevel == null) {
+                  return "";
+                } else {
+                  return clearanceLevel.toString();
+                }
+              }
+
+              @Override
+              public ClearanceLevel fromString(String string) {
+                return ClearanceLevel.valueOf(string);
+              }
+            },
+            ClearanceLevel.values()));
+
     TableColumn<Employee, String> userColumn = new TableColumn<>("Username");
     userColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
 
@@ -88,6 +128,7 @@ public class EmployeeTableController {
             employeeIDColumn,
             firstNameColumn,
             lastNameColumn,
+            employeeLevelColumn,
             employeeTypeColumn,
             userColumn,
             passColumn);
@@ -109,6 +150,7 @@ public class EmployeeTableController {
         TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
     firstNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
     lastNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+    employeeLevelColumn.setCellFactory(ComboBoxTableCell.forTableColumn(ClearanceLevel.values()));
     employeeTypeColumn.setCellFactory(ComboBoxTableCell.forTableColumn(EmployeeType.values()));
     userColumn.setCellFactory(TextFieldTableCell.forTableColumn());
     passColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -203,11 +245,7 @@ public class EmployeeTableController {
     employeeTypeColumn.setOnEditCommit(
         event -> {
           Employee employee = event.getRowValue();
-          if (employee.getType().contains(EmployeeType.ADMIN)) {
-            employee.removeType(EmployeeType.ADMIN);
-          } else {
-            employee.addType(EmployeeType.ADMIN);
-          }
+          employee.setType(event.getNewValue());
           try {
             DataManager.syncEmployee(employee);
           } catch (SQLException e) {
@@ -224,7 +262,16 @@ public class EmployeeTableController {
             System.err.println("Error updating employee in the database: " + e.getMessage());
           }
         });
-
+    passColumn.setOnEditCommit(
+        event -> {
+          Employee employee = event.getRowValue();
+          employee.setPassword(event.getNewValue());
+          try {
+            DataManager.syncEmployee(employee);
+          } catch (SQLException e) {
+            System.err.println("Error updating employee in the database: " + e.getMessage());
+          }
+        });
     employeeTable.addEventFilter(
         KeyEvent.KEY_PRESSED,
         event -> {
@@ -258,7 +305,7 @@ public class EmployeeTableController {
       if (result.isPresent() && result.get() == ButtonType.OK) {
         try {
           employeeDAO.deleteEmployee(selectedEmployee);
-          employeeDAO.deleteEmployeeType(selectedEmployee.getUsername());
+          // employeeDAO.deleteEmployeeType(selectedEmployee.getUsername());
           employeeTable.getItems().remove(selectedEmployee);
         } catch (SQLException e) {
           e.printStackTrace();
@@ -276,15 +323,28 @@ public class EmployeeTableController {
       String lastName = employeeLastNameTextField.getText();
       String username = employeeUserTextField.getText();
       String password = employeePasswordTextField.getText();
-      EmployeeType employeeType = EmployeeType.valueOf(employeeTypeTextField.getText());
+      EmployeeType employeeType =
+          EmployeeType.valueOf(
+              employeeTypeText.valueProperty().getValue().toString().toUpperCase());
+      ClearanceLevel clearanceLevel =
+          ClearanceLevel.valueOf(
+              employeeLevelText.valueProperty().getValue().toString().toUpperCase());
 
       Employee employee =
-          new Employee(username, password, employeeIDInput, firstName, lastName, true);
+          new Employee(
+              username,
+              password,
+              employeeIDInput,
+              firstName,
+              lastName,
+              clearanceLevel,
+              employeeType,
+              true);
 
       // Validate the password using checkLegalLogin method
       if (employee.checkLegalLogin(password)) {
-        employee.addType(employeeType);
-        employeeDAO.addEmployeeType(username, employeeType);
+        // employee.addType(employeeType);
+        // employeeDAO.addEmployeeType(username, employeeType);
         employeeDAO.addEmployee(employee);
         employeeTable.getItems().add(employee);
 
@@ -294,7 +354,6 @@ public class EmployeeTableController {
         employeeLastNameTextField.clear();
         employeeUserTextField.clear();
         employeePasswordTextField.clear();
-        employeeTypeTextField.clear();
       } else {
         // Display an error message if password validation fails
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -345,7 +404,7 @@ public class EmployeeTableController {
     }
   }
 
-  private void updateEmployeeType(Employee employee) {
+  /*private void updateEmployeeType(Employee employee) {
     DataManager employeeDAO = new DataManager();
     try {
       employeeDAO.deleteEmployeeType(employee.getUsername());
@@ -355,5 +414,5 @@ public class EmployeeTableController {
     } catch (SQLException e) {
       System.err.println("Error updating employee type in the database: " + e.getMessage());
     }
-  }
+  }*/
 }
