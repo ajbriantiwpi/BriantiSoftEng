@@ -468,11 +468,48 @@ public class Map {
 
     shapes = makeShapePath(nodePath);
 
+    getTextual(nodePath);
+
     // return shapes
 
     //    System.out.println(nodePath);
 
     // parent.getChildren().addAll(shapes);
+  }
+
+  public void /*ArrayList<String>*/ getTextual(ArrayList<Node> nodePath) {
+    if (nodePath.size() > 2) {
+      for (int i = 1; i < nodePath.size() - 1; i++) {
+        Node prevNode = nodePath.get(i - 1);
+        Node node = nodePath.get(i);
+        // y's are flipped I think since +y is down
+        Node nextNode = nodePath.get(i + 1);
+        double angPrev = Math.atan2(prevNode.getY() - node.getY(), node.getX() - prevNode.getX());
+        double angNext = Math.atan2(nextNode.getY() - node.getY(), node.getX() - nextNode.getX());
+        double angDelta = angNext - angPrev;
+        // adjust over turn
+        if (angDelta > Math.PI) {
+          angDelta -= 2 * Math.PI;
+        } else if (angDelta < -Math.PI) {
+          angDelta += 2 * Math.PI;
+        }
+        System.out.print(String.valueOf(i) + ": ");
+        // System.out.println(angDelta);
+        Direction direction;
+        if (!node.getFloor().equals(nextNode.getFloor())) {
+          direction = Direction.UP;
+        } else if ((angDelta > 7 * Math.PI / 8) || (angDelta < -7 * Math.PI / 8)) {
+          direction = Direction.STRAIGHT;
+        } else if (angDelta > Math.PI / 8) {
+          direction = Direction.RIGHT;
+        } else if (angDelta < Math.PI / 8) {
+          direction = Direction.LEFT;
+        } else {
+          direction = Direction.BACK;
+        }
+        System.out.println(direction.getString());
+      }
+    }
   }
 
   /**
