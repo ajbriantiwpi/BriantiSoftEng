@@ -6,6 +6,8 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -96,7 +98,7 @@
                                         </VBox.margin>
                                     </Label>
                                     <ComboBox fx:id="roomBox" layoutX="10.0" layoutY="158.0" prefHeight="50.0" prefWidth="396.0" promptText="Choose Room" stylesheets="@../stylesheets/combo.css" />
-                                    <MFXButton fx:id="submitButton" mnemonicParsing="false" stylesheets="@../stylesheets/blueButton.css" text="Request" >
+                                    <MFXButton fx:id="submitButton" mnemonicParsing="false" stylesheets="@../stylesheets/blueButton.css" text="Request">
                                         <font>
                                             <Font name="Times New Roman" size="32.0" />
                                         </font>
@@ -122,9 +124,36 @@
                     <Insets right="10.0" />
                 </HBox.margin>
                 <content>
-                    <VBox fx:id="viewBox" />
+                    <VBox fx:id="viewBox" prefHeight="931.0" prefWidth="0.0" />
                 </content>
             </ScrollPane>
+         <TableView fx:id="confTable" editable="true">
+           <columns>
+               <TableColumn fx:id="roomName" minWidth="-1.0" prefWidth="150.0" text="Room" />
+             <TableColumn fx:id="am8" minWidth="-1.0" prefWidth="50.0" text="8:00 &#10;AM" />
+               <TableColumn fx:id="am830" minWidth="-1.0" prefWidth="50.0" text="8:30&#10;AM" />
+             <TableColumn fx:id="am9" prefWidth="50.0" text="9:00&#10;AM" />
+               <TableColumn fx:id="am930" minWidth="-1.0" prefWidth="50.0" text="8:30 &#10;AM" />
+               <TableColumn fx:id="am10" prefWidth="50.0" text="10:00&#10;AM&#10;" />
+               <TableColumn fx:id="am1030" minWidth="-1.0" prefWidth="50.0" text="10:30&#10;AM" />
+               <TableColumn fx:id="am11" prefWidth="50.0" text="11:00&#10;AM" />
+               <TableColumn fx:id="am1130" minWidth="-1.0" prefWidth="50.0" text="11:30&#10;AM" />
+               <TableColumn fx:id="pm12" prefWidth="50.0" text="12:00&#10;PM" />
+               <TableColumn fx:id="pm1230" minWidth="-1.0" prefWidth="50.0" text="12:30&#10;PM" />
+               <TableColumn fx:id="pm1" prefWidth="50.0" text="1:00&#10;PM" />
+               <TableColumn fx:id="pm130" minWidth="-1.0" prefWidth="50.0" text="1:30&#10;PM" />
+               <TableColumn fx:id="pm2" prefWidth="50.0" text="2:00&#10;PM" />
+               <TableColumn fx:id="pm230" minWidth="-1.0" prefWidth="50.0" text="2:30&#10;PM" />
+               <TableColumn fx:id="pm3" prefWidth="50.0" text="3:00&#10;PM" />
+               <TableColumn fx:id="pm330" minWidth="-1.0" prefWidth="50.0" text="3:30&#10;PM" />
+               <TableColumn fx:id="pm4" prefWidth="50.0" text="4:00&#10;PM" />
+               <TableColumn fx:id="pm430" minWidth="-1.0" prefWidth="50.0" text="4:30&#10;PM" />
+               <TableColumn fx:id="pm5" prefWidth="50.0" text="5:00&#10;PM" />
+               <TableColumn fx:id="pm530" minWidth="-1.0" prefWidth="50.0" text="5:30&#10;PM" />
+               <TableColumn fx:id="pm6" prefWidth="50.0" text="6:00&#10;PM" />
+               <TableColumn fx:id="pm630" minWidth="-1.0" prefWidth="50.0" text="6:30&#10;PM" />
+           </columns>
+         </TableView>
         </HBox>
     </children>
 </AnchorPane>
