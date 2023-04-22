@@ -1389,7 +1389,6 @@ public class DataManager {
     return EmployeeDAOImpl.checkLogin(username, password);
   }
 
-
   /*public void deleteEmployeeType(String username) throws SQLException {
     EmployeeDAOImpl.deleteEmployeeType(username);
   }*/
