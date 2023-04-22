@@ -1,4 +1,4 @@
-package edu.wpi.teamname.extrainfo;
+package edu.wpi.teamname.extras;
 
 import lombok.Getter;
 import lombok.Setter;

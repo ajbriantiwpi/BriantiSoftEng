@@ -1,8 +1,8 @@
 package edu.wpi.teamname;
 
 import edu.wpi.teamname.database.DataManager;
-import edu.wpi.teamname.extrainfo.Joke;
-import edu.wpi.teamname.extrainfo.JokeAPI;
+import edu.wpi.teamname.extras.Joke;
+import edu.wpi.teamname.extras.JokeAPI;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -19,14 +19,13 @@ public class Main {
         "jdbc:postgresql://database.cs.wpi.edu:5432/teamddb?currentSchema=\"teamD\"",
         "teamd",
         "teamd40");
-    GlobalVariables.setCurrentUser(DataManager.getEmployee("admin"));
     // App.launch(App.class, args);
     // create a Retrofit instance
     Retrofit retrofit =
-        new Retrofit.Builder()
-            .baseUrl("https://official-joke-api.appspot.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
+            new Retrofit.Builder()
+                    .baseUrl("https://official-joke-api.appspot.com/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
 
     // create an instance of the API interface
     JokeAPI jokeApi = retrofit.create(JokeAPI.class);

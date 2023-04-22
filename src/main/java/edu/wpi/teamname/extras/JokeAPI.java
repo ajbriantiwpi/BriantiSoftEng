@@ -1,4 +1,4 @@
-package edu.wpi.teamname.extrainfo;
+package edu.wpi.teamname.extras;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
