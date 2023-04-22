@@ -5,9 +5,11 @@ import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
+import edu.wpi.teamname.extras.Joke;
 import edu.wpi.teamname.navigation.Move;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -15,6 +17,7 @@ import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import lombok.Getter;
 import lombok.Setter;
@@ -46,6 +49,7 @@ public class HomeController {
   @FXML MFXButton loginButton;
   @FXML MFXButton logoutButton;
   @FXML MFXButton editMoveButton;
+  @FXML Label jokesLabel;
 
   /** logs the current user out of the application */
   private void logout() {
@@ -72,7 +76,7 @@ public class HomeController {
   }
 
   @FXML
-  public void initialize() throws SQLException {
+  public void initialize() throws SQLException, IOException {
 
     // set the width and height to be bound to the panes width and height
     //    imageView.fitWidthProperty().bind(rootPane.widthProperty());
@@ -84,6 +88,7 @@ public class HomeController {
     // Lambda Expression. parameter -> expression
     // Basically just runs the Navigation.navigate Function
     // "event" is a parameter, but there is no
+    jokesLabel.setText(Joke.getJoke().toString());
     helpButton.setVisible(false);
     if (loggedIn.getValue()) {
       loginButton.setVisible(false);

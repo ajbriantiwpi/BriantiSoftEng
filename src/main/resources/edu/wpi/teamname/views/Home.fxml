@@ -189,7 +189,7 @@
                               <Font name="Roboto" size="22.0" />
                            </font>
                         </MFXButton>
-                        <MFXButton fx:id="doneRequests" alignment="BASELINE_LEFT" layoutX="205.0" layoutY="10.0" maxHeight="168.0" maxWidth="151.0" style="-fx-background-color: #faf9fd; -fx-wrap-text: true;" styleClass="surface-container" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                        <MFXButton fx:id="doneRequests" alignment="BASELINE_LEFT" layoutX="205.0" layoutY="10.0" maxHeight="168.0" maxWidth="151.0" style="-fx-background-color: #faf9fd; -fx-wrap-text: true;" styleClass="surface-container" text="Button" textAlignment="CENTER" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="Roboto" size="22.0" />
                            </font>
@@ -224,6 +224,14 @@
                     </GridPane.margin>
                 </HBox>
                 <AnchorPane maxHeight="200.0" maxWidth="200.0" prefHeight="120.0" prefWidth="120.0" styleClass="body3" stylesheets="@../stylesheets/logoScale.css" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER" />
+            <Label fx:id="jokesLabel" alignment="CENTER" text="jokesLabel" textFill="#fdfbff" wrapText="true" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Roboto" size="28.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
             </children>
         </GridPane>
 
