@@ -493,17 +493,21 @@ public class Map {
         } else if (angDelta < -Math.PI) {
           angDelta += 2 * Math.PI;
         }
-        System.out.println(node.getId());
-        System.out.println(angDelta);
-        if ((angDelta > 7 * Math.PI / 8) || (angDelta < -7 * Math.PI / 8)) {
-          System.out.println("Straight");
+        System.out.print(String.valueOf(i) + ": ");
+        // System.out.println(angDelta);
+        Direction direction;
+        if (!node.getFloor().equals(nextNode.getFloor())) {
+          direction = Direction.UP;
+        } else if ((angDelta > 7 * Math.PI / 8) || (angDelta < -7 * Math.PI / 8)) {
+          direction = Direction.STRAIGHT;
         } else if (angDelta > Math.PI / 8) {
-          System.out.println("Right");
+          direction = Direction.RIGHT;
         } else if (angDelta < Math.PI / 8) {
-          System.out.println("Left");
+          direction = Direction.LEFT;
         } else {
-          System.out.println("Turn Around");
+          direction = Direction.BACK;
         }
+        System.out.println(direction.getString());
       }
     }
   }
