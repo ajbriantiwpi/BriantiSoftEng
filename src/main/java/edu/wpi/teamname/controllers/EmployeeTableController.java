@@ -262,7 +262,16 @@ public class EmployeeTableController {
             System.err.println("Error updating employee in the database: " + e.getMessage());
           }
         });
-
+    passColumn.setOnEditCommit(
+        event -> {
+          Employee employee = event.getRowValue();
+          employee.setPassword(event.getNewValue());
+          try {
+            DataManager.syncEmployee(employee);
+          } catch (SQLException e) {
+            System.err.println("Error updating employee in the database: " + e.getMessage());
+          }
+        });
     employeeTable.addEventFilter(
         KeyEvent.KEY_PRESSED,
         event -> {
