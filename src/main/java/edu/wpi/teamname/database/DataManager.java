@@ -302,6 +302,18 @@ public class DataManager {
     medicalSupplyDAO.sync(medicalSupply);
   }
   /**
+   * This method updates an existing MedicalSupply object in the "MedicalSupply" table in the
+   * database with the new MedicalSupply object.
+   *
+   * @param confRoom the new MedicalSupply object to be updated in the "MedicalSupply" table
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static void syncConfRoom(ConfRoom confRoom) throws SQLException {
+    ConfRoomDAOImpl confRoomDAO = new ConfRoomDAOImpl();
+    confRoomDAO.sync(confRoom);
+  }
+
+  /**
    * This method returns the employee type of a user
    *
    * @param username the Employees username
@@ -442,6 +454,16 @@ public class DataManager {
   public static void addMedicalSupply(MedicalSupply medicalSupply) throws SQLException {
     MedicalSupplyDAOImpl medicalSupplyDAO = new MedicalSupplyDAOImpl();
     medicalSupplyDAO.add(medicalSupply);
+  }
+  /**
+   * This method adds a new MedicalSupply object to the "MedicalSupply" table in the database.
+   *
+   * @param confRoom the MedicalSupply object to be added to the "MedicalSupply" table
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static void addConfRoom(ConfRoom confRoom) throws SQLException {
+    ConfRoomDAOImpl confRoomDAO = new ConfRoomDAOImpl();
+    confRoomDAO.add(confRoom);
   }
 
   /**
@@ -587,6 +609,16 @@ public class DataManager {
     MedicalSupplyDAOImpl medicalSupplyDAO = new MedicalSupplyDAOImpl();
     medicalSupplyDAO.delete(medicalSupply);
   }
+  /**
+   * This method deletes the given MedicalSupply object from the database
+   *
+   * @param confRoom the MedicalSupply object that will be deleted in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static void deleteConfRoom(ConfRoom confRoom) throws SQLException {
+    ConfRoomDAOImpl confRoomDAO = new ConfRoomDAOImpl();
+    confRoomDAO.delete(confRoom);
+  }
 
   /**
    * The method retrieves all the Move objects from the "Move" table in the database.
@@ -728,6 +760,17 @@ public class DataManager {
     MedicalSupplyDAOImpl medicalSupplyDAO = new MedicalSupplyDAOImpl();
     return medicalSupplyDAO.getAll();
   }
+  /**
+   * The method retrieves all the MedicalSupply objects from the "MedicalSupply" table in the
+   * database.
+   *
+   * @return an ArrayList of the MedicalSupply objects in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static ArrayList<ConfRoom> getAllConfRoom() throws SQLException {
+    ConfRoomDAOImpl confRoomDAO = new ConfRoomDAOImpl();
+    return confRoomDAO.getAll();
+  }
 
   /**
    * This method retrieves a Flower object with the specified ID from the "Flowers" table in the
@@ -856,6 +899,17 @@ public class DataManager {
    */
   public static MedicalSupply getMedicalSupply(int id) throws SQLException {
     return MedicalSupplyDAOImpl.getMedicalSupply(id);
+  }
+  /**
+   * This method retrieves an MedicalSupply object with the specified ID from the "MedicalSupply"
+   * table in the database.
+   *
+   * @param dateBook the ID of the MedicalSupply object to retrieve from the "MedicalSupply" table
+   * @return the Flower object with the specified ID, or null if not found
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static ArrayList<ConfRoom> getConfRoomsOnDay(Timestamp dateBook) throws SQLException {
+    return ConfRoomDAOImpl.getConfRoomsOnDay(dateBook);
   }
 
   /**
@@ -1063,6 +1117,16 @@ public class DataManager {
   public static void uploadServiceRequest(String path) throws SQLException, ParseException {
     ServiceRequestDAOImpl.uploadServiceRequestToPostgreSQL(path);
   }
+  /**
+   * Uploads CSV data to a PostgreSQL database table "ServiceRequest"-also creates one if one does
+   * not exist
+   *
+   * @param path a string that represents a file path (/ is illegal so you must use double//)
+   * @throws SQLException if an error occurs while uploading the data to the database
+   */
+  public static void uploadConfRoom(String path) throws SQLException, ParseException {
+    ConfRoomDAOImpl.uploadConfRoomToPostgreSQL(path);
+  }
 
   /**
    * This method exports all the Edge objects from the "Edge" table in the database to a CSV file at
@@ -1238,6 +1302,28 @@ public class DataManager {
   public static void exportServiceRequestToCSV(String path) throws SQLException, IOException {
     ServiceRequestDAOImpl.exportServiceRequestToCSV(path);
   }
+  /**
+   * This method exports all the ServiceRequest objects from the "ServiceRequest" table in the
+   * database to a CSV file at the specified file path.
+   *
+   * @param path the file path of the CSV file to export the ServiceRequest objects to
+   * @throws SQLException if there is a problem accessing the database
+   * @throws IOException if there is a problem writing the CSV file
+   */
+  public static void exportConfRoomToCSV(String path) throws SQLException, IOException {
+    ConfRoomDAOImpl.exportConfRoomsToCSV(path);
+  }
+
+
+  public static ArrayList<String> getConfRooms(Timestamp date) throws SQLException {
+    ConfRoomDAOImpl r = new ConfRoomDAOImpl();
+    return r.getConfRooms(date);
+  }
+  public static int getConfRoomTimes() throws SQLException {
+    ConfRoomDAOImpl r = new ConfRoomDAOImpl();
+    return r.getConfRoomTimes();
+  }
+
 
   /**
    * This method retrieves a list of all the long names of locations from the "LocationName" table

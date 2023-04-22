@@ -11,6 +11,43 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 public class ConfRoomDAOImpl implements ConfRomDAO {
+    public void makeDayBookings(Timestamp date) throws SQLException {
+        Connection connection = DataManager.DbConnection();
+        try (connection) {
+            String query =
+                    "Create Table \"teamD\".\"DayBookings\" (room VARCHAR, )";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public ArrayList<String> getConfRooms(Timestamp dateB) throws SQLException {
+        ArrayList<String> tempRooms = new ArrayList<>();
+        Connection connection = DataManager.DbConnection();
+        try (connection) {
+            String query =
+                    "SELECT room FROM \"ConferenceRooms\" WHERE \"datebook\" = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setTimestamp(1, dateB);
+
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                tempRooms.add(rs.getString("room"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        connection.close();
+        return tempRooms;
+    }
+    public int getConfRoomTimes(){
+        //8AM to 7PM
+        return 11 * 2;//times 2 bc it is 30 minute intervals on table
+    }
+
+
     /**
      * This method updates an existing ConfRoom object in the "ConferenceRooms" table in the database with the
      * new ConfRoom object.
@@ -138,20 +175,18 @@ public class ConfRoomDAOImpl implements ConfRomDAO {
      * This method retrieves a ConfRoom object with the specified ID from the "ConfRooms" table in the
      * database.
      *
-     * @param room the ID of the ConfRoom object to retrieve from the "ConfRooms" table
+     * @param date the ID of the ConfRoom object to retrieve from the "ConfRooms" table
      * @return the ConfRoom object with the specified ID, or null if not found
      * @throws SQLException if there is a problem accessing the database
      */
-    public static ConfRoom getConfRoom(String room, String startTime, String endTime, Timestamp dateBook) throws SQLException {
+    public static ArrayList<ConfRoom> getConfRoomsOnDay(Timestamp date) throws SQLException {
+        ArrayList<ConfRoom> bookings = new ArrayList<>();
         Connection connection = DataManager.DbConnection();
-        String query = "SELECT * FROM \"ConferenceRooms\" WHERE \"room\" = ? AND \"startime\" = ? AND \"endtime\" = ? AND \"datebook\" = ?";
+        String query = "SELECT * FROM \"ConferenceRooms\" WHERE \"datebook\" = ?";
         ConfRoom ConfRoom = null;
         try (connection) {
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, ConfRoom.getRoom());
-            statement.setString(2, ConfRoom.getStartTime());
-            statement.setString(3, ConfRoom.getEndTime());
-            statement.setTimestamp(4, ConfRoom.getDateBooked());
+            statement.setTimestamp(1, ConfRoom.getDateBooked());
 
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
@@ -161,11 +196,12 @@ public class ConfRoomDAOImpl implements ConfRomDAO {
                 Timestamp dateBook2 = rs.getTimestamp("datebook");
                 String name2 = rs.getString("name");
                 ConfRoom = (new ConfRoom(room2, startTime2, endTime2, dateBook2, name2));
+                bookings.add(ConfRoom);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return ConfRoom;
+        return bookings;
     }
 
     /**
