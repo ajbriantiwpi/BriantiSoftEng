@@ -632,26 +632,26 @@ public class Map {
     return floorNames;
   }
 
-  public ObservableList<String> getAllFloorsInPath() {
-    ObservableList<String> floorNames = FXCollections.observableArrayList();
+  public ArrayList<String> getAllFloorsInPath() {
+    // ObservableList<String> floorNames = FXCollections.observableArrayList();
     ArrayList<String> floorPathArr = new ArrayList<>();
 
     for (int i = 0; i < shapes.size(); i++) {
       if (!shapes.get(i).isEmpty()) {
         if (i == 0) {
-          floorNames.add("Lower Level 2");
+          floorPathArr.add("L2");
         } else if (i == 1) {
-          floorNames.add("Lower Level 1");
+          floorPathArr.add("L1");
         } else if (i == 2) {
-          floorNames.add("First Floor");
+          floorPathArr.add("G1");
         } else if (i == 3) {
-          floorNames.add("Second Floor");
+          floorPathArr.add("G2");
         } else if (i == 4) {
-          floorNames.add("Third Floor");
+          floorPathArr.add("G3");
         }
       }
     }
-    return floorNames;
+    return floorPathArr;
   }
 
   public ObservableList<String> getAllAlgos() {

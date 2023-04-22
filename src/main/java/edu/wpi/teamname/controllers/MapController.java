@@ -51,6 +51,13 @@ public class MapController {
 
   @FXML AnchorPane OuterMapAnchor;
 
+  // New Floor Button Layout
+  @FXML MFXButton ThirdFloorButton;
+  @FXML MFXButton SecondFloorButton;
+  @FXML MFXButton FirstFloorButton;
+  @FXML MFXButton LowerFirstButton;
+  @FXML MFXButton LowerSecondButton;
+
   String defaultFloor = "L1";
   int clickCount = 0;
   Point2D firstClick = null;
@@ -223,6 +230,7 @@ public class MapController {
           FloorSelect.setValue(floorForSNode);
 
           FloorsToggle.setVisible(true);
+          showPathFloors(false);
 
           clickCount = 0;
         }
@@ -357,11 +365,38 @@ public class MapController {
         }
       };
 
-  private void showPathFloors() {
-    if (FloorsToggle.isSelected()) {
-      FloorSelect.setItems(map.getAllFloorsInPath());
+  private void showPathFloors(boolean flag) {
+    if (flag) {
+      ThirdFloorButton.setDisable(false);
+      SecondFloorButton.setDisable(false);
+      FirstFloorButton.setDisable(false);
+      LowerFirstButton.setDisable(false);
+      LowerSecondButton.setDisable(false);
+
+      // FloorSelect.setItems(map.getAllFloorsInPath());
     } else {
-      FloorSelect.setItems(map.getAllFloors());
+      ThirdFloorButton.setDisable(true);
+      SecondFloorButton.setDisable(true);
+      FirstFloorButton.setDisable(true);
+      LowerFirstButton.setDisable(true);
+      LowerSecondButton.setDisable(true);
+
+      // FloorSelect.setItems(map.getAllFloors());
+      for (String s : map.getAllFloorsInPath()) {
+        if (s == "G3") {
+          ThirdFloorButton.setDisable(false);
+        } else if (s == "G2") {
+          SecondFloorButton.setDisable(false);
+        } else if (s == "G1") {
+          FirstFloorButton.setDisable(false);
+        } else if (s == "L1") {
+          LowerFirstButton.setDisable(false);
+        } else if (s == "L2") {
+          LowerSecondButton.setDisable(false);
+        } else {
+          System.out.println("showPathFloors should not get here");
+        }
+      }
     }
   }
 
@@ -397,24 +432,28 @@ public class MapController {
         public void handle(MouseEvent event) {
           System.out.println("This is the toggle");
 
-          double parentW = map.getMapWitdh(OuterMapAnchor);
-          double parentH = map.getMapHeight(OuterMapAnchor);
-
-          System.out.println(
-              "Check"
-                  + parentW
-                  + ", "
-                  + parentH
-                  + " :"
-                  + gp.getCurrentScale()
-                  + ", "
-                  + gp.getCurrentX()
-                  + ", "
-                  + gp.getCurrentY());
+          //          double parentW = map.getMapWitdh(OuterMapAnchor);
+          //          double parentH = map.getMapHeight(OuterMapAnchor);
+          //
+          //          System.out.println(
+          //              "Check"
+          //                  + parentW
+          //                  + ", "
+          //                  + parentH
+          //                  + " :"
+          //                  + gp.getCurrentScale()
+          //                  + ", "
+          //                  + gp.getCurrentX()
+          //                  + ", "
+          //                  + gp.getCurrentY());
 
           // -1627.2856715232545, -690.8681650647059
 
-          showPathFloors();
+          if (FloorsToggle.isSelected()) {
+            showPathFloors(true);
+          } else {
+            showPathFloors(false);
+          }
         }
       };
 
@@ -494,6 +533,86 @@ public class MapController {
         }
       };
 
+  EventHandler<MouseEvent> setThirdFloor =
+      new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+          System.out.println("Switching to 3rd");
+
+          try {
+            map.setCurrentDisplayFloor("Third Floor", true);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+        }
+      };
+
+  EventHandler<MouseEvent> setSecondFloor =
+      new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+          System.out.println("Switching to 2nd");
+
+          try {
+            map.setCurrentDisplayFloor("Second Floor", true);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+        }
+      };
+
+  EventHandler<MouseEvent> setFirstFloor =
+      new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+          System.out.println("Switching to 1st");
+
+          try {
+            map.setCurrentDisplayFloor("First Floor", true);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+        }
+      };
+
+  EventHandler<MouseEvent> setLowerFirst =
+      new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+          System.out.println("Switching to L1");
+
+          try {
+            map.setCurrentDisplayFloor("Lower Level 1", true);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+        }
+      };
+
+  EventHandler<MouseEvent> setLowerSecond =
+      new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+          System.out.println("Switching to L2");
+
+          try {
+            map.setCurrentDisplayFloor("Lower Level 2", true);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+        }
+      };
+
   @FXML
   public void initialize() throws SQLException, IOException {
 
@@ -564,6 +683,13 @@ public class MapController {
     FloorsToggle.setVisible(false);
 
     anchor.setOnMouseClicked(e);
+
+    // New Floor Button Layout
+    ThirdFloorButton.setOnMouseClicked(setThirdFloor);
+    SecondFloorButton.setOnMouseClicked(setSecondFloor);
+    FirstFloorButton.setOnMouseClicked(setFirstFloor);
+    LowerFirstButton.setOnMouseClicked(setLowerFirst);
+    LowerSecondButton.setOnMouseClicked(setLowerSecond);
 
     //    System.out.println(getAllNodeNames("L1"));
 

@@ -13,8 +13,6 @@
 <?import javafx.scene.text.Font?>
 <?import net.kurobako.gesturefx.GesturePane?>
 
-<?import javafx.scene.control.CheckBox?>
-<?import java.lang.String?>
 <AnchorPane id="AP" fx:id="OuterMapAnchor" prefHeight="668.0" prefWidth="951.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MapController">
     <children>
         <StackPane fx:id="sp" prefHeight="602.0" prefWidth="800.0" style="-fx-background-radius: 16;" styleClass="surface" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -91,5 +89,14 @@
             <ComboBox fx:id="AlgoSelect" layoutX="255.0" layoutY="32.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #D5E3ff;" stylesheets="@../stylesheets/combo.css" />
          </children>
       </HBox>
+      <VBox alignment="CENTER" layoutX="25.0" layoutY="181.0" prefHeight="259.0" prefWidth="114.0" spacing="20.0" style="-fx-background-color: #001B3B; -fx-background-radius: 16;">
+         <children>
+            <MFXButton fx:id="ThirdFloorButton" prefWidth="100.0" style="-fx-background-color: #F6BD38;" text="3rd Floor" />
+            <MFXButton fx:id="SecondFloorButton" prefWidth="100.0" style="-fx-background-color: #F6BD38;" text="2nd Floor" />
+            <MFXButton fx:id="FirstFloorButton" prefWidth="100.0" style="-fx-background-color: #F6BD38;" text="1st Floor" />
+            <MFXButton fx:id="LowerFirstButton" prefWidth="100.0" style="-fx-background-color: #F6BD38;" text="Lower Level 1" />
+            <MFXButton fx:id="LowerSecondButton" prefWidth="100.0" style="-fx-background-color: #F6BD38;" text="Lower Level 2" />
+         </children>
+      </VBox>
     </children>
 </AnchorPane>
