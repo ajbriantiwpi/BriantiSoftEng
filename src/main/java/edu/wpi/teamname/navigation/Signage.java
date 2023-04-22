@@ -11,7 +11,8 @@ public class Signage {
   @Getter @Setter private String arrowDirection;
   @Getter @Setter private int signId;
 
-  public Signage(String longName, String shortName, Timestamp date, String arrowDirection, int signId) {
+  public Signage(
+      String longName, String shortName, Timestamp date, String arrowDirection, int signId) {
     this.longName = longName;
     this.shortName = shortName;
     this.date = date;
@@ -26,7 +27,17 @@ public class Signage {
    */
   @Override
   public String toString() {
-    return "[" + longName + ", " + shortName + ", " + date + ", " + arrowDirection + ", " + signId + "]";
+    return "["
+        + longName
+        + ", "
+        + shortName
+        + ", "
+        + date
+        + ", "
+        + arrowDirection
+        + ", "
+        + signId
+        + "]";
   }
 
   /**
@@ -45,9 +56,9 @@ public class Signage {
     }
     Signage otherSignage = (Signage) other;
     return this.longName.equals(otherSignage.getLongName())
-            && this.shortName.equals(otherSignage.getShortName())
-            && this.date.equals(otherSignage.getDate())
-            && this.arrowDirection.equals(otherSignage.getArrowDirection())
-            && this.signId == otherSignage.getSignId();
+        && this.shortName.equals(otherSignage.getShortName())
+        && this.date.equals(otherSignage.getDate())
+        && this.arrowDirection.equals(otherSignage.getArrowDirection())
+        && this.signId == otherSignage.getSignId();
   }
 }
