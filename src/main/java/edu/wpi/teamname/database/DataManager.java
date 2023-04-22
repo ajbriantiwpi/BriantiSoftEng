@@ -1,5 +1,6 @@
 package edu.wpi.teamname.database;
 
+import edu.wpi.teamname.database.interfaces.SignageDAO;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
 import edu.wpi.teamname.navigation.*;
@@ -301,6 +302,18 @@ public class DataManager {
     MedicalSupplyDAOImpl medicalSupplyDAO = new MedicalSupplyDAOImpl();
     medicalSupplyDAO.sync(medicalSupply);
   }
+
+  /**
+   * This method updates an existing Signage object in the "Signage" table in the database with the
+   * new Signage object.
+   *
+   * @param signage the new Signage object to be updated in the "Signage" table
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static void syncSignage(Signage signage) throws SQLException {
+    SignageDAOImpl signageDAO = new SignageDAOImpl();
+    signageDAO.sync(signage);
+  }
   /**
    * This method returns the employee type of a user
    *
@@ -434,6 +447,17 @@ public class DataManager {
   }
 
   /**
+   * This method adds a new Signage object to the "Signage" table in the database.
+   *
+   * @param signage the Signage object to be added to the "Signage" table
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static void addSignage(Signage signage) throws SQLException {
+    SignageDAOImpl signageDAO = new SignageDAOImpl();
+    signageDAO.add(signage);
+  }
+
+  /**
    * This method adds a new MedicalSupply object to the "MedicalSupply" table in the database.
    *
    * @param medicalSupply the MedicalSupply object to be added to the "MedicalSupply" table
@@ -564,6 +588,17 @@ public class DataManager {
   public static void deleteFurniture(Furniture furniture) throws SQLException {
     FurnitureDAOImpl furnitureDAO = new FurnitureDAOImpl();
     furnitureDAO.delete(furniture);
+  }
+
+  /**
+   * Deletes the given Signage object from the "Signage" table in the database
+   *
+   * @param signage the Signage object to be deleted from the "Signage" table
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static void deleteSignage(Signage signage) throws SQLException {
+    SignageDAOImpl signageDAO = new SignageDAOImpl();
+    signageDAO.delete(signage);
   }
 
   /**
@@ -715,6 +750,17 @@ public class DataManager {
   public static ArrayList<OfficeSupply> getAllOfficeSupplies() throws SQLException {
     OfficeSupplyDAOImpl officeSupplyDAO = new OfficeSupplyDAOImpl();
     return officeSupplyDAO.getAll();
+  }
+
+  /**
+   * The method retrieves all the Signage objects from the "Signage" table in the database.
+   *
+   * @return an ArrayList of the Signage objects in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static ArrayList<Signage> getAllSignage() throws SQLException {
+    SignageDAOImpl SignageDAO = new SignageDAOImpl();
+    return SignageDAO.getAll();
   }
 
   /**
@@ -1043,6 +1089,16 @@ public class DataManager {
   }
 
   /**
+   * Imports data from a CSV file to the "Signage" table in the database
+   *
+   * @param path a String representing the csv data (must use "//" not "/")
+   * @throws SQLException if an error occurs while importing the data to the database
+   */
+  public static void uploadSignage(String path) throws SQLException, ParseException {
+    SignageDAOImpl.importSignageFromCSV(path);
+  }
+
+  /**
    * Uploads CSV data to a PostgreSQL database table "MedicalSupply"-also creates one if one does
    * not exist
    *
@@ -1240,6 +1296,17 @@ public class DataManager {
   }
 
   /**
+   * Exports data from a PostgreSQL database table "Signage" to a CSV file
+   *
+   * @param path a String representing the csv data (must use "//" not "/")
+   * @throws SQLException if an error occurs while exporting the data from the database
+   * @throws IOException if an error occurs while writing the data to the file
+   */
+  public static void exportSignageToCSV(String path) throws SQLException, IOException {
+    SignageDAOImpl.exportSignageToCSV(path);
+  }
+
+  /**
    * This method retrieves a list of all the long names of locations from the "LocationName" table
    * in the database.
    *
@@ -1321,6 +1388,7 @@ public class DataManager {
   public static Employee checkLogin(String username, String password) throws SQLException {
     return EmployeeDAOImpl.checkLogin(username, password);
   }
+
 
   /*public void deleteEmployeeType(String username) throws SQLException {
     EmployeeDAOImpl.deleteEmployeeType(username);
