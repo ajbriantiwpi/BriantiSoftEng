@@ -1,5 +1,6 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.servicerequest.requestitem.ConfRoom;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -20,7 +21,7 @@ public class ConferenceController {
     @FXML MFXButton submitButton;
     @FXML VBox viewBox;
     //----------TABLE FXML-----------
-    //@FXML TableView<ConfRoom> confTable;
+    @FXML TableView<ConfRoom> confTable;
     @FXML TableColumn roomName;
     @FXML TableColumn am8;
     @FXML TableColumn am830;
