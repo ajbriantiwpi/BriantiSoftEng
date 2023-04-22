@@ -101,8 +101,7 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
 
       while (rs.next()) {
         int requestID = rs.getInt("requestID");
-        list.add(
-            String.valueOf(requestID));
+        list.add(String.valueOf(requestID));
       }
     }
     connection.close();

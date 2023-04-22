@@ -166,6 +166,18 @@
                         </ImageView>
                      </graphic>
                         </MFXButton>
+                        <MFXButton fx:id="editAlertButton" alignment="BASELINE_LEFT" maxWidth="476.0" style="-fx-background-color: #faf9fd;" text="View Alerts">
+                            <font>
+                                <Font name="Roboto" size="22.0" />
+                            </font>
+                            <graphic>
+                                <ImageView fitHeight="30.0" fitWidth="30.0">
+                                    <image>
+                                        <Image url="@../images/MenuIcons/edit_move.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </MFXButton>
                     </children>
                     <padding>
                         <Insets bottom="12.0" />
@@ -206,7 +218,7 @@
             </VBox>
                 <HBox alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                     <children>
-                  <MFXNotificationCenter>
+                  <MFXNotificationCenter fx:id="notificationCenter">
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin>

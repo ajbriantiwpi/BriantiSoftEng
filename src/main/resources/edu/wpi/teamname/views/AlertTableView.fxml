@@ -26,7 +26,7 @@
                 <children>
                     <VBox styleClass="surface-container-high">
                         <children>
-                            <VBox spacing="12.0">
+                            <VBox spacing="12.0" style="-fx-background-radius: 16;" styleClass="surface-container-highest">
                                 <children>
                                     <Label styleClass="primary-text-container" text="Filter Table" textFill="#001b3b">
                                         <font>
@@ -60,9 +60,26 @@
                                     <Insets bottom="32.0" top="24.0" />
                                 </VBox.margin>
                                 <padding>
-                                    <Insets left="12.0" right="12.0" />
+                                    <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
                                 </padding>
                             </VBox>
+                     <VBox prefHeight="200.0" prefWidth="100.0">
+                        <children>
+                           <MFXButton fx:id="createNewAlert" stylesheets="@../stylesheets/button.css" text="Create New Alert">
+                              <font>
+                                 <Font name="Roboto" size="36.0" />
+                              </font>
+                              <styleClass>
+                                 <String fx:value="display-med" />
+                                 <String fx:value="primary" />
+                                 <String fx:value="outline" />
+                              </styleClass>
+                           </MFXButton>
+                        </children>
+                        <padding>
+                           <Insets left="12.0" right="12.0" />
+                        </padding>
+                     </VBox>
                             <VBox maxWidth="-Infinity" spacing="12.0" style="-fx-background-radius: 16;" styleClass="surface-container-highest">
                                 <children>
                                     <Label styleClass="primary-text-container" text="Add Staff to Alert" textFill="#001b3b">
@@ -188,7 +205,7 @@
                                   <TableColumn fx:id="startDateCol" prefWidth="148.5" text="Start Date" />
                                   <TableColumn fx:id="endDateCol" prefWidth="148.5" text="End Date" />
                                   <TableColumn fx:id="staffTypeCol" prefWidth="148.5" text="staffTypeCol" />
-                                  <TableColumn fx:id="specificStaffCol" prefWidth="148.5" text="Specific Staff" />
+                                  <TableColumn fx:id="announcementCol" prefWidth="148.5" text="Announcement" />
                                   <TableColumn fx:id="urgencyCol" prefWidth="148.5" text="Urgency" />
                                   <!--                            styleClass="primary-container"-->
                                   <!--                            styleClass="primary-fixed-dim"-->

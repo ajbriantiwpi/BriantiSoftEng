@@ -1,5 +1,6 @@
 package edu.wpi.teamname.database;
 
+import edu.wpi.teamname.database.alerts.Alert;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
 import edu.wpi.teamname.navigation.*;
@@ -645,6 +646,14 @@ public class DataManager {
 
   public static ArrayList<String> getAllRequestIDs() throws SQLException {
     return (new ServiceRequestDAOImpl()).getAllIDs();
+  }
+
+  public static ArrayList<Alert> getAllAlerts() throws SQLException {
+    return (new AlertDAOImpl()).getAll();
+  }
+
+  public static ArrayList<Integer> getAllAlertIDs() throws SQLException {
+    return (new AlertDAOImpl()).getAllIDs();
   }
 
   /**
