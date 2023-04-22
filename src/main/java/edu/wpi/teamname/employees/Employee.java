@@ -108,6 +108,10 @@ public class Employee {
     }
   }
 
+  public void setPassword(String password) {
+    this.password = hash(password);
+  }
+
   @Override
   public String toString() {
     return "Employee{"
