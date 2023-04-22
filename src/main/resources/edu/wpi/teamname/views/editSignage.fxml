@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.EditSignageController">
+   <children>
+      <VBox prefHeight="400.0" prefWidth="202.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label prefHeight="35.0" prefWidth="165.0" text="Add Location" textFill="#235fa6">
+                <font>
+                    <Font name="Roboto" size="24.0" />
+                </font>
+               <VBox.margin>
+                  <Insets left="5.0" />
+               </VBox.margin></Label>
+            <Label prefHeight="17.0" prefWidth="138.0" text="Sign ID" textFill="#235fa6">
+                <font>
+                    <Font name="Roboto" size="14.0" />
+                </font>
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="signIDinput" prefHeight="26.0" prefWidth="2.0">
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </VBox.margin>
+                <font>
+                    <Font name="Roboto" size="14.0" />
+                </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </TextField>
+            <Label prefHeight="17.0" prefWidth="138.0" text="Long Name" textFill="#235fa6">
+                <font>
+                    <Font name="Roboto" size="14.0" />
+                </font>
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="longNameInput" prefHeight="26.0" prefWidth="2.0">
+                <font>
+                    <Font name="Roboto" size="14.0" />
+                </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </VBox.margin>
+            </TextField>
+            <Label prefHeight="17.0" prefWidth="138.0" text="Short Name" textFill="#235fa6">
+                <font>
+                    <Font name="Roboto" size="14.0" />
+                </font>
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="shortNameInput" prefHeight="26.0" prefWidth="2.0">
+                <font>
+                    <Font name="Roboto" size="14.0" />
+                </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </VBox.margin>
+            </TextField>
+            <Label prefHeight="17.0" prefWidth="138.0" text="Date" textFill="#235fa6">
+                <font>
+                    <Font name="Roboto" size="14.0" />
+                </font>
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="dateInput" prefHeight="26.0" prefWidth="2.0">
+                <font>
+                    <Font name="Roboto" size="14.0" />
+                </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </VBox.margin>
+            </TextField>
+            <Label prefHeight="17.0" prefWidth="138.0" text="Direction" textFill="#235fa6">
+                <font>
+                    <Font name="Roboto" size="14.0" />
+                </font>
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </VBox.margin>
+            </Label>
+            <ComboBox fx:id="directionPicker" prefHeight="26.0" prefWidth="182.0">
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </VBox.margin>
+            </ComboBox>
+            <Label prefHeight="35.0" prefWidth="195.0" text="CSV Manager" textFill="#235fa6">
+               <font>
+                  <Font name="Roboto" size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="20.0" top="20.0" />
+               </VBox.margin>
+            </Label>
+            <HBox prefHeight="82.0" prefWidth="202.0">
+               <children>
+                  <MFXButton fx:id="importButton" prefHeight="26.0" prefWidth="118.0" text="Import">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin>
+                      <font>
+                          <Font name="Roboto" size="14.0" />
+                      </font>
+                  </MFXButton>
+                  <MFXButton fx:id="exportButton" prefHeight="26.0" prefWidth="115.0" text="Export">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin>
+                      <font>
+                          <Font name="Roboto" size="14.0" />
+                      </font>
+                  </MFXButton>
+               </children>
+            </HBox>
+         </children></VBox>
+      <TableView fx:id="editSignageTable" layoutX="204.0" layoutY="50.0" prefHeight="349.0" prefWidth="396.0" AnchorPane.bottomAnchor="0.39999999999997726" AnchorPane.rightAnchor="0.0" />
+      <HBox layoutX="205.0" prefHeight="50.0" prefWidth="396.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label prefHeight="50.0" prefWidth="154.0" text="Edit Location" textFill="#235fa6">
+               <font>
+                  <Font name="Roboto" size="24.0" />
+               </font>
+            </Label>
+            <Label prefHeight="26.0" prefWidth="46.0" text="Search" textFill="#235fa6">
+               <HBox.margin>
+                  <Insets left="10.0" right="2.0" top="10.0" />
+               </HBox.margin>
+                <font>
+                    <Font name="Roboto" size="14.0" />
+                </font>
+            </Label>
+            <TextField fx:id="searchBar" prefHeight="26.0" prefWidth="154.0">
+               <HBox.margin>
+                  <Insets top="10.0" />
+               </HBox.margin>
+            </TextField>
+         </children></HBox>
+   </children>
+</AnchorPane>
