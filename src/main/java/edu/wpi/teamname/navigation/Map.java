@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -41,33 +42,68 @@ public class Map {
     "Lower Level 2", "Lower Level 1", "First Floor", "Second Floor", "Third Floor"
   };
 
+  private String[] algoArr = {
+    "A-Star", "Breadth First Search", "Depth First Search", "Dijkstra's Algorithm"
+  };
+
+  /**
+   * Constructs a Map object with the given sub-anchor pane.
+   *
+   * @param subAnchor the sub-anchor pane used to display the map.
+   * @throws SQLException if there is an error accessing the database.
+   */
   public Map(AnchorPane subAnchor) throws SQLException {
     this.graph = new Graph();
     this.currentDisplayFloor = "Lower Level 1";
     this.subAnchor = subAnchor;
   }
 
+  /**
+   * Creates and returns an ArrayList of all nodes and edges on the given floor.
+   *
+   * @param floor the floor to retrieve nodes and edges from.
+   * @param isMapPage whether or not the map is currently being displayed.
+   * @return an ArrayList of all nodes and edges on the given floor as JavaFX Node objects.
+   * @throws SQLException if there is an error accessing the database.
+   * @throws IOException if there is an error reading a file.
+   */
   public ArrayList<javafx.scene.Node> makeAllFloorShapes(String floor, boolean isMapPage)
       throws SQLException, IOException {
     ArrayList<javafx.scene.Node> allCirclesAndEdges = new ArrayList<>();
     if (!isMapPage) {
-      allCirclesAndEdges.addAll(this.makeAllFloorEdges(floor));
+      System.out.println("ADDEDGES");
+      allCirclesAndEdges.addAll(this.makeAllFloorEdges(floor, isMapPage));
     }
     allCirclesAndEdges.addAll(this.makeAllFloorNodes(floor, isMapPage));
     return allCirclesAndEdges;
   }
 
-  public ArrayList<javafx.scene.Node> makeAllFloorEdges(String floor) {
+  /**
+   * Creates and returns an ArrayList of all edges on the given floor.
+   *
+   * @param floor the floor to retrieve edges from.
+   * @param isMapPage whether or not the map is currently being displayed.
+   * @return an ArrayList of all edges on the given floor as JavaFX Node objects.
+   */
+  public ArrayList<javafx.scene.Node> makeAllFloorEdges(String floor, boolean isMapPage) {
 
     ArrayList<javafx.scene.Node> allEdges = new ArrayList<>();
 
-    ArrayList<Edge> mapEdges = this.graph.getEdges();
+    ArrayList<Edge> mapEdges;
+    mapEdges = this.graph.getEdges();
+
+    try {
+      mapEdges = DataManager.getAllEdges();
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+
     for (int i = 0; i < mapEdges.size(); i++) {
       Node StartNode = this.graph.findNodeByID(mapEdges.get(i).getStartNodeID());
       Node EndNode = this.graph.findNodeByID(mapEdges.get(i).getEndNodeID());
 
       if (StartNode.getFloor().equals(floor) || EndNode.getFloor().equals(floor)) {
-        EdgeRectangle er = new EdgeRectangle(StartNode, EndNode);
+        EdgeRectangle er = new EdgeRectangle(StartNode, EndNode, isMapPage, this);
         allEdges.add(er.p);
       }
     }
@@ -92,6 +128,8 @@ public class Map {
     ArrayList<Integer> sortedKeys = new ArrayList<>(map.keySet());
     System.out.println("FloorIN: " + floor);
 
+    //    DataManager.getNodeByLocationName()
+
     ArrayList<Node> allNodes = DataManager.getAllNodes();
     for (int i = 0; i < allNodes.size(); i++) {
       Node n = allNodes.get(i);
@@ -102,12 +140,16 @@ public class Map {
         //        } else {
         //          defShortName = "" + n.getId();
         //        }
+
+        //        if (!(locations == null) && locations.size() > 0) {
+
         if (map.get(n.getId()) != null) {
           defShortName = map.get(n.getId()).get(0).getShortName();
         } else {
           defShortName = "" + n.getId();
         }
-        circles.add(new NodeCircle(n, isMapPage, defShortName));
+
+        circles.add(new NodeCircle(n, isMapPage, defShortName, this));
       }
     }
     for (NodeCircle c : circles) {
@@ -127,11 +169,13 @@ public class Map {
 
     // Delete all nodeCircles
 
+    System.out.println("Change Floor");
+
     //    subAnchor.getChildren();currentFloorNodes;
     if (!this.currentFloorShapes.isEmpty()) {
       for (int i = subAnchor.getChildren().size() - 1; i >= 0; i--) {
         if (this.currentFloorShapes.contains(subAnchor.getChildren().get(i))) {
-          System.out.println("Rem: " + i);
+          //          System.out.println("Rem: " + i);
           subAnchor.getChildren().remove(i);
         }
       }
@@ -219,7 +263,7 @@ public class Map {
         listUpper1.add(n);
       } else if (n.getFloor().equals("2") || n.getFloor().equals("G2")) {
         listUpper2.add(n);
-      } else if (n.getFloor().equals("1") || n.getFloor().equals("G1")) {
+      } else if (n.getFloor().equals("3") || n.getFloor().equals("G3")) {
         listUpper3.add(n);
       } else {
         System.out.println("This should not be here");
@@ -401,8 +445,8 @@ public class Map {
       }
     }
 
-    //    Node startNode = allNodes.get(startIndex);
-    //    Node endNode = allNodes.get(endIndex);
+    //    MapNode startNode = allNodes.get(startIndex);
+    //    MapNode endNode = allNodes.get(endIndex);
     System.out.println(startIndex + " " + endIndex);
     int startId = allNodes.get(startIndex).getId();
     int endId = allNodes.get(endIndex).getId();
@@ -414,8 +458,8 @@ public class Map {
    * Draws the A* path between two nodes on a given floor and adds it to the specified parent Pane.
    *
    * @param parent the Pane to add the path to
-   * @param startNodeId the starting node ID
-   * @param endNodeId the ending node ID
+   * @param startNodeId the starting MapNode ID
+   * @param endNodeId the ending MapNode ID
    */
   public void drawPath(Pane parent, int startNodeId, int endNodeId) {
     ArrayList<Node> nodePath = this.graph.getPathBetween(startNodeId, endNodeId);
@@ -424,11 +468,48 @@ public class Map {
 
     shapes = makeShapePath(nodePath);
 
+    getTextual(nodePath);
+
     // return shapes
 
     //    System.out.println(nodePath);
 
     // parent.getChildren().addAll(shapes);
+  }
+
+  public void /*ArrayList<String>*/ getTextual(ArrayList<Node> nodePath) {
+    if (nodePath.size() > 2) {
+      for (int i = 1; i < nodePath.size() - 1; i++) {
+        Node prevNode = nodePath.get(i - 1);
+        Node node = nodePath.get(i);
+        // y's are flipped I think since +y is down
+        Node nextNode = nodePath.get(i + 1);
+        double angPrev = Math.atan2(prevNode.getY() - node.getY(), node.getX() - prevNode.getX());
+        double angNext = Math.atan2(nextNode.getY() - node.getY(), node.getX() - nextNode.getX());
+        double angDelta = angNext - angPrev;
+        // adjust over turn
+        if (angDelta > Math.PI) {
+          angDelta -= 2 * Math.PI;
+        } else if (angDelta < -Math.PI) {
+          angDelta += 2 * Math.PI;
+        }
+        System.out.print(String.valueOf(i) + ": ");
+        // System.out.println(angDelta);
+        Direction direction;
+        if (!node.getFloor().equals(nextNode.getFloor())) {
+          direction = Direction.UP;
+        } else if ((angDelta > 7 * Math.PI / 8) || (angDelta < -7 * Math.PI / 8)) {
+          direction = Direction.STRAIGHT;
+        } else if (angDelta > Math.PI / 8) {
+          direction = Direction.RIGHT;
+        } else if (angDelta < Math.PI / 8) {
+          direction = Direction.LEFT;
+        } else {
+          direction = Direction.BACK;
+        }
+        System.out.println(direction.getString());
+      }
+    }
   }
 
   /**
@@ -439,8 +520,8 @@ public class Map {
   //  public ArrayList<ArrayList<Shape>> drawAStarPath(Pane parent, int sInd, int eInd) {
   //    List<Node> allNodes = this.graph.getNodes();
   //
-  //    Node startNode = allNodes.get(sInd);
-  //    Node endNode = allNodes.get(eInd);
+  //    MapNode startNode = allNodes.get(sInd);
+  //    MapNode endNode = allNodes.get(eInd);
   //
   //    ArrayList<Node> nodePath = this.graph.AStar(startNode, endNode);
   //
@@ -456,18 +537,27 @@ public class Map {
   /**
    * Retrieves the names of all nodes on the specified floor and returns them in an ObservableList.
    *
-   * @param floor the floor to retrieve node names from
    * @return an ObservableList of node names on the specified floor
    * @throws SQLException if there is an error with the SQL database
    */
-  public ObservableList<String> getAllNodeNames(String floor) throws SQLException {
+  public ObservableList<String> getAllNodeNames() throws SQLException {
     ObservableList<String> nodeNames = FXCollections.observableArrayList();
-    for (Node n : DataManager.getAllNodes()) {
-      //      if (n.getFloor().equals(floor)) {
-      //        nodeNames.addAll(("" + n.getId()));
-      //      }
-      nodeNames.addAll(("" + n.getId()));
+    //    for (Node n : DataManager.getAllNodes()) {
+    //      //      if (n.getFloor().equals(floor)) {
+    //      //        nodeNames.addAll(("" + n.getId()));
+    //      //      }
+    //      nodeNames.addAll(("" + n.getId()));
+    //    }
+
+    HashMap<Integer, ArrayList<LocationName>> hMap =
+        DataManager.getAllLocationNamesMappedByNode(new Timestamp(System.currentTimeMillis()));
+
+    for (Integer i : hMap.keySet()) {
+      nodeNames.add(hMap.get(i).get(0).getLongName());
     }
+
+    Collections.sort(nodeNames);
+
     return nodeNames;
   }
 
@@ -486,6 +576,38 @@ public class Map {
     return floorNames;
   }
 
+  public ObservableList<String> getAllFloorsInPath() {
+    ObservableList<String> floorNames = FXCollections.observableArrayList();
+    ArrayList<String> floorPathArr = new ArrayList<>();
+
+    for (int i = 0; i < shapes.size(); i++) {
+      if (!shapes.get(i).isEmpty()) {
+        if (i == 0) {
+          floorNames.add("Lower Level 2");
+        } else if (i == 1) {
+          floorNames.add("Lower Level 1");
+        } else if (i == 2) {
+          floorNames.add("First Floor");
+        } else if (i == 3) {
+          floorNames.add("Second Floor");
+        } else if (i == 4) {
+          floorNames.add("Third Floor");
+        }
+      }
+    }
+    return floorNames;
+  }
+
+  public ObservableList<String> getAllAlgos() {
+    ObservableList<String> algoNames = FXCollections.observableArrayList();
+
+    for (String a : algoArr) {
+      algoNames.addAll(a);
+    }
+
+    return algoNames;
+  }
+
   public String takeFloor(String f, boolean flag) {
     String retStr = "";
     if (f == null) {
@@ -494,11 +616,9 @@ public class Map {
     //    System.out.println(f);
     switch (f) {
       case ("Lower Level 1"):
-        retStr = "L1";
-        return retStr;
+        return "L1";
       case ("Lower Level 2"):
-        retStr = "L2";
-        return retStr;
+        return "L2";
       case ("Ground Floor"):
         retStr = "GG";
         return retStr;
@@ -523,6 +643,16 @@ public class Map {
           retStr = "3";
         }
         return retStr;
+      case ("L1"):
+        return "Lower Level 1";
+      case ("L2"):
+        return "Lower Level 2";
+      case ("1"):
+        return "First Floor";
+      case ("2"):
+        return "Second Floor";
+      case ("3"):
+        return "Third Floor";
       default:
         return "You should never see  this!!!";
     }
@@ -575,7 +705,7 @@ public class Map {
 
   //  public ObservableList<String> getAllNodeNames(String floor) throws SQLException {
   //    ObservableList<String> nodeNames = FXCollections.observableArrayList();
-  //    for (Node n : DataManager.getAllNodes()) {
+  //    for MapNode n : DataManager.getAllNodes()) {
   //      if (n.getFloor().equals(floor)) {
   //        nodeNames.addAll(("" + n.getId()));
   //      }
@@ -597,7 +727,7 @@ public class Map {
   // to be displayed
   //    List<NodeCircle> circles = new ArrayList<>(); // List of NodeCircle Objects
   //
-  //    for (Node n : DataManager.getAllNodes()) {
+  //    for MapNode n : DataManager.getAllNodes()) {
   //      if (n.getFloor().equals(floor)) {
   //        ArrayList<String> nameType = new ArrayList<>();
   //        try {
@@ -634,8 +764,8 @@ public class Map {
    *
    * @return the width of the map
    */
-  private double getMapWitdh() {
-    return 0;
+  public double getMapWitdh(AnchorPane outerMapAnchor) {
+    return outerMapAnchor.getWidth();
   }
 
   /**
@@ -643,8 +773,8 @@ public class Map {
    *
    * @return the height of the map
    */
-  private double getMapHeight() {
-    return 0;
+  public double getMapHeight(AnchorPane outerMapAnchor) {
+    return outerMapAnchor.getHeight();
   }
 
   /**
@@ -652,14 +782,17 @@ public class Map {
    *
    * @param parent the GesturePane to center and zoom
    */
-  public void centerAndZoom(GesturePane parent) {
-    double parentW = getMapWitdh();
-    double parentH = getMapHeight();
-    parentW = 760;
-    parentH = 512;
+  public void centerAndZoom(GesturePane parent, AnchorPane outerMapAnchor) {
+    double parentW = getMapWitdh(outerMapAnchor); // 1335;
+    double parentH = getMapHeight(outerMapAnchor); // 720;
+
+    System.out.println("PW: " + parentW + ", " + parentH);
+
+    //        parentW = 1662;
+    //        parentH = 880;
 
     //    Point2D scaleOneDim = new Point2D(760 * 2, 512 * 2); // hard Coded
-    Point2D scaleOneDim = new Point2D(1500, 2000);
+    Point2D scaleOneDim = new Point2D(1335, 768);
 
     double scaleX = parentW / scaleOneDim.getX();
     double scaleY = parentH / scaleOneDim.getY();
@@ -668,12 +801,20 @@ public class Map {
 
     double scaleFactor = Double.min(scaleX, scaleY);
 
-    centerPoint = new Point2D(2250, 1000); // Hard Coded
-    double scale = parent.getCurrentScale();
-    Point2D CMin = new Point2D((parentW / 2) * (1 / scale), (parentH / 2) * (1 / scale));
-    centerTL = centerPoint.subtract(CMin);
+    centerPoint = new Point2D(2215, 1045); // Hard Coded
+    //    // -1627.2856715232545, -690.8681650647059
+    //    Point2D CMin = centerPoint.add(new Point2D(-1610, -648));
+    //
+    //    System.out.println("CorC: " + CMin.getX() + ", " + CMin.getY());
+    //
+    //    Point2D CDiff =
+    //        new Point2D((parentW / 2) * (1 / scaleFactor), (parentH / 2) * (1 / scaleFactor));
+    //
+    //    System.out.println("AkC: " + CDiff.getX() + ", " + CDiff.getY());
+    //
+    //    centerTL = centerPoint.subtract(CMin);
 
     parent.zoomTo(scaleFactor, Point2D.ZERO);
-    parent.centreOn(centerTL); // Actually Moves the Top left corner
+    parent.centreOn(centerPoint); // Actually Moves the Top left corner
   }
 }

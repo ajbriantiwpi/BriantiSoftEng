@@ -13,13 +13,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Main {
   public static void main(String[] args) throws SQLException, IOException, ParseException {
-    // Singleton is in DataManager, function has it so it will only return one connection when
-    // called
+
     DataManager.configConnection(
         "jdbc:postgresql://database.cs.wpi.edu:5432/teamddb?currentSchema=\"teamD\"",
         "teamd",
         "teamd40");
-    // App.launch(App.class, args);
+    App.launch(App.class, args);
     // create a Retrofit instance
     Retrofit retrofit =
             new Retrofit.Builder()
@@ -44,6 +43,7 @@ public class Main {
       System.out.println("Request failed: " + response.code());
     }
     System.out.println("MAIN IS COMMENTED OUT!!!!UNCOMMENT IF PUSHING TO MAIN");
+
   }
   // shortcut: psvm
 }
