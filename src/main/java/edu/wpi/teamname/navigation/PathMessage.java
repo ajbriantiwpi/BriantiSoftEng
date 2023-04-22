@@ -12,6 +12,10 @@ public class PathMessage {
   @Getter @Setter private int adminID;
   @Getter @Setter private String message;
 
+  @Getter @Setter private int origStartNodeID;
+  @Getter @Setter private int origEndNodeID;
+  @Getter @Setter private String origAlgorithm;
+
   public PathMessage(
       int startNodeID,
       int endNodeID,

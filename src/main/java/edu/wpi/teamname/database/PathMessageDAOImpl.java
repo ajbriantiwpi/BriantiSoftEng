@@ -24,11 +24,15 @@ public class PathMessageDAOImpl implements PathMessageDAO {
     try (connection) {
       String query =
           "UPDATE \"PathMessages\" SET \"startNode\" = ?, \"endNode\" = ?, \"algorithm\" = ?"
-              + " WHERE \"startNode\" = ? AND \"endNode\" = ?";
+              + " WHERE \"startNode\" = ? AND \"endNode\" = ? AND \"algorithm\" = ?";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, pm.getStartNodeID());
       statement.setInt(2, pm.getEndNodeID());
       statement.setString(3, pm.getAlgorithm());
+
+      statement.setInt(1, pm.getOrigEndNodeID());
+      statement.setInt(2, pm.getOrigEndNodeID());
+      statement.setString(3, pm.getOrigAlgorithm());
 
       statement.executeUpdate();
     } catch (SQLException e) {

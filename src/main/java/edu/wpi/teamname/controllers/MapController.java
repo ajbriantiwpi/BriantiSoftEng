@@ -28,13 +28,11 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import net.kurobako.gesturefx.GesturePane;
 
 public class MapController {
@@ -65,6 +63,14 @@ public class MapController {
   @FXML TableColumn<PathMessage, Timestamp> DateColumn;
   @FXML TableColumn<PathMessage, Integer> AdminColumn;
   @FXML TableColumn<PathMessage, String> MessageColumn;
+
+  // Add Message Pop-Up
+  @FXML TextField AdminIDVal;
+  @FXML TextField MessageVal;
+  @FXML Label AdminIDLabel;
+  @FXML Label MessageLabel;
+  @FXML VBox AddMessageVBox;
+  @FXML MFXButton MessageSubmitButton;
 
   String defaultFloor = "L1";
   int clickCount = 0;
@@ -223,49 +229,23 @@ public class MapController {
         }
       };
 
-  EventHandler<MouseEvent> viewMessage =
+  EventHandler<MouseEvent> submitMessage =
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          System.out.println("Viewing Message");
-          MessageTableView.setVisible(true);
-          MessageTableView.setDisable(false);
-          int currentSNode = sNode;
-          int currentENode = eNode;
-          String currentAlgo = AlgoSelect.getValue();
-          System.out.println(
-              "Viewing Message: " + currentSNode + ", " + currentENode + ", " + currentAlgo);
+          System.out.println("Submit Button Pressed");
 
-          // displaying messages
-          ObservableList<PathMessage> PMS = null;
-          try {
-            PMS =
-                FXCollections.observableList(
-                    DataManager.getPathMessage(currentSNode, currentENode, currentAlgo).stream()
-                        .filter(Objects::nonNull)
-                        .toList());
-          } catch (SQLException ex) {
-            System.out.println("Error viewing: " + ex);
-          }
+          //          String adminIDIn = AdminIDVal.getText();
+          //          String messageIn = MessageVal.getText();
+          //
+          //          System.out.println("AdminId -- Message: " + adminIDIn + " -- " + messageIn);
 
-          System.out.println(PMS.size());
-          FilteredList<PathMessage> PMS1 = new FilteredList<>(PMS);
-          SortedList<PathMessage> sortedPM = new SortedList<>(PMS1);
-          MessageTableView.setItems(sortedPM);
-          System.out.println(sortedPM);
-        }
-      };
-
-  EventHandler<MouseEvent> addMessage =
-      new EventHandler<MouseEvent>() {
-        @Override
-        public void handle(MouseEvent event) {
           int currentSNode = sNode;
           int currentENode = eNode;
           String currentAlgo = AlgoSelect.getValue();
           Timestamp date = new Timestamp(System.currentTimeMillis());
-          int adminID = 0;
-          String message = "";
+          int adminID = Integer.parseInt(AdminIDVal.getText());
+          String message = MessageVal.getText();
           System.out.println(
               "Adding Message: "
                   + currentENode
@@ -287,6 +267,79 @@ public class MapController {
           } catch (SQLException ex) {
             System.out.println("Error adding: " + ex);
           }
+
+          // Gets rid of the Pop-Up after submission
+          MessageVal.setVisible(false);
+          MessageSubmitButton.setVisible(false);
+          MessageLabel.setVisible(false);
+          AdminIDLabel.setVisible(false);
+          AdminIDVal.setVisible(false);
+          AddMessageVBox.setVisible(false);
+
+          MessageVal.setPromptText("Type Message");
+          AdminIDVal.setPromptText("Type Admin ID");
+        }
+      };
+
+  EventHandler<MouseEvent> viewMessage =
+      new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+          System.out.println("Viewing Message");
+
+          if (MessageTableView.isVisible() == true) {
+            MessageTableView.setVisible(false);
+          } else {
+
+            MessageTableView.setVisible(true);
+            MessageTableView.setDisable(false);
+            int currentSNode = sNode;
+            int currentENode = eNode;
+            String currentAlgo = AlgoSelect.getValue();
+            System.out.println(
+                "Viewing Message: " + currentSNode + ", " + currentENode + ", " + currentAlgo);
+
+            // displaying messages
+            ObservableList<PathMessage> PMS = null;
+            try {
+              PMS =
+                  FXCollections.observableList(
+                      DataManager.getPathMessage(currentSNode, currentENode, currentAlgo).stream()
+                          .filter(Objects::nonNull)
+                          .toList());
+            } catch (SQLException ex) {
+              System.out.println("Error viewing: " + ex);
+            }
+
+            System.out.println(PMS.size());
+            FilteredList<PathMessage> PMS1 = new FilteredList<>(PMS);
+            SortedList<PathMessage> sortedPM = new SortedList<>(PMS1);
+            MessageTableView.setItems(sortedPM);
+            System.out.println(sortedPM);
+          }
+        }
+      };
+
+  EventHandler<MouseEvent> addMessage =
+      new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+          System.out.println("Add Message Running");
+
+          MessageVal.setVisible(true);
+          MessageVal.setPromptText("Type Message");
+          MessageLabel.setVisible(true);
+          AdminIDVal.setVisible(true);
+          AdminIDVal.setPromptText("Type AdminID");
+          AdminIDLabel.setVisible(true);
+          AddMessageVBox.setVisible(true);
+          MessageSubmitButton.setVisible(true);
+
+          //          String adminIDIn = AdminIDVal.getText();
+          //          String messageIn = MessageVal.getText();
+          //
+          //          System.out.println("AdminId -- Message: " + adminIDIn + " -- " + messageIn);
+
         }
       };
 
@@ -296,6 +349,7 @@ public class MapController {
         public void handle(MouseEvent event) {
           ViewMessageButton.setVisible(true);
           ViewMessageButton.setDisable(false);
+          AddMessageButton.setVisible(true);
           map.drawPath(anchor, sNode, eNode);
           int secInd = map.getAllFloors().indexOf(FloorSelect.getValue());
           System.out.println("secInd: " + FloorSelect.getValue());
@@ -651,8 +705,18 @@ public class MapController {
     ViewMessageButton.setVisible(false);
 
     AddMessageButton.setOnMouseClicked(addMessage);
+    AddMessageButton.setVisible(false);
 
     MessageTableView.setVisible(false);
+
+    // Initialize for AddMessage Pop-Up
+    AdminIDVal.setVisible(false);
+    MessageVal.setVisible(false);
+    AdminIDLabel.setVisible(false);
+    MessageLabel.setVisible(false);
+    AddMessageVBox.setVisible(false);
+    MessageSubmitButton.setVisible(false);
+    MessageSubmitButton.setOnMouseClicked(submitMessage);
 
     anchor.setOnMouseClicked(e);
 
