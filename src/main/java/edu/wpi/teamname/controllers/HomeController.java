@@ -24,7 +24,7 @@ public class HomeController {
 
   @FXML MFXButton helpButton;
   @FXML MFXButton mapButton;
-  @FXML VBox actionItems;
+  @FXML VBox actionVBox;
   @FXML VBox SRVBox;
   @FXML VBox mapVBox;
   @FXML MFXButton directionsButton;
@@ -62,6 +62,8 @@ public class HomeController {
 
   /** * Disables all the buttons that can not be accessed without logging in */
   private void disableButtonsWhenLoggedOut() {
+    actionVBox.setVisible(false);
+    SRVBox.setVisible(false);
     makeRequestsButton.setVisible(false);
     showRequestsButton.setVisible(false);
     editMapButton.setVisible(false); // these have to be set to visible false for staff/logged out
@@ -78,6 +80,8 @@ public class HomeController {
     upcomingMoves.setManaged(false);
     doneRequests.setManaged(false);
     makeRequestsButton.setManaged(false);
+    actionVBox.setManaged(false);
+    SRVBox.setManaged(false);
   }
 
   @FXML
@@ -149,6 +153,8 @@ public class HomeController {
 
     /** * Disables all the buttons that can not be accessed as Staff */
     if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.STAFF)) {
+      actionVBox.setVisible(true);
+      SRVBox.setVisible(true);
       makeRequestsButton.setVisible(true);
       makeRequestsButton.setManaged(true);
       editMoveButton.setVisible(true);
@@ -165,9 +171,13 @@ public class HomeController {
       doneRequests.setManaged(true);
       showRequestsButton.setVisible(true);
       showRequestsButton.setManaged(true);
+      actionVBox.setManaged(true);
+      SRVBox.setManaged(true);
 
       /** * Enables all buttons for the Admin login */
     } else if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.ADMIN)) {
+      actionVBox.setVisible(true);
+      SRVBox.setVisible(true);
       editMapButton.setVisible(true);
       editMapButton.setDisable(false);
       editMapButton.setManaged(true);
@@ -201,6 +211,8 @@ public class HomeController {
       editMoveButton.setVisible(true);
       editMoveButton.setDisable(false);
       editMoveButton.setManaged(true);
+      actionVBox.setManaged(true);
+      SRVBox.setManaged(true);
     }
 
     upcomingMoves.setOnMouseClicked(
