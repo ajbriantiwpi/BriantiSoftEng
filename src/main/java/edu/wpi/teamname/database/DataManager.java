@@ -12,10 +12,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 import lombok.Getter;
 
 public class DataManager {
@@ -50,6 +47,37 @@ public class DataManager {
       }
     }
     return connection;
+  }
+
+  public static void refreshConfRooms() throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    String query =
+        "Select m.\"nodeID\" as nodeID, ln.\"shortName\" as shortName, n.floor, n.building, max(m.date) as date\n"
+            + "From \"Move\" m, \"Node\" n, \"LocationName\" ln\n"
+            + "Where m.\"nodeID\" = n.\"nodeID\" AND m.\"longName\" = ln.\"longName\" AND m.date <= ?\n"
+            + "Group by n.building, n.floor, ln.\"shortName\", m.\"nodeID\"";
+    try (connection) {
+      PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"ConfRooms\";");
+      statement.executeUpdate();
+      statement = connection.prepareStatement(query);
+      statement.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
+      ResultSet rs = statement.executeQuery();
+      while (rs.next()) {
+        int roomID = rs.getInt("nodeID");
+        String name =
+            rs.getString("shortName")
+                + ", LVL"
+                + rs.getString("floor")
+                + ", "
+                + rs.getString("building");
+        Random r = new Random();
+        int seats = r.nextInt(20, 100);
+        ConfRoom c = new ConfRoom(roomID, name, seats);
+        addConfRoom(c);
+      }
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
   }
 
   /*public static ArrayList<Node> getSingleNodeInfo(int nodeID) throws SQLException {
@@ -317,7 +345,8 @@ public class DataManager {
    * This method updates an existing ConfReservation object in the "ConfReservation" table in the
    * database with the new ConfReservation object.
    *
-   * @param confReservation the new ConfReservation object to be updated in the "ConfReservations" table
+   * @param confReservation the new ConfReservation object to be updated in the "ConfReservations"
+   *     table
    * @throws SQLException if there is a problem accessing the database
    */
   public static void syncConfReservation(ConfReservation confReservation) throws SQLException {
@@ -955,8 +984,8 @@ public class DataManager {
     return ConfRoomDAOImpl.getConfRoom(roomID);
   }
   /**
-   * This method retrieves an ConfReservation object with the specified ID from the "ConfReservation"
-   * table in the database.
+   * This method retrieves an ConfReservation object with the specified ID from the
+   * "ConfReservation" table in the database.
    *
    * @param resID the ID of the ConfReservation object to retrieve from the "ConfReservation" table
    * @return the ConfReservation object with the specified ID, or null if not found
@@ -1172,8 +1201,8 @@ public class DataManager {
     ServiceRequestDAOImpl.uploadServiceRequestToPostgreSQL(path);
   }
   /**
-   * Uploads CSV data to a PostgreSQL database table "ConfRooms"-also creates one if one does
-   * not exist
+   * Uploads CSV data to a PostgreSQL database table "ConfRooms"-also creates one if one does not
+   * exist
    *
    * @param path a string that represents a file path (/ is illegal so you must use double//)
    * @throws SQLException if an error occurs while uploading the data to the database
@@ -1367,8 +1396,8 @@ public class DataManager {
     ServiceRequestDAOImpl.exportServiceRequestToCSV(path);
   }
   /**
-   * This method exports all the ServiceRequest objects from the "ConfRooms" table in the
-   * database to a CSV file at the specified file path.
+   * This method exports all the ServiceRequest objects from the "ConfRooms" table in the database
+   * to a CSV file at the specified file path.
    *
    * @param path the file path of the CSV file to export the ServiceRequest objects to
    * @throws SQLException if there is a problem accessing the database
@@ -1389,16 +1418,14 @@ public class DataManager {
     ConfReservationDAOImpl.exportConfReservationsToCSV(path);
   }
 
-
-//  public static ArrayList<String> getConfRooms(Timestamp date) throws SQLException {
-//    ConfRoomDAOImpl r = new ConfRoomDAOImpl();
-//    return r.getConfRooms(date);
-//  }
-//  public static int getConfRoomTimes() throws SQLException {
-//    ConfRoomDAOImpl r = new ConfRoomDAOImpl();
-//    return r.getConfRoomTimes();
-//  }
-
+  //  public static ArrayList<String> getConfRooms(Timestamp date) throws SQLException {
+  //    ConfRoomDAOImpl r = new ConfRoomDAOImpl();
+  //    return r.getConfRooms(date);
+  //  }
+  //  public static int getConfRoomTimes() throws SQLException {
+  //    ConfRoomDAOImpl r = new ConfRoomDAOImpl();
+  //    return r.getConfRoomTimes();
+  //  }
 
   /**
    * This method retrieves a list of all the long names of locations from the "LocationName" table
