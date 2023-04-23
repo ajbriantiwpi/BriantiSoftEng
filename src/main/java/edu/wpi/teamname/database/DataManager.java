@@ -51,6 +51,27 @@ public class DataManager {
     return connection;
   }
 
+  public static Connection AWSConenction() throws SQLException {
+    if (connection == null || connection.isClosed()) {
+      System.out.print("--- Connecting To Database... ---");
+      try {
+        Class.forName("org.postgresql.Driver");
+        connection =
+            DriverManager.getConnection(
+                "jdbc:postgresql://database-1.cwgmodw6cdg6.us-east-1.rds.amazonaws.com:5432/database-1?user=postgres&password=teamd400");
+        System.out.println(" Successfully connected to database!");
+      } catch (SQLException e) {
+        System.out.println(" Connection Failed! Check output console");
+        e.printStackTrace();
+        connection = null;
+      } catch (ClassNotFoundException e) {
+        System.out.println(e);
+        throw new RuntimeException(e);
+      }
+    }
+    return connection;
+  }
+
   /*public static ArrayList<Node> getSingleNodeInfo(int nodeID) throws SQLException {
   /**
    * Get list of items ordered from a specific ID
