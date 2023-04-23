@@ -70,6 +70,8 @@ public class MapController {
 
   String currentAlgo = "";
 
+  ArrayList<MFXButton> floorButtons = new ArrayList<>();
+
   EventHandler<MouseEvent> e =
       new EventHandler<MouseEvent>() {
         @Override
@@ -740,6 +742,17 @@ public class MapController {
     FirstFloorButton.setOnAction(setFirstFloor);
     LowerFirstButton.setOnAction(setLowerFirst);
     LowerSecondButton.setOnAction(setLowerSecond);
+
+    //New Floor Stuff
+    floorButtons.add(ThirdFloorButton);
+    floorButtons.add(SecondFloorButton);
+    floorButtons.add(FirstFloorButton);
+    floorButtons.add(LowerFirstButton);
+    floorButtons.add(LowerSecondButton);
+
+    for (MFXButton floorButton : floorButtons) {
+      floorButton.setOnMouseClicked(changeFloors);
+    }
 
     //    System.out.println(getAllNodeNames("L1"));
 
