@@ -24,6 +24,6 @@ public class ConfRoomTests {
   @Test
   public void test() throws SQLException {
     DataManager dm = new DataManager();
-    //dm.refreshConfRooms();
+    dm.refreshConfRooms();
   }
 }

@@ -110,8 +110,7 @@ public class ConfRoomDAOImpl implements ConfRomDAO {
    * @throws SQLException if there is a problem accessing the database
    */
   @Override
-  public void add(ConfRoom ConfRoom)
-      throws SQLException { // WILL NOT USE UNLESS A CONFERENCE ROOM IS BEING ADDED
+  public void add(ConfRoom ConfRoom) throws SQLException {
     Connection connection = DataManager.DbConnection();
     try (connection) {
       String query =
@@ -120,7 +119,7 @@ public class ConfRoomDAOImpl implements ConfRomDAO {
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, ConfRoom.getRoomID());
       statement.setString(2, ConfRoom.getLocationName());
-      statement.setInt(3, ConfRoom.getRoomID());
+      statement.setInt(3, ConfRoom.getSeats());
 
       statement.executeUpdate();
 
