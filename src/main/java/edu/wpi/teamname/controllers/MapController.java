@@ -26,6 +26,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javax.swing.*;
 import net.kurobako.gesturefx.GesturePane;
 
 public class MapController {
@@ -657,39 +658,39 @@ public class MapController {
         }
       };
 
-  EventHandler<MouseEvent> changeFloors =
-          new EventHandler<MouseEvent>() {
+  EventHandler<ActionEvent> changeFloors =
+      new EventHandler<ActionEvent>() {
 
-            @Override
-            public void handle(MouseEvent event) {
+        @Override
+        public void handle(ActionEvent event) {
 
-              MFXButton newButton = ((MFXButton) event.getSource());
+          MFXButton newButton = ((MFXButton) event.getSource());
 
-              String oldFloor = map.getCurrentDisplayFloor();
-              //          System.out.println("OF: " + oldFloor);
+          String oldFloor = map.getCurrentDisplayFloor();
+          //          System.out.println("OF: " + oldFloor);
 
-              for (MFXButton floorButton : floorButtons) {
-                //            System.out.println("F: " + floorButton.getId());
-                if (floorButton.getId().equals(oldFloor)) {
-                  //              System.out.println("Old");
-                  floorButton.getStyleClass().remove("primary");
-                  floorButton.getStyleClass().add("primary-container");
-                }
-              }
-
-              // re-color new button
-              newButton.getStyleClass().remove("primary-container");
-              newButton.getStyleClass().add("primary");
-
-              try {
-                map.setCurrentDisplayFloor(newButton.getId());
-              } catch (SQLException e) {
-                throw new RuntimeException(e);
-              } catch (IOException e) {
-                throw new RuntimeException(e);
-              }
+          for (MFXButton floorButton : floorButtons) {
+            //            System.out.println("F: " + floorButton.getId());
+            if (floorButton.getId().equals(oldFloor)) {
+              //              System.out.println("Old");
+              floorButton.getStyleClass().remove("primary");
+              floorButton.getStyleClass().add("primary-container");
             }
-          };
+          }
+
+          // re-color new button
+          newButton.getStyleClass().remove("primary-container");
+          newButton.getStyleClass().add("primary");
+
+          try {
+            map.setCurrentDisplayFloor(newButton.getId(), true);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+        }
+      };
 
   public void setAllButtons() {
     ThirdFloorButton.setStyle("-fx-background-color: blue;");
@@ -771,13 +772,13 @@ public class MapController {
     anchor.setOnMouseClicked(e);
 
     // New Floor Button Layout
-    ThirdFloorButton.setOnAction(setThirdFloor);
-    SecondFloorButton.setOnAction(setSecondFloor);
-    FirstFloorButton.setOnAction(setFirstFloor);
-    LowerFirstButton.setOnAction(setLowerFirst);
-    LowerSecondButton.setOnAction(setLowerSecond);
+    //    ThirdFloorButton.setOnAction(setThirdFloor);
+    //    SecondFloorButton.setOnAction(setSecondFloor);
+    //    FirstFloorButton.setOnAction(setFirstFloor);
+    //    LowerFirstButton.setOnAction(setLowerFirst);
+    //    LowerSecondButton.setOnAction(setLowerSecond);
 
-    //New Floor Stuff
+    // New Floor Stuff
     floorButtons.add(ThirdFloorButton);
     floorButtons.add(SecondFloorButton);
     floorButtons.add(FirstFloorButton);
@@ -785,7 +786,7 @@ public class MapController {
     floorButtons.add(LowerSecondButton);
 
     for (MFXButton floorButton : floorButtons) {
-      floorButton.setOnMouseClicked(changeFloors);
+      floorButton.setOnAction(changeFloors);
     }
 
     //    System.out.println(getAllNodeNames("L1"));
