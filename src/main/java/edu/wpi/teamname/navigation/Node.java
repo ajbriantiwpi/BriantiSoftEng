@@ -13,11 +13,11 @@ public class Node implements Comparable<Node> {
   @Getter @Setter private int z;
   @Getter @Setter private String floor;
   @Getter @Setter private String building;
-  //  @Getter@Setter private String type;
+  @Getter@Setter private String type;
 
   @Getter @Setter private Node parent = null;
   @Getter @Setter private List<Node> neighbors;
-  //  @Getter @Setter private List<Edge> edges;
+
   @Getter @Setter private List<Edge> edges;
   @Getter private final int originalID;
   // f: sum of g and h;
@@ -41,6 +41,18 @@ public class Node implements Comparable<Node> {
     this.y = y;
     this.floor = Floor;
     this.building = Building;
+    this.h = 0;
+    this.id = ID;
+    this.neighbors = new ArrayList<>();
+    //    this.edges = new ArrayList<>();
+    this.originalID = ID;
+  }
+  public Node(int ID, int x, int y, String Floor, String Building, String Type) {
+    this.x = x;
+    this.y = y;
+    this.floor = Floor;
+    this.building = Building;
+    this.type = Type;
     this.h = 0;
     this.id = ID;
     this.neighbors = new ArrayList<>();
