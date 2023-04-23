@@ -553,6 +553,8 @@ public class MapController {
         public void handle(ActionEvent event) {
           System.out.println("Switching to 3rd");
           currFloor = "Third Floor";
+          setAllButtons();
+          ThirdFloorButton.setStyle("-fx-background-color: yellow;");
 
           try {
             map.setCurrentDisplayFloor("Third Floor", true);
@@ -570,6 +572,8 @@ public class MapController {
         public void handle(ActionEvent event) {
           System.out.println("Switching to 2nd");
           currFloor = "Second Floor";
+          setAllButtons();
+          SecondFloorButton.setStyle("-fx-background-color: yellow;");
 
           try {
             map.setCurrentDisplayFloor("Second Floor", true);
@@ -587,6 +591,8 @@ public class MapController {
         public void handle(ActionEvent event) {
           System.out.println("Switching to 1st");
           currFloor = "First Floor";
+          setAllButtons();
+          FirstFloorButton.setStyle("-fx-background-color: yellow;");
 
           try {
             map.setCurrentDisplayFloor("First Floor", true);
@@ -617,6 +623,8 @@ public class MapController {
         public void handle(ActionEvent event) {
           System.out.println("Switching to L1");
           currFloor = "Lower Level 1";
+          setAllButtons();
+          LowerFirstButton.setStyle("-fx-background-color: yellow;");
 
           try {
             map.setCurrentDisplayFloor("Lower Level 1", true);
@@ -634,6 +642,8 @@ public class MapController {
         public void handle(ActionEvent event) {
           System.out.println("Switching to L2");
           currFloor = "Lower Level 2";
+          setAllButtons();
+          LowerSecondButton.setStyle("-fx-background-color: yellow;");
 
           try {
             map.setCurrentDisplayFloor("Lower Level 2", true);
@@ -644,6 +654,14 @@ public class MapController {
           }
         }
       };
+
+  public void setAllButtons() {
+    ThirdFloorButton.setStyle("-fx-background-color: blue;");
+    SecondFloorButton.setStyle("-fx-background-color: blue;");
+    FirstFloorButton.setStyle("-fx-background-color: blue;");
+    LowerFirstButton.setStyle("-fx-background-color: blue;");
+    LowerSecondButton.setStyle("-fx-background-color: blue;");
+  }
 
   @FXML
   public void initialize() throws SQLException, IOException {
