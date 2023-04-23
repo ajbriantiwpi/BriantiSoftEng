@@ -468,11 +468,104 @@ public class Map {
 
     shapes = makeShapePath(nodePath);
 
+    getTextual(nodePath);
+
     // return shapes
 
     //    System.out.println(nodePath);
 
     // parent.getChildren().addAll(shapes);
+  }
+
+  public ArrayList<String> getTextual(ArrayList<Node> nodePath) {
+    ArrayList<String> textuals = new ArrayList<>();
+
+    StringBuilder sb = new StringBuilder();
+    Direction direction;
+    String distance;
+    sb.append("1: ");
+    System.out.print("1: ");
+    direction = Direction.STRAIGHT;
+    sb.append(direction.getString());
+    System.out.print(direction.getString());
+    distance = getTextDistance(nodePath.get(0), nodePath.get(1));
+    sb.append(distance);
+    System.out.println(distance);
+
+    textuals.add(sb.toString());
+
+    if (nodePath.size() > 2) {
+      for (int i = 1; i < nodePath.size() - 1; i++) {
+        sb = new StringBuilder();
+        Node prevNode = nodePath.get(i - 1);
+        Node node = nodePath.get(i);
+        Node nextNode = nodePath.get(i + 1);
+        sb.append(String.valueOf(i + 1) + ": ");
+        System.out.print(String.valueOf(i + 1) + ": ");
+        direction = getDirection(prevNode, node, nextNode);
+        sb.append(direction.getString());
+        System.out.print(direction.getString());
+        distance = getTextDistance(node, nextNode);
+        sb.append(distance);
+        System.out.println(distance);
+
+        textuals.add(sb.toString());
+      }
+    }
+    return textuals;
+  }
+
+  public Direction getDirection(Node prevNode, Node node, Node nextNode) {
+    Direction direction;
+    // y's are flipped I think since +y is down
+    double angPrev = Math.atan2(prevNode.getY() - node.getY(), node.getX() - prevNode.getX());
+    double angNext = Math.atan2(nextNode.getY() - node.getY(), node.getX() - nextNode.getX());
+    double angDelta = angNext - angPrev;
+    // adjust overturn
+    if (angDelta > Math.PI) {
+      angDelta -= 2 * Math.PI;
+    } else if (angDelta < -Math.PI) {
+      angDelta += 2 * Math.PI;
+    }
+
+    int curFloor = node.getFloorNum();
+    int nextFloor = nextNode.getFloorNum();
+    // System.out.println(angDelta);
+    if (curFloor != nextFloor) {
+      int delFloor = nextFloor - curFloor;
+      if (delFloor > 0) {
+        direction = Direction.UP;
+      } else {
+        direction = Direction.DOWN;
+      }
+    } else {
+
+      if ((angDelta > 7 * Math.PI / 8) || (angDelta < -7 * Math.PI / 8)) {
+        direction = Direction.STRAIGHT;
+      } else if (angDelta > Math.PI / 8) {
+        direction = Direction.RIGHT;
+      } else if (angDelta < Math.PI / 8) {
+        direction = Direction.LEFT;
+      } else {
+        direction = Direction.BACK;
+      }
+    }
+
+    return direction;
+  }
+
+  String getTextDistance(Node node, Node nextNode) {
+    String distance;
+    int curFloor = node.getFloorNum();
+    int nextFloor = nextNode.getFloorNum();
+    if (curFloor != nextFloor) {
+      int delFloor = nextFloor - curFloor;
+      distance = " Floors: " + String.valueOf(Math.abs(delFloor));
+
+    } else {
+      distance = " Pixels: " + String.valueOf(node.calculateHeuristic(nextNode));
+    }
+    return distance;
   }
 
   /**

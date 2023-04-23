@@ -1014,9 +1014,9 @@ public class DataManager {
    * @param path a string that represents a file path (/ is illegal so you must use double//)
    * @throws SQLException if an error occurs while uploading the data to the database
    */
-  public static void uploadEmployeeType(String path) throws SQLException, ParseException {
+  /*public static void uploadEmployeeType(String path) throws SQLException, ParseException {
     EmployeeDAOImpl.uploadEmployeeTypeToPostgreSQL(path);
-  }
+  }*/
 
   /**
    * Uploads CSV data to a PostgreSQL database table "Meal"-also creates one if one does not exist
@@ -1153,9 +1153,9 @@ public class DataManager {
     EmployeeDAOImpl.exportEmployeeToCSV(path);
   }
 
-  public void addEmployeeType(String username, EmployeeType employeeType) throws SQLException {
+  /*public void addEmployeeType(String username, EmployeeType employeeType) throws SQLException {
     EmployeeDAOImpl.addEmployeeType(username, employeeType);
-  }
+  }*/
 
   /**
    * This method exports all the EmployeeTypes from the "EmployeeType" table in the database to a
@@ -1165,9 +1165,9 @@ public class DataManager {
    * @throws SQLException if there is a problem accessing the database
    * @throws IOException if there is a problem writing the CSV file
    */
-  public static void exportEmployeeTypeToCSV(String path) throws SQLException, IOException {
+  /*public static void exportEmployeeTypeToCSV(String path) throws SQLException, IOException {
     EmployeeDAOImpl.exportEmployeeTypeToCSV(path);
-  }
+  }*/
 
   /**
    * This method exports all the Employee objects from the "Employee" table and all the
@@ -1178,11 +1178,11 @@ public class DataManager {
    * @throws SQLException if there is a problem accessing the database
    * @throws IOException if there is a problem writing the CSV file
    */
-  public static void exportAllEmployeeDataToCSV(String path) throws SQLException, IOException {
+  /*public static void exportAllEmployeeDataToCSV(String path) throws SQLException, IOException {
     EmployeeDAOImpl.exportEmployeeToCSV(path);
     String typePath = path.replaceAll(".csv", "_employeeType.csv");
     EmployeeDAOImpl.exportEmployeeTypeToCSV(typePath);
-  }
+  }*/
 
   /**
    * This method exports all the Meal objects from the "Meal" table in the database to a CSV file at
@@ -1339,7 +1339,7 @@ public class DataManager {
     return EmployeeDAOImpl.checkLogin(username, password);
   }
 
-  public void deleteEmployeeType(String username) throws SQLException {
+  /*public void deleteEmployeeType(String username) throws SQLException {
     EmployeeDAOImpl.deleteEmployeeType(username);
-  }
+  }*/
 }
