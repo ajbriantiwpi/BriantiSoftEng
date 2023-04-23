@@ -24,8 +24,8 @@ public class SignageDAOImpl implements SignageDAO {
     Connection connection = DataManager.DbConnection();
     try (connection) {
       String query =
-              "UPDATE \"Signage\" SET \"shortName\" = ?, \"date\" = ?, \"arrowDirection\" = ?, \"signID\" = ?, \"kioskID\" = ?"
-                      + " WHERE \"longName\" = ?";
+          "UPDATE \"Signage\" SET \"shortName\" = ?, \"date\" = ?, \"arrowDirection\" = ?, \"signID\" = ?, \"kioskID\" = ?"
+              + " WHERE \"longName\" = ?";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setString(1, signage.getShortName());
       statement.setTimestamp(2, signage.getDate());
@@ -80,8 +80,8 @@ public class SignageDAOImpl implements SignageDAO {
   public void add(Signage signage) throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query =
-            "INSERT INTO \"Signage\" (\"longName\", \"shortName\", \"date\", \"arrowDirection\", \"signID\", \"kioskID\") "
-                    + "VALUES (?, ?, ?, ?, ?, ?)";
+        "INSERT INTO \"Signage\" (\"longName\", \"shortName\", \"date\", \"arrowDirection\", \"signID\", \"kioskID\") "
+            + "VALUES (?, ?, ?, ?, ?, ?)";
 
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
@@ -142,20 +142,20 @@ public class SignageDAOImpl implements SignageDAO {
 
     try (connection) {
       String createTableQuery =
-              "CREATE TABLE IF NOT EXISTS \"Signage\" ("
-                      + "\"longName\" varchar(255),"
-                      + "\"shortName\" varchar(255),"
-                      + "\"date\" timestamp,"
-                      + "\"arrowDirection\" varchar(255),"
-                      + "\"kioskID\" int,"
-                      + "\"signID\" SERIAL PRIMARY KEY"
-                      + ");";
+          "CREATE TABLE IF NOT EXISTS \"Signage\" ("
+              + "\"longName\" varchar(255),"
+              + "\"shortName\" varchar(255),"
+              + "\"date\" timestamp,"
+              + "\"arrowDirection\" varchar(255),"
+              + "\"kioskID\" int,"
+              + "\"signID\" SERIAL PRIMARY KEY"
+              + ");";
       PreparedStatement createTableStatement = connection.prepareStatement(createTableQuery);
       createTableStatement.execute();
 
       String query =
-              "INSERT INTO \"Signage\" (\"longName\", \"shortName\", \"date\", \"arrowDirection\", \"signID\", \"kioskID\") "
-                      + "VALUES (?, ?, ?, ?, ?, ?)";
+          "INSERT INTO \"Signage\" (\"longName\", \"shortName\", \"date\", \"arrowDirection\", \"signID\", \"kioskID\") "
+              + "VALUES (?, ?, ?, ?, ?, ?)";
       PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"Signage\";");
       statement.executeUpdate();
       statement = connection.prepareStatement(query);
@@ -169,8 +169,11 @@ public class SignageDAOImpl implements SignageDAO {
         java.util.Date parsedDate = dateFormat.parse(timestampString);
         java.sql.Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
         statement.setTimestamp(3, timestamp);
-        Direction arrowDirection = Direction.valueOf(row[3].toUpperCase()); // arrowDirection is now an enum
-        statement.setString(4, arrowDirection.toString()); // convert the enum to a string for storage in the database
+        Direction arrowDirection =
+            Direction.valueOf(row[3].toUpperCase()); // arrowDirection is now an enum
+        statement.setString(
+            4,
+            arrowDirection.toString()); // convert the enum to a string for storage in the database
         statement.setInt(5, Integer.parseInt(row[4]));
         statement.setInt(6, Integer.parseInt(row[5]));
         statement.executeUpdate();

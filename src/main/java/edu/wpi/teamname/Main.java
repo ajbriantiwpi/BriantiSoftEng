@@ -12,9 +12,8 @@ public class Main {
         "jdbc:postgresql://database.cs.wpi.edu:5432/teamddb?currentSchema=\"teamD\"",
         "teamd",
         "teamd40");
-    DataManager dm = new DataManager();
-    dm.uploadSignage("C:\\Users\\boxtu\\Downloads\\signage.csv");
-    // App.launch(App.class, args);
+
+    App.launch(App.class, args);
   }
 
   // shortcut: psvm

@@ -40,6 +40,7 @@ public class HomeController {
 
   @FXML MFXButton activeRequests;
   @FXML MFXButton upcomingMoves;
+
   @FXML MFXButton doneRequests;
 
   // test push
@@ -50,6 +51,7 @@ public class HomeController {
   @FXML MFXButton loginButton;
   @FXML MFXButton logoutButton;
   @FXML MFXButton editMoveButton;
+  @FXML MFXButton editSignageButton;
 
   /** logs the current user out of the application */
   private void logout() {
@@ -78,6 +80,8 @@ public class HomeController {
     upcomingMoves.setManaged(false);
     doneRequests.setManaged(false);
     makeRequestsButton.setManaged(false);
+    editSignageButton.setManaged(false);
+    editSignageButton.setVisible(false);
   }
 
   @FXML
@@ -165,6 +169,8 @@ public class HomeController {
       doneRequests.setManaged(true);
       showRequestsButton.setVisible(true);
       showRequestsButton.setManaged(true);
+      editSignageButton.setVisible(true);
+      editSignageButton.setManaged(true);
 
       /** * Enables all buttons for the Admin login */
     } else if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.ADMIN)) {
@@ -201,6 +207,9 @@ public class HomeController {
       editMoveButton.setVisible(true);
       editMoveButton.setDisable(false);
       editMoveButton.setManaged(true);
+      editSignageButton.setVisible(true);
+      editSignageButton.setDisable(false);
+      editSignageButton.setManaged(true);
     }
 
     upcomingMoves.setOnMouseClicked(
@@ -233,6 +242,7 @@ public class HomeController {
     exitButton.setOnMouseClicked(event -> System.exit(0));
     // navigateButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
     editMoveButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MOVE_TABLE));
+    editSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TABLE));
     employeeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.EMPLOYEE_TABLE));
   }
 }
