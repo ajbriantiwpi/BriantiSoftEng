@@ -131,9 +131,29 @@ public class Graph {
    */
   private void initializeEdges() {
     // Initialize the nodes with the node lines data
+
+    ArrayList<Node> AllNodes;
+    try {
+      AllNodes = DataManager.getAllNodes();
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+
     for (int i = 0; i < Edges.size(); i++) {
-      Node startNode = this.findNodeByID(Edges.get(i).getStartNodeID());
-      Node endNode = this.findNodeByID(Edges.get(i).getEndNodeID());
+      //      Node startNode = null;
+      //      Node endNode = null;
+      //      try {
+      //        startNode = DataManager.getNode(Edges.get(i).getStartNodeID());
+      //        endNode = DataManager.getNode(Edges.get(i).getEndNodeID());
+      //      } catch (SQLException e) {
+      //        throw new RuntimeException(e);
+      //      }
+
+      Node startNode = AllNodes.get(Node.idToIndex(Edges.get(i).getStartNodeID()));
+      Node endNode = AllNodes.get(Node.idToIndex(Edges.get(i).getEndNodeID()));
+
+      //      Node startNode = this.findNodeByID(Edges.get(i).getStartNodeID());
+      //      Node endNode = this.findNodeByID(Edges.get(i).getEndNodeID());
 
       startNode.getNeighbors().add(endNode);
       endNode.getNeighbors().add(startNode);

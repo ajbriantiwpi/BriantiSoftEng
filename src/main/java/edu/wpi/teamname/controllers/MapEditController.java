@@ -15,9 +15,11 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Point2D;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -75,6 +77,8 @@ public class MapEditController {
   String defaultBuilding = "45 Francis";
   boolean isMap = true;
   int selectedRowIndex = 0;
+
+  Point2D clickPos;
 
   //  EventHandler<MouseEvent> e =
   //      new EventHandler<MouseEvent>() {
@@ -270,7 +274,8 @@ public class MapEditController {
           if (!(yText.getText().equals(""))) {
             yPos = (int) Double.parseDouble(yText.getText());
           }
-          String floor = defaultFloor;
+          //          String floor = defaultFloor;
+          String floor = map.takeFloor(map.getCurrentDisplayFloor(), false);
           if (!(floorText.getText().equals(""))) {
             floor = floorText.getText();
           }
@@ -845,10 +850,132 @@ public class MapEditController {
         }
       };
 
+  EventHandler<MouseEvent> checkAddNode =
+      new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+
+          if (event.getButton() == MouseButton.PRIMARY && map.getMovingNodeId() != -1) {
+            System.out.println("Drop");
+            final var resource = App.class.getResource("views/NodeSinglePopup.fxml");
+
+            final FXMLLoader loader = new FXMLLoader(resource);
+            VBox v;
+            try {
+              v = loader.load();
+            } catch (IOException e) {
+              throw new RuntimeException(e);
+            }
+
+            MFXButton AddNode = (MFXButton) ((Pane) (v.getChildren().get(0))).getChildren().get(0);
+            AddNode.setText("Confirm new Location");
+
+            clickPos = new Point2D(event.getX(), event.getY());
+
+            AddNode.setOnMouseClicked(updateNodePosition);
+
+            PopOver pop = new PopOver(v);
+            //            AnchorPane a = (AnchorPane) event.getSource();
+            pop.show(gp);
+          }
+
+          if (event.getButton() == MouseButton.SECONDARY) {
+            final var resource = App.class.getResource("views/NodeSinglePopup.fxml");
+
+            final FXMLLoader loader = new FXMLLoader(resource);
+            VBox v;
+            try {
+              v = loader.load();
+            } catch (IOException e) {
+              throw new RuntimeException(e);
+            }
+
+            MFXButton AddNode = (MFXButton) ((Pane) (v.getChildren().get(0))).getChildren().get(0);
+            AddNode.setText("Add Node Here");
+
+            clickPos = new Point2D(event.getX(), event.getY());
+
+            AddNode.setOnMouseClicked(addNode);
+
+            PopOver pop = new PopOver(v);
+            //            AnchorPane a = (AnchorPane) event.getSource();
+            pop.show(gp);
+            //            pop.centerOnScreen();
+            //            System.out.println("Cords: " + event.getX() + " ," + event.getY());
+          }
+        }
+      };
+
+  EventHandler<MouseEvent> addNode =
+      new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+
+          int xPos = (int) clickPos.getX();
+          int yPos = (int) clickPos.getY();
+          String floor = map.takeFloor(map.getCurrentDisplayFloor(), false);
+          String building = defaultBuilding;
+
+          ArrayList<Node> allNodes;
+          try {
+            allNodes = DataManager.getAllNodes();
+          } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+          }
+
+          // This is working on the assumption that We still want all id's to be a difference of 5
+          // and that the last one in the table is the biggest ID
+          // This is confirmed because getAllNodes sorts by ID
+          int highestID = allNodes.get(allNodes.size() - 1).getId();
+
+          Node n = new Node(highestID + 5, xPos, yPos, floor, building);
+
+          try {
+            DataManager.addNode(n);
+            map.refresh();
+            //            map.setCurrentDisplayFloor(map.getCurrentDisplayFloor());
+            //                        changeFloor();
+
+          } catch (SQLException ex) {
+            System.out.println(ex);
+            //            throw new RuntimeException(ex);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+        }
+      };
+
+  EventHandler<MouseEvent> updateNodePosition =
+      new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+
+          int xPos = (int) clickPos.getX();
+          int yPos = (int) clickPos.getY();
+          String floor = map.takeFloor(map.getCurrentDisplayFloor(), false);
+          String building = defaultBuilding;
+
+          Node n = new Node(map.getMovingNodeId(), xPos, yPos, floor, building);
+
+          try {
+            DataManager.syncNode(n);
+            map.refresh();
+
+          } catch (SQLException ex) {
+            System.out.println(ex);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+
+          map.setMovingNodeId(-1);
+        }
+      };
+
   @FXML
   public void initialize() throws SQLException, IOException {
 
     map = new Map(anchor, false);
+    //
 
     gp.setMinScale(0.11);
 
@@ -861,7 +988,7 @@ public class MapEditController {
     anchor.getChildren().addAll(currentFloorNodes);
     map.setCurrentFloorShapes(currentFloorNodes);
 
-    //    anchor.getChildren().addAll(map.makeAllFloorNodes(defaultFloor, false));
+    //        anchor.getChildren().addAll(map.makeAllFloorNodes(defaultFloor, false));
 
     ObservableList<String> tableNames = FXCollections.observableArrayList();
     tableNames.addAll("Nodes", "Edges", "Location Names", "Moves");
@@ -889,17 +1016,6 @@ public class MapEditController {
     longNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
     shortNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
     nodeTypeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
-    //        longNameColumn.setOnEditCommit(
-    //          (TableColumn.CellEditEvent<LocationName, String> t) -> {
-    //            LocationName l = t.getTableView().getItems().get(t.getTablePosition().getRow());
-    //            l.setLongName(t.getNewValue());
-    //            try {
-    //              DataManager.syncLocationName(l);
-    //            } catch (SQLException e) {
-    //              System.err.println("Error updating long name: " + e.getMessage());
-    //            }
-    //          });
 
     longNameColumn.setOnEditCommit(
         new EventHandler<TableColumn.CellEditEvent>() {
@@ -968,17 +1084,8 @@ public class MapEditController {
           row.setOnMouseClicked(showChangeLocation);
           row.getItem();
 
-          //      row.getChildren
-
           return row;
         });
-
-    //    FloorSelect.setPromptText("Select floor");
-    //    FloorSelect.setItems(map.getAllFloors());
-    //    FloorSelect.setOnAction(triggerChangeFloor);
-
-    //    upFloor.setOnMouseClicked(changeFloorUp);
-    //    downFloor.setOnMouseClicked(changeFloorDown);
 
     floorButtons.add(ThirdFloorButton);
     floorButtons.add(SecondFloorButton);
@@ -1001,51 +1108,6 @@ public class MapEditController {
     EdgeSelector.setOnMouseClicked(toggleEdges);
     HallNamesSelector.setOnMouseClicked(toggleHalls);
 
-    //    ThirdFloorButton.setOnMouseClicked(changeFloors);
-    //    SecondFloorButton.setOnMouseClicked(changeFloors);
-    //    FirstFloorButton.setOnMouseClicked(changeFloors);
-    //    LowerLevelOneButton.setOnMouseClicked(changeFloors);
-    //    LowerLevelTwoButton.setOnMouseClicked(changeFloors);
-
-    //    table
-    //        .getSelectionModel()
-    //        .selectedItemProperty()
-    //        .addListener(
-    //            new ChangeListener() {
-    //              @Override
-    //              public void changed(ObservableValue observable, Object oldValue, Object
-    // newValue) {
-    //                // Pop up display
-    //
-    //                int index = table.getSelectionModel().getSelectedIndex();
-    ////                table.getRow
-    //
-    //                final var resource = App.class.getResource("../views/ChangeNode.fxml");
-    //                final FXMLLoader loader = new FXMLLoader(resource);
-    //                VBox v;
-    //                try {
-    //                  v = loader.load();
-    //                } catch (IOException e) {
-    //                  throw new RuntimeException(e);
-    //                }
-    //
-    //                                MFXButton Submit = (MFXButton) ((Pane)
-    //                 (v.getChildren().get(7))).getChildren().get(1);
-    //                                Submit.setOnMouseClicked(saveLocationChanges);
-    //
-    //                                MFXButton Remove = (MFXButton) ((Pane)
-    //                 (v.getChildren().get(7))).getChildren().get(0);
-    //                                Remove.setOnMouseClicked(removeLocation);
-    //
-    //                //                ((Pane) (v.getChildren().get(7))).getChildren().remove(0);
-    //                v.getChildren().remove(4);
-    //                v.getChildren().remove(3);
-    //                v.getChildren().remove(2);
-    //                v.getChildren().remove(1);
-    //
-    //                //                outerPane.getChildren().add(v);
-    //
-    //              }
-    //            });
+    anchor.setOnMouseClicked(checkAddNode);
   }
 }

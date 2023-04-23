@@ -55,6 +55,11 @@ public class Map {
   @Getter private ArrayList<String> roomTypes = new ArrayList<>();
   @Getter @Setter private boolean[] showTypeLabels = {false}; // HALL
 
+  @Getter @Setter private ArrayList<Node> alignSelection = new ArrayList<>();
+
+  @Getter @Setter private int startEdgeNodeId;
+  @Getter @Setter private int movingNodeId;
+
   /**
    * Constructs a Map object with the given sub-anchor pane.
    *
@@ -71,6 +76,8 @@ public class Map {
     this.isMapPage = isMapPage;
     this.showEdges = !this.isMapPage;
     this.roomTypes.add("HALL");
+    this.startEdgeNodeId = -1;
+    this.movingNodeId = -1;
   }
 
   /**
@@ -108,13 +115,41 @@ public class Map {
 
     try {
       mapEdges = DataManager.getAllEdges();
+      System.out.println("Success Edges");
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+
+    ArrayList<Node> AllNodes;
+    try {
+      AllNodes = DataManager.getAllNodes();
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
 
     for (int i = 0; i < mapEdges.size(); i++) {
-      Node StartNode = this.graph.findNodeByID(mapEdges.get(i).getStartNodeID());
-      Node EndNode = this.graph.findNodeByID(mapEdges.get(i).getEndNodeID());
+      //            Node StartNode = null;
+      //            Node EndNode = null;
+      //            try {
+      //              StartNode = DataManager.getNode(mapEdges.get(i).getStartNodeID());
+      //              EndNode = DataManager.getNode(mapEdges.get(i).getEndNodeID());
+      //            } catch (SQLException e) {
+      //              throw new RuntimeException(e);
+      //            }
+
+      Node StartNode = AllNodes.get(Node.idToIndex(mapEdges.get(i).getStartNodeID()));
+      Node EndNode = AllNodes.get(Node.idToIndex(mapEdges.get(i).getEndNodeID()));
+
+      //      Node StartNode = this.graph.findNodeByID(mapEdges.get(i).getStartNodeID());
+      //      Node EndNode = this.graph.findNodeByID(mapEdges.get(i).getEndNodeID());
+
+      if (StartNode.getId() == 1785) {
+        System.out.println("EDGE 1785: " + i);
+      }
+
+      if (mapEdges.get(i).getStartNodeID() == 1785) {
+        System.out.println("EL 1785: " + i);
+      }
 
       if (StartNode.getFloor().equals(floor) && EndNode.getFloor().equals(floor)) {
         EdgeRectangle er = new EdgeRectangle(StartNode, EndNode, this.isMapPage, this);

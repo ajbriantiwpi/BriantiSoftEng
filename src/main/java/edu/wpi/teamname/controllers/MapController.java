@@ -218,6 +218,7 @@ public class MapController {
           anchor.getChildren().addAll(map.getShapes().get(secInd));
 
           int indOfStart = Node.idToIndex(sNode);
+          //          DataManager.getNode(sNode)
           String floorForSNode =
               map.takeFloor(map.graph.getNodes().get(indOfStart).getFloor(), true);
           FloorSelect.setValue(floorForSNode);
