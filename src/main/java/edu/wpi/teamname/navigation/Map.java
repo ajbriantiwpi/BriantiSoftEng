@@ -27,6 +27,9 @@ public class Map {
   public ArrayList<Emergency> emergencies;
   private Point2D centerPoint;
   private Point2D centerTL;
+
+  @Getter @Setter private int labelTextType; // 0 = Long Name, 1 = Short Name, 2 = ID
+
   @Getter @Setter private ArrayList<Shape> prevPath = new ArrayList<Shape>();
 
   @Getter @Setter private ArrayList<ArrayList<Shape>> shapes = new ArrayList<ArrayList<Shape>>();
@@ -46,35 +49,47 @@ public class Map {
     "A-Star", "Breadth First Search", "Depth First Search", "Dijkstra's Algorithm"
   };
 
+  private boolean isMapPage;
+  @Getter @Setter private boolean showEdges;
+
+  @Getter private ArrayList<String> roomTypes = new ArrayList<>();
+  @Getter @Setter private boolean[] showTypeLabels = {false}; // HALL
+
   /**
    * Constructs a Map object with the given sub-anchor pane.
    *
    * @param subAnchor the sub-anchor pane used to display the map.
    * @throws SQLException if there is an error accessing the database.
    */
-  public Map(AnchorPane subAnchor) throws SQLException {
+  public Map(AnchorPane subAnchor, boolean isMapPage) throws SQLException {
     this.graph = new Graph();
     this.currentDisplayFloor = "Lower Level 1";
     this.subAnchor = subAnchor;
+    GlobalVariables.setHMap(
+        DataManager.getAllLocationNamesMappedByNode(new Timestamp(System.currentTimeMillis())));
+    this.labelTextType = 1;
+    this.isMapPage = isMapPage;
+    this.showEdges = !this.isMapPage;
+    this.roomTypes.add("HALL");
   }
 
   /**
    * Creates and returns an ArrayList of all nodes and edges on the given floor.
    *
    * @param floor the floor to retrieve nodes and edges from.
-   * @param isMapPage whether or not the map is currently being displayed.
    * @return an ArrayList of all nodes and edges on the given floor as JavaFX Node objects.
    * @throws SQLException if there is an error accessing the database.
    * @throws IOException if there is an error reading a file.
    */
-  public ArrayList<javafx.scene.Node> makeAllFloorShapes(String floor, boolean isMapPage)
+  public ArrayList<javafx.scene.Node> makeAllFloorShapes(String floor)
       throws SQLException, IOException {
     ArrayList<javafx.scene.Node> allCirclesAndEdges = new ArrayList<>();
-    if (!isMapPage) {
+
+    if (this.showEdges) {
       System.out.println("ADDEDGES");
-      allCirclesAndEdges.addAll(this.makeAllFloorEdges(floor, isMapPage));
+      allCirclesAndEdges.addAll(this.makeAllFloorEdges(floor));
     }
-    allCirclesAndEdges.addAll(this.makeAllFloorNodes(floor, isMapPage));
+    allCirclesAndEdges.addAll(this.makeAllFloorNodes(floor));
     return allCirclesAndEdges;
   }
 
@@ -82,10 +97,9 @@ public class Map {
    * Creates and returns an ArrayList of all edges on the given floor.
    *
    * @param floor the floor to retrieve edges from.
-   * @param isMapPage whether or not the map is currently being displayed.
    * @return an ArrayList of all edges on the given floor as JavaFX Node objects.
    */
-  public ArrayList<javafx.scene.Node> makeAllFloorEdges(String floor, boolean isMapPage) {
+  public ArrayList<javafx.scene.Node> makeAllFloorEdges(String floor) {
 
     ArrayList<javafx.scene.Node> allEdges = new ArrayList<>();
 
@@ -102,8 +116,8 @@ public class Map {
       Node StartNode = this.graph.findNodeByID(mapEdges.get(i).getStartNodeID());
       Node EndNode = this.graph.findNodeByID(mapEdges.get(i).getEndNodeID());
 
-      if (StartNode.getFloor().equals(floor) || EndNode.getFloor().equals(floor)) {
-        EdgeRectangle er = new EdgeRectangle(StartNode, EndNode, isMapPage, this);
+      if (StartNode.getFloor().equals(floor) && EndNode.getFloor().equals(floor)) {
+        EdgeRectangle er = new EdgeRectangle(StartNode, EndNode, this.isMapPage, this);
         allEdges.add(er.p);
       }
     }
@@ -119,13 +133,14 @@ public class Map {
    * @throws SQLException if there is an error accessing the database
    * @throws IOException if there is an error loading image resources
    */
-  public ArrayList<javafx.scene.Node> makeAllFloorNodes(String floor, boolean isMapPage)
+  public ArrayList<javafx.scene.Node> makeAllFloorNodes(String floor)
       throws SQLException, IOException {
     ArrayList<javafx.scene.Node> nodes = new ArrayList<>(); // list of shapes to be displayed
     ArrayList<NodeCircle> circles = new ArrayList<>(); // List of NodeCircle Objects
-    HashMap<Integer, ArrayList<LocationName>> map =
-        DataManager.getAllLocationNamesMappedByNode(new Timestamp(System.currentTimeMillis()));
-    ArrayList<Integer> sortedKeys = new ArrayList<>(map.keySet());
+
+    HashMap<Integer, ArrayList<LocationName>> idToLocation = GlobalVariables.getHMap();
+
+    ArrayList<Integer> sortedKeys = new ArrayList<>(idToLocation.keySet());
     System.out.println("FloorIN: " + floor);
 
     //    DataManager.getNodeByLocationName()
@@ -143,13 +158,13 @@ public class Map {
 
         //        if (!(locations == null) && locations.size() > 0) {
 
-        if (map.get(n.getId()) != null) {
-          defShortName = map.get(n.getId()).get(0).getShortName();
+        if (idToLocation.get(n.getId()) != null) {
+          defShortName = idToLocation.get(n.getId()).get(0).getShortName();
         } else {
           defShortName = "" + n.getId();
         }
 
-        circles.add(new NodeCircle(n, isMapPage, defShortName, this));
+        circles.add(new NodeCircle(n, this.isMapPage, defShortName, this));
       }
     }
     for (NodeCircle c : circles) {
@@ -158,9 +173,15 @@ public class Map {
     return nodes;
   }
 
-  public void setCurrentDisplayFloor(String currentDisplayFloor, boolean isMapPage)
-      throws SQLException, IOException {
+  public void refresh() throws SQLException, IOException {
+    this.setCurrentDisplayFloor(this.getCurrentDisplayFloor());
+  }
+
+  public void setCurrentDisplayFloor(String currentDisplayFloor) throws SQLException, IOException {
     this.currentDisplayFloor = currentDisplayFloor;
+
+    GlobalVariables.setHMap(
+        DataManager.getAllLocationNamesMappedByNode(new Timestamp(System.currentTimeMillis())));
 
     subAnchor.getStyleClass().remove(0);
 
@@ -220,8 +241,9 @@ public class Map {
 
     // Re add based on new floor
 
-    currentFloorShapes = (this.makeAllFloorShapes(shortRealFloorName, isMapPage));
+    currentFloorShapes = (this.makeAllFloorShapes(shortRealFloorName));
     System.out.println("SetFloor :" + shortRealFloorName);
+
     subAnchor.getChildren().addAll(currentFloorShapes);
 
     subAnchor.getStyleClass().add(cssFloorName);

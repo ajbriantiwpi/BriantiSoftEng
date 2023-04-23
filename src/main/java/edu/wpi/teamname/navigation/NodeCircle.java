@@ -6,7 +6,6 @@ import edu.wpi.teamname.database.DataManager;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.event.EventHandler;
@@ -98,24 +97,6 @@ public class NodeCircle {
     //    } else {
     //      label.setText(" " + nodeID);
 
-    final var resource = App.class.getResource("views/TextLabel.fxml");
-
-    final FXMLLoader loader = new FXMLLoader(resource);
-    try {
-      label = loader.load();
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
-
-    label.setText(firstShortName);
-    //    CornerRadii corn = new CornerRadii(7);
-    //    label.setBackground(new Background(new BackgroundFill(GlobalVariables.getLabelColor(),
-    // corn, Insets.EMPTY)));
-    label.setTextFill(GlobalVariables.getLabelTextColor());
-
-    label.setTranslateX(-GlobalVariables.getCircleR());
-    label.setTranslateY(-30);
-
     float boxW = circleRCopy;
     float boxH = circleRCopy;
 
@@ -139,7 +120,54 @@ public class NodeCircle {
       p.setOnMouseClicked(boxVisible);
     }
 
-    p.getChildren().addAll(this.outer, this.inner, this.label);
+    p.getChildren().addAll(this.outer, this.inner);
+
+    final var resource = App.class.getResource("views/TextLabel.fxml");
+
+    ArrayList<LocationName> l = GlobalVariables.getHMap().get(this.nodeID);
+
+    String nodeType = "";
+    if (l != null) {
+      nodeType = l.get(0).getNodeType();
+    }
+
+    int index = map.getRoomTypes().indexOf(nodeType);
+
+    // Only show this if the variable is set to true.
+    if (index == -1 || map.getShowTypeLabels()[index]) {
+      final FXMLLoader loader = new FXMLLoader(resource);
+      try {
+        label = loader.load();
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      }
+
+      int labelTextType = map.getLabelTextType();
+      if (labelTextType == 0) {
+        // Show Long Name
+
+        label.setText(firstShortName);
+        if (l != null) {
+          label.setText(l.get(0).getLongName());
+        }
+      } else if (labelTextType == 1) {
+        // Show Short Name
+        label.setText(firstShortName);
+      } else {
+        // Show ID
+        label.setText("" + this.nodeID);
+      }
+
+      //    CornerRadii corn = new CornerRadii(7);
+      //    label.setBackground(new Background(new BackgroundFill(GlobalVariables.getLabelColor(),
+      // corn, Insets.EMPTY)));
+      //    label.setTextFill(GlobalVariables.getLabelTextColor());
+
+      label.setTranslateX(-GlobalVariables.getCircleR());
+      label.setTranslateY(-30);
+
+      p.getChildren().add(this.label);
+    }
   }
 
   /**
@@ -217,14 +245,14 @@ public class NodeCircle {
           TextField Location =
               (TextField) ((Pane) (changeBox.getChildren().get(0))).getChildren().get(2);
 
-          HashMap<Integer, ArrayList<LocationName>> map;
-          try {
-            map =
-                DataManager.getAllLocationNamesMappedByNode(
-                    new Timestamp(System.currentTimeMillis()));
-          } catch (SQLException e) {
-            throw new RuntimeException(e);
-          }
+          //          HashMap<Integer, ArrayList<LocationName>> map
+          //          try {
+          //            map =
+          //                DataManager.getAllLocationNamesMappedByNode(
+          //                    new Timestamp(System.currentTimeMillis()));
+          //          } catch (SQLException e) {
+          //            throw new RuntimeException(e);
+          //          }
 
           //          for (Integer key : map.keySet()) {
           //            System.out.println("Key: " + key + " Val: " + map.get(key));
@@ -233,9 +261,11 @@ public class NodeCircle {
 
           String location;
 
-          if (map.get(nodeID) != null) {
+          HashMap<Integer, ArrayList<LocationName>> idToLocation = GlobalVariables.getHMap();
+
+          if (idToLocation.get(nodeID) != null) {
             //          if (map.get(nodeID).size() > 0) {
-            location = map.get(nodeID).get(0).getLongName();
+            location = idToLocation.get(nodeID).get(0).getLongName();
           } else {
             location = "" + nodeID;
           }
@@ -313,7 +343,7 @@ public class NodeCircle {
 
           try {
             DataManager.deleteNode(n);
-            map.setCurrentDisplayFloor(map.getCurrentDisplayFloor(), isMapPage);
+            map.setCurrentDisplayFloor(map.getCurrentDisplayFloor());
           } catch (SQLException | IOException ex) {
             System.out.println(ex);
           }
@@ -380,7 +410,7 @@ public class NodeCircle {
 
           try {
             DataManager.syncNode(n);
-            map.setCurrentDisplayFloor(map.getCurrentDisplayFloor(), isMapPage);
+            map.setCurrentDisplayFloor(map.getCurrentDisplayFloor());
           } catch (SQLException ex) {
             System.out.println(ex);
           } catch (IOException e) {

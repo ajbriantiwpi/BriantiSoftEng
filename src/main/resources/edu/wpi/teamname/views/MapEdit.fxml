@@ -4,6 +4,7 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
@@ -111,6 +112,22 @@
                      <padding>
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                      </padding>
+                  </VBox>
+                  <VBox spacing="24.0">
+                     <padding>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </padding>
+                     <children>
+                        <HBox spacing="10.0">
+                           <children>
+                              <CheckBox id="0" fx:id="LongNameSelector" mnemonicParsing="false" text="Long" />
+                              <CheckBox id="1" fx:id="ShortNameSelector" mnemonicParsing="false" selected="true" text="Short" />
+                              <CheckBox id="2" fx:id="IdSelector" mnemonicParsing="false" text="ID" />
+                           </children>
+                        </HBox>
+                        <CheckBox fx:id="HallNamesSelector" mnemonicParsing="false" text="Hall Names" />
+                        <CheckBox fx:id="EdgeSelector" mnemonicParsing="false" selected="true" text="Show Edges" />
+                     </children>
                   </VBox>
                   <VBox spacing="24.0" VBox.vgrow="ALWAYS">
                      <padding>

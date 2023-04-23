@@ -99,6 +99,7 @@ public class EdgeRectangle {
           MFXButton submitButton =
               (MFXButton) ((Pane) (changeBox.getChildren().get(2))).getChildren().get(2);
           removeEdgeButton.setOnMouseClicked(removeEdge);
+          removeEdgeButton.setText("Remove Edge");
           submitButton.setOnMouseClicked(saveEdgeChanges);
 
           PopOver pop = new PopOver(changeBox);
@@ -116,7 +117,7 @@ public class EdgeRectangle {
 
           try {
             DataManager.deleteEdge(e);
-            map.setCurrentDisplayFloor(map.getCurrentDisplayFloor(), isMapPage);
+            map.setCurrentDisplayFloor(map.getCurrentDisplayFloor());
           } catch (SQLException ex) {
             System.out.println(ex);
           } catch (IOException ex) {
@@ -156,7 +157,7 @@ public class EdgeRectangle {
 
             try {
               DataManager.syncEdge(e);
-              map.setCurrentDisplayFloor(map.getCurrentDisplayFloor(), isMapPage);
+              map.setCurrentDisplayFloor(map.getCurrentDisplayFloor());
             } catch (SQLException ex) {
               System.out.println(ex);
               //            throw new RuntimeException(ex);

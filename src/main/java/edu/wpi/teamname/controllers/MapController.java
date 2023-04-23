@@ -302,7 +302,7 @@ public class MapController {
           System.out.println(floor);
 
           try {
-            map.setCurrentDisplayFloor(floor, true);
+            map.setCurrentDisplayFloor(floor);
           } catch (SQLException e) {
             throw new RuntimeException(e);
           } catch (IOException e) {
@@ -424,7 +424,7 @@ public class MapController {
     System.out.println(floor);
 
     try {
-      map.setCurrentDisplayFloor(floor, true);
+      map.setCurrentDisplayFloor(floor);
     } catch (SQLException e) {
       throw new RuntimeException(e);
     } catch (IOException e) {
@@ -455,7 +455,7 @@ public class MapController {
           String newFloor = floors.get((currFlorIndex + 1) % floors.size());
 
           try {
-            map.setCurrentDisplayFloor(newFloor, true);
+            map.setCurrentDisplayFloor(newFloor);
           } catch (SQLException e) {
             throw new RuntimeException(e);
           } catch (IOException e) {
@@ -476,7 +476,7 @@ public class MapController {
           String newFloor = floors.get((currFlorIndex - 1) % floors.size());
 
           try {
-            map.setCurrentDisplayFloor(newFloor, true);
+            map.setCurrentDisplayFloor(newFloor);
           } catch (SQLException e) {
             throw new RuntimeException(e);
           } catch (IOException e) {
@@ -497,7 +497,7 @@ public class MapController {
   @FXML
   public void initialize() throws SQLException, IOException {
 
-    map = new Map(anchor);
+    map = new Map(anchor, true);
 
     //    AnchorPane.setLeftAnchor(SelectCombo, 0.0);
     //    AnchorPane.setRightAnchor(SelectCombo, 0.0);
@@ -518,7 +518,7 @@ public class MapController {
 
     //    anchor.on
 
-    ArrayList<javafx.scene.Node> currentFloorNodes = (map.makeAllFloorShapes(defaultFloor, true));
+    ArrayList<javafx.scene.Node> currentFloorNodes = (map.makeAllFloorShapes(defaultFloor));
     anchor.getChildren().addAll(currentFloorNodes);
     map.setCurrentFloorShapes(currentFloorNodes);
     //  anchor.getChildren().addAll(map.makeAllFloorNodes(defaultFloor, true));

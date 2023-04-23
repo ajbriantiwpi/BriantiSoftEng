@@ -56,8 +56,16 @@ public class MapEditController {
   @FXML MFXButton FirstFloorButton;
   @FXML MFXButton LowerLevelOneButton;
   @FXML MFXButton LowerLevelTwoButton;
-
   ArrayList<MFXButton> floorButtons = new ArrayList<>();
+
+  @FXML CheckBox LongNameSelector;
+  @FXML CheckBox ShortNameSelector;
+  @FXML CheckBox IdSelector;
+
+  ArrayList<CheckBox> nameSelectBoxes = new ArrayList<>();
+
+  @FXML CheckBox EdgeSelector;
+  @FXML CheckBox HallNamesSelector;
 
   @FXML AnchorPane OuterMapAnchor;
 
@@ -286,7 +294,7 @@ public class MapEditController {
 
           try {
             DataManager.addNode(n);
-            map.setCurrentDisplayFloor(map.getCurrentDisplayFloor(), false);
+            map.setCurrentDisplayFloor(map.getCurrentDisplayFloor());
             //                        changeFloor();
           } catch (SQLException ex) {
             System.out.println(ex);
@@ -350,7 +358,7 @@ public class MapEditController {
           LocationName l = new LocationName(longName, shortName, nodeType);
           try {
             DataManager.addLocationName(l);
-            map.setCurrentDisplayFloor(map.getCurrentDisplayFloor(), false);
+            map.setCurrentDisplayFloor(map.getCurrentDisplayFloor());
             ObservableList<LocationName> locations =
                 FXCollections.observableArrayList(DataManager.getAllLocationNames());
             table.setItems(locations);
@@ -391,7 +399,7 @@ public class MapEditController {
 
             try {
               DataManager.addEdge(e);
-              map.setCurrentDisplayFloor(map.getCurrentDisplayFloor(), false);
+              map.setCurrentDisplayFloor(map.getCurrentDisplayFloor());
               //              changeFloor();
             } catch (SQLException ex) {
               System.out.println(ex);
@@ -593,7 +601,7 @@ public class MapEditController {
 
           try {
             DataManager.syncLocationName(l);
-            map.setCurrentDisplayFloor(map.getCurrentDisplayFloor(), false);
+            map.setCurrentDisplayFloor(map.getCurrentDisplayFloor());
           } catch (SQLException | IOException ex) {
             System.out.println(ex);
             //            throw new RuntimeException(ex);
@@ -620,7 +628,7 @@ public class MapEditController {
 
           try {
             DataManager.deleteLocationName(l);
-            map.setCurrentDisplayFloor(map.getCurrentDisplayFloor(), false);
+            map.setCurrentDisplayFloor(map.getCurrentDisplayFloor());
             ObservableList<LocationName> locations =
                 FXCollections.observableArrayList(DataManager.getAllLocationNames());
             table.setItems(locations);
@@ -663,6 +671,7 @@ public class MapEditController {
 
           Remove.setOnMouseClicked(removeLocation);
 
+          ((Pane) (v.getChildren().get(7))).getChildren().remove(2);
           ((Pane) (v.getChildren().get(7))).getChildren().remove(1);
 
           v.getChildren().remove(6);
@@ -728,7 +737,7 @@ public class MapEditController {
           newButton.getStyleClass().add("primary");
 
           try {
-            map.setCurrentDisplayFloor(newButton.getId(), false);
+            map.setCurrentDisplayFloor(newButton.getId());
           } catch (SQLException e) {
             throw new RuntimeException(e);
           } catch (IOException e) {
@@ -749,7 +758,7 @@ public class MapEditController {
           String newFloor = floors.get(((currFlorIndex + 1) % floors.size()));
 
           try {
-            map.setCurrentDisplayFloor(newFloor, false);
+            map.setCurrentDisplayFloor(newFloor);
           } catch (SQLException e) {
             throw new RuntimeException(e);
           } catch (IOException e) {
@@ -770,7 +779,64 @@ public class MapEditController {
           String newFloor = floors.get(((currFlorIndex - 1) % floors.size()));
 
           try {
-            map.setCurrentDisplayFloor(newFloor, false);
+            map.setCurrentDisplayFloor(newFloor);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+        }
+      };
+
+  EventHandler<MouseEvent> changeLabels =
+      new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent event) {
+          CheckBox newCheck = ((CheckBox) event.getSource());
+
+          int oldLabel = map.getLabelTextType();
+
+          CheckBox oldCheck = nameSelectBoxes.get(oldLabel);
+          oldCheck.setSelected(false);
+
+          map.setLabelTextType(Integer.parseInt(newCheck.getId()));
+
+          try {
+            map.setCurrentDisplayFloor(map.getCurrentDisplayFloor());
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+        }
+      };
+
+  EventHandler<MouseEvent> toggleEdges =
+      new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent event) {
+          map.setShowEdges(EdgeSelector.isSelected());
+          try {
+            map.refresh();
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+        }
+      };
+
+  EventHandler<MouseEvent> toggleHalls =
+      new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent event) {
+          map.setShowTypeLabels(new boolean[] {HallNamesSelector.isSelected()});
+
+          try {
+            map.refresh();
           } catch (SQLException e) {
             throw new RuntimeException(e);
           } catch (IOException e) {
@@ -782,7 +848,7 @@ public class MapEditController {
   @FXML
   public void initialize() throws SQLException, IOException {
 
-    map = new Map(anchor);
+    map = new Map(anchor, false);
 
     gp.setMinScale(0.11);
 
@@ -791,7 +857,7 @@ public class MapEditController {
 
     ParentController.titleString.set("Map");
 
-    ArrayList<javafx.scene.Node> currentFloorNodes = (map.makeAllFloorShapes(defaultFloor, false));
+    ArrayList<javafx.scene.Node> currentFloorNodes = (map.makeAllFloorShapes(defaultFloor));
     anchor.getChildren().addAll(currentFloorNodes);
     map.setCurrentFloorShapes(currentFloorNodes);
 
@@ -845,7 +911,7 @@ public class MapEditController {
             l.setLongName((String) event.getNewValue());
             try {
               DataManager.syncLocationName(l);
-              map.setCurrentDisplayFloor(map.getCurrentDisplayFloor(), false);
+              map.setCurrentDisplayFloor(map.getCurrentDisplayFloor());
             } catch (SQLException e) {
               System.err.println("Error updating long name: " + e.getMessage());
             } catch (IOException e) {
@@ -864,7 +930,7 @@ public class MapEditController {
             l.setShortName((String) event.getNewValue());
             try {
               DataManager.syncLocationName(l);
-              map.setCurrentDisplayFloor(map.getCurrentDisplayFloor(), false);
+              map.setCurrentDisplayFloor(map.getCurrentDisplayFloor());
             } catch (SQLException e) {
               System.err.println("Error updating long name: " + e.getMessage());
             } catch (IOException e) {
@@ -883,7 +949,7 @@ public class MapEditController {
             l.setNodeType((String) event.getNewValue());
             try {
               DataManager.syncLocationName(l);
-              map.setCurrentDisplayFloor(map.getCurrentDisplayFloor(), false);
+              map.setCurrentDisplayFloor(map.getCurrentDisplayFloor());
             } catch (SQLException e) {
               System.err.println("Error updating long name: " + e.getMessage());
             } catch (IOException e) {
@@ -923,6 +989,17 @@ public class MapEditController {
     for (MFXButton floorButton : floorButtons) {
       floorButton.setOnMouseClicked(changeFloors);
     }
+
+    nameSelectBoxes.add(LongNameSelector);
+    nameSelectBoxes.add(ShortNameSelector);
+    nameSelectBoxes.add(IdSelector);
+
+    for (CheckBox selectBox : nameSelectBoxes) {
+      selectBox.setOnMouseClicked(changeLabels);
+    }
+
+    EdgeSelector.setOnMouseClicked(toggleEdges);
+    HallNamesSelector.setOnMouseClicked(toggleHalls);
 
     //    ThirdFloorButton.setOnMouseClicked(changeFloors);
     //    SecondFloorButton.setOnMouseClicked(changeFloors);
