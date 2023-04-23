@@ -58,17 +58,22 @@ public class HomeController {
 
   /** * Disables all the buttons that can not be accessed without logging in */
   private void disableButtonsWhenLoggedOut() {
-    makeRequestsButton.setDisable(true);
-    //    makeRequestsButton1.setDisable(true);
-    //    makeRequestsButton2.setDisable(true);
-    //    makeRequestsButton3.setDisable(true);
-    showRequestsButton.setDisable(true);
-    editMapButton.setDisable(true); // these have to be set to visible false for staff/logged out
-    editMoveButton.setDisable(true);
-    employeeButton.setDisable(true);
-    activeRequests.setDisable(true);
-    upcomingMoves.setDisable(true);
-    doneRequests.setDisable(true);
+    makeRequestsButton.setVisible(false);
+    showRequestsButton.setVisible(false);
+    editMapButton.setVisible(false); // these have to be set to visible false for staff/logged out
+    editMoveButton.setVisible(false);
+    employeeButton.setVisible(false);
+    activeRequests.setVisible(false);
+    upcomingMoves.setVisible(false);
+    doneRequests.setVisible(false);
+    showRequestsButton.setManaged(false);
+    editMapButton.setManaged(false);
+    editMoveButton.setManaged(false);
+    employeeButton.setManaged(false);
+    activeRequests.setManaged(false);
+    upcomingMoves.setManaged(false);
+    doneRequests.setManaged(false);
+    makeRequestsButton.setManaged(false);
   }
 
   @FXML
@@ -137,29 +142,61 @@ public class HomeController {
 
     //        helpButton.setOnMouseClicked(event -> Navigation.navigate(Screen));
     disableButtonsWhenLoggedOut();
+
+    /** * Disables all the buttons that can not be accessed as Staff */
     if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.STAFF)) {
-      makeRequestsButton.setDisable(false);
-      editMoveButton.setDisable(false);
-      //      makeRequestsButton1.setDisable(false);
-      //      makeRequestsButton2.setDisable(false);
-      //      makeRequestsButton3.setDisable(false);
-      activeRequests.setDisable(false);
-      upcomingMoves.setDisable(false);
-      doneRequests.setDisable(false);
-      showRequestsButton.setDisable(false);
+      makeRequestsButton.setVisible(true);
+      makeRequestsButton.setManaged(true);
+      editMoveButton.setVisible(true);
+      editMoveButton.setManaged(true);
+      employeeButton.setVisible(false);
+      employeeButton.setManaged(false);
+      editMapButton.setVisible(false);
+      editMapButton.setManaged(false);
+      activeRequests.setVisible(true);
+      activeRequests.setManaged(true);
+      upcomingMoves.setVisible(true);
+      upcomingMoves.setManaged(true);
+      doneRequests.setVisible(true);
+      doneRequests.setManaged(true);
+      showRequestsButton.setVisible(true);
+      showRequestsButton.setManaged(true);
+
+      /** * Enables all buttons for the Admin login */
     } else if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.ADMIN)) {
+      editMapButton.setVisible(true);
       editMapButton.setDisable(false);
+      editMapButton.setManaged(true);
+      editMoveButton.setVisible(true);
       editMoveButton.setDisable(false);
+      editMoveButton.setManaged(true);
+      employeeButton.setVisible(true);
       employeeButton.setDisable(false);
+      employeeButton.setManaged(true);
+      activeRequests.setVisible(true);
       activeRequests.setDisable(false);
+      activeRequests.setManaged(true);
+      upcomingMoves.setVisible(true);
       upcomingMoves.setDisable(false);
+      upcomingMoves.setManaged(true);
+      doneRequests.setVisible(true);
       doneRequests.setDisable(false);
+      doneRequests.setManaged(true);
+      activeRequests.setVisible(true);
       activeRequests.setDisable(false);
-      upcomingMoves.setDisable(false);
+      activeRequests.setManaged(true);
+      doneRequests.setVisible(true);
       doneRequests.setDisable(false);
+      doneRequests.setManaged(true);
+      showRequestsButton.setVisible(true);
       showRequestsButton.setDisable(false);
+      showRequestsButton.setManaged(true);
+      makeRequestsButton.setVisible(true);
       makeRequestsButton.setDisable(false);
+      makeRequestsButton.setManaged(true);
+      editMoveButton.setVisible(true);
       editMoveButton.setDisable(false);
+      editMoveButton.setManaged(true);
     }
 
     upcomingMoves.setOnMouseClicked(
