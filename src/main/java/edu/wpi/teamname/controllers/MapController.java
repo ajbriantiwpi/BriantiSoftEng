@@ -64,7 +64,7 @@ public class MapController {
   Point2D secondClick = null;
   String floor1;
   String floor2;
-  String currFloor = "L1";
+  String currFloor = "Lower Level 1";
   int sNode = 0;
   int eNode = 0;
 
@@ -220,14 +220,28 @@ public class MapController {
         @Override
         public void handle(MouseEvent event) {
           map.drawPath(anchor, sNode, eNode);
-          int secInd = map.getAllFloors().indexOf(FloorSelect.getValue());
-          System.out.println("secInd: " + FloorSelect.getValue());
+          int secInd = map.getAllFloors().indexOf(currFloor);
+          System.out.println("secInd: " + secInd);
           anchor.getChildren().addAll(map.getShapes().get(secInd));
 
           int indOfStart = Node.idToIndex(sNode);
           String floorForSNode =
               map.takeFloor(map.graph.getNodes().get(indOfStart).getFloor(), true);
-          FloorSelect.setValue(floorForSNode);
+          System.out.println("Floor to move to " + floorForSNode);
+          if (floorForSNode == "Third Floor") {
+            ThirdFloorButton.fire();
+          } else if (floorForSNode == "Second Floor") {
+            SecondFloorButton.fire();
+          } else if (floorForSNode == "First Floor") {
+            // System.out.println("Got to First Floor");
+            FirstFloorButton.fire();
+          } else if (floorForSNode == "Lower Level 1") {
+            LowerFirstButton.fire();
+          } else if (floorForSNode == "Lower Level 2") {
+            LowerSecondButton.fire();
+          } else {
+            System.out.println("Move to start node floor failed, should not be here");
+          }
 
           FloorsToggle.setVisible(true);
           showPathFloors(false);
@@ -256,8 +270,8 @@ public class MapController {
           sNode = nodeForStart.getId(); // Integer.parseInt(LocationOne.getValue());
           // System.out.println("sNode: " + sNode);
           if (eNode != 0 && sNode != 0) {
-            findPathButton.setVisible(true);
-            //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
+            findPathButton.setDisable(
+                false); //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
             // map.drawPath(anchor, sNode, eNode);
           }
         }
@@ -283,7 +297,7 @@ public class MapController {
           //          System.out.println("eNode LName: " + endLName);
           //          System.out.println("eNode: " + eNode);
           if (sNode != 0 && eNode != 0) {
-            findPathButton.setVisible(true);
+            findPathButton.setDisable(false);
             //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
           }
         }
@@ -533,11 +547,12 @@ public class MapController {
         }
       };
 
-  EventHandler<MouseEvent> setThirdFloor =
-      new EventHandler<MouseEvent>() {
+  EventHandler<ActionEvent> setThirdFloor =
+      new EventHandler<ActionEvent>() {
         @Override
-        public void handle(MouseEvent event) {
+        public void handle(ActionEvent event) {
           System.out.println("Switching to 3rd");
+          currFloor = "Third Floor";
 
           try {
             map.setCurrentDisplayFloor("Third Floor", true);
@@ -549,11 +564,12 @@ public class MapController {
         }
       };
 
-  EventHandler<MouseEvent> setSecondFloor =
-      new EventHandler<MouseEvent>() {
+  EventHandler<ActionEvent> setSecondFloor =
+      new EventHandler<ActionEvent>() {
         @Override
-        public void handle(MouseEvent event) {
+        public void handle(ActionEvent event) {
           System.out.println("Switching to 2nd");
+          currFloor = "Second Floor";
 
           try {
             map.setCurrentDisplayFloor("Second Floor", true);
@@ -565,11 +581,12 @@ public class MapController {
         }
       };
 
-  EventHandler<MouseEvent> setFirstFloor =
-      new EventHandler<MouseEvent>() {
+  EventHandler<ActionEvent> setFirstFloor =
+      new EventHandler<ActionEvent>() {
         @Override
-        public void handle(MouseEvent event) {
+        public void handle(ActionEvent event) {
           System.out.println("Switching to 1st");
+          currFloor = "First Floor";
 
           try {
             map.setCurrentDisplayFloor("First Floor", true);
@@ -579,13 +596,27 @@ public class MapController {
             throw new RuntimeException(e);
           }
         }
+
+        //        public void handleNoClick() {
+        //          System.out.println("Switching to 1st no Mouse Clicked");
+        //          currFloor = "First Floor";
+        //
+        //          try {
+        //            map.setCurrentDisplayFloor("First Floor", true);
+        //          } catch (SQLException e) {
+        //            throw new RuntimeException(e);
+        //          } catch (IOException e) {
+        //            throw new RuntimeException(e);
+        //          }
+        //        }
       };
 
-  EventHandler<MouseEvent> setLowerFirst =
-      new EventHandler<MouseEvent>() {
+  EventHandler<ActionEvent> setLowerFirst =
+      new EventHandler<ActionEvent>() {
         @Override
-        public void handle(MouseEvent event) {
+        public void handle(ActionEvent event) {
           System.out.println("Switching to L1");
+          currFloor = "Lower Level 1";
 
           try {
             map.setCurrentDisplayFloor("Lower Level 1", true);
@@ -597,11 +628,12 @@ public class MapController {
         }
       };
 
-  EventHandler<MouseEvent> setLowerSecond =
-      new EventHandler<MouseEvent>() {
+  EventHandler<ActionEvent> setLowerSecond =
+      new EventHandler<ActionEvent>() {
         @Override
-        public void handle(MouseEvent event) {
+        public void handle(ActionEvent event) {
           System.out.println("Switching to L2");
+          currFloor = "Lower Level 2";
 
           try {
             map.setCurrentDisplayFloor("Lower Level 2", true);
@@ -647,7 +679,7 @@ public class MapController {
     // DeleteNodeButton.setOnMouseClicked(deleteNodeButton);
     DeleteNodeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
     findPathButton.setOnMouseClicked(findPathWButton);
-    findPathButton.setVisible(false);
+    findPathButton.setDisable(true);
 
     //    LocationOne.setStyle("-fx-padding: 5 25 5 5;");
     LocationOne.setPromptText("Select start");
@@ -664,13 +696,13 @@ public class MapController {
     //    FloorSelect.setOnAction(changeFloor);
     //    FloorSelect.setValue("Lower Level 1");
 
-    FloorSelect.setPromptText("Select floor");
-    FloorSelect.setItems(map.getAllFloors());
-    FloorSelect.setOnAction(changeFloor);
-    FloorSelect.setValue("Lower Level 1");
+    //    FloorSelect.setPromptText("Select floor");
+    //    FloorSelect.setItems(map.getAllFloors());
+    //    FloorSelect.setOnAction(changeFloor);
+    //    FloorSelect.setValue("Lower Level 1");
 
-    upFloor.setOnMouseClicked(changeFloorUp);
-    downFloor.setOnMouseClicked(changeFloorDown);
+    //    upFloor.setOnMouseClicked(changeFloorUp);
+    //    downFloor.setOnMouseClicked(changeFloorDown);
 
     AlgoSelect.setPromptText("Select Algorithm");
     AlgoSelect.setItems(map.getAllAlgos());
@@ -685,11 +717,11 @@ public class MapController {
     anchor.setOnMouseClicked(e);
 
     // New Floor Button Layout
-    ThirdFloorButton.setOnMouseClicked(setThirdFloor);
-    SecondFloorButton.setOnMouseClicked(setSecondFloor);
-    FirstFloorButton.setOnMouseClicked(setFirstFloor);
-    LowerFirstButton.setOnMouseClicked(setLowerFirst);
-    LowerSecondButton.setOnMouseClicked(setLowerSecond);
+    ThirdFloorButton.setOnAction(setThirdFloor);
+    SecondFloorButton.setOnAction(setSecondFloor);
+    FirstFloorButton.setOnAction(setFirstFloor);
+    LowerFirstButton.setOnAction(setLowerFirst);
+    LowerSecondButton.setOnAction(setLowerSecond);
 
     //    System.out.println(getAllNodeNames("L1"));
 

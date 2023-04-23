@@ -4,13 +4,11 @@ import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
 import edu.wpi.teamname.navigation.LocationName;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javafx.scene.paint.Color;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.xml.stream.Location;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class GlobalVariables {
   @Getter @Setter private static boolean futureMovesPressed = false;
