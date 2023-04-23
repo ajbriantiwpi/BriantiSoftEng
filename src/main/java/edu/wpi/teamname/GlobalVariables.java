@@ -3,9 +3,14 @@ package edu.wpi.teamname;
 import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
+import edu.wpi.teamname.navigation.LocationName;
 import javafx.scene.paint.Color;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.xml.stream.Location;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GlobalVariables {
   @Getter @Setter private static boolean futureMovesPressed = false;
@@ -18,6 +23,7 @@ public class GlobalVariables {
   @Getter @Setter private static int strokeThickness = 2;
   @Getter @Setter private static Color labelColor = new Color(.835, .89, 1, 1);
   @Getter @Setter private static Color labelTextColor = new Color(0, .106, .231, 1);
+  @Getter @Setter private static HashMap<Integer, ArrayList<LocationName>> hMap;
 
   private static final Employee dummyEmployee =
       new Employee(
