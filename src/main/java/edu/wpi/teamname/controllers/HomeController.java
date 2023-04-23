@@ -16,6 +16,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,6 +28,7 @@ public class HomeController {
   @FXML VBox actionVBox;
   @FXML VBox SRVBox;
   @FXML VBox mapVBox;
+  @FXML GridPane homeGrid;
   @FXML MFXButton directionsButton;
   @FXML MFXButton makeRequestsButton;
   //  @FXML MFXButton makeRequestsButton1;
@@ -62,6 +64,7 @@ public class HomeController {
 
   /** * Disables all the buttons that can not be accessed without logging in */
   private void disableButtonsWhenLoggedOut() {
+    homeGrid.setConstraints(mapVBox, 1, 1);
     actionVBox.setVisible(false);
     SRVBox.setVisible(false);
     makeRequestsButton.setVisible(false);
@@ -153,6 +156,9 @@ public class HomeController {
 
     /** * Disables all the buttons that can not be accessed as Staff */
     if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.STAFF)) {
+      homeGrid.setConstraints(mapVBox, 1, 1);
+      homeGrid.setConstraints(actionVBox, 0, 1);
+      homeGrid.setConstraints(SRVBox, 2, 1);
       actionVBox.setVisible(true);
       SRVBox.setVisible(true);
       makeRequestsButton.setVisible(true);
@@ -176,6 +182,9 @@ public class HomeController {
 
       /** * Enables all buttons for the Admin login */
     } else if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.ADMIN)) {
+      homeGrid.setConstraints(mapVBox, 1, 1);
+      homeGrid.setConstraints(actionVBox, 0, 1);
+      homeGrid.setConstraints(SRVBox, 2, 1);
       actionVBox.setVisible(true);
       SRVBox.setVisible(true);
       editMapButton.setVisible(true);
