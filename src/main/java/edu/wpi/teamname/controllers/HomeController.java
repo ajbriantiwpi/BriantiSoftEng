@@ -16,6 +16,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +24,9 @@ public class HomeController {
 
   @FXML MFXButton helpButton;
   @FXML MFXButton mapButton;
+  @FXML VBox actionItems;
+  @FXML VBox SRVBox;
+  @FXML VBox mapVBox;
   @FXML MFXButton directionsButton;
   @FXML MFXButton makeRequestsButton;
   //  @FXML MFXButton makeRequestsButton1;
@@ -74,6 +78,10 @@ public class HomeController {
     upcomingMoves.setManaged(false);
     doneRequests.setManaged(false);
     makeRequestsButton.setManaged(false);
+    SRVBox.setVisible(false);
+    SRVBox.setManaged(false);
+    actionItems.setVisible(false);
+    actionItems.setManaged(false);
   }
 
   @FXML
@@ -145,6 +153,10 @@ public class HomeController {
 
     /** * Disables all the buttons that can not be accessed as Staff */
     if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.STAFF)) {
+      SRVBox.setVisible(true);
+      SRVBox.setManaged(false);
+      actionItems.setVisible(true);
+      actionItems.setManaged(false);
       makeRequestsButton.setVisible(true);
       makeRequestsButton.setManaged(true);
       editMoveButton.setVisible(true);
@@ -164,6 +176,10 @@ public class HomeController {
 
       /** * Enables all buttons for the Admin login */
     } else if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.ADMIN)) {
+      SRVBox.setVisible(true);
+      SRVBox.setManaged(false);
+      actionItems.setVisible(true);
+      actionItems.setManaged(false);
       editMapButton.setVisible(true);
       editMapButton.setDisable(false);
       editMapButton.setManaged(true);
