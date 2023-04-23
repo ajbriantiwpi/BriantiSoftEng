@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.EditSignageController">
+<AnchorPane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.EditSignageController">
    <children>
       <VBox prefHeight="400.0" prefWidth="202.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -40,6 +40,25 @@
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
+            </TextField>
+            <Label prefHeight="17.0" prefWidth="138.0" text="Kiosk ID" textFill="#235fa6">
+               <font>
+                  <Font name="Roboto" size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="kioskInput" prefHeight="26.0" prefWidth="2.0">
+               <font>
+                  <Font name="Roboto" size="14.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </VBox.margin>
             </TextField>
             <Label prefHeight="17.0" prefWidth="138.0" text="Long Name" textFill="#235fa6">
                 <font>
@@ -111,7 +130,7 @@
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
             </ComboBox>
-            <MFXButton fx:id="submitButton" buttonType="RAISED" defaultButton="true" onAction="#HandleSubmitButton" prefHeight="20.0" prefWidth="99.0" rippleColor="#235fa6" text="Submit">
+             <MFXButton fx:id="submitButton" buttonType="RAISED" defaultButton="true" onAction="#handleSubmitButton" prefHeight="20.0" prefWidth="99.0" rippleColor="#235fa6" text="Submit">
                <font>
                   <Font name="Roboto" size="14.0" />
                </font>
@@ -124,7 +143,7 @@
                   <Font name="Roboto" size="24.0" />
                </font>
                <VBox.margin>
-                  <Insets bottom="20.0" top="10.0" />
+                  <Insets bottom="10.0" top="10.0" />
                </VBox.margin>
             </Label>
             <HBox prefHeight="82.0" prefWidth="202.0">
@@ -148,7 +167,7 @@
                </children>
             </HBox>
          </children></VBox>
-       <TableView fx:id="editSignageTable" layoutX="204.0" layoutY="50.0" prefHeight="349.0" prefWidth="396.0" AnchorPane.bottomAnchor="0.39999999999997726" AnchorPane.rightAnchor="0.0" />
+       <TableView fx:id="editSignageTable" layoutX="204.0" layoutY="50.0" prefHeight="379.0" prefWidth="396.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
        <HBox layoutX="205.0" prefHeight="50.0" prefWidth="396.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label prefHeight="50.0" prefWidth="154.0" text="Edit Location" textFill="#235fa6">

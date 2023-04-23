@@ -8,17 +8,21 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
 import jdk.jfr.Timestamp;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+
 
 import static edu.wpi.teamname.database.DataManager.syncSignage;
 
@@ -36,7 +40,15 @@ public class EditSignageController {
     @FXML
     private ComboBox<String> directionPicker;
     @FXML
+    private TextField kioskInput;
+    @FXML
     private MFXButton submitButton;
+    @FXML
+    private MFXButton importButton;
+    @FXML
+    private MFXButton exportButton;
+    @FXML
+    private AnchorPane rootPane;
 
     public void initialize() {
         TableColumn<Signage, String> longNameColumn = new TableColumn<>("Long Name");
@@ -53,6 +65,9 @@ public class EditSignageController {
 
         TableColumn<Signage, Integer> signIDColumn = new TableColumn<>("Sign ID");
         signIDColumn.setCellValueFactory(new PropertyValueFactory<>("signId"));
+
+        TableColumn<Signage, Integer> kioskIDColumn = new TableColumn<>("Kiosk ID");
+        kioskIDColumn.setCellValueFactory(new PropertyValueFactory<>("kioskId"));
 
 
         longNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -72,6 +87,15 @@ public class EditSignageController {
                 throw new RuntimeException(e);
             }
         });
+        kioskIDColumn.setOnEditCommit(event -> {
+            Signage editedSignage = event.getRowValue();
+            editedSignage.setKioskId(event.getNewValue());
+            try {
+                syncSignage(editedSignage);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         longNameColumn.setOnEditCommit(event -> {
             Signage editedSignage = event.getRowValue();
@@ -82,6 +106,8 @@ public class EditSignageController {
                 throw new RuntimeException(e);
             }
         });
+
+
 
         shortNameColumn.setOnEditCommit(event -> {
             Signage editedSignage = event.getRowValue();
@@ -103,7 +129,7 @@ public class EditSignageController {
             }
         });
 
-        editSignageTable.getColumns().addAll(longNameColumn, shortNameColumn, dateColumn, arrowDirectionColumn, signIDColumn);
+        editSignageTable.getColumns().addAll(longNameColumn, shortNameColumn, dateColumn, arrowDirectionColumn, signIDColumn, kioskIDColumn);
         loadData();
         directionPicker.getItems().addAll();
 
@@ -118,15 +144,17 @@ public class EditSignageController {
             e.printStackTrace();
         }
     }
-    @FXML
-    private void handleSubmitButton(ActionEvent event) {
+
+    public void handleSubmitButton() {
         int signId = Integer.parseInt(signIDinput.getText());
         String longName = longNameInput.getText();
         String shortName = shortNameInput.getText();
         java.sql.Timestamp date = java.sql.Timestamp.valueOf(dateInput.getText());
         Direction direction = Direction.valueOf(directionPicker.getValue());
+        int kioskId = Integer.parseInt(kioskInput.getText());
 
-        Signage newSignage = new Signage(longName, shortName, date, direction, signId);
+
+        Signage newSignage = new Signage(longName, shortName, date, direction, signId, kioskId);
         SignageDAO signageDAO = new SignageDAOImpl();
 
         try {
@@ -141,6 +169,7 @@ public class EditSignageController {
         longNameInput.clear();
         shortNameInput.clear();
         dateInput.clear();
+        kioskInput.clear();
         directionPicker.setValue(null);
     }
 }

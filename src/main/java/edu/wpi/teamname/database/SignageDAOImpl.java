@@ -80,8 +80,8 @@ public class SignageDAOImpl implements SignageDAO {
   public void add(Signage signage) throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query =
-            "INSERT INTO \"Signage\" (\"longName\", \"shortName\", \"date\", \"arrowDirection\", \"signID\") "
-                    + "VALUES (?, ?, ?, ?, ?)";
+            "INSERT INTO \"Signage\" (\"longName\", \"shortName\", \"date\", \"arrowDirection\", \"signID\", \"kioskID\") "
+                    + "VALUES (?, ?, ?, ?, ?, ?)";
 
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
