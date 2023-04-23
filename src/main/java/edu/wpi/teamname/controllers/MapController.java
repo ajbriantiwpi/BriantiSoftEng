@@ -657,6 +657,40 @@ public class MapController {
         }
       };
 
+  EventHandler<MouseEvent> changeFloors =
+          new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+
+              MFXButton newButton = ((MFXButton) event.getSource());
+
+              String oldFloor = map.getCurrentDisplayFloor();
+              //          System.out.println("OF: " + oldFloor);
+
+              for (MFXButton floorButton : floorButtons) {
+                //            System.out.println("F: " + floorButton.getId());
+                if (floorButton.getId().equals(oldFloor)) {
+                  //              System.out.println("Old");
+                  floorButton.getStyleClass().remove("primary");
+                  floorButton.getStyleClass().add("primary-container");
+                }
+              }
+
+              // re-color new button
+              newButton.getStyleClass().remove("primary-container");
+              newButton.getStyleClass().add("primary");
+
+              try {
+                map.setCurrentDisplayFloor(newButton.getId());
+              } catch (SQLException e) {
+                throw new RuntimeException(e);
+              } catch (IOException e) {
+                throw new RuntimeException(e);
+              }
+            }
+          };
+
   public void setAllButtons() {
     ThirdFloorButton.setStyle("-fx-background-color: blue;");
     SecondFloorButton.setStyle("-fx-background-color: blue;");
