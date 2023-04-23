@@ -41,7 +41,7 @@
                 </MFXButton>
                 <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="500.0" prefWidth="500.0" spacing="12.0" style="-fx-background-radius: 16;" styleClass="primary-container" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                     <children>
-                        <Label fx:id="SRVBox" alignment="CENTER" minHeight="92.0" minWidth="444.0" prefWidth="500.0" style="-fx-background-radius: 16;" styleClass="primary-on-container" text="Service Requests" textFill="#fdfbff">
+                        <Label alignment="CENTER" minHeight="92.0" minWidth="444.0" prefWidth="500.0" style="-fx-background-radius: 16;" styleClass="primary-on-container" text="Service Requests" textFill="#fdfbff">
                             <font>
                                 <Font name="Roboto" size="36.0" />
                             </font>
@@ -91,7 +91,7 @@
                 </VBox>
                 <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="500.0" prefWidth="500.0" spacing="12.0" style="-fx-background-radius: 16;" styleClass="primary-container" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                     <children>
-                        <Label fx:id="mapVBox" alignment="CENTER" minHeight="92.0" minWidth="444.0" prefWidth="500.0" style="-fx-background-radius: 16;" styleClass="primary-on-container" text="Map" textFill="#fdfbff">
+                        <Label alignment="CENTER" minHeight="92.0" minWidth="444.0" prefWidth="500.0" style="-fx-background-radius: 16;" styleClass="primary-on-container" text="Map" textFill="#fdfbff">
                             <font>
                                 <Font name="Roboto" size="36.0" />
                             </font>
@@ -166,7 +166,7 @@
                 </VBox>
             <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="500.0" prefWidth="500.0" spacing="12.0" style="-fx-background-radius: 16;" styleClass="primary-container" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <children>
-                  <Label fx:id="actionItems" alignment="CENTER" maxWidth="500.0" minHeight="92.0" minWidth="444.0" style="-fx-background-radius: 16;" styleClass="primary-on-container" text="Action Items" textFill="#fdfbff">
+                  <Label alignment="CENTER" maxWidth="500.0" minHeight="92.0" minWidth="444.0" style="-fx-background-radius: 16;" styleClass="primary-on-container" text="Action Items" textFill="#fdfbff">
                      <font>
                         <Font name="Roboto" size="36.0" />
                      </font>

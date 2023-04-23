@@ -78,10 +78,6 @@ public class HomeController {
     upcomingMoves.setManaged(false);
     doneRequests.setManaged(false);
     makeRequestsButton.setManaged(false);
-    SRVBox.setVisible(false);
-    SRVBox.setManaged(false);
-    actionItems.setVisible(false);
-    actionItems.setManaged(false);
   }
 
   @FXML
@@ -153,10 +149,6 @@ public class HomeController {
 
     /** * Disables all the buttons that can not be accessed as Staff */
     if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.STAFF)) {
-      SRVBox.setVisible(true);
-      SRVBox.setManaged(false);
-      actionItems.setVisible(true);
-      actionItems.setManaged(false);
       makeRequestsButton.setVisible(true);
       makeRequestsButton.setManaged(true);
       editMoveButton.setVisible(true);
@@ -176,10 +168,6 @@ public class HomeController {
 
       /** * Enables all buttons for the Admin login */
     } else if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.ADMIN)) {
-      SRVBox.setVisible(true);
-      SRVBox.setManaged(false);
-      actionItems.setVisible(true);
-      actionItems.setManaged(false);
       editMapButton.setVisible(true);
       editMapButton.setDisable(false);
       editMapButton.setManaged(true);
