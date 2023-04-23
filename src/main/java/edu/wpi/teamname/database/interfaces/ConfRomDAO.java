@@ -7,8 +7,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public interface ConfRomDAO extends DAO<ConfRoom>{
-    int getConfRoomTimes();
-    ArrayList<String> getConfRooms(Timestamp datB) throws SQLException;
     void sync(ConfRoom confRoom) throws SQLException;
 
     ArrayList<ConfRoom> getAll() throws SQLException;

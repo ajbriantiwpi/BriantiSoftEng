@@ -7,36 +7,31 @@ import java.sql.Time;
 import java.sql.Timestamp;
 
 public class ConfRoom {
-    @Getter @Setter private  String room;
-    @Getter @Setter private  String startTime;
-    @Getter @Setter private  String endTime;
-    @Getter @Setter private Timestamp dateBooked;
-    @Getter @Setter private  String name;
+    @Getter @Setter private  int roomID;
+    @Getter @Setter private  String locationName;
+    @Getter @Setter private  int seats;
 
-    @Getter @Setter private  String origRoom;
-    @Getter @Setter private  String origStartTime;
-    @Getter @Setter private  String origEndTime;
-    @Getter @Setter private Timestamp origDateBooked;
+    @Getter @Setter private  int origRoomID;
+    @Getter @Setter private  String origLocationName;
+    @Getter @Setter private  int origSeats;
 
-    public ConfRoom(String r, String s, String e, Timestamp db, String n){
-        this.room = r;
-        this.startTime = s;
-        this.endTime = e;
-        this.dateBooked = db;
-        this.name = n;
 
-        this.origRoom = r;
-        this.origStartTime = s;
-        this.origEndTime = e;
-        this.origDateBooked = db;
+    public ConfRoom(int roomID, String locName, int seats){
+       this.roomID = roomID;
+       this.locationName = locName;
+       this.seats = seats;
+
+       this.origRoomID = roomID;
+       this.origLocationName = locationName;
+       this.origSeats = seats;
     }
 
     public boolean equals(ConfRoom cr){
-        return this.room.equals(cr.getRoom()) && this.startTime.equals(cr.getStartTime()) && this.endTime.equals(cr.getEndTime()) && this.dateBooked == cr.dateBooked;
+        return this.roomID == cr.getRoomID();
     }
 
 
     public String toString(){
-        return "Room: " + room + ", Start Time: " + startTime + ", End Time: " + endTime + " Date Booked For: " + dateBooked + ", Name Who Booked: " + name;
+        return "Room ID: " + roomID + ", Location Name: " + locationName + ", Seats: " + seats;
     }
 }

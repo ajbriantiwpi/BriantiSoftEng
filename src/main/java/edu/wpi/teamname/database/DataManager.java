@@ -904,12 +904,12 @@ public class DataManager {
    * This method retrieves an MedicalSupply object with the specified ID from the "MedicalSupply"
    * table in the database.
    *
-   * @param dateBook the ID of the MedicalSupply object to retrieve from the "MedicalSupply" table
+   * @param roomID the ID of the MedicalSupply object to retrieve from the "MedicalSupply" table
    * @return the Flower object with the specified ID, or null if not found
    * @throws SQLException if there is a problem accessing the database
    */
-  public static ArrayList<ConfRoom> getConfRoomsOnDay(Timestamp dateBook) throws SQLException {
-    return ConfRoomDAOImpl.getConfRoomsOnDay(dateBook);
+  public static ConfRoom getConfRoom(int roomID) throws SQLException {
+    return ConfRoomDAOImpl.getConfRoom(roomID);
   }
 
   /**
@@ -1315,14 +1315,14 @@ public class DataManager {
   }
 
 
-  public static ArrayList<String> getConfRooms(Timestamp date) throws SQLException {
-    ConfRoomDAOImpl r = new ConfRoomDAOImpl();
-    return r.getConfRooms(date);
-  }
-  public static int getConfRoomTimes() throws SQLException {
-    ConfRoomDAOImpl r = new ConfRoomDAOImpl();
-    return r.getConfRoomTimes();
-  }
+//  public static ArrayList<String> getConfRooms(Timestamp date) throws SQLException {
+//    ConfRoomDAOImpl r = new ConfRoomDAOImpl();
+//    return r.getConfRooms(date);
+//  }
+//  public static int getConfRoomTimes() throws SQLException {
+//    ConfRoomDAOImpl r = new ConfRoomDAOImpl();
+//    return r.getConfRoomTimes();
+//  }
 
 
   /**

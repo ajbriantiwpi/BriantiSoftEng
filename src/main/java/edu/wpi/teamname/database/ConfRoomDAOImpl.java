@@ -11,41 +11,41 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 public class ConfRoomDAOImpl implements ConfRomDAO {
-    public void makeDayBookings(Timestamp date) throws SQLException {
-        Connection connection = DataManager.DbConnection();
-        try (connection) {
-            String query =
-                    "Create Table \"teamD\".\"DayBookings\" (room VARCHAR, )";
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.executeUpdate();
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-    public ArrayList<String> getConfRooms(Timestamp dateB) throws SQLException {
-        ArrayList<String> tempRooms = new ArrayList<>();
-        Connection connection = DataManager.DbConnection();
-        try (connection) {
-            String query =
-                    "SELECT room FROM \"ConferenceRooms\" WHERE \"datebook\" = ?";
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setTimestamp(1, dateB);
-
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                tempRooms.add(rs.getString("room"));
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        connection.close();
-        return tempRooms;
-    }
-    public int getConfRoomTimes(){
-        //8AM to 7PM
-        return 11 * 2;//times 2 bc it is 30 minute intervals on table
-    }
+//    public void makeDayBookings(Timestamp date) throws SQLException {
+//        Connection connection = DataManager.DbConnection();
+//        try (connection) {
+//            String query =
+//                    "Create Table \"teamD\".\"DayBookings\" (room VARCHAR, )";
+//            PreparedStatement statement = connection.prepareStatement(query);
+//            statement.executeUpdate();
+//
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
+//    }
+//    public ArrayList<String> getConfRooms(Timestamp dateB) throws SQLException {
+//        ArrayList<String> tempRooms = new ArrayList<>();
+//        Connection connection = DataManager.DbConnection();>
+//        try (connection) {
+//            String query =
+//                    "SELECT room FROM \"ConferenceRooms\" WHERE \"datebook\" = ?";
+//            PreparedStatement statement = connection.prepareStatement(query);
+//            statement.setTimestamp(1, dateB);
+//
+//            ResultSet rs = statement.executeQuery();
+//            while (rs.next()) {
+//                tempRooms.add(rs.getString("room"));
+//            }
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
+//        connection.close();
+//        return tempRooms;
+//    }
+//    public int getConfRoomTimes(){
+//        //8AM to 7PM
+//        return 11 * 2;//times 2 bc it is 30 minute intervals on table
+//    }
 
 
     /**
@@ -60,18 +60,16 @@ public class ConfRoomDAOImpl implements ConfRomDAO {
         Connection connection = DataManager.DbConnection();
         try (connection) {
             String query =
-                    "UPDATE \"ConferenceRooms\" SET \"room\" = ?, \"starttime\" = ?, \"endtime\" = ?, \"datebook\" = ?, \"name\" = ?  WHERE \"room\" = ? AND \"startime\" = ? AND \"endtime\" = ? AND \"datebook\" = ?";
+                    "UPDATE \"ConfRooms\" SET \"roomID\" = ?, \"locationName\" = ?, \"seats\" = ?  WHERE \"roomID\" = ?, \"locationName\" = ?, \"seats\" = ?";
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, ConfRoom.getRoom());
-            statement.setString(2, ConfRoom.getStartTime());
-            statement.setString(3, ConfRoom.getEndTime());
-            statement.setTimestamp(4, ConfRoom.getDateBooked());
-            statement.setString(5, ConfRoom.getName());
+            statement.setInt(1, ConfRoom.getRoomID());
+            statement.setString(2, ConfRoom.getLocationName());
+            statement.setInt(3, ConfRoom.getRoomID());
 
-            statement.setString(6, ConfRoom.getOrigRoom());
-            statement.setString(7, ConfRoom.getOrigRoom());
-            statement.setString(8, ConfRoom.getOrigEndTime());
-            statement.setTimestamp(9, ConfRoom.getOrigDateBooked());
+            statement.setInt(4, ConfRoom.getOrigRoomID());
+            statement.setString(5, ConfRoom.getOrigLocationName());
+            statement.setInt(6, ConfRoom.getOrigRoomID());
+
 
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -92,17 +90,15 @@ public class ConfRoomDAOImpl implements ConfRomDAO {
         ArrayList<ConfRoom> list = new ArrayList<ConfRoom>();
 
         try (connection) {
-            String query = "SELECT * FROM \"ConferenceRooms\"";
+            String query = "SELECT * FROM \"ConfRooms\"";
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
-                String room = rs.getString("room");
-                String startTime = rs.getString("starttime");
-                String endTime= rs.getString("endtime");
-                Timestamp dateBook = rs.getTimestamp("datebook");
-                String name = rs.getString("name");
-                list.add(new ConfRoom(room, startTime, endTime, dateBook, name));
+                int roomID = rs.getInt("roomID");
+                String locName = rs.getString("locationName");
+                int seats = rs.getInt("seats");
+                list.add(new ConfRoom(roomID, locName, seats));
             }
         }
         connection.close();
@@ -120,14 +116,12 @@ public class ConfRoomDAOImpl implements ConfRomDAO {
         Connection connection = DataManager.DbConnection();
         try (connection) {
             String query =
-                    "INSERT INTO \"ConferenceRooms\" (\"room\", \"starttime\", \"endtime\", \"datbook\", \"name\") "
-                            + "VALUES (?, ?, ?, ?, ?)";
+                    "INSERT INTO \"ConfRooms\" (\"roomID\", \"locationName\", \"seats\") "
+                            + "VALUES (?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, ConfRoom.getRoom());
-            statement.setString(2, ConfRoom.getStartTime());
-            statement.setString(3, ConfRoom.getEndTime());
-            statement.setTimestamp(4, ConfRoom.getDateBooked());
-            statement.setString(5, ConfRoom.getName());
+            statement.setInt(1, ConfRoom.getRoomID());
+            statement.setString(2, ConfRoom.getLocationName());
+            statement.setInt(3, ConfRoom.getRoomID());
 
             statement.executeUpdate();
 
@@ -146,14 +140,11 @@ public class ConfRoomDAOImpl implements ConfRomDAO {
     @Override
     public void delete(ConfRoom ConfRoom) throws SQLException {
         Connection connection = DataManager.DbConnection();
-        String query = "DELETE FROM \"ConferenceRooms\" WHERE \"room\" = ? AND \"startime\" = ? AND \"endtime\" = ? AND \"datebook\" = ?";
+        String query = "DELETE FROM \"ConfRooms\" WHERE \"roomID\" = ?";
         try (connection) {
 
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, ConfRoom.getRoom());
-            statement.setString(2, ConfRoom.getStartTime());
-            statement.setString(3, ConfRoom.getEndTime());
-            statement.setTimestamp(4, ConfRoom.getDateBooked());
+            statement.setInt(1, ConfRoom.getRoomID());
 
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -175,33 +166,30 @@ public class ConfRoomDAOImpl implements ConfRomDAO {
      * This method retrieves a ConfRoom object with the specified ID from the "ConfRooms" table in the
      * database.
      *
-     * @param date the ID of the ConfRoom object to retrieve from the "ConfRooms" table
+     * @param rID the ID of the ConfRoom object to retrieve from the "ConfRooms" table
      * @return the ConfRoom object with the specified ID, or null if not found
      * @throws SQLException if there is a problem accessing the database
      */
-    public static ArrayList<ConfRoom> getConfRoomsOnDay(Timestamp date) throws SQLException {
+    public static ConfRoom getConfRoom(int rID) throws SQLException {
         ArrayList<ConfRoom> bookings = new ArrayList<>();
         Connection connection = DataManager.DbConnection();
-        String query = "SELECT * FROM \"ConferenceRooms\" WHERE \"datebook\" = ?";
+        String query = "SELECT * FROM \"ConfRooms\" WHERE \"roomID\" = ?";
         ConfRoom ConfRoom = null;
         try (connection) {
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setTimestamp(1, ConfRoom.getDateBooked());
+            statement.setInt(1, rID);
 
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                String room2 = rs.getString("room");
-                String startTime2 = rs.getString("starttime");
-                String endTime2 = rs.getString("endtime");
-                Timestamp dateBook2 = rs.getTimestamp("datebook");
-                String name2 = rs.getString("name");
-                ConfRoom = (new ConfRoom(room2, startTime2, endTime2, dateBook2, name2));
-                bookings.add(ConfRoom);
+                int roomID = rs.getInt("roomID");
+                String locName = rs.getString("locationName");
+                int seats = rs.getInt("seats");
+                ConfRoom = (new ConfRoom(roomID, locName, seats));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return bookings;
+        return ConfRoom;
     }
 
     /**
@@ -214,20 +202,18 @@ public class ConfRoomDAOImpl implements ConfRomDAO {
      */
     public static void exportConfRoomsToCSV(String csvFilePath) throws SQLException, IOException {
         Connection connection = DataManager.DbConnection();
-        String query = "SELECT * FROM \"ConferenceRooms\"";
+        String query = "SELECT * FROM \"ConfRooms\"";
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(query);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(csvFilePath))) {
-            writer.write("room,starttime,endtime,datebook,name\n");
+            writer.write("roomID,locationName,seats\n");
             while (resultSet.next()) {
-                String room2 = resultSet.getString("room");
-                String startTime2 = resultSet.getString("starttime");
-                String endTime2 = resultSet.getString("endtime");
-                Timestamp dateBook2 = resultSet.getTimestamp("datebook");
-                String name2 = resultSet.getString("name");
+                int roomID = resultSet.getInt("roomID");
+                String locName = resultSet.getString("locationName");
+                int seats = resultSet.getInt("seats");
 
-                String row = room2 + "," + startTime2 + "," + endTime2 + "," + dateBook2 + "," + name2 + "\n";
+                String row = roomID + "," + locName + "," + seats + "\n";
                 writer.write(row);
             }
             System.out.println("CSV data downloaded from PostgreSQL database");
@@ -251,18 +237,16 @@ public class ConfRoomDAOImpl implements ConfRomDAO {
 
         try (connection) {
             String query =
-                    "INSERT INTO \"ConferenceRooms\" (\"room\", \"starttime\", \"endtime\", \"datebook\", \"name\") VALUES (?, ?, ?, ?, ?, ?)";
-            PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"ConferenceRooms\";");
+                    "INSERT INTO \"ConfRooms\" (\"roomID\", \"locationName\", \"seats\") VALUES (?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"ConfRooms\";");
             statement.executeUpdate();
             statement = connection.prepareStatement(query);
 
             for (int i = 1; i < csvData.size(); i++) {
                 String[] row = csvData.get(i);
-                statement.setString(1, row[0]);
+                statement.setInt(1, Integer.parseInt(row[0]));
                 statement.setString(2, row[1]);
-                statement.setString(3, row[2]);
-                statement.setTimestamp(4, Timestamp.valueOf(row[3]));
-                statement.setString(5, row[4]);
+                statement.setInt(3, Integer.parseInt(row[2]));
 
                 statement.executeUpdate();
             }
