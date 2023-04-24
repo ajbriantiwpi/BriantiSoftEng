@@ -127,7 +127,7 @@ public class ParentController {
     editMoveButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MOVE_TABLE));
     viewSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
     editSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.EDIT_SIGNAGE));
-    viewAlertsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERTS));
+    viewAlertsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERT));
     requestRoomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CONFERENCE_ROOM));
     exitButton.setOnMouseClicked(event -> System.exit(0));
     exitButton.setOnMouseClicked(
