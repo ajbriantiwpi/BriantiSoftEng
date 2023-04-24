@@ -609,7 +609,10 @@ public class Map {
         DataManager.getAllLocationNamesMappedByNode(new Timestamp(System.currentTimeMillis()));
 
     for (Integer i : hMap.keySet()) {
-      nodeNames.add(hMap.get(i).get(0).getLongName());
+      //Gets rid of all Hallway locations
+      if (!hMap.get(i).get(0).getNodeType().equals("HALL")) {
+        nodeNames.add(hMap.get(i).get(0).getLongName());
+      }
     }
 
     Collections.sort(nodeNames);
