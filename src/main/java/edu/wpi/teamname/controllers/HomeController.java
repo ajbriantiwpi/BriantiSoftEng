@@ -22,7 +22,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class HomeController {
-
+  @FXML MFXButton editAlertButton;
   @FXML MFXButton helpButton;
   @FXML MFXButton mapButton;
   @FXML VBox actionVBox;
