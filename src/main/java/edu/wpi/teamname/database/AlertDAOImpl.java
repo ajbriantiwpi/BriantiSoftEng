@@ -1,6 +1,6 @@
 package edu.wpi.teamname.database;
 
-import edu.wpi.teamname.database.alerts.Alert;
+import edu.wpi.teamname.alerts.Alert;
 import edu.wpi.teamname.database.interfaces.AlertDAO;
 import edu.wpi.teamname.employees.EmployeeType;
 import java.sql.*;
@@ -12,7 +12,7 @@ public class AlertDAOImpl implements AlertDAO {
     Connection connection = DataManager.DbConnection();
     try {
       String query =
-          "UPDATE \"Alert\" (\"alertID\", \"startDate\", \"endDate\", \"creator\", \"description\", \"announcement\", \"employeeType\", \"urgency\") VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+          "UPDATE \"Alert\" SET \"alertID\" = ?, \"startDate\" = ?, \"endDate\" = ?, \"creator\" = ?, \"description\" = ?, \"announcement\" = ?, \"employeeType\" = ?, \"urgency\" = ?";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setLong(1, alert.getId());
       statement.setTimestamp(2, alert.getStartDisplayDate());
@@ -113,4 +113,31 @@ public class AlertDAOImpl implements AlertDAO {
 
   @Override
   public void delete(Alert alert) throws SQLException {}
+
+  /**
+   * * Creates a table for storing Alert data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createTable() throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try (connection) {
+      String query =
+          "create table if not exists \"Alert\"\n"
+              + "(\n"
+              + "    \"alertID\"      integer,\n"
+              + "    \"startDate\"    timestamp,\n"
+              + "    \"endDate\"      timestamp,\n"
+              + "    creator        varchar(16),\n"
+              + "    description    varchar(256),\n"
+              + "    announcement   varchar(64),\n"
+              + "    \"employeeType\" varchar(20),\n"
+              + "    urgency        varchar(10)\n"
+              + ");";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+    }
+  }
 }

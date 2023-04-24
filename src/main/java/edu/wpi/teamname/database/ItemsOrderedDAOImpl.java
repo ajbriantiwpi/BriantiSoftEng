@@ -217,4 +217,29 @@ public class ItemsOrderedDAOImpl implements ItemsOrderedDAO {
       System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
     }
   }
+
+  /**
+   * * Creates a table for storing ItemsOrdered data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createTable() throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try (connection) {
+      String query =
+          "\n"
+              + "create table if not exists \"ItemsOrdered\"\n"
+              + "(\n"
+              + "    \"requestID\" integer not null,\n"
+              + "    \"itemID\"    integer not null,\n"
+              + "    quantity    integer,\n"
+              + "    constraint \"ItemsOrdered_pk\"\n"
+              + "        primary key (\"requestID\", \"itemID\")\n"
+              + ");";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+    }
+  }
 }

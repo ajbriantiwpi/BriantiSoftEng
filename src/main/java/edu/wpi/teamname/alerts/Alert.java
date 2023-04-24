@@ -1,4 +1,4 @@
-package edu.wpi.teamname.database.alerts;
+package edu.wpi.teamname.alerts;
 
 import edu.wpi.teamname.employees.EmployeeType;
 import java.sql.Timestamp;
@@ -9,6 +9,7 @@ import lombok.Setter;
 public class Alert {
   @Getter private static int idCounter = 0;
   @Getter @Setter private int id; // UUID for the announcement
+  private int originalID;
 
   @Getter @Setter @NonNull private Timestamp startDisplayDate; // Date that the announcement is for
 
@@ -46,6 +47,7 @@ public class Alert {
       @NonNull Urgency urgency) {
     idCounter++;
     this.id = alertID;
+    originalID = alertID;
     this.startDisplayDate = startDisplayDate;
     this.endDisplayDate = endDisplayDate;
     this.creator = creator;

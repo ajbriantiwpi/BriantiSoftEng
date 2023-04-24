@@ -1,7 +1,6 @@
 package edu.wpi.teamname.database;
 
-import edu.wpi.teamname.database.alerts.Alert;
-import edu.wpi.teamname.database.interfaces.SignageDAO;
+import edu.wpi.teamname.alerts.Alert;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
 import edu.wpi.teamname.navigation.*;
@@ -51,6 +50,22 @@ public class DataManager {
       }
     }
     return connection;
+  }
+
+  /** Sets database connection parameters to connect to the AWS RDS */
+  public static void connectToAWS() throws SQLException {
+    configConnection(
+        "jdbc:postgresql://teamddb3.cwgmodw6cdg6.us-east-1.rds.amazonaws.com:5432/postgres",
+        "superuser",
+        "password");
+  }
+
+  /** Sets database connection parameters to connect to the WPI client-side server */
+  public static void connectToWPI() throws SQLException {
+    DataManager.configConnection(
+        "jdbc:postgresql://database.cs.wpi.edu:5432/teamddb?currentSchema=\"teamD\"",
+        "teamd",
+        "teamd40");
   }
 
   /*public static ArrayList<Node> getSingleNodeInfo(int nodeID) throws SQLException {
@@ -133,7 +148,7 @@ public class DataManager {
    * @param createTableQuery a String that reps the query to create a table
    * @param tableName a String that reps the name of the table being checked
    */
-  public static void createTableIfNotExists(String tableName, String createTableQuery)
+  /*public static void createTableIfNotExists(String tableName, String createTableQuery)
       throws SQLException {
     connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
     DatabaseMetaData dbm = connection.getMetaData();
@@ -144,7 +159,7 @@ public class DataManager {
       statement.close();
     }
     rs.close();
-  }
+  }*/
 
   /**
    * * Updates the connection arguements
@@ -153,10 +168,13 @@ public class DataManager {
    * @param username
    * @param password
    */
-  public static void configConnection(String url, String username, String password) {
+  public static void configConnection(String url, String username, String password)
+      throws SQLException {
     DB_URL = url;
     DB_USER = username;
     DB_PASSWORD = password;
+    DbConnection().close();
+    tryToCreateAllTables();
   }
 
   // ------------------------DAO Methods------------------------
@@ -1406,4 +1424,152 @@ public class DataManager {
   /*public void deleteEmployeeType(String username) throws SQLException {
     EmployeeDAOImpl.deleteEmployeeType(username);
   }*/
+
+  /**
+   * * Creates a table for storing Edge data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createEdgeTable() throws SQLException {
+    EdgeDAOImpl.createTable();
+  }
+
+  /**
+   * * Creates a table for storing Employee data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createEmployeeTable() throws SQLException {
+    EmployeeDAOImpl.createTable();
+  }
+
+  /**
+   * * Creates a table for storing Flower data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createFlowerTable() throws SQLException {
+    FlowerDAOImpl.createTable();
+  }
+
+  /**
+   * * Creates a table for storing Furniture data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createFurnitureTable() throws SQLException {
+    FurnitureDAOImpl.createTable();
+  }
+
+  /**
+   * * Creates a table for storing ItemsOrdered data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createItemsOrderedTable() throws SQLException {
+    ItemsOrderedDAOImpl.createTable();
+  }
+
+  /**
+   * * Creates a table for storing LocationName data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createLocationNameTable() throws SQLException {
+    LocationNameDAOImpl.createTable();
+  }
+
+  /**
+   * * Creates a table for storing Meal data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createMealTable() throws SQLException {
+    MealDAOImpl.createTable();
+  }
+
+  /**
+   * * Creates a table for storing MedicalSupply data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createMedicalSupplyTable() throws SQLException {
+    MedicalSupplyDAOImpl.createTable();
+  }
+
+  /**
+   * * Creates a table for storing Move data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createMoveTable() throws SQLException {
+    MoveDAOImpl.createTable();
+  }
+
+  /**
+   * * Creates a table for storing Node data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createNodeTable() throws SQLException {
+    NodeDAOImpl.createTable();
+  }
+
+  /**
+   * * Creates a table for storing OfficeSupply data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createOfficeSupplyTable() throws SQLException {
+    OfficeSupplyDAOImpl.createTable();
+  }
+
+  /**
+   * * Creates a table for storing ServiceRequest data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createServiceRequestTable() throws SQLException {
+    ServiceRequestDAOImpl.createTable();
+  }
+
+  /**
+   * * Creates a table for storing Alert data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createAlertTable() throws SQLException {
+    AlertDAOImpl.createTable();
+  }
+
+  /**
+   * * Creates a table for storing Signage data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createSignageTable() throws SQLException {
+    SignageDAOImpl.createTable();
+  }
+
+  /**
+   * * Creates all tables in the database unless they already exist then do nothing
+   *
+   * @throws SQLException connection to the database fails
+   */
+  public static void tryToCreateAllTables() throws SQLException {
+    createEdgeTable();
+    createEmployeeTable();
+    createFlowerTable();
+    createFurnitureTable();
+    createItemsOrderedTable();
+    createLocationNameTable();
+    createMealTable();
+    createMedicalSupplyTable();
+    createMoveTable();
+    createNodeTable();
+    createOfficeSupplyTable();
+    createServiceRequestTable();
+    createAlertTable();
+    createSignageTable();
+  }
 }
