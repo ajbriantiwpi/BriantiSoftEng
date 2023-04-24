@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorInput?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -23,7 +25,7 @@
                <VBox.margin>
                   <Insets left="5.0" />
                </VBox.margin></Label>
-            <Label prefHeight="17.0" prefWidth="138.0" text="Sign ID" textFill="#235fa6">
+            <Label prefHeight="17.0" prefWidth="138.0" text="Sign ID" textFill="#235fa6" >
                 <font>
                     <Font name="Roboto" size="14.0" />
                 </font>
@@ -31,7 +33,7 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="signIDinput" prefHeight="26.0" prefWidth="2.0">
+            <TextField fx:id="signIDinput" prefHeight="26.0" prefWidth="2.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 10;" stylesheets="@../stylesheets/TextField.css">
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
@@ -50,7 +52,7 @@
                   <Insets left="5.0" right="5.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="kioskInput" prefHeight="26.0" prefWidth="2.0">
+            <TextField fx:id="kioskInput" prefHeight="26.0" prefWidth="2.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 10;" stylesheets="@../stylesheets/TextField.css">
                <font>
                   <Font name="Roboto" size="14.0" />
                </font>
@@ -61,7 +63,7 @@
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
             </TextField>
-            <Label prefHeight="17.0" prefWidth="138.0" text="Long Name" textFill="#235fa6">
+            <Label prefHeight="17.0" prefWidth="138.0" text="Long Name" textFill="#235fa6" >
                 <font>
                     <Font name="Roboto" size="14.0" />
                 </font>
@@ -69,7 +71,7 @@
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="longNameInput" prefHeight="26.0" prefWidth="2.0">
+            <TextField fx:id="longNameInput" prefHeight="26.0" prefWidth="2.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 10;" stylesheets="@../stylesheets/TextField.css">
                 <font>
                     <Font name="Roboto" size="14.0" />
                 </font>
@@ -88,7 +90,7 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="shortNameInput" prefHeight="26.0" prefWidth="2.0">
+            <TextField fx:id="shortNameInput" prefHeight="26.0" prefWidth="2.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 10;" stylesheets="@../stylesheets/TextField.css">
                 <font>
                     <Font name="Roboto" size="14.0" />
                 </font>
@@ -99,7 +101,7 @@
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
             </TextField>
-            <Label prefHeight="17.0" prefWidth="138.0" text="Date" textFill="#235fa6">
+            <Label prefHeight="17.0" prefWidth="138.0" text="Date" textFill="#235fa6" style="-fx-background-color: #D5E3FF; -fx-background-radius: 10;" >
                 <font>
                     <Font name="Roboto" size="14.0" />
                 </font>
@@ -111,6 +113,10 @@
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
+               <stylesheets>
+                  <URL value="@../stylesheets/TextField.css" />
+                  <URL value="@../stylesheets/dateBox.css" />
+               </stylesheets>
             </DatePicker>
             <Label prefHeight="17.0" prefWidth="138.0" text="Direction" textFill="#235fa6">
                 <font>
@@ -120,18 +126,24 @@
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
             </Label>
-            <ComboBox fx:id="directionPicker" prefHeight="26.0" prefWidth="182.0">
+            <ComboBox fx:id="directionPicker" prefHeight="26.0" prefWidth="182.0"  style="-fx-background-color: #D5E3FF; -fx-background-radius: 10;" stylesheets="@../stylesheets/comboSmall.css">
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
             </ComboBox>
-             <MFXButton fx:id="submitButton" buttonType="RAISED" defaultButton="true" onAction="#handleSubmitButton" prefHeight="20.0" prefWidth="99.0" rippleColor="#235fa6" text="Submit">
+             <MFXButton fx:id="submitButton" buttonType="RAISED" defaultButton="true" onAction="#handleSubmitButton" prefHeight="20.0" prefWidth="99.0" rippleColor="#235fa6" style="-fx-font-size: 20;" stylesheets="@../stylesheets/menuItemButton.css" text="Submit">
+                 <effect>
+                     <ColorInput paint="#235fa6" />
+                 </effect>
                <font>
                   <Font name="Roboto" size="14.0" />
                </font>
                <VBox.margin>
                   <Insets left="20.0" top="10.0" />
                </VBox.margin>
+               <effect>
+                  <ColorInput paint="#235fa6" />
+               </effect>
             </MFXButton>
             <Label prefHeight="35.0" prefWidth="195.0" text="CSV Manager" textFill="#235fa6">
                <font>
@@ -143,26 +155,32 @@
             </Label>
             <HBox prefHeight="82.0" prefWidth="202.0">
                <children>
-                  <MFXButton fx:id="importButton" buttonType="RAISED" prefHeight="26.0" prefWidth="118.0" rippleColor="#235fa6" text="Import">
+                  <MFXButton fx:id="importButton" buttonType="RAISED" prefHeight="26.0" prefWidth="118.0" rippleColor="#235fa6" style="-fx-font-size: 20;" stylesheets="@../stylesheets/menuItemButton.css" text="Import">
                      <HBox.margin>
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>
                       <font>
                           <Font name="Roboto" size="14.0" />
                       </font>
+                      <effect>
+                          <ColorInput paint="#235fa6" />
+                      </effect>
                   </MFXButton>
-                  <MFXButton fx:id="exportButton" buttonType="RAISED" prefHeight="26.0" prefWidth="115.0" rippleColor="#235fa6" text="Export">
+                  <MFXButton fx:id="exportButton" buttonType="RAISED" prefHeight="26.0" prefWidth="115.0" rippleColor="#235fa6" style="-fx-font-size: 20;" stylesheets="@../stylesheets/menuItemButton.css" text="Export">
                      <HBox.margin>
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>
                       <font>
                           <Font name="Roboto" size="14.0" />
                       </font>
+                      <effect>
+                          <ColorInput paint="#235fa6" />
+                      </effect>
                   </MFXButton>
                </children>
             </HBox>
          </children></VBox>
-       <TableView fx:id="editSignageTable" layoutX="204.0" layoutY="50.0" prefHeight="379.0" prefWidth="396.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="204.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.20000000000005" />
+       <TableView fx:id="editSignageTable" layoutX="204.0" layoutY="50.0" prefHeight="379.0" prefWidth="396.0" stylesheets="@../stylesheets/TableViewStuff.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="204.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.20000000000005" />
        <HBox layoutX="205.0" prefHeight="50.0" prefWidth="396.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label prefHeight="50.0" prefWidth="154.0" text="Edit Location" textFill="#235fa6">
@@ -178,7 +196,7 @@
                     <Font name="Roboto" size="14.0" />
                 </font>
             </Label>
-            <TextField fx:id="searchBar" prefHeight="26.0" prefWidth="154.0">
+            <TextField fx:id="searchBar" prefHeight="26.0" prefWidth="154.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 10;" stylesheets="@../stylesheets/TextField.css">
                <HBox.margin>
                   <Insets top="10.0" />
                </HBox.margin>
