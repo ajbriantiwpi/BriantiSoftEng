@@ -609,7 +609,7 @@ public class Map {
         DataManager.getAllLocationNamesMappedByNode(new Timestamp(System.currentTimeMillis()));
 
     for (Integer i : hMap.keySet()) {
-      //Gets rid of all Hallway locations
+      // Gets rid of all Hallway locations
       if (!hMap.get(i).get(0).getNodeType().equals("HALL")) {
         nodeNames.add(hMap.get(i).get(0).getLongName());
       }
@@ -875,5 +875,10 @@ public class Map {
 
     parent.zoomTo(scaleFactor, Point2D.ZERO);
     parent.centreOn(centerPoint); // Actually Moves the Top left corner
+  }
+
+  public void centerAndZoomStart(GesturePane parent, AnchorPane outerMapAnchor, Node sNode) {
+    Point2D centerOnStart = new Point2D(sNode.getX(), sNode.getY());
+    parent.centreOn(centerOnStart);
   }
 }

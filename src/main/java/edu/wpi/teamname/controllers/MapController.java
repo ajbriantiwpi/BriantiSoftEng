@@ -68,6 +68,7 @@ public class MapController {
   String currFloor = "Lower Level 1";
   int sNode = 0;
   int eNode = 0;
+  Node globalStartNode;
 
   String currentAlgo = "";
 
@@ -248,6 +249,7 @@ public class MapController {
 
           FloorsToggle.setDisable(false);
           showPathFloors(false);
+          map.centerAndZoomStart(gp, OuterMapAnchor, globalStartNode);
 
           clickCount = 0;
         }
@@ -270,6 +272,7 @@ public class MapController {
           } catch (SQLException ex) {
             throw new RuntimeException(ex);
           }
+          globalStartNode = nodeForStart;
           sNode = nodeForStart.getId(); // Integer.parseInt(LocationOne.getValue());
           // System.out.println("sNode: " + sNode);
           if (eNode != 0 && sNode != 0) {
