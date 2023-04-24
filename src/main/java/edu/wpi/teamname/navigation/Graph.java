@@ -149,6 +149,11 @@ public class Graph {
       //        throw new RuntimeException(e);
       //      }
 
+      //      System.out.println(
+      //          Node.idToIndex(Edges.get(i).getStartNodeID())
+      //              + ", "
+      //              + Node.idToIndex(Edges.get(i).getEndNodeID()));
+
       Node startNode = AllNodes.get(Node.idToIndex(Edges.get(i).getStartNodeID()));
       Node endNode = AllNodes.get(Node.idToIndex(Edges.get(i).getEndNodeID()));
 
