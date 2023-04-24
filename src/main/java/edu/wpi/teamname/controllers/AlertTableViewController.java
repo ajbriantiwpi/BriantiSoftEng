@@ -9,9 +9,11 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.ChronoField;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,7 +29,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.PopOver;
-import org.controlsfx.control.SearchableComboBox;
 
 public class AlertTableViewController {
 
@@ -41,9 +42,9 @@ public class AlertTableViewController {
   @FXML TableColumn announcementCol; // 13
   @FXML TableColumn urgencyCol; // 14
   @FXML TextField searchTextField; // 16
-  @FXML SearchableComboBox<Integer> alertIDAssign; // 4
-  @FXML SearchableComboBox<String> assignStaffText; // 5
-  @FXML MFXButton submitButton; // 6
+  //  @FXML SearchableComboBox<Integer> alertIDAssign; // 4
+  //  @FXML SearchableComboBox<String> assignStaffText; // 5
+  //  @FXML MFXButton submitButton; // 6
   @FXML Label detailsLabel;
   @FXML Label detailsLabel1;
   @FXML Label totalLabel;
@@ -56,6 +57,7 @@ public class AlertTableViewController {
   @FXML ComboBox<Alert.Urgency> urgencyCombo; // 1
 
   public void makeNewAlert(
+      int id,
       Timestamp start,
       Timestamp end,
       EmployeeType type,
@@ -65,7 +67,7 @@ public class AlertTableViewController {
       throws SQLException {
     Alert newAlert =
         new Alert(
-            Alert.getIdCounter(),
+            id,
             start,
             end,
             GlobalVariables.getCurrentUser().getUsername(),
@@ -88,8 +90,8 @@ public class AlertTableViewController {
     urgencyComboList.add(null);
     urgencyCombo.setItems(urgencyComboList);
 
-    alertIDAssign.setItems(FXCollections.observableList(DataManager.getAllAlertIDs()));
-    assignStaffText.setItems(FXCollections.observableList(DataManager.getAllUsernames()));
+    //    alertIDAssign.setItems(FXCollections.observableList(DataManager.getAllAlertIDs()));
+    //    assignStaffText.setItems(FXCollections.observableList(DataManager.getAllUsernames()));
 
     staffTypeCombo.setOnAction(
         event -> {
@@ -150,9 +152,8 @@ public class AlertTableViewController {
             submit.disableProperty().bind(Bindings.isNull(start.valueProperty()));
             DatePicker end = (DatePicker) ((Pane) (v.getChildren().get(1))).getChildren().get(1);
             submit.disableProperty().bind(Bindings.isNull(end.valueProperty()));
-            submit.disableProperty().bind(Bindings.isNull(urgencies.valueProperty()));
             submit.disableProperty().bind(Bindings.isNull(types.valueProperty()));
-
+            PopOver pop = new PopOver(v);
             submit.setOnMouseClicked(
                 event1 -> {
                   LocalDate startDateDate = start.getValue();
@@ -161,20 +162,35 @@ public class AlertTableViewController {
                   Timestamp startDate = Timestamp.valueOf(startDateTime);
                   LocalDate endDateDate = start.getValue();
                   LocalDateTime endDateTime = endDateDate.atTime(time);
-                  Timestamp endDate = Timestamp.valueOf(startDateTime);
+                  Timestamp endDate = Timestamp.valueOf(endDateTime);
                   try {
-                    makeNewAlert(
-                        startDate,
-                        endDate,
-                        types.valueProperty().getValue(),
-                        description.getText(),
-                        announcement.getText(),
-                        urgencies.valueProperty().getValue());
+                    if (urgencies.valueProperty().getValue() == null) {
+                      makeNewAlert(
+                          Instant.now().get(ChronoField.MICRO_OF_SECOND),
+                          startDate,
+                          endDate,
+                          types.valueProperty().getValue(),
+                          description.getText(),
+                          announcement.getText(),
+                          Alert.Urgency.NONE);
+                    } else {
+                      makeNewAlert(
+                          Instant.now().get(ChronoField.MICRO_OF_SECOND),
+                          startDate,
+                          endDate,
+                          types.valueProperty().getValue(),
+                          description.getText(),
+                          announcement.getText(),
+                          urgencies.valueProperty().getValue());
+                    }
+                    table.setItems(tableFilter(urgencies.getValue(), types.getValue()));
                   } catch (SQLException e) {
                     throw new RuntimeException(e);
                   }
+
+                  pop.hide();
                 });
-            PopOver pop = new PopOver(v);
+
             cancel.setOnMouseClicked(
                 event1 -> {
                   pop.hide();

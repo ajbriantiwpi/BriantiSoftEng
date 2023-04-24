@@ -8,7 +8,6 @@ import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.navigation.Move;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXNotificationCenter;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -23,10 +22,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class HomeController {
-
+  @FXML MFXButton editAlertButton;
   @FXML MFXButton helpButton;
   @FXML MFXButton mapButton;
-  @FXML MFXButton editAlertButton;
   @FXML VBox actionVBox;
   @FXML VBox SRVBox;
   @FXML VBox mapVBox;
@@ -45,7 +43,6 @@ public class HomeController {
   @FXML MFXButton activeRequests;
   @FXML MFXButton upcomingMoves;
   @FXML MFXButton doneRequests;
-  @FXML MFXNotificationCenter notificationCenter;
 
   // test push
   @Setter @Getter private static ObservableBooleanValue loggedIn = new SimpleBooleanProperty(false);
@@ -55,6 +52,8 @@ public class HomeController {
   @FXML MFXButton loginButton;
   @FXML MFXButton logoutButton;
   @FXML MFXButton editMoveButton;
+
+  @FXML MFXButton editSignageButton;
 
   /** logs the current user out of the application */
   private void logout() {
@@ -78,6 +77,7 @@ public class HomeController {
     activeRequests.setVisible(false);
     upcomingMoves.setVisible(false);
     doneRequests.setVisible(false);
+    editSignageButton.setVisible(false);
     showRequestsButton.setManaged(false);
     editMapButton.setManaged(false);
     editMoveButton.setManaged(false);
@@ -88,13 +88,11 @@ public class HomeController {
     makeRequestsButton.setManaged(false);
     actionVBox.setManaged(false);
     SRVBox.setManaged(false);
+    editSignageButton.setManaged(false);
   }
 
   @FXML
   public void initialize() throws SQLException {
-    editAlertButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERT));
-    //    notificationCenter.setHeaderTextProperty("");
-    //    notificationCenter.set
 
     // set the width and height to be bound to the panes width and height
     //    imageView.fitWidthProperty().bind(rootPane.widthProperty());
@@ -185,6 +183,8 @@ public class HomeController {
       showRequestsButton.setManaged(true);
       actionVBox.setManaged(true);
       SRVBox.setManaged(true);
+      editSignageButton.setVisible(true);
+      editSignageButton.setManaged(true);
 
       /** * Enables all buttons for the Admin login */
     } else if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.ADMIN)) {
@@ -228,6 +228,8 @@ public class HomeController {
       editMoveButton.setManaged(true);
       actionVBox.setManaged(true);
       SRVBox.setManaged(true);
+      editSignageButton.setVisible(true);
+      editSignageButton.setManaged(true);
     }
 
     upcomingMoves.setOnMouseClicked(
@@ -261,5 +263,7 @@ public class HomeController {
     // navigateButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
     editMoveButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MOVE_TABLE));
     employeeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.EMPLOYEE_TABLE));
+    editSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TABLE));
+    editAlertButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERT));
   }
 }

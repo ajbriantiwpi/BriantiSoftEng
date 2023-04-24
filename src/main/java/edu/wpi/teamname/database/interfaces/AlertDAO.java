@@ -4,7 +4,7 @@ import edu.wpi.teamname.database.alerts.Alert;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface AlertDAO extends DAO<Alert> {
+public interface AlertDAO {
   void sync(Alert alert) throws SQLException;
 
   ArrayList<Alert> getAll() throws SQLException;

@@ -20,7 +20,8 @@ public enum Screen {
 
   MOVE_TABLE("views/MoveTable.fxml"),
   EMPLOYEE_TABLE("views/EmployeeTable.fxml"),
-  ALERT("views/AlertTableView.fxml");
+  ALERT("views/AlertTableView.fxml"),
+  SIGNAGE_TABLE("views/editSignage.fxml");
 
   private final String filename;
 

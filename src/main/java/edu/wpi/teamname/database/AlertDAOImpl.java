@@ -26,45 +26,6 @@ public class AlertDAOImpl implements AlertDAO {
 
       statement.executeUpdate();
 
-      //            // ItemsOrdered
-      //            ArrayList<RequestItem> items = alert.getItems();
-      //            // ArrayList<Integer> itemsUsed = new ArrayList<>();
-      //            for (int i = 0; i < items.size(); i++) {
-      //                int newQuantity = getQuantity(serviceRequest.getRequestID(),
-      // items.get(i).getItemID()) + 1;
-      //                connection = DataManager.DbConnection();
-      //                // int currID = items.get(i).getItemID();
-      //                // connection;
-      //                // DriverManager.getConnection(
-      //                // DataManager.getDB_URL(), DataManager.getDB_USER(),
-      // DataManager.getDB_PASSWORD());
-      //                try {
-      //                    if (newQuantity == 1) {
-      //                        query =
-      //                                "INSERT INTO \"ItemsOrdered\" (\"requestID\", \"itemID\",
-      // \"quantity\") "
-      //                                        + "VALUES (?, ?, ?)";
-      //                        statement = connection.prepareStatement(query);
-      //                        statement.setInt(1, serviceRequest.getRequestID());
-      //                        statement.setInt(2, items.get(i).getItemID());
-      //                        statement.setInt(3, 1);
-      //                        // itemsUsed.add(currID);
-      //                    } else {
-      //                        query =
-      //                                "UPDATE \"ItemsOrdered\" SET quantity = ? WHERE \"itemID\" =
-      // ? AND \"requestID\" = ?";
-      //                        statement = connection.prepareStatement(query);
-      //                        statement.setInt(1, newQuantity);
-      //                        statement.setInt(2, items.get(i).getItemID());
-      //                        statement.setInt(3, serviceRequest.getRequestID());
-      //                    }
-      //                    statement.executeUpdate();
-      //
-      //                } catch (SQLException e) {
-      //                    System.err.println(e.getMessage());
-      //                }
-      //            }
-
     } catch (SQLException e) {
       System.err.println(e.getMessage());
     }
@@ -125,45 +86,6 @@ public class AlertDAOImpl implements AlertDAO {
       statement.setString(8, alert.getUrgency().getString());
 
       statement.executeUpdate();
-
-      //            // ItemsOrdered
-      //            ArrayList<RequestItem> items = alert.getItems();
-      //            // ArrayList<Integer> itemsUsed = new ArrayList<>();
-      //            for (int i = 0; i < items.size(); i++) {
-      //                int newQuantity = getQuantity(serviceRequest.getRequestID(),
-      // items.get(i).getItemID()) + 1;
-      //                connection = DataManager.DbConnection();
-      //                // int currID = items.get(i).getItemID();
-      //                // connection;
-      //                // DriverManager.getConnection(
-      //                // DataManager.getDB_URL(), DataManager.getDB_USER(),
-      // DataManager.getDB_PASSWORD());
-      //                try {
-      //                    if (newQuantity == 1) {
-      //                        query =
-      //                                "INSERT INTO \"ItemsOrdered\" (\"requestID\", \"itemID\",
-      // \"quantity\") "
-      //                                        + "VALUES (?, ?, ?)";
-      //                        statement = connection.prepareStatement(query);
-      //                        statement.setInt(1, serviceRequest.getRequestID());
-      //                        statement.setInt(2, items.get(i).getItemID());
-      //                        statement.setInt(3, 1);
-      //                        // itemsUsed.add(currID);
-      //                    } else {
-      //                        query =
-      //                                "UPDATE \"ItemsOrdered\" SET quantity = ? WHERE \"itemID\" =
-      // ? AND \"requestID\" = ?";
-      //                        statement = connection.prepareStatement(query);
-      //                        statement.setInt(1, newQuantity);
-      //                        statement.setInt(2, items.get(i).getItemID());
-      //                        statement.setInt(3, serviceRequest.getRequestID());
-      //                    }
-      //                    statement.executeUpdate();
-      //
-      //                } catch (SQLException e) {
-      //                    System.err.println(e.getMessage());
-      //                }
-      //            }
 
     } catch (SQLException e) {
       System.err.println(e.getMessage());
