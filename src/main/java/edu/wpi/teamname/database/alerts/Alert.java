@@ -9,6 +9,7 @@ import lombok.NonNull;
 import lombok.Setter;
 
 public class Alert {
+  @Getter private static int idCounter = 0;
   @Getter @Setter private int id; // UUID for the announcement
 
   @Getter @Setter @NonNull private Timestamp startDisplayDate; // Date that the announcement is for
@@ -45,6 +46,7 @@ public class Alert {
       @NonNull String announcement,
       @NonNull EmployeeType type,
       @NonNull Urgency urgency) {
+    idCounter++;
     this.id = alertID;
     this.startDisplayDate = startDisplayDate;
     this.endDisplayDate = endDisplayDate;
@@ -57,10 +59,10 @@ public class Alert {
   }
 
   public enum Urgency {
-    NONE("None"),
-    MILD("Mild"),
-    INTERMEDIATE("Medium"),
-    SEVERE("Severe");
+    NONE("NONE"),
+    MILD("MILD"),
+    MEDIUM("MEDIUM"),
+    SEVERE("SEVERE");
 
     @NonNull public final String urgency;
 
@@ -74,7 +76,7 @@ public class Alert {
     }
 
     public String getString() {
-      return "";
+      return this.urgency;
     }
   }
 
@@ -96,5 +98,9 @@ public class Alert {
   @Override
   public String toString() {
     return Long.toString(this.id);
+  }
+
+  public boolean addEmployee(Employee employee) {
+    return employeeList.add(employee);
   }
 }

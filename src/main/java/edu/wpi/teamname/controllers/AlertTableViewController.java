@@ -1,18 +1,27 @@
 package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.App;
+import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.database.alerts.Alert;
 import edu.wpi.teamname.employees.EmployeeType;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -20,7 +29,7 @@ import javafx.scene.layout.VBox;
 import org.controlsfx.control.PopOver;
 import org.controlsfx.control.SearchableComboBox;
 
-public class AlertTableViewControllers {
+public class AlertTableViewController {
 
   @FXML TableView<Alert> table; // 15
   @FXML TableColumn notificationIDCol; // 7
@@ -45,6 +54,27 @@ public class AlertTableViewControllers {
   @FXML MFXButton createNewAlert; // 3
   @FXML ComboBox<EmployeeType> staffTypeCombo; // 2
   @FXML ComboBox<Alert.Urgency> urgencyCombo; // 1
+
+  public void makeNewAlert(
+      Timestamp start,
+      Timestamp end,
+      EmployeeType type,
+      String description,
+      String announcement,
+      Alert.Urgency urgency)
+      throws SQLException {
+    Alert newAlert =
+        new Alert(
+            Alert.getIdCounter(),
+            start,
+            end,
+            GlobalVariables.getCurrentUser().getUsername(),
+            description,
+            announcement,
+            type,
+            urgency);
+    DataManager.addAlert(newAlert);
+  }
 
   @FXML
   public void initialize() throws SQLException {
@@ -106,15 +136,66 @@ public class AlertTableViewControllers {
             }
             MFXButton submit = (MFXButton) ((Pane) (v.getChildren().get(5))).getChildren().get(1);
             MFXButton cancel = (MFXButton) ((Pane) (v.getChildren().get(5))).getChildren().get(0);
-            ComboBox types = (ComboBox) ((Pane) (v.getChildren().get(4))).getChildren().get(0);
+            ComboBox<EmployeeType> types =
+                (ComboBox) ((Pane) (v.getChildren().get(4))).getChildren().get(0);
             types.setItems(staffTypes);
-            ComboBox urgencies = (ComboBox) ((Pane) (v.getChildren().get(4))).getChildren().get(1);
+            ComboBox<Alert.Urgency> urgencies =
+                (ComboBox) ((Pane) (v.getChildren().get(4))).getChildren().get(1);
             urgencies.setItems(urgencyComboList);
+            TextField announcement = (TextField) ((v.getChildren().get(2)));
+            submit.disableProperty().bind(Bindings.isEmpty(announcement.textProperty()));
+            TextField description = (TextField) ((v.getChildren().get(2)));
+            submit.disableProperty().bind(Bindings.isEmpty(description.textProperty()));
+            DatePicker start = (DatePicker) ((Pane) (v.getChildren().get(1))).getChildren().get(0);
+            submit.disableProperty().bind(Bindings.isNull(start.valueProperty()));
+            DatePicker end = (DatePicker) ((Pane) (v.getChildren().get(1))).getChildren().get(1);
+            submit.disableProperty().bind(Bindings.isNull(end.valueProperty()));
+            submit.disableProperty().bind(Bindings.isNull(urgencies.valueProperty()));
+            submit.disableProperty().bind(Bindings.isNull(types.valueProperty()));
+
+            submit.setOnMouseClicked(
+                event1 -> {
+                  LocalDate startDateDate = start.getValue();
+                  LocalTime time = LocalTime.of(0, 0);
+                  LocalDateTime startDateTime = startDateDate.atTime(time);
+                  Timestamp startDate = Timestamp.valueOf(startDateTime);
+                  LocalDate endDateDate = start.getValue();
+                  LocalDateTime endDateTime = endDateDate.atTime(time);
+                  Timestamp endDate = Timestamp.valueOf(startDateTime);
+                  try {
+                    makeNewAlert(
+                        startDate,
+                        endDate,
+                        types.valueProperty().getValue(),
+                        description.getText(),
+                        announcement.getText(),
+                        urgencies.valueProperty().getValue());
+                  } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                  }
+                });
             PopOver pop = new PopOver(v);
+            cancel.setOnMouseClicked(
+                event1 -> {
+                  pop.hide();
+                });
             pop.show(createNewButton);
           }
         };
     createNewAlert.setOnMouseClicked(addAlertPopup);
+
+    ObservableList<Alert> alertsList = FXCollections.observableList(DataManager.getAllAlerts());
+    FilteredList<Alert> alerts1 = new FilteredList<>(alertsList);
+    SortedList<Alert> sortedListAlerts = new SortedList<>(alerts1);
+    notificationIDCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("id"));
+    startDateCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("startDisplayDate"));
+    endDateCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("endDisplayDate"));
+    authorCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("creator"));
+    staffTypeCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("type"));
+    Description.setCellValueFactory(new PropertyValueFactory<Alert, String>("description"));
+    announcementCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("announcement"));
+    urgencyCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("urgency"));
+    table.setItems(sortedListAlerts);
   }
 
   public ObservableList<Alert> tableFilter(Alert.Urgency one, EmployeeType two)

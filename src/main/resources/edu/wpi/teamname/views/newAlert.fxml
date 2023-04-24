@@ -38,12 +38,7 @@
       </TextArea>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
          <children>
-            <ComboBox promptText="Employee Type" stylesheets="@../stylesheets/combo.css" HBox.hgrow="ALWAYS">
-               <styleClass>
-                  <String fx:value="track" />
-                  <String fx:value="thumb" />
-                  <String fx:value="scroll-bar" />
-               </styleClass></ComboBox>
+            <ComboBox promptText="Employee Type" stylesheets="@../stylesheets/combo.css" HBox.hgrow="ALWAYS" />
             <ComboBox promptText="Urgency" stylesheets="@../stylesheets/combo.css" />
          </children>
       </HBox>

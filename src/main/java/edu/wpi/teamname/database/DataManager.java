@@ -656,6 +656,11 @@ public class DataManager {
     return (new AlertDAOImpl()).getAllIDs();
   }
 
+  public static void addAlert(Alert alert) throws SQLException {
+    AlertDAOImpl alertDAO = new AlertDAOImpl();
+    alertDAO.add(alert);
+  }
+
   /**
    * The method retrieves all the Employee objects from the "Employee" table in the database.
    *

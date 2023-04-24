@@ -181,8 +181,8 @@ public class AlertDAOImpl implements AlertDAO {
       ResultSet rs = statement.executeQuery();
 
       while (rs.next()) {
-        int requestID = rs.getInt("requestID");
-        list.add((requestID));
+        int alertID = rs.getInt("alertID");
+        list.add((alertID));
       }
     }
     connection.close();
