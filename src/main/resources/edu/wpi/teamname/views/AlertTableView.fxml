@@ -17,7 +17,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import org.controlsfx.control.SearchableComboBox?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.AlertTableViewController">
     <children>
@@ -80,47 +79,6 @@
                            <Insets left="12.0" right="12.0" />
                         </padding>
                      </VBox>
-                            <VBox maxWidth="-Infinity" spacing="12.0" style="-fx-background-radius: 16;" styleClass="surface-container-highest">
-                                <children>
-                                    <Label styleClass="primary-text-container" text="Add Staff to Alert" textFill="#001b3b">
-                                        <font>
-                                            <Font name="Roboto" size="32.0" />
-                                        </font>
-                                        <VBox.margin>
-                                            <Insets bottom="4.0" />
-                                        </VBox.margin>
-                                    </Label>
-                                    <Label styleClass="primary-text-container" text="Alert ID" textFill="#001b3b">
-                                        <font>
-                                            <Font name="Roboto" size="28.0" />
-                                        </font>
-                                        <VBox.margin>
-                                            <Insets />
-                                        </VBox.margin>
-                                    </Label>
-                                    <SearchableComboBox fx:id="alertIDAssign" prefHeight="71.0" prefWidth="396.0" promptText="Select Alert ID" stylesheets="@../stylesheets/combo.css">
-                                        <VBox.margin>
-                                            <Insets bottom="4.0" />
-                                        </VBox.margin>
-                                    </SearchableComboBox>
-                                    <Label styleClass="primary-text-container" text="Assign Staff" textFill="#001b3b">
-                                        <font>
-                                            <Font name="Roboto" size="28.0" />
-                                        </font>
-                                        <VBox.margin>
-                                            <Insets />
-                                        </VBox.margin>
-                                    </Label>
-                                    <SearchableComboBox fx:id="assignStaffText" prefHeight="71.0" prefWidth="396.0" promptText="Select Staff" stylesheets="@../stylesheets/combo.css">
-                                        <VBox.margin>
-                                            <Insets bottom="4.0" />
-                                        </VBox.margin>
-                                    </SearchableComboBox>
-                                </children>
-                                <padding>
-                                    <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
-                                </padding>
-                            </VBox>
                             <GridPane>
                                 <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="240.0" minWidth="10.0" prefWidth="193.0" />
@@ -140,16 +98,6 @@
                                         <styleClass>
                                             <String fx:value="primary" />
                                             <String fx:value="headline-med" />
-                                        </styleClass>
-                                    </MFXButton>
-                                    <MFXButton fx:id="submitButton" minWidth="150.0" stylesheets="@../stylesheets/button.css" text="Assign" GridPane.rowIndex="1">
-                                        <font>
-                                            <Font name="Roboto" size="36.0" />
-                                        </font>
-                                        <styleClass>
-                                            <String fx:value="display-med" />
-                                            <String fx:value="primary" />
-                                            <String fx:value="outline" />
                                         </styleClass>
                                     </MFXButton>
                                     <MFXButton fx:id="ViewButton" disable="true" maxWidth="183.0" minHeight="83.0" minWidth="83.0" style="-fx-background-color: #235FA6; -fx-background-radius: 100; -fx-border-radius: 100; -fx-border-color: #6F797A; -fx-text-fill: #ffffff; -fx-font-family: Roboto; -fx-font-size: 20;" stylesheets="@../stylesheets/button.css" text="View Order #" textAlignment="CENTER" visible="false" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">

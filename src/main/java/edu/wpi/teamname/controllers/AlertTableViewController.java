@@ -43,9 +43,9 @@ public class AlertTableViewController {
   @FXML TableColumn announcementCol; // 13
   @FXML TableColumn urgencyCol; // 14
   @FXML TextField searchTextField; // 16
-  @FXML SearchableComboBox<Integer> alertIDAssign; // 4
-  @FXML SearchableComboBox<String> assignStaffText; // 5
-  @FXML MFXButton submitButton; // 6
+//  @FXML SearchableComboBox<Integer> alertIDAssign; // 4
+//  @FXML SearchableComboBox<String> assignStaffText; // 5
+//  @FXML MFXButton submitButton; // 6
   @FXML Label detailsLabel;
   @FXML Label detailsLabel1;
   @FXML Label totalLabel;
@@ -91,8 +91,8 @@ public class AlertTableViewController {
     urgencyComboList.add(null);
     urgencyCombo.setItems(urgencyComboList);
 
-    alertIDAssign.setItems(FXCollections.observableList(DataManager.getAllAlertIDs()));
-    assignStaffText.setItems(FXCollections.observableList(DataManager.getAllUsernames()));
+//    alertIDAssign.setItems(FXCollections.observableList(DataManager.getAllAlertIDs()));
+//    assignStaffText.setItems(FXCollections.observableList(DataManager.getAllUsernames()));
 
     staffTypeCombo.setOnAction(
         event -> {

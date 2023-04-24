@@ -18,7 +18,7 @@ public class Alert {
 
   @Setter @Getter private String creator; // Author for the message
 
-  @Setter @Getter private ArrayList<Employee> employeeList;
+//  @Setter @Getter private ArrayList<Employee> employeeList;
   @Getter @Setter private EmployeeType type; // Department for the message
 
   @Getter @Setter @NonNull private String description;
@@ -55,7 +55,7 @@ public class Alert {
     this.announcement = announcement;
     this.type = type;
     this.urgency = urgency;
-    employeeList = new ArrayList<>();
+//    employeeList = new ArrayList<>();
   }
 
   public enum Urgency {
@@ -91,16 +91,16 @@ public class Alert {
     return getId() == that.getId(); // Check IDs, do it based on that
   }
 
-  public boolean addStaff(Employee adder) {
-    return this.employeeList.add(adder);
-  }
+//  public boolean addStaff(Employee adder) {
+//    return this.employeeList.add(adder);
+//  }
 
   @Override
   public String toString() {
     return Long.toString(this.id);
   }
 
-  public boolean addEmployee(Employee employee) {
-    return employeeList.add(employee);
-  }
+//  public boolean addEmployee(Employee employee) {
+//    return employeeList.add(employee);
+//  }
 }
