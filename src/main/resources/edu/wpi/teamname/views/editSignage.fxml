@@ -3,6 +3,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -106,17 +107,11 @@
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="dateInput" prefHeight="26.0" prefWidth="2.0">
-                <font>
-                    <Font name="Roboto" size="14.0" />
-                </font>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
+            <DatePicker fx:id="dateInput">
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
-            </TextField>
+            </DatePicker>
             <Label prefHeight="17.0" prefWidth="138.0" text="Direction" textFill="#235fa6">
                 <font>
                     <Font name="Roboto" size="14.0" />

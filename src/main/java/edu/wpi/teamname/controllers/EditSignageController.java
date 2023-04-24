@@ -2,6 +2,7 @@ package edu.wpi.teamname.controllers;
 
 import static edu.wpi.teamname.database.DataManager.syncSignage;
 
+import edu.wpi.teamname.controllers.JFXitems.DatePickerTableCell;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.database.SignageDAOImpl;
 import edu.wpi.teamname.database.interfaces.SignageDAO;
@@ -13,24 +14,38 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Optional;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import javafx.util.Callback;
 import javafx.util.StringConverter;
-import javax.swing.*;
 import jdk.jfr.Timestamp;
 
+/*
+TODO
+check export
+get import to update asap
+fix enum add error
+be able to edit dates
+editing directions should be drop down
+
+ */
+
 public class EditSignageController {
+
   @FXML private TableView<Signage> editSignageTable;
   @FXML private TextField signIDinput;
   @FXML private TextField longNameInput;
   @FXML private TextField shortNameInput;
-  @FXML private TextField dateInput;
+  @FXML private DatePicker dateInput;
   @FXML private ComboBox<String> directionPicker;
   @FXML private TextField kioskInput;
   @FXML private MFXButton submitButton;
@@ -38,6 +53,7 @@ public class EditSignageController {
   @FXML private MFXButton exportButton;
   @FXML private AnchorPane rootPane;
   @FXML private TextField searchBar;
+
   public void initialize() {
     DataManager signageDAO = new DataManager();
     TableColumn<Signage, String> longNameColumn = new TableColumn<>("Long Name");
@@ -48,6 +64,13 @@ public class EditSignageController {
 
     TableColumn<Signage, Timestamp> dateColumn = new TableColumn<>("Date");
     dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+    dateColumn.setCellFactory(
+        new Callback<TableColumn<Signage, Timestamp>, TableCell<Signage, Timestamp>>() {
+          @Override
+          public TableCell<Signage, Timestamp> call(TableColumn<Signage, Timestamp> param) {
+            return new DatePickerTableCell();
+          }
+        });
 
     TableColumn<Signage, Direction> arrowDirectionColumn = new TableColumn<>("Direction");
     arrowDirectionColumn.setCellValueFactory(new PropertyValueFactory<>("arrowDirection"));
@@ -75,7 +98,12 @@ public class EditSignageController {
             if (string == null || string.isEmpty()) {
               return null;
             }
-            return Direction.valueOf(string);
+            for (Direction direction : Direction.values()) {
+              if (direction.getString().equalsIgnoreCase(string)) {
+                return direction;
+              }
+            }
+            return null;
           }
         };
 
@@ -142,8 +170,24 @@ public class EditSignageController {
             throw new RuntimeException(e);
           }
         });
-      searchBar.textProperty().addListener((observable, oldValue, newValue) -> filterTable(newValue));
-    deleteMenuItem.setOnAction(event -> deleteSelectedSignage());
+    dateColumn.setOnEditCommit(
+        event -> {
+          Signage editedSignage = event.getRowValue();
+          editedSignage.setDate((java.sql.Timestamp) event.getNewValue());
+          try {
+            syncSignage(editedSignage);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          }
+        });
+    editSignageTable.addEventFilter(
+        KeyEvent.KEY_PRESSED,
+        event -> {
+          if (event.getCode() == KeyCode.DELETE) {
+            deleteSelectedSignageWithWarning();
+          }
+        });
+    searchBar.textProperty().addListener((observable, oldValue, newValue) -> filterTable(newValue));
     exportButton.setOnAction(
         event -> {
           FileChooser fileChooser = new FileChooser();
@@ -182,6 +226,23 @@ public class EditSignageController {
             }
           }
         });
+    editSignageTable.setRowFactory(
+        tableView -> {
+          TableRow<Signage> row = new TableRow<>();
+
+          ContextMenu ccontextMenu = new ContextMenu();
+          MenuItem ddeleteMenuItem = new MenuItem("Delete");
+          ddeleteMenuItem.setOnAction(event -> deleteSelectedSignageWithWarning());
+          ccontextMenu.getItems().add(ddeleteMenuItem);
+
+          row.contextMenuProperty()
+              .bind(
+                  Bindings.when(row.emptyProperty())
+                      .then((ContextMenu) null)
+                      .otherwise(ccontextMenu));
+
+          return row;
+        });
 
     editSignageTable
         .getColumns()
@@ -193,7 +254,7 @@ public class EditSignageController {
             signIDColumn,
             kioskIDColumn);
     loadData();
-    directionPicker.getItems().addAll();
+    directionPicker.getItems().addAll(Direction.getAll());
   }
 
   private void loadData() {
@@ -205,38 +266,62 @@ public class EditSignageController {
       e.printStackTrace();
     }
   }
-    private void filterTable(String searchText) {
-        SignageDAO signageDAO = new SignageDAOImpl();
-        try {
-            ObservableList<Signage> signageData = FXCollections.observableArrayList(signageDAO.getAll());
 
-            if (searchText == null || searchText.isEmpty()) {
-                editSignageTable.setItems(signageData);
-            } else {
-                ObservableList<Signage> filteredData = FXCollections.observableArrayList();
+  private void filterTable(String searchText) {
+    SignageDAO signageDAO = new SignageDAOImpl();
+    try {
+      ObservableList<Signage> signageData = FXCollections.observableArrayList(signageDAO.getAll());
 
-                for (Signage signage : signageData) {
-                    if (signage.getLongName().toLowerCase().contains(searchText.toLowerCase())
-                            || signage.getShortName().toLowerCase().contains(searchText.toLowerCase())
-                            || Integer.toString(signage.getSignId()).contains(searchText)
-                            || Integer.toString(signage.getKioskId()).contains(searchText)) {
-                        filteredData.add(signage);
-                    }
-                }
+      if (searchText == null || searchText.isEmpty()) {
+        editSignageTable.setItems(signageData);
+      } else {
+        ObservableList<Signage> filteredData = FXCollections.observableArrayList();
 
-                editSignageTable.setItems(filteredData);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        for (Signage signage : signageData) {
+          if (signage.getLongName().toLowerCase().contains(searchText.toLowerCase())
+              || signage.getShortName().toLowerCase().contains(searchText.toLowerCase())
+              || Integer.toString(signage.getSignId()).contains(searchText)
+              || Integer.toString(signage.getKioskId()).contains(searchText)) {
+            filteredData.add(signage);
+          }
         }
+
+        editSignageTable.setItems(filteredData);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
+  }
 
   public void handleSubmitButton() {
+    StringConverter<Direction> directionConverter =
+        new StringConverter<Direction>() {
+          @Override
+          public String toString(Direction direction) {
+            if (direction == null) {
+              return null;
+            }
+            return direction.name();
+          }
+
+          @Override
+          public Direction fromString(String string) {
+            if (string == null || string.isEmpty()) {
+              return null;
+            }
+            for (Direction direction : Direction.values()) {
+              if (direction.getString().equalsIgnoreCase(string)) {
+                return direction;
+              }
+            }
+            return null;
+          }
+        };
     int signId = Integer.parseInt(signIDinput.getText());
     String longName = longNameInput.getText();
     String shortName = shortNameInput.getText();
-    java.sql.Timestamp date = java.sql.Timestamp.valueOf(dateInput.getText());
-    Direction direction = Direction.valueOf(directionPicker.getValue());
+    java.sql.Timestamp date = java.sql.Timestamp.valueOf(dateInput.getValue().atStartOfDay());
+    Direction direction = directionConverter.fromString(directionPicker.getValue());
     int kioskId = Integer.parseInt(kioskInput.getText());
 
     Signage newSignage = new Signage(longName, shortName, date, direction, signId, kioskId);
@@ -253,13 +338,12 @@ public class EditSignageController {
     signIDinput.clear();
     longNameInput.clear();
     shortNameInput.clear();
-    dateInput.clear();
+    dateInput.setValue(null);
     kioskInput.clear();
     directionPicker.setValue(null);
   }
 
-  private void deleteSelectedSignage() {
-    DataManager signageDAO = new DataManager();
+  private void deleteSelectedSignageWithWarning() {
     Signage selectedSignage = editSignageTable.getSelectionModel().getSelectedItem();
     if (selectedSignage != null) {
       Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -282,8 +366,8 @@ public class EditSignageController {
       Optional<ButtonType> result = alert.showAndWait();
       if (result.isPresent() && result.get() == ButtonType.OK) {
         try {
+          DataManager signageDAO = new DataManager();
           signageDAO.deleteSignage(selectedSignage);
-          // employeeDAO.deleteEmployeeType(selectedEmployee.getUsername());
           editSignageTable.getItems().remove(selectedSignage);
         } catch (SQLException e) {
           e.printStackTrace();
