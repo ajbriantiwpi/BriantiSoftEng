@@ -114,7 +114,7 @@ public class EditSignageController {
     contextMenu.getItems().add(deleteMenuItem);
 
     // Make the TableView editable
-     editSignageTable.setEditable(true);
+    editSignageTable.setEditable(true);
 
     // Add the event handlers for committing the edits
     signIDColumn.setOnEditCommit(
