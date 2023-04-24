@@ -49,18 +49,73 @@ public class DataManager {
     return connection;
   }
 
+  public static ArrayList<String> getConfBuildings() throws SQLException {
+    ArrayList<String> buildings = new ArrayList<>();
+    Connection connection = DataManager.DbConnection();
+    String query = "Select n.building\n" +
+            "From \"Node\" n, \"Move\" m, \"LocationName\" l\n" +
+            "Where n.\"nodeID\" = m.\"nodeID\" AND l.\"longName\" = m.\"longName\" AND l.\"nodeType\" = 'CONF'\n" +
+            "Group by n.building;";
+    try (connection) {
+      PreparedStatement statement = connection.prepareStatement(query);
+      ResultSet rs = statement.executeQuery();
+      while (rs.next()) {
+        String building = rs.getString("building");
+        buildings.add(building);
+      }
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return buildings;
+  }
+
+  public static ArrayList<String> getConfRooms(String building)  throws SQLException {
+    ArrayList<String> rooms = new ArrayList<>();
+    Connection connection = DataManager.DbConnection();
+    String queryAll = "Select \"n.nodeID\"\n" +
+            "From \"Node\" n, \"Move\" m, \"LocationName\" l\n" +
+            "Where n.\"nodeID\" = m.\"nodeID\" AND l.\"longName\" = m.\"longName\" AND l.\"nodeType\" = 'CONF'\n";
+    String queryOne = "Select \"n.nodeID\"\n" +
+            "From \"Node\" n, \"Move\" m, \"LocationName\" l\n" +
+            "Where n.\"nodeID\" = m.\"nodeID\" AND l.\"longName\" = m.\"longName\" AND l.\"nodeType\" = 'CONF' AND building = ? \n";
+    PreparedStatement statement;
+    try (connection) {
+
+      if (building.equals("all")) {
+        statement = connection.prepareStatement(queryAll);
+      }
+      else{
+        statement = connection.prepareStatement(queryOne);
+        statement.setString(1, building);
+      }
+
+
+      ResultSet rs = statement.executeQuery();
+      while (rs.next()) {
+        String build = rs.getString("building");
+        rooms.add(build);
+      }
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+
+
+    return rooms;
+  }
+
   public static void refreshConfRooms() throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query =
         "Select m.\"nodeID\" as nodeID, ln.\"shortName\" as shortName, n.floor, n.building, max(m.date) as date\n"
             + "From \"Move\" m, \"Node\" n, \"LocationName\" ln\n"
-            + "Where m.\"nodeID\" = n.\"nodeID\" AND m.\"longName\" = ln.\"longName\" AND m.date <= ?\n"
+            + "Where m.\"nodeID\" = n.\"nodeID\" AND m.\"longName\" = ln.\"longName\" AND m.date <= ? AND ln.\"nodeType\" = ?\n"
             + "Group by n.building, n.floor, ln.\"shortName\", m.\"nodeID\"";
     try (connection) {
       PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"ConfRooms\";");
       statement.executeUpdate();
       statement = connection.prepareStatement(query);
       statement.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
+      statement.setString(2, "CONF");
       ResultSet rs = statement.executeQuery();
       while (rs.next()) {
         int roomID = rs.getInt("nodeID");

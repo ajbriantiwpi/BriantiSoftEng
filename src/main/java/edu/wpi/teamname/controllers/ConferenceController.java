@@ -1,15 +1,14 @@
 package edu.wpi.teamname.controllers;
 
-import edu.wpi.teamname.servicerequest.requestitem.ConfRoom;
+import edu.wpi.teamname.database.DataManager;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.RangeSlider;
 
@@ -23,52 +22,35 @@ public class ConferenceController {
   @FXML RangeSlider sizeSlider;
   @FXML MFXButton submitButton;
   @FXML VBox viewBox;
-  // ----------TABLE FXML-----------
-  @FXML TableView<ConfRoom> confTable;
-  @FXML TableColumn roomName;
-  @FXML TableColumn am8;
-  @FXML TableColumn am830;
-  @FXML TableColumn am9;
-  @FXML TableColumn am930;
-  @FXML TableColumn am10;
-  @FXML TableColumn am1030;
-  @FXML TableColumn am11;
-  @FXML TableColumn am1130;
-  @FXML TableColumn pm12;
-  @FXML TableColumn pm1230;
-  @FXML TableColumn pm1;
-  @FXML TableColumn pm130;
-  @FXML TableColumn pm2;
-  @FXML TableColumn pm230;
-  @FXML TableColumn pm3;
-  @FXML TableColumn pm330;
-  @FXML TableColumn pm4;
-  @FXML TableColumn pm430;
-  @FXML TableColumn pm5;
-  @FXML TableColumn pm530;
-  @FXML TableColumn pm6;
-  @FXML TableColumn pm630;
 
-  // ---------------------
-  private static Timestamp bookingDate;
+  ObservableList<String> buildings;
+  ObservableList<String> startTimes = FXCollections.observableArrayList("8:00", "6:30");
+  ObservableList<String> endTimes = FXCollections.observableArrayList("8:30", "7:00");
+  ObservableList<String> rooms;
 
-  // make date button
-  // when date button selected get the date and when initializing table query only the ones on the
-  // specific day and put it in bookingDate variable
-  // make name field OR just get the users ID
+  private static Timestamp today = new Timestamp(System.currentTimeMillis());
+
 
   @FXML
   public void initialize() throws SQLException {
-    roomName.setCellValueFactory(new PropertyValueFactory<ConfRoom, String>("room"));
-  }
+    buildings = FXCollections.observableArrayList(DataManager.getConfBuildings());
+    rooms = FXCollections.observableArrayList(DataManager.getConfRooms("all"));
 
-  // while user has not clicked submit, whichever cells they choose add those cells to a list
-  // after user submits with name field filled out have a confirm booking
-  // have option to clear bookings
-  // when clicking a cell make new confRoom obj thats null called finalConfReq
-  // when clicked is true, get cells coordinates, call translate function with the coordinates,
-  // change color of cell,
-  // translate function should return String of string endTime (time+30)
-  // Calling translate into String clickedTime and comparing if the finalConfReq.endTime ==
-  // clickedTime UNLESS clickedTime = 7 then set finalConfReq.endTime to 7
+    buildingBox.setItems(buildings);
+    startBox.setItems(startTimes);
+    endBox.setItems(endTimes);
+    roomBox.setItems(rooms);
+
+    buildingBox.setOnAction(
+        event -> {
+          try {
+            rooms =
+                FXCollections.observableArrayList(
+                    DataManager.getConfRooms(buildingBox.getValue().toString()));
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          }
+          roomBox.setItems(rooms);
+        });
+  }
 }

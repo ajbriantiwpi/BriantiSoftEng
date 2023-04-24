@@ -15,15 +15,18 @@ public class ConfReservation {
   @Getter @Setter private String name;
   @Getter @Setter private String username;
   @Getter @Setter private String staffAssigned;
+  @Getter @Setter private int roomID;
+
 
   @Getter @Setter private int origResID;
   @Getter @Setter private String origStartTime;
   @Getter @Setter private String origEndTime;
   @Getter @Setter private Timestamp origDateBook;
-  @Getter @Setter private Timestamp origDateMade; // calc here
+  @Getter @Setter private Timestamp origDateMade;
   @Getter @Setter private String origName;
   @Getter @Setter private String origUsername;
   @Getter @Setter private String origStaffAssigned;
+  @Getter @Setter private int origRoomID;
 
   public ConfReservation(
       int resID,
@@ -33,7 +36,7 @@ public class ConfReservation {
       Timestamp dateMade,
       String name,
       String username,
-      String staff) {
+      String staff, int roomID) {
     this.resID = resID;
     this.startTime = startT;
     this.endTime = endT;
@@ -42,6 +45,7 @@ public class ConfReservation {
     this.name = name;
     this.username = username;
     this.staffAssigned = staff;
+    this.roomID = roomID;
 
     this.origResID = resID;
     this.origStartTime = startT;
@@ -51,6 +55,7 @@ public class ConfReservation {
     this.origName = name;
     this.origUsername = username;
     this.origStaffAssigned = staff;
+    this.origRoomID = roomID;
   }
 
   public boolean equals(ConfRoom cr) {
@@ -73,6 +78,6 @@ public class ConfReservation {
         + ", Username: "
         + username
         + ", Assigned Staff: "
-        + staffAssigned;
+        + staffAssigned + ", Room ID: " + roomID;
   }
 }

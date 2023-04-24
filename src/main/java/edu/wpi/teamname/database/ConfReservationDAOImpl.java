@@ -17,8 +17,8 @@ public class ConfReservationDAOImpl implements ConfReservationDAO {
     Connection connection = DataManager.DbConnection();
     try (connection) {
       String query =
-          "UPDATE \"ConfReservations\" SET \"resID\" = ?, \"starttime\" = ?, \"endtime\" = ?, datebook = ?, \"name\" = ?, username = ?, \"staffAssigned\" = ?, \"dateMade\" = ?"
-              + "  WHERE \"resID\" = ?, \"starttime\" = ?, \"endtime\" = ?, datebook = ?, \"name\" = ?, username = ?, \"staffAssigned\" = ?, \"dateMade\" = ?";
+          "UPDATE \"ConfReservations\" SET \"resID\" = ?, \"starttime\" = ?, \"endtime\" = ?, datebook = ?, \"name\" = ?, username = ?, \"staffAssigned\" = ?, \"dateMade\" = ?, \"roomID\" = ?"
+              + "  WHERE \"resID\" = ?, \"starttime\" = ?, \"endtime\" = ?, datebook = ?, \"name\" = ?, username = ?, \"staffAssigned\" = ?, \"dateMade\" = ?, \"roomID\" = ?";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, ConfReservation.getResID());
       statement.setString(2, ConfReservation.getStartTime());
@@ -28,15 +28,17 @@ public class ConfReservationDAOImpl implements ConfReservationDAO {
       statement.setString(6, ConfReservation.getUsername());
       statement.setString(7, ConfReservation.getStaffAssigned());
       statement.setTimestamp(8, ConfReservation.getDateMade());
+      statement.setInt(9, ConfReservation.getRoomID());
 
-      statement.setInt(9, ConfReservation.getOrigResID());
-      statement.setString(10, ConfReservation.getOrigStartTime());
-      statement.setString(11, ConfReservation.getOrigEndTime());
-      statement.setTimestamp(12, ConfReservation.getOrigDateBook());
-      statement.setString(13, ConfReservation.getOrigName());
-      statement.setString(14, ConfReservation.getOrigUsername());
-      statement.setString(15, ConfReservation.getOrigStaffAssigned());
-      statement.setTimestamp(16, ConfReservation.getOrigDateMade());
+      statement.setInt(10, ConfReservation.getOrigResID());
+      statement.setString(11, ConfReservation.getOrigStartTime());
+      statement.setString(12, ConfReservation.getOrigEndTime());
+      statement.setTimestamp(13, ConfReservation.getOrigDateBook());
+      statement.setString(14, ConfReservation.getOrigName());
+      statement.setString(15, ConfReservation.getOrigUsername());
+      statement.setString(16, ConfReservation.getOrigStaffAssigned());
+      statement.setTimestamp(17, ConfReservation.getOrigDateMade());
+      statement.setInt(18, ConfReservation.getOrigRoomID());
 
       statement.executeUpdate();
     } catch (SQLException e) {
@@ -71,9 +73,10 @@ public class ConfReservationDAOImpl implements ConfReservationDAO {
         String username = rs.getString("dateMade");
         String staff = rs.getString("staffAssigned");
         Timestamp dateMade = rs.getTimestamp("dateMade");
+        int roomID = rs.getInt("roomID");
         list.add(
             new ConfReservation(
-                resID, startTime, endTime, dateBook, dateMade, name, username, staff));
+                resID, startTime, endTime, dateBook, dateMade, name, username, staff, roomID));
       }
     }
     connection.close();
@@ -92,8 +95,8 @@ public class ConfReservationDAOImpl implements ConfReservationDAO {
     Connection connection = DataManager.DbConnection();
     try (connection) {
       String query =
-          "INSERT INTO \"ConfReservations\" (\"resID\", \"starttime\", \"endtime\", datebook, \"name\", username, \"staffAssigned\", \"dateMade\") "
-              + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+          "INSERT INTO \"ConfReservations\" (\"resID\", \"starttime\", \"endtime\", datebook, \"name\", username, \"staffAssigned\", \"dateMade\", \"roomID\") "
+              + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, ConfReservation.getResID());
       statement.setString(2, ConfReservation.getStartTime());
@@ -103,6 +106,7 @@ public class ConfReservationDAOImpl implements ConfReservationDAO {
       statement.setString(6, ConfReservation.getUsername());
       statement.setString(7, ConfReservation.getStaffAssigned());
       statement.setTimestamp(8, ConfReservation.getDateMade());
+      statement.setInt(9, ConfReservation.getRoomID());
 
       statement.executeUpdate();
 
@@ -169,9 +173,10 @@ public class ConfReservationDAOImpl implements ConfReservationDAO {
       String username = rs.getString("dateMade");
       String staff = rs.getString("staffAssigned");
       Timestamp dateMade = rs.getTimestamp("dateMade");
+      int roomID = rs.getInt("roomID");
       ConfReservation =
           (new ConfReservation(
-              resID, startTime, endTime, dateBook, dateMade, name, username, staff));
+              resID, startTime, endTime, dateBook, dateMade, name, username, staff, roomID));
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }
@@ -204,10 +209,11 @@ public class ConfReservationDAOImpl implements ConfReservationDAO {
         String username = resultSet.getString("dateMade");
         String staff = resultSet.getString("staffAssigned");
         Timestamp dateMade = resultSet.getTimestamp("dateMade");
+        int roomID = resultSet.getInt("roomID");
 
         String row =
-            resID + "," + startTime + "," + endTime + "," + dateBook + "," + dateMade + "," + name
-                + "," + username + "," + staff + "\n";
+            resID + "," + startTime + "," + endTime + "," + dateBook + "," + name
+                + "," + username + "," + staff + ", " + dateMade + "," + roomID + "\n";
         writer.write(row);
       }
       System.out.println("CSV data downloaded from PostgreSQL database");
@@ -231,8 +237,8 @@ public class ConfReservationDAOImpl implements ConfReservationDAO {
 
     try (connection) {
       String query =
-          "INSERT INTO \"ConfReservations\" (\"resID\", \"starttime\", \"endtime\", datebook, \"name\", username, \"staffAssigned\", \"dateMade\") "
-              + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+          "INSERT INTO \"ConfReservations\" (\"resID\", \"starttime\", \"endtime\", datebook, \"name\", username, \"staffAssigned\", \"dateMade\", \"roomID\") "
+              + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
       PreparedStatement statement =
           connection.prepareStatement("TRUNCATE TABLE \"ConfReservations\";");
       statement.executeUpdate();
@@ -243,11 +249,12 @@ public class ConfReservationDAOImpl implements ConfReservationDAO {
         statement.setInt(1, Integer.parseInt(row[0])); // resID
         statement.setString(2, row[1]); // startTime
         statement.setString(3, row[2]); // endTime
-        statement.setTimestamp(1, Timestamp.valueOf(row[3])); // dateBook
-        statement.setString(3, row[4]); // name
-        statement.setString(1, row[5]); // username
-        statement.setString(2, row[6]); // staff Assigned
-        statement.setTimestamp(2, Timestamp.valueOf(row[7])); // dateMade
+        statement.setTimestamp(4, Timestamp.valueOf(row[3])); // dateBook
+        statement.setString(5, row[4]); // name
+        statement.setString(6, row[5]); // username
+        statement.setString(7, row[6]); // staff Assigned
+        statement.setTimestamp(8, Timestamp.valueOf(row[7])); // dateMade
+        statement.setInt(9, Integer.parseInt(row[8]));
 
         statement.executeUpdate();
       }
