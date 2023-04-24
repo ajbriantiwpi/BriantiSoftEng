@@ -8,7 +8,6 @@ import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.navigation.Move;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXNotificationCenter;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -26,7 +25,6 @@ public class HomeController {
 
   @FXML MFXButton helpButton;
   @FXML MFXButton mapButton;
-  @FXML MFXButton editAlertButton;
   @FXML VBox actionVBox;
   @FXML VBox SRVBox;
   @FXML VBox mapVBox;
@@ -45,7 +43,6 @@ public class HomeController {
   @FXML MFXButton activeRequests;
   @FXML MFXButton upcomingMoves;
   @FXML MFXButton doneRequests;
-  @FXML MFXNotificationCenter notificationCenter;
 
   // test push
   @Setter @Getter private static ObservableBooleanValue loggedIn = new SimpleBooleanProperty(false);
@@ -96,9 +93,6 @@ public class HomeController {
 
   @FXML
   public void initialize() throws SQLException {
-    editAlertButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERT));
-    //    notificationCenter.setHeaderTextProperty("");
-    //    notificationCenter.set
 
     // set the width and height to be bound to the panes width and height
     //    imageView.fitWidthProperty().bind(rootPane.widthProperty());
