@@ -246,7 +246,7 @@ public class MapController {
             System.out.println("Move to start node floor failed, should not be here");
           }
 
-          FloorsToggle.setVisible(true);
+          FloorsToggle.setDisable(false);
           showPathFloors(false);
 
           clickCount = 0;
@@ -766,8 +766,7 @@ public class MapController {
 
     FloorsToggle.setOnMouseClicked(toggleFloorMethod);
     FloorsToggle.setSelected(false);
-    FloorsToggle.setDisable(false);
-    FloorsToggle.setVisible(false);
+    FloorsToggle.setDisable(true);
 
     anchor.setOnMouseClicked(e);
 

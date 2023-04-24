@@ -98,7 +98,7 @@
                   </AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <CheckBox fx:id="FloorsToggle" mnemonicParsing="false" styleClass="primary-text-container" text="Only Show Path Floors" />
+                        <CheckBox fx:id="FloorsToggle" mnemonicParsing="false" styleClass="primary-text-container" text="Display All Floors" />
                      </children>
                   </AnchorPane>
                </children>
