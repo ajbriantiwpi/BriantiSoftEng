@@ -1,6 +1,6 @@
 package edu.wpi.teamname.database.interfaces;
 
-import edu.wpi.teamname.database.alerts.Alert;
+import edu.wpi.teamname.alerts.Alert;
 import java.sql.SQLException;
 import java.util.ArrayList;
 

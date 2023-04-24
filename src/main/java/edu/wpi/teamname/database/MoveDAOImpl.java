@@ -221,4 +221,27 @@ public class MoveDAOImpl implements MoveDAO {
       System.err.println("Error exporting data from PostgreSQL database: " + e.getMessage());
     }
   }
+
+  /**
+   * * Creates a table for storing Move data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createTable() throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try (connection) {
+      String query =
+          "create table if not exists \"Move\"\n"
+              + "(\n"
+              + "    \"nodeID\"   integer   not null,\n"
+              + "    \"longName\" text      not null,\n"
+              + "    date       timestamp not null,\n"
+              + "    primary key (\"nodeID\", \"longName\", date)\n"
+              + ");";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+    }
+  }
 }

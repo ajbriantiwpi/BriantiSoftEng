@@ -3,9 +3,12 @@ package edu.wpi.teamname.controllers;
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
+import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -108,7 +111,16 @@ public class ParentController {
     // Navigation.navigate(Screen.SERVICE_REQUEST_VIEW));
     editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
     editMoveButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MOVE_TABLE));
-    exitButton.setOnMouseClicked(event -> System.exit(0));
+    exitButton.setOnMouseClicked(
+        event -> {
+          try {
+            Connection connection = DataManager.DbConnection();
+            connection.close();
+          } catch (SQLException e) {
+            System.out.println(e.getMessage());
+          }
+          System.exit(0);
+        });
 
     // titleLabel.setText(titleString.getValue());
   }

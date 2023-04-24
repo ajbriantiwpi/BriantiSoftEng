@@ -220,4 +220,30 @@ public class OfficeSupplyDAOImpl implements OfficeSupplyDAO {
       System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
     }
   }
+
+  /**
+   * * Creates a table for storing OfficeSupply data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createTable() throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try (connection) {
+      String query =
+          "create table if not exists \"OfficeSupply\"\n"
+              + "(\n"
+              + "    \"supplyID\"   integer not null\n"
+              + "        constraint \"OfficeSupply_pk\"\n"
+              + "            primary key,\n"
+              + "    name         varchar(30),\n"
+              + "    price        double precision,\n"
+              + "    category     varchar(40),\n"
+              + "    \"isElectric\" boolean\n"
+              + ");";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+    }
+  }
 }

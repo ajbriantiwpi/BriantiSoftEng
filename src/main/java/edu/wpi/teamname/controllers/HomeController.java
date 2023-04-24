@@ -8,6 +8,7 @@ import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.navigation.Move;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -259,7 +260,16 @@ public class HomeController {
     // Navigation.navigate(Screen.SERVICE_REQUEST));
     showRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST_VIEW));
     editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
-    exitButton.setOnMouseClicked(event -> System.exit(0));
+    exitButton.setOnMouseClicked(
+        event -> {
+          try {
+            Connection connection = DataManager.DbConnection();
+            connection.close();
+          } catch (SQLException e) {
+            System.out.println(e.getMessage());
+          }
+          System.exit(0);
+        });
     // navigateButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
     editMoveButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MOVE_TABLE));
     employeeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.EMPLOYEE_TABLE));
