@@ -1,10 +1,7 @@
 package edu.wpi.teamname.navigation.AlgoStrategy;
 
-import edu.wpi.teamname.database.DataManager;
-import edu.wpi.teamname.navigation.Edge;
 import edu.wpi.teamname.navigation.Graph;
 import edu.wpi.teamname.navigation.Node;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.PriorityQueue;
@@ -31,18 +28,18 @@ public class AStarAlgo implements IStrategyAlgo {
     g.setAllG(s, t);
     // if wheelchair accessible setting is on, change edge weights between stair nodes to high
     // number so algorithm skips over
-//    if (wheelChair == true) {
-//      for (Edge e : g.getEdges()) {
-//        try {
-//          if (DataManager.isNodeType(e.getStartNodeID()).equals("STAI")
-//              && DataManager.isNodeType(e.getEndNodeID()).equals("STAI")) {
-//            e.setWeight(100000);
-//          }
-//        } catch (SQLException ex) {
-//          throw new RuntimeException(ex);
-//        }
-//      }
-//    }
+    //    if (wheelChair == true) {
+    //      for (Edge e : g.getEdges()) {
+    //        try {
+    //          if (DataManager.isNodeType(e.getStartNodeID()).equals("STAI")
+    //              && DataManager.isNodeType(e.getEndNodeID()).equals("STAI")) {
+    //            e.setWeight(100000);
+    //          }
+    //        } catch (SQLException ex) {
+    //          throw new RuntimeException(ex);
+    //        }
+    //      }
+    //    }
 
     Node start = s;
     Node target = t;
@@ -56,28 +53,24 @@ public class AStarAlgo implements IStrategyAlgo {
     while (!openList.isEmpty()) {
       Node ex = openList.peek();
 
-      //      if (wheelChair == true) {
-      //        try {
-      //          if (DataManager.isNodeType(ex.getId()).equals("STAI")) continue;
-      //        } catch (SQLException e) {
-      //          throw new RuntimeException(e);
-      //        }
-      //      }
       if (ex == target) {
         System.out.println(closedList.size());
         return getPath(ex);
       }
 
       for (Node nei : ex.getNeighbors()) {
-        //        if (wheelChair == true) {
-        //          try {
-        //            if (DataManager.isNodeType(nei.getId()).equals("STAI")) continue;
-        //          } catch (SQLException e) {
-        //            throw new RuntimeException(e);
+
+        //        if (wheelChair) {
+        //          LocationName a = GlobalVariables.getHMap().get(ex.getId()).get(0);
+        //          LocationName b = GlobalVariables.getHMap().get(nei.getId()).get(0);
+        //
+        //          if (a.getNodeType().equals("STAI") && b.getNodeType().equals("STAI")) {
+        //            System.out.print("Continued");
+        //            continue;
         //          }
         //        }
 
-        double totalWeight = ex.getG() + nei.findWeight(ex);
+        double totalWeight = ex.getG() + nei.findWeight(ex, wheelChair);
 
         //        System.out.println(closedList.size());
 

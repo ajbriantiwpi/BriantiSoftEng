@@ -65,8 +65,7 @@ public class NodeDAOImpl implements NodeDAO {
         int ycoord = rs.getInt("ycoord");
         String floor = rs.getString("floor");
         String building = rs.getString("building");
-        String type = DataManager.isNodeType(id);
-        list.add(new Node(id, xcoord, ycoord, floor, building, type));
+        list.add(new Node(id, xcoord, ycoord, floor, building));
       }
     } catch (SQLException e) {
       System.out.println("Get all nodes error.");

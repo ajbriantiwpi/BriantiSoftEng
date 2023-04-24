@@ -1,5 +1,6 @@
 package edu.wpi.teamname.navigation;
 
+import edu.wpi.teamname.GlobalVariables;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,6 @@ public class Node implements Comparable<Node> {
   @Getter @Setter private int z;
   @Getter @Setter private String floor;
   @Getter @Setter private String building;
-  @Getter@Setter private String type;
 
   @Getter @Setter private Node parent = null;
   @Getter @Setter private List<Node> neighbors;
@@ -41,18 +41,6 @@ public class Node implements Comparable<Node> {
     this.y = y;
     this.floor = Floor;
     this.building = Building;
-    this.h = 0;
-    this.id = ID;
-    this.neighbors = new ArrayList<>();
-    //    this.edges = new ArrayList<>();
-    this.originalID = ID;
-  }
-  public Node(int ID, int x, int y, String Floor, String Building, String Type) {
-    this.x = x;
-    this.y = y;
-    this.floor = Floor;
-    this.building = Building;
-    this.type = Type;
     this.h = 0;
     this.id = ID;
     this.neighbors = new ArrayList<>();
@@ -119,7 +107,7 @@ public class Node implements Comparable<Node> {
    * @param target the node to calculate the weight for
    * @return the weight of the edge between this node and the given node
    */
-  public double findWeight(Node target) {
+  public double findWeight(Node target, Boolean wheelChair) {
     int x1 = this.x;
     int x2 = target.getX();
     int y1 = this.y;
@@ -130,6 +118,12 @@ public class Node implements Comparable<Node> {
     double x = Math.pow((x2 - x1), 2);
     double y = Math.pow((y2 - y1), 2);
     double z = Math.pow((z2 - z1), 2);
+
+    if (wheelChair) {
+      LocationName a = GlobalVariables.getHMap().get(this.id).get(0);
+      LocationName b = GlobalVariables.getHMap().get(target.id).get(0);
+      if (a.getNodeType().equals("STAI") && b.getNodeType().equals("STAI")) return 1000000;
+    }
     return Math.sqrt(x + y + z);
   }
 
