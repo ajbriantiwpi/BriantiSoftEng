@@ -1,7 +1,7 @@
 package edu.wpi.teamname.database;
 
-import edu.wpi.teamname.database.interfaces.SignageDAO;
 import edu.wpi.teamname.database.alerts.Alert;
+import edu.wpi.teamname.database.interfaces.SignageDAO;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
 import edu.wpi.teamname.navigation.*;

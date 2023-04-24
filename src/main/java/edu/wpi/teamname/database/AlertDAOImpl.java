@@ -26,7 +26,6 @@ public class AlertDAOImpl implements AlertDAO {
 
       statement.executeUpdate();
 
-
     } catch (SQLException e) {
       System.err.println(e.getMessage());
     }
@@ -87,7 +86,6 @@ public class AlertDAOImpl implements AlertDAO {
       statement.setString(8, alert.getUrgency().getString());
 
       statement.executeUpdate();
-
 
     } catch (SQLException e) {
       System.err.println(e.getMessage());

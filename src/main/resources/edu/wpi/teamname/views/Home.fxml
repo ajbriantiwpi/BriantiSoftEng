@@ -210,7 +210,6 @@
                                 </ImageView>
                             </graphic>
                         </MFXButton>
-                  </MFXButton>
                     </children>
                     <padding>
                         <Insets bottom="12.0" />
