@@ -15,10 +15,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.SearchableComboBox?>
-<?import org.controlsfx.control.tableview2.FilteredTableColumn?>
-<?import org.controlsfx.control.tableview2.FilteredTableView?>
-
-<!--        style="-fx-background-color: #D9E3F8;" -->
 
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TableColumn?>
