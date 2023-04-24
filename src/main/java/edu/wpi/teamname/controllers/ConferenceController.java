@@ -30,7 +30,6 @@ public class ConferenceController {
 
   private static Timestamp today = new Timestamp(System.currentTimeMillis());
 
-
   @FXML
   public void initialize() throws SQLException {
     buildings = FXCollections.observableArrayList(DataManager.getConfBuildings());

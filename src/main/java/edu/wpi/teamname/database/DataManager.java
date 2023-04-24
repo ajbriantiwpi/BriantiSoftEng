@@ -53,10 +53,11 @@ public class DataManager {
   public static ArrayList<String> getConfBuildings() throws SQLException {
     ArrayList<String> buildings = new ArrayList<>();
     Connection connection = DataManager.DbConnection();
-    String query = "Select n.building\n" +
-            "From \"Node\" n, \"Move\" m, \"LocationName\" l\n" +
-            "Where n.\"nodeID\" = m.\"nodeID\" AND l.\"longName\" = m.\"longName\" AND l.\"nodeType\" = 'CONF'\n" +
-            "Group by n.building;";
+    String query =
+        "Select n.building\n"
+            + "From \"Node\" n, \"Move\" m, \"LocationName\" l\n"
+            + "Where n.\"nodeID\" = m.\"nodeID\" AND l.\"longName\" = m.\"longName\" AND l.\"nodeType\" = 'CONF'\n"
+            + "Group by n.building;";
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
       ResultSet rs = statement.executeQuery();
@@ -70,26 +71,26 @@ public class DataManager {
     return buildings;
   }
 
-  public static ArrayList<String> getConfRooms(String building)  throws SQLException {
+  public static ArrayList<String> getConfRooms(String building) throws SQLException {
     ArrayList<String> rooms = new ArrayList<>();
     Connection connection = DataManager.DbConnection();
-    String queryAll = "Select \"n.nodeID\"\n" +
-            "From \"Node\" n, \"Move\" m, \"LocationName\" l\n" +
-            "Where n.\"nodeID\" = m.\"nodeID\" AND l.\"longName\" = m.\"longName\" AND l.\"nodeType\" = 'CONF'\n";
-    String queryOne = "Select \"n.nodeID\"\n" +
-            "From \"Node\" n, \"Move\" m, \"LocationName\" l\n" +
-            "Where n.\"nodeID\" = m.\"nodeID\" AND l.\"longName\" = m.\"longName\" AND l.\"nodeType\" = 'CONF' AND building = ? \n";
+    String queryAll =
+        "Select \"n.nodeID\"\n"
+            + "From \"Node\" n, \"Move\" m, \"LocationName\" l\n"
+            + "Where n.\"nodeID\" = m.\"nodeID\" AND l.\"longName\" = m.\"longName\" AND l.\"nodeType\" = 'CONF'\n";
+    String queryOne =
+        "Select \"n.nodeID\"\n"
+            + "From \"Node\" n, \"Move\" m, \"LocationName\" l\n"
+            + "Where n.\"nodeID\" = m.\"nodeID\" AND l.\"longName\" = m.\"longName\" AND l.\"nodeType\" = 'CONF' AND building = ? \n";
     PreparedStatement statement;
     try (connection) {
 
       if (building.equals("all")) {
         statement = connection.prepareStatement(queryAll);
-      }
-      else{
+      } else {
         statement = connection.prepareStatement(queryOne);
         statement.setString(1, building);
       }
-
 
       ResultSet rs = statement.executeQuery();
       while (rs.next()) {
@@ -99,7 +100,6 @@ public class DataManager {
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }
-
 
     return rooms;
   }

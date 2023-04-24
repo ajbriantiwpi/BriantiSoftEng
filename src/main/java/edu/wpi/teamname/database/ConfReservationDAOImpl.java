@@ -212,8 +212,8 @@ public class ConfReservationDAOImpl implements ConfReservationDAO {
         int roomID = resultSet.getInt("roomID");
 
         String row =
-            resID + "," + startTime + "," + endTime + "," + dateBook + "," + name
-                + "," + username + "," + staff + ", " + dateMade + "," + roomID + "\n";
+            resID + "," + startTime + "," + endTime + "," + dateBook + "," + name + "," + username
+                + "," + staff + ", " + dateMade + "," + roomID + "\n";
         writer.write(row);
       }
       System.out.println("CSV data downloaded from PostgreSQL database");

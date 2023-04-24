@@ -22,7 +22,7 @@ public enum Screen {
   MOVE_TABLE("views/MoveTable.fxml"),
   EMPLOYEE_TABLE("views/EmployeeTable.fxml"),
   SIGNAGE_TABLE("views/editSignage.fxml"),
-  CONFERENCE_ROOM("views/ConferenceRoomRequest.fxml");
+  CONFERENCE_ROOM("views/ConferenceRoom.fxml");
 
   private final String filename;
 

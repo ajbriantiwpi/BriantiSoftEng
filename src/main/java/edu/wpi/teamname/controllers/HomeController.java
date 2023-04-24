@@ -257,5 +257,6 @@ public class HomeController {
     editSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TABLE));
     viewSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
     viewAlertsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERTS));
+    requestRoomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CONFERENCE_ROOM));
   }
 }
