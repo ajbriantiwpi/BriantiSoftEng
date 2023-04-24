@@ -242,4 +242,31 @@ public class SignageDAOImpl implements SignageDAO {
       throw e;
     }
   }
+
+  /**
+   * * Creates a table for storing Signage data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createTable() throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try (connection) {
+      String query =
+          "create table if not exists \"Signage\"\n"
+              + "(\n"
+              + "    \"longName\"       text,\n"
+              + "    \"shortName\"      text,\n"
+              + "    date             timestamp,\n"
+              + "    \"signID\"         integer not null\n"
+              + "        constraint \"Signage_pk\"\n"
+              + "            primary key,\n"
+              + "    \"arrowDirection\" text,\n"
+              + "    \"kioskID\"        integer\n"
+              + ");";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+    }
+  }
 }

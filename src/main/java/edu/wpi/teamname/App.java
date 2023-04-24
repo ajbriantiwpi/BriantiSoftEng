@@ -35,7 +35,6 @@ public class App extends Application {
     primaryStage.setFullScreen(true);
 
     DataManager.connectToWPI();
-    DataManager.tryToCreateAllTables();
 
     final FXMLLoader loader = new FXMLLoader(App.class.getResource("views/Root.fxml"));
     final BorderPane root = loader.load();

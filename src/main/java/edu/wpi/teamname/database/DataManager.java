@@ -1,7 +1,6 @@
 package edu.wpi.teamname.database;
 
-import edu.wpi.teamname.database.alerts.Alert;
-import edu.wpi.teamname.database.interfaces.SignageDAO;
+import edu.wpi.teamname.alerts.Alert;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
 import edu.wpi.teamname.navigation.*;
@@ -1535,6 +1534,24 @@ public class DataManager {
   }
 
   /**
+   * * Creates a table for storing Alert data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createAlertTable() throws SQLException {
+    AlertDAOImpl.createTable();
+  }
+
+  /**
+   * * Creates a table for storing Signage data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createSignageTable() throws SQLException {
+    SignageDAOImpl.createTable();
+  }
+
+  /**
    * * Creates all tables in the database unless they already exist then do nothing
    *
    * @throws SQLException connection to the database fails
@@ -1552,5 +1569,7 @@ public class DataManager {
     createNodeTable();
     createOfficeSupplyTable();
     createServiceRequestTable();
+    createAlertTable();
+    createSignageTable();
   }
 }
