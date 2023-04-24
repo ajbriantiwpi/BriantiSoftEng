@@ -39,6 +39,7 @@ public class HomeController {
   @FXML MFXButton viewSignageButton;
   @FXML MFXButton editSignageButton;
   @FXML MFXButton requestRoomButton;
+  @FXML MFXButton viewAlertsButton; // TAKE OUT LATER
 
   @FXML MFXButton activeRequests;
   @FXML MFXButton upcomingMoves;
@@ -255,5 +256,6 @@ public class HomeController {
     employeeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.EMPLOYEE_TABLE));
     editSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TABLE));
     viewSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
+    viewAlertsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERTS));
   }
 }
