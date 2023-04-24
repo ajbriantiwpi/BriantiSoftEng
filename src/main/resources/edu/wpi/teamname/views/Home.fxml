@@ -266,6 +266,11 @@
                                 <Font size="20.0" />
                             </font>
                         </MFXButton>
+                        <MFXButton fx:id="dataButton" alignment="CENTER" style="-fx-background-color: #001B3B; -fx-border-color: #456d4c; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Data" textAlignment="CENTER" textFill="#fdfbff">
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                        </MFXButton>
                     </children>
                     <GridPane.margin>
                         <Insets right="20.0" top="10.0" />

@@ -32,6 +32,9 @@ public class HomeController {
   @FXML GridPane homeGrid;
   @FXML MFXButton directionsButton;
   @FXML MFXButton makeRequestsButton;
+  //  @FXML MFXButton makeRequestsButton1;
+  //  @FXML MFXButton makeRequestsButton2;
+  //  @FXML MFXButton makeRequestsButton3;
   @FXML MFXButton showRequestsButton;
   @FXML MFXButton editMapButton;
   @FXML MFXButton exitButton;
@@ -45,6 +48,7 @@ public class HomeController {
   @FXML MFXButton activeRequests;
   @FXML MFXButton upcomingMoves;
   @FXML MFXButton doneRequests;
+  @FXML MFXButton dataButton;
 
   // test push
   @Setter @Getter private static ObservableBooleanValue loggedIn = new SimpleBooleanProperty(false);
@@ -268,5 +272,7 @@ public class HomeController {
     viewSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
     viewAlertsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERTS));
     requestRoomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CONFERENCE_ROOM));
+    editAlertButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERT));
+    dataButton.setOnMouseClicked(event -> Navigation.navigate(Screen.DATA_MANAGER));
   }
 }
