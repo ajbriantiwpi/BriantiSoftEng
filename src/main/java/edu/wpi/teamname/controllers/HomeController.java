@@ -16,6 +16,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,9 +25,10 @@ public class HomeController {
 
   @FXML MFXButton helpButton;
   @FXML MFXButton mapButton;
-  @FXML VBox actionItems;
+  @FXML VBox actionVBox;
   @FXML VBox SRVBox;
   @FXML VBox mapVBox;
+  @FXML GridPane homeGrid;
   @FXML MFXButton directionsButton;
   @FXML MFXButton makeRequestsButton;
   //  @FXML MFXButton makeRequestsButton1;
@@ -40,7 +42,6 @@ public class HomeController {
 
   @FXML MFXButton activeRequests;
   @FXML MFXButton upcomingMoves;
-
   @FXML MFXButton doneRequests;
 
   // test push
@@ -51,7 +52,6 @@ public class HomeController {
   @FXML MFXButton loginButton;
   @FXML MFXButton logoutButton;
   @FXML MFXButton editMoveButton;
-  @FXML MFXButton editSignageButton;
 
   /** logs the current user out of the application */
   private void logout() {
@@ -64,6 +64,9 @@ public class HomeController {
 
   /** * Disables all the buttons that can not be accessed without logging in */
   private void disableButtonsWhenLoggedOut() {
+    homeGrid.setConstraints(mapVBox, 1, 1);
+    actionVBox.setVisible(false);
+    SRVBox.setVisible(false);
     makeRequestsButton.setVisible(false);
     showRequestsButton.setVisible(false);
     editMapButton.setVisible(false); // these have to be set to visible false for staff/logged out
@@ -80,8 +83,8 @@ public class HomeController {
     upcomingMoves.setManaged(false);
     doneRequests.setManaged(false);
     makeRequestsButton.setManaged(false);
-    editSignageButton.setManaged(false);
-    editSignageButton.setVisible(false);
+    actionVBox.setManaged(false);
+    SRVBox.setManaged(false);
   }
 
   @FXML
@@ -153,6 +156,11 @@ public class HomeController {
 
     /** * Disables all the buttons that can not be accessed as Staff */
     if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.STAFF)) {
+      homeGrid.setConstraints(mapVBox, 1, 1);
+      homeGrid.setConstraints(actionVBox, 0, 1);
+      homeGrid.setConstraints(SRVBox, 2, 1);
+      actionVBox.setVisible(true);
+      SRVBox.setVisible(true);
       makeRequestsButton.setVisible(true);
       makeRequestsButton.setManaged(true);
       editMoveButton.setVisible(true);
@@ -169,11 +177,16 @@ public class HomeController {
       doneRequests.setManaged(true);
       showRequestsButton.setVisible(true);
       showRequestsButton.setManaged(true);
-      editSignageButton.setVisible(true);
-      editSignageButton.setManaged(true);
+      actionVBox.setManaged(true);
+      SRVBox.setManaged(true);
 
       /** * Enables all buttons for the Admin login */
     } else if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.ADMIN)) {
+      homeGrid.setConstraints(mapVBox, 1, 1);
+      homeGrid.setConstraints(actionVBox, 0, 1);
+      homeGrid.setConstraints(SRVBox, 2, 1);
+      actionVBox.setVisible(true);
+      SRVBox.setVisible(true);
       editMapButton.setVisible(true);
       editMapButton.setDisable(false);
       editMapButton.setManaged(true);
@@ -207,9 +220,8 @@ public class HomeController {
       editMoveButton.setVisible(true);
       editMoveButton.setDisable(false);
       editMoveButton.setManaged(true);
-      editSignageButton.setVisible(true);
-      editSignageButton.setDisable(false);
-      editSignageButton.setManaged(true);
+      actionVBox.setManaged(true);
+      SRVBox.setManaged(true);
     }
 
     upcomingMoves.setOnMouseClicked(
@@ -242,7 +254,6 @@ public class HomeController {
     exitButton.setOnMouseClicked(event -> System.exit(0));
     // navigateButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
     editMoveButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MOVE_TABLE));
-    editSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TABLE));
     employeeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.EMPLOYEE_TABLE));
   }
 }
