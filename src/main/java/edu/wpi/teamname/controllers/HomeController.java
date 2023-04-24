@@ -22,7 +22,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class HomeController {
-
+  @FXML MFXButton editAlertButton;
   @FXML MFXButton helpButton;
   @FXML MFXButton mapButton;
   @FXML VBox actionVBox;
@@ -264,5 +264,6 @@ public class HomeController {
     editMoveButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MOVE_TABLE));
     employeeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.EMPLOYEE_TABLE));
     editSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TABLE));
+    editAlertButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERT));
   }
 }
