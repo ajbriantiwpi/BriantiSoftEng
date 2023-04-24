@@ -27,8 +27,7 @@ public class Alert {
   @Getter @Setter @NonNull private Urgency urgency;
 
   /** Empty constructor, required by hibernate */
-  public Alert() {
-  }
+  public Alert() {}
 
   /**
    * Creates the announcement with the given parameters
