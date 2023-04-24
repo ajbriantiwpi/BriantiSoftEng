@@ -14,18 +14,18 @@ import org.controlsfx.control.RangeSlider;
 
 public class ConferenceController {
 
-  @FXML ComboBox startBox;
-  @FXML ComboBox endBox;
-  @FXML ComboBox buildingBox;
-  @FXML ComboBox roomBox;
+  @FXML ComboBox<String> startBox;
+  @FXML ComboBox<String> endBox;
+  @FXML ComboBox<String> buildingBox;
+  @FXML ComboBox<String> roomBox;
   @FXML DatePicker dateBox;
   @FXML RangeSlider sizeSlider;
   @FXML MFXButton submitButton;
   @FXML VBox viewBox;
 
   ObservableList<String> buildings;
-  ObservableList<String> startTimes = FXCollections.observableArrayList("8:00", "6:30");
-  ObservableList<String> endTimes = FXCollections.observableArrayList("8:30", "7:00");
+  ObservableList<String> startTimes = FXCollections.observableArrayList("8:00", "18:30");
+  ObservableList<String> endTimes = FXCollections.observableArrayList("8:30", "19:00");
   ObservableList<String> rooms;
 
   private static Timestamp today = new Timestamp(System.currentTimeMillis());
@@ -43,12 +43,22 @@ public class ConferenceController {
 
     buildingBox.setOnAction(
         event -> {
-          try {
-            rooms =
-                FXCollections.observableArrayList(
-                    DataManager.getConfRooms(buildingBox.getValue().toString()));
-          } catch (SQLException e) {
-            throw new RuntimeException(e);
+          if(!buildingBox.getValue().toString().equals("")){//if no building is selected
+            try {
+              rooms =
+                      FXCollections.observableArrayList(
+                              DataManager.getConfRooms(buildingBox.getValue().toString()));
+            } catch (SQLException e) {
+              System.out.println(e);
+            }
+          } else { //if building is selected only display correct rooms
+            try {
+              rooms =
+                      FXCollections.observableArrayList(
+                              DataManager.getConfRooms("all"));
+            } catch (SQLException e) {
+              System.out.println(e);
+            }
           }
           roomBox.setItems(rooms);
         });
