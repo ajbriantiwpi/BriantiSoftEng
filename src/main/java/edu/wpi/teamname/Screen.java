@@ -9,18 +9,20 @@ public enum Screen {
   MAP("views/Map.fxml"),
 
   TEST("views/Test.fxml"),
-  SIGNAGE("views/SignageLevels.fxml"),
+  SIGNAGE("views/Signage.fxml"),
+  EDIT_SIGNAGE("views/SignageLevels.fxml"),
+  ALERTS("views/AlertTableView.fxml"),
 
-  //  REQ_MENU("views/ServiceRequestMenu.fxml"),
   LOGIN("views/Login.fxml"),
-  //  SIGNAGE("views/SignageLevels.fxml"),
+
   SERVICE_REQUEST_VIEW("views/ServiceRequestView2.fxml"),
 
   MAP_EDIT("views/MapEdit.fxml"),
 
   MOVE_TABLE("views/MoveTable.fxml"),
   EMPLOYEE_TABLE("views/EmployeeTable.fxml"),
-  SIGNAGE_TABLE("views/editSignage.fxml");
+  SIGNAGE_TABLE("views/editSignage.fxml"),
+  CONFERENCE_ROOM("views/ConferenceRoomRequest.fxml");
 
   private final String filename;
 

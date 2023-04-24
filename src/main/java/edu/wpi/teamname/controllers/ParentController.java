@@ -29,6 +29,10 @@ public class ParentController {
   @FXML MFXButton loginButton;
   @FXML MFXButton editMoveButton;
   @FXML MFXButton showEmployeesButton;
+  @FXML MFXButton requestRoomButton;
+  @FXML MFXButton viewSignageButton;
+  @FXML MFXButton editSignageButton;
+  @FXML MFXButton viewAlertsButton;
   @FXML Label titleLabel;
 
   ArrayList<Screen> secureScreens =
@@ -49,6 +53,8 @@ public class ParentController {
     editMapButton.setVisible(false);
     editMoveButton.setVisible(false);
     showEmployeesButton.setVisible(false);
+    editSignageButton.setVisible(false);
+    viewAlertsButton.setVisible(false);
   }
 
   /** logs the current user out of the application */
@@ -75,11 +81,15 @@ public class ParentController {
     } else {
       loginButton.setVisible(true);
       logoutButton.setVisible(false);
+      viewSignageButton.setVisible(true);
       makeRequestsButton.setVisible(false);
       showRequestsButton.setVisible(false);
       editMoveButton.setVisible(false);
       editMapButton.setVisible(false);
       showEmployeesButton.setVisible(false);
+      viewAlertsButton.setVisible(false);
+      editSignageButton.setVisible(false);
+      requestRoomButton.setVisible(false);
     }
 
     if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.STAFF)) {
@@ -88,6 +98,8 @@ public class ParentController {
       editMoveButton.setVisible(true);
       editMapButton.setVisible(false);
       showEmployeesButton.setVisible(false);
+      viewAlertsButton.setVisible(false);
+      editSignageButton.setVisible(false);
     }
     if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.ADMIN)) {
       editMapButton.setDisable(false);
@@ -95,6 +107,8 @@ public class ParentController {
       makeRequestsButton.setDisable(false);
       showRequestsButton.setDisable(false);
       editMoveButton.setDisable(false);
+      viewAlertsButton.setDisable(false);
+      editSignageButton.setDisable(false);
     }
     homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     //    helpButton.setOnMouseClicked(event -> Navigation.navigate(Screen.));
@@ -108,6 +122,10 @@ public class ParentController {
     // Navigation.navigate(Screen.SERVICE_REQUEST_VIEW));
     editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
     editMoveButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MOVE_TABLE));
+    viewSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
+    editSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.EDIT_SIGNAGE));
+    viewAlertsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERTS));
+    requestRoomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CONFERENCE_ROOM));
     exitButton.setOnMouseClicked(event -> System.exit(0));
 
     // titleLabel.setText(titleString.getValue());

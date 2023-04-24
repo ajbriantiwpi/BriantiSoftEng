@@ -31,14 +31,14 @@ public class HomeController {
   @FXML GridPane homeGrid;
   @FXML MFXButton directionsButton;
   @FXML MFXButton makeRequestsButton;
-  //  @FXML MFXButton makeRequestsButton1;
-  //  @FXML MFXButton makeRequestsButton2;
-  //  @FXML MFXButton makeRequestsButton3;
   @FXML MFXButton showRequestsButton;
   @FXML MFXButton editMapButton;
   @FXML MFXButton exitButton;
-  // @FXML MFXButton navigateButton;
   @FXML MFXButton employeeButton;
+
+  @FXML MFXButton viewSignageButton;
+  @FXML MFXButton editSignageButton;
+  @FXML MFXButton requestRoomButton;
 
   @FXML MFXButton activeRequests;
   @FXML MFXButton upcomingMoves;
@@ -52,8 +52,6 @@ public class HomeController {
   @FXML MFXButton loginButton;
   @FXML MFXButton logoutButton;
   @FXML MFXButton editMoveButton;
-
-  @FXML MFXButton editSignageButton;
 
   /** logs the current user out of the application */
   private void logout() {
@@ -249,20 +247,13 @@ public class HomeController {
         });
 
     mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
-    // directionsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
     makeRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
-    //    makeRequestsButton1.setOnMouseClicked(event ->
-    // Navigation.navigate(Screen.SERVICE_REQUEST));
-    //    makeRequestsButton2.setOnMouseClicked(event ->
-    // Navigation.navigate(Screen.SERVICE_REQUEST));
-    //    makeRequestsButton3.setOnMouseClicked(event ->
-    // Navigation.navigate(Screen.SERVICE_REQUEST));
     showRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST_VIEW));
     editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
     exitButton.setOnMouseClicked(event -> System.exit(0));
-    // navigateButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
     editMoveButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MOVE_TABLE));
     employeeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.EMPLOYEE_TABLE));
     editSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TABLE));
+    viewSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
   }
 }

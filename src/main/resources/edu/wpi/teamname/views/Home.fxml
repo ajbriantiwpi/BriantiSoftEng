@@ -90,6 +90,30 @@
                         </ImageView>
                      </graphic>
                   </MFXButton>
+                  <MFXButton fx:id="requestRoomButton" alignment="BASELINE_LEFT" maxWidth="476.0" style="-fx-background-color: #faf9fd;" styleClass="surface-container" text="Request Conference Room">
+                     <font>
+                        <Font name="Roboto" size="22.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                           <image>
+                              <Image url="@../images/MenuIcons/employeetable.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MFXButton>
+                  <MFXButton fx:id="viewAlertsButton" alignment="BASELINE_LEFT" maxWidth="476.0" style="-fx-background-color: #faf9fd;" styleClass="surface-container" text="View Alerts (temporary)">
+                     <font>
+                        <Font name="Roboto" size="22.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                           <image>
+                              <Image url="@../images/MenuIcons/employeetable.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MFXButton>
                     </children>
                     <padding>
                         <Insets bottom="12.0" />
@@ -165,6 +189,18 @@
                         </ImageView>
                      </graphic>
                         </MFXButton>
+                  <MFXButton fx:id="viewSignageButton" alignment="BASELINE_LEFT" maxWidth="476.0" style="-fx-background-color: #faf9fd;" styleClass="surface-container" text="View Signage">
+                     <font>
+                        <Font name="Roboto" size="22.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                           <image>
+                              <Image url="@../images/MenuIcons/edit_location_alt.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MFXButton>
                   <MFXButton fx:id="editSignageButton" alignment="BASELINE_LEFT" layoutX="22.0" layoutY="231.0" maxWidth="476.0" style="-fx-background-color: #faf9fd;" styleClass="surface-container" text="Edit Signage">
                      <font>
                         <Font name="Roboto" size="22.0" />
