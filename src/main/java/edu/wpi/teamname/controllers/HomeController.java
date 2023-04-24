@@ -44,6 +44,7 @@ public class HomeController {
   @FXML MFXButton activeRequests;
   @FXML MFXButton upcomingMoves;
   @FXML MFXButton doneRequests;
+  @FXML MFXButton dataButton;
 
   // test push
   @Setter @Getter private static ObservableBooleanValue loggedIn = new SimpleBooleanProperty(false);
@@ -275,5 +276,6 @@ public class HomeController {
     employeeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.EMPLOYEE_TABLE));
     editSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TABLE));
     editAlertButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERT));
+    dataButton.setOnMouseClicked(event -> Navigation.navigate(Screen.DATA_MANAGER));
   }
 }
