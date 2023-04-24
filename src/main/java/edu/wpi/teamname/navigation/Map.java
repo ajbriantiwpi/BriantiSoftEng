@@ -51,6 +51,7 @@ public class Map {
 
   private boolean isMapPage;
   @Getter @Setter private boolean showEdges;
+  @Getter @Setter private boolean showNodes;
 
   @Getter private ArrayList<String> roomTypes = new ArrayList<>();
   @Getter @Setter private boolean[] showTypeLabels = {false}; // HALL

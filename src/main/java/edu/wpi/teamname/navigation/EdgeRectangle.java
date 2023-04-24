@@ -105,6 +105,7 @@ public class EdgeRectangle {
           PopOver pop = new PopOver(changeBox);
           //          pop.show(p);
           pop.show(path);
+          changeBox.setOnMouseExited(event2 -> pop.hide());
         }
       };
   EventHandler<MouseEvent> removeEdge =

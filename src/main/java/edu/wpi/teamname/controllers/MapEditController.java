@@ -1,6 +1,7 @@
 package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.App;
+import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.navigation.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -21,10 +22,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.shape.*;
 import javafx.stage.FileChooser;
 import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.PopOver;
@@ -77,8 +76,10 @@ public class MapEditController {
   String defaultBuilding = "45 Francis";
   boolean isMap = true;
   int selectedRowIndex = 0;
-
   Point2D clickPos;
+  Point2D realClickPos;
+  Pane nodeDragP;
+  ArrayList<Point2D> adjacentNodes;
 
   //  EventHandler<MouseEvent> e =
   //      new EventHandler<MouseEvent>() {
@@ -449,6 +450,7 @@ public class MapEditController {
           //          outerPane.getChildren().add(v);
           PopOver pop = new PopOver(v);
           pop.show(addButton);
+          v.setOnMouseExited(event2 -> pop.hide());
         }
       };
 
@@ -493,6 +495,7 @@ public class MapEditController {
           //          outerPane.getChildren().add(v);
           PopOver pop = new PopOver(v);
           pop.show(addButton);
+          v.setOnMouseExited(event2 -> pop.hide());
         }
       };
 
@@ -523,6 +526,7 @@ public class MapEditController {
 
           PopOver pop = new PopOver(v);
           pop.show(addButton);
+          v.setOnMouseExited(event2 -> pop.hide());
         }
       };
 
@@ -689,6 +693,7 @@ public class MapEditController {
 
           PopOver pop = new PopOver(v);
           pop.show(row);
+          v.setOnMouseExited(event2 -> pop.hide());
         }
       };
 
@@ -802,10 +807,17 @@ public class MapEditController {
 
           int oldLabel = map.getLabelTextType();
 
-          CheckBox oldCheck = nameSelectBoxes.get(oldLabel);
-          oldCheck.setSelected(false);
+          if (oldLabel != -1) {
+            CheckBox oldCheck = nameSelectBoxes.get(oldLabel);
+            oldCheck.setSelected(false);
+          }
 
-          map.setLabelTextType(Integer.parseInt(newCheck.getId()));
+          int newLabel = Integer.parseInt(newCheck.getId());
+          if (newLabel == oldLabel) {
+            newLabel = -1;
+          }
+
+          map.setLabelTextType(newLabel);
 
           try {
             map.setCurrentDisplayFloor(map.getCurrentDisplayFloor());
@@ -871,12 +883,15 @@ public class MapEditController {
             AddNode.setText("Confirm new Location");
 
             clickPos = new Point2D(event.getX(), event.getY());
+            realClickPos = new Point2D(event.getScreenX(), event.getScreenY());
 
             AddNode.setOnMouseClicked(updateNodePosition);
 
             PopOver pop = new PopOver(v);
-            //            AnchorPane a = (AnchorPane) event.getSource();
-            pop.show(gp);
+
+            v.setOnMouseExited(event2 -> pop.hide());
+
+            pop.show(gp, realClickPos.getX(), realClickPos.getY());
           }
 
           if (event.getButton() == MouseButton.SECONDARY) {
@@ -894,14 +909,15 @@ public class MapEditController {
             AddNode.setText("Add Node Here");
 
             clickPos = new Point2D(event.getX(), event.getY());
+            realClickPos = new Point2D(event.getScreenX(), event.getScreenY());
 
             AddNode.setOnMouseClicked(addNode);
 
             PopOver pop = new PopOver(v);
-            //            AnchorPane a = (AnchorPane) event.getSource();
-            pop.show(gp);
-            //            pop.centerOnScreen();
-            //            System.out.println("Cords: " + event.getX() + " ," + event.getY());
+
+            v.setOnMouseExited(event2 -> pop.hide());
+
+            pop.show(gp, realClickPos.getX(), realClickPos.getY());
           }
         }
       };
@@ -968,6 +984,114 @@ public class MapEditController {
           }
 
           map.setMovingNodeId(-1);
+        }
+      };
+
+  EventHandler<MouseEvent> dragNode =
+      new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+          int movingID = map.getMovingNodeId();
+          if (movingID != -1) {
+            if (nodeDragP == null) {
+
+              float opacity = 0.4f;
+
+              float circleRCopy = GlobalVariables.getCircleR();
+              float scaleDown = 0.75f;
+
+              Circle outer =
+                  new Circle(
+                      0, 0, (circleRCopy * scaleDown) + GlobalVariables.getStrokeThickness());
+              Circle inner = new Circle(0, 0, (circleRCopy * scaleDown));
+
+              outer.setFill(GlobalVariables.getBorderColor());
+              outer.setOpacity(opacity);
+              inner.setFill(GlobalVariables.getInsideColor());
+              inner.setOpacity(opacity);
+
+              System.out.println("new P");
+              nodeDragP = new Pane();
+
+              adjacentNodes = new ArrayList<>();
+
+              ArrayList<Node> AllNodes;
+              try {
+                AllNodes = DataManager.getAllNodes();
+              } catch (SQLException e) {
+                throw new RuntimeException(e);
+              }
+
+              ArrayList<Edge> AllEdges;
+              try {
+                AllEdges = DataManager.getAllEdges();
+              } catch (SQLException e) {
+                throw new RuntimeException(e);
+              }
+
+              for (int i = 0; i < AllEdges.size(); i++) {
+                Edge e = AllEdges.get(i);
+                if (e.getStartNodeID() == movingID) {
+                  Node adj = AllNodes.get(Node.idToIndex(e.getEndNodeID()));
+                  adjacentNodes.add(new Point2D(adj.getX(), adj.getY()));
+                } else if (e.getEndNodeID() == movingID) {
+                  Node adj = AllNodes.get(Node.idToIndex(e.getStartNodeID()));
+                  adjacentNodes.add(new Point2D(adj.getX(), adj.getY()));
+                }
+              }
+
+              Path path;
+
+              for (Point2D adj : adjacentNodes) {
+                for (int j = 0; j < 2; j++) {
+                  path = new Path();
+                  if (j == 0) {
+                    path.setStroke(GlobalVariables.getBorderColor());
+                  } else {
+                    path.setStroke(GlobalVariables.getInsideColor());
+                  }
+                  path.setStrokeWidth(
+                      GlobalVariables.getLineT() - (GlobalVariables.getStrokeThickness() * 2 * j));
+
+                  path.getElements().add(new MoveTo(0, 0));
+
+                  path.getElements()
+                      .add(new LineTo(adj.getX() - event.getX(), adj.getY() - event.getY()));
+
+                  path.setStrokeLineJoin(StrokeLineJoin.ROUND);
+                  path.setOpacity(opacity);
+                  nodeDragP.getChildren().add(path);
+                }
+              }
+
+              nodeDragP.getChildren().add(outer);
+              nodeDragP.getChildren().add(inner);
+
+              anchor.getChildren().add(nodeDragP);
+            }
+
+            //            System.out.println("set P");
+
+            nodeDragP.setLayoutX(event.getX());
+            nodeDragP.setLayoutY(event.getY());
+
+            for (int i = 0; i < adjacentNodes.size(); i++) {
+              Point2D adj = adjacentNodes.get(i);
+              for (int j = 0; j < 2; j++) {
+                Path p = (Path) nodeDragP.getChildren().get(i * 2 + j);
+                LineTo l = (LineTo) p.getElements().get(1);
+                l.setX(adj.getX() - event.getX());
+                l.setY(adj.getY() - event.getY());
+              }
+            }
+
+          } else {
+            if (nodeDragP != null) {
+              anchor.getChildren().remove(nodeDragP);
+              nodeDragP = null;
+              adjacentNodes = null;
+            }
+          }
         }
       };
 
@@ -1109,5 +1233,7 @@ public class MapEditController {
     HallNamesSelector.setOnMouseClicked(toggleHalls);
 
     anchor.setOnMouseClicked(checkAddNode);
+
+    anchor.setOnMouseMoved(dragNode);
   }
 }

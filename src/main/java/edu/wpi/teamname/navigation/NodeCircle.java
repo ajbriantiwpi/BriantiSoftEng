@@ -131,9 +131,12 @@ public class NodeCircle {
       } else if (labelTextType == 1) {
         // Show Short Name
         label.setText(firstShortName);
-      } else {
+      } else if (labelTextType == 2) {
         // Show ID
         label.setText("" + this.nodeID);
+      } else {
+        // Dont add the label.
+        return;
       }
 
       //    CornerRadii corn = new CornerRadii(7);
@@ -287,6 +290,7 @@ public class NodeCircle {
 
           PopOver pop = new PopOver(changeBox);
           pop.show(inner);
+          changeBox.setOnMouseExited(event2 -> pop.hide());
 
           //          p.getChildren().addAll(changeBox);
 
@@ -402,10 +406,12 @@ public class NodeCircle {
 
             if (projChangeX < projChangeY) {
               System.out.println("Xc");
-              currX = (int) averageX;
+              //              currX = (int) averageX;
+              currX = selection.get(selection.size() - 1).getX();
             } else {
               System.out.println("YC");
-              currY = (int) averageY;
+              //              currY = (int) averageY;
+              currY = selection.get(selection.size() - 1).getY();
             }
 
             Node newN = new Node(n.getId(), currX, currY, n.getFloor(), n.getBuilding());
@@ -491,6 +497,7 @@ public class NodeCircle {
 
           nodePop = new PopOver(nodeBox);
           nodePop.show(inner);
+          nodeBox.setOnMouseExited(event2 -> nodePop.hide());
         }
       };
 
@@ -511,11 +518,109 @@ public class NodeCircle {
           // Only the Node ID is important for Deletion
           Node n = new Node(nodeID, 0, 0, "", "");
 
+          ArrayList<Node> AllNodes;
+          try {
+            AllNodes = DataManager.getAllNodes();
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          }
+
+          ArrayList<Edge> AllEdges;
+          try {
+            AllEdges = DataManager.getAllEdges();
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          }
+
+          for (int i = 0; i < AllEdges.size(); i++) {
+            Edge e = AllEdges.get(i);
+            Edge edge = null;
+            Node adj = null;
+            if (e.getStartNodeID() == nodeID) {
+              adj = AllNodes.get(Node.idToIndex(e.getEndNodeID()));
+              edge = new Edge(nodeID, adj.getId());
+            } else if (e.getEndNodeID() == nodeID) {
+              adj = AllNodes.get(Node.idToIndex(e.getStartNodeID()));
+              edge = new Edge(adj.getId(), nodeID);
+            }
+            if (edge != null) {
+              try {
+                DataManager.deleteEdge(edge);
+              } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+              }
+            }
+          }
+
           try {
             DataManager.deleteNode(n);
-            map.setCurrentDisplayFloor(map.getCurrentDisplayFloor());
-          } catch (SQLException | IOException ex) {
+            //            map.setCurrentDisplayFloor(map.getCurrentDisplayFloor());
+          } catch (SQLException ex) {
             System.out.println(ex);
+          }
+
+          try {
+            AllNodes = DataManager.getAllNodes();
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          }
+
+          for (int i = 0; i < AllNodes.size(); i++) {
+            Node node = AllNodes.get(i);
+            int actualId = node.getId();
+            int expectedId = Node.indexToId(i);
+            if (expectedId != actualId) {
+
+              System.out.println("EID: " + expectedId + ", AID: " + actualId);
+
+              node.setId(expectedId);
+
+              try {
+                DataManager.syncNode(node);
+              } catch (SQLException e) {
+                throw new RuntimeException(e);
+              }
+
+              // Update all edges
+              try {
+
+                AllEdges = DataManager.getAllEdges();
+              } catch (SQLException e) {
+                throw new RuntimeException(e);
+              }
+
+              for (int j = 0; j < AllEdges.size(); j++) {
+                Edge e = AllEdges.get(j);
+                //                System.out.println("Edge " + j + " " + e.getStartNodeID()  + ", "
+                // + e.getEndNodeID() );
+                boolean changed = false;
+                if (e.getStartNodeID() == actualId) {
+                  System.out.println("Changed ES: " + e.getStartNodeID() + " to: " + expectedId);
+                  e.setStartNodeID(expectedId);
+                  changed = true;
+                } else if (e.getEndNodeID() == actualId) {
+                  System.out.println("Changed EE: " + e.getEndNodeID() + " to: " + expectedId);
+                  e.setEndNodeID(expectedId);
+                  changed = true;
+                }
+                if (changed) {
+
+                  try {
+                    DataManager.syncEdge(e);
+                  } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                  }
+                }
+              }
+            }
+          }
+
+          try {
+            map.refresh();
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
           }
         }
       };
