@@ -3,6 +3,8 @@ package edu.wpi.teamname.servicerequest.requestitem;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Timestamp;
+
 public class ConfRoom {
   @Getter @Setter private int roomID;
   @Getter @Setter private String locationName;

@@ -49,6 +49,58 @@ public class DataManager {
     return connection;
   }
 
+  //----------------Conference Service Req helper functinos-------------
+  public static int setResID() throws SQLException {
+    int resID = -1;
+    Connection connection = DataManager.DbConnection();
+    String query = "Select max(\"roomID\") From \"ConfReservations\"";
+    try (connection) {
+      PreparedStatement statement = connection.prepareStatement(query);
+      ResultSet rs = statement.executeQuery();
+      rs.next();
+      resID = rs.getInt("resID") + 1;
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return resID;
+  }
+  public static int getRoomID(String room) throws SQLException{
+    int roomID = -1;
+    Connection connection = DataManager.DbConnection();
+    String query = "Select roomID\n" +
+            "From \"ConfRooms\"" +
+            "Where \"locationName\" = ?";
+    try (connection) {
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setString(1, room);
+      ResultSet rs = statement.executeQuery();
+
+      rs.next();
+      roomID = rs.getInt("roomID");
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return roomID;
+  }
+  public static int getSeats(String room) throws SQLException {
+    int seats = -1;
+    Connection connection = DataManager.DbConnection();
+    String query = "Select seats\n" +
+            "From \"ConfRooms\"" +
+            "Where \"locationName\" = ?";
+    try (connection) {
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setString(1, room);
+      ResultSet rs = statement.executeQuery();
+
+      rs.next();
+      seats = rs.getInt("seats");
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return seats;
+  }
+
   public static ArrayList<String> getConfBuildings() throws SQLException {
     ArrayList<String> buildings = new ArrayList<>();
     Connection connection = DataManager.DbConnection();
@@ -92,8 +144,8 @@ public class DataManager {
 
       ResultSet rs = statement.executeQuery();
       while (rs.next()) {
-        String build = rs.getString("building");
-        rooms.add(build);
+        String room = rs.getString("locationName");
+        rooms.add(room);
       }
     } catch (SQLException e) {
       System.out.println(e.getMessage());
@@ -134,6 +186,7 @@ public class DataManager {
       System.out.println(e.getMessage());
     }
   }
+  //-------------------------------------------------------------------------
 
   /*public static ArrayList<Node> getSingleNodeInfo(int nodeID) throws SQLException {
   /**
