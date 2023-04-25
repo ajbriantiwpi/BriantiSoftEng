@@ -4,7 +4,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
@@ -81,22 +80,22 @@
             </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <children>
-                  <Label alignment="CENTER" prefHeight="137.0" prefWidth="670.0" stylesheets="@../stylesheets/RowLabel.css" text="Service Requests By Requester">
+                  <Label alignment="CENTER" prefHeight="137.0" prefWidth="670.0" stylesheets="@../stylesheets/RowLabel.css" text="Service Requests Per Day">
                      <font>
                         <Font size="10.0" />
                      </font>
                   </Label>
-                  <LineChart fx:id="lineChart" prefHeight="490.0" prefWidth="580.0">
-                    <xAxis>
-                      <CategoryAxis side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis side="LEFT" />
-                    </yAxis>
+                  <BarChart fx:id="barChart2" prefHeight="526.0" prefWidth="580.0">
+                     <xAxis>
+                        <CategoryAxis side="BOTTOM" />
+                     </xAxis>
+                     <yAxis>
+                        <NumberAxis side="LEFT" />
+                     </yAxis>
                      <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </padding>
-                  </LineChart>
+                  </BarChart>
                </children>
                <GridPane.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
