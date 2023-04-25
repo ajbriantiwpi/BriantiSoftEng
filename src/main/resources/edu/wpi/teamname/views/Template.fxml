@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import java.net.URL?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import io.github.palexdev.materialfx.controls.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane styleClass="primary-on-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ParentController">
+<AnchorPane styleClass="primary-on-container" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ParentController">
    <children>
       <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <VBox alignment="CENTER" styleClass="body" stylesheets="@../stylesheets/SideBar.css" HBox.hgrow="NEVER">
@@ -54,7 +50,7 @@
                         <graphic>
                            <ImageView>
                               <image>
-                                 <Image url="@../images/MenuIcons/home.png" />
+                                 <Image url="@../images/MenuIcons/view_signage_lightmode.png" />
                               </image>
                            </ImageView>
                         </graphic>
@@ -76,7 +72,7 @@
                         <graphic>
                            <ImageView>
                               <image>
-                                 <Image url="@../images/MenuIcons/home.png" />
+                                 <Image url="@../images/MenuIcons/request_room_lightmode.png" />
                               </image>
                            </ImageView>
                         </graphic>
@@ -110,7 +106,7 @@
                         <graphic>
                            <ImageView>
                               <image>
-                                 <Image url="@../images/MenuIcons/home.png" />
+                                 <Image url="@../images/MenuIcons/edit_signage_lightmode.png" />
                               </image>
                            </ImageView>
                         </graphic>
@@ -154,7 +150,7 @@
                         <graphic>
                            <ImageView>
                               <image>
-                                 <Image url="@../images/MenuIcons/home.png" />
+                                 <Image url="@../images/MenuIcons/view_alerts_lightmode.png" />
                               </image>
                            </ImageView>
                         </graphic>
