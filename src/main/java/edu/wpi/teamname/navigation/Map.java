@@ -27,6 +27,9 @@ public class Map {
   public ArrayList<Emergency> emergencies;
   private Point2D centerPoint;
   private Point2D centerTL;
+
+  @Getter @Setter private int labelTextType; // 0 = Long Name, 1 = Short Name, 2 = ID
+
   @Getter @Setter private ArrayList<Shape> prevPath = new ArrayList<Shape>();
 
   @Getter @Setter private ArrayList<ArrayList<Shape>> shapes = new ArrayList<ArrayList<Shape>>();
@@ -46,35 +49,65 @@ public class Map {
     "A-Star", "Breadth First Search", "Depth First Search", "Dijkstra's Algorithm"
   };
 
+  private boolean isMapPage;
+  @Getter @Setter private boolean showEdges;
+  @Getter @Setter private boolean showNodes;
+  @Setter private boolean showLegend;
+
+  @Getter private ArrayList<String> roomTypes = new ArrayList<>();
+  @Getter @Setter private boolean[] showTypeLabels = {false}; // HALL
+
+  @Getter @Setter private ArrayList<Node> alignSelection = new ArrayList<>();
+
+  @Getter @Setter private int startEdgeNodeId;
+  @Getter @Setter private int movingNodeId;
+
   /**
    * Constructs a Map object with the given sub-anchor pane.
    *
    * @param subAnchor the sub-anchor pane used to display the map.
    * @throws SQLException if there is an error accessing the database.
    */
-  public Map(AnchorPane subAnchor) throws SQLException {
+  public Map(AnchorPane subAnchor, boolean isMapPage) throws SQLException {
     this.graph = new Graph();
     this.currentDisplayFloor = "Lower Level 1";
     this.subAnchor = subAnchor;
+    GlobalVariables.setHMap(
+        DataManager.getAllLocationNamesMappedByNode(new Timestamp(System.currentTimeMillis())));
+    this.labelTextType = 1;
+    this.isMapPage = isMapPage;
+    this.showEdges = !this.isMapPage;
+    this.roomTypes.add("HALL");
+    this.startEdgeNodeId = -1;
+    this.movingNodeId = -1;
+
+    this.showNodes = !this.isMapPage;
+    this.showLegend = true;
+  }
+
+  public boolean getShowLegend() {
+    return this.showLegend;
   }
 
   /**
    * Creates and returns an ArrayList of all nodes and edges on the given floor.
    *
    * @param floor the floor to retrieve nodes and edges from.
-   * @param isMapPage whether or not the map is currently being displayed.
    * @return an ArrayList of all nodes and edges on the given floor as JavaFX Node objects.
    * @throws SQLException if there is an error accessing the database.
    * @throws IOException if there is an error reading a file.
    */
-  public ArrayList<javafx.scene.Node> makeAllFloorShapes(String floor, boolean isMapPage)
+  public ArrayList<javafx.scene.Node> makeAllFloorShapes(String floor)
       throws SQLException, IOException {
     ArrayList<javafx.scene.Node> allCirclesAndEdges = new ArrayList<>();
-    if (!isMapPage) {
+
+    if (this.showEdges) {
       System.out.println("ADDEDGES");
-      allCirclesAndEdges.addAll(this.makeAllFloorEdges(floor, isMapPage));
+      allCirclesAndEdges.addAll(this.makeAllFloorEdges(floor));
     }
-    allCirclesAndEdges.addAll(this.makeAllFloorNodes(floor, isMapPage));
+    if (this.showNodes) {
+      allCirclesAndEdges.addAll(this.makeAllFloorNodes(floor));
+    }
     return allCirclesAndEdges;
   }
 
@@ -82,10 +115,9 @@ public class Map {
    * Creates and returns an ArrayList of all edges on the given floor.
    *
    * @param floor the floor to retrieve edges from.
-   * @param isMapPage whether or not the map is currently being displayed.
    * @return an ArrayList of all edges on the given floor as JavaFX Node objects.
    */
-  public ArrayList<javafx.scene.Node> makeAllFloorEdges(String floor, boolean isMapPage) {
+  public ArrayList<javafx.scene.Node> makeAllFloorEdges(String floor) {
 
     ArrayList<javafx.scene.Node> allEdges = new ArrayList<>();
 
@@ -94,16 +126,44 @@ public class Map {
 
     try {
       mapEdges = DataManager.getAllEdges();
+      System.out.println("Success Edges");
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+
+    ArrayList<Node> AllNodes;
+    try {
+      AllNodes = DataManager.getAllNodes();
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
 
     for (int i = 0; i < mapEdges.size(); i++) {
-      Node StartNode = this.graph.findNodeByID(mapEdges.get(i).getStartNodeID());
-      Node EndNode = this.graph.findNodeByID(mapEdges.get(i).getEndNodeID());
+      //            Node StartNode = null;
+      //            Node EndNode = null;
+      //            try {
+      //              StartNode = DataManager.getNode(mapEdges.get(i).getStartNodeID());
+      //              EndNode = DataManager.getNode(mapEdges.get(i).getEndNodeID());
+      //            } catch (SQLException e) {
+      //              throw new RuntimeException(e);
+      //            }
 
-      if (StartNode.getFloor().equals(floor) || EndNode.getFloor().equals(floor)) {
-        EdgeRectangle er = new EdgeRectangle(StartNode, EndNode, isMapPage, this);
+      Node StartNode = AllNodes.get(Node.idToIndex(mapEdges.get(i).getStartNodeID()));
+      Node EndNode = AllNodes.get(Node.idToIndex(mapEdges.get(i).getEndNodeID()));
+
+      //      Node StartNode = this.graph.findNodeByID(mapEdges.get(i).getStartNodeID());
+      //      Node EndNode = this.graph.findNodeByID(mapEdges.get(i).getEndNodeID());
+
+      if (StartNode.getId() == 1785) {
+        System.out.println("EDGE 1785: " + i);
+      }
+
+      if (mapEdges.get(i).getStartNodeID() == 1785) {
+        System.out.println("EL 1785: " + i);
+      }
+
+      if (StartNode.getFloor().equals(floor) && EndNode.getFloor().equals(floor)) {
+        EdgeRectangle er = new EdgeRectangle(StartNode, EndNode, this.isMapPage, this);
         allEdges.add(er.p);
       }
     }
@@ -119,13 +179,14 @@ public class Map {
    * @throws SQLException if there is an error accessing the database
    * @throws IOException if there is an error loading image resources
    */
-  public ArrayList<javafx.scene.Node> makeAllFloorNodes(String floor, boolean isMapPage)
+  public ArrayList<javafx.scene.Node> makeAllFloorNodes(String floor)
       throws SQLException, IOException {
     ArrayList<javafx.scene.Node> nodes = new ArrayList<>(); // list of shapes to be displayed
     ArrayList<NodeCircle> circles = new ArrayList<>(); // List of NodeCircle Objects
-    HashMap<Integer, ArrayList<LocationName>> map =
-        DataManager.getAllLocationNamesMappedByNode(new Timestamp(System.currentTimeMillis()));
-    ArrayList<Integer> sortedKeys = new ArrayList<>(map.keySet());
+
+    HashMap<Integer, ArrayList<LocationName>> idToLocation = GlobalVariables.getHMap();
+
+    ArrayList<Integer> sortedKeys = new ArrayList<>(idToLocation.keySet());
     System.out.println("FloorIN: " + floor);
 
     //    DataManager.getNodeByLocationName()
@@ -143,13 +204,13 @@ public class Map {
 
         //        if (!(locations == null) && locations.size() > 0) {
 
-        if (map.get(n.getId()) != null) {
-          defShortName = map.get(n.getId()).get(0).getShortName();
+        if (idToLocation.get(n.getId()) != null) {
+          defShortName = idToLocation.get(n.getId()).get(0).getShortName();
         } else {
           defShortName = "" + n.getId();
         }
 
-        circles.add(new NodeCircle(n, isMapPage, defShortName, this));
+        circles.add(new NodeCircle(n, this.isMapPage, defShortName, this));
       }
     }
     for (NodeCircle c : circles) {
@@ -158,9 +219,15 @@ public class Map {
     return nodes;
   }
 
-  public void setCurrentDisplayFloor(String currentDisplayFloor, boolean isMapPage)
-      throws SQLException, IOException {
+  public void refresh() throws SQLException, IOException {
+    this.setCurrentDisplayFloor(this.getCurrentDisplayFloor());
+  }
+
+  public void setCurrentDisplayFloor(String currentDisplayFloor) throws SQLException, IOException {
     this.currentDisplayFloor = currentDisplayFloor;
+
+    GlobalVariables.setHMap(
+        DataManager.getAllLocationNamesMappedByNode(new Timestamp(System.currentTimeMillis())));
 
     subAnchor.getStyleClass().remove(0);
 
@@ -220,8 +287,9 @@ public class Map {
 
     // Re add based on new floor
 
-    currentFloorShapes = (this.makeAllFloorShapes(shortRealFloorName, isMapPage));
+    currentFloorShapes = (this.makeAllFloorShapes(shortRealFloorName));
     System.out.println("SetFloor :" + shortRealFloorName);
+
     subAnchor.getChildren().addAll(currentFloorShapes);
 
     subAnchor.getStyleClass().add(cssFloorName);
@@ -609,7 +677,10 @@ public class Map {
         DataManager.getAllLocationNamesMappedByNode(new Timestamp(System.currentTimeMillis()));
 
     for (Integer i : hMap.keySet()) {
-      nodeNames.add(hMap.get(i).get(0).getLongName());
+      // Gets rid of all Hallway locations
+      if (!hMap.get(i).get(0).getNodeType().equals("HALL")) {
+        nodeNames.add(hMap.get(i).get(0).getLongName());
+      }
     }
 
     Collections.sort(nodeNames);
@@ -632,26 +703,26 @@ public class Map {
     return floorNames;
   }
 
-  public ObservableList<String> getAllFloorsInPath() {
-    ObservableList<String> floorNames = FXCollections.observableArrayList();
+  public ArrayList<String> getAllFloorsInPath() {
+    // ObservableList<String> floorNames = FXCollections.observableArrayList();
     ArrayList<String> floorPathArr = new ArrayList<>();
 
     for (int i = 0; i < shapes.size(); i++) {
       if (!shapes.get(i).isEmpty()) {
         if (i == 0) {
-          floorNames.add("Lower Level 2");
+          floorPathArr.add("L2");
         } else if (i == 1) {
-          floorNames.add("Lower Level 1");
+          floorPathArr.add("L1");
         } else if (i == 2) {
-          floorNames.add("First Floor");
+          floorPathArr.add("G1");
         } else if (i == 3) {
-          floorNames.add("Second Floor");
+          floorPathArr.add("G2");
         } else if (i == 4) {
-          floorNames.add("Third Floor");
+          floorPathArr.add("G3");
         }
       }
     }
-    return floorNames;
+    return floorPathArr;
   }
 
   public ObservableList<String> getAllAlgos() {
@@ -872,5 +943,10 @@ public class Map {
 
     parent.zoomTo(scaleFactor, Point2D.ZERO);
     parent.centreOn(centerPoint); // Actually Moves the Top left corner
+  }
+
+  public void centerAndZoomStart(GesturePane parent, AnchorPane outerMapAnchor, Node sNode) {
+    Point2D centerOnStart = new Point2D(sNode.getX(), sNode.getY());
+    parent.centreOn(centerOnStart);
   }
 }

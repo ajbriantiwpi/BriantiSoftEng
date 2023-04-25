@@ -146,7 +146,7 @@ public class AlertTableViewController {
             urgencies.setItems(urgencyComboList);
             TextField announcement = (TextField) ((v.getChildren().get(2)));
             submit.disableProperty().bind(Bindings.isEmpty(announcement.textProperty()));
-            TextField description = (TextField) ((v.getChildren().get(2)));
+            TextArea description = (TextArea) ((v.getChildren().get(3)));
             submit.disableProperty().bind(Bindings.isEmpty(description.textProperty()));
             DatePicker start = (DatePicker) ((Pane) (v.getChildren().get(1))).getChildren().get(0);
             submit.disableProperty().bind(Bindings.isNull(start.valueProperty()));
@@ -160,7 +160,7 @@ public class AlertTableViewController {
                   LocalTime time = LocalTime.of(0, 0);
                   LocalDateTime startDateTime = startDateDate.atTime(time);
                   Timestamp startDate = Timestamp.valueOf(startDateTime);
-                  LocalDate endDateDate = start.getValue();
+                  LocalDate endDateDate = end.getValue();
                   LocalDateTime endDateTime = endDateDate.atTime(time);
                   Timestamp endDate = Timestamp.valueOf(endDateTime);
                   try {
@@ -183,7 +183,7 @@ public class AlertTableViewController {
                           announcement.getText(),
                           urgencies.valueProperty().getValue());
                     }
-                    table.setItems(tableFilter(urgencies.getValue(), types.getValue()));
+                    table.setItems(tableFilter(urgencyCombo.getValue(), staffTypeCombo.getValue()));
                   } catch (SQLException e) {
                     throw new RuntimeException(e);
                   }
