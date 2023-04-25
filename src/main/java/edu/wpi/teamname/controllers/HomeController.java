@@ -3,27 +3,33 @@ package edu.wpi.teamname.controllers;
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
+import edu.wpi.teamname.alerts.Alert;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.navigation.Move;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXNotificationCenter;
+import io.github.palexdev.materialfx.controls.MFXSimpleNotification;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.time.LocalDate;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 import lombok.Setter;
 
 public class HomeController {
-
+  @FXML MFXNotificationCenter notifsButton;
   @FXML MFXButton helpButton;
   @FXML MFXButton mapButton;
   @FXML VBox actionVBox;
@@ -97,6 +103,32 @@ public class HomeController {
 
   @FXML
   public void initialize() throws SQLException {
+    ObservableList<Alert> alertList = FXCollections.observableList(DataManager.getAllAlerts());
+    alertList.stream()
+        .filter((alert) -> alert.getType().equals(GlobalVariables.getCurrentUser().getType()))
+        .toList();
+    alertList =
+        FXCollections.observableList(
+            alertList.stream()
+                .filter((alert) -> alert.getStartDisplayDate().toInstant().isBefore(Instant.now()))
+                .toList());
+    alertList =
+        FXCollections.observableList(
+            alertList.stream()
+                .filter((alert) -> alert.getEndDisplayDate().toInstant().isAfter(Instant.now()))
+                .toList());
+    for (int i = 0; i < alertList.size(); i++) {
+      HBox temp = new HBox();
+      Label description = new Label();
+      description.setText(alertList.get(i).getDescription());
+      Label announcement = new Label();
+      description.setText(alertList.get(i).getAnnouncement());
+      temp.getChildren().addAll(description, announcement);
+      //      temp.getChildren().add((Node) announcement);
+      notifsButton
+          .getNotifications()
+          .add(MFXSimpleNotification.Builder.build().setContent(new VBox()).get());
+    }
 
     // set the width and height to be bound to the panes width and height
     //    imageView.fitWidthProperty().bind(rootPane.widthProperty());
@@ -273,5 +305,7 @@ public class HomeController {
     viewAlertsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERT));
     requestRoomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CONFERENCE_ROOM));
     dataButton.setOnMouseClicked(event -> Navigation.navigate(Screen.DATA_MANAGER));
+    //    notifsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERT));
+    notifsButton.unreadCountProperty().add(1);
   }
 }
