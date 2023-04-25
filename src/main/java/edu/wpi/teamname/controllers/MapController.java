@@ -21,8 +21,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -58,6 +57,15 @@ public class MapController {
   @FXML MFXButton FirstFloorButton;
   @FXML MFXButton LowerFirstButton;
   @FXML MFXButton LowerSecondButton;
+
+  // New UI Layout
+  // @FXML Accordion MapAccordion;
+  @FXML ScrollPane MapScrollPane;
+
+  @FXML TitledPane PathfindingTitlePane;
+  @FXML TitledPane DirectionsTitlePane;
+  @FXML TitledPane FloorTitlePane;
+  @FXML TitledPane TickTitlePane;
 
   String defaultFloor = "L1";
   int clickCount = 0;
@@ -790,6 +798,11 @@ public class MapController {
     for (MFXButton floorButton : floorButtons) {
       floorButton.setOnAction(changeFloors);
     }
+
+    // MapAccordion.setExpandedPane(PathfindingTitlePane); // set initial expanded pane
+    DirectionsTitlePane.setExpanded(false);
+    FloorTitlePane.setExpanded(false);
+    TickTitlePane.setExpanded(false);
 
     //    System.out.println(getAllNodeNames("L1"));
 
