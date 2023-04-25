@@ -170,7 +170,7 @@ public class MedicalSupplyDAOImpl {
       while (resultSet.next()) {
         int id = resultSet.getInt("supplyID");
         String name = resultSet.getString("Name");
-        int price = resultSet.getInt("Price");
+        float price = resultSet.getFloat("Price");
         String type = resultSet.getString("Type");
         int accessLvl = resultSet.getInt("AccessLevel");
         String row = id + "," + name + "," + price + "," + type + "," + accessLvl + "\n";

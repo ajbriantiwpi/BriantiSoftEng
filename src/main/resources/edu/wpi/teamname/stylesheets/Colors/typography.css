@@ -54,6 +54,13 @@
     -fx-line-height: 20px;
     -fx-letter-spacing: 0.10px;
 }
+.label-med{
+    -fx-font-size: 12px;
+    -fx-font-family: Roboto Medium;
+    /*-fx-font-style: ;*/
+    -fx-line-height: 16px;
+    -fx-letter-spacing: 0.50px;
+}
 .body-large{
     -fx-font-size: 16px;
     -fx-font-family: Roboto;

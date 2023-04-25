@@ -17,26 +17,20 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class DataController implements Initializable {
-  @FXML
-  private ComboBox<String> importComboBox;
-  @FXML
-  private RadioButton wpiButton;
-  @FXML
-  private RadioButton awsButton;
+  @FXML private ComboBox<String> importComboBox;
+  @FXML private RadioButton wpiButton;
+  @FXML private RadioButton awsButton;
 
-  @FXML
-  private ComboBox<String> exportComboBox;
+  @FXML private ComboBox<String> exportComboBox;
 
-  @FXML
-  private Button importButton;
+  @FXML private Button importButton;
 
-  @FXML
-  private Button exportButton;
+  @FXML private Button exportButton;
 
   private static final String[] FIELDS = {
-          "Alert", "Conference Rooms", "Edge", "Employee", "Employee Type", "Flowers", "Furniture",
-          "Items Ordered", "Location Name", "Meal", "Medical Supplies", "Move", "Node", "Office Supply",
-          "Path Messages", "Service Request", "Signage"
+    "Alert", "Conference Rooms", "Edge", "Employee", "Employee Type", "Flowers", "Furniture",
+    "Items Ordered", "Location Name", "Meal", "Medical Supplies", "Move", "Node", "Office Supply",
+    "Path Messages", "Service Request", "Signage"
   };
 
   @Override
@@ -56,22 +50,22 @@ public class DataController implements Initializable {
 
     // Hook up the methods to the toggle buttons
     wpiButton.setOnAction(
-            e -> {
-              try {
-                DataManager.connectToWPI();
-              } catch (SQLException ex) {
-                ex.printStackTrace();
-              }
-            });
+        e -> {
+          try {
+            DataManager.connectToWPI();
+          } catch (SQLException ex) {
+            ex.printStackTrace();
+          }
+        });
 
     awsButton.setOnAction(
-            e -> {
-              try {
-                DataManager.connectToAWS();
-              } catch (SQLException ex) {
-                ex.printStackTrace();
-              }
-            });
+        e -> {
+          try {
+            DataManager.connectToAWS();
+          } catch (SQLException ex) {
+            ex.printStackTrace();
+          }
+        });
   }
 
   private void onImportButtonClicked() {
@@ -145,6 +139,7 @@ public class DataController implements Initializable {
       }
     }
   }
+
   private void onExportButtonClicked() {
     String selectedItem = exportComboBox.getSelectionModel().getSelectedItem();
     FileChooser fileChooser = new FileChooser();
@@ -216,7 +211,7 @@ public class DataController implements Initializable {
               break;
             case "Path Messages":
               fileChooser.setInitialFileName("pathMessages.csv");
-              //DataManager.exportPathMessagesToCSV(csvFile.getPath());
+              // DataManager.exportPathMessagesToCSV(csvFile.getPath());
               break;
             case "Service Request":
               fileChooser.setInitialFileName("serviceRequest.csv");

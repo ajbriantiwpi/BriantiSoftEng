@@ -30,7 +30,7 @@
                            <children>
                               <TitledPane fx:id="EditingTitledPane" animated="false" text="Editing">
                                  <content>
-                                    <VBox spacing="24.0" style="-fx-background-radius: 16;" styleClass="surface-container-highest" stylesheets="@../stylesheets/Colors/lightTheme.css">
+                                    <VBox spacing="24.0" style="-fx-background-radius: 16;" styleClass="surface-container-highest">
                                        <children>
                                           <AnchorPane>
                                              <children>
@@ -132,22 +132,50 @@
                                        <children>
                                           <HBox spacing="10.0">
                                              <children>
-                                                <CheckBox id="0" fx:id="LongNameSelector" mnemonicParsing="false" text="Long" />
-                                                <CheckBox id="1" fx:id="ShortNameSelector" mnemonicParsing="false" selected="true" text="Short" />
-                                                <CheckBox id="2" fx:id="IdSelector" mnemonicParsing="false" text="ID" />
+                                                <CheckBox id="0" fx:id="LongNameSelector" mnemonicParsing="false" text="Long">
+                                                   <styleClass>
+                                                      <String fx:value="primary-text-container" />
+                                                      <String fx:value="label-med" />
+                                                   </styleClass></CheckBox>
+                                                <CheckBox id="1" fx:id="ShortNameSelector" mnemonicParsing="false" selected="true" text="Short">
+                                                   <styleClass>
+                                                      <String fx:value="primary-text-container" />
+                                                      <String fx:value="label-med" />
+                                                   </styleClass></CheckBox>
+                                                <CheckBox id="2" fx:id="IdSelector" mnemonicParsing="false" text="ID">
+                                                   <styleClass>
+                                                      <String fx:value="primary-text-container" />
+                                                      <String fx:value="label-med" />
+                                                   </styleClass></CheckBox>
                                              </children>
                                           </HBox>
-                                          <CheckBox fx:id="HallNamesSelector" mnemonicParsing="false" text="Hall Names" />
-                                          <CheckBox fx:id="EdgeSelector" mnemonicParsing="false" selected="true" text="Show Edges" />
-                                          <CheckBox fx:id="NodeSelector" mnemonicParsing="false" selected="true" text="Show Nodes" />
-                                          <CheckBox fx:id="LegendSelector" mnemonicParsing="false" selected="true" text="Unique Shapes" />
+                                          <CheckBox fx:id="HallNamesSelector" mnemonicParsing="false" text="Hall Names">
+                                             <styleClass>
+                                                <String fx:value="primary-text-container" />
+                                                <String fx:value="label-med" />
+                                             </styleClass></CheckBox>
+                                          <CheckBox fx:id="EdgeSelector" mnemonicParsing="false" selected="true" text="Show Edges">
+                                             <styleClass>
+                                                <String fx:value="primary-text-container" />
+                                                <String fx:value="label-med" />
+                                             </styleClass></CheckBox>
+                                          <CheckBox fx:id="NodeSelector" mnemonicParsing="false" selected="true" text="Show Nodes">
+                                             <styleClass>
+                                                <String fx:value="primary-text-container" />
+                                                <String fx:value="label-med" />
+                                             </styleClass></CheckBox>
+                                          <CheckBox fx:id="LegendSelector" mnemonicParsing="false" selected="true" text="Unique Shapes">
+                                             <styleClass>
+                                                <String fx:value="primary-text-container" />
+                                                <String fx:value="label-med" />
+                                             </styleClass></CheckBox>
                                        </children>
                                     </VBox>
                                  </content>
                               </TitledPane>
                               <TitledPane fx:id="FloorTitlePane" animated="false" text="Floors">
                                  <content>
-                                    <VBox spacing="12.0" style="-fx-background-radius: 16;" styleClass="surface-container-highest" stylesheets="@../stylesheets/Colors/lightTheme.css">
+                                    <VBox spacing="12.0" style="-fx-background-radius: 16;" styleClass="surface-container-highest">
                                        <children>
                                           <AnchorPane>
                                              <children>
@@ -191,7 +219,7 @@
                                                 </MFXButton>
                                              </children>
                                           </AnchorPane>
-                                          <AnchorPane maxHeight="10.0" minHeight="10.0" styleClass="secondary" stylesheets="@../stylesheets/Colors/lightTheme.css" />
+                                          <AnchorPane maxHeight="10.0" minHeight="10.0" styleClass="secondary" />
                                           <AnchorPane>
                                              <children>
                                                 <MFXButton id="Lower Level 1" fx:id="LowerLevelOneButton" alignment="BASELINE_LEFT" graphicTextGap="10.0" stylesheets="@../stylesheets/button.css" text="Lower Level 1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
