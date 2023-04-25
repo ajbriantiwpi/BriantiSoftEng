@@ -32,7 +32,7 @@
                                 <Insets bottom="20.0" top="20.0" />
                             </VBox.margin>
                      <stylesheets>
-                        <URL value="@../stylesheets/comboSmall.css" />
+                        <URL value="@../stylesheets/combo.css" />
                         <URL value="@../stylesheets/Colors/primaryCombo.css" />
                      </stylesheets>
                         </ComboBox>
@@ -61,7 +61,7 @@
                                 <Insets bottom="20.0" top="20.0" />
                             </VBox.margin>
                      <stylesheets>
-                        <URL value="@../stylesheets/comboSmall.css" />
+                        <URL value="@../stylesheets/combo.css" />
                         <URL value="@../stylesheets/Colors/primaryCombo.css" />
                      </stylesheets>
                         </ComboBox>
@@ -80,7 +80,7 @@
                 </VBox>
             <HBox prefHeight="94.0" prefWidth="486.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
                <children>
-                  <Label alignment="CENTER" maxWidth="604.0" prefHeight="54.0" prefWidth="604.0" style="-fx-background-radius: 16;" styleClass="primary-on-container" text="DB SELECTION" textFill="#fdfbff" HBox.hgrow="SOMETIMES">
+                  <Label alignment="CENTER" maxWidth="604.0" prefHeight="54.0" prefWidth="604.0" style="-fx-background-radius: 16;" styleClass="primary-on-container" text="DATABASE SELECTION" textFill="#fdfbff" HBox.hgrow="SOMETIMES">
                      <font>
                         <Font name="Roboto" size="36.0" />
                      </font>

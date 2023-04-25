@@ -92,6 +92,7 @@ public class HomeController {
     upcomingMoves.setVisible(false);
     doneRequests.setVisible(false);
     editSignageButton.setVisible(false);
+    dataButton.setVisible(false);
     showRequestsButton.setManaged(false);
     editMapButton.setManaged(false);
     editMoveButton.setManaged(false);
@@ -103,6 +104,7 @@ public class HomeController {
     actionVBox.setManaged(false);
     SRVBox.setManaged(false);
     editSignageButton.setManaged(false);
+    dataButton.setManaged(false);
   }
 
   @FXML
@@ -275,12 +277,14 @@ public class HomeController {
       upcomingMoves.setManaged(true);
       doneRequests.setVisible(true);
       doneRequests.setManaged(true);
+      viewAlertsButton.setVisible(false);
+      viewAlertsButton.setManaged(false);
       showRequestsButton.setVisible(true);
       showRequestsButton.setManaged(true);
       actionVBox.setManaged(true);
       SRVBox.setManaged(true);
-      editSignageButton.setVisible(true);
-      editSignageButton.setManaged(true);
+      editSignageButton.setVisible(false);
+      editSignageButton.setManaged(false);
 
       /** * Enables all buttons for the Admin login */
     } else if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.ADMIN)) {
@@ -326,6 +330,8 @@ public class HomeController {
       SRVBox.setManaged(true);
       editSignageButton.setVisible(true);
       editSignageButton.setManaged(true);
+      dataButton.setVisible(true);
+      dataButton.setManaged(true);
     }
 
     upcomingMoves.setOnMouseClicked(

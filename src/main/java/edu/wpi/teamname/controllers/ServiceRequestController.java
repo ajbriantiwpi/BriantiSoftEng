@@ -226,7 +226,7 @@ public class ServiceRequestController {
       requestPage = 0;
       nextButton.setText("Next");
       DataManager.addServiceRequest(request);
-      Navigation.navigate(Screen.HOME);
+      Navigation.navigate(Screen.SMILE);
 
       System.out.println(request);
     }
@@ -293,7 +293,7 @@ public class ServiceRequestController {
   }
 
   public void initialize() {
-    if (GlobalVariables.isDarkMode()) {
+    if (GlobalVariables.getDarkMode().get()) {
       root.getStylesheets().remove(0);
     } else {
       root.getStylesheets().remove(1);
