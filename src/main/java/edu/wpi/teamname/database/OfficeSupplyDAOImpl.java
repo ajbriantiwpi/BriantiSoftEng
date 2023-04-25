@@ -173,7 +173,7 @@ public class OfficeSupplyDAOImpl implements OfficeSupplyDAO {
       while (resultSet.next()) {
         int id = resultSet.getInt("supplyID");
         String name = resultSet.getString("name");
-        int price = resultSet.getInt("price");
+        float price = resultSet.getFloat("price");
         String category = resultSet.getString("category");
         Boolean electric = resultSet.getBoolean("isElectric");
         String row = id + "," + name + "," + price + "," + category + "," + electric + "\n";
