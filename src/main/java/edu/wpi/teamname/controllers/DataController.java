@@ -26,11 +26,27 @@ public class DataController implements Initializable {
   @FXML private Button importButton;
 
   @FXML private Button exportButton;
+  private static boolean wpiSelected = true;
 
   private static final String[] FIELDS = {
-    "Alert", "Conference Rooms", "Edge", "Employee", "Employee Type", "Flowers", "Furniture",
-    "Items Ordered", "Location Name", "Meal", "Medical Supplies", "Move", "Node", "Office Supply",
-    "Path Messages", "Service Request", "Signage"
+    "Alert",
+    "Conference Rooms",
+    "Conference Reservations",
+    "Edge",
+    "Employee",
+    "Employee Type",
+    "Flowers",
+    "Furniture",
+    "Items Ordered",
+    "Location Name",
+    "Meal",
+    "Medical Supplies",
+    "Move",
+    "Node",
+    "Office Supply",
+    "Path Messages",
+    "Service Request",
+    "Signage"
   };
 
   @Override
@@ -46,13 +62,18 @@ public class DataController implements Initializable {
     ToggleGroup databaseToggleGroup = new ToggleGroup();
     wpiButton.setToggleGroup(databaseToggleGroup);
     awsButton.setToggleGroup(databaseToggleGroup);
-    wpiButton.setSelected(true);
+    if (wpiSelected) {
+      wpiButton.setSelected(true);
+    } else {
+      awsButton.setSelected(true);
+    }
 
     // Hook up the methods to the toggle buttons
     wpiButton.setOnAction(
         e -> {
           try {
             DataManager.connectToWPI();
+            wpiSelected = true;
           } catch (SQLException ex) {
             ex.printStackTrace();
           }
@@ -62,6 +83,7 @@ public class DataController implements Initializable {
         e -> {
           try {
             DataManager.connectToAWS();
+            wpiSelected = false;
           } catch (SQLException ex) {
             ex.printStackTrace();
           }
@@ -88,6 +110,9 @@ public class DataController implements Initializable {
               DataManager.uploadNode(csvFile.getPath());
               break;
             case "Conference Room":
+              // DataManager.upload(csvFile.getPath());
+              break;
+            case "Conference Reservations":
               // DataManager.upload(csvFile.getPath());
               break;
             case "Alert":
@@ -167,6 +192,10 @@ public class DataController implements Initializable {
               break;
             case "Conference Room":
               fileChooser.setInitialFileName("conferenceRoom.csv");
+              // DataManager.exportConferenceRoomToCSV(csvFile.getPath());
+              break;
+            case "Conference Reservations":
+              fileChooser.setInitialFileName("conferenceReservations.csv");
               // DataManager.exportConferenceRoomToCSV(csvFile.getPath());
               break;
             case "Alert":
