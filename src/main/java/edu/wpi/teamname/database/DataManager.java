@@ -350,7 +350,7 @@ public class DataManager {
    * @param createTableQuery a String that reps the query to create a table
    * @param tableName a String that reps the name of the table being checked
    */
-  /*public static void createTableIfNotExists(String tableName, String createTableQuery)
+  public static void createTableIfNotExists(String tableName, String createTableQuery)
       throws SQLException {
     connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
     DatabaseMetaData dbm = connection.getMetaData();
@@ -361,7 +361,7 @@ public class DataManager {
       statement.close();
     }
     rs.close();
-  }*/
+  }
 
   /**
    * * Updates the connection arguements

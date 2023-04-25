@@ -58,6 +58,7 @@ public class HomeController {
   @FXML MFXButton upcomingMoves;
   @FXML MFXButton doneRequests;
   @FXML MFXButton dataButton;
+  @FXML MFXButton serviceRequestAnalyticsButton;
 
   // test push
   @Setter @Getter private static ObservableBooleanValue loggedIn = new SimpleBooleanProperty(false);
@@ -371,6 +372,8 @@ public class HomeController {
     requestRoomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CONFERENCE_ROOM));
     dataButton.setOnMouseClicked(event -> Navigation.navigate(Screen.DATA_MANAGER));
     notificationPopupButtonSimple.setOnMouseClicked(NotificationPopupEvent);
+    serviceRequestAnalyticsButton.setOnMouseClicked(
+        event -> Navigation.navigate(Screen.SERVICE_REQUEST_ANALYTICS));
     //    notifsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERT));
   }
 }
