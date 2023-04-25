@@ -294,9 +294,9 @@ public class ServiceRequestController {
 
   public void initialize() {
     if (GlobalVariables.isDarkMode()) {
-      root.getStylesheets().set(0, "@../stylesheets/Colors/darkTheme.css");
+      root.getStylesheets().remove(0);
     } else {
-      root.getStylesheets().set(0, "@../stylesheets/Colors/lightTheme.css");
+      root.getStylesheets().remove(1);
     }
     ParentController.titleString.set("Service Request");
     setVisibleScreen(0);

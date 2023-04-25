@@ -159,7 +159,7 @@
                            </ImageView>
                         </graphic>
                      </MFXButton>
-                     <AnchorPane styleClass="surface-container" VBox.vgrow="ALWAYS" />
+                     <AnchorPane styleClass="primary-on-container" VBox.vgrow="ALWAYS" />
 <!--                     <MFXButton fx:id="helpButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="surface-container" stylesheets="@../stylesheets/SideBar.css" text="Help" textFill="#1a1c1e">-->
 <!--                        <font>-->
 <!--                           <Font name="Roboto" size="22.0" />-->

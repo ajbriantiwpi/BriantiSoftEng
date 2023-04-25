@@ -2,6 +2,7 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import java.lang.String?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -19,7 +20,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.SearchableComboBox?>
 
-<AnchorPane fx:id="root" styleClass="surface-container" stylesheets="@../stylesheets/Colors/lightTheme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestController">
+<AnchorPane fx:id="root" styleClass="surface-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestController">
     <children>
         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -48,7 +49,7 @@
                                                                     <SearchableComboBox fx:id="nodeBox" maxWidth="500.0" prefWidth="500.0" promptText="Choose Location" styleClass="primary-container" stylesheets="@../stylesheets/combo.css" />
                                                                     <Separator prefWidth="200.0" />
                                                                     <Label style="-fx-font-family: Roboto;" styleClass="primary-text-container" stylesheets="@../stylesheets/TextField.css" text="Date" textFill="#001b3b" />
-                                                                    <DatePicker fx:id="dateBox" maxWidth="500.0" style="-fx-background-color: #D5E3FF;" styleClass="text-field" stylesheets="@../stylesheets/dateBox.css" GridPane.rowIndex="1" />
+                                                                    <DatePicker fx:id="dateBox" maxWidth="500.0" styleClass="text-field" stylesheets="@../stylesheets/dateBox.css" GridPane.rowIndex="1" />
                                                       <Separator prefWidth="200.0" />
                                                                     <Label style="-fx-font-family: Roboto;" stylesheets="@../stylesheets/TextField.css" text="Time" textFill="#001b3b" GridPane.columnIndex="1" />
                                                                     <SearchableComboBox fx:id="timeBox" maxWidth="500.0" promptText="Choose Time of Delivery" stylesheets="@../stylesheets/combo.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -184,7 +185,7 @@
 
                             </children>
                         </StackPane>
-                        <GridPane alignment="BOTTOM_CENTER" minHeight="75.0" prefHeight="75.0" VBox.vgrow="NEVER">
+                        <GridPane alignment="BOTTOM_CENTER" hgap="12.0" minHeight="75.0" prefHeight="75.0" VBox.vgrow="NEVER">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -222,10 +223,17 @@
                            </styleClass>
                                 </MFXButton>
                             </children>
+                     <VBox.margin>
+                        <Insets bottom="12.0" />
+                     </VBox.margin>
                         </GridPane>
                     </children>
                 </VBox>
             </children>
         </HBox>
     </children>
+   <stylesheets>
+      <URL value="@../stylesheets/Colors/lightTheme.css" />
+      <URL value="@../stylesheets/Colors/darkTheme.css" />
+   </stylesheets>
 </AnchorPane>
