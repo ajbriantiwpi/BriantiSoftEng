@@ -286,5 +286,6 @@
    <stylesheets>
       <URL value="@../stylesheets/imageScale.css" />
       <URL value="@../stylesheets/Colors/lightTheme.css" />
+      <URL value="@../stylesheets/Colors/darkTheme.css" />
    </stylesheets>
 </AnchorPane>
