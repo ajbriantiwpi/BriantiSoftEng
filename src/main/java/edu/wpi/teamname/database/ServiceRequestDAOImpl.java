@@ -490,4 +490,34 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
       throw new RuntimeException(e);
     }
   }
+
+  /**
+   * * Creates a table for storing ServiceRequest data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createTable() throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try (connection) {
+      String query =
+          "create table if not exists \"ServiceRequest\"\n"
+              + "(\n"
+              + "    \"requestID\"     integer     not null\n"
+              + "        constraint \"ServiceRequest_pk\"\n"
+              + "            primary key,\n"
+              + "    \"roomNum\"       varchar(40) not null,\n"
+              + "    \"staffName\"     varchar(50) default 'No Staff Member Assigned'::character varying,\n"
+              + "    \"patientName\"   varchar(50) not null,\n"
+              + "    \"requestedAt\"   timestamp,\n"
+              + "    \"deliverBy\"     timestamp,\n"
+              + "    status          varchar(20),\n"
+              + "    \"requestMadeBy\" varchar(30),\n"
+              + "    \"requestType\"   varchar(40)\n"
+              + ");";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+    }
+  }
 }

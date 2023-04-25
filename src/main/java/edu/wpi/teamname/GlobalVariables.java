@@ -25,6 +25,7 @@ public class GlobalVariables {
   @Getter @Setter private static float circleR = 10.0f;
   @Getter @Setter private static float lineT = 10.0f;
   @Getter @Setter private static int strokeThickness = 2;
+  @Getter @Setter private static HashMap<Integer, ArrayList<LocationName>> hMap;
   //  @Getter @Setter private static Color labelColor = new Color(.835, .89, 1, 1);
   //  @Getter @Setter private static Color labelTextColor = new Color(0, .106, .231, 1);
   @Getter @Setter private static HashMap<Integer, ArrayList<LocationName>> hMap;

@@ -469,4 +469,34 @@ public class EmployeeDAOImpl implements LoginDAO {
 
     statement.executeUpdate();
   }*/
+
+  /**
+   * * Creates a table for storing Employee data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createTable() throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try (connection) {
+      String query =
+          "create table if not exists \"Employee\"\n"
+              + "(\n"
+              + "    username         varchar(20)  not null\n"
+              + "        constraint \"employeeUsername_pk\"\n"
+              + "            primary key,\n"
+              + "    password         varchar(120) not null,\n"
+              + "    \"employeeID\"     integer\n"
+              + "        constraint \"employeeID_unique_k\"\n"
+              + "            unique,\n"
+              + "    \"firstName\"      varchar(40),\n"
+              + "    \"lastName\"       varchar(40),\n"
+              + "    \"clearanceLevel\" varchar(5),\n"
+              + "    type             varchar(20)\n"
+              + ");";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+    }
+  }
 }

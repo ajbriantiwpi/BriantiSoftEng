@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #E3E2E6;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.DataController">
+    <children>
+        <GridPane hgap="10.0" layoutY="-1.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="323.1999969482422" minWidth="10.0" prefWidth="300.80003356933594" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="392.0" minWidth="10.0" prefWidth="299.999966430664" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="266.80000000000007" minHeight="10.0" prefHeight="218.40001220703127" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="128.60001220703128" minHeight="0.0" prefHeight="99.79998779296875" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <VBox prefHeight="134.0" prefWidth="180.0" style="-fx-background-radius: 16;" styleClass="primary-container" GridPane.rowIndex="1">
+                    <children>
+                        <Label alignment="CENTER" maxWidth="500.0" minHeight="92.0" minWidth="158.0" prefHeight="92.0" prefWidth="158.0" style="-fx-background-radius: 16;" styleClass="primary-on-container" text="Import" textFill="#fdfbff">
+                            <font>
+                                <Font name="Roboto" size="36.0" />
+                            </font>
+                        </Label>
+                        <HBox prefHeight="181.0" prefWidth="300.0">
+                            <children>
+                                <ComboBox fx:id="importComboBox" prefHeight="62.0" prefWidth="392.0" stylesheets="@../stylesheets/comboSmall.css">
+                                    <HBox.margin>
+                                        <Insets />
+                                    </HBox.margin>
+                                </ComboBox>
+                            </children>
+                        </HBox>
+                        <MFXButton fx:id="importButton" alignment="BASELINE_LEFT" maxWidth="476.0" prefHeight="62.0" prefWidth="266.0" style="-fx-background-color: #faf9fd;" styleClass="surface-container" text="Import">
+                            <font>
+                                <Font name="Roboto" size="22.0" />
+                            </font>
+                        </MFXButton>
+                    </children>
+                    <GridPane.margin>
+                        <Insets left="15.0" right="15.0" />
+                    </GridPane.margin>
+                </VBox>
+                <VBox prefHeight="134.0" prefWidth="251.0" style="-fx-background-radius: 16;" styleClass="primary-container" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <children>
+                        <Label alignment="CENTER" maxWidth="500.0" minHeight="92.0" minWidth="158.0" prefHeight="92.0" prefWidth="228.0" style="-fx-background-radius: 16;" styleClass="primary-on-container" text="Export" textFill="#fdfbff">
+                            <font>
+                                <Font name="Roboto" size="36.0" />
+                            </font>
+                        </Label>
+                        <HBox prefHeight="178.0" prefWidth="300.0">
+                            <children>
+                                <ComboBox fx:id="exportComboBox" prefHeight="62.0" prefWidth="270.0" stylesheets="@../stylesheets/comboSmall.css">
+                                    <HBox.margin>
+                                        <Insets />
+                                    </HBox.margin>
+                                </ComboBox>
+                            </children>
+                        </HBox>
+                        <MFXButton fx:id="exportButton" alignment="BASELINE_LEFT" maxWidth="476.0" prefHeight="62.0" prefWidth="266.0" style="-fx-background-color: #faf9fd;" styleClass="surface-container" text="Export">
+                            <font>
+                                <Font name="Roboto" size="22.0" />
+                            </font>
+                        </MFXButton>
+                    </children>
+                    <GridPane.margin>
+                        <Insets left="15.0" right="15.0" />
+                    </GridPane.margin>
+                </VBox>
+                <MFXButton fx:id="changeDbButton" prefHeight="26.0" prefWidth="295.0" styleClass="mfx-button" stylesheets="@../stylesheets/button.css" text="Change Database" GridPane.rowIndex="2">
+                    <font>
+                        <Font name="Roboto" size="13.0" />
+                    </font>
+                    <GridPane.margin>
+                        <Insets left="15.0" right="15.0" />
+                    </GridPane.margin>
+                </MFXButton>
+            </children>
+        </GridPane>
+    </children>
+    <stylesheets>
+        <URL value="@../stylesheets/imageScale.css" />
+        <URL value="@../stylesheets/Colors/lightTheme.css" />
+    </stylesheets>
+</AnchorPane>
