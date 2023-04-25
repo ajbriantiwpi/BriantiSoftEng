@@ -78,6 +78,18 @@
                         </ImageView>
                      </graphic>
                         </MFXButton>
+                  <MFXButton fx:id="serviceRequestAnalButton" alignment="BASELINE_LEFT" layoutX="22.0" layoutY="172.0" maxWidth="476.0" styleClass="surface" stylesheets="@../stylesheets/button.css" text="View Service Analytics">
+                     <font>
+                        <Font name="Roboto" size="22.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                           <image>
+                              <Image url="@../images/MenuIcons/assignment.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MFXButton>
                   <MFXButton fx:id="employeeButton" alignment="BASELINE_LEFT" layoutX="22.0" layoutY="289.0" maxWidth="476.0" styleClass="surface" stylesheets="@../stylesheets/button.css" text="View Employees">
                      <font>
                         <Font name="Roboto" size="22.0" />
