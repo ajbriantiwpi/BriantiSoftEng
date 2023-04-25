@@ -15,6 +15,7 @@ import java.sql.*;
 import java.text.ParseException;
 import java.util.*;
 
+import javafx.collections.ObservableList;
 import lombok.Getter;
 
 public class DataManager {
@@ -51,30 +52,69 @@ public class DataManager {
     return connection;
   }
 
-  //----------------Conference Service Req helper functinos-------------
-  public static ArrayList<ConfReservation> setTable(Timestamp date) throws SQLException {
-    ArrayList<ConfReservation> resPerDate = null;
+  // ----------------SAM FUNCTIONS-------------
+  public static ArrayList<Room> getAllRooms() throws SQLException {
+    ArrayList<Room> rooms = null;
     Connection connection = DataManager.DbConnection();
-    String query = "Select *\n" +
-            "From \"ConfReservations\" c\n" +
-            "Where c.dateBook = ?;";
+    String query = "Select n.\"nodeID\", m.\"longName\", m.date, n.xcoord, n.ycoord, n.floor, n.building, l.\"shortName\", l.\"nodeType\"\n" +
+            "From \"ConfRooms\" c, \"Node\" n, \"Move\" m, \"LocationName\" l\n" +
+            "Where c.\"roomID\" = n.\"nodeID\" AND m.\"nodeID\" = c.\"roomID\" AND m.\"longName\" = l.\"longName\";";
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
-      statement.setTimestamp(1, date);
       ResultSet rs = statement.executeQuery();
 
-      while(rs.next()){
-        int resID = rs.getInt("resID");
-        String startTime = rs.getString("endtime");
-        String endTime = rs.getString("starttime");
-        ConfReservation c = new ConfReservation(resID, startTime, endTime);
-        resPerDate.add(c);
+      while (rs.next()) {
+        int nodeID = rs.getInt("resID");
+        String longName = rs.getString("longName");
+        Timestamp date = rs.getTimestamp("date");
+        int xcoord = rs.getInt("xcoord");
+        int ycoord = rs.getInt("ycoord");
+        String floor = rs.getString("building");
+        String building = rs.getString("building");
+        String shortName = rs.getString("shortName");
+        String nodeType = rs.getString("nodeType");
+        Room r = new Room(nodeID,longName,date,xcoord,ycoord,floor,building,shortName,nodeType);
+        rooms.add(r);
       }
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }
-    return resPerDate;
+    return rooms;
   }
+  public static ArrayList<ConfReservation> getResForRoom(ConfRoom confrom) throws SQLException {
+    int confID = confrom.getRoomID();
+    ArrayList<ConfReservation> rooms = null;
+    Connection connection = DataManager.DbConnection();
+    String query = "Select * From \"ConfReservations\" Where \"roomID\" = ?";
+    try (connection) {
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setInt(1, confID);
+      ResultSet rs = statement.executeQuery();
+
+      while (rs.next()) {
+        int resID = rs.getInt("resID");
+        String startT = rs.getString("starttime");
+        String endT = rs.getString("endtime");
+        Timestamp dateBook = rs.getTimestamp("datebook");
+        Timestamp dateMade = rs.getTimestamp("dateMade");
+        String name = rs.getString("name");
+        String username = rs.getString("username");
+        String staff = rs.getString("staffAssigned");
+        int roomID = rs.getInt("roomID");
+        ConfReservation res = new ConfReservation(resID,startT,endT,dateBook,dateMade,name,username,staff,roomID);
+        rooms.add(res);
+      }
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return rooms;
+  }
+
+  public static void makeReservation(ConfReservation res) throws SQLException {
+    addConfReservation(res);
+  }
+
+  // ----------------Conference Service Req helper functinos-------------
   public static int setResID() throws SQLException {
     int resID = -1;
     Connection connection = DataManager.DbConnection();
@@ -89,12 +129,11 @@ public class DataManager {
     }
     return resID;
   }
-  public static int getRoomID(String room) throws SQLException{
+
+  public static int getRoomID(String room) throws SQLException {
     int roomID = -1;
     Connection connection = DataManager.DbConnection();
-    String query = "Select roomID\n" +
-            "From \"ConfRooms\"" +
-            "Where \"locationName\" = ?";
+    String query = "Select roomID\n" + "From \"ConfRooms\"" + "Where \"locationName\" = ?";
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setString(1, room);
@@ -107,12 +146,11 @@ public class DataManager {
     }
     return roomID;
   }
+
   public static int getSeats(String room) throws SQLException {
     int seats = -1;
     Connection connection = DataManager.DbConnection();
-    String query = "Select seats\n" +
-            "From \"ConfRooms\"" +
-            "Where \"locationName\" = ?";
+    String query = "Select seats\n" + "From \"ConfRooms\"" + "Where \"locationName\" = ?";
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setString(1, room);
@@ -126,14 +164,14 @@ public class DataManager {
     return seats;
   }
 
-
   public static ArrayList<String> getConfBuildings() throws SQLException {
     ArrayList<String> buildings = new ArrayList<>();
     Connection connection = DataManager.DbConnection();
-    String query = "Select n.building\n" +
-            "From \"Node\" n, \"Move\" m, \"LocationName\" l\n" +
-            "Where n.\"nodeID\" = m.\"nodeID\" AND l.\"longName\" = m.\"longName\" AND l.\"nodeType\" = 'CONF'\n" +
-            "Group by n.building;";
+    String query =
+        "Select n.building\n"
+            + "From \"Node\" n, \"Move\" m, \"LocationName\" l\n"
+            + "Where n.\"nodeID\" = m.\"nodeID\" AND l.\"longName\" = m.\"longName\" AND l.\"nodeType\" = 'CONF'\n"
+            + "Group by n.building;";
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
       ResultSet rs = statement.executeQuery();
@@ -147,26 +185,26 @@ public class DataManager {
     return buildings;
   }
 
-  public static ArrayList<String> getConfRooms(String building)  throws SQLException {
+  public static ArrayList<String> getConfRooms(String building) throws SQLException {
     ArrayList<String> rooms = new ArrayList<>();
     Connection connection = DataManager.DbConnection();
-    String queryAll = "Select \"n.nodeID\"\n" +
-            "From \"Node\" n, \"Move\" m, \"LocationName\" l\n" +
-            "Where n.\"nodeID\" = m.\"nodeID\" AND l.\"longName\" = m.\"longName\" AND l.\"nodeType\" = 'CONF'\n";
-    String queryOne = "Select \"n.nodeID\"\n" +
-            "From \"Node\" n, \"Move\" m, \"LocationName\" l\n" +
-            "Where n.\"nodeID\" = m.\"nodeID\" AND l.\"longName\" = m.\"longName\" AND l.\"nodeType\" = 'CONF' AND building = ? \n";
+    String queryAll =
+        "Select \"n.nodeID\"\n"
+            + "From \"Node\" n, \"Move\" m, \"LocationName\" l\n"
+            + "Where n.\"nodeID\" = m.\"nodeID\" AND l.\"longName\" = m.\"longName\" AND l.\"nodeType\" = 'CONF'\n";
+    String queryOne =
+        "Select \"n.nodeID\"\n"
+            + "From \"Node\" n, \"Move\" m, \"LocationName\" l\n"
+            + "Where n.\"nodeID\" = m.\"nodeID\" AND l.\"longName\" = m.\"longName\" AND l.\"nodeType\" = 'CONF' AND building = ? \n";
     PreparedStatement statement;
     try (connection) {
 
       if (building.equals("all")) {
         statement = connection.prepareStatement(queryAll);
-      }
-      else{
+      } else {
         statement = connection.prepareStatement(queryOne);
         statement.setString(1, building);
       }
-
 
       ResultSet rs = statement.executeQuery();
       while (rs.next()) {
@@ -176,7 +214,6 @@ public class DataManager {
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }
-
 
     return rooms;
   }
@@ -212,22 +249,22 @@ public class DataManager {
       System.out.println(e.getMessage());
     }
   }
-  //-------------------------------------------------------------------------
+  // -------------------------------------------------------------------------
 
   /** Sets database connection parameters to connect to the AWS RDS */
   public static void connectToAWS() throws SQLException {
     configConnection(
-            "jdbc:postgresql://teamddb3.cwgmodw6cdg6.us-east-1.rds.amazonaws.com:5432/postgres",
-            "superuser",
-            "password");
+        "jdbc:postgresql://teamddb3.cwgmodw6cdg6.us-east-1.rds.amazonaws.com:5432/postgres",
+        "superuser",
+        "password");
   }
 
   /** Sets database connection parameters to connect to the WPI client-side server */
   public static void connectToWPI() throws SQLException {
     DataManager.configConnection(
-            "jdbc:postgresql://database.cs.wpi.edu:5432/teamddb?currentSchema=\"teamD\"",
-            "teamd",
-            "teamd40");
+        "jdbc:postgresql://database.cs.wpi.edu:5432/teamddb?currentSchema=\"teamD\"",
+        "teamd",
+        "teamd40");
   }
 
   /*public static ArrayList<Node> getSingleNodeInfo(int nodeID) throws SQLException {

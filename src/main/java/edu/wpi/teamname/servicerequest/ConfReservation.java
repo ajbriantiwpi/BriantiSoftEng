@@ -58,7 +58,7 @@ public class ConfReservation {
     this.origRoomID = roomID;
   }
 
-  public ConfReservation(int resID, String strt, String end){
+  public ConfReservation(int resID, String strt, String end) {
     this.resID = resID;
     this.startTime = strt;
     this.endTime = end;
