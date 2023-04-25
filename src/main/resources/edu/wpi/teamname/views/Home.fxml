@@ -29,7 +29,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <MFXButton fx:id="logoutButton" alignment="CENTER" defaultButton="true" disable="true" style="-fx-background-color: #001B3B; -fx-border-color: #fdfbff; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Logout" textAlignment="CENTER" textFill="#fdfbff" visible="false" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                <MFXButton fx:id="logoutButton" alignment="CENTER" defaultButton="true" disable="true" style="-fx-border-color: #fdfbff; -fx-border-width: 3; -fx-background-radius: 10;" styleClass="primary-on-container" stylesheets="@../stylesheets/button.css" text="Logout" textAlignment="CENTER" textFill="#fdfbff" visible="false" GridPane.halignment="LEFT" GridPane.valignment="TOP">
                     <font>
                         <Font size="20.0" />
                     </font>
@@ -37,7 +37,7 @@
                         <Insets left="20.0" top="10.0" />
                     </GridPane.margin>
                 </MFXButton>
-                <MFXButton fx:id="loginButton" alignment="CENTER" style="-fx-background-color: #001B3B; -fx-border-color: #fdfbff; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Login" textAlignment="CENTER" textFill="#fdfbff" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                <MFXButton fx:id="loginButton" alignment="CENTER" style="-fx-border-color: #fdfbff; -fx-border-width: 3; -fx-background-radius: 10;" styleClass="primary-on-container" stylesheets="@../stylesheets/button.css" text="Login" textAlignment="CENTER" textFill="#fdfbff" GridPane.halignment="LEFT" GridPane.valignment="TOP">
                     <font>
                         <Font size="20.0" />
                     </font>
@@ -52,7 +52,7 @@
                                 <Font name="Roboto" size="36.0" />
                             </font>
                         </Label>
-                        <MFXButton fx:id="makeRequestsButton" alignment="BASELINE_LEFT" maxWidth="476.0" style="-fx-background-color: #faf9fd;" styleClass="surface-container" text="Make A Request">
+                        <MFXButton fx:id="makeRequestsButton" alignment="BASELINE_LEFT" maxWidth="476.0" styleClass="surface" stylesheets="@../stylesheets/button.css" text="Make A Request">
                             <font>
                                 <Font name="Roboto" size="22.0" />
                             </font>
@@ -66,7 +66,7 @@
                            </image>
                         </ImageView>
                      </graphic></MFXButton>
-                        <MFXButton fx:id="showRequestsButton" alignment="BASELINE_LEFT" maxWidth="476.0" style="-fx-background-color: #faf9fd;" styleClass="surface-container" text="View Service Requests">
+                        <MFXButton fx:id="showRequestsButton" alignment="BASELINE_LEFT" maxWidth="476.0" styleClass="surface" stylesheets="@../stylesheets/button.css" text="View Service Requests">
                             <font>
                                 <Font name="Roboto" size="22.0" />
                             </font>
@@ -78,7 +78,7 @@
                         </ImageView>
                      </graphic>
                         </MFXButton>
-                  <MFXButton fx:id="employeeButton" alignment="BASELINE_LEFT" layoutX="22.0" layoutY="289.0" maxWidth="476.0" style="-fx-background-color: #faf9fd;" styleClass="surface-container" text="View Employees">
+                  <MFXButton fx:id="employeeButton" alignment="BASELINE_LEFT" layoutX="22.0" layoutY="289.0" maxWidth="476.0" styleClass="surface" stylesheets="@../stylesheets/button.css" text="View Employees">
                      <font>
                         <Font name="Roboto" size="22.0" />
                      </font>
@@ -90,7 +90,7 @@
                         </ImageView>
                      </graphic>
                   </MFXButton>
-                  <MFXButton fx:id="requestRoomButton" alignment="BASELINE_LEFT" maxWidth="476.0" style="-fx-background-color: #faf9fd;" styleClass="surface-container" text="Request Conference Room">
+                  <MFXButton fx:id="requestRoomButton" alignment="BASELINE_LEFT" maxWidth="476.0" styleClass="surface" stylesheets="@../stylesheets/button.css" text="Request Conference Room">
                      <font>
                         <Font name="Roboto" size="22.0" />
                      </font>
@@ -102,7 +102,7 @@
                         </ImageView>
                      </graphic>
                   </MFXButton>
-                  <MFXButton fx:id="viewAlertsButton" alignment="BASELINE_LEFT" maxWidth="476.0" style="-fx-background-color: #faf9fd;" styleClass="surface-container" text="View Alerts (temporary)">
+                  <MFXButton fx:id="viewAlertsButton" alignment="BASELINE_LEFT" maxWidth="476.0" styleClass="surface" stylesheets="@../stylesheets/button.css" text="View Alerts (temporary)">
                      <font>
                         <Font name="Roboto" size="22.0" />
                      </font>
@@ -126,7 +126,7 @@
                                 <Font name="Roboto" size="36.0" />
                             </font>
                         </Label>
-                        <MFXButton fx:id="mapButton" alignment="BASELINE_LEFT" maxWidth="476.0" style="-fx-background-color: #faf9fd;" styleClass="surface-container" text="View Map">
+                        <MFXButton fx:id="mapButton" alignment="BASELINE_LEFT" maxWidth="476.0" styleClass="surface" stylesheets="@../stylesheets/button.css" text="View Map">
                             <font>
                                 <Font name="Roboto" size="22.0" />
                             </font>
@@ -165,7 +165,7 @@
 <!--                        </ImageView>-->
 <!--                     </graphic>-->
 <!--                        </MFXButton>-->
-                        <MFXButton fx:id="editMoveButton" alignment="BASELINE_LEFT" maxWidth="476.0" style="-fx-background-color: #faf9fd;" text="View Moves">
+                        <MFXButton fx:id="editMoveButton" alignment="BASELINE_LEFT" maxWidth="476.0" styleClass="surface" stylesheets="@../stylesheets/button.css" text="View Moves">
                             <font>
                                 <Font name="Roboto" size="22.0" />
                             </font>
@@ -177,7 +177,7 @@
                         </ImageView>
                      </graphic>
                         </MFXButton>
-                        <MFXButton fx:id="editMapButton" alignment="BASELINE_LEFT" maxWidth="476.0" style="-fx-background-color: #faf9fd;" styleClass="surface-container" text="Edit Map">
+                        <MFXButton fx:id="editMapButton" alignment="BASELINE_LEFT" maxWidth="476.0" styleClass="surface" stylesheets="@../stylesheets/button.css" text="Edit Map">
                             <font>
                                 <Font name="Roboto" size="22.0" />
                             </font>
@@ -189,7 +189,7 @@
                         </ImageView>
                      </graphic>
                         </MFXButton>
-                  <MFXButton fx:id="viewSignageButton" alignment="BASELINE_LEFT" maxWidth="476.0" style="-fx-background-color: #faf9fd;" styleClass="surface-container" text="View Signage">
+                  <MFXButton fx:id="viewSignageButton" alignment="BASELINE_LEFT" maxWidth="476.0" styleClass="surface" stylesheets="@../stylesheets/button.css" text="View Signage">
                      <font>
                         <Font name="Roboto" size="22.0" />
                      </font>
@@ -201,7 +201,7 @@
                         </ImageView>
                      </graphic>
                   </MFXButton>
-                  <MFXButton fx:id="editSignageButton" alignment="BASELINE_LEFT" layoutX="22.0" layoutY="231.0" maxWidth="476.0" style="-fx-background-color: #faf9fd;" styleClass="surface-container" text="Edit Signage">
+                  <MFXButton fx:id="editSignageButton" alignment="BASELINE_LEFT" layoutX="22.0" layoutY="231.0" maxWidth="476.0" styleClass="surface" stylesheets="@../stylesheets/button.css" text="Edit Signage">
                      <font>
                         <Font name="Roboto" size="22.0" />
                      </font>
@@ -227,17 +227,17 @@
                   </Label>
                   <HBox maxHeight="192.0" maxWidth="500.0" spacing="12.0">
                      <children>
-                        <MFXButton fx:id="upcomingMoves" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="10.0" maxHeight="168.0" maxWidth="151.0" prefHeight="168.0" style="-fx-background-color: #faf9fd; -fx-wrap-text: true;" styleClass="surface-container" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                        <MFXButton fx:id="upcomingMoves" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="10.0" maxHeight="168.0" maxWidth="151.0" prefHeight="168.0" style="-fx-wrap-text: true;" styleClass="surface" stylesheets="@../stylesheets/button.css" textAlignment="CENTER" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="Roboto" size="22.0" />
                            </font>
                         </MFXButton>
-                        <MFXButton fx:id="activeRequests" alignment="BASELINE_LEFT" maxHeight="168.0" maxWidth="151.0" style="-fx-background-color: #faf9fd; -fx-wrap-text: true;" styleClass="surface-container" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                        <MFXButton fx:id="activeRequests" alignment="BASELINE_LEFT" maxHeight="168.0" maxWidth="151.0" style="-fx-wrap-text: true;" styleClass="surface" stylesheets="@../stylesheets/button.css" textAlignment="CENTER" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="Roboto" size="22.0" />
                            </font>
                         </MFXButton>
-                        <MFXButton fx:id="doneRequests" alignment="BASELINE_LEFT" layoutX="205.0" layoutY="10.0" maxHeight="168.0" maxWidth="151.0" style="-fx-background-color: #faf9fd; -fx-wrap-text: true;" styleClass="surface-container" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                        <MFXButton fx:id="doneRequests" alignment="BASELINE_LEFT" layoutX="205.0" layoutY="10.0" maxHeight="168.0" maxWidth="151.0" style="-fx-wrap-text: true;" styleClass="surface" stylesheets="@../stylesheets/button.css" textAlignment="CENTER" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="Roboto" size="22.0" />
                            </font>
@@ -253,7 +253,7 @@
             </VBox>
                 <HBox alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                     <children>
-                        <MFXButton fx:id="helpButton" alignment="CENTER" style="-fx-background-color: #001B3B; -fx-border-color: #f6bd38; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Help" textAlignment="CENTER" textFill="#fdfbff" HBox.hgrow="ALWAYS">
+                        <MFXButton fx:id="helpButton" alignment="CENTER" style="-fx-border-color: #f6bd38; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Help" textAlignment="CENTER" textFill="#fdfbff" HBox.hgrow="ALWAYS">
                             <font>
                                 <Font size="20.0" />
                             </font>
@@ -261,7 +261,7 @@
                         <Insets />
                      </HBox.margin>
                         </MFXButton>
-                        <MFXButton fx:id="notificationPopupButtonSimple" alignment="CENTER" style="-fx-background-color: #001B3B; -fx-border-color: #f6bd38; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Notifications" textAlignment="CENTER" textFill="#fdfbff" HBox.hgrow="ALWAYS">
+                        <MFXButton fx:id="notificationPopupButtonSimple" alignment="CENTER" style="-fx-border-color: #f6bd38; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Notifications" textAlignment="CENTER" textFill="#fdfbff" HBox.hgrow="ALWAYS">
                             <font>
                                 <Font size="20.0" />
                             </font>
@@ -269,12 +269,12 @@
                                 <Insets />
                             </HBox.margin>
                         </MFXButton>
-                        <MFXButton fx:id="dataButton" alignment="CENTER" style="-fx-background-color: #001B3B; -fx-border-color: #456d4c; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Data" textAlignment="CENTER" textFill="#fdfbff">
+                        <MFXButton fx:id="dataButton" alignment="CENTER" style="-fx-border-color: #456d4c; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Data" textAlignment="CENTER" textFill="#fdfbff">
                             <font>
                                 <Font size="20.0" />
                             </font>
                         </MFXButton>
-                        <MFXButton fx:id="exitButton" alignment="CENTER" style="-fx-background-color: #001B3B; -fx-border-color: #BA1A1A; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Exit" textAlignment="CENTER" textFill="#fdfbff" HBox.hgrow="ALWAYS">
+                        <MFXButton fx:id="exitButton" alignment="CENTER" style="-fx-border-color: #BA1A1A; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Exit" textAlignment="CENTER" textFill="#fdfbff" HBox.hgrow="ALWAYS">
                             <font>
                                 <Font size="20.0" />
                             </font>
