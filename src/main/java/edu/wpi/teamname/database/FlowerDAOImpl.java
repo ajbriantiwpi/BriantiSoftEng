@@ -224,4 +224,30 @@ public class FlowerDAOImpl implements FlowerDAO {
       System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
     }
   }
+
+  /**
+   * * Creates a table for storing Flower data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createTable() throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try (connection) {
+      String query =
+          "create table if not exists \"Flowers\"\n"
+              + "(\n"
+              + "    \"flowerID\" integer not null\n"
+              + "        constraint \"Flowers_pk\"\n"
+              + "            primary key,\n"
+              + "    \"Name\"     text,\n"
+              + "    \"Price\"    numeric,\n"
+              + "    \"Category\" text,\n"
+              + "    \"Color\"    text\n"
+              + ");";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+    }
+  }
 }

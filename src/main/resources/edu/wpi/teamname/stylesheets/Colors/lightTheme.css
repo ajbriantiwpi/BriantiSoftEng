@@ -5,10 +5,12 @@
 .primary-container{
     -fx-background-color: #D5E3FF;
     -fx-text-fill: #001B3B;
+    -fx-fill: #D5E3FF;
 }
 .primary-on-container {
     -fx-text-fill: #D5E3FF;
     -fx-background-color: #001B3B;
+    -fx-fill: #001B3B;
 }
 .primary-text-container{
     -fx-text-fill: #001B3B;
@@ -16,6 +18,7 @@
 .primary{
     -fx-background-color: #235FA6;
     -fx-text-fill: #FFFFFF;
+    -fx-fill: #235FA6;
 }
 .primary-on{
     -fx-text-fill: #235FA6;

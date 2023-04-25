@@ -346,4 +346,30 @@ public class NodeDAOImpl implements NodeDAO {
     }
     return rooms;
   }*/
+
+  /**
+   * * Creates a table for storing Node data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createTable() throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try (connection) {
+      String query =
+          "create table if not exists \"Node\"\n"
+              + "(\n"
+              + "    \"nodeID\" integer not null\n"
+              + "        constraint \"Node_pk\"\n"
+              + "            primary key,\n"
+              + "    xcoord   integer,\n"
+              + "    ycoord   integer,\n"
+              + "    floor    text,\n"
+              + "    building text\n"
+              + ");";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+    }
+  }
 }

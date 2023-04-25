@@ -17,7 +17,6 @@ public class ConfReservation {
   @Getter @Setter private String staffAssigned;
   @Getter @Setter private int roomID;
 
-
   @Getter @Setter private int origResID;
   @Getter @Setter private String origStartTime;
   @Getter @Setter private String origEndTime;
@@ -36,7 +35,8 @@ public class ConfReservation {
       Timestamp dateMade,
       String name,
       String username,
-      String staff, int roomID) {
+      String staff,
+      int roomID) {
     this.resID = resID;
     this.startTime = startT;
     this.endTime = endT;
@@ -84,6 +84,8 @@ public class ConfReservation {
         + ", Username: "
         + username
         + ", Assigned Staff: "
-        + staffAssigned + ", Room ID: " + roomID;
+        + staffAssigned
+        + ", Room ID: "
+        + roomID;
   }
 }

@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 public class ServiceRequestTest {
 
   @BeforeEach
-  void setup() {
+  void setup() throws SQLException {
     DataManager.configConnection(
         "jdbc:postgresql://database.cs.wpi.edu:5432/teamddb?currentSchema=\"teamD\"",
         "teamd",

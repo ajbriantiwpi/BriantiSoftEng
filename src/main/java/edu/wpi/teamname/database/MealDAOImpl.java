@@ -238,4 +238,30 @@ public class MealDAOImpl implements MealDAO {
       System.err.println("Error downloading CSV data from PostgreSQL database: " + e.getMessage());
     }
   }
+
+  /**
+   * * Creates a table for storing Meal data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createTable() throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try (connection) {
+      String query =
+          "create table if not exists \"Meal\"\n"
+              + "(\n"
+              + "    \"mealID\"  integer not null\n"
+              + "        constraint \"Meals_pk\"\n"
+              + "            primary key,\n"
+              + "    \"Name\"    text,\n"
+              + "    \"Price\"   numeric,\n"
+              + "    \"Meal\"    text,\n"
+              + "    \"Cuisine\" text\n"
+              + ");";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+    }
+  }
 }

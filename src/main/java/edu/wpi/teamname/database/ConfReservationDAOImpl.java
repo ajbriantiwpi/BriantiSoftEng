@@ -18,7 +18,7 @@ public class ConfReservationDAOImpl implements ConfReservationDAO {
     try (connection) {
       String query =
           "UPDATE \"ConfReservations\" SET \"resID\" = ?, \"starttime\" = ?, \"endtime\" = ?, datebook = ?, \"name\" = ?, username = ?, \"staffAssigned\" = ?, \"dateMade\" = ?, \"roomID\" = ?"
-              + "  WHERE \"resID\" = ?, \"starttime\" = ?, \"endtime\" = ?, datebook = ?, \"name\" = ?, username = ?, \"staffAssigned\" = ?, \"dateMade\" = ?, \"roomID\" = ?";
+              + "  WHERE \"resID\" = ? AND \"starttime\" = ? AND \"endtime\" = ? AND datebook = ? AND \"name\" = ? AND username = ? AND \"staffAssigned\" = ? AND \"dateMade\" = ? AND \"roomID\" = ?";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, ConfReservation.getResID());
       statement.setString(2, ConfReservation.getStartTime());
@@ -212,8 +212,8 @@ public class ConfReservationDAOImpl implements ConfReservationDAO {
         int roomID = resultSet.getInt("roomID");
 
         String row =
-            resID + "," + startTime + "," + endTime + "," + dateBook + "," + name
-                + "," + username + "," + staff + ", " + dateMade + "," + roomID + "\n";
+            resID + "," + startTime + "," + endTime + "," + dateBook + "," + name + "," + username
+                + "," + staff + ", " + dateMade + "," + roomID + "\n";
         writer.write(row);
       }
       System.out.println("CSV data downloaded from PostgreSQL database");
@@ -261,6 +261,36 @@ public class ConfReservationDAOImpl implements ConfReservationDAO {
       System.out.println("CSV data uploaded to PostgreSQL database");
     } catch (SQLException e) {
       System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
+    }
+  }
+
+  /**
+   * * Creates a table for storing ConfReservation data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createTable() throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try (connection) {
+      String query =
+          "create table if not exists \"ConfReservations\"\n"
+              + "(\n"
+              + "    \"resID\"         integer   not null\n"
+              + "        constraint \"ConfReservation_pk\"\n"
+              + "            primary key,\n"
+              + "    starttime       varchar   not null,\n"
+              + "    endtime         varchar   not null,\n"
+              + "    datebook        timestamp not null,\n"
+              + "    name            varchar,\n"
+              + "    username        varchar,\n"
+              + "    \"staffAssigned\" varchar,\n"
+              + "    \"dateMade\"      timestamp,\n"
+              + "    \"roomID\"        integer   not null\n"
+              + ");";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
     }
   }
 }
