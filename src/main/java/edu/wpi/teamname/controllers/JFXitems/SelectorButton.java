@@ -27,6 +27,7 @@ public class SelectorButton extends MFXButton {
     this.setStatus(RoomStatus.AVAILABLE);
     this.setMinWidth(50);
     this.setMinHeight(75);
+    setStyle("-fx-background-radius: 0;-fx-border-color: #6F797A;");
     setOnMouseClicked(
         event -> {
           parent.handleButtonClick(this.id);
@@ -36,13 +37,17 @@ public class SelectorButton extends MFXButton {
   void setStatus(RoomStatus status) {
     this.status = status;
     if (status == RoomStatus.AVAILABLE) {
-      setStyle("-fx-background-color: #FFDEA1;-fx-background-radius: 0;-fx-border-color: #6F797A;");
+      getStyleClass().clear();
+      getStyleClass().add("tertiary-container");
     } else if (status == RoomStatus.BOOKED) {
-      setStyle("-fx-background-color: #235FA6;-fx-background-radius: 0;-fx-border-color: #6F797A;");
+      getStyleClass().clear();
+      getStyleClass().add("primary");
     } else if (status == RoomStatus.SELECTED) {
-      setStyle("-fx-background-color: #2FA7B0;-fx-background-radius: 0;-fx-border-color: #6F797A;");
+      getStyleClass().clear();
+      getStyleClass().add("teal");
     } else {
-      setStyle("-fx-background-color: #BA1A1A;-fx-background-radius: 0;-fx-border-color: #6F797A;");
+      getStyleClass().clear();
+      getStyleClass().add("error");
     }
   }
 }

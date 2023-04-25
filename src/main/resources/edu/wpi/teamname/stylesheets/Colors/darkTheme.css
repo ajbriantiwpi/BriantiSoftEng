@@ -88,6 +88,16 @@
     -fx-text-fill: #FFDAD6;
 }
 
+.error{
+    -fx-background-color: #FFB4AB;
+    -fx-text-fill: #690005;
+}
+
+.teal{
+    -fx-background-color: #2FA7B0;
+    -fx-text-fill: #FFFFFF;
+}
+
 .white{
     -fx-background-color: #ffffff;
     -fx-text-fill: #000000;

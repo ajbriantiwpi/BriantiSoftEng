@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import org.controlsfx.control.RangeSlider;
@@ -99,6 +100,8 @@ public class ConferenceController {
     //    }
     listView.setItems(selectors);
     activeSelector = selectors.get(0);
+
+    listView.setPadding(new Insets(0));
 
     buildingBox.setOnAction(
         event -> {

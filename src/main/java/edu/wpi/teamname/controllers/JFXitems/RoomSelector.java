@@ -16,6 +16,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -46,6 +47,7 @@ public class RoomSelector extends BorderPane {
   }
 
   private void initialize() {
+    //HBox.setHgrow(this, Priority.ALWAYS);
     setMinHeight(50);
     setMinWidth(400);
     //    this.getStylesheets().add("../stylesheets/Colors/lightTheme.css");
