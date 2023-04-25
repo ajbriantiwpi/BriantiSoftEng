@@ -1,29 +1,38 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.App;
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
+import edu.wpi.teamname.alerts.Alert;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.navigation.Move;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXNotificationCenter;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.time.LocalDate;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.controlsfx.control.PopOver;
 
 public class HomeController {
-
+  @FXML MFXButton notificationPopupButtonSimple;
+  @FXML MFXNotificationCenter notifsButton;
   @FXML MFXButton helpButton;
   @FXML MFXButton mapButton;
   @FXML VBox actionVBox;
@@ -97,6 +106,82 @@ public class HomeController {
 
   @FXML
   public void initialize() throws SQLException {
+
+    EventHandler<MouseEvent> NotificationPopupEvent =
+        new EventHandler<MouseEvent>() {
+          @Override
+          public void handle(MouseEvent event) {
+            ObservableList<Alert> alertList = null;
+
+            MFXButton createNewButton = ((MFXButton) event.getSource());
+            HBox outerPane = (HBox) createNewButton.getParent();
+
+            final var resource = App.class.getResource("views/NotificationPane.fxml");
+            final FXMLLoader loader = new FXMLLoader(resource);
+            VBox v;
+            try {
+              v = loader.load();
+            } catch (IOException e) {
+              throw new RuntimeException(e);
+            }
+
+            if (GlobalVariables.getCurrentUser() != null
+                && !(GlobalVariables.getCurrentUser().getType().toString().equals("NONE"))) {
+
+              try {
+                alertList = FXCollections.observableList(DataManager.getAllAlerts());
+              } catch (SQLException e) {
+                throw new RuntimeException(e);
+              }
+              alertList.stream()
+                  .filter(
+                      (alert) -> alert.getType().equals(GlobalVariables.getCurrentUser().getType()))
+                  .toList();
+              System.out.println(alertList.size());
+              System.out.println(GlobalVariables.getCurrentUser().getType());
+              alertList =
+                  FXCollections.observableList(
+                      alertList.stream()
+                          .filter(
+                              (alert) ->
+                                  alert.getStartDisplayDate().toInstant().isBefore(Instant.now()))
+                          .toList());
+              alertList =
+                  FXCollections.observableList(
+                      alertList.stream()
+                          .filter(
+                              (alert) ->
+                                  alert.getEndDisplayDate().toInstant().isAfter(Instant.now()))
+                          .toList());
+              for (int i = 0; i < alertList.size(); i++) {
+                HBox temp = new HBox();
+                Label description = new Label();
+                description.setText(alertList.get(i).getDescription());
+                description.getStylesheets().add("@../stylesheets/RowLabel.css");
+                description.getStylesheets().add("@../stylesheets/Colors/lightTheme.css");
+                Label announcement = new Label();
+                announcement.setText(alertList.get(i).getAnnouncement());
+                announcement.getStylesheets().add("@../stylesheets/RowLabel.css");
+                announcement.getStylesheets().add("@../stylesheets/Colors/lightTheme.css");
+                announcement.wrapTextProperty().set(true);
+                description.wrapTextProperty().set(true);
+
+                HBox.setHgrow(description, Priority.SOMETIMES);
+                HBox.setHgrow(announcement, Priority.ALWAYS);
+                temp.setSpacing(50);
+                temp.getChildren().add(announcement);
+                temp.getChildren().add(description);
+                VBox.setVgrow(temp, Priority.ALWAYS);
+                v.getChildren().add(temp);
+              }
+            }
+
+            PopOver pop = new PopOver(v);
+            pop.show(createNewButton);
+          }
+        };
+
+    //    notifsButton.getNotifications().clear();
 
     // set the width and height to be bound to the panes width and height
     //    imageView.fitWidthProperty().bind(rootPane.widthProperty());
@@ -273,5 +358,7 @@ public class HomeController {
     viewAlertsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERT));
     requestRoomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CONFERENCE_ROOM));
     dataButton.setOnMouseClicked(event -> Navigation.navigate(Screen.DATA_MANAGER));
+    notificationPopupButtonSimple.setOnMouseClicked(NotificationPopupEvent);
+    //    notifsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERT));
   }
 }
