@@ -1,16 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import org.controlsfx.control.*?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.SearchableComboBox?>
 
 <!--        style="-fx-background-color: #D9E3F8;" -->
 
-<AnchorPane styleClass="surface-container" stylesheets="@../stylesheets/Colors/lightTheme.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestViewController">
+<AnchorPane styleClass="surface-container" stylesheets="@../stylesheets/Colors/theme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestViewController">
     <children>
         <HBox style="-fx-background-radius: 16;" styleClass="surface" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <VBox HBox.hgrow="ALWAYS">
@@ -194,37 +204,53 @@
                     </TableView>
                     <AnchorPane fx:id="summaryPane" disable="true" mouseTransparent="true" visible="false">
                         <children>
-                            <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" pannable="true" style="-fx-background-color: #ffffff;" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" pannable="true" styleClass="surface" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <content>
                                     <AnchorPane>
                                         <children>
                                             <VBox fx:id="pane" prefHeight="200.0" prefWidth="100.0" spacing="12.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                 <children>
-                                                    <Label layoutX="10.0" layoutY="10.0" style="-fx-font-family: Roboto; -fx-font-size: 30;" text="Request Details" textFill="#001b3b">
+                                                    <Label layoutX="10.0" layoutY="10.0" text="Request Details" textFill="#001b3b">
                                                         <font>
                                                             <Font name="Roboto" size="40.0" />
                                                         </font>
+                                          <styleClass>
+                                             <String fx:value="headline-large" />
+                                             <String fx:value="primary-text-container" />
+                                          </styleClass>
                                                     </Label>
-                                                    <Label fx:id="detailsLabel" style="-fx-font-family: Roboto; -fx-font-size: 24;" text="..." textFill="#001b3b">
+                                                    <Label fx:id="detailsLabel" text="..." textFill="#001b3b">
                                                         <font>
                                                             <Font name="Times New Roman" size="40.0" />
                                                         </font>
+                                          <styleClass>
+                                             <String fx:value="headline-med" />
+                                             <String fx:value="primary-text-container" />
+                                          </styleClass>
                                                     </Label>
-                                       <Label fx:id="detailsLabel1" style="-fx-font-family: Roboto; -fx-font-size: 24;" text="..." textFill="#001b3b">
+                                       <Label fx:id="detailsLabel1" text="..." textFill="#001b3b">
                                           <font>
                                              <Font name="Roboto" size="40.0" />
                                           </font>
+                                          <styleClass>
+                                             <String fx:value="headline-med" />
+                                             <String fx:value="primary-text-container" />
+                                          </styleClass>
                                        </Label>
-                                                    <Label fx:id="totalLabel" alignment="CENTER_RIGHT" style="-fx-font-family: Roboto;" stylesheets="@../stylesheets/TextField.css" text="Order Total: $" textFill="#001b3b">
+                                                    <Label fx:id="totalLabel" alignment="CENTER_RIGHT" stylesheets="@../stylesheets/TextField.css" text="Order Total: $" textFill="#001b3b">
                                                         <font>
                                                             <Font name="Roboto" size="40.0" />
                                                         </font>
+                                          <styleClass>
+                                             <String fx:value="headline-med" />
+                                             <String fx:value="primary-text-container" />
+                                          </styleClass>
                                                     </Label>
                                                     <ScrollPane fitToHeight="true" fitToWidth="true" pannable="true" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
                                                         <content>
                                                             <AnchorPane VBox.vgrow="ALWAYS">
                                                                 <children>
-                                                                    <VBox fx:id="cartBox" fillWidth="true" spacing="12.0" style="-fx-background-color: #E3E2E6; -fx-background-radius: 8;" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="0.0">
+                                                                    <VBox fx:id="cartBox" fillWidth="true" spacing="12.0" style="-fx-background-radius: 8;" styleClass="surface-container-high" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="0.0">
                                                                         <children>
                                                                         </children>
                                                                     </VBox>

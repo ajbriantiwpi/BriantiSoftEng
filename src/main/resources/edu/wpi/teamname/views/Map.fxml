@@ -6,6 +6,7 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
@@ -17,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import net.kurobako.gesturefx.GesturePane?>
 
-<AnchorPane id="AP" fx:id="OuterMapAnchor" prefHeight="668.0" prefWidth="951.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MapController">
+<AnchorPane id="AP" fx:id="OuterMapAnchor" prefHeight="668.0" prefWidth="951.0" styleClass="surface" stylesheets="@../stylesheets/Colors/theme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MapController">
     <children>
       <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -33,7 +34,7 @@
                                     <content>
                                       <AnchorPane>
                                              <children>
-                                                <VBox prefHeight="351.0" prefWidth="271.0" spacing="24.0" style="-fx-background-radius: 16;" styleClass="surface-container-highest" stylesheets="@../stylesheets/Colors/lightTheme.css">
+                                                <VBox prefHeight="351.0" prefWidth="271.0" spacing="24.0" style="-fx-background-radius: 16;" styleClass="surface-container-highest">
                                                    <children>
                                                       <AnchorPane>
                                                          <children>
@@ -104,14 +105,21 @@
                                   </TitledPane>
                                   <TitledPane fx:id="DirectionsTitlePane" animated="false" text="Directions">
                                     <content>
-                                      <AnchorPane />
+                                      <AnchorPane>
+                                             <children>
+                                                <Label fx:id="directionsLabel" layoutX="39.0" layoutY="2.0" text="Label" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                             </children></AnchorPane>
                                     </content>
+                                       <styleClass>
+                                          <String fx:value="primary-text-container" />
+                                          <String fx:value="title-med" />
+                                       </styleClass>
                                   </TitledPane>
                                   <TitledPane fx:id="FloorTitlePane" animated="false" text="Floors">
                                     <content>
                                       <AnchorPane>
                                              <children>
-                                                <VBox prefHeight="350.0" prefWidth="271.0" spacing="12.0" style="-fx-background-radius: 16;" styleClass="surface-container-highest" stylesheets="@../stylesheets/Colors/lightTheme.css">
+                                                <VBox prefHeight="350.0" prefWidth="271.0" spacing="12.0" style="-fx-background-radius: 16;" styleClass="surface-container-highest">
                                                    <children>
                                                       <AnchorPane>
                                                          <children>
@@ -155,7 +163,7 @@
                                                             </MFXButton>
                                                          </children>
                                                       </AnchorPane>
-                                                      <AnchorPane maxHeight="10.0" minHeight="10.0" styleClass="secondary" stylesheets="@../stylesheets/Colors/lightTheme.css" />
+                                                      <AnchorPane maxHeight="10.0" minHeight="10.0" styleClass="secondary" />
                                                       <AnchorPane>
                                                          <children>
                                                             <MFXButton id="Lower Level 1" fx:id="LowerFirstButton" alignment="BASELINE_LEFT" graphicTextGap="10.0" stylesheets="@../stylesheets/button.css" text="Lower Level 1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -209,10 +217,10 @@
                                                             <CheckBox id="2" fx:id="IdSelector" mnemonicParsing="false" text="ID" />
                                                          </children>
                                                       </HBox>
-                                                      <CheckBox fx:id="HallNamesSelector" mnemonicParsing="false" text="Hall Names" />
-                                                      <CheckBox fx:id="EdgeSelector" mnemonicParsing="false" text="Show Edges" />
-                                                      <CheckBox fx:id="NodeSelector" mnemonicParsing="false" text="Show Nodes" />
-                                                      <CheckBox fx:id="LegendSelector" mnemonicParsing="false" selected="true" text="Unique Shapes" />
+                                                      <CheckBox fx:id="HallNamesSelector" mnemonicParsing="false" styleClass="primary-text-container" text="Hall Names" />
+                                                      <CheckBox fx:id="EdgeSelector" mnemonicParsing="false" styleClass="primary-text-container" text="Show Edges" />
+                                                      <CheckBox fx:id="NodeSelector" mnemonicParsing="false" styleClass="primary-text-container" text="Show Nodes" />
+                                                      <CheckBox fx:id="LegendSelector" mnemonicParsing="false" selected="true" styleClass="primary-text-container" text="Unique Shapes" />
                                                       <CheckBox fx:id="FloorsToggle" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" styleClass="primary-text-container" text="Display All Floors" />
                                                    </children>
                                                 </VBox>

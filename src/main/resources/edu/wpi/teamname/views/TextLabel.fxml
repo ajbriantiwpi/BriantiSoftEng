@@ -5,7 +5,7 @@
 <?import javafx.scene.control.Label?>
 
 
-<Label style="-fx-background-radius: 8;" stylesheets="@../stylesheets/Colors/lightTheme.css" text="Label" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<Label style="-fx-background-radius: 8;" stylesheets="@../stylesheets/Colors/theme.css" text="Label" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <styleClass>
       <String fx:value="secondary" />
       <String fx:value="label" />

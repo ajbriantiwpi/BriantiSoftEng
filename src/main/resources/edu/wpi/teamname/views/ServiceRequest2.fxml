@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -18,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.SearchableComboBox?>
 
-<AnchorPane styleClass="surface-container" stylesheets="@../stylesheets/Colors/lightTheme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestController">
+<AnchorPane styleClass="surface-container" stylesheets="@../stylesheets/Colors/theme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestController">
     <children>
         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -71,7 +72,7 @@
                               </VBox>
                            </children>
                         </AnchorPane>
-                                <AnchorPane fx:id="summaryPane" disable="true" styleClass="surface-container" StackPane.alignment="TOP_CENTER">
+                                <AnchorPane fx:id="summaryPane" disable="true" styleClass="surface-container" visible="false" StackPane.alignment="TOP_CENTER">
                                     <children>
                               <VBox prefHeight="200.0" prefWidth="100.0" spacing="12.0" style="-fx-background-radius: 16;" styleClass="surface" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
@@ -108,7 +109,7 @@
                                     <GridPane>
                                        <columnConstraints>
                                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
                                        </columnConstraints>
                                        <rowConstraints>
                                           <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
@@ -193,20 +194,32 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <MFXButton fx:id="nextButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-color: #ffffffe0; -fx-border-width: 2; -fx-text-fill: #235FA6;" styleClass="inv-on-surface" text="Next" textFill="#235fa6" GridPane.columnIndex="2">
+                                <MFXButton fx:id="nextButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-width: 2; -fx-background-radius: 16; -fx-border-radius: 16;" stylesheets="@../stylesheets/button.css" text="Next" textFill="#235fa6" GridPane.columnIndex="2">
                                     <font>
                                         <Font name="Roboto" size="36.0" />
                                     </font>
+                           <styleClass>
+                              <String fx:value="outline" />
+                              <String fx:value="primary" />
+                           </styleClass>
                                 </MFXButton>
-                                <MFXButton fx:id="clearButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-stroke: right; -fx-border-color: #ffffffe0; -fx-border-width: 2;" styleClass="inv-on-surface" text="Clear" textFill="#2f3033">
+                                <MFXButton fx:id="clearButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-width: 2; -fx-background-radius: 16; -fx-border-radius: 16;" stylesheets="@../stylesheets/button.css" text="Clear" textFill="#2f3033">
                                     <font>
                                         <Font name="Roboto" size="36.0" />
                                     </font>
+                           <styleClass>
+                              <String fx:value="secondary-container" />
+                              <String fx:value="outline" />
+                           </styleClass>
                                 </MFXButton>
-                                <MFXButton fx:id="cancelButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-color: #ffffffE0; -fx-border-width: 2;" styleClass="inv-on-surface" text="Cancel" textFill="#2f3033" GridPane.columnIndex="1">
+                                <MFXButton fx:id="cancelButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-width: 2; -fx-background-radius: 16; -fx-border-radius: 16;" stylesheets="@../stylesheets/button.css" text="Cancel" textFill="#2f3033" GridPane.columnIndex="1">
                                     <font>
                                         <Font name="Roboto" size="36.0" />
                                     </font>
+                           <styleClass>
+                              <String fx:value="error-container" />
+                              <String fx:value="outline" />
+                           </styleClass>
                                 </MFXButton>
                             </children>
                         </GridPane>
