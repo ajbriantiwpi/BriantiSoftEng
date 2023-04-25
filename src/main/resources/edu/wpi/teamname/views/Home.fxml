@@ -291,6 +291,6 @@
     </children>
    <stylesheets>
       <URL value="@../stylesheets/imageScale.css" />
-      <URL value="@../stylesheets/Colors/theme.css" />
+      <URL value="@../stylesheets/Colors/lightTheme.css" />
    </stylesheets>
 </AnchorPane>

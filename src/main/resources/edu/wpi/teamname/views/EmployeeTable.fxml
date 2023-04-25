@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.SearchableComboBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../stylesheets/Colors/theme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.EmployeeTableController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../stylesheets/Colors/lightTheme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.EmployeeTableController">
    <children>
       <VBox maxWidth="200.0" prefHeight="400.0" prefWidth="200.0" spacing="8.0" styleClass="surface-container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>

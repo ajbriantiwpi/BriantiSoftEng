@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import net.kurobako.gesturefx.GesturePane?>
 
-<HBox style="-fx-background-radius: 16;" styleClass="surface-container" stylesheets="@../stylesheets/Colors/theme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MapEditController">
+<HBox style="-fx-background-radius: 16;" styleClass="surface-container" stylesheets="@../stylesheets/Colors/lightTheme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MapEditController">
     <children>
         <AnchorPane style="-fx-background-radius: 16;" styleClass="surface">
             <children>

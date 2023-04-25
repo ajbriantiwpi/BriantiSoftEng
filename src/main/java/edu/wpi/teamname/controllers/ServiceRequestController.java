@@ -41,7 +41,7 @@ public class ServiceRequestController {
 
   // bot2
   // Sam's Form GUI
-  @FXML HBox rootPane;
+  @FXML AnchorPane root;
 
   @FXML ImageView background;
   private int requestPage = 0; // used for keeping track of which page is active
@@ -293,6 +293,11 @@ public class ServiceRequestController {
   }
 
   public void initialize() {
+    if (GlobalVariables.isDarkMode()) {
+      root.getStylesheets().set(0, "@../stylesheets/Colors/darkTheme.css");
+    } else {
+      root.getStylesheets().set(0, "@../stylesheets/Colors/lightTheme.css");
+    }
     ParentController.titleString.set("Service Request");
     setVisibleScreen(0);
 
