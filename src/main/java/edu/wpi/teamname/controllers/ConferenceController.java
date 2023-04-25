@@ -3,6 +3,7 @@ package edu.wpi.teamname.controllers;
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.servicerequest.ConfReservation;
+import edu.wpi.teamname.servicerequest.requestitem.ConfRoom;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -14,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.RangeSlider;
 
@@ -29,14 +31,22 @@ public class ConferenceController {
   @FXML RangeSlider sizeSlider;
   @FXML MFXButton submitButton;
   @FXML MFXButton nameText;
-  @FXML VBox viewBox;
 
+  @FXML ListView<RoomSelector> listView;
+  @FXML TableView<ConfRoom> confTable;
+  ConfRoom uno = new ConfRoom(1, "Uno", 10);
+  ConfRoom dos = new ConfRoom(2, "Dos", 20);
+  ConfRoom tres = new ConfRoom(3, "Tres", 30);
+  ObservableList<ConfRoom> rooms = FXCollections.observableArrayList();
+  ObservableList<RoomSelector> selectors = FXCollections.observableArrayList();
+  RoomSelector activeSelector;
+
+  //-----------NON FXML-----------------
   ObservableList<String> buildings;
   ObservableList<String> startTimes = FXCollections.observableArrayList("8:00","8:30","9:00","9:30","10:00","10:30","11:00","11:30","12:00","12:30",
           "13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:00","18:30");
   ObservableList<String> endTimes = FXCollections.observableArrayList("8:30","9:00","9:30","10:00","10:30","11:00","11:30","12:00","12:30",
           "13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:00","18:30", "19:00");
-  ObservableList<String> rooms;
 
   private static Timestamp today = new Timestamp(System.currentTimeMillis());
   private static Timestamp dateBook;
@@ -138,3 +148,31 @@ public class ConferenceController {
   }
 
 }
+
+/**
+ *
+ *
+ *
+ *   @FXML
+ *   public void initialize() throws SQLException {
+ *     System.out.println("Initializing");
+ *     rooms.add(uno);
+ *     rooms.add(dos);
+ *     rooms.add(tres);
+ *     for (ConfRoom room : rooms) {
+ *       selectors.add(new RoomSelector(room, this));
+ *     }
+ *     activeSelector = selectors.get(0);
+ *     listView.setItems(selectors);
+ *   }
+ *
+ *   public void setActiveSelector(RoomSelector selector) {
+ *     if (!activeSelector.equals(selector)) {
+ *       activeSelector.setAllInRange(false);
+ *       activeSelector.setSelected(0);
+ *
+ *       selector.setAllInRange(true);
+ *     }
+ *     activeSelector = selector;
+ *   }
+ */
