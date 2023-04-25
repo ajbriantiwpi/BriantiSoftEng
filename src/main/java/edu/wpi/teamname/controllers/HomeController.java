@@ -274,12 +274,14 @@ public class HomeController {
       upcomingMoves.setManaged(true);
       doneRequests.setVisible(true);
       doneRequests.setManaged(true);
+      viewAlertsButton.setVisible(false);
+      viewAlertsButton.setManaged(false);
       showRequestsButton.setVisible(true);
       showRequestsButton.setManaged(true);
       actionVBox.setManaged(true);
       SRVBox.setManaged(true);
-      editSignageButton.setVisible(true);
-      editSignageButton.setManaged(true);
+      editSignageButton.setVisible(false);
+      editSignageButton.setManaged(false);
 
       /** * Enables all buttons for the Admin login */
     } else if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.ADMIN)) {

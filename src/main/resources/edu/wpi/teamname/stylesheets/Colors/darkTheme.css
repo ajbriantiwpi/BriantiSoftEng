@@ -1,93 +1,93 @@
-@import "darkCombo.css";
-@import "darkDate.css";
-@import "typography.css";
-@import "lightListView.css";
+@import "lightTheme.css";
+/*@import "darkCombo.css";*/
+/*@import "darkDate.css";*/
+/*@import "typography.css";*/
 
-.primary-container{
-    -fx-background-color: #004788;
-    -fx-text-fill: #D5E3FF;
-    -fx-fill: #004788;
-}
-.primary-on-container {
-    -fx-text-fill: #004788;
-    -fx-background-color: #D5E3FF;
-    -fx-fill: #D5E3FF;
-}
-.primary-text-container{
-    -fx-text-fill: #D5E3FF;
-}
-.primary{
-    -fx-background-color: #A7C8FF;
-    -fx-text-fill: #003060;
-    -fx-fill: #A7C8FF;
-}
-.primary-on{
-    -fx-text-fill: #A7C8FF;
-    -fx-background-color: #003060;
-}
-.primary-text{
-    -fx-text-fill: #A7C8FF;
-}
-.surface-container{
-    -fx-background-color: #1E2023;
-    -fx-text-fill: #3F4849;
-}
-.surface{
-    -fx-background-color: #121316;
-    -fx-text-fill: #C7C6CA;
-}
-.surface-container-highest{
-    -fx-text-fill: #D5E3FF;
-    -fx-background-color: #343538;
-}
-.surface-container-high{
-    -fx-background-color: #292A2D;
-    -fx-text-fill: #D5E3FF;
-}
-.surface-container-low{
-    -fx-background-color: #1A1C1E;
-    -fx-text-fill: #D5E3FF;
-}
-.surface-container-lowest{
-    -fx-background-color: #0D0E11;
-    -fx-text-fill: #D5E3FF;
-}
-.secondary{
-    -fx-background-color: #BDC7DC;
-    -fx-text-fill: #273141;
-}
-.secondary-container{
-    -fx-background-color: #3D4758;
-    -fx-text-fill: #D9E3F8;
-}
-.tertiary{
-    -fx-background-color: #F7BE39;
-    -fx-text-fill: #402D00;
-}
-.tertiary-on{
-    -fx-text-fill: #F7BE39;
-    -fx-background-color: #402D00;
-}
-.tertiary-container{
-    -fx-background-color: #5C4300;
-    -fx-text-fill: #FFDEA1;
-}
-.inv-on-surface{
-    -fx-background-color: #E3E2E6;
-    -fx-text-fill: #1A1C1E;
-}
-.outline{
-    -fx-border-color: #899393;
-}
-.primary-fixed-dim{
-    -fx-background-color: #A7C8FF;
-    -fx-text-fill: #001B3B;
-}
+/*.primary-container{*/
+/*    -fx-background-color: #004788;*/
+/*    -fx-text-fill: #D5E3FF;*/
+/*    -fx-fill: #004788;*/
+/*}*/
+/*.primary-on-container {*/
+/*    -fx-text-fill: #004788;*/
+/*    -fx-background-color: #D5E3FF;*/
+/*    -fx-fill: #D5E3FF;*/
+/*}*/
+/*.primary-text-container{*/
+/*    -fx-text-fill: #D5E3FF;*/
+/*}*/
+/*.primary{*/
+/*    -fx-background-color: #A7C8FF;*/
+/*    -fx-text-fill: #003060;*/
+/*    -fx-fill: #A7C8FF;*/
+/*}*/
+/*.primary-on{*/
+/*    -fx-text-fill: #A7C8FF;*/
+/*    -fx-background-color: #003060;*/
+/*}*/
+/*.primary-text{*/
+/*    -fx-text-fill: #A7C8FF;*/
+/*}*/
+/*.surface-container{*/
+/*    -fx-background-color: #1E2023;*/
+/*    -fx-text-fill: #3F4849;*/
+/*}*/
+/*.surface{*/
+/*    -fx-background-color: #121316;*/
+/*    -fx-text-fill: #C7C6CA;*/
+/*}*/
+/*.surface-container-highest{*/
+/*    -fx-text-fill: #D5E3FF;*/
+/*    -fx-background-color: #343538;*/
+/*}*/
+/*.surface-container-high{*/
+/*    -fx-background-color: #292A2D;*/
+/*    -fx-text-fill: #D5E3FF;*/
+/*}*/
+/*.surface-container-low{*/
+/*    -fx-background-color: #1A1C1E;*/
+/*    -fx-text-fill: #D5E3FF;*/
+/*}*/
+/*.surface-container-lowest{*/
+/*    -fx-background-color: #0D0E11;*/
+/*    -fx-text-fill: #D5E3FF;*/
+/*}*/
+/*.secondary{*/
+/*    -fx-background-color: #BDC7DC;*/
+/*    -fx-text-fill: #273141;*/
+/*}*/
+/*.secondary-container{*/
+/*    -fx-background-color: #3D4758;*/
+/*    -fx-text-fill: #D9E3F8;*/
+/*}*/
+/*.tertiary{*/
+/*    -fx-background-color: #F7BE39;*/
+/*    -fx-text-fill: #402D00;*/
+/*}*/
+/*.tertiary-on{*/
+/*    -fx-text-fill: #F7BE39;*/
+/*    -fx-background-color: #402D00;*/
+/*}*/
+/*.tertiary-container{*/
+/*    -fx-background-color: #5C4300;*/
+/*    -fx-text-fill: #FFDEA1;*/
+/*}*/
+/*.inv-on-surface{*/
+/*    -fx-background-color: #E3E2E6;*/
+/*    -fx-text-fill: #1A1C1E;*/
+/*}*/
+/*.outline{*/
+/*    -fx-border-color: #899393;*/
+/*}*/
+/*.primary-fixed-dim{*/
+/*    -fx-background-color: #A7C8FF;*/
+/*    -fx-text-fill: #001B3B;*/
+/*}*/
 
-.error-container{
-    -fx-background-color: #93000A;
-    -fx-text-fill: #FFDAD6;
-}
+/*.error-container{*/
+/*    -fx-background-color: #93000A;*/
+/*    -fx-text-fill: #FFDAD6;*/
+/*}*/
 
 .error{
     -fx-background-color: #FFB4AB;
@@ -104,22 +104,22 @@
     -fx-text-fill: #000000;
 }
 
-.on-suface-text{
-    -fx-text-fill: #1A1C1E;
-}
+/*.on-suface-text{*/
+/*    -fx-text-fill: #1A1C1E;*/
+/*}*/
 
-.table-view .table-row-cell:even{
-    -fx-background-color: #003060;
-    -fx-text-background-color: #ffffff;
-    -fx-text-fill: #ffffff;
-    -fx-font-family: Roboto;
-}
+/*.table-view .table-row-cell:even{*/
+/*    -fx-background-color: #003060;*/
+/*    -fx-text-background-color: #ffffff;*/
+/*    -fx-text-fill: #ffffff;*/
+/*    -fx-font-family: Roboto;*/
+/*}*/
 
-.table-view .table-row-cell:odd{
-    -fx-background-color: #3D4758;
-    -fx-text-background-color: #ffffff;
-    -fx-text-fill: #ffffff;
-    -fx-font-family: Roboto;
-}
+/*.table-view .table-row-cell:odd{*/
+/*    -fx-background-color: #3D4758;*/
+/*    -fx-text-background-color: #ffffff;*/
+/*    -fx-text-fill: #ffffff;*/
+/*    -fx-font-family: Roboto;*/
+/*}*/
 
 
