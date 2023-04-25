@@ -11,11 +11,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.RadioButton;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class DataController implements Initializable {
   @FXML private ComboBox<String> importComboBox;
+  @FXML private RadioButton wpiButton;
+  @FXML private RadioButton awsButton;
 
   @FXML private ComboBox<String> exportComboBox;
 
@@ -31,6 +34,7 @@ public class DataController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    ParentController.titleString.set("Data Manager");
     importComboBox.getItems().addAll(FIELDS);
     exportComboBox.getItems().addAll(FIELDS);
 
