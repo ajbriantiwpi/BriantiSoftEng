@@ -67,6 +67,10 @@ public class ConferenceController {
 
   @FXML
   public void initialize() throws SQLException {
+    rooms.add(uno); rooms.add(dos); rooms.add(tres); for (ConfRoom room : rooms) { selectors.add(new
+            RoomSelector(room, this)); } activeSelector = selectors.get(0); listView.setItems(selectors);
+
+
     buildings = FXCollections.observableArrayList(DataManager.getConfBuildings());
     roomsString = FXCollections.observableArrayList(DataManager.getConfRooms("all"));
 
@@ -156,15 +160,12 @@ public class ConferenceController {
           }
         });
   }
+
+ public void setActiveSelector(RoomSelector selector) { if (!activeSelector.equals(selector)) {
+    activeSelector.setAllInRange(false); activeSelector.setSelected(0);
+ selector.setAllInRange(true); } activeSelector = selector; }
 }
 
-/**
- * @FXML public void initialize() throws SQLException { System.out.println("Initializing");
- * rooms.add(uno); rooms.add(dos); rooms.add(tres); for (ConfRoom room : rooms) { selectors.add(new
- * RoomSelector(room, this)); } activeSelector = selectors.get(0); listView.setItems(selectors); }
- *
- * <p>public void setActiveSelector(RoomSelector selector) { if (!activeSelector.equals(selector)) {
- * activeSelector.setAllInRange(false); activeSelector.setSelected(0);
- *
- * <p>selector.setAllInRange(true); } activeSelector = selector; }
- */
+
+
+
