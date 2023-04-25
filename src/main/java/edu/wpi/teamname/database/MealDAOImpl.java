@@ -195,7 +195,7 @@ public class MealDAOImpl implements MealDAO {
         String[] row = csvData.get(i);
         statement.setInt(1, Integer.parseInt(row[0]));
         statement.setString(2, row[1]);
-        statement.setInt(3, Integer.parseInt(row[2]));
+        statement.setFloat(3, Float.parseFloat(row[2]));
         statement.setString(4, row[3]);
         statement.setString(5, row[4]);
 
@@ -226,7 +226,7 @@ public class MealDAOImpl implements MealDAO {
       while (resultSet.next()) {
         int mealID = resultSet.getInt("mealID");
         String name = resultSet.getString("Name");
-        int price = resultSet.getInt("Price");
+        float price = resultSet.getFloat("Price");
         String meal = resultSet.getString("Meal");
         String cuisine = resultSet.getString("Cuisine");
 
@@ -236,6 +236,32 @@ public class MealDAOImpl implements MealDAO {
       System.out.println("CSV data downloaded from PostgreSQL database");
     } catch (IOException e) {
       System.err.println("Error downloading CSV data from PostgreSQL database: " + e.getMessage());
+    }
+  }
+
+  /**
+   * * Creates a table for storing Meal data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createTable() throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try (connection) {
+      String query =
+          "create table if not exists \"Meal\"\n"
+              + "(\n"
+              + "    \"mealID\"  integer not null\n"
+              + "        constraint \"Meals_pk\"\n"
+              + "            primary key,\n"
+              + "    \"Name\"    text,\n"
+              + "    \"Price\"   numeric,\n"
+              + "    \"Meal\"    text,\n"
+              + "    \"Cuisine\" text\n"
+              + ");";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
     }
   }
 }

@@ -3,20 +3,25 @@ package edu.wpi.teamname.controllers;
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
-import edu.wpi.teamname.employees.EmployeeType;
+import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.employees.ClearanceLevel;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.awt.*;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import lombok.Setter;
 
 public class ParentController {
-
+  @FXML CheckBox darkToggle;
   @FXML MFXButton homeButton;
   @FXML MFXButton helpButton;
   @FXML MFXButton mapButton;
@@ -29,6 +34,10 @@ public class ParentController {
   @FXML MFXButton loginButton;
   @FXML MFXButton editMoveButton;
   @FXML MFXButton showEmployeesButton;
+  @FXML MFXButton requestRoomButton;
+  @FXML MFXButton viewSignageButton;
+  @FXML MFXButton editSignageButton;
+  @FXML MFXButton viewAlertsButton;
   @FXML Label titleLabel;
 
   ArrayList<Screen> secureScreens =
@@ -38,17 +47,24 @@ public class ParentController {
               Screen.MOVE_TABLE,
               Screen.SERVICE_REQUEST,
               Screen.SERVICE_REQUEST_VIEW,
-              Screen.EMPLOYEE_TABLE));
+              Screen.EMPLOYEE_TABLE,
+              Screen.CONFERENCE_ROOM,
+              Screen.ALERT,
+              Screen.DATA_MANAGER,
+              Screen.SIGNAGE_TABLE));
 
   @Setter public static StringProperty titleString = new SimpleStringProperty();
 
   /** * Disables all the buttons that can not be accessed without logging in */
   public void disableButtonsWhenNotLoggedIn() {
-    makeRequestsButton.setDisable(true);
-    showRequestsButton.setDisable(true);
-    editMapButton.setDisable(true);
-    editMoveButton.setDisable(true);
-    showEmployeesButton.setDisable(true);
+    makeRequestsButton.setVisible(false);
+    showRequestsButton.setVisible(false);
+    editMapButton.setVisible(false);
+    editMoveButton.setVisible(false);
+    showEmployeesButton.setVisible(false);
+    editSignageButton.setVisible(false);
+    viewAlertsButton.setVisible(false);
+    requestRoomButton.setVisible(false);
   }
 
   /** logs the current user out of the application */
@@ -68,23 +84,43 @@ public class ParentController {
   public void initialize() throws IOException {
     titleLabel.setText(titleString.getValue());
     System.out.println("Parent!");
-    disableButtonsWhenNotLoggedIn();
+    darkToggle.selectedProperty().bindBidirectional(GlobalVariables.getDarkMode());
+    darkToggle.setVisible(false);
     if (HomeController.getLoggedIn().getValue()) {
+      // disableButtonsWhenNotLoggedIn();
       loginButton.setVisible(false);
       logoutButton.setVisible(true);
     } else {
       loginButton.setVisible(true);
       logoutButton.setVisible(false);
+      viewSignageButton.setVisible(true);
+      makeRequestsButton.setVisible(false);
+      showRequestsButton.setVisible(false);
+      editMoveButton.setVisible(false);
+      editMapButton.setVisible(false);
+      showEmployeesButton.setVisible(false);
+      viewAlertsButton.setVisible(false);
+      editSignageButton.setVisible(false);
+      requestRoomButton.setVisible(false);
     }
 
-    if (GlobalVariables.userIsType(EmployeeType.STAFF)) {
+    if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.STAFF)) {
+      makeRequestsButton.setDisable(false);
+      showRequestsButton.setDisable(false);
+      editMoveButton.setVisible(true);
+      editMapButton.setVisible(false);
+      showEmployeesButton.setVisible(false);
+      viewAlertsButton.setVisible(false);
+      editSignageButton.setVisible(false);
+    }
+    if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.ADMIN)) {
+      editMapButton.setDisable(false);
+      showEmployeesButton.setDisable(false);
       makeRequestsButton.setDisable(false);
       showRequestsButton.setDisable(false);
       editMoveButton.setDisable(false);
-    }
-    if (GlobalVariables.userIsType(EmployeeType.ADMIN)) {
-      editMapButton.setDisable(false);
-      showEmployeesButton.setDisable(false);
+      viewAlertsButton.setDisable(false);
+      editSignageButton.setDisable(false);
     }
     homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     //    helpButton.setOnMouseClicked(event -> Navigation.navigate(Screen.));
@@ -98,7 +134,21 @@ public class ParentController {
     // Navigation.navigate(Screen.SERVICE_REQUEST_VIEW));
     editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
     editMoveButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MOVE_TABLE));
-    exitButton.setOnMouseClicked(event -> System.exit(0));
+    viewSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
+    editSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TABLE));
+    viewAlertsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERT));
+    requestRoomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CONFERENCE_ROOM));
+    exitButton.setOnMouseClicked(
+        event -> {
+          try {
+            Connection connection = DataManager.DbConnection();
+            connection.close();
+          } catch (SQLException e) {
+            System.out.println(e.getMessage());
+          }
+          System.exit(0);
+        });
+    // darkToggle.setOnAction(event -> GlobalVariables.setDarkMode(darkToggle.isSelected()));
 
     // titleLabel.setText(titleString.getValue());
   }

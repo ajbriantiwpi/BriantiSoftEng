@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.legacy.MFXLegacyListView?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.RangeSlider?>
+
+<?import javafx.scene.control.ListView?>
+<AnchorPane fx:id="root" prefHeight="1080.0" prefWidth="1280.0" styleClass="body" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ConferenceController">
+    <children>
+        <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <ScrollPane fitToHeight="true" fitToWidth="true" prefWidth="420.0" HBox.hgrow="NEVER">
+                <content>
+                    <VBox prefWidth="420.0" spacing="12.0" styleClass="surface-container">
+                        <children>
+                            <Label styleClass="primary-text-container" text="Date" textFill="#001b3b">
+                                <font>
+                                    <Font name="Roboto" size="28.0" />
+                                </font>
+                                <VBox.margin>
+                                    <Insets />
+                                </VBox.margin>
+                            </Label>
+                            <DatePicker fx:id="dateBox" prefHeight="50.0" prefWidth="396.0" style="-fx-background-color: #D5E3FF;" styleClass="text-field" stylesheets="@../stylesheets/dateBox.css" />
+                            <Label styleClass="primary-text-container" text="Building" textFill="#001b3b">
+                                <font>
+                                    <Font name="Roboto" size="28.0" />
+                                </font>
+                                <VBox.margin>
+                                    <Insets />
+                                </VBox.margin>
+                            </Label>
+                            <ComboBox fx:id="buildingBox" prefHeight="50.0" prefWidth="396.0" promptText="Choose Building" stylesheets="@../stylesheets/combo.css">
+                                <VBox.margin>
+                                    <Insets />
+                                </VBox.margin>
+                            </ComboBox>
+                            <Label styleClass="primary-text-container" text="Start Time" textFill="#001b3b">
+                                <font>
+                                    <Font name="Roboto" size="28.0" />
+                                </font>
+                                <VBox.margin>
+                                    <Insets />
+                                </VBox.margin>
+                            </Label>
+                            <ComboBox fx:id="startBox" prefHeight="50.0" prefWidth="396.0" promptText="Choose Start Time" stylesheets="@../stylesheets/combo.css" />
+                            <Label styleClass="primary-text-container" text="End Time" textFill="#001b3b">
+                                <font>
+                                    <Font name="Roboto" size="28.0" />
+                                </font>
+                            </Label>
+                            <ComboBox fx:id="endBox" prefHeight="50.0" prefWidth="396.0" promptText="Choose End Time" stylesheets="@../stylesheets/combo.css" />
+                            <Label styleClass="primary-text-container" text="Room Size" textFill="#001b3b">
+                                <font>
+                                    <Font name="Roboto" size="28.0" />
+                                </font>
+                            </Label>
+                            <RangeSlider fx:id="sizeSlider" highValue="20.0" lowValue="2.0" majorTickUnit="5.0" max="50.0" maxWidth="396.0" prefHeight="50.0" prefWidth="396.0" showTickLabels="true" showTickMarks="true" styleClass="primary-text-container">
+                                <padding>
+                                    <Insets left="12.0" right="12.0" />
+                                </padding>
+                                <VBox.margin>
+                                    <Insets />
+                                </VBox.margin>
+                            </RangeSlider>
+                            <Label styleClass="primary-text-container" text="Name" textFill="#001b3b">
+                                <font>
+                                    <Font name="Roboto" size="28.0" />
+                                </font>
+                                <VBox.margin>
+                                    <Insets />
+                                </VBox.margin>
+                            </Label>
+                            <TextField fx:id="nameText" maxWidth="-Infinity" prefHeight="50.0" prefWidth="396.0" style="-fx-border-radius: 8; -fx-background-radius: 9;" stylesheets="@../stylesheets/RowLabel.css">
+                                <opaqueInsets>
+                                    <Insets />
+                                </opaqueInsets>
+                                <VBox.margin>
+                                    <Insets />
+                                </VBox.margin>
+                        <styleClass>
+                           <String fx:value="primary-container" />
+                           <String fx:value="outline" />
+                        </styleClass>
+                            </TextField>
+                            <Label styleClass="primary-text-container" text="Room" textFill="#001b3b">
+                                <font>
+                                    <Font name="Roboto" size="28.0" />
+                                </font>
+                                <VBox.margin>
+                                    <Insets />
+                                </VBox.margin>
+                            </Label>
+                            <ComboBox fx:id="roomBox" layoutX="10.0" layoutY="158.0" prefHeight="50.0" prefWidth="396.0" promptText="Choose Room" stylesheets="@../stylesheets/combo.css" />
+                            <MFXButton fx:id="submitButton" mnemonicParsing="false" styleClass="primary" stylesheets="@../stylesheets/button.css" text="Request">
+                                <font>
+                                    <Font name="Times New Roman" size="32.0" />
+                                </font>
+                                <VBox.margin>
+                                    <Insets />
+                                </VBox.margin>
+                            </MFXButton>
+                        </children>
+                        <padding>
+                            <Insets left="12.0" right="12.0" />
+                        </padding>
+                    </VBox>
+                </content>
+            </ScrollPane>
+            <ScrollPane fitToHeight="true" fitToWidth="true" HBox.hgrow="ALWAYS">
+                <HBox.margin>
+                    <Insets />
+                </HBox.margin>
+                <content>
+               <AnchorPane>
+                  <children>
+                          <ListView fx:id="listView" layoutX="15.0" layoutY="11.0" styleClass="listView" stylesheets="@../stylesheets/Colors/lightListView.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  </children>
+               </AnchorPane>
+                </content>
+            </ScrollPane>
+        </HBox>
+    </children>
+   <stylesheets>
+      <URL value="@../stylesheets/Colors/lightTheme.css" />
+      <URL value="@../stylesheets/Colors/darkTheme.css" />
+   </stylesheets>
+</AnchorPane>

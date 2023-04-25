@@ -1,14 +1,18 @@
 @import "lightCombo.css";
 @import "lightDate.css";
 @import "typography.css";
+@import "lightListView.css";
+
 
 .primary-container{
     -fx-background-color: #D5E3FF;
     -fx-text-fill: #001B3B;
+    -fx-fill: #D5E3FF;
 }
 .primary-on-container {
     -fx-text-fill: #D5E3FF;
     -fx-background-color: #001B3B;
+    -fx-fill: #001B3B;
 }
 .primary-text-container{
     -fx-text-fill: #001B3B;
@@ -16,10 +20,14 @@
 .primary{
     -fx-background-color: #235FA6;
     -fx-text-fill: #FFFFFF;
+    -fx-fill: #235FA6;
 }
 .primary-on{
     -fx-text-fill: #235FA6;
     -fx-background-color: #FFFFFF;
+}
+.primary-text{
+    -fx-text-fill: #235FA6;
 }
 .surface-container{
     -fx-background-color: #EEEDF1;
@@ -77,6 +85,30 @@
     -fx-text-fill: #001B3B;
 }
 
+.error-container{
+    -fx-background-color: #FFDAD6;
+    -fx-text-fill: #410002;
+}
+
+.error{
+    -fx-background-color: #BA1A1A;
+    -fx-text-fill: #FFFFFF;
+}
+
+.teal{
+    -fx-background-color: #2FA7B0;
+    -fx-text-fill: #FFFFFF;
+}
+
+.white{
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #000000;
+}
+
+.on-suface-text{
+    -fx-text-fill: #1A1C1E;
+}
+
 .table-view .table-row-cell:even{
     -fx-background-color: #A7C8FF;
     -fx-text-background-color: #000000;
@@ -92,3 +124,16 @@
 }
 
 
+.text-area{
+    -fx-control-inner-background: #D5E3FF;
+    -fx-border-radius: 8;
+    -fx-border-color: #6F797A;
+    -fx-border-width: 1;
+    -fx-font-family: Roboto;
+    -fx-font-style: Normal;
+    -fx-font-size: 28;
+    -fx-line-height: 36;
+    -fx-letter-spacing:0px;
+    -fx-background-radius: 8;
+    -fx-min-height: 60;
+}

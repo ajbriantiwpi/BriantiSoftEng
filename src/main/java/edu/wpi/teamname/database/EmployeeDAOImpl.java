@@ -1,6 +1,7 @@
 package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.database.interfaces.LoginDAO;
+import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
 import java.io.BufferedWriter;
@@ -27,21 +28,23 @@ public class EmployeeDAOImpl implements LoginDAO {
     try {
       // Updating data in employee
       query =
-          "UPDATE \"Employee\" SET \"password\" = ?, \"username\" = ?, \"employeeID\" = ?, \"firstName\" = ?, \"lastName\" = ? WHERE \"username\" = ?";
+          "UPDATE \"Employee\" SET \"password\" = ?, \"username\" = ?, \"employeeID\" = ?, \"firstName\" = ?, \"lastName\" = ?, \"clearanceLevel\" = ?, \"type\" = ? WHERE \"username\" = ?";
       statement = connection.prepareStatement(query);
       statement.setString(1, employee.getPassword());
       statement.setString(2, employee.getUsername());
       statement.setInt(3, employee.getEmployeeID());
       statement.setString(4, employee.getFirstName());
       statement.setString(5, employee.getLastName());
-      statement.setString(6, employee.getOriginalUsername());
+      statement.setString(6, employee.getLevel().getString());
+      statement.setString(7, employee.getType().getString());
+      statement.setString(8, employee.getOriginalUsername());
       statement.executeUpdate();
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }
 
     // Adding new types
-    for (EmployeeType type : employee.getType()) {
+    /*for (EmployeeType type : employee.getType()) {
       connection = DataManager.DbConnection();
       query = "SELECT count(*) count FROM \"EmployeeType\" WHERE \"username\" = ? AND \"type\" = ?";
       statement = connection.prepareStatement(query);
@@ -77,7 +80,7 @@ public class EmployeeDAOImpl implements LoginDAO {
         statement.setString(2, dbEmployeeType.getString());
         statement.executeUpdate();
       }
-    }
+    }*/
     connection.close();
   }
 
@@ -90,7 +93,7 @@ public class EmployeeDAOImpl implements LoginDAO {
    * @return a list of EmployeeType objects of the Employee with the specified username
    * @throws SQLException if there is a problem accessing the database
    */
-  public ArrayList<EmployeeType> getEmployeeType(String username) throws SQLException {
+  /*public ArrayList<EmployeeType> getEmployeeType(String username) throws SQLException {
     Connection connection = DataManager.DbConnection();
     ArrayList<EmployeeType> employeeTypes = new ArrayList<>();
     try {
@@ -107,7 +110,7 @@ public class EmployeeDAOImpl implements LoginDAO {
     }
 
     return employeeTypes;
-  }
+  }*/
 
   /**
    * The method retrieves all the Employee objects from the "Employee" table in the database.
@@ -129,8 +132,10 @@ public class EmployeeDAOImpl implements LoginDAO {
         int id = rs.getInt("employeeID");
         String fname = rs.getString("firstName");
         String lname = rs.getString("lastName");
-        Employee employee = new Employee(usern, passw, id, fname, lname, false);
-        query = "SELECT type FROM \"EmployeeType\" WHERE username = ?";
+        EmployeeType type = EmployeeType.valueOf(rs.getString("type"));
+        ClearanceLevel level = ClearanceLevel.valueOf(rs.getString("clearanceLevel"));
+        Employee employee = new Employee(usern, passw, id, fname, lname, level, type, false);
+        /*query = "SELECT type FROM \"EmployeeType\" WHERE username = ?";
         connection = DataManager.DbConnection();
         statement = connection.prepareStatement(query);
         int one = 1;
@@ -138,7 +143,7 @@ public class EmployeeDAOImpl implements LoginDAO {
         ResultSet rs2 = statement.executeQuery();
         while (rs2.next()) {
           employee.addType(EmployeeType.valueOf(rs2.getString("type")));
-        }
+        }*/
         list.add(employee);
       }
     } catch (SQLException e) {
@@ -175,8 +180,8 @@ public class EmployeeDAOImpl implements LoginDAO {
   public void add(Employee employee) throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query =
-        "INSERT INTO \"Employee\" (username, password, \"employeeID\", \"firstName\", \"lastName\") "
-            + "VALUES (?, ?, ?, ?, ?)";
+        "INSERT INTO \"Employee\" (username, password, \"employeeID\", \"firstName\", \"lastName\", \"clearanceLevel\", type) "
+            + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     try {
       PreparedStatement statement = connection.prepareStatement(query);
@@ -185,16 +190,18 @@ public class EmployeeDAOImpl implements LoginDAO {
       statement.setInt(3, employee.getEmployeeID());
       statement.setString(4, employee.getFirstName());
       statement.setString(5, employee.getLastName());
+      statement.setString(6, employee.getLevel().getString());
+      statement.setString(7, employee.getType().getString());
       statement.executeUpdate();
 
-      for (EmployeeType type : employee.getType()) {
+      /*for (EmployeeType type : employee.getType()) {
         query = "INSERT INTO \"EmployeeType\" (username, type) VALUES (?, ?)";
         connection = DataManager.DbConnection();
         statement = connection.prepareStatement(query);
         statement.setString(1, employee.getUsername());
         statement.setString(2, type.getString());
         statement.executeUpdate();
-      }
+      }*/
       System.out.println("Employee information has been successfully added to the database.");
     } catch (SQLException e) {
       System.err.println("Error adding Login information to database: " + e.getMessage());
@@ -217,16 +224,16 @@ public class EmployeeDAOImpl implements LoginDAO {
       statement.setString(1, employee.getUsername());
       statement.executeUpdate();
 
-      query = "DELETE FROM \"EmployeeType\" WHERE username = ?";
+      /*query = "DELETE FROM \"EmployeeType\" WHERE username = ?";
       connection = DataManager.DbConnection();
       statement = connection.prepareStatement(query);
       statement.setString(1, employee.getUsername());
-      statement.executeUpdate();
+      statement.executeUpdate();*/
     } catch (SQLException e) {
       System.out.println("Delete in Login table error. " + e);
     }
 
-    try (Statement statement = connection.createStatement()) {
+    /*try (Statement statement = connection.createStatement()) {
       ResultSet rs2 = statement.executeQuery(query);
       int count = 0;
       while (rs2.next()) count++;
@@ -234,7 +241,7 @@ public class EmployeeDAOImpl implements LoginDAO {
       else System.out.println("Login information did not delete.");
     } catch (SQLException e2) {
       System.out.println("Error checking delete. " + e2);
-    }
+    }*/
   }
 
   /**
@@ -259,16 +266,18 @@ public class EmployeeDAOImpl implements LoginDAO {
         int id = rs.getInt("employeeID");
         String fname = rs.getString("firstName");
         String lname = rs.getString("lastName");
-        employee = (new Employee(user, pass, id, fname, lname, false));
+        EmployeeType type = EmployeeType.valueOf(rs.getString("type"));
+        ClearanceLevel level = ClearanceLevel.valueOf(rs.getString("clearanceLevel"));
+        employee = (new Employee(user, pass, id, fname, lname, level, type, false));
       }
-      query = "SELECT type FROM \"EmployeeType\" WHERE \"username\" = ?";
+      /*query = "SELECT type FROM \"EmployeeType\" WHERE \"username\" = ?";
       connection = DataManager.DbConnection();
       statement = connection.prepareStatement(query);
       statement.setString(1, username);
       ResultSet rs2 = statement.executeQuery();
       while (rs2.next()) {
         employee.addType(EmployeeType.valueOf(rs2.getString("type")));
-      }
+      }*/
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }
@@ -291,7 +300,7 @@ public class EmployeeDAOImpl implements LoginDAO {
 
     try (connection) {
       String query =
-          "INSERT INTO \"Employee\" (\"username\", \"password\", \"employeeID\", \"firstName\", \"lastName\") VALUES (?, ?, ?, ?, ?)";
+          "INSERT INTO \"Employee\" (\"username\", \"password\", \"employeeID\", \"firstName\", \"lastName\", \"clearanceLevel\", type) VALUES (?, ?, ?, ?, ?, ?, ?)";
       PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"Employee\";");
       statement.executeUpdate();
       statement = connection.prepareStatement(query);
@@ -303,6 +312,9 @@ public class EmployeeDAOImpl implements LoginDAO {
         statement.setInt(3, Integer.parseInt(row[2]));
         statement.setString(4, row[3]);
         statement.setString(5, row[4]);
+        statement.setString(6, row[5]);
+        statement.setString(7, row[6]);
+
         statement.executeUpdate();
       }
       System.out.println("CSV data uploaded to PostgreSQL database");
@@ -317,7 +329,7 @@ public class EmployeeDAOImpl implements LoginDAO {
    * @param csvFilePath is a String representing a file path
    * @throws SQLException if an error occurs while uploading the data to the database
    */
-  public static void uploadEmployeeTypeToPostgreSQL(String csvFilePath)
+  /*public static void uploadEmployeeTypeToPostgreSQL(String csvFilePath)
       throws SQLException, ParseException {
     List<String[]> csvData;
     Connection connection = DataManager.DbConnection();
@@ -340,7 +352,7 @@ public class EmployeeDAOImpl implements LoginDAO {
     } catch (SQLException e) {
       System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
     }
-  }
+  }*/
 
   /**
    * Exports data from a PostgreSQL database table "Employee" to a CSV file
@@ -355,16 +367,31 @@ public class EmployeeDAOImpl implements LoginDAO {
     ResultSet resultSet = statement.executeQuery();
 
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(csvFilePath))) {
-      writer.write("username,password,employeeID,firstName,lastName\n");
+      writer.write("username,password,employeeID,firstName,lastName,clearanceLevel,type\n");
       while (resultSet.next()) {
         String username = resultSet.getString("username");
         String password = resultSet.getString("password");
         int employeeID = resultSet.getInt("employeeID");
         String fname = resultSet.getString("firstName");
         String lname = resultSet.getString("lastName");
+        String level = resultSet.getString("clearanceLevel");
+        String type = resultSet.getString("type");
 
         String row =
-            username + "," + password + "," + employeeID + "," + fname + "," + lname + "\n";
+            username
+                + ","
+                + password
+                + ","
+                + employeeID
+                + ","
+                + fname
+                + ","
+                + lname
+                + ","
+                + level
+                + ","
+                + type
+                + "\n";
         writer.write(row);
       }
       System.out.println("CSV data downloaded from PostgreSQL database");
@@ -379,7 +406,7 @@ public class EmployeeDAOImpl implements LoginDAO {
    * @param csvFilePath is a String representing a file path
    * @throws SQLException if an error occurs while exporting the data from the database
    */
-  public static void exportEmployeeTypeToCSV(String csvFilePath) throws SQLException, IOException {
+  /*public static void exportEmployeeTypeToCSV(String csvFilePath) throws SQLException, IOException {
     Connection connection = DataManager.DbConnection();
     String query = "SELECT * FROM \"EmployeeType\"";
     PreparedStatement statement = connection.prepareStatement(query);
@@ -398,7 +425,7 @@ public class EmployeeDAOImpl implements LoginDAO {
     } catch (IOException e) {
       System.err.println("Error downloading CSV data from PostgreSQL database: " + e.getMessage());
     }
-  }
+  }*/
 
   /**
    * conencts to the employee database and checks if the given username and pass are valid returns
@@ -422,7 +449,7 @@ public class EmployeeDAOImpl implements LoginDAO {
     }
   }
 
-  public static void addEmployeeType(String username, EmployeeType employeeType)
+  /*public static void addEmployeeType(String username, EmployeeType employeeType)
       throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query = "INSERT INTO \"EmployeeType\" (\"username\", \"type\") VALUES (?, ?)";
@@ -433,7 +460,6 @@ public class EmployeeDAOImpl implements LoginDAO {
 
     statement.executeUpdate();
   }
-
   public static void deleteEmployeeType(String username) throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query = "DELETE FROM \"EmployeeType\" WHERE \"username\" = ?";
@@ -442,5 +468,35 @@ public class EmployeeDAOImpl implements LoginDAO {
     statement.setString(1, username);
 
     statement.executeUpdate();
+  }*/
+
+  /**
+   * * Creates a table for storing Employee data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createTable() throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try (connection) {
+      String query =
+          "create table if not exists \"Employee\"\n"
+              + "(\n"
+              + "    username         varchar(20)  not null\n"
+              + "        constraint \"employeeUsername_pk\"\n"
+              + "            primary key,\n"
+              + "    password         varchar(120) not null,\n"
+              + "    \"employeeID\"     integer\n"
+              + "        constraint \"employeeID_unique_k\"\n"
+              + "            unique,\n"
+              + "    \"firstName\"      varchar(40),\n"
+              + "    \"lastName\"       varchar(40),\n"
+              + "    \"clearanceLevel\" varchar(5),\n"
+              + "    type             varchar(20)\n"
+              + ");";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+    }
   }
 }

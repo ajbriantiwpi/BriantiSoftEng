@@ -87,9 +87,9 @@ public class EdgeRectangle {
           }
 
           TextField startNodeIdText =
-              (TextField) ((Pane) (changeBox.getChildren().get(0))).getChildren().get(1);
+              (TextField) ((Pane) (changeBox.getChildren().get(0))).getChildren().get(2);
           TextField endNodeIdText =
-              (TextField) ((Pane) (changeBox.getChildren().get(1))).getChildren().get(1);
+              (TextField) ((Pane) (changeBox.getChildren().get(1))).getChildren().get(2);
 
           startNodeIdText.setText("" + startNode.getId());
           endNodeIdText.setText("" + endNode.getId());
@@ -97,13 +97,15 @@ public class EdgeRectangle {
           MFXButton removeEdgeButton =
               (MFXButton) ((Pane) (changeBox.getChildren().get(2))).getChildren().get(0);
           MFXButton submitButton =
-              (MFXButton) ((Pane) (changeBox.getChildren().get(2))).getChildren().get(1);
+              (MFXButton) ((Pane) (changeBox.getChildren().get(2))).getChildren().get(2);
           removeEdgeButton.setOnMouseClicked(removeEdge);
+          removeEdgeButton.setText("Remove Edge");
           submitButton.setOnMouseClicked(saveEdgeChanges);
 
           PopOver pop = new PopOver(changeBox);
           //          pop.show(p);
           pop.show(path);
+          changeBox.setOnMouseExited(event2 -> pop.hide());
         }
       };
   EventHandler<MouseEvent> removeEdge =
@@ -116,7 +118,7 @@ public class EdgeRectangle {
 
           try {
             DataManager.deleteEdge(e);
-            map.setCurrentDisplayFloor(map.getCurrentDisplayFloor(), isMapPage);
+            map.setCurrentDisplayFloor(map.getCurrentDisplayFloor());
           } catch (SQLException ex) {
             System.out.println(ex);
           } catch (IOException ex) {
@@ -137,9 +139,9 @@ public class EdgeRectangle {
           int endId = -1;
 
           TextField startNodeIdText =
-              (TextField) ((Pane) (v.getChildren().get(0))).getChildren().get(1);
+              (TextField) ((Pane) (v.getChildren().get(0))).getChildren().get(2);
           TextField endNodeIdText =
-              (TextField) ((Pane) (v.getChildren().get(1))).getChildren().get(1);
+              (TextField) ((Pane) (v.getChildren().get(1))).getChildren().get(2);
 
           if (!startNodeIdText.getText().equals("")) {
             startId = Integer.parseInt(startNodeIdText.getText());
@@ -156,7 +158,7 @@ public class EdgeRectangle {
 
             try {
               DataManager.syncEdge(e);
-              map.setCurrentDisplayFloor(map.getCurrentDisplayFloor(), isMapPage);
+              map.setCurrentDisplayFloor(map.getCurrentDisplayFloor());
             } catch (SQLException ex) {
               System.out.println(ex);
               //            throw new RuntimeException(ex);

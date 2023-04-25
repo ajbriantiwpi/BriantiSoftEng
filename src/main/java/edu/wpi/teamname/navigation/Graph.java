@@ -131,7 +131,12 @@ public class Graph {
    */
   private void initializeEdges() {
     // Initialize the nodes with the node lines data
+
     for (int i = 0; i < Edges.size(); i++) {
+
+      //      Node startNode = AllNodes.get(Node.idToIndex(Edges.get(i).getStartNodeID()));
+      //      Node endNode = AllNodes.get(Node.idToIndex(Edges.get(i).getEndNodeID()));
+
       Node startNode = this.findNodeByID(Edges.get(i).getStartNodeID());
       Node endNode = this.findNodeByID(Edges.get(i).getEndNodeID());
 

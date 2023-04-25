@@ -185,4 +185,23 @@ public class Node implements Comparable<Node> {
     int index = ((id - 100) / 5);
     return index;
   }
+
+  public static int indexToId(int index) {
+    int id = (5 * index) + 100;
+    return id;
+  }
+
+  /**
+   * This gets the number that the floor is on for math purposes. Lower level floors are negative
+   *
+   * @return number the floor is on
+   */
+  public int getFloorNum() {
+    return Integer.valueOf(getFloor().replace('L', '-'));
+    //    try{
+    //      return Integer.valueOf(getFloor());
+    //    } catch(NumberFormatException e){
+    //      return -1*Integer.valueOf(getFloor().r)
+    //    }
+  }
 }

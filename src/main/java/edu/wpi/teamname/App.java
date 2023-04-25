@@ -26,11 +26,15 @@ public class App extends Application {
   }
 
   @Override
-  public void start(Stage primaryStage) throws IOException {
+  public void start(Stage primaryStage) throws IOException, SQLException {
+    //    LoadingScreen l = new LoadingScreen();
+    //    l.displayLoading();
 
     /* primaryStage is generally only used if one of your components require the stage to display */
     App.primaryStage = primaryStage;
     primaryStage.setFullScreen(true);
+
+    DataManager.connectToWPI();
 
     final FXMLLoader loader = new FXMLLoader(App.class.getResource("views/Root.fxml"));
     final BorderPane root = loader.load();
