@@ -1282,6 +1282,7 @@ public class MapEditController {
     //    FloorTitlePane.setExpanded(false);
     //    TickTitlePane.setExpanded(false);
 
+
     anchor.setOnMouseClicked(checkAddNode);
 
     anchor.setOnMouseMoved(dragNode);
