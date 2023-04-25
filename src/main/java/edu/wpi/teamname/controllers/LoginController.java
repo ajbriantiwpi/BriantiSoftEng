@@ -132,6 +132,6 @@ public class LoginController {
       DataManager.syncEmployee(employee);
       return pass;
     }
-    return "INCORRECTPASSWORD_DONOTUSE";
+    return "Please Retype Password";
   }
 }
