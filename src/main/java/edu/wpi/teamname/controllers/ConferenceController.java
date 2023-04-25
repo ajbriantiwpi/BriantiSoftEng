@@ -71,6 +71,7 @@ public class ConferenceController {
 
   @FXML
   public void initialize() throws SQLException {
+    ParentController.titleString.set("Conference Room Request");
     if (GlobalVariables.getDarkMode().get()) {
       root.getStylesheets().remove(0);
     } else {
