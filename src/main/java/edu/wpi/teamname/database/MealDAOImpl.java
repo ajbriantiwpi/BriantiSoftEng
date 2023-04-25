@@ -195,7 +195,7 @@ public class MealDAOImpl implements MealDAO {
         String[] row = csvData.get(i);
         statement.setInt(1, Integer.parseInt(row[0]));
         statement.setString(2, row[1]);
-        statement.setInt(3, Integer.parseInt(row[2]));
+        statement.setFloat(3, Float.parseFloat(row[2]));
         statement.setString(4, row[3]);
         statement.setString(5, row[4]);
 
@@ -226,7 +226,7 @@ public class MealDAOImpl implements MealDAO {
       while (resultSet.next()) {
         int mealID = resultSet.getInt("mealID");
         String name = resultSet.getString("Name");
-        int price = resultSet.getInt("Price");
+        float price = resultSet.getFloat("Price");
         String meal = resultSet.getString("Meal");
         String cuisine = resultSet.getString("Cuisine");
 
