@@ -32,8 +32,10 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javax.swing.*;
 import javafx.scene.layout.VBox;
+import javax.swing.*;
+import javax.xml.stream.Location;
+
 import net.kurobako.gesturefx.GesturePane;
 
 public class MapController {
@@ -98,6 +100,8 @@ public class MapController {
   @FXML TitledPane DirectionsTitlePane;
   @FXML TitledPane FloorTitlePane;
   @FXML TitledPane TickTitlePane;
+  @FXML TitledPane DateTitlePane;
+  @FXML TitledPane MessageTitlePane;
 
   String defaultFloor = "L1";
   int clickCount = 0;
@@ -306,8 +310,11 @@ public class MapController {
           AdminIDVal.setVisible(false);
           AddMessageVBox.setVisible(false);
 
+          MessageVal.setText("");
+          AdminIDVal.setText("");
           MessageVal.setPromptText("Type Message");
           AdminIDVal.setPromptText("Type Admin ID");
+          AddMessageButton.setText("Add Message");
         }
       };
 
@@ -394,9 +401,8 @@ public class MapController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          ViewMessageButton.setVisible(true);
           ViewMessageButton.setDisable(false);
-          AddMessageButton.setVisible(true);
+          AddMessageButton.setDisable(false);
           map.drawPath(anchor, sNode, eNode);
           int secInd = map.getAllFloors().indexOf(currFloor);
           System.out.println("secInd: " + secInd);
@@ -1047,10 +1053,10 @@ public class MapController {
     FloorsToggle.setDisable(true);
 
     ViewMessageButton.setOnMouseClicked(viewMessage);
-    ViewMessageButton.setVisible(false);
+    ViewMessageButton.setDisable(true);
 
     AddMessageButton.setOnMouseClicked(addMessage);
-    AddMessageButton.setVisible(false);
+    AddMessageButton.setDisable(true);
 
     MessageTableView.setVisible(false);
 
@@ -1101,6 +1107,8 @@ public class MapController {
     DirectionsTitlePane.setExpanded(false);
     FloorTitlePane.setExpanded(false);
     TickTitlePane.setExpanded(false);
+    DateTitlePane.setExpanded(false);
+    MessageTitlePane.setExpanded(false);
 
     DateColumn.setCellValueFactory((row) -> new SimpleObjectProperty<>(row.getValue().getDate()));
     AdminColumn.setCellValueFactory(
