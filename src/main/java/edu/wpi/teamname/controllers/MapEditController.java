@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -28,15 +27,6 @@ import javafx.scene.shape.*;
 import javafx.stage.FileChooser;
 import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.PopOver;
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.control.DatePicker;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
 
 public class MapEditController {
 
@@ -72,14 +62,9 @@ public class MapEditController {
   @FXML CheckBox LongNameSelector;
   @FXML CheckBox ShortNameSelector;
   @FXML CheckBox IdSelector;
-
   ArrayList<CheckBox> nameSelectBoxes = new ArrayList<>();
-
   @FXML CheckBox EdgeSelector;
   @FXML CheckBox HallNamesSelector;
-
-  @FXML private DatePicker datePickerUI;
-
   @FXML CheckBox NodeSelector;
   @FXML CheckBox LegendSelector;
 
@@ -203,7 +188,6 @@ public class MapEditController {
         public void handle(MouseEvent event) {
           String retStr = "";
           String table = selectTable.getValue();
-
 
           final FileChooser fileChooser = new FileChooser();
           //          fileChooser.showOpenDialog(stage);
@@ -879,8 +863,6 @@ public class MapEditController {
         }
       };
 
-
-
   EventHandler<MouseEvent> toggleLegend =
       new EventHandler<MouseEvent>() {
 
@@ -1295,6 +1277,10 @@ public class MapEditController {
 
     NodeSelector.setOnMouseClicked(toggleNodes);
     LegendSelector.setOnMouseClicked(toggleLegend);
+
+    //    DirectionsTitlePane.setExpanded(false);
+    //    FloorTitlePane.setExpanded(false);
+    //    TickTitlePane.setExpanded(false);
 
     anchor.setOnMouseClicked(checkAddNode);
 

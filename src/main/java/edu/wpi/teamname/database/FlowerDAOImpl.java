@@ -176,7 +176,7 @@ public class FlowerDAOImpl implements FlowerDAO {
       while (resultSet.next()) {
         int flowerID = resultSet.getInt("flowerID");
         String name = resultSet.getString("Name");
-        double price = resultSet.getInt("Price");
+        float price = resultSet.getFloat("Price");
         String category = resultSet.getString("Category");
         String color = resultSet.getString("Color");
 
@@ -204,7 +204,7 @@ public class FlowerDAOImpl implements FlowerDAO {
 
     try (connection) {
       String query =
-          "INSERT INTO \"Flowers\" (\"flowerID\", \"Name\", \"Price\", \"Category\", \"Color\") VALUES (?, ?, ?, ?, ?, ?)";
+          "INSERT INTO \"Flowers\" (\"flowerID\", \"Name\", \"Price\", \"Category\", \"Color\") VALUES (?, ?, ?, ?, ?)";
       PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"Flowers\";");
       statement.executeUpdate();
       statement = connection.prepareStatement(query);

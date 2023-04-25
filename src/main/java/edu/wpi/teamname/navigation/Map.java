@@ -13,6 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
+import javafx.scene.control.DatePicker;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -41,6 +42,7 @@ public class Map {
   private AnchorPane subAnchor;
 
   /** An array of strings that represent the names of different floors. */
+  @Getter
   private String[] floorArr = {
     "Lower Level 2", "Lower Level 1", "First Floor", "Second Floor", "Third Floor"
   };
@@ -61,6 +63,10 @@ public class Map {
 
   @Getter @Setter private int startEdgeNodeId;
   @Getter @Setter private int movingNodeId;
+
+  @Getter @Setter private ArrayList<String> textDirections;
+
+  @Getter @Setter private ArrayList<Integer> floorChanges;
 
   /**
    * Constructs a Map object with the given sub-anchor pane.
@@ -223,11 +229,20 @@ public class Map {
     this.setCurrentDisplayFloor(this.getCurrentDisplayFloor());
   }
 
+  public void refresh(Timestamp time) throws SQLException, IOException {
+    this.setCurrentDisplayFloor(this.getCurrentDisplayFloor(),time);
+  }
+
   public void setCurrentDisplayFloor(String currentDisplayFloor) throws SQLException, IOException {
+    this.setCurrentDisplayFloor(currentDisplayFloor, new Timestamp(System.currentTimeMillis()));
+
+  }
+
+  public void setCurrentDisplayFloor(String currentDisplayFloor, Timestamp time) throws SQLException, IOException {
     this.currentDisplayFloor = currentDisplayFloor;
 
     GlobalVariables.setHMap(
-        DataManager.getAllLocationNamesMappedByNode(new Timestamp(System.currentTimeMillis())));
+        DataManager.getAllLocationNamesMappedByNode(time);
 
     subAnchor.getStyleClass().remove(0);
 
@@ -536,7 +551,8 @@ public class Map {
 
     shapes = makeShapePath(nodePath);
 
-    getTextual(nodePath);
+    this.floorChanges = new ArrayList<>();
+    this.textDirections = getTextual(nodePath);
 
     // return shapes
 
@@ -551,7 +567,10 @@ public class Map {
     StringBuilder sb = new StringBuilder();
     Direction direction;
     String distance;
-    sb.append("1: ");
+
+    //    sb.append("1: ");
+    sb.append("1: Go ");
+
     System.out.print("1: ");
     direction = Direction.STRAIGHT;
     sb.append(direction.getString());
@@ -571,7 +590,16 @@ public class Map {
         sb.append(String.valueOf(i + 1) + ": ");
         System.out.print(String.valueOf(i + 1) + ": ");
         direction = getDirection(prevNode, node, nextNode);
-        sb.append(direction.getString());
+
+        if (direction.getString().equals("Straight")) {
+          sb.append("Continue Straight ");
+        } else if (direction.getString().equals("Down") || direction.getString().equals("Up")) {
+          sb.append("Go " + direction.getString());
+        } else {
+          sb.append("Turn " + direction.getString() + " then Continue Straight ");
+        }
+        //        sb.append(direction.getString());
+
         System.out.print(direction.getString());
         distance = getTextDistance(node, nextNode);
         sb.append(distance);
@@ -580,7 +608,18 @@ public class Map {
         textuals.add(sb.toString());
       }
     }
+
+
+//    DatePicker datePicker = new DatePicker();
+//
+//    datePicker.valueProperty().addListener((ov, oldValue, newValue) -> {
+//      map.refresh(newValue);
+////      newValue;
+//    });
+
     return textuals;
+
+
   }
 
   public Direction getDirection(Node prevNode, Node node, Node nextNode) {
@@ -601,6 +640,7 @@ public class Map {
     // System.out.println(angDelta);
     if (curFloor != nextFloor) {
       int delFloor = nextFloor - curFloor;
+      this.floorChanges.add(Math.abs(delFloor));
       if (delFloor > 0) {
         direction = Direction.UP;
       } else {
@@ -628,10 +668,20 @@ public class Map {
     int nextFloor = nextNode.getFloorNum();
     if (curFloor != nextFloor) {
       int delFloor = nextFloor - curFloor;
-      distance = " Floors: " + String.valueOf(Math.abs(delFloor));
+      //      distance = " Floors: " + String.valueOf(Math.abs(delFloor));
+
+      if (delFloor > 1) {
+        distance = " " + String.valueOf(Math.abs(delFloor)) + " Floors";
+      } else {
+        distance = " " + String.valueOf(Math.abs(delFloor)) + " Floor";
+      }
 
     } else {
-      distance = " Pixels: " + String.valueOf(node.calculateHeuristic(nextNode));
+
+      double val = Math.round(node.calculateHeuristic(nextNode) * 100.0) / 100.0;
+
+      distance = " " + String.valueOf(val) + " units";
+      //      distance = " Pixels: " + String.valueOf(node.calculateHeuristic(nextNode));
     }
     return distance;
   }
@@ -673,8 +723,9 @@ public class Map {
     //      nodeNames.addAll(("" + n.getId()));
     //    }
 
-    HashMap<Integer, ArrayList<LocationName>> hMap =
-        DataManager.getAllLocationNamesMappedByNode(new Timestamp(System.currentTimeMillis()));
+    HashMap<Integer, ArrayList<LocationName>> hMap = GlobalVariables.getHMap();
+//    HashMap<Integer, ArrayList<LocationName>> hMap =
+//        DataManager.getAllLocationNamesMappedByNode(new Timestamp(System.currentTimeMillis()));
 
     for (Integer i : hMap.keySet()) {
       // Gets rid of all Hallway locations

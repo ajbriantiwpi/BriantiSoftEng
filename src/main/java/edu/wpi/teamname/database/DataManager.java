@@ -191,6 +191,11 @@ public class DataManager {
     moveDAO.sync(move);
   }
 
+  public static void syncAlert(Alert alert) throws SQLException {
+    AlertDAOImpl alertDAO = new AlertDAOImpl();
+    alertDAO.sync(alert);
+  }
+
   /**
    * This method updates an existing Node object in the "Node" table in the database with the new
    * Node object.
@@ -520,6 +525,10 @@ public class DataManager {
     edgeDAO.delete(edge);
   }
 
+  public static void deleteAlert(Alert alert) throws SQLException {
+    AlertDAOImpl alertDAO = new AlertDAOImpl();
+    alertDAO.delete(alert);
+  }
   /**
    * This method deletes the given ItemsOrdered object from the database
    *
@@ -1014,6 +1023,10 @@ public class DataManager {
     EdgeDAOImpl.uploadEdgeToPostgreSQL(path);
   }
 
+  public static void uploadAlert(String path) throws SQLException {
+    AlertDAOImpl.uploadAlertToPostgreSQL(path);
+  }
+
   /**
    * Uploads CSV data to a PostgreSQL database table "Flower"-also creates one if one does not exist
    *
@@ -1067,14 +1080,15 @@ public class DataManager {
   public static void uploadEmployee(String path) throws SQLException, ParseException {
     EmployeeDAOImpl.uploadEmployeeToPostgreSQL(path);
   }
-
-  /**
-   * Uploads CSV data to a PostgreSQL database table "EmployeeType"-also creates one if one does not
-   * exist
-   *
-   * @param path a string that represents a file path (/ is illegal so you must use double//)
-   * @throws SQLException if an error occurs while uploading the data to the database
-   */
+  //
+  //  /**
+  //   * Uploads CSV data to a PostgreSQL database table "EmployeeType"-also creates one if one does
+  // not
+  //   * exist
+  //   *
+  //   * @param path a string that represents a file path (/ is illegal so you must use double//)
+  //   * @throws SQLException if an error occurs while uploading the data to the database
+  //   */
   /*public static void uploadEmployeeType(String path) throws SQLException, ParseException {
     EmployeeDAOImpl.uploadEmployeeTypeToPostgreSQL(path);
   }*/
@@ -1188,6 +1202,9 @@ public class DataManager {
     FurnitureDAOImpl.exportFurnitureToCSV(path);
   }
 
+  public static void exportAlertToCSV(String path) throws SQLException, IOException {
+    AlertDAOImpl.exportAlertToCSV(path);
+  }
   /**
    * This method exports all the ItemsOrdered objects from the "ItemsOrdered" table in the database
    * to a CSV file at the specified file path.

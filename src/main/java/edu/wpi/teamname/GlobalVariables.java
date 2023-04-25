@@ -42,6 +42,9 @@ public class GlobalVariables {
   @Getter @Setter private static Employee currentUser = dummyEmployee;
   @Getter @Setter private static Screen currentScreen = Screen.HOME;
   @Getter @Setter private static Screen previousScreen = Screen.HOME;
+
+  @Getter @Setter private static boolean darkMode = true;
+
   /** Sets the current user to be null indicating no user is logged in */
   public static void logOut() {
     // dummyEmployee.setType(new ArrayList<>());
