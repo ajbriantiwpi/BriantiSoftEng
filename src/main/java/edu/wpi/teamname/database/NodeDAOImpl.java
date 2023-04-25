@@ -55,7 +55,7 @@ public class NodeDAOImpl implements NodeDAO {
     ArrayList<Node> list = new ArrayList<Node>();
 
     try (connection) {
-      String query = "SELECT * FROM \"Node\"";
+      String query = "SELECT * FROM \"Node\" ORDER BY \"nodeID\"";
       Statement statement = connection.createStatement();
       ResultSet rs = statement.executeQuery(query);
 
