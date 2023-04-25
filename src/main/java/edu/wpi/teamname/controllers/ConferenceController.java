@@ -4,19 +4,20 @@ import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.controllers.JFXitems.RoomSelector;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.servicerequest.ConfReservation;
+import edu.wpi.teamname.servicerequest.RoomManager;
 import edu.wpi.teamname.servicerequest.requestitem.ConfRoom;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import org.controlsfx.control.RangeSlider;
 
 public class ConferenceController {
@@ -28,10 +29,9 @@ public class ConferenceController {
   @FXML DatePicker dateBox;
   @FXML RangeSlider sizeSlider;
   @FXML MFXButton submitButton;
-  @FXML MFXButton nameText;
+  @FXML TextField nameText;
 
-  @FXML
-  ListView<RoomSelector> listView;
+  @FXML ListView<RoomSelector> listView;
   @FXML TableView<ConfRoom> confTable;
   ConfRoom uno = new ConfRoom(1, "Uno", 10);
   ConfRoom dos = new ConfRoom(2, "Dos", 20);
@@ -42,6 +42,7 @@ public class ConferenceController {
   RoomSelector activeSelector;
 
   // -----------NON FXML-----------------
+  RoomManager roomManager;
   ObservableList<String> buildings;
   ObservableList<String> startTimes =
       FXCollections.observableArrayList(
@@ -54,7 +55,7 @@ public class ConferenceController {
           "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00",
           "18:30", "19:00");
 
-  private static Timestamp today = new Timestamp(System.currentTimeMillis());
+  //  private static Timestamp today = new Timestamp(System.currentTimeMillis());
   private static Timestamp dateBook;
   private static String startTime;
   private static String endTime;
@@ -68,26 +69,40 @@ public class ConferenceController {
   @FXML
   public void initialize() throws SQLException {
     buildings = FXCollections.observableArrayList(DataManager.getConfBuildings());
-    roomsString = FXCollections.observableArrayList(DataManager.getConfRooms("all"));
+    buildings.add("None");
+    roomsString = FXCollections.observableArrayList();
 
     buildingBox.setItems(buildings);
     startBox.setItems(startTimes);
     endBox.setItems(endTimes);
     roomBox.setItems(roomsString);
-    sizeSlider.setMax(0);
+    sizeSlider.setMax(100);
     sizeSlider.setMin(0);
+
+    roomManager = new RoomManager();
+
+    //    startBox.valueProperty().bindBidirectional(roomManager.getStart());
+    //    endBox.valueProperty().bindBidirectional(roomManager.getEnd());
+    //    buildingBox.valueProperty().bindBidirectional(roomManager.getBuilding());
+    dateBook = Timestamp.valueOf(LocalDateTime.now());
+    dateBox.setValue(LocalDate.now());
+    refreshRooms();
+    //    for (ConfRoom room : roomManager.getRooms()) {
+    //      selectors.add(new RoomSelector(room, this));
+    //    }
+    listView.setItems(selectors);
+    activeSelector = selectors.get(0);
 
     buildingBox.setOnAction(
         event -> {
           if (!buildingBox.getValue().toString().equals("")) { // if no building is selected
-            try {
-              roomsString = FXCollections.observableArrayList(DataManager.getConfRooms("all"));
-            } catch (SQLException e) {
-              System.out.println(e);
-            }
+            roomManager.setBuilding(buildingBox.getValue());
+            refreshRooms();
           } else { // if building is selected only display correct rooms
             try {
-              roomsString = FXCollections.observableArrayList(DataManager.getConfRooms(buildingBox.getValue().toString()));
+              roomsString =
+                  FXCollections.observableArrayList(
+                      DataManager.getConfRooms(buildingBox.getValue().toString()));
             } catch (SQLException e) {
               System.out.println(e);
             }
@@ -97,18 +112,13 @@ public class ConferenceController {
 
     dateBox.setOnAction(
         event -> {
-          String timeString = dateBox.getValue().toString();
-          int hour = Integer.valueOf(timeString.split(":")[0]);
-          int min = Integer.valueOf(timeString.split(":")[1]);
-          LocalTime time = LocalTime.of(hour, min);
-          dateBook = Timestamp.valueOf(dateBox.getValue().atTime(time));
+          //          String timeString = dateBox.getValue().toString();
+          //          int hour = Integer.valueOf(timeString.split(":")[0]);
+          //          int min = Integer.valueOf(timeString.split(":")[1]);
+          //          LocalTime time = LocalTime.of(hour, min);
+          dateBook = Timestamp.valueOf(dateBox.getValue().atTime(LocalTime.of(0, 0)));
 
-          ArrayList<ConfReservation> requestsByDate;
-//          try {
-//            rooms = DataManager.setTable();
-//          } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//          }
+          refreshRooms(dateBook);
           /**
            * SET THE ACTUAL TABLE TO THE RIGHT CONFREQUESTS FOR EACH ROOM BASED ON DATE HERE USING
            * THE ARRAY LIST OF CONFERENCErESERVATIONS WITH (int resID, String startTime, String
@@ -116,14 +126,18 @@ public class ConferenceController {
            */
         });
 
-    startBox.setOnAction(
+    startBox.setOnMouseClicked(
         event -> { // set start time
           startTime = startBox.getValue().toString();
+          roomManager.setStart(startTime);
+          refreshRooms();
         });
 
-    endBox.setOnAction(
+    endBox.setOnMouseClicked(
         event -> { // set end time
           endTime = endBox.getValue().toString();
+          roomManager.setStart(endTime);
+          refreshRooms();
         });
 
     roomBox.setOnAction(
@@ -147,14 +161,58 @@ public class ConferenceController {
           try {
             resID = DataManager.setResID();
             username = GlobalVariables.getCurrentUser().getUsername();
+            ArrayList<String> times = activeSelector.getTimes();
             ConfReservation c =
                 new ConfReservation(
-                    resID, startTime, endTime, dateBook, today, nameRes, username, staff, roomID);
+                    resID,
+                    times.get(0),
+                    times.get(1),
+                    dateBook,
+                    Timestamp.from(Instant.now()),
+                    nameRes,
+                    username,
+                    staff,
+                    activeSelector.getRoom().getRoomID());
             DataManager.addConfReservation(c);
           } catch (SQLException e) {
             System.out.println(e);
           }
         });
+  }
+
+  private void refreshRooms(Timestamp date) {
+    selectors.clear();
+    rooms.clear();
+    roomsString.clear();
+    System.out.println("Refreshing Selectors");
+    for (ConfRoom room : roomManager.getViableRooms(date)) {
+      selectors.add(new RoomSelector(room, this, date));
+      rooms.add(room);
+      roomsString.add(room.getLocationName());
+    }
+    activeSelector = selectors.get(0);
+  }
+
+  private void refreshRooms() {
+    refreshRooms(Timestamp.valueOf(dateBox.getValue().atStartOfDay()));
+  }
+
+  public void setActiveSelector(RoomSelector selector) {
+    if (!activeSelector.equals(selector)) {
+      activeSelector.setAllInRange(false);
+      activeSelector.setSelected(0);
+
+      selector.setAllInRange(true);
+    }
+    activeSelector = selector;
+  }
+
+  public void setStartBox(String time) {
+    startBox.setValue(time);
+  }
+
+  public void setEndBox(String time) {
+    endBox.setValue(time);
   }
 }
 

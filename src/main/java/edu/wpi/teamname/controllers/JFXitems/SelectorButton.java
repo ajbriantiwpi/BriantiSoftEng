@@ -10,7 +10,7 @@ public class SelectorButton extends MFXButton {
   @Getter RoomStatus status;
 
   SelectorButton(int id, RoomSelector parent) {
-    super(String.valueOf(id));
+    super(parent.idToTime(id));
     this.parent = parent;
     this.id = id;
     setStatus(RoomStatus.AVAILABLE);

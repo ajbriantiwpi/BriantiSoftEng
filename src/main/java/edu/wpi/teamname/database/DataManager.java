@@ -14,8 +14,6 @@ import java.io.IOException;
 import java.sql.*;
 import java.text.ParseException;
 import java.util.*;
-
-import javafx.collections.ObservableList;
 import lombok.Getter;
 
 public class DataManager {
@@ -56,9 +54,10 @@ public class DataManager {
   public static ArrayList<Room> getAllRooms() throws SQLException {
     ArrayList<Room> rooms = null;
     Connection connection = DataManager.DbConnection();
-    String query = "Select n.\"nodeID\", m.\"longName\", m.date, n.xcoord, n.ycoord, n.floor, n.building, l.\"shortName\", l.\"nodeType\"\n" +
-            "From \"ConfRooms\" c, \"Node\" n, \"Move\" m, \"LocationName\" l\n" +
-            "Where c.\"roomID\" = n.\"nodeID\" AND m.\"nodeID\" = c.\"roomID\" AND m.\"longName\" = l.\"longName\";";
+    String query =
+        "Select n.\"nodeID\", m.\"longName\", m.date, n.xcoord, n.ycoord, n.floor, n.building, l.\"shortName\", l.\"nodeType\"\n"
+            + "From \"ConfRooms\" c, \"Node\" n, \"Move\" m, \"LocationName\" l\n"
+            + "Where c.\"roomID\" = n.\"nodeID\" AND m.\"nodeID\" = c.\"roomID\" AND m.\"longName\" = l.\"longName\";";
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
       ResultSet rs = statement.executeQuery();
@@ -73,7 +72,8 @@ public class DataManager {
         String building = rs.getString("building");
         String shortName = rs.getString("shortName");
         String nodeType = rs.getString("nodeType");
-        Room r = new Room(nodeID,longName,date,xcoord,ycoord,floor,building,shortName,nodeType);
+        Room r =
+            new Room(nodeID, longName, date, xcoord, ycoord, floor, building, shortName, nodeType);
         rooms.add(r);
       }
     } catch (SQLException e) {
@@ -81,9 +81,10 @@ public class DataManager {
     }
     return rooms;
   }
+
   public static ArrayList<ConfReservation> getResForRoom(ConfRoom confrom) throws SQLException {
     int confID = confrom.getRoomID();
-    ArrayList<ConfReservation> rooms = null;
+    ArrayList<ConfReservation> rooms = new ArrayList<>();
     Connection connection = DataManager.DbConnection();
     String query = "Select * From \"ConfReservations\" Where \"roomID\" = ?";
     try (connection) {
@@ -101,7 +102,9 @@ public class DataManager {
         String username = rs.getString("username");
         String staff = rs.getString("staffAssigned");
         int roomID = rs.getInt("roomID");
-        ConfReservation res = new ConfReservation(resID,startT,endT,dateBook,dateMade,name,username,staff,roomID);
+        ConfReservation res =
+            new ConfReservation(
+                resID, startT, endT, dateBook, dateMade, name, username, staff, roomID);
         rooms.add(res);
       }
     } catch (SQLException e) {
