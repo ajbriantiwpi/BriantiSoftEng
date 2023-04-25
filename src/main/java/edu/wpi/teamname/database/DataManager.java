@@ -4,6 +4,7 @@ import edu.wpi.teamname.alerts.Alert;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
 import edu.wpi.teamname.navigation.*;
+import edu.wpi.teamname.servicerequest.ConfReservation;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import edu.wpi.teamname.servicerequest.requestitem.*;
@@ -12,10 +13,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 import lombok.Getter;
 
 public class DataManager {
@@ -51,6 +49,210 @@ public class DataManager {
     }
     return connection;
   }
+
+  // ----------------SAM FUNCTIONS-------------
+  public static ArrayList<Room> getAllRooms() throws SQLException {
+    ArrayList<Room> rooms = null;
+    Connection connection = DataManager.DbConnection();
+    String query =
+        "Select n.\"nodeID\", m.\"longName\", m.date, n.xcoord, n.ycoord, n.floor, n.building, l.\"shortName\", l.\"nodeType\"\n"
+            + "From \"ConfRooms\" c, \"Node\" n, \"Move\" m, \"LocationName\" l\n"
+            + "Where c.\"roomID\" = n.\"nodeID\" AND m.\"nodeID\" = c.\"roomID\" AND m.\"longName\" = l.\"longName\";";
+    try (connection) {
+      PreparedStatement statement = connection.prepareStatement(query);
+      ResultSet rs = statement.executeQuery();
+
+      while (rs.next()) {
+        int nodeID = rs.getInt("resID");
+        String longName = rs.getString("longName");
+        Timestamp date = rs.getTimestamp("date");
+        int xcoord = rs.getInt("xcoord");
+        int ycoord = rs.getInt("ycoord");
+        String floor = rs.getString("building");
+        String building = rs.getString("building");
+        String shortName = rs.getString("shortName");
+        String nodeType = rs.getString("nodeType");
+        Room r =
+            new Room(nodeID, longName, date, xcoord, ycoord, floor, building, shortName, nodeType);
+        rooms.add(r);
+      }
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return rooms;
+  }
+
+  public static ArrayList<ConfReservation> getResForRoom(ConfRoom confrom) throws SQLException {
+    int confID = confrom.getRoomID();
+    ArrayList<ConfReservation> rooms = new ArrayList<>();
+    Connection connection = DataManager.DbConnection();
+    String query = "Select * From \"ConfReservations\" Where \"roomID\" = ?";
+    try (connection) {
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setInt(1, confID);
+      ResultSet rs = statement.executeQuery();
+
+      while (rs.next()) {
+        int resID = rs.getInt("resID");
+        String startT = rs.getString("starttime");
+        String endT = rs.getString("endtime");
+        Timestamp dateBook = rs.getTimestamp("datebook");
+        Timestamp dateMade = rs.getTimestamp("dateMade");
+        String name = rs.getString("name");
+        String username = rs.getString("username");
+        String staff = rs.getString("staffAssigned");
+        int roomID = rs.getInt("roomID");
+        ConfReservation res =
+            new ConfReservation(
+                resID, startT, endT, dateBook, dateMade, name, username, staff, roomID);
+        rooms.add(res);
+      }
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return rooms;
+  }
+
+  public static void makeReservation(ConfReservation res) throws SQLException {
+    addConfReservation(res);
+  }
+
+  // ----------------Conference Service Req helper functinos-------------
+  public static int setResID() throws SQLException {
+    int resID = -1;
+    Connection connection = DataManager.DbConnection();
+    String query = "Select max(\"roomID\") From \"ConfReservations\"";
+    try (connection) {
+      PreparedStatement statement = connection.prepareStatement(query);
+      ResultSet rs = statement.executeQuery();
+      rs.next();
+      resID = rs.getInt("resID") + 1;
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return resID;
+  }
+
+  public static int getRoomID(String room) throws SQLException {
+    int roomID = -1;
+    Connection connection = DataManager.DbConnection();
+    String query = "Select roomID\n" + "From \"ConfRooms\"" + "Where \"locationName\" = ?";
+    try (connection) {
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setString(1, room);
+      ResultSet rs = statement.executeQuery();
+
+      rs.next();
+      roomID = rs.getInt("roomID");
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return roomID;
+  }
+
+  public static int getSeats(String room) throws SQLException {
+    int seats = -1;
+    Connection connection = DataManager.DbConnection();
+    String query = "Select seats\n" + "From \"ConfRooms\"" + "Where \"locationName\" = ?";
+    try (connection) {
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setString(1, room);
+      ResultSet rs = statement.executeQuery();
+
+      rs.next();
+      seats = rs.getInt("seats");
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return seats;
+  }
+
+  public static ArrayList<String> getConfBuildings() throws SQLException {
+    ArrayList<String> buildings = new ArrayList<>();
+    Connection connection = DataManager.DbConnection();
+    String query =
+        "Select n.building\n"
+            + "From \"Node\" n, \"Move\" m, \"LocationName\" l\n"
+            + "Where n.\"nodeID\" = m.\"nodeID\" AND l.\"longName\" = m.\"longName\" AND l.\"nodeType\" = 'CONF'\n"
+            + "Group by n.building;";
+    try (connection) {
+      PreparedStatement statement = connection.prepareStatement(query);
+      ResultSet rs = statement.executeQuery();
+      while (rs.next()) {
+        String building = rs.getString("building");
+        buildings.add(building);
+      }
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return buildings;
+  }
+
+  public static ArrayList<String> getConfRooms(String building) throws SQLException {
+    ArrayList<String> rooms = new ArrayList<>();
+    Connection connection = DataManager.DbConnection();
+    String queryAll =
+        "Select \"n.nodeID\"\n"
+            + "From \"Node\" n, \"Move\" m, \"LocationName\" l\n"
+            + "Where n.\"nodeID\" = m.\"nodeID\" AND l.\"longName\" = m.\"longName\" AND l.\"nodeType\" = 'CONF'\n";
+    String queryOne =
+        "Select \"n.nodeID\"\n"
+            + "From \"Node\" n, \"Move\" m, \"LocationName\" l\n"
+            + "Where n.\"nodeID\" = m.\"nodeID\" AND l.\"longName\" = m.\"longName\" AND l.\"nodeType\" = 'CONF' AND building = ? \n";
+    PreparedStatement statement;
+    try (connection) {
+
+      if (building.equals("all")) {
+        statement = connection.prepareStatement(queryAll);
+      } else {
+        statement = connection.prepareStatement(queryOne);
+        statement.setString(1, building);
+      }
+
+      ResultSet rs = statement.executeQuery();
+      while (rs.next()) {
+        String build = rs.getString("building");
+        rooms.add(build);
+      }
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+
+    return rooms;
+  }
+
+  public static void refreshConfRooms() throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    String query =
+        "Select m.\"nodeID\" as nodeID, ln.\"shortName\" as shortName, n.floor, n.building, max(m.date) as date\n"
+            + "From \"Move\" m, \"Node\" n, \"LocationName\" ln\n"
+            + "Where m.\"nodeID\" = n.\"nodeID\" AND m.\"longName\" = ln.\"longName\" AND m.date <= ? AND ln.\"nodeType\" = ?\n"
+            + "Group by n.building, n.floor, ln.\"shortName\", m.\"nodeID\"";
+    try (connection) {
+      PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"ConfRooms\";");
+      statement.executeUpdate();
+      statement = connection.prepareStatement(query);
+      statement.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
+      statement.setString(2, "CONF");
+      ResultSet rs = statement.executeQuery();
+      while (rs.next()) {
+        int roomID = rs.getInt("nodeID");
+        String name =
+            rs.getString("shortName")
+                + ", LVL"
+                + rs.getString("floor")
+                + ", "
+                + rs.getString("building");
+        Random r = new Random();
+        int seats = r.nextInt(20, 100);
+        ConfRoom c = new ConfRoom(roomID, name, seats);
+        addConfRoom(c);
+      }
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+  }
+  // -------------------------------------------------------------------------
 
   /** Sets database connection parameters to connect to the AWS RDS */
   public static void connectToAWS() throws SQLException {
@@ -326,7 +528,29 @@ public class DataManager {
     MedicalSupplyDAOImpl medicalSupplyDAO = new MedicalSupplyDAOImpl();
     medicalSupplyDAO.sync(medicalSupply);
   }
-
+  /**
+   * This method updates an existing MedicalSupply object in the "MedicalSupply" table in the
+   * database with the new MedicalSupply object.
+   *
+   * @param confRoom the new MedicalSupply object to be updated in the "MedicalSupply" table
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static void syncConfRoom(ConfRoom confRoom) throws SQLException {
+    ConfRoomDAOImpl confRoomDAO = new ConfRoomDAOImpl();
+    confRoomDAO.sync(confRoom);
+  }
+  /**
+   * This method updates an existing ConfReservation object in the "ConfReservation" table in the
+   * database with the new ConfReservation object.
+   *
+   * @param confReservation the new ConfReservation object to be updated in the "ConfReservations"
+   *     table
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static void syncConfReservation(ConfReservation confReservation) throws SQLException {
+    ConfReservationDAOImpl confReservationDAO = new ConfReservationDAOImpl();
+    confReservationDAO.sync(confReservation);
+  }
   /**
    * This method updates an existing Signage object in the "Signage" table in the database with the
    * new Signage object.
@@ -338,6 +562,7 @@ public class DataManager {
     SignageDAOImpl signageDAO = new SignageDAOImpl();
     signageDAO.sync(signage);
   }
+
   /**
    * This method returns the employee type of a user
    *
@@ -490,6 +715,26 @@ public class DataManager {
   public static void addMedicalSupply(MedicalSupply medicalSupply) throws SQLException {
     MedicalSupplyDAOImpl medicalSupplyDAO = new MedicalSupplyDAOImpl();
     medicalSupplyDAO.add(medicalSupply);
+  }
+  /**
+   * This method adds a new MedicalSupply object to the "MedicalSupply" table in the database.
+   *
+   * @param confRoom the MedicalSupply object to be added to the "MedicalSupply" table
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static void addConfRoom(ConfRoom confRoom) throws SQLException {
+    ConfRoomDAOImpl confRoomDAO = new ConfRoomDAOImpl();
+    confRoomDAO.add(confRoom);
+  }
+  /**
+   * This method adds a new ConfReservation object to the "ConfReservations" table in the database.
+   *
+   * @param confReservation the ConfReservation object to be added to the "MedicalSupply" table
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static void addConfReservation(ConfReservation confReservation) throws SQLException {
+    ConfReservationDAOImpl confReservationDAO = new ConfReservationDAOImpl();
+    confReservationDAO.add(confReservation);
   }
 
   /**
@@ -649,6 +894,26 @@ public class DataManager {
   public static void deleteMedicalSupply(MedicalSupply medicalSupply) throws SQLException {
     MedicalSupplyDAOImpl medicalSupplyDAO = new MedicalSupplyDAOImpl();
     medicalSupplyDAO.delete(medicalSupply);
+  }
+  /**
+   * This method deletes the given MedicalSupply object from the database
+   *
+   * @param confRoom the MedicalSupply object that will be deleted in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static void deleteConfRoom(ConfRoom confRoom) throws SQLException {
+    ConfRoomDAOImpl confRoomDAO = new ConfRoomDAOImpl();
+    confRoomDAO.delete(confRoom);
+  }
+  /**
+   * This method deletes the given confReservation object from the database
+   *
+   * @param confReservation the ConfReservation object that will be deleted in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static void deleteConfReservation(ConfReservation confReservation) throws SQLException {
+    ConfReservationDAOImpl confReservationDAO = new ConfReservationDAOImpl();
+    confReservationDAO.delete(confReservation);
   }
 
   /**
@@ -815,6 +1080,28 @@ public class DataManager {
     MedicalSupplyDAOImpl medicalSupplyDAO = new MedicalSupplyDAOImpl();
     return medicalSupplyDAO.getAll();
   }
+  /**
+   * The method retrieves all the MedicalSupply objects from the "MedicalSupply" table in the
+   * database.
+   *
+   * @return an ArrayList of the MedicalSupply objects in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static ArrayList<ConfRoom> getAllConfRoom() throws SQLException {
+    ConfRoomDAOImpl confRoomDAO = new ConfRoomDAOImpl();
+    return confRoomDAO.getAll();
+  }
+  /**
+   * The method retrieves all the ConfReservation objects from the "ConfReservation" table in the
+   * database.
+   *
+   * @return an ArrayList of the ConfReservation objects in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static ArrayList<ConfReservation> getAllConfReservation() throws SQLException {
+    ConfReservationDAOImpl confReservationDAO = new ConfReservationDAOImpl();
+    return confReservationDAO.getAll();
+  }
 
   /**
    * This method retrieves a Flower object with the specified ID from the "Flowers" table in the
@@ -943,6 +1230,28 @@ public class DataManager {
    */
   public static MedicalSupply getMedicalSupply(int id) throws SQLException {
     return MedicalSupplyDAOImpl.getMedicalSupply(id);
+  }
+  /**
+   * This method retrieves an MedicalSupply object with the specified ID from the "MedicalSupply"
+   * table in the database.
+   *
+   * @param roomID the ID of the MedicalSupply object to retrieve from the "MedicalSupply" table
+   * @return the ConfRoom object with the specified ID, or null if not found
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static ConfRoom getConfRoom(int roomID) throws SQLException {
+    return ConfRoomDAOImpl.getConfRoom(roomID);
+  }
+  /**
+   * This method retrieves an ConfReservation object with the specified ID from the
+   * "ConfReservation" table in the database.
+   *
+   * @param resID the ID of the ConfReservation object to retrieve from the "ConfReservation" table
+   * @return the ConfReservation object with the specified ID, or null if not found
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static ConfReservation getConfReservation(int resID) throws SQLException {
+    return ConfReservationDAOImpl.getConfReservation(resID);
   }
 
   /**
@@ -1165,6 +1474,26 @@ public class DataManager {
   public static void uploadServiceRequest(String path) throws SQLException, ParseException {
     ServiceRequestDAOImpl.uploadServiceRequestToPostgreSQL(path);
   }
+  /**
+   * Uploads CSV data to a PostgreSQL database table "ConfRooms"-also creates one if one does not
+   * exist
+   *
+   * @param path a string that represents a file path (/ is illegal so you must use double//)
+   * @throws SQLException if an error occurs while uploading the data to the database
+   */
+  public static void uploadConfRoom(String path) throws SQLException, ParseException {
+    ConfRoomDAOImpl.uploadConfRoomToPostgreSQL(path);
+  }
+  /**
+   * Uploads CSV data to a PostgreSQL database table "ConfReservation"-also creates one if one does
+   * not exist
+   *
+   * @param path a string that represents a file path (/ is illegal so you must use double//)
+   * @throws SQLException if an error occurs while uploading the data to the database
+   */
+  public static void uploadConfReservation(String path) throws SQLException, ParseException {
+    ConfReservationDAOImpl.uploadConfReservationToPostgreSQL(path);
+  }
 
   /**
    * This method exports all the Edge objects from the "Edge" table in the database to a CSV file at
@@ -1343,6 +1672,28 @@ public class DataManager {
   public static void exportServiceRequestToCSV(String path) throws SQLException, IOException {
     ServiceRequestDAOImpl.exportServiceRequestToCSV(path);
   }
+  /**
+   * This method exports all the ServiceRequest objects from the "ConfRooms" table in the database
+   * to a CSV file at the specified file path.
+   *
+   * @param path the file path of the CSV file to export the ServiceRequest objects to
+   * @throws SQLException if there is a problem accessing the database
+   * @throws IOException if there is a problem writing the CSV file
+   */
+  public static void exportConfRoomToCSV(String path) throws SQLException, IOException {
+    ConfRoomDAOImpl.exportConfRoomsToCSV(path);
+  }
+  /**
+   * This method exports all the ServiceRequest objects from the "ConfReservations" table in the
+   * database to a CSV file at the specified file path.
+   *
+   * @param path the file path of the CSV file to export the ServiceRequest objects to
+   * @throws SQLException if there is a problem accessing the database
+   * @throws IOException if there is a problem writing the CSV file
+   */
+  public static void exportConfReservationToCSV(String path) throws SQLException, IOException {
+    ConfReservationDAOImpl.exportConfReservationsToCSV(path);
+  }
 
   /**
    * Exports data from a PostgreSQL database table "Signage" to a CSV file
@@ -1354,6 +1705,15 @@ public class DataManager {
   public static void exportSignageToCSV(String path) throws SQLException, IOException {
     SignageDAOImpl.exportSignageToCSV(path);
   }
+
+  //  public static ArrayList<String> getConfRooms(Timestamp date) throws SQLException {
+  //    ConfRoomDAOImpl r = new ConfRoomDAOImpl();
+  //    return r.getConfRooms(date);
+  //  }
+  //  public static int getConfRoomTimes() throws SQLException {
+  //    ConfRoomDAOImpl r = new ConfRoomDAOImpl();
+  //    return r.getConfRoomTimes();
+  //  }
 
   /**
    * This method retrieves a list of all the long names of locations from the "LocationName" table
