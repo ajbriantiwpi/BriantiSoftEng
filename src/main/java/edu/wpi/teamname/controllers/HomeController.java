@@ -91,6 +91,7 @@ public class HomeController {
     upcomingMoves.setVisible(false);
     doneRequests.setVisible(false);
     editSignageButton.setVisible(false);
+    dataButton.setVisible(false);
     showRequestsButton.setManaged(false);
     editMapButton.setManaged(false);
     editMoveButton.setManaged(false);
@@ -102,6 +103,7 @@ public class HomeController {
     actionVBox.setManaged(false);
     SRVBox.setManaged(false);
     editSignageButton.setManaged(false);
+    dataButton.setManaged(false);
   }
 
   @FXML
@@ -325,6 +327,8 @@ public class HomeController {
       SRVBox.setManaged(true);
       editSignageButton.setVisible(true);
       editSignageButton.setManaged(true);
+      dataButton.setVisible(true);
+      dataButton.setManaged(true);
     }
 
     upcomingMoves.setOnMouseClicked(
