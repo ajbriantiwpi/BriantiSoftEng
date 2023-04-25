@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+
+
+<Label style="-fx-background-radius: 8;" stylesheets="@../stylesheets/Colors/lightTheme.css" text="Label" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <styleClass>
+      <String fx:value="secondary" />
+      <String fx:value="label" />
+   </styleClass>
+   <padding>
+      <Insets bottom="4.0" left="8.0" right="8.0" top="4.0" />
+   </padding>
+</Label>
