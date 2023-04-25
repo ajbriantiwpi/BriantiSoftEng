@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.lang.String?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -14,12 +16,12 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.RangeSlider?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1280.0" styleClass="body" stylesheets="@../stylesheets/Colors/lightTheme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ConferenceController">
+<AnchorPane fx:id="root" prefHeight="1080.0" prefWidth="1280.0" styleClass="body" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ConferenceController">
     <children>
         <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <ScrollPane fitToHeight="true" fitToWidth="true" prefWidth="420.0" HBox.hgrow="NEVER">
                 <content>
-                    <VBox prefWidth="420.0" spacing="12.0">
+                    <VBox prefWidth="420.0" spacing="12.0" styleClass="surface-container">
                         <children>
                             <Label text="Date" textFill="#001b3b">
                                 <font>
@@ -79,13 +81,17 @@
                                     <Insets />
                                 </VBox.margin>
                             </Label>
-                            <TextField fx:id="nameText" maxWidth="-Infinity" prefHeight="50.0" prefWidth="396.0" style="-fx-background-color: #D5E3FF; -fx-border-radius: 8; -fx-background-radius: 9; -fx-border-color: #6F797A;" stylesheets="@../stylesheets/RowLabel.css">
+                            <TextField fx:id="nameText" maxWidth="-Infinity" prefHeight="50.0" prefWidth="396.0" style="-fx-border-radius: 8; -fx-background-radius: 9;" stylesheets="@../stylesheets/RowLabel.css">
                                 <opaqueInsets>
                                     <Insets />
                                 </opaqueInsets>
                                 <VBox.margin>
                                     <Insets />
                                 </VBox.margin>
+                        <styleClass>
+                           <String fx:value="primary-container" />
+                           <String fx:value="outline" />
+                        </styleClass>
                             </TextField>
                             <Label text="Room" textFill="#001b3b">
                                 <font>
@@ -96,7 +102,7 @@
                                 </VBox.margin>
                             </Label>
                             <ComboBox fx:id="roomBox" layoutX="10.0" layoutY="158.0" prefHeight="50.0" prefWidth="396.0" promptText="Choose Room" stylesheets="@../stylesheets/combo.css" />
-                            <MFXButton fx:id="submitButton" mnemonicParsing="false" stylesheets="@../stylesheets/blueButton.css" text="Request">
+                            <MFXButton fx:id="submitButton" mnemonicParsing="false" styleClass="primary" stylesheets="@../stylesheets/button.css" text="Request">
                                 <font>
                                     <Font name="Times New Roman" size="32.0" />
                                 </font>
@@ -121,4 +127,8 @@
             </ScrollPane>
         </HBox>
     </children>
+   <stylesheets>
+      <URL value="@../stylesheets/Colors/lightTheme.css" />
+      <URL value="@../stylesheets/Colors/darkTheme.css" />
+   </stylesheets>
 </AnchorPane>

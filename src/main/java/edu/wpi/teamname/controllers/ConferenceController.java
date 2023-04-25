@@ -18,10 +18,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import org.controlsfx.control.RangeSlider;
 
 public class ConferenceController {
 
+  @FXML AnchorPane root;
   @FXML ComboBox<String> startBox;
   @FXML ComboBox<String> endBox;
   @FXML ComboBox<String> buildingBox;
@@ -68,6 +70,11 @@ public class ConferenceController {
 
   @FXML
   public void initialize() throws SQLException {
+    if (GlobalVariables.getDarkMode().get()) {
+      root.getStylesheets().remove(0);
+    } else {
+      root.getStylesheets().remove(1);
+    }
     buildings = FXCollections.observableArrayList(DataManager.getConfBuildings());
     buildings.add("None");
     roomsString = FXCollections.observableArrayList();

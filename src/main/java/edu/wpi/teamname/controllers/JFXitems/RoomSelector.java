@@ -53,8 +53,9 @@ public class RoomSelector extends BorderPane {
     this.name = new Label(this.room.getLocationName().split(",")[0]);
     this.setLeft(name);
     this.name.setPadding(new Insets(8, 12, 8, 12));
-    this.name.setStyle("-fx-background-color: #D5E3FF; -fx-text-fill: #001B3B");
-    this.setStyle("-fx-background-color: #D5E3FF; -fx-border-color: #6F797A");
+    this.name.getStyleClass().add("primary-container");
+    // this.name.setStyle("-fx-background-color: #D5E3FF; -fx-text-fill: #001B3B");
+    //    this.setStyle("-fx-background-color: #D5E3FF; -fx-border-color: #6F797A");
     this.name.setMinHeight(75);
     this.name.setMinWidth(150);
     this.getStyleClass().add("primary-container");
