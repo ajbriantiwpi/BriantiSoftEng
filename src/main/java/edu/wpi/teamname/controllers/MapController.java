@@ -21,11 +21,11 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javax.swing.*;
 import net.kurobako.gesturefx.GesturePane;
 
 public class MapController {
@@ -51,17 +51,36 @@ public class MapController {
 
   @FXML AnchorPane OuterMapAnchor;
 
+  // New Floor Button Layout
+  @FXML MFXButton ThirdFloorButton;
+  @FXML MFXButton SecondFloorButton;
+  @FXML MFXButton FirstFloorButton;
+  @FXML MFXButton LowerFirstButton;
+  @FXML MFXButton LowerSecondButton;
+
+  // New UI Layout
+  // @FXML Accordion MapAccordion;
+  @FXML ScrollPane MapScrollPane;
+
+  @FXML TitledPane PathfindingTitlePane;
+  @FXML TitledPane DirectionsTitlePane;
+  @FXML TitledPane FloorTitlePane;
+  @FXML TitledPane TickTitlePane;
+
   String defaultFloor = "L1";
   int clickCount = 0;
   Point2D firstClick = null;
   Point2D secondClick = null;
   String floor1;
   String floor2;
-  String currFloor = "L1";
+  String currFloor = "Lower Level 1";
   int sNode = 0;
   int eNode = 0;
+  Node globalStartNode;
 
   String currentAlgo = "";
+
+  ArrayList<MFXButton> floorButtons = new ArrayList<>();
 
   EventHandler<MouseEvent> e =
       new EventHandler<MouseEvent>() {
@@ -213,16 +232,32 @@ public class MapController {
         @Override
         public void handle(MouseEvent event) {
           map.drawPath(anchor, sNode, eNode);
-          int secInd = map.getAllFloors().indexOf(FloorSelect.getValue());
-          System.out.println("secInd: " + FloorSelect.getValue());
+          int secInd = map.getAllFloors().indexOf(currFloor);
+          System.out.println("secInd: " + secInd);
           anchor.getChildren().addAll(map.getShapes().get(secInd));
 
           int indOfStart = Node.idToIndex(sNode);
           String floorForSNode =
               map.takeFloor(map.graph.getNodes().get(indOfStart).getFloor(), true);
-          FloorSelect.setValue(floorForSNode);
+          System.out.println("Floor to move to " + floorForSNode);
+          if (floorForSNode == "Third Floor") {
+            ThirdFloorButton.fire();
+          } else if (floorForSNode == "Second Floor") {
+            SecondFloorButton.fire();
+          } else if (floorForSNode == "First Floor") {
+            // System.out.println("Got to First Floor");
+            FirstFloorButton.fire();
+          } else if (floorForSNode == "Lower Level 1") {
+            LowerFirstButton.fire();
+          } else if (floorForSNode == "Lower Level 2") {
+            LowerSecondButton.fire();
+          } else {
+            System.out.println("Move to start node floor failed, should not be here");
+          }
 
-          FloorsToggle.setVisible(true);
+          FloorsToggle.setDisable(false);
+          showPathFloors(false);
+          map.centerAndZoomStart(gp, OuterMapAnchor, globalStartNode);
 
           clickCount = 0;
         }
@@ -245,11 +280,12 @@ public class MapController {
           } catch (SQLException ex) {
             throw new RuntimeException(ex);
           }
+          globalStartNode = nodeForStart;
           sNode = nodeForStart.getId(); // Integer.parseInt(LocationOne.getValue());
           // System.out.println("sNode: " + sNode);
           if (eNode != 0 && sNode != 0) {
-            findPathButton.setVisible(true);
-            //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
+            findPathButton.setDisable(
+                false); //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
             // map.drawPath(anchor, sNode, eNode);
           }
         }
@@ -275,7 +311,7 @@ public class MapController {
           //          System.out.println("eNode LName: " + endLName);
           //          System.out.println("eNode: " + eNode);
           if (sNode != 0 && eNode != 0) {
-            findPathButton.setVisible(true);
+            findPathButton.setDisable(false);
             //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
           }
         }
@@ -357,11 +393,38 @@ public class MapController {
         }
       };
 
-  private void showPathFloors() {
-    if (FloorsToggle.isSelected()) {
-      FloorSelect.setItems(map.getAllFloorsInPath());
+  private void showPathFloors(boolean flag) {
+    if (flag) {
+      ThirdFloorButton.setDisable(false);
+      SecondFloorButton.setDisable(false);
+      FirstFloorButton.setDisable(false);
+      LowerFirstButton.setDisable(false);
+      LowerSecondButton.setDisable(false);
+
+      // FloorSelect.setItems(map.getAllFloorsInPath());
     } else {
-      FloorSelect.setItems(map.getAllFloors());
+      ThirdFloorButton.setDisable(true);
+      SecondFloorButton.setDisable(true);
+      FirstFloorButton.setDisable(true);
+      LowerFirstButton.setDisable(true);
+      LowerSecondButton.setDisable(true);
+
+      // FloorSelect.setItems(map.getAllFloors());
+      for (String s : map.getAllFloorsInPath()) {
+        if (s == "G3") {
+          ThirdFloorButton.setDisable(false);
+        } else if (s == "G2") {
+          SecondFloorButton.setDisable(false);
+        } else if (s == "G1") {
+          FirstFloorButton.setDisable(false);
+        } else if (s == "L1") {
+          LowerFirstButton.setDisable(false);
+        } else if (s == "L2") {
+          LowerSecondButton.setDisable(false);
+        } else {
+          System.out.println("showPathFloors should not get here");
+        }
+      }
     }
   }
 
@@ -397,24 +460,28 @@ public class MapController {
         public void handle(MouseEvent event) {
           System.out.println("This is the toggle");
 
-          double parentW = map.getMapWitdh(OuterMapAnchor);
-          double parentH = map.getMapHeight(OuterMapAnchor);
-
-          System.out.println(
-              "Check"
-                  + parentW
-                  + ", "
-                  + parentH
-                  + " :"
-                  + gp.getCurrentScale()
-                  + ", "
-                  + gp.getCurrentX()
-                  + ", "
-                  + gp.getCurrentY());
+          //          double parentW = map.getMapWitdh(OuterMapAnchor);
+          //          double parentH = map.getMapHeight(OuterMapAnchor);
+          //
+          //          System.out.println(
+          //              "Check"
+          //                  + parentW
+          //                  + ", "
+          //                  + parentH
+          //                  + " :"
+          //                  + gp.getCurrentScale()
+          //                  + ", "
+          //                  + gp.getCurrentX()
+          //                  + ", "
+          //                  + gp.getCurrentY());
 
           // -1627.2856715232545, -690.8681650647059
 
-          showPathFloors();
+          if (FloorsToggle.isSelected()) {
+            showPathFloors(true);
+          } else {
+            showPathFloors(false);
+          }
         }
       };
 
@@ -494,6 +561,156 @@ public class MapController {
         }
       };
 
+  EventHandler<ActionEvent> setThirdFloor =
+      new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+          System.out.println("Switching to 3rd");
+          currFloor = "Third Floor";
+          setAllButtons();
+          ThirdFloorButton.setStyle("-fx-background-color: yellow;");
+
+          try {
+            map.setCurrentDisplayFloor("Third Floor", true);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+        }
+      };
+
+  EventHandler<ActionEvent> setSecondFloor =
+      new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+          System.out.println("Switching to 2nd");
+          currFloor = "Second Floor";
+          setAllButtons();
+          SecondFloorButton.setStyle("-fx-background-color: yellow;");
+
+          try {
+            map.setCurrentDisplayFloor("Second Floor", true);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+        }
+      };
+
+  EventHandler<ActionEvent> setFirstFloor =
+      new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+          System.out.println("Switching to 1st");
+          currFloor = "First Floor";
+          setAllButtons();
+          FirstFloorButton.setStyle("-fx-background-color: yellow;");
+
+          try {
+            map.setCurrentDisplayFloor("First Floor", true);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+        }
+
+        //        public void handleNoClick() {
+        //          System.out.println("Switching to 1st no Mouse Clicked");
+        //          currFloor = "First Floor";
+        //
+        //          try {
+        //            map.setCurrentDisplayFloor("First Floor", true);
+        //          } catch (SQLException e) {
+        //            throw new RuntimeException(e);
+        //          } catch (IOException e) {
+        //            throw new RuntimeException(e);
+        //          }
+        //        }
+      };
+
+  EventHandler<ActionEvent> setLowerFirst =
+      new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+          System.out.println("Switching to L1");
+          currFloor = "Lower Level 1";
+          setAllButtons();
+          LowerFirstButton.setStyle("-fx-background-color: yellow;");
+
+          try {
+            map.setCurrentDisplayFloor("Lower Level 1", true);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+        }
+      };
+
+  EventHandler<ActionEvent> setLowerSecond =
+      new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+          System.out.println("Switching to L2");
+          currFloor = "Lower Level 2";
+          setAllButtons();
+          LowerSecondButton.setStyle("-fx-background-color: yellow;");
+
+          try {
+            map.setCurrentDisplayFloor("Lower Level 2", true);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+        }
+      };
+
+  EventHandler<ActionEvent> changeFloors =
+      new EventHandler<ActionEvent>() {
+
+        @Override
+        public void handle(ActionEvent event) {
+
+          MFXButton newButton = ((MFXButton) event.getSource());
+
+          String oldFloor = map.getCurrentDisplayFloor();
+          //          System.out.println("OF: " + oldFloor);
+
+          for (MFXButton floorButton : floorButtons) {
+            //            System.out.println("F: " + floorButton.getId());
+            if (floorButton.getId().equals(oldFloor)) {
+              //              System.out.println("Old");
+              floorButton.getStyleClass().remove("primary");
+              floorButton.getStyleClass().add("primary-container");
+            }
+          }
+
+          // re-color new button
+          newButton.getStyleClass().remove("primary-container");
+          newButton.getStyleClass().add("primary");
+
+          try {
+            map.setCurrentDisplayFloor(newButton.getId(), true);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+        }
+      };
+
+  public void setAllButtons() {
+    ThirdFloorButton.setStyle("-fx-background-color: blue;");
+    SecondFloorButton.setStyle("-fx-background-color: blue;");
+    FirstFloorButton.setStyle("-fx-background-color: blue;");
+    LowerFirstButton.setStyle("-fx-background-color: blue;");
+    LowerSecondButton.setStyle("-fx-background-color: blue;");
+  }
+
   @FXML
   public void initialize() throws SQLException, IOException {
 
@@ -528,7 +745,7 @@ public class MapController {
     // DeleteNodeButton.setOnMouseClicked(deleteNodeButton);
     DeleteNodeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
     findPathButton.setOnMouseClicked(findPathWButton);
-    findPathButton.setVisible(false);
+    findPathButton.setDisable(true);
 
     //    LocationOne.setStyle("-fx-padding: 5 25 5 5;");
     LocationOne.setPromptText("Select start");
@@ -545,13 +762,13 @@ public class MapController {
     //    FloorSelect.setOnAction(changeFloor);
     //    FloorSelect.setValue("Lower Level 1");
 
-    FloorSelect.setPromptText("Select floor");
-    FloorSelect.setItems(map.getAllFloors());
-    FloorSelect.setOnAction(changeFloor);
-    FloorSelect.setValue("Lower Level 1");
+    //    FloorSelect.setPromptText("Select floor");
+    //    FloorSelect.setItems(map.getAllFloors());
+    //    FloorSelect.setOnAction(changeFloor);
+    //    FloorSelect.setValue("Lower Level 1");
 
-    upFloor.setOnMouseClicked(changeFloorUp);
-    downFloor.setOnMouseClicked(changeFloorDown);
+    //    upFloor.setOnMouseClicked(changeFloorUp);
+    //    downFloor.setOnMouseClicked(changeFloorDown);
 
     AlgoSelect.setPromptText("Select Algorithm");
     AlgoSelect.setItems(map.getAllAlgos());
@@ -560,10 +777,32 @@ public class MapController {
 
     FloorsToggle.setOnMouseClicked(toggleFloorMethod);
     FloorsToggle.setSelected(false);
-    FloorsToggle.setDisable(false);
-    FloorsToggle.setVisible(false);
+    FloorsToggle.setDisable(true);
 
     anchor.setOnMouseClicked(e);
+
+    // New Floor Button Layout
+    //    ThirdFloorButton.setOnAction(setThirdFloor);
+    //    SecondFloorButton.setOnAction(setSecondFloor);
+    //    FirstFloorButton.setOnAction(setFirstFloor);
+    //    LowerFirstButton.setOnAction(setLowerFirst);
+    //    LowerSecondButton.setOnAction(setLowerSecond);
+
+    // New Floor Stuff
+    floorButtons.add(ThirdFloorButton);
+    floorButtons.add(SecondFloorButton);
+    floorButtons.add(FirstFloorButton);
+    floorButtons.add(LowerFirstButton);
+    floorButtons.add(LowerSecondButton);
+
+    for (MFXButton floorButton : floorButtons) {
+      floorButton.setOnAction(changeFloors);
+    }
+
+    // MapAccordion.setExpandedPane(PathfindingTitlePane); // set initial expanded pane
+    DirectionsTitlePane.setExpanded(false);
+    FloorTitlePane.setExpanded(false);
+    TickTitlePane.setExpanded(false);
 
     //    System.out.println(getAllNodeNames("L1"));
 

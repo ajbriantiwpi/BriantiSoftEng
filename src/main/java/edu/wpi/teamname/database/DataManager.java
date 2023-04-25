@@ -1552,6 +1552,24 @@ public class DataManager {
   }
 
   /**
+   * * Creates a table for storing ConfReservation data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createConfReservationsTable() throws SQLException {
+    ConfReservationDAOImpl.createTable();
+  }
+
+  /**
+   * * Creates a table for storing ConfRooms data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createConfRoomsTable() throws SQLException {
+    ConfRoomDAOImpl.createTable();
+  }
+
+  /**
    * * Creates all tables in the database unless they already exist then do nothing
    *
    * @throws SQLException connection to the database fails
@@ -1571,5 +1589,7 @@ public class DataManager {
     createServiceRequestTable();
     createAlertTable();
     createSignageTable();
+    createConfReservationsTable();
+    createConfRoomsTable();
   }
 }

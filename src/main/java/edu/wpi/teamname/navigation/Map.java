@@ -609,7 +609,10 @@ public class Map {
         DataManager.getAllLocationNamesMappedByNode(new Timestamp(System.currentTimeMillis()));
 
     for (Integer i : hMap.keySet()) {
-      nodeNames.add(hMap.get(i).get(0).getLongName());
+      // Gets rid of all Hallway locations
+      if (!hMap.get(i).get(0).getNodeType().equals("HALL")) {
+        nodeNames.add(hMap.get(i).get(0).getLongName());
+      }
     }
 
     Collections.sort(nodeNames);
@@ -632,26 +635,26 @@ public class Map {
     return floorNames;
   }
 
-  public ObservableList<String> getAllFloorsInPath() {
-    ObservableList<String> floorNames = FXCollections.observableArrayList();
+  public ArrayList<String> getAllFloorsInPath() {
+    // ObservableList<String> floorNames = FXCollections.observableArrayList();
     ArrayList<String> floorPathArr = new ArrayList<>();
 
     for (int i = 0; i < shapes.size(); i++) {
       if (!shapes.get(i).isEmpty()) {
         if (i == 0) {
-          floorNames.add("Lower Level 2");
+          floorPathArr.add("L2");
         } else if (i == 1) {
-          floorNames.add("Lower Level 1");
+          floorPathArr.add("L1");
         } else if (i == 2) {
-          floorNames.add("First Floor");
+          floorPathArr.add("G1");
         } else if (i == 3) {
-          floorNames.add("Second Floor");
+          floorPathArr.add("G2");
         } else if (i == 4) {
-          floorNames.add("Third Floor");
+          floorPathArr.add("G3");
         }
       }
     }
-    return floorNames;
+    return floorPathArr;
   }
 
   public ObservableList<String> getAllAlgos() {
@@ -872,5 +875,10 @@ public class Map {
 
     parent.zoomTo(scaleFactor, Point2D.ZERO);
     parent.centreOn(centerPoint); // Actually Moves the Top left corner
+  }
+
+  public void centerAndZoomStart(GesturePane parent, AnchorPane outerMapAnchor, Node sNode) {
+    Point2D centerOnStart = new Point2D(sNode.getX(), sNode.getY());
+    parent.centreOn(centerOnStart);
   }
 }

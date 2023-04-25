@@ -6,15 +6,16 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import net.kurobako.gesturefx.GesturePane?>
 
-<?import javafx.scene.control.CheckBox?>
-<?import java.lang.String?>
 <AnchorPane id="AP" fx:id="OuterMapAnchor" prefHeight="668.0" prefWidth="951.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MapController">
     <children>
         <StackPane fx:id="sp" prefHeight="602.0" prefWidth="800.0" style="-fx-background-radius: 16;" styleClass="surface" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -34,62 +35,208 @@
                       </GesturePane>
                </children>
             </AnchorPane>
-            <HBox maxHeight="-Infinity" spacing="12.0" StackPane.alignment="TOP_LEFT">
-               <children>
-                  <MFXButton fx:id="DeleteNodeButton" prefHeight="61.0" prefWidth="171.0" style="-fx-background-radius: 100; -fx-border-radius: 100;" text="Reset">
-                     <font>
-                        <Font name="Roboto" size="18.0" />
-                     </font>
-                     <styleClass>
-                        <String fx:value="primary" />
-                        <String fx:value="outline" />
-                     </styleClass>
-                  </MFXButton>
-                  <MFXButton fx:id="findPathButton" prefHeight="61.0" prefWidth="171.0" style="-fx-background-radius: 100; -fx-border-radius: 100;" text="Find Path">
-                     <font>
-                        <Font name="Roboto" size="18.0" />
-                     </font>
-                     <styleClass>
-                        <String fx:value="primary" />
-                        <String fx:value="outline" />
-                     </styleClass>
-                  </MFXButton>
-                  <HBox fx:id="floorSelector" maxHeight="0.0" maxWidth="0.0">
-                     <children>
-                        <MFXButton fx:id="downFloor" prefHeight="61.0" prefWidth="56.0" styleClass="primary-container" text="&lt;">
-                           <font>
-                              <Font name="Roboto" size="16.0" />
-                           </font>
-                        </MFXButton>
-                        <ComboBox fx:id="FloorSelect" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="61.0" prefWidth="250.0" stylesheets="@../stylesheets/combo.css" />
-                        <MFXButton fx:id="upFloor" prefHeight="61.0" prefWidth="31.0" styleClass="primary-container" text="&gt;">
-                           <font>
-                              <Font name="Roboto" size="16.0" />
-                           </font>
-                        </MFXButton>
-                     </children>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                  </HBox>
-                  <CheckBox fx:id="FloorsToggle" mnemonicParsing="false" styleClass="primary-text-container" text="Only Show Path Floors">
-                     <HBox.margin>
-                        <Insets top="36.0" />
-                     </HBox.margin>
-                  </CheckBox>
-               </children>
-               <StackPane.margin>
-                  <Insets left="24.0" top="12.0" />
-               </StackPane.margin>
-            </HBox>
             </children>
         </StackPane>
-      <HBox fx:id="SelectCombo" alignment="BOTTOM_LEFT" layoutX="136.0" layoutY="493.0" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="72.0" prefWidth="810.0" spacing="24.0" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="24.0">
+      <VBox layoutX="-1.0" prefHeight="764.0" prefWidth="287.0">
          <children>
-            <ComboBox fx:id="LocationOne" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #D5E3ff;" stylesheets="@../stylesheets/combo.css" />
-            <ComboBox fx:id="EndPointSelect" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #D5E3ff;" stylesheets="@../stylesheets/combo.css" />
-            <ComboBox fx:id="AlgoSelect" layoutX="255.0" layoutY="32.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #D5E3ff;" stylesheets="@../stylesheets/combo.css" />
+            <VBox spacing="24.0" VBox.vgrow="ALWAYS">
+               <padding>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </padding>
+            </VBox>
          </children>
-      </HBox>
+         <padding>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+         </padding>
+      </VBox>
+      <ScrollPane fx:id="MapScrollPane" prefHeight="748.0" prefWidth="287.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0">
+               <children>
+                  <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                      <TitledPane fx:id="PathfindingTitlePane" animated="false" text="Pathfinding">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0">
+                                 <children>
+                                    <VBox prefHeight="351.0" prefWidth="271.0" spacing="24.0" style="-fx-background-radius: 16;" styleClass="surface-container-highest" stylesheets="@../stylesheets/Colors/lightTheme.css">
+                                       <children>
+                                          <AnchorPane>
+                                             <children>
+                                                <ComboBox fx:id="LocationOne" prefHeight="48.0" prefWidth="255.0" promptText="Select Start" />
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane>
+                                             <children>
+                                                <ComboBox fx:id="EndPointSelect" prefHeight="48.0" prefWidth="255.0" promptText="Select Destination" />
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane>
+                                             <children>
+                                                <ComboBox fx:id="AlgoSelect" prefHeight="48.0" prefWidth="255.0" promptText="Select Algorithm" />
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane>
+                                             <children>
+                                                <MFXButton fx:id="findPathButton" alignment="BASELINE_LEFT" graphicTextGap="10.0" stylesheets="@../stylesheets/button.css" text="Find Path" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                   <font>
+                                                      <Font name="Roboto" size="16.0" />
+                                                   </font>
+                                                   <styleClass>
+                                                      <String fx:value="primary" />
+                                                      <String fx:value="outline" />
+                                                      <String fx:value="title-large" />
+                                                   </styleClass>
+                                                   <graphic>
+                                                      <ImageView fitHeight="32.0" fitWidth="32.0" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../images/MapIcons/conversion_path.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </MFXButton>
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                             <children>
+                                                <MFXButton fx:id="DeleteNodeButton" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="48.0" prefWidth="255.0" stylesheets="@../stylesheets/button.css" text="Reset">
+                                                   <font>
+                                                      <Font name="Roboto" size="16.0" />
+                                                   </font>
+                                                   <styleClass>
+                                                      <String fx:value="primary" />
+                                                      <String fx:value="outline" />
+                                                      <String fx:value="title-large" />
+                                                   </styleClass>
+                                                   <graphic>
+                                                      <ImageView fitHeight="32.0" fitWidth="32.0" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../images/MapIcons/restart_alt.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </MFXButton>
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </TitledPane>
+                      <TitledPane fx:id="DirectionsTitlePane" animated="false" text="Directions">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        </content>
+                      </TitledPane>
+                      <TitledPane fx:id="FloorTitlePane" animated="false" maxHeight="-Infinity" minHeight="-Infinity" text="Floors">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="350.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox prefHeight="350.0" prefWidth="271.0" spacing="12.0" style="-fx-background-radius: 16;" styleClass="surface-container-highest" stylesheets="@../stylesheets/Colors/lightTheme.css">
+                                       <children>
+                                          <AnchorPane>
+                                             <children>
+                                                <MFXButton id="Third Floor" fx:id="ThirdFloorButton" alignment="BASELINE_LEFT" graphicTextGap="10.0" stylesheets="@../stylesheets/button.css" text="Third Floor" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                   <font>
+                                                      <Font name="Roboto" size="16.0" />
+                                                   </font>
+                                                   <styleClass>
+                                                      <String fx:value="outline" />
+                                                      <String fx:value="title-large" />
+                                                      <String fx:value="primary-container" />
+                                                   </styleClass>
+                                                </MFXButton>
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane>
+                                             <children>
+                                                <MFXButton id="Second Floor" fx:id="SecondFloorButton" alignment="BASELINE_LEFT" graphicTextGap="10.0" stylesheets="@../stylesheets/button.css" text="Second Floor" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                   <font>
+                                                      <Font name="Roboto" size="16.0" />
+                                                   </font>
+                                                   <styleClass>
+                                                      <String fx:value="outline" />
+                                                      <String fx:value="title-large" />
+                                                      <String fx:value="primary-container" />
+                                                   </styleClass>
+                                                </MFXButton>
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane>
+                                             <children>
+                                                <MFXButton id="First Floor" fx:id="FirstFloorButton" alignment="BASELINE_LEFT" graphicTextGap="10.0" stylesheets="@../stylesheets/button.css" text="First Floor" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                   <font>
+                                                      <Font name="Roboto" size="16.0" />
+                                                   </font>
+                                                   <styleClass>
+                                                      <String fx:value="outline" />
+                                                      <String fx:value="title-large" />
+                                                      <String fx:value="primary-container" />
+                                                   </styleClass>
+                                                </MFXButton>
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane maxHeight="10.0" minHeight="10.0" styleClass="secondary" stylesheets="@../stylesheets/Colors/lightTheme.css" />
+                                          <AnchorPane>
+                                             <children>
+                                                <MFXButton id="Lower Level 1" fx:id="LowerFirstButton" alignment="BASELINE_LEFT" graphicTextGap="10.0" stylesheets="@../stylesheets/button.css" text="Lower Level 1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                   <font>
+                                                      <Font name="Roboto" size="16.0" />
+                                                   </font>
+                                                   <styleClass>
+                                                      <String fx:value="outline" />
+                                                      <String fx:value="title-large" />
+                                                      <String fx:value="primary" />
+                                                   </styleClass>
+                                                </MFXButton>
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane>
+                                             <children>
+                                                <MFXButton id="Lower Level 2" fx:id="LowerSecondButton" alignment="BASELINE_LEFT" graphicTextGap="10.0" stylesheets="@../stylesheets/button.css" text="Lower Level 2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                   <font>
+                                                      <Font name="Roboto" size="16.0" />
+                                                   </font>
+                                                   <styleClass>
+                                                      <String fx:value="outline" />
+                                                      <String fx:value="title-large" />
+                                                      <String fx:value="primary-container" />
+                                                   </styleClass>
+                                                </MFXButton>
+                                             </children>
+                                          </AnchorPane>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </TitledPane>
+                        <TitledPane fx:id="TickTitlePane" animated="false" text="TickBoxes">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox prefHeight="466.0" prefWidth="278.0">
+                                       <children>
+                                          <CheckBox fx:id="FloorsToggle" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="18.0" prefWidth="277.0" styleClass="primary-text-container" text="Display All Floors" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </TitledPane>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
     </children>
 </AnchorPane>
