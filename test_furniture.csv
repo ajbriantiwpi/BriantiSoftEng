@@ -1,4 +1,4 @@
 furnitureID,name,price,category,size,color
-1,TestN1,1,1Cat,TestSize1,1Col
-2,TestN2,2,2Cat,TestSize2,2Col
-3,TestN3,3,3Cat,TestSize3,3Col
+1,TestN1,1.0,1Cat,TestSize1,1Col
+2,TestN2,2.0,2Cat,TestSize2,2Col
+3,TestN3,3.0,3Cat,TestSize3,3Col

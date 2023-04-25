@@ -34,6 +34,7 @@ public class ServiceRequestAnalyticsController {
     } catch (SQLException e) {
       e.printStackTrace();
     }
+    ParentController.titleString.set("Service Request Analytics");
 
     Map<RequestType, Integer> requestTypeCounts = new HashMap<>();
     Map<Status, Integer> statusCounts = new HashMap<>();
