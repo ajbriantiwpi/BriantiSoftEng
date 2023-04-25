@@ -9,9 +9,9 @@
 
 <VBox spacing="16.0" style="-fx-border-width: 2; -fx-border-radius: 8;" stylesheets="@../stylesheets/Colors/lightTheme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <AnchorPane>
+        <AnchorPane style="-fx-background-radius: 16;">
             <children>
-                <MFXButton alignment="BASELINE_LEFT" style="-fx-background-radius: 8; -fx-border-radius: 8;" stylesheets="@../stylesheets/Colors/lightTheme.css" text="Confirm" textFill="#fffbfb" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <MFXButton alignment="BASELINE_LEFT" style="-fx-background-radius: 8; -fx-border-radius: 8;" text="Confirm" textFill="#fffbfb" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <font>
                         <Font name="Roboto" size="12.0" />
                     </font>
