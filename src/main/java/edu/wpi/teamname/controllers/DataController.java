@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -40,6 +41,30 @@ public class DataController implements Initializable {
 
     importButton.setOnAction(e -> onImportButtonClicked());
     exportButton.setOnAction(e -> onExportButtonClicked());
+
+    // Create a ToggleGroup to ensure only one button can be selected at a time
+    ToggleGroup databaseToggleGroup = new ToggleGroup();
+    wpiButton.setToggleGroup(databaseToggleGroup);
+    awsButton.setToggleGroup(databaseToggleGroup);
+
+    // Hook up the methods to the toggle buttons
+    wpiButton.setOnAction(
+        e -> {
+          try {
+            DataManager.connectToWPI();
+          } catch (SQLException ex) {
+            ex.printStackTrace();
+          }
+        });
+
+    awsButton.setOnAction(
+        e -> {
+          try {
+            DataManager.connectToAWS();
+          } catch (SQLException ex) {
+            ex.printStackTrace();
+          }
+        });
   }
 
   private void onImportButtonClicked() {
