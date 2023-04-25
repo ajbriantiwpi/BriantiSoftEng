@@ -227,7 +227,7 @@ public class EditSignageController {
           }
         });
     editSignageTable.setRowFactory(
-        tableView -> {
+        TableView -> {
           TableRow<Signage> row = new TableRow<>();
 
           ContextMenu ccontextMenu = new ContextMenu();

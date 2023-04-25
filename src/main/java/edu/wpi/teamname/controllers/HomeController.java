@@ -23,7 +23,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class HomeController {
-  @FXML MFXButton editAlertButton;
+
   @FXML MFXButton helpButton;
   @FXML MFXButton mapButton;
   @FXML VBox actionVBox;
@@ -38,12 +38,17 @@ public class HomeController {
   @FXML MFXButton showRequestsButton;
   @FXML MFXButton editMapButton;
   @FXML MFXButton exitButton;
-  // @FXML MFXButton navigateButton;
   @FXML MFXButton employeeButton;
+
+  @FXML MFXButton viewSignageButton;
+  @FXML MFXButton editSignageButton;
+  @FXML MFXButton requestRoomButton;
+  @FXML MFXButton viewAlertsButton; // TAKE OUT LATER
 
   @FXML MFXButton activeRequests;
   @FXML MFXButton upcomingMoves;
   @FXML MFXButton doneRequests;
+  @FXML MFXButton dataButton;
 
   // test push
   @Setter @Getter private static ObservableBooleanValue loggedIn = new SimpleBooleanProperty(false);
@@ -53,8 +58,6 @@ public class HomeController {
   @FXML MFXButton loginButton;
   @FXML MFXButton logoutButton;
   @FXML MFXButton editMoveButton;
-
-  @FXML MFXButton editSignageButton;
 
   /** logs the current user out of the application */
   private void logout() {
@@ -250,14 +253,7 @@ public class HomeController {
         });
 
     mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
-    // directionsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
     makeRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
-    //    makeRequestsButton1.setOnMouseClicked(event ->
-    // Navigation.navigate(Screen.SERVICE_REQUEST));
-    //    makeRequestsButton2.setOnMouseClicked(event ->
-    // Navigation.navigate(Screen.SERVICE_REQUEST));
-    //    makeRequestsButton3.setOnMouseClicked(event ->
-    // Navigation.navigate(Screen.SERVICE_REQUEST));
     showRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST_VIEW));
     editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
     exitButton.setOnMouseClicked(
@@ -270,10 +266,12 @@ public class HomeController {
           }
           System.exit(0);
         });
-    // navigateButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
     editMoveButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MOVE_TABLE));
     employeeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.EMPLOYEE_TABLE));
     editSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TABLE));
-    editAlertButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERT));
+    viewSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
+    viewAlertsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERT));
+    requestRoomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CONFERENCE_ROOM));
+    dataButton.setOnMouseClicked(event -> Navigation.navigate(Screen.DATA_MANAGER));
   }
 }
