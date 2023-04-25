@@ -289,6 +289,7 @@ public class MapController {
 
           if (MessageTableView.isVisible() == true) {
             MessageTableView.setVisible(false);
+            ViewMessageButton.setText("View Messages");
           } else {
 
             MessageTableView.setVisible(true);
@@ -316,6 +317,8 @@ public class MapController {
             SortedList<PathMessage> sortedPM = new SortedList<>(PMS1);
             MessageTableView.setItems(sortedPM);
             System.out.println(sortedPM);
+
+            ViewMessageButton.setText("Cancel");
           }
         }
       };
@@ -326,20 +329,34 @@ public class MapController {
         public void handle(MouseEvent event) {
           System.out.println("Add Message Running");
 
-          MessageVal.setVisible(true);
-          MessageVal.setPromptText("Type Message");
-          MessageLabel.setVisible(true);
-          AdminIDVal.setVisible(true);
-          AdminIDVal.setPromptText("Type AdminID");
-          AdminIDLabel.setVisible(true);
-          AddMessageVBox.setVisible(true);
-          MessageSubmitButton.setVisible(true);
+          if (MessageVal.isVisible() == true) {
+            MessageVal.setVisible(false);
+            MessageVal.setPromptText("Type Message");
+            MessageLabel.setVisible(false);
+            AdminIDVal.setVisible(false);
+            AdminIDVal.setPromptText("Type AdminID");
+            AdminIDLabel.setVisible(false);
+            AddMessageVBox.setVisible(false);
+            MessageSubmitButton.setVisible(false);
+            AddMessageButton.setText("Add Message");
+          } else {
 
-          //          String adminIDIn = AdminIDVal.getText();
-          //          String messageIn = MessageVal.getText();
-          //
-          //          System.out.println("AdminId -- Message: " + adminIDIn + " -- " + messageIn);
+            MessageVal.setVisible(true);
+            MessageVal.setPromptText("Type Message");
+            MessageLabel.setVisible(true);
+            AdminIDVal.setVisible(true);
+            AdminIDVal.setPromptText("Type AdminID");
+            AdminIDLabel.setVisible(true);
+            AddMessageVBox.setVisible(true);
+            MessageSubmitButton.setVisible(true);
+            AddMessageButton.setText("Cancel");
 
+            //          String adminIDIn = AdminIDVal.getText();
+            //          String messageIn = MessageVal.getText();
+            //
+            //          System.out.println("AdminId -- Message: " + adminIDIn + " -- " + messageIn);
+
+          }
         }
       };
 
