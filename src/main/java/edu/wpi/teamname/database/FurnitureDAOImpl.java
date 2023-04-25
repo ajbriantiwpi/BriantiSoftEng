@@ -176,7 +176,7 @@ public class FurnitureDAOImpl implements FurnitureDAO {
       while (resultSet.next()) {
         int id = resultSet.getInt("furnitureID");
         String name = resultSet.getString("name");
-        int price = resultSet.getInt("price");
+        float price = resultSet.getFloat("price");
         String category = resultSet.getString("category");
         String size = resultSet.getString("size");
         String color = resultSet.getString("color");

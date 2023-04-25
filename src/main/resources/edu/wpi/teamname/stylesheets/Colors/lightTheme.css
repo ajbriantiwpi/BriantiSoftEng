@@ -24,6 +24,9 @@
     -fx-text-fill: #235FA6;
     -fx-background-color: #FFFFFF;
 }
+.primary-text{
+    -fx-text-fill: #235FA6;
+}
 .surface-container{
     -fx-background-color: #EEEDF1;
     -fx-text-fill: #3F4849;
@@ -78,6 +81,20 @@
 .primary-fixed-dim{
     -fx-background-color: #A7C8FF;
     -fx-text-fill: #001B3B;
+}
+
+.error-container{
+    -fx-background-color: #FFDAD6;
+    -fx-text-fill: #410002;
+}
+
+.white{
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #000000;
+}
+
+.on-suface-text{
+    -fx-text-fill: #1A1C1E;
 }
 
 .table-view .table-row-cell:even{
