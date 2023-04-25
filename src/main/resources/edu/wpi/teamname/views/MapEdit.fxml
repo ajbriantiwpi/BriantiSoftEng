@@ -127,6 +127,8 @@
                         </HBox>
                         <CheckBox fx:id="HallNamesSelector" mnemonicParsing="false" text="Hall Names" />
                         <CheckBox fx:id="EdgeSelector" mnemonicParsing="false" selected="true" text="Show Edges" />
+                        <CheckBox fx:id="NodeSelector" mnemonicParsing="false" selected="true" text="Show Nodes" />
+                        <CheckBox fx:id="LegendSelector" mnemonicParsing="false" selected="true" text="Unique Shapes" />
                      </children>
                   </VBox>
                   <VBox spacing="24.0" VBox.vgrow="ALWAYS">

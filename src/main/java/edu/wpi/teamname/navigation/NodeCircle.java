@@ -16,13 +16,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import org.controlsfx.control.PopOver;
 
 public class NodeCircle {
 
   public Pane p;
-  private Circle inner;
-  private Circle outer;
+  private Shape inner;
+  private Shape outer;
 
   public Label label;
 
@@ -56,23 +58,13 @@ public class NodeCircle {
     this.map = map;
 
     this.firstShortName = firstShortName;
-
     float circleRCopy = GlobalVariables.getCircleR();
-    float scaleDown;
 
     nodeCords = new Point2D(n.getX(), n.getY());
     nodeID = n.getId();
 
     p = new Pane();
 
-    scaleDown = 0.75f;
-
-    this.outer =
-        new Circle(
-            shiftX, shiftY, (circleRCopy * scaleDown) + GlobalVariables.getStrokeThickness());
-    this.inner = new Circle(shiftX, shiftY, (circleRCopy * scaleDown));
-    outer.setFill(GlobalVariables.getBorderColor());
-    inner.setFill(GlobalVariables.getInsideColor());
     // Visible By default
 
     float boxW = circleRCopy;
@@ -98,8 +90,6 @@ public class NodeCircle {
       p.setOnMouseClicked(editNodeBox);
     }
 
-    p.getChildren().addAll(this.outer, this.inner);
-
     final var resource = App.class.getResource("views/TextLabel.fxml");
 
     ArrayList<LocationName> l = GlobalVariables.getHMap().get(this.nodeID);
@@ -108,6 +98,22 @@ public class NodeCircle {
     if (l != null) {
       nodeType = l.get(0).getNodeType();
     }
+
+    //    map.getShowLegend();
+
+    ArrayList<Shape> nodeShapes;
+
+    if (map.getShowLegend()) {
+      nodeShapes = NodeCircle.makeNodeShape(nodeType);
+    } else {
+      // Nothing means it will be drawn default, and doesnt edit the node type!
+      nodeShapes = NodeCircle.makeNodeShape("");
+    }
+
+    this.outer = nodeShapes.get(0);
+    this.inner = nodeShapes.get(1);
+
+    p.getChildren().addAll(this.outer, this.inner);
 
     int index = map.getRoomTypes().indexOf(nodeType);
 
@@ -149,6 +155,145 @@ public class NodeCircle {
 
       p.getChildren().add(this.label);
     }
+  }
+
+  public static ArrayList<Shape> makeNodeShape(String nodeType) {
+    Shape outer;
+    Shape inner;
+
+    float shiftX = 0; // circleR;
+    float shiftY = 0; // circleR;
+
+    float circleRCopy = GlobalVariables.getCircleR();
+
+    float squareShift = GlobalVariables.getStrokeThickness();
+    float scaleDown = 0.75f;
+
+    float outerRectLength = (circleRCopy * scaleDown + GlobalVariables.getStrokeThickness()) * 2;
+    float innerRectLength = (circleRCopy * scaleDown) * 2;
+    Rectangle outerRect =
+        new Rectangle(
+            shiftX - (outerRectLength / 2),
+            shiftY - (outerRectLength / 2),
+            outerRectLength,
+            outerRectLength);
+
+    Rectangle innerRect =
+        new Rectangle(
+            shiftX + squareShift - (outerRectLength / 2),
+            shiftY + squareShift - (outerRectLength / 2),
+            innerRectLength,
+            innerRectLength);
+
+    Circle outerCircle =
+        new Circle(
+            shiftX, shiftY, (circleRCopy * scaleDown) + GlobalVariables.getStrokeThickness());
+
+    Circle innerCircle = new Circle(shiftX, shiftY, (circleRCopy * scaleDown));
+
+    switch (nodeType) {
+      case "BATH":
+        outer = outerCircle;
+        inner = innerCircle;
+        inner.setFill(GlobalVariables.getInsideYellow());
+
+        break;
+      case "CONF":
+        outer = outerRect;
+        inner = innerRect;
+
+        outer.setRotate(45);
+        inner.setRotate(45);
+
+        inner.setFill(GlobalVariables.getInsideBlue());
+
+        break;
+      case "DEPT":
+        outer = outerRect;
+        inner = innerRect;
+
+        outer.setRotate(45);
+        inner.setRotate(45);
+
+        inner.setFill(GlobalVariables.getInsideGreen());
+
+        break;
+      case "ELEV":
+        outer = outerRect;
+        inner = innerRect;
+
+        inner.setFill(GlobalVariables.getInsideBlue());
+
+        break;
+      case "EXIT":
+        outer = outerRect;
+        inner = innerRect;
+
+        inner.setFill(GlobalVariables.getInsideRed());
+
+        break;
+        //      case "HALL":
+        //        break;
+      case "INFO":
+        outer = outerCircle;
+        inner = innerCircle;
+
+        inner.setFill(GlobalVariables.getInsideBlue());
+
+        break;
+      case "LABS":
+        outer = outerRect;
+        inner = innerRect;
+
+        outer.setRotate(45);
+        inner.setRotate(45);
+
+        inner.setFill(GlobalVariables.getInsideOrange());
+
+        break;
+      case "REST":
+        outer = outerCircle;
+        inner = innerCircle;
+
+        inner.setFill(GlobalVariables.getInsideYellow());
+
+        break;
+      case "RETL":
+        outer = outerCircle;
+        inner = innerCircle;
+
+        inner.setFill(GlobalVariables.getInsideGreen());
+
+        break;
+      case "SERV":
+        outer = outerCircle;
+        inner = innerCircle;
+
+        inner.setFill(GlobalVariables.getInsideGreen());
+
+        break;
+      case "STAI":
+        outer = outerRect;
+        inner = innerRect;
+
+        inner.setFill(GlobalVariables.getInsideOrange());
+
+        break;
+      default:
+        outer = outerCircle;
+        inner = innerCircle;
+
+        inner.setFill(GlobalVariables.getInsideColor());
+        break;
+    }
+
+    outer.setFill(GlobalVariables.getBorderColor());
+
+    ArrayList<Shape> ret = new ArrayList<>();
+    ret.add(outer);
+    ret.add(inner);
+
+    return ret;
   }
 
   /**

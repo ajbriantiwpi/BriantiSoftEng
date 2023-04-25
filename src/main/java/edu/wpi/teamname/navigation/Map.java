@@ -52,6 +52,7 @@ public class Map {
   private boolean isMapPage;
   @Getter @Setter private boolean showEdges;
   @Getter @Setter private boolean showNodes;
+  @Setter private boolean showLegend;
 
   @Getter private ArrayList<String> roomTypes = new ArrayList<>();
   @Getter @Setter private boolean[] showTypeLabels = {false}; // HALL
@@ -79,6 +80,13 @@ public class Map {
     this.roomTypes.add("HALL");
     this.startEdgeNodeId = -1;
     this.movingNodeId = -1;
+
+    this.showNodes = !this.isMapPage;
+    this.showLegend = true;
+  }
+
+  public boolean getShowLegend() {
+    return this.showLegend;
   }
 
   /**
@@ -97,7 +105,9 @@ public class Map {
       System.out.println("ADDEDGES");
       allCirclesAndEdges.addAll(this.makeAllFloorEdges(floor));
     }
-    allCirclesAndEdges.addAll(this.makeAllFloorNodes(floor));
+    if (this.showNodes) {
+      allCirclesAndEdges.addAll(this.makeAllFloorNodes(floor));
+    }
     return allCirclesAndEdges;
   }
 

@@ -68,6 +68,9 @@ public class MapEditController {
   @FXML CheckBox EdgeSelector;
   @FXML CheckBox HallNamesSelector;
 
+  @FXML CheckBox NodeSelector;
+  @FXML CheckBox LegendSelector;
+
   @FXML AnchorPane OuterMapAnchor;
 
   String defaultFloor = "L1";
@@ -845,6 +848,42 @@ public class MapEditController {
         }
       };
 
+  EventHandler<MouseEvent> toggleNodes =
+      new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent event) {
+          //        map.setShowEdges(EdgeSelector.isSelected());
+          map.setShowNodes(NodeSelector.isSelected());
+
+          try {
+            map.refresh();
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+        }
+      };
+
+  EventHandler<MouseEvent> toggleLegend =
+      new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent event) {
+          //        map.setShowEdges(EdgeSelector.isSelected());
+          map.setShowLegend(LegendSelector.isSelected());
+
+          try {
+            map.refresh();
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+        }
+      };
+
   EventHandler<MouseEvent> toggleHalls =
       new EventHandler<MouseEvent>() {
 
@@ -997,17 +1036,14 @@ public class MapEditController {
 
               float opacity = 0.4f;
 
-              float circleRCopy = GlobalVariables.getCircleR();
-              float scaleDown = 0.75f;
+              String nodeType = GlobalVariables.getHMap().get(movingID).get(0).getNodeType();
 
-              Circle outer =
-                  new Circle(
-                      0, 0, (circleRCopy * scaleDown) + GlobalVariables.getStrokeThickness());
-              Circle inner = new Circle(0, 0, (circleRCopy * scaleDown));
+              ArrayList<Shape> nodeShapes = NodeCircle.makeNodeShape(nodeType);
 
-              outer.setFill(GlobalVariables.getBorderColor());
+              Shape outer = nodeShapes.get(0);
+              Shape inner = nodeShapes.get(1);
+
               outer.setOpacity(opacity);
-              inner.setFill(GlobalVariables.getInsideColor());
               inner.setOpacity(opacity);
 
               System.out.println("new P");
@@ -1231,6 +1267,9 @@ public class MapEditController {
 
     EdgeSelector.setOnMouseClicked(toggleEdges);
     HallNamesSelector.setOnMouseClicked(toggleHalls);
+
+    NodeSelector.setOnMouseClicked(toggleNodes);
+    LegendSelector.setOnMouseClicked(toggleLegend);
 
     anchor.setOnMouseClicked(checkAddNode);
 
