@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -27,6 +28,13 @@ import javafx.scene.shape.*;
 import javafx.stage.FileChooser;
 import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.PopOver;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.DatePicker;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 public class MapEditController {
 
@@ -67,6 +75,8 @@ public class MapEditController {
 
   @FXML CheckBox EdgeSelector;
   @FXML CheckBox HallNamesSelector;
+
+  @FXML DatePicker datePicker;
 
   @FXML CheckBox NodeSelector;
   @FXML CheckBox LegendSelector;
@@ -865,6 +875,7 @@ public class MapEditController {
           }
         }
       };
+  
 
   EventHandler<MouseEvent> toggleLegend =
       new EventHandler<MouseEvent>() {
@@ -1042,9 +1053,9 @@ public class MapEditController {
 
               String nodeType;
 
-              if(loc != null){
+              if (loc != null) {
                 nodeType = loc.get(0).getNodeType();
-              }else{
+              } else {
                 nodeType = "";
               }
 
