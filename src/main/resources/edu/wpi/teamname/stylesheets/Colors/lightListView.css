@@ -1,0 +1,10 @@
+/*.listView .list-cell:vertical, listView.list-cell:even {*/
+/*    -fx-background-color: #E9E7EB;*/
+/*}*/
+.listView .list-cell:filled {
+    -fx-background-color: #D9E3F8;
+}
+.listView.list-cell/*,.listView.list-cell:even, .listView, .listView.list-cell*/{
+    -fx-background-color:  #D9E3F8;
+}
+

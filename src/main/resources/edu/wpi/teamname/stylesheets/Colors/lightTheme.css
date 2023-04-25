@@ -1,6 +1,8 @@
 @import "lightCombo.css";
 @import "lightDate.css";
 @import "typography.css";
+@import "lightListView.css";
+
 
 .primary-container{
     -fx-background-color: #D5E3FF;

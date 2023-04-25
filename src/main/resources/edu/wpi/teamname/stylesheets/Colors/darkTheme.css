@@ -1,6 +1,7 @@
 @import "darkCombo.css";
 @import "darkDate.css";
 @import "typography.css";
+@import "lightListView.css";
 
 .primary-container{
     -fx-background-color: #004788;
