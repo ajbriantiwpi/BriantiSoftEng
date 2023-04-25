@@ -183,7 +183,7 @@ public class AlertTableViewController {
                           announcement.getText(),
                           urgencies.valueProperty().getValue());
                     }
-                    table.setItems(tableFilter(urgencies.getValue(), types.getValue()));
+                    table.setItems(tableFilter(urgencyCombo.getValue(), staffTypeCombo.getValue()));
                   } catch (SQLException e) {
                     throw new RuntimeException(e);
                   }
