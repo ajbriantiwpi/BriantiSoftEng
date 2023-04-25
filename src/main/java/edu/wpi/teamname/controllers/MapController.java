@@ -13,6 +13,9 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.application.Platform;
@@ -41,6 +44,8 @@ public class MapController {
   // @FXML ComboBox<String> FloorSelect = new ComboBox<>();
   @FXML ComboBox<String> AlgoSelect = new ComboBox<>();
   @FXML CheckBox FloorsToggle = new CheckBox();
+
+  @FXML DatePicker datePickerUI;
 
   @FXML ComboBox<String> FloorSelect = new ComboBox<>();
 
@@ -788,6 +793,14 @@ public class MapController {
     //    FirstFloorButton.setOnAction(setFirstFloor);
     //    LowerFirstButton.setOnAction(setLowerFirst);
     //    LowerSecondButton.setOnAction(setLowerSecond);
+
+    datePickerUI.valueProperty().addListener((ov, oldValue, newValue) -> {
+      LocalDate localDate = datePickerUI.getValue();
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+      LocalDateTime dateTime = localDate.atStartOfDay();
+      Timestamp date = Timestamp.valueOf(dateTime);
+      map.refresh(date);
+    });
 
     // New Floor Stuff
     floorButtons.add(ThirdFloorButton);

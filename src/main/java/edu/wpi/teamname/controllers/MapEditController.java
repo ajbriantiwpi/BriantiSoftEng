@@ -35,6 +35,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.fxml.FXML;
+import javafx.scene.control.DatePicker;
 
 public class MapEditController {
 
@@ -76,7 +78,7 @@ public class MapEditController {
   @FXML CheckBox EdgeSelector;
   @FXML CheckBox HallNamesSelector;
 
-  @FXML DatePicker datePicker;
+  @FXML private DatePicker datePickerUI;
 
   @FXML CheckBox NodeSelector;
   @FXML CheckBox LegendSelector;
@@ -201,6 +203,7 @@ public class MapEditController {
         public void handle(MouseEvent event) {
           String retStr = "";
           String table = selectTable.getValue();
+
 
           final FileChooser fileChooser = new FileChooser();
           //          fileChooser.showOpenDialog(stage);
@@ -875,7 +878,8 @@ public class MapEditController {
           }
         }
       };
-  
+
+
 
   EventHandler<MouseEvent> toggleLegend =
       new EventHandler<MouseEvent>() {
