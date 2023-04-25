@@ -59,7 +59,7 @@ public class ConfRoomDAOImpl implements ConfRomDAO {
     Connection connection = DataManager.DbConnection();
     try (connection) {
       String query =
-          "UPDATE \"ConfRooms\" SET \"roomID\" = ?, \"locationName\" = ?, \"seats\" = ?  WHERE \"roomID\" = ?, \"locationName\" = ?, \"seats\" = ?";
+          "UPDATE \"ConfRooms\" SET \"roomID\" = ?, \"locationName\" = ?, \"seats\" = ?  WHERE \"roomID\" = ? AND \"locationName\" = ? AND \"seats\" = ?";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, ConfRoom.getRoomID());
       statement.setString(2, ConfRoom.getLocationName());
@@ -251,6 +251,30 @@ public class ConfRoomDAOImpl implements ConfRomDAO {
       System.out.println("CSV data uploaded to PostgreSQL database");
     } catch (SQLException e) {
       System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
+    }
+  }
+
+  /**
+   * * Creates a table for storing ConfRoom data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createTable() throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try (connection) {
+      String query =
+          "create table if not exists \"ConfRooms\"\n"
+              + "(\n"
+              + "    \"roomID\"       integer not null\n"
+              + "        constraint \"ConfRooms_pk\"\n"
+              + "            primary key,\n"
+              + "    \"locationName\" varchar,\n"
+              + "    seats          integer\n"
+              + ");";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
     }
   }
 }
