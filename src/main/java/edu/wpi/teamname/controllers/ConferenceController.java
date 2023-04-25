@@ -158,24 +158,26 @@ public class ConferenceController {
 
     submitButton.setOnMouseClicked(
         event -> { // add to db and make new relation in array in confroomrequests
-          try {
-            resID = DataManager.setResID();
-            username = GlobalVariables.getCurrentUser().getUsername();
-            ArrayList<String> times = activeSelector.getTimes();
-            ConfReservation c =
-                new ConfReservation(
-                    resID,
-                    times.get(0),
-                    times.get(1),
-                    dateBook,
-                    Timestamp.from(Instant.now()),
-                    nameRes,
-                    username,
-                    staff,
-                    activeSelector.getRoom().getRoomID());
-            DataManager.addConfReservation(c);
-          } catch (SQLException e) {
-            System.out.println(e);
+          if (roomManager.isViableRoom(activeSelector.getRoom(), dateBook)) {
+            try {
+              resID = DataManager.setResID();
+              username = GlobalVariables.getCurrentUser().getUsername();
+              ArrayList<String> times = activeSelector.getTimes();
+              ConfReservation c =
+                  new ConfReservation(
+                      resID,
+                      times.get(0),
+                      times.get(1),
+                      dateBook,
+                      Timestamp.from(Instant.now()),
+                      nameRes,
+                      username,
+                      staff,
+                      activeSelector.getRoom().getRoomID());
+              DataManager.addConfReservation(c);
+            } catch (SQLException e) {
+              System.out.println(e);
+            }
           }
         });
   }
@@ -209,10 +211,12 @@ public class ConferenceController {
 
   public void setStartBox(String time) {
     startBox.setValue(time);
+    roomManager.setStart(time);
   }
 
   public void setEndBox(String time) {
     endBox.setValue(time);
+    roomManager.setEnd(time);
   }
 }
 

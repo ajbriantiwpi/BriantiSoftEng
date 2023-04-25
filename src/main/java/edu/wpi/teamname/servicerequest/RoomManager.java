@@ -37,14 +37,18 @@ public class RoomManager {
   public ArrayList<ConfRoom> getViableRooms(Timestamp date) {
     ArrayList<ConfRoom> viableRooms = new ArrayList<>();
     for (ConfRoom room : rooms) {
-      if (buildingCheck(room) && timeCheck(room, date)) {
+      if (isViableRoom(room, date)) {
         viableRooms.add(room);
       }
     }
     return viableRooms;
   }
 
-  private boolean buildingCheck(ConfRoom room) {
+  public boolean isViableRoom(ConfRoom room, Timestamp date) {
+    return (buildingCheck(room, date) && timeCheck(room, date));
+  }
+
+  private boolean buildingCheck(ConfRoom room, Timestamp date) {
     if (building.equals("None")) {
       return true;
     }

@@ -293,7 +293,7 @@ public class ServiceRequestController {
   }
 
   public void initialize() {
-    if (GlobalVariables.isDarkMode()) {
+    if (GlobalVariables.getDarkMode().get()) {
       root.getStylesheets().remove(0);
     } else {
       root.getStylesheets().remove(1);
