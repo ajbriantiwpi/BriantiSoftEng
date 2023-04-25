@@ -1,6 +1,5 @@
 package edu.wpi.teamname.navigation;
 
-import edu.wpi.teamname.GlobalVariables;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -119,11 +118,11 @@ public class Node implements Comparable<Node> {
     double y = Math.pow((y2 - y1), 2);
     double z = Math.pow((z2 - z1), 2);
 
-    if (wheelChair) {
-      LocationName a = GlobalVariables.getHMap().get(this.id).get(0);
-      LocationName b = GlobalVariables.getHMap().get(target.id).get(0);
-      if (a.getNodeType().equals("STAI") && b.getNodeType().equals("STAI")) return 1000000;
-    }
+    //    if (wheelChair) {
+    //      LocationName a = GlobalVariables.getHMap().get(this.id).get(0);
+    //      LocationName b = GlobalVariables.getHMap().get(target.id).get(0);
+    //      if (a.getNodeType().equals("STAI") && b.getNodeType().equals("STAI")) return 1000000;
+    //    }
     return Math.sqrt(x + y + z);
   }
 
