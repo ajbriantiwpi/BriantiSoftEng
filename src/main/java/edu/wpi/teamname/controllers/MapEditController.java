@@ -62,12 +62,9 @@ public class MapEditController {
   @FXML CheckBox LongNameSelector;
   @FXML CheckBox ShortNameSelector;
   @FXML CheckBox IdSelector;
-
   ArrayList<CheckBox> nameSelectBoxes = new ArrayList<>();
-
   @FXML CheckBox EdgeSelector;
   @FXML CheckBox HallNamesSelector;
-
   @FXML CheckBox NodeSelector;
   @FXML CheckBox LegendSelector;
 
@@ -1042,9 +1039,9 @@ public class MapEditController {
 
               String nodeType;
 
-              if(loc != null){
+              if (loc != null) {
                 nodeType = loc.get(0).getNodeType();
-              }else{
+              } else {
                 nodeType = "";
               }
 
@@ -1280,6 +1277,10 @@ public class MapEditController {
 
     NodeSelector.setOnMouseClicked(toggleNodes);
     LegendSelector.setOnMouseClicked(toggleLegend);
+
+    //    DirectionsTitlePane.setExpanded(false);
+    //    FloorTitlePane.setExpanded(false);
+    //    TickTitlePane.setExpanded(false);
 
     anchor.setOnMouseClicked(checkAddNode);
 
