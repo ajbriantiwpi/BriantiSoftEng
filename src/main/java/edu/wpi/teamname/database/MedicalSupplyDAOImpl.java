@@ -78,7 +78,7 @@ public class MedicalSupplyDAOImpl {
   public void add(MedicalSupply MedicalSupply) throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query =
-        "INSERT INTO \"MedicalSupplies\" (\"supplyID\", \"name\", \"price\", \"category\", \"isElectric\") "
+        "INSERT INTO \"MedicalSupplies\" (\"supplyID\", \"Name\", \"Price\", \"Type\", \"AccessLevel\") "
             + "VALUES (?, ?, ?, ?, ?)";
 
     try (connection) {
@@ -216,6 +216,32 @@ public class MedicalSupplyDAOImpl {
       System.out.println("CSV data uploaded to PostgreSQL database");
     } catch (SQLException e) {
       System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
+    }
+  }
+
+  /**
+   * * Creates a table for storing MedicalSupply data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createTable() throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try (connection) {
+      String query =
+          "create table if not exists \"MedicalSupplies\"\n"
+              + "(\n"
+              + "    \"supplyID\"    integer not null\n"
+              + "        constraint medicalsupplies_pk\n"
+              + "            primary key,\n"
+              + "    \"Name\"        varchar,\n"
+              + "    \"Price\"       double precision,\n"
+              + "    \"Type\"        varchar,\n"
+              + "    \"AccessLevel\" integer\n"
+              + ");";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
     }
   }
 }
