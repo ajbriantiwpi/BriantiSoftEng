@@ -7,6 +7,7 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -88,6 +89,16 @@ public class ConferenceController {
       int min = Integer.valueOf(timeString.split(":")[1]);
       LocalTime time = LocalTime.of(hour, min);
       dateBook = Timestamp.valueOf(dateBox.getValue().atTime(time));
+
+
+      ArrayList<ConfReservation> requestsByDate;
+      try {
+        requestsByDate = DataManager.setTable(dateBook);
+      } catch (SQLException e) {
+        throw new RuntimeException(e);
+      }
+      /**SET THE ACTUAL TABLE TO THE RIGHT CONFREQUESTS FOR EACH ROOM BASED ON DATE HERE
+       * USING THE ARRAY LIST OF CONFERENCErESERVATIONS WITH (int resID, String startTime, String endTime)**/
     });
 
     startBox.setOnAction(event -> {//set start time

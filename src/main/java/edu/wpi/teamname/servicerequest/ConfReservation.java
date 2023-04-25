@@ -58,6 +58,12 @@ public class ConfReservation {
     this.origRoomID = roomID;
   }
 
+  public ConfReservation(int resID, String strt, String end){
+    this.resID = resID;
+    this.startTime = strt;
+    this.endTime = end;
+  }
+
   public boolean equals(ConfRoom cr) {
     return this.resID == cr.getRoomID();
   }

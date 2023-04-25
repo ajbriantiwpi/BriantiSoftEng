@@ -50,6 +50,29 @@ public class DataManager {
   }
 
   //----------------Conference Service Req helper functinos-------------
+  public static ArrayList<ConfReservation> setTable(Timestamp date) throws SQLException {
+    ArrayList<ConfReservation> resPerDate = null;
+    Connection connection = DataManager.DbConnection();
+    String query = "Select *\n" +
+            "From \"ConfReservations\" c\n" +
+            "Where c.dateBook = ?;";
+    try (connection) {
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setTimestamp(1, date);
+      ResultSet rs = statement.executeQuery();
+
+      while(rs.next()){
+        int resID = rs.getInt("resID");
+        String startTime = rs.getString("endtime");
+        String endTime = rs.getString("starttime");
+        ConfReservation c = new ConfReservation(resID, startTime, endTime);
+        resPerDate.add(c);
+      }
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return resPerDate;
+  }
   public static int setResID() throws SQLException {
     int resID = -1;
     Connection connection = DataManager.DbConnection();
