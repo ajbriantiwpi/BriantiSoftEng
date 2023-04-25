@@ -58,6 +58,7 @@ public class ParentController {
     showEmployeesButton.setVisible(false);
     editSignageButton.setVisible(false);
     viewAlertsButton.setVisible(false);
+    requestRoomButton.setVisible(false);
   }
 
   /** logs the current user out of the application */
