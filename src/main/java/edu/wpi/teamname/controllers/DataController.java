@@ -223,6 +223,7 @@ public class DataController implements Initializable {
     Stage stage = (Stage) exportButton.getScene().getWindow();
     File csvFile = fileChooser.showSaveDialog(stage);
     if (selectedItem != null && selectedItem.equals("Edge")) {
+      fileChooser.setInitialFileName("edge.csv");
 
       if (csvFile != null) {
         try {
@@ -232,6 +233,7 @@ public class DataController implements Initializable {
         }
       }
     } else if (selectedItem != null && selectedItem.equals("Node")) {
+      fileChooser.setInitialFileName("node.csv");
       if (csvFile != null) {
         try {
           DataManager.exportNodeToCSV(csvFile.getPath());
@@ -242,6 +244,7 @@ public class DataController implements Initializable {
         }
       }
     } else if (selectedItem != null && selectedItem.equals("Conference Room")) {
+      fileChooser.setInitialFileName("conferenceRoom.csv");
       if (csvFile != null) {
         //                try {
         //                    DataManager.exportConferenceRoomToCSV(csvFile.getPath());
@@ -250,6 +253,7 @@ public class DataController implements Initializable {
         //                }
       }
     } else if (selectedItem != null && selectedItem.equals("Alert")) {
+      fileChooser.setInitialFileName("alert.csv");
       if (csvFile != null) {
         //                try {
         //                    DataManager.exportAlertToCSV(csvFile.getPath());
@@ -257,6 +261,7 @@ public class DataController implements Initializable {
         //                    e.printStackTrace();
         //                }
       } else if (selectedItem != null && selectedItem.equals("Employee")) {
+        fileChooser.setInitialFileName("employee.csv");
         if (csvFile != null) {
           try {
             DataManager.exportEmployeeToCSV(csvFile.getPath());
@@ -267,6 +272,7 @@ public class DataController implements Initializable {
           }
         }
       } else if (selectedItem != null && selectedItem.equals("Employee Type")) {
+        fileChooser.setInitialFileName("employeeType.csv");
         if (csvFile != null) {
           //                    try {
           //                        DataManager.exportEmployeeTypeToCSV(csvFile.getPath());
@@ -275,6 +281,7 @@ public class DataController implements Initializable {
           //                    }
         }
       } else if (selectedItem != null && selectedItem.equals("Flowers")) {
+        fileChooser.setInitialFileName("flowers.csv");
         if (csvFile != null) {
           try {
             DataManager.exportFlowersToCSV(csvFile.getPath());
@@ -286,6 +293,7 @@ public class DataController implements Initializable {
         }
       }
     } else if (selectedItem != null && selectedItem.equals("Furniture")) {
+      fileChooser.setInitialFileName("furniture.csv");
       if (csvFile != null) {
         try {
           DataManager.exportFurnitureToCSV(csvFile.getPath());
@@ -296,6 +304,7 @@ public class DataController implements Initializable {
         }
       }
     } else if (selectedItem != null && selectedItem.equals("Items Ordered")) {
+      fileChooser.setInitialFileName("itemsOrdered.csv");
       if (csvFile != null) {
         try {
           DataManager.exportItemsOrderedToCSV(csvFile.getPath());
@@ -306,6 +315,7 @@ public class DataController implements Initializable {
         }
       }
     } else if (selectedItem != null && selectedItem.equals("Location Name")) {
+      fileChooser.setInitialFileName("locationName.csv");
       if (csvFile != null) {
         try {
           DataManager.exportLocationNameToCSV(csvFile.getPath());
@@ -316,6 +326,7 @@ public class DataController implements Initializable {
         }
       }
     } else if (selectedItem != null && selectedItem.equals("Meal")) {
+      fileChooser.setInitialFileName("meal.csv");
       if (csvFile != null) {
         try {
           DataManager.exportMealToCSV(csvFile.getPath());
@@ -326,6 +337,7 @@ public class DataController implements Initializable {
         }
       }
     } else if (selectedItem != null && selectedItem.equals("Medical Supplies")) {
+      fileChooser.setInitialFileName("medicalSupplies.csv");
       if (csvFile != null) {
         try {
           DataManager.exportMedicalSupplyToCSV(csvFile.getPath());
@@ -336,6 +348,7 @@ public class DataController implements Initializable {
         }
       }
     } else if (selectedItem != null && selectedItem.equals("Move")) {
+      fileChooser.setInitialFileName("move.csv");
       if (csvFile != null) {
         try {
           DataManager.exportMoveToCSV(csvFile.getPath());
@@ -346,6 +359,7 @@ public class DataController implements Initializable {
         }
       }
     } else if (selectedItem != null && selectedItem.equals("Office Supply")) {
+      fileChooser.setInitialFileName("officeSupply.csv");
       if (csvFile != null) {
         try {
           DataManager.exportOfficeSupplyToCSV(csvFile.getPath());
@@ -356,6 +370,7 @@ public class DataController implements Initializable {
         }
       }
     } else if (selectedItem != null && selectedItem.equals("Path Messages")) {
+      fileChooser.setInitialFileName("pathMessage.csv");
       if (csvFile != null) {
         //                try {
         //                    DataManager.exportPathMessagesToCSV(csvFile.getPath());
@@ -364,6 +379,7 @@ public class DataController implements Initializable {
         //                }
       }
     } else if (selectedItem != null && selectedItem.equals("Service Requests")) {
+      fileChooser.setInitialFileName("serviceRequest.csv");
       if (csvFile != null) {
         try {
           DataManager.exportServiceRequestToCSV(csvFile.getPath());
@@ -374,6 +390,7 @@ public class DataController implements Initializable {
         }
       }
     } else if (selectedItem != null && selectedItem.equals("Signage")) {
+      fileChooser.setInitialFileName("signage.csv");
       if (csvFile != null) {
         try {
           DataManager.exportSignageToCSV(csvFile.getPath());
