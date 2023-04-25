@@ -3,8 +3,16 @@ package edu.wpi.teamname.database;
 import edu.wpi.teamname.alerts.Alert;
 import edu.wpi.teamname.database.interfaces.AlertDAO;
 import edu.wpi.teamname.employees.EmployeeType;
+import edu.wpi.teamname.servicerequest.ServiceRequest;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 public class AlertDAOImpl implements AlertDAO {
   @Override
@@ -138,6 +146,95 @@ public class AlertDAOImpl implements AlertDAO {
       statement.executeUpdate();
     } catch (SQLException e) {
       System.err.println(e.getMessage());
+    }
+  }
+
+
+  public static void exportAlertToCSV(String csvFilePath) throws SQLException, IOException {
+    AlertDAOImpl AlertDao = new AlertDAOImpl();
+    ArrayList<Alert> alerts = AlertDao.getAll();
+
+    FileWriter writer = new FileWriter(csvFilePath);
+    writer.write(
+            "Alert ID,Creator Name,Start Date,End Date,Employee Type,Announcement,Description,Urgency\n");
+
+    for (Alert al : alerts) {
+      writer.write(
+              al.getId()
+                      + ","
+                      + al.getCreator()
+                      + ","
+                      + al.getStartDisplayDate()
+                      + ","
+                      + al.getEndDisplayDate()
+                      + ","
+                      + al.getType()
+                      + ","
+                      + al.getAnnouncement()
+                      + ","
+                      + al.getDescription()
+                      + ","
+                      + al.getUrgency()
+                      + "\n");
+    }
+    writer.close();
+  }
+
+  public static void uploadAlertToPostgreSQL(String csvFilePath) throws SQLException {
+    List<String[]> csvData;
+    Connection connection = DataManager.DbConnection();
+    DataManager dataImport = new DataManager();
+    csvData = dataImport.parseCSVAndUploadToPostgreSQL(csvFilePath);
+
+    try (connection) {
+      DatabaseMetaData dbm = connection.getMetaData();
+      ResultSet tables = dbm.getTables(null, null, "Node", null);
+      if (!tables.next()) {
+        PreparedStatement createTableStatement =
+                connection.prepareStatement(
+                        "CREATE TABLE \"Alert\" (\"alertID\" INTEGER NOT NULL, \"startDate\" TIMESTAMP NOT NULL, \"endDate\" TIMESTAMP NOT NULL, \"creator\" VARCHAR(30) NOT NULL, \"description\" VARCHAR(256) NOT NULL, \"announcement\" VARCHAR(64) NOT NULL, \"employeeType\" VARCHAR(20) NOT NULL, \"urgency\" VARCHAR(10), PRIMARY KEY (\"alertID\"))");
+        createTableStatement.executeUpdate();
+      }
+
+      String query =
+              "INSERT INTO \"Alert\" (\"alertID\", \"startDate\", \"endDate\", \"creator\", \"description\", \"announcement\", \"employeeType\", \"urgency\") "
+                      + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+      PreparedStatement statement =
+              connection.prepareStatement("TRUNCATE TABLE \"ALERT\";");
+      statement.executeUpdate();
+      statement = connection.prepareStatement(query);
+
+      for (int i = 1; i < csvData.size(); i++) {
+        String[] row = csvData.get(i);
+
+        // Check if row has enough columns
+        if (row.length < 8) {
+          System.err.println("Skipping row " + i + " due to missing columns");
+          continue;
+        }
+
+        statement.setInt(1, Integer.parseInt(row[0]));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
+        java.util.Date parsedDate = dateFormat.parse(row[1]);
+        java.sql.Date date = new java.sql.Date(parsedDate.getTime());
+        statement.setDate(2, date);
+        SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
+        java.util.Date parsedDate2 = dateFormat2.parse(row[2]);
+        java.sql.Date date2 = new java.sql.Date(parsedDate2.getTime());
+        statement.setDate(3, date2);
+        statement.setString(4, row[3]);
+        statement.setString(5,  row[4]);
+        statement.setString(6, row[5]);
+        statement.setString(7, row[6]);
+        statement.setString(8, row[7]);
+
+        statement.executeUpdate();
+      }
+      System.out.println("CSV data uploaded to PostgreSQL database");
+    } catch (SQLException e) {
+      System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
+    } catch (ParseException e) {
+      throw new RuntimeException(e);
     }
   }
 }
