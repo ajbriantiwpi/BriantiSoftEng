@@ -112,3 +112,16 @@
 }
 
 
+.text-area{
+    -fx-control-inner-background: #D5E3FF;
+    -fx-border-radius: 8;
+    -fx-border-color: #6F797A;
+    -fx-border-width: 1;
+    -fx-font-family: Roboto;
+    -fx-font-style: Normal;
+    -fx-font-size: 28;
+    -fx-line-height: 36;
+    -fx-letter-spacing:0px;
+    -fx-background-radius: 8;
+    -fx-min-height: 60;
+}
