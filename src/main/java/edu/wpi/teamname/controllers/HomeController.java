@@ -1,28 +1,44 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.App;
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
+import edu.wpi.teamname.alerts.Alert;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.navigation.Move;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXNotificationCenter;
+import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.time.LocalDate;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.controlsfx.control.PopOver;
 
 public class HomeController {
-
+  @FXML MFXButton notificationPopupButtonSimple;
+  @FXML MFXNotificationCenter notifsButton;
   @FXML MFXButton helpButton;
   @FXML MFXButton mapButton;
+  @FXML VBox actionVBox;
+  @FXML VBox SRVBox;
+  @FXML VBox mapVBox;
+  @FXML GridPane homeGrid;
   @FXML MFXButton directionsButton;
   @FXML MFXButton makeRequestsButton;
   //  @FXML MFXButton makeRequestsButton1;
@@ -31,12 +47,17 @@ public class HomeController {
   @FXML MFXButton showRequestsButton;
   @FXML MFXButton editMapButton;
   @FXML MFXButton exitButton;
-  // @FXML MFXButton navigateButton;
   @FXML MFXButton employeeButton;
+
+  @FXML MFXButton viewSignageButton;
+  @FXML MFXButton editSignageButton;
+  @FXML MFXButton requestRoomButton;
+  @FXML MFXButton viewAlertsButton; // TAKE OUT LATER
 
   @FXML MFXButton activeRequests;
   @FXML MFXButton upcomingMoves;
   @FXML MFXButton doneRequests;
+  @FXML MFXButton dataButton;
 
   // test push
   @Setter @Getter private static ObservableBooleanValue loggedIn = new SimpleBooleanProperty(false);
@@ -56,23 +77,117 @@ public class HomeController {
     disableButtonsWhenLoggedOut();
   }
 
-  /** * Disables all the buttons that can not be accessed without logging in */
+  /** Disables all the buttons that can not be accessed without logging in */
   private void disableButtonsWhenLoggedOut() {
-    makeRequestsButton.setDisable(true);
-    //    makeRequestsButton1.setDisable(true);
-    //    makeRequestsButton2.setDisable(true);
-    //    makeRequestsButton3.setDisable(true);
-    showRequestsButton.setDisable(true);
-    editMapButton.setDisable(true); // these have to be set to visible false for staff/logged out
-    editMoveButton.setDisable(true);
-    employeeButton.setDisable(true);
-    activeRequests.setDisable(true);
-    upcomingMoves.setDisable(true);
-    doneRequests.setDisable(true);
+    homeGrid.setConstraints(mapVBox, 1, 1);
+    actionVBox.setVisible(false);
+    SRVBox.setVisible(false);
+    makeRequestsButton.setVisible(false);
+    showRequestsButton.setVisible(false);
+    editMapButton.setVisible(false); // these have to be set to visible false for staff/logged out
+    editMoveButton.setVisible(false);
+    employeeButton.setVisible(false);
+    activeRequests.setVisible(false);
+    upcomingMoves.setVisible(false);
+    doneRequests.setVisible(false);
+    editSignageButton.setVisible(false);
+    showRequestsButton.setManaged(false);
+    editMapButton.setManaged(false);
+    editMoveButton.setManaged(false);
+    employeeButton.setManaged(false);
+    activeRequests.setManaged(false);
+    upcomingMoves.setManaged(false);
+    doneRequests.setManaged(false);
+    makeRequestsButton.setManaged(false);
+    actionVBox.setManaged(false);
+    SRVBox.setManaged(false);
+    editSignageButton.setManaged(false);
   }
 
   @FXML
   public void initialize() throws SQLException {
+
+    EventHandler<MouseEvent> NotificationPopupEvent =
+        new EventHandler<MouseEvent>() {
+          @Override
+          public void handle(MouseEvent event) {
+            ObservableList<Alert> alertList = null;
+
+            MFXButton createNewButton = ((MFXButton) event.getSource());
+            HBox outerPane = (HBox) createNewButton.getParent();
+
+            final var resource = App.class.getResource("views/NotificationPane.fxml");
+            final FXMLLoader loader = new FXMLLoader(resource);
+            VBox v;
+            try {
+              v = loader.load();
+            } catch (IOException e) {
+              throw new RuntimeException(e);
+            }
+            v.getChildren().clear();
+            v.getChildren().removeAll();
+            if (GlobalVariables.getCurrentUser() != null
+                && !(GlobalVariables.getCurrentUser().getType().toString().equals("NONE"))) {
+
+              try {
+                alertList = FXCollections.observableList(DataManager.getAllAlerts());
+                alertList =
+                    FXCollections.observableList(
+                        alertList.stream()
+                            .filter(
+                                (alert) ->
+                                    alert
+                                        .getType()
+                                        .toString()
+                                        .equals(
+                                            GlobalVariables.getCurrentUser().getType().toString()))
+                            .toList());
+                alertList =
+                    FXCollections.observableList(
+                        alertList.stream()
+                            .filter(
+                                (alert) ->
+                                    alert.getStartDisplayDate().toInstant().isBefore(Instant.now()))
+                            .toList());
+                alertList =
+                    FXCollections.observableList(
+                        alertList.stream()
+                            .filter(
+                                (alert) ->
+                                    alert.getEndDisplayDate().toInstant().isAfter(Instant.now()))
+                            .toList());
+                for (int i = 0; i < alertList.size(); i++) {
+                  HBox temp = new HBox();
+                  Label description = new Label();
+                  description.setText(alertList.get(i).getDescription());
+                  description.getStylesheets().add("@../stylesheets/RowLabel.css");
+                  description.getStylesheets().add("@../stylesheets/Colors/lightTheme.css");
+                  Label announcement = new Label();
+                  announcement.setText(alertList.get(i).getAnnouncement());
+                  announcement.getStylesheets().add("@../stylesheets/RowLabel.css");
+                  announcement.getStylesheets().add("@../stylesheets/Colors/lightTheme.css");
+                  announcement.wrapTextProperty().set(true);
+                  description.wrapTextProperty().set(true);
+
+                  HBox.setHgrow(description, Priority.SOMETIMES);
+                  HBox.setHgrow(announcement, Priority.ALWAYS);
+                  temp.setSpacing(50);
+                  temp.getChildren().add(announcement);
+                  temp.getChildren().add(description);
+                  VBox.setVgrow(temp, Priority.ALWAYS);
+                  v.getChildren().add(temp);
+                }
+              } catch (SQLException e) {
+                throw new RuntimeException(e);
+              }
+            }
+
+            PopOver pop = new PopOver(v);
+            pop.show(createNewButton);
+          }
+        };
+
+    //    notifsButton.getNotifications().clear();
 
     // set the width and height to be bound to the panes width and height
     //    imageView.fitWidthProperty().bind(rootPane.widthProperty());
@@ -137,29 +252,79 @@ public class HomeController {
 
     //        helpButton.setOnMouseClicked(event -> Navigation.navigate(Screen));
     disableButtonsWhenLoggedOut();
+
+    /** * Disables all the buttons that can not be accessed as Staff */
     if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.STAFF)) {
-      makeRequestsButton.setDisable(false);
-      editMoveButton.setDisable(false);
-      //      makeRequestsButton1.setDisable(false);
-      //      makeRequestsButton2.setDisable(false);
-      //      makeRequestsButton3.setDisable(false);
-      activeRequests.setDisable(false);
-      upcomingMoves.setDisable(false);
-      doneRequests.setDisable(false);
-      showRequestsButton.setDisable(false);
+      homeGrid.setConstraints(mapVBox, 1, 1);
+      homeGrid.setConstraints(actionVBox, 0, 1);
+      homeGrid.setConstraints(SRVBox, 2, 1);
+      actionVBox.setVisible(true);
+      SRVBox.setVisible(true);
+      makeRequestsButton.setVisible(true);
+      makeRequestsButton.setManaged(true);
+      editMoveButton.setVisible(true);
+      editMoveButton.setManaged(true);
+      employeeButton.setVisible(false);
+      employeeButton.setManaged(false);
+      editMapButton.setVisible(false);
+      editMapButton.setManaged(false);
+      activeRequests.setVisible(true);
+      activeRequests.setManaged(true);
+      upcomingMoves.setVisible(true);
+      upcomingMoves.setManaged(true);
+      doneRequests.setVisible(true);
+      doneRequests.setManaged(true);
+      showRequestsButton.setVisible(true);
+      showRequestsButton.setManaged(true);
+      actionVBox.setManaged(true);
+      SRVBox.setManaged(true);
+      editSignageButton.setVisible(true);
+      editSignageButton.setManaged(true);
+
+      /** * Enables all buttons for the Admin login */
     } else if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.ADMIN)) {
+      homeGrid.setConstraints(mapVBox, 1, 1);
+      homeGrid.setConstraints(actionVBox, 0, 1);
+      homeGrid.setConstraints(SRVBox, 2, 1);
+      actionVBox.setVisible(true);
+      SRVBox.setVisible(true);
+      editMapButton.setVisible(true);
       editMapButton.setDisable(false);
+      editMapButton.setManaged(true);
+      editMoveButton.setVisible(true);
       editMoveButton.setDisable(false);
+      editMoveButton.setManaged(true);
+      employeeButton.setVisible(true);
       employeeButton.setDisable(false);
+      employeeButton.setManaged(true);
+      activeRequests.setVisible(true);
       activeRequests.setDisable(false);
+      activeRequests.setManaged(true);
+      upcomingMoves.setVisible(true);
       upcomingMoves.setDisable(false);
+      upcomingMoves.setManaged(true);
+      doneRequests.setVisible(true);
       doneRequests.setDisable(false);
+      doneRequests.setManaged(true);
+      activeRequests.setVisible(true);
       activeRequests.setDisable(false);
-      upcomingMoves.setDisable(false);
+      activeRequests.setManaged(true);
+      doneRequests.setVisible(true);
       doneRequests.setDisable(false);
+      doneRequests.setManaged(true);
+      showRequestsButton.setVisible(true);
       showRequestsButton.setDisable(false);
+      showRequestsButton.setManaged(true);
+      makeRequestsButton.setVisible(true);
       makeRequestsButton.setDisable(false);
+      makeRequestsButton.setManaged(true);
+      editMoveButton.setVisible(true);
       editMoveButton.setDisable(false);
+      editMoveButton.setManaged(true);
+      actionVBox.setManaged(true);
+      SRVBox.setManaged(true);
+      editSignageButton.setVisible(true);
+      editSignageButton.setManaged(true);
     }
 
     upcomingMoves.setOnMouseClicked(
@@ -179,19 +344,27 @@ public class HomeController {
         });
 
     mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
-    // directionsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
     makeRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
-    //    makeRequestsButton1.setOnMouseClicked(event ->
-    // Navigation.navigate(Screen.SERVICE_REQUEST));
-    //    makeRequestsButton2.setOnMouseClicked(event ->
-    // Navigation.navigate(Screen.SERVICE_REQUEST));
-    //    makeRequestsButton3.setOnMouseClicked(event ->
-    // Navigation.navigate(Screen.SERVICE_REQUEST));
     showRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST_VIEW));
     editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
-    exitButton.setOnMouseClicked(event -> System.exit(0));
-    // navigateButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
+    exitButton.setOnMouseClicked(
+        event -> {
+          try {
+            Connection connection = DataManager.DbConnection();
+            connection.close();
+          } catch (SQLException e) {
+            System.out.println(e.getMessage());
+          }
+          System.exit(0);
+        });
     editMoveButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MOVE_TABLE));
     employeeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.EMPLOYEE_TABLE));
+    editSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TABLE));
+    viewSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
+    viewAlertsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERT));
+    requestRoomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CONFERENCE_ROOM));
+    dataButton.setOnMouseClicked(event -> Navigation.navigate(Screen.DATA_MANAGER));
+    notificationPopupButtonSimple.setOnMouseClicked(NotificationPopupEvent);
+    //    notifsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERT));
   }
 }

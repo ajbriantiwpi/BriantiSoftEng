@@ -15,6 +15,12 @@ public class DijkstraAlgo implements IStrategyAlgo {
 
     ArrayList<Node> nodes = g.getNodes();
     Node s = nodes.get(Node.idToIndex(startNodeId));
+    //    Node s = null;
+    //    try {
+    //      s = DataManager.getNode(startNodeId);
+    //    } catch (SQLException e) {
+    //      throw new RuntimeException(e);
+    //    }
     Node t = nodes.get(Node.idToIndex(targetNodeId));
 
     for (Node j : nodes) {

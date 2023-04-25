@@ -1,5 +1,6 @@
 package edu.wpi.teamname.database;
 
+import edu.wpi.teamname.alerts.Alert;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
 import edu.wpi.teamname.navigation.*;
@@ -66,6 +67,22 @@ public class DataManager {
       System.out.println(e.getMessage());
     }
     return "";
+  }
+
+  /** Sets database connection parameters to connect to the AWS RDS */
+  public static void connectToAWS() throws SQLException {
+    configConnection(
+        "jdbc:postgresql://teamddb3.cwgmodw6cdg6.us-east-1.rds.amazonaws.com:5432/postgres",
+        "superuser",
+        "password");
+  }
+
+  /** Sets database connection parameters to connect to the WPI client-side server */
+  public static void connectToWPI() throws SQLException {
+    DataManager.configConnection(
+        "jdbc:postgresql://database.cs.wpi.edu:5432/teamddb?currentSchema=\"teamD\"",
+        "teamd",
+        "teamd40");
   }
 
   /*public static ArrayList<Node> getSingleNodeInfo(int nodeID) throws SQLException {
@@ -148,7 +165,7 @@ public class DataManager {
    * @param createTableQuery a String that reps the query to create a table
    * @param tableName a String that reps the name of the table being checked
    */
-  public static void createTableIfNotExists(String tableName, String createTableQuery)
+  /*public static void createTableIfNotExists(String tableName, String createTableQuery)
       throws SQLException {
     connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
     DatabaseMetaData dbm = connection.getMetaData();
@@ -159,7 +176,7 @@ public class DataManager {
       statement.close();
     }
     rs.close();
-  }
+  }*/
 
   /**
    * * Updates the connection arguements
@@ -168,10 +185,13 @@ public class DataManager {
    * @param username
    * @param password
    */
-  public static void configConnection(String url, String username, String password) {
+  public static void configConnection(String url, String username, String password)
+      throws SQLException {
     DB_URL = url;
     DB_USER = username;
     DB_PASSWORD = password;
+    DbConnection().close();
+    tryToCreateAllTables();
   }
 
   // ------------------------DAO Methods------------------------
@@ -318,6 +338,18 @@ public class DataManager {
     MedicalSupplyDAOImpl medicalSupplyDAO = new MedicalSupplyDAOImpl();
     medicalSupplyDAO.sync(medicalSupply);
   }
+
+  /**
+   * This method updates an existing Signage object in the "Signage" table in the database with the
+   * new Signage object.
+   *
+   * @param signage the new Signage object to be updated in the "Signage" table
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static void syncSignage(Signage signage) throws SQLException {
+    SignageDAOImpl signageDAO = new SignageDAOImpl();
+    signageDAO.sync(signage);
+  }
   /**
    * This method returns the employee type of a user
    *
@@ -448,6 +480,17 @@ public class DataManager {
   public static void addOfficeSupply(OfficeSupply officeSupply) throws SQLException {
     OfficeSupplyDAOImpl officeSupplyDAO = new OfficeSupplyDAOImpl();
     officeSupplyDAO.add(officeSupply);
+  }
+
+  /**
+   * This method adds a new Signage object to the "Signage" table in the database.
+   *
+   * @param signage the Signage object to be added to the "Signage" table
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static void addSignage(Signage signage) throws SQLException {
+    SignageDAOImpl signageDAO = new SignageDAOImpl();
+    signageDAO.add(signage);
   }
 
   /**
@@ -584,6 +627,17 @@ public class DataManager {
   }
 
   /**
+   * Deletes the given Signage object from the "Signage" table in the database
+   *
+   * @param signage the Signage object to be deleted from the "Signage" table
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static void deleteSignage(Signage signage) throws SQLException {
+    SignageDAOImpl signageDAO = new SignageDAOImpl();
+    signageDAO.delete(signage);
+  }
+
+  /**
    * This method deletes the given OfficeSupply object from the database
    *
    * @param officeSupply the OfficeSupply object that will be deleted in the database
@@ -664,6 +718,19 @@ public class DataManager {
     return (new ServiceRequestDAOImpl()).getAllIDs();
   }
 
+  public static ArrayList<Alert> getAllAlerts() throws SQLException {
+    return (new AlertDAOImpl()).getAll();
+  }
+
+  public static ArrayList<Integer> getAllAlertIDs() throws SQLException {
+    return (new AlertDAOImpl()).getAllIDs();
+  }
+
+  public static void addAlert(Alert alert) throws SQLException {
+    AlertDAOImpl alertDAO = new AlertDAOImpl();
+    alertDAO.add(alert);
+  }
+
   /**
    * The method retrieves all the Employee objects from the "Employee" table in the database.
    *
@@ -732,6 +799,17 @@ public class DataManager {
   public static ArrayList<OfficeSupply> getAllOfficeSupplies() throws SQLException {
     OfficeSupplyDAOImpl officeSupplyDAO = new OfficeSupplyDAOImpl();
     return officeSupplyDAO.getAll();
+  }
+
+  /**
+   * The method retrieves all the Signage objects from the "Signage" table in the database.
+   *
+   * @return an ArrayList of the Signage objects in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static ArrayList<Signage> getAllSignage() throws SQLException {
+    SignageDAOImpl SignageDAO = new SignageDAOImpl();
+    return SignageDAO.getAll();
   }
 
   /**
@@ -1060,6 +1138,16 @@ public class DataManager {
   }
 
   /**
+   * Imports data from a CSV file to the "Signage" table in the database
+   *
+   * @param path a String representing the csv data (must use "//" not "/")
+   * @throws SQLException if an error occurs while importing the data to the database
+   */
+  public static void uploadSignage(String path) throws SQLException, ParseException {
+    SignageDAOImpl.importSignageFromCSV(path);
+  }
+
+  /**
    * Uploads CSV data to a PostgreSQL database table "MedicalSupply"-also creates one if one does
    * not exist
    *
@@ -1257,6 +1345,17 @@ public class DataManager {
   }
 
   /**
+   * Exports data from a PostgreSQL database table "Signage" to a CSV file
+   *
+   * @param path a String representing the csv data (must use "//" not "/")
+   * @throws SQLException if an error occurs while exporting the data from the database
+   * @throws IOException if an error occurs while writing the data to the file
+   */
+  public static void exportSignageToCSV(String path) throws SQLException, IOException {
+    SignageDAOImpl.exportSignageToCSV(path);
+  }
+
+  /**
    * This method retrieves a list of all the long names of locations from the "LocationName" table
    * in the database.
    *
@@ -1342,4 +1441,172 @@ public class DataManager {
   /*public void deleteEmployeeType(String username) throws SQLException {
     EmployeeDAOImpl.deleteEmployeeType(username);
   }*/
+
+  /**
+   * * Creates a table for storing Edge data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createEdgeTable() throws SQLException {
+    EdgeDAOImpl.createTable();
+  }
+
+  /**
+   * * Creates a table for storing Employee data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createEmployeeTable() throws SQLException {
+    EmployeeDAOImpl.createTable();
+  }
+
+  /**
+   * * Creates a table for storing Flower data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createFlowerTable() throws SQLException {
+    FlowerDAOImpl.createTable();
+  }
+
+  /**
+   * * Creates a table for storing Furniture data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createFurnitureTable() throws SQLException {
+    FurnitureDAOImpl.createTable();
+  }
+
+  /**
+   * * Creates a table for storing ItemsOrdered data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createItemsOrderedTable() throws SQLException {
+    ItemsOrderedDAOImpl.createTable();
+  }
+
+  /**
+   * * Creates a table for storing LocationName data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createLocationNameTable() throws SQLException {
+    LocationNameDAOImpl.createTable();
+  }
+
+  /**
+   * * Creates a table for storing Meal data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createMealTable() throws SQLException {
+    MealDAOImpl.createTable();
+  }
+
+  /**
+   * * Creates a table for storing MedicalSupply data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createMedicalSupplyTable() throws SQLException {
+    MedicalSupplyDAOImpl.createTable();
+  }
+
+  /**
+   * * Creates a table for storing Move data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createMoveTable() throws SQLException {
+    MoveDAOImpl.createTable();
+  }
+
+  /**
+   * * Creates a table for storing Node data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createNodeTable() throws SQLException {
+    NodeDAOImpl.createTable();
+  }
+
+  /**
+   * * Creates a table for storing OfficeSupply data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createOfficeSupplyTable() throws SQLException {
+    OfficeSupplyDAOImpl.createTable();
+  }
+
+  /**
+   * * Creates a table for storing ServiceRequest data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createServiceRequestTable() throws SQLException {
+    ServiceRequestDAOImpl.createTable();
+  }
+
+  /**
+   * * Creates a table for storing Alert data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createAlertTable() throws SQLException {
+    AlertDAOImpl.createTable();
+  }
+
+  /**
+   * * Creates a table for storing Signage data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createSignageTable() throws SQLException {
+    SignageDAOImpl.createTable();
+  }
+
+  /**
+   * * Creates a table for storing ConfReservation data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createConfReservationsTable() throws SQLException {
+    ConfReservationDAOImpl.createTable();
+  }
+
+  /**
+   * * Creates a table for storing ConfRooms data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createConfRoomsTable() throws SQLException {
+    ConfRoomDAOImpl.createTable();
+  }
+
+  /**
+   * * Creates all tables in the database unless they already exist then do nothing
+   *
+   * @throws SQLException connection to the database fails
+   */
+  public static void tryToCreateAllTables() throws SQLException {
+    createEdgeTable();
+    createEmployeeTable();
+    createFlowerTable();
+    createFurnitureTable();
+    createItemsOrderedTable();
+    createLocationNameTable();
+    createMealTable();
+    createMedicalSupplyTable();
+    createMoveTable();
+    createNodeTable();
+    createOfficeSupplyTable();
+    createServiceRequestTable();
+    createAlertTable();
+    createSignageTable();
+    createConfReservationsTable();
+    createConfRoomsTable();
+  }
 }

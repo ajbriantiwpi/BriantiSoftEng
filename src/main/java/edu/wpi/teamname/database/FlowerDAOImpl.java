@@ -176,7 +176,7 @@ public class FlowerDAOImpl implements FlowerDAO {
       while (resultSet.next()) {
         int flowerID = resultSet.getInt("flowerID");
         String name = resultSet.getString("Name");
-        double price = resultSet.getInt("Price");
+        float price = resultSet.getFloat("Price");
         String category = resultSet.getString("Category");
         String color = resultSet.getString("Color");
 
@@ -204,7 +204,7 @@ public class FlowerDAOImpl implements FlowerDAO {
 
     try (connection) {
       String query =
-          "INSERT INTO \"Flowers\" (\"flowerID\", \"Name\", \"Price\", \"Category\", \"Color\") VALUES (?, ?, ?, ?, ?, ?)";
+          "INSERT INTO \"Flowers\" (\"flowerID\", \"Name\", \"Price\", \"Category\", \"Color\") VALUES (?, ?, ?, ?, ?)";
       PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"Flowers\";");
       statement.executeUpdate();
       statement = connection.prepareStatement(query);
@@ -222,6 +222,32 @@ public class FlowerDAOImpl implements FlowerDAO {
       System.out.println("CSV data uploaded to PostgreSQL database");
     } catch (SQLException e) {
       System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
+    }
+  }
+
+  /**
+   * * Creates a table for storing Flower data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createTable() throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try (connection) {
+      String query =
+          "create table if not exists \"Flowers\"\n"
+              + "(\n"
+              + "    \"flowerID\" integer not null\n"
+              + "        constraint \"Flowers_pk\"\n"
+              + "            primary key,\n"
+              + "    \"Name\"     text,\n"
+              + "    \"Price\"    numeric,\n"
+              + "    \"Category\" text,\n"
+              + "    \"Color\"    text\n"
+              + ");";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
     }
   }
 }
