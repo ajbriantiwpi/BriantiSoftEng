@@ -83,6 +83,7 @@ public class EditSignageController {
 
     longNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
     shortNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+
     StringConverter<Direction> directionConverter =
         new StringConverter<Direction>() {
           @Override
