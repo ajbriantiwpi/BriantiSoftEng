@@ -1082,14 +1082,14 @@ public class DataManager {
   public static void uploadEmployee(String path) throws SQLException, ParseException {
     EmployeeDAOImpl.uploadEmployeeToPostgreSQL(path);
   }
-
-  /**
-   * Uploads CSV data to a PostgreSQL database table "EmployeeType"-also creates one if one does not
-   * exist
-   *
-   * @param path a string that represents a file path (/ is illegal so you must use double//)
-   * @throws SQLException if an error occurs while uploading the data to the database
-   */
+//
+//  /**
+//   * Uploads CSV data to a PostgreSQL database table "EmployeeType"-also creates one if one does not
+//   * exist
+//   *
+//   * @param path a string that represents a file path (/ is illegal so you must use double//)
+//   * @throws SQLException if an error occurs while uploading the data to the database
+//   */
   /*public static void uploadEmployeeType(String path) throws SQLException, ParseException {
     EmployeeDAOImpl.uploadEmployeeTypeToPostgreSQL(path);
   }*/
