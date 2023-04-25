@@ -1,5 +1,6 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.App;
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.controllers.JFXitems.DatePickerEditingCell;
 import edu.wpi.teamname.database.DataManager;
@@ -208,6 +209,7 @@ public class MoveTableController {
             Move selectedMove = moveTable.getSelectionModel().getSelectedItem();
             if (selectedMove != null) {
               Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+              alert.initOwner(App.getPrimaryStage());
               alert.setTitle("Delete Move");
               alert.setHeaderText("Are you sure you want to delete this move?");
               alert.setContentText(
@@ -302,6 +304,7 @@ public class MoveTableController {
               event -> {
                 Move move = row.getItem();
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.initOwner(App.getPrimaryStage());
                 alert.setTitle("Delete Move");
                 alert.setHeaderText("Are you sure you want to delete this move?");
                 alert.setContentText(

@@ -1,5 +1,6 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.App;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.employees.Employee;
@@ -289,6 +290,7 @@ public class EmployeeTableController {
     Employee selectedEmployee = employeeTable.getSelectionModel().getSelectedItem();
     if (selectedEmployee != null) {
       Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+      alert.initOwner(App.getPrimaryStage());
       alert.setTitle("Delete Employee");
       alert.setHeaderText("Are you sure you want to delete this employee?");
       alert.setContentText(
@@ -370,6 +372,7 @@ public class EmployeeTableController {
     } catch (Exception e) {
       // Display an error message if an exception occurs
       Alert alert = new Alert(Alert.AlertType.ERROR);
+      alert.initOwner(App.getPrimaryStage());
       alert.setTitle("Error");
       alert.setHeaderText("An error occurred");
       alert.setContentText("An error occurred while processing your request:\n " + e.getMessage());
