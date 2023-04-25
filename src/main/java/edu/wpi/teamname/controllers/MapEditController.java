@@ -1036,7 +1036,17 @@ public class MapEditController {
 
               float opacity = 0.4f;
 
-              String nodeType = GlobalVariables.getHMap().get(movingID).get(0).getNodeType();
+              System.out.println("MID: " + movingID);
+
+              ArrayList<LocationName> loc = GlobalVariables.getHMap().get(movingID);
+
+              String nodeType;
+
+              if(loc != null){
+                nodeType = loc.get(0).getNodeType();
+              }else{
+                nodeType = "";
+              }
 
               ArrayList<Shape> nodeShapes = NodeCircle.makeNodeShape(nodeType);
 

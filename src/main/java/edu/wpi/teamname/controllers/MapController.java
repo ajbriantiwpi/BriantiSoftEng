@@ -572,7 +572,7 @@ public class MapController {
           ThirdFloorButton.setStyle("-fx-background-color: yellow;");
 
           try {
-            map.setCurrentDisplayFloor("Third Floor", true);
+            map.setCurrentDisplayFloor("Third Floor");
           } catch (SQLException e) {
             throw new RuntimeException(e);
           } catch (IOException e) {
@@ -591,7 +591,7 @@ public class MapController {
           SecondFloorButton.setStyle("-fx-background-color: yellow;");
 
           try {
-            map.setCurrentDisplayFloor("Second Floor", true);
+            map.setCurrentDisplayFloor("Second Floor");
           } catch (SQLException e) {
             throw new RuntimeException(e);
           } catch (IOException e) {
@@ -610,7 +610,7 @@ public class MapController {
           FirstFloorButton.setStyle("-fx-background-color: yellow;");
 
           try {
-            map.setCurrentDisplayFloor("First Floor", true);
+            map.setCurrentDisplayFloor("First Floor");
           } catch (SQLException e) {
             throw new RuntimeException(e);
           } catch (IOException e) {
@@ -642,7 +642,7 @@ public class MapController {
           LowerFirstButton.setStyle("-fx-background-color: yellow;");
 
           try {
-            map.setCurrentDisplayFloor("Lower Level 1", true);
+            map.setCurrentDisplayFloor("Lower Level 1");
           } catch (SQLException e) {
             throw new RuntimeException(e);
           } catch (IOException e) {
@@ -661,7 +661,7 @@ public class MapController {
           LowerSecondButton.setStyle("-fx-background-color: yellow;");
 
           try {
-            map.setCurrentDisplayFloor("Lower Level 2", true);
+            map.setCurrentDisplayFloor("Lower Level 2");
           } catch (SQLException e) {
             throw new RuntimeException(e);
           } catch (IOException e) {
@@ -695,7 +695,7 @@ public class MapController {
           newButton.getStyleClass().add("primary");
 
           try {
-            map.setCurrentDisplayFloor(newButton.getId(), true);
+            map.setCurrentDisplayFloor(newButton.getId());
           } catch (SQLException e) {
             throw new RuntimeException(e);
           } catch (IOException e) {
