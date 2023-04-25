@@ -188,24 +188,25 @@ public class MapController {
             eNode = endId;
 
             findPathButton.setVisible(true);
-//            try {
-//              LocationOne.setValue(DataManager.getAllLocationNamesMappedByNode( new Timestamp(System.currentTimeMillis())).get(sNode).get(0).getLongName());
-//            } catch (SQLException ex) {
-//              throw new RuntimeException(ex);
-//            }
+            //            try {
+            //              LocationOne.setValue(DataManager.getAllLocationNamesMappedByNode( new
+            // Timestamp(System.currentTimeMillis())).get(sNode).get(0).getLongName());
+            //            } catch (SQLException ex) {
+            //              throw new RuntimeException(ex);
+            //            }
 
             LocationOne.setValue(GlobalVariables.getHMap().get(sNode).get(0).getLongName());
 
-//            try {
-//              EndPointSelect.setValue(
-//                  DataManager.getAllLocationNamesMappedByNode(
-//                          new Timestamp(System.currentTimeMillis()))
-//                      .get(eNode)
-//                      .get(0)
-//                      .getLongName());
-//            } catch (SQLException ex) {
-//              throw new RuntimeException(ex);
-//            }
+            //            try {
+            //              EndPointSelect.setValue(
+            //                  DataManager.getAllLocationNamesMappedByNode(
+            //                          new Timestamp(System.currentTimeMillis()))
+            //                      .get(eNode)
+            //                      .get(0)
+            //                      .getLongName());
+            //            } catch (SQLException ex) {
+            //              throw new RuntimeException(ex);
+            //            }
 
             EndPointSelect.setValue(GlobalVariables.getHMap().get(eNode).get(0).getLongName());
 
@@ -977,13 +978,23 @@ public class MapController {
     //    LowerFirstButton.setOnAction(setLowerFirst);
     //    LowerSecondButton.setOnAction(setLowerSecond);
 
-    datePickerUI.valueProperty().addListener((ov, oldValue, newValue) -> {
-      LocalDate localDate = datePickerUI.getValue();
-      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-      LocalDateTime dateTime = localDate.atStartOfDay();
-      Timestamp date = Timestamp.valueOf(dateTime);
-      map.refresh(date);
-    });
+    datePickerUI
+        .valueProperty()
+        .addListener(
+            (ov, oldValue, newValue) -> {
+              LocalDate localDate = datePickerUI.getValue();
+              DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+              System.out.println("Print date");
+              LocalDateTime dateTime = localDate.atStartOfDay();
+              Timestamp date = Timestamp.valueOf(dateTime);
+              try {
+                map.refresh(date);
+              } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+              } catch (IOException ex) {
+                throw new RuntimeException(ex);
+              }
+            });
 
     // New Floor Stuff
     floorButtons.add(ThirdFloorButton);

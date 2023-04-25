@@ -7,6 +7,7 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
@@ -225,7 +226,10 @@
                                     </TitledPane>
                                     <TitledPane fx:id="DateTitledPane" animated="false" text="DatePicker">
                                        <content>
-                                          <AnchorPane />
+                                          <AnchorPane>
+                                             <children>
+                                                <DatePicker fx:id="datePickerUI" />
+                                             </children></AnchorPane>
                                        </content>
                                     </TitledPane>
                                  </children>

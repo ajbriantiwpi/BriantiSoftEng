@@ -13,7 +13,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
-import javafx.scene.control.DatePicker;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -230,19 +229,18 @@ public class Map {
   }
 
   public void refresh(Timestamp time) throws SQLException, IOException {
-    this.setCurrentDisplayFloor(this.getCurrentDisplayFloor(),time);
+    this.setCurrentDisplayFloor(this.getCurrentDisplayFloor(), time);
   }
 
   public void setCurrentDisplayFloor(String currentDisplayFloor) throws SQLException, IOException {
     this.setCurrentDisplayFloor(currentDisplayFloor, new Timestamp(System.currentTimeMillis()));
-
   }
 
-  public void setCurrentDisplayFloor(String currentDisplayFloor, Timestamp time) throws SQLException, IOException {
+  public void setCurrentDisplayFloor(String currentDisplayFloor, Timestamp time)
+      throws SQLException, IOException {
     this.currentDisplayFloor = currentDisplayFloor;
 
-    GlobalVariables.setHMap(
-        DataManager.getAllLocationNamesMappedByNode(time);
+    GlobalVariables.setHMap(DataManager.getAllLocationNamesMappedByNode(time));
 
     subAnchor.getStyleClass().remove(0);
 
@@ -609,17 +607,14 @@ public class Map {
       }
     }
 
-
-//    DatePicker datePicker = new DatePicker();
-//
-//    datePicker.valueProperty().addListener((ov, oldValue, newValue) -> {
-//      map.refresh(newValue);
-////      newValue;
-//    });
+    //    DatePicker datePicker = new DatePicker();
+    //
+    //    datePicker.valueProperty().addListener((ov, oldValue, newValue) -> {
+    //      map.refresh(newValue);
+    ////      newValue;
+    //    });
 
     return textuals;
-
-
   }
 
   public Direction getDirection(Node prevNode, Node node, Node nextNode) {
@@ -724,8 +719,9 @@ public class Map {
     //    }
 
     HashMap<Integer, ArrayList<LocationName>> hMap = GlobalVariables.getHMap();
-//    HashMap<Integer, ArrayList<LocationName>> hMap =
-//        DataManager.getAllLocationNamesMappedByNode(new Timestamp(System.currentTimeMillis()));
+    //    HashMap<Integer, ArrayList<LocationName>> hMap =
+    //        DataManager.getAllLocationNamesMappedByNode(new
+    // Timestamp(System.currentTimeMillis()));
 
     for (Integer i : hMap.keySet()) {
       // Gets rid of all Hallway locations
