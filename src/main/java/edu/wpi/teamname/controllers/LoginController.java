@@ -28,7 +28,7 @@ public class LoginController {
   @FXML MFXTextField loginText;
   @FXML PasswordField passwordText;
   @FXML MFXButton cancel;
-  @FXML MFXButton help;
+  // @FXML MFXButton help;
 
   /**
    * handles when the login button is pressed
@@ -56,7 +56,7 @@ public class LoginController {
   /** initializes the view for the login page */
   @FXML
   public void initialize() {
-    help.setVisible(false);
+    // help.setVisible(false);
     newPassword.setVisible(false);
     success.setText("Username or password\nis incorrect");
     success.setVisible(false);
