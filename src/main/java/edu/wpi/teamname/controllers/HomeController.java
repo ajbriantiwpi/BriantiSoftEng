@@ -77,7 +77,7 @@ public class HomeController {
     disableButtonsWhenLoggedOut();
   }
 
-  /** * Disables all the buttons that can not be accessed without logging in */
+  /** Disables all the buttons that can not be accessed without logging in */
   private void disableButtonsWhenLoggedOut() {
     homeGrid.setConstraints(mapVBox, 1, 1);
     actionVBox.setVisible(false);
@@ -124,55 +124,61 @@ public class HomeController {
             } catch (IOException e) {
               throw new RuntimeException(e);
             }
-
+            v.getChildren().clear();
+            v.getChildren().removeAll();
             if (GlobalVariables.getCurrentUser() != null
                 && !(GlobalVariables.getCurrentUser().getType().toString().equals("NONE"))) {
 
               try {
                 alertList = FXCollections.observableList(DataManager.getAllAlerts());
+                alertList =
+                    FXCollections.observableList(
+                        alertList.stream()
+                            .filter(
+                                (alert) ->
+                                    alert
+                                        .getType()
+                                        .toString()
+                                        .equals(
+                                            GlobalVariables.getCurrentUser().getType().toString()))
+                            .toList());
+                alertList =
+                    FXCollections.observableList(
+                        alertList.stream()
+                            .filter(
+                                (alert) ->
+                                    alert.getStartDisplayDate().toInstant().isBefore(Instant.now()))
+                            .toList());
+                alertList =
+                    FXCollections.observableList(
+                        alertList.stream()
+                            .filter(
+                                (alert) ->
+                                    alert.getEndDisplayDate().toInstant().isAfter(Instant.now()))
+                            .toList());
+                for (int i = 0; i < alertList.size(); i++) {
+                  HBox temp = new HBox();
+                  Label description = new Label();
+                  description.setText(alertList.get(i).getDescription());
+                  description.getStylesheets().add("@../stylesheets/RowLabel.css");
+                  description.getStylesheets().add("@../stylesheets/Colors/lightTheme.css");
+                  Label announcement = new Label();
+                  announcement.setText(alertList.get(i).getAnnouncement());
+                  announcement.getStylesheets().add("@../stylesheets/RowLabel.css");
+                  announcement.getStylesheets().add("@../stylesheets/Colors/lightTheme.css");
+                  announcement.wrapTextProperty().set(true);
+                  description.wrapTextProperty().set(true);
+
+                  HBox.setHgrow(description, Priority.SOMETIMES);
+                  HBox.setHgrow(announcement, Priority.ALWAYS);
+                  temp.setSpacing(50);
+                  temp.getChildren().add(announcement);
+                  temp.getChildren().add(description);
+                  VBox.setVgrow(temp, Priority.ALWAYS);
+                  v.getChildren().add(temp);
+                }
               } catch (SQLException e) {
                 throw new RuntimeException(e);
-              }
-              alertList.stream()
-                  .filter(
-                      (alert) -> alert.getType().equals(GlobalVariables.getCurrentUser().getType()))
-                  .toList();
-              System.out.println(alertList.size());
-              System.out.println(GlobalVariables.getCurrentUser().getType());
-              alertList =
-                  FXCollections.observableList(
-                      alertList.stream()
-                          .filter(
-                              (alert) ->
-                                  alert.getStartDisplayDate().toInstant().isBefore(Instant.now()))
-                          .toList());
-              alertList =
-                  FXCollections.observableList(
-                      alertList.stream()
-                          .filter(
-                              (alert) ->
-                                  alert.getEndDisplayDate().toInstant().isAfter(Instant.now()))
-                          .toList());
-              for (int i = 0; i < alertList.size(); i++) {
-                HBox temp = new HBox();
-                Label description = new Label();
-                description.setText(alertList.get(i).getDescription());
-                description.getStylesheets().add("@../stylesheets/RowLabel.css");
-                description.getStylesheets().add("@../stylesheets/Colors/lightTheme.css");
-                Label announcement = new Label();
-                announcement.setText(alertList.get(i).getAnnouncement());
-                announcement.getStylesheets().add("@../stylesheets/RowLabel.css");
-                announcement.getStylesheets().add("@../stylesheets/Colors/lightTheme.css");
-                announcement.wrapTextProperty().set(true);
-                description.wrapTextProperty().set(true);
-
-                HBox.setHgrow(description, Priority.SOMETIMES);
-                HBox.setHgrow(announcement, Priority.ALWAYS);
-                temp.setSpacing(50);
-                temp.getChildren().add(announcement);
-                temp.getChildren().add(description);
-                VBox.setVgrow(temp, Priority.ALWAYS);
-                v.getChildren().add(temp);
               }
             }
 
