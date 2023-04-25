@@ -40,7 +40,7 @@
                         <Font size="10.0" />
                      </font>
                   </Label>
-                  <BarChart prefHeight="526.0" prefWidth="580.0">
+                  <BarChart fx:id="barChart" prefHeight="526.0" prefWidth="580.0">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" />
                     </xAxis>
@@ -66,7 +66,7 @@
                         <Font size="10.0" />
                      </font>
                   </Label>
-                  <PieChart prefHeight="496.0" prefWidth="580.0">
+                  <PieChart fx:id="pieChart" prefHeight="496.0" prefWidth="580.0">
                      <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </padding>
@@ -86,7 +86,7 @@
                         <Font size="10.0" />
                      </font>
                   </Label>
-                  <LineChart prefHeight="490.0" prefWidth="580.0">
+                  <LineChart fx:id="lineChart" prefHeight="490.0" prefWidth="580.0">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" />
                     </xAxis>
