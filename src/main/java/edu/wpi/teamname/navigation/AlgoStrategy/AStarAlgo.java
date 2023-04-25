@@ -1,6 +1,8 @@
 package edu.wpi.teamname.navigation.AlgoStrategy;
 
+import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.navigation.Graph;
+import edu.wpi.teamname.navigation.LocationName;
 import edu.wpi.teamname.navigation.Node;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,20 +28,6 @@ public class AStarAlgo implements IStrategyAlgo {
     }
 
     g.setAllG(s, t);
-    // if wheelchair accessible setting is on, change edge weights between stair nodes to high
-    // number so algorithm skips over
-    //    if (wheelChair == true) {
-    //      for (Edge e : g.getEdges()) {
-    //        try {
-    //          if (DataManager.isNodeType(e.getStartNodeID()).equals("STAI")
-    //              && DataManager.isNodeType(e.getEndNodeID()).equals("STAI")) {
-    //            e.setWeight(100000);
-    //          }
-    //        } catch (SQLException ex) {
-    //          throw new RuntimeException(ex);
-    //        }
-    //      }
-    //    }
 
     Node start = s;
     Node target = t;
@@ -60,15 +48,14 @@ public class AStarAlgo implements IStrategyAlgo {
 
       for (Node nei : ex.getNeighbors()) {
 
-        //        if (wheelChair) {
-        //          LocationName a = GlobalVariables.getHMap().get(ex.getId()).get(0);
-        //          LocationName b = GlobalVariables.getHMap().get(nei.getId()).get(0);
-        //
-        //          if (a.getNodeType().equals("STAI") && b.getNodeType().equals("STAI")) {
-        //            System.out.print("Continued");
-        //            continue;
-        //          }
-        //        }
+        if (this.wheelChair) {
+          LocationName a = GlobalVariables.getHMap().get(ex.getId()).get(0);
+          LocationName b = GlobalVariables.getHMap().get(nei.getId()).get(0);
+          if (a.getNodeType().equals("STAI") && b.getNodeType().equals("STAI")) {
+            System.out.print("Continued");
+            continue;
+          }
+        }
 
         double totalWeight = ex.getG() + nei.findWeight(ex, wheelChair);
 
