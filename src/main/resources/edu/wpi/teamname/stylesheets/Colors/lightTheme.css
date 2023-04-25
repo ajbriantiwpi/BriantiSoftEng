@@ -1,6 +1,8 @@
 @import "lightCombo.css";
 @import "lightDate.css";
 @import "typography.css";
+@import "lightListView.css";
+
 
 .primary-container{
     -fx-background-color: #D5E3FF;
@@ -86,6 +88,16 @@
 .error-container{
     -fx-background-color: #FFDAD6;
     -fx-text-fill: #410002;
+}
+
+.error{
+    -fx-background-color: #BA1A1A;
+    -fx-text-fill: #FFFFFF;
+}
+
+.teal{
+    -fx-background-color: #2FA7B0;
+    -fx-text-fill: #FFFFFF;
 }
 
 .white{

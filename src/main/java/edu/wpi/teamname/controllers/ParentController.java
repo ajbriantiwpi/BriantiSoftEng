@@ -6,6 +6,7 @@ import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.awt.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -15,11 +16,12 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import lombok.Setter;
 
 public class ParentController {
-
+  @FXML CheckBox darkToggle;
   @FXML MFXButton homeButton;
   @FXML MFXButton helpButton;
   @FXML MFXButton mapButton;
@@ -78,6 +80,7 @@ public class ParentController {
   public void initialize() throws IOException {
     titleLabel.setText(titleString.getValue());
     System.out.println("Parent!");
+    darkToggle.selectedProperty().bindBidirectional(GlobalVariables.getDarkMode());
     if (HomeController.getLoggedIn().getValue()) {
       // disableButtonsWhenNotLoggedIn();
       loginButton.setVisible(false);
@@ -140,6 +143,7 @@ public class ParentController {
           }
           System.exit(0);
         });
+    // darkToggle.setOnAction(event -> GlobalVariables.setDarkMode(darkToggle.isSelected()));
 
     // titleLabel.setText(titleString.getValue());
   }

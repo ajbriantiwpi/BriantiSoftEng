@@ -241,7 +241,7 @@
                            <Insets />
                         </StackPane.margin>
                         <children>
-                           <VBox styleClass="body" stylesheets="@../stylesheets/SideBar.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <HBox alignment="CENTER_LEFT" styleClass="body" stylesheets="@../stylesheets/SideBar.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                               <children>
                                  <Label fx:id="titleLabel" maxHeight="96.0" minHeight="96.0" prefHeight="96.0" stylesheets="@../stylesheets/TopBar.css" text="Template Page" VBox.vgrow="ALWAYS">
                                     <padding>
@@ -249,7 +249,8 @@
                                     </padding>
                                  </Label>
                               </children>
-                           </VBox>
+                           </HBox>
+                           <CheckBox fx:id="darkToggle" mnemonicParsing="false" styleClass="label-large" text="Dark Mode" textFill="WHITE" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="12.0" />
                         </children>
                      </AnchorPane>
                   </children>
