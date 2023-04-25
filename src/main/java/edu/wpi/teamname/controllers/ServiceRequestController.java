@@ -226,7 +226,7 @@ public class ServiceRequestController {
       requestPage = 0;
       nextButton.setText("Next");
       DataManager.addServiceRequest(request);
-      Navigation.navigate(Screen.HOME);
+      Navigation.navigate(Screen.SMILE);
 
       System.out.println(request);
     }
