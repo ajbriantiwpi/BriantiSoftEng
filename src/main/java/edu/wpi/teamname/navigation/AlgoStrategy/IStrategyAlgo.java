@@ -2,9 +2,11 @@ package edu.wpi.teamname.navigation.AlgoStrategy;
 
 import edu.wpi.teamname.navigation.Graph;
 import edu.wpi.teamname.navigation.Node;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface IStrategyAlgo {
 
-  public ArrayList<Node> getPathBetween(Graph g, int startNodeId, int targetNodeId);
+  public ArrayList<Node> getPathBetween(Graph g, int startNodeId, int targetNodeId)
+      throws SQLException;
 }
