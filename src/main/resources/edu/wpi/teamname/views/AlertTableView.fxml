@@ -1,19 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.*?>
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="alertTableViewPage" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.AlertTableViewController">
+<AnchorPane fx:id="alertTableViewPage" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.AlertTableViewController">
    <children>
       <HBox style="-fx-background-radius: 16;" styleClass="surface" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <VBox HBox.hgrow="ALWAYS">
+         <VBox maxWidth="400.0" HBox.hgrow="ALWAYS">
             <children>
-               <VBox styleClass="surface-container-high">
+               <VBox styleClass="surface-container-high" VBox.vgrow="ALWAYS">
                   <children>
                      <VBox spacing="12.0" style="-fx-background-radius: 16;" styleClass="surface-container-highest">
                         <children>
@@ -33,7 +44,7 @@
                                  <Insets />
                               </VBox.margin>
                            </Label>
-                           <ComboBox fx:id="urgencyCombo" prefHeight="71.0" prefWidth="396.0" promptText="Urgency" stylesheets="@../stylesheets/combo.css">
+                           <ComboBox fx:id="urgencyCombo" maxWidth="400.0" prefHeight="71.0" prefWidth="396.0" promptText="Urgency" stylesheets="@../stylesheets/combo.css">
                               <VBox.margin>
                                  <Insets bottom="12.0" />
                               </VBox.margin>
@@ -54,9 +65,13 @@
                      </VBox>
                      <VBox prefHeight="200.0" prefWidth="100.0">
                         <children>
-                           <MFXButton fx:id="createNewAlert" stylesheets="@../stylesheets/button.css" text="Create New Alert" >
+                           <MFXButton fx:id="createNewAlert" styleClass="small-text" stylesheets="@../stylesheets/button.css" text="Create New Alert">
+                              <font>
+                                 <Font name="Roboto" size="20.0" />
+                              </font>
                               <styleClass>
-<!--                                 <String fx:value="display-small" />-->
+                                 <String fx:value="headline-large" />
+
                                  <String fx:value="primary" />
                                  <String fx:value="outline" />
                                  <String fx:value="small-text" />
@@ -109,7 +124,7 @@
                </VBox>
             </children>
          </VBox>
-         <StackPane HBox.hgrow="ALWAYS">
+         <StackPane styleClass="surface" HBox.hgrow="ALWAYS">
             <HBox.margin>
                <Insets right="10.0" />
             </HBox.margin>
@@ -118,7 +133,7 @@
                   <children>
                      <HBox alignment="CENTER_RIGHT">
                         <children>
-                           <Label alignment="CENTER" prefHeight="34.0" prefWidth="144.0" text="Search">
+                           <Label alignment="CENTER" prefHeight="34.0" prefWidth="144.0" styleClass="primary-text-container" text="Search">
                               <font>
                                  <Font name="Roboto" size="18.0" />
                               </font>
@@ -126,7 +141,9 @@
                                  <Insets top="10.0" />
                               </HBox.margin>
                            </Label>
-                           <TextField fx:id="searchTextField" stylesheets="@../stylesheets/TextField.css" styleClass="primary-container">
+
+                           <TextField fx:id="searchTextField" styleClass="primary-container" stylesheets="@../stylesheets/TextField.css">
+
                               <HBox.margin>
                                  <Insets top="10.0" />
                               </HBox.margin>
