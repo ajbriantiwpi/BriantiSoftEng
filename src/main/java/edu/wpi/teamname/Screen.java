@@ -9,7 +9,7 @@ public enum Screen {
   MAP("views/Map.fxml"),
 
   TEST("views/Test.fxml"),
-  SIGNAGE("views/Signage.fxml"),
+  SIGNAGE("views/SignageLevels.fxml"),
   EDIT_SIGNAGE("views/SignageLevels.fxml"),
 
   LOGIN("views/Login.fxml"),
