@@ -3,4 +3,8 @@ MFXButton, Button{
     -fx-background-radius: 8;
     -fx-font-family: Roboto;
 }
+.small-text {
+    -fx-font-size: 26;
+}
+
 
