@@ -29,10 +29,9 @@ public class SignageController {
 
   @FXML
   public void initialize() throws SQLException {
-    // Initialize kioskList before adding elements to it
     kioskList = FXCollections.observableArrayList();
 
-    // Now you can safely add elements to kioskList
+
     kioskList.add(0);
     KskBox.setItems(kioskList);
     dateChos.setOnAction(
