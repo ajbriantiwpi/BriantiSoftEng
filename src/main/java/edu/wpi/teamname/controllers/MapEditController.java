@@ -80,6 +80,7 @@ public class MapEditController {
   Point2D realClickPos;
   Pane nodeDragP;
   ArrayList<Point2D> adjacentNodes;
+  @FXML VBox Legend;
 
   //  EventHandler<MouseEvent> e =
   //      new EventHandler<MouseEvent>() {
@@ -869,7 +870,8 @@ public class MapEditController {
         @Override
         public void handle(MouseEvent event) {
           //        map.setShowEdges(EdgeSelector.isSelected());
-          map.setShowLegend(LegendSelector.isSelected());
+          map.setShowLegend(LegendSelector.isSelected() && NodeSelector.isSelected());
+          Legend.setVisible(map.getShowLegend());
 
           try {
             map.refresh();

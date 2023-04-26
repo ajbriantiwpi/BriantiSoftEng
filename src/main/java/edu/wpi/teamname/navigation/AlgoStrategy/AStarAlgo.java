@@ -12,7 +12,7 @@ import lombok.Setter;
 
 public class AStarAlgo implements IStrategyAlgo {
 
-  @Getter @Setter private boolean noStairs = false;
+  @Getter @Setter private static boolean noStairs = false;
 
   @Override
   public ArrayList<Node> getPathBetween(Graph g, int startNodeId, int targetNodeId) {
