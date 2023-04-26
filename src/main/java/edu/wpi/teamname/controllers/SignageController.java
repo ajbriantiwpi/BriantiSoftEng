@@ -5,9 +5,8 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -25,7 +24,7 @@ public class SignageController {
   @FXML ObservableList<Integer> kioskList;
   @FXML DatePicker dateChos;
   @FXML MFXButton submit;
-  private static Timestamp date;
+  private static Timestamp dateChosen;
   private static ArrayList<String> kiosksForDate = new ArrayList<>();
 
   @FXML
@@ -34,37 +33,48 @@ public class SignageController {
     //    submit.setVisible(false);
     //    KskBox.setDisable(true);
     //    KskBox.setVisible(false);
+    kioskList = FXCollections.observableArrayList();
     kioskList.add(0);
     KskBox.setItems(kioskList);
     dateChos.setOnAction(
         event -> {
           if (dateChos.getValue() != null) {
-            date = Timestamp.valueOf(dateChos.getValue().atTime(LocalTime.of(0, 0)));
+            System.out.println(
+                dateChos
+                    .getValue()
+                    .atTime(12, 0)
+                    .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.nnn")));
+            dateChosen =
+                Timestamp.valueOf(
+                    dateChos
+                        .getValue()
+                        .atTime(12, 0)
+                        .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.nnn")));
             try {
-              kioskList = FXCollections.observableArrayList(DataManager.getKiosks(date));
+              kioskList = FXCollections.observableArrayList(DataManager.getKiosks(dateChosen));
               KskBox.setItems(kioskList);
             } catch (SQLException e) {
               System.out.println(e);
             }
-            //            KskBox.setDisable(false);
-            //            KskBox.setVisible(true);
           }
         });
 
-    KskBox.setOnMouseClicked(
+    KskBox.setOnAction(
         event -> {
-          try {
-            kiosksForDate = DataManager.getSignage(KskBox.getValue(), date);
-          } catch (SQLException e) {
-            System.out.println(e);
+          if (KskBox.getValue() != null) {
+            try {
+              kiosksForDate = DataManager.getSignage(KskBox.getValue(), dateChosen);
+            } catch (SQLException e) {
+              System.out.println(e);
+            }
           }
-          //          submit.setDisable(true);
-          //          submit.setVisible(false);
         });
 
-    submit.setOnMouseClicked(event -> {
-        //loop thru kiosksForDate and put them below eachother in VBox
-    });
+    submit.setOnMouseClicked(
+        event -> {
+          System.out.println(kiosksForDate);
+          // loop thru kiosksForDate and put them below eachother in VBox
+        });
 
     // set default date to 2023-05-02
   }
