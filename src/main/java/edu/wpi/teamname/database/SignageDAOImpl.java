@@ -19,7 +19,6 @@ public class SignageDAOImpl implements SignageDAO {
    * @param signage the new Signage object to be updated in the "Signage" table
    * @throws SQLException if there is a problem accessing the database
    */
-  @Override
   public void sync(Signage signage) throws SQLException {
     Connection connection = DataManager.DbConnection();
     try (connection) {
@@ -35,6 +34,7 @@ public class SignageDAOImpl implements SignageDAO {
       statement.setInt(6, signage.getKioskId());
       statement.setString(7, signage.getLongName());
 
+      statement.executeUpdate();
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }

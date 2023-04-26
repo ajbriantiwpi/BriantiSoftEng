@@ -179,6 +179,7 @@ public class EditSignageController {
             throw new RuntimeException(e);
           }
         });
+
     endDateColumn.setOnEditCommit(
         event -> {
           Signage editedSignage = event.getRowValue();
@@ -189,6 +190,7 @@ public class EditSignageController {
             throw new RuntimeException(e);
           }
         });
+
     editSignageTable.addEventFilter(
         KeyEvent.KEY_PRESSED,
         event -> {
