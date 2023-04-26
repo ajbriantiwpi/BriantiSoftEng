@@ -23,6 +23,8 @@ public class GlobalVariables {
   @Getter @Setter private static Color insideOrange = Color.web("EDB230");
   @Getter @Setter private static Color insideYellow = Color.web("FEEA00");
   @Getter @Setter private static Color insideRed = Color.web("ED6A5A");
+  @Getter @Setter private static Color insideMagenta = Color.web("8D5A97");
+  @Getter @Setter private static Color insideWhite = Color.web("FFFFFF");
 
   @Getter @Setter private static float circleR = 10.0f;
   @Getter @Setter private static float lineT = 10.0f;

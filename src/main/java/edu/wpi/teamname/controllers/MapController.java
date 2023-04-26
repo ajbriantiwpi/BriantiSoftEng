@@ -1,5 +1,7 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.App;
+import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.database.DataManager;
@@ -15,6 +17,9 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -27,6 +32,7 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -57,8 +63,11 @@ public class MapController {
   @FXML CheckBox HallNamesSelector;
   @FXML CheckBox NodeSelector;
   @FXML CheckBox LegendSelector;
+  @FXML CheckBox AvoidElevatorsToggle;
 
   @FXML CheckBox FloorsToggle = new CheckBox();
+
+  @FXML DatePicker datePickerUI;
 
   @FXML ComboBox<String> FloorSelect;
 
@@ -68,6 +77,7 @@ public class MapController {
   @FXML MFXButton AddMessageButton;
 
   @FXML HBox floorSelector;
+
   @FXML AnchorPane OuterMapAnchor;
   @FXML TableView<PathMessage> MessageTableView;
 
@@ -101,6 +111,8 @@ public class MapController {
   @FXML TitledPane DateTitlePane;
   @FXML TitledPane MessageTitlePane;
 
+  //  @FXML TitledPane DateTitledPane;
+
   String defaultFloor = "L1";
   int clickCount = 0;
   Point2D firstClick = null;
@@ -113,8 +125,10 @@ public class MapController {
   Node globalStartNode;
 
   String currentAlgo = "";
-
   ArrayList<MFXButton> floorButtons = new ArrayList<>();
+  @FXML VBox directionsBox;
+
+  @FXML VBox Legend;
 
   EventHandler<MouseEvent> e =
       new EventHandler<MouseEvent>() {
@@ -201,27 +215,27 @@ public class MapController {
             eNode = endId;
 
             findPathButton.setVisible(true);
-            try {
-              LocationOne.setValue(
-                  DataManager.getAllLocationNamesMappedByNode(
-                          new Timestamp(System.currentTimeMillis()))
-                      .get(sNode)
-                      .get(0)
-                      .getLongName());
-            } catch (SQLException ex) {
-              throw new RuntimeException(ex);
-            }
+            //            try {
+            //              LocationOne.setValue(DataManager.getAllLocationNamesMappedByNode( new
+            // Timestamp(System.currentTimeMillis())).get(sNode).get(0).getLongName());
+            //            } catch (SQLException ex) {
+            //              throw new RuntimeException(ex);
+            //            }
 
-            try {
-              EndPointSelect.setValue(
-                  DataManager.getAllLocationNamesMappedByNode(
-                          new Timestamp(System.currentTimeMillis()))
-                      .get(eNode)
-                      .get(0)
-                      .getLongName());
-            } catch (SQLException ex) {
-              throw new RuntimeException(ex);
-            }
+            LocationOne.setValue(GlobalVariables.getHMap().get(sNode).get(0).getLongName());
+
+            //            try {
+            //              EndPointSelect.setValue(
+            //                  DataManager.getAllLocationNamesMappedByNode(
+            //                          new Timestamp(System.currentTimeMillis()))
+            //                      .get(eNode)
+            //                      .get(0)
+            //                      .getLongName());
+            //            } catch (SQLException ex) {
+            //              throw new RuntimeException(ex);
+            //            }
+
+            EndPointSelect.setValue(GlobalVariables.getHMap().get(eNode).get(0).getLongName());
 
             // Call drawAStarPath with both points
             // map.drawPath(anchor, firstClick, secondClick, floor1, floor2);
@@ -406,21 +420,34 @@ public class MapController {
           System.out.println("secInd: " + secInd);
           anchor.getChildren().addAll(map.getShapes().get(secInd));
 
+          ArrayList<Node> allNodes;
+          try {
+            allNodes = DataManager.getAllNodes();
+          } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+          }
+
+          int floorIndex = -1;
+
           int indOfStart = Node.idToIndex(sNode);
           //          DataManager.getNode(sNode)
-          String floorForSNode =
-              map.takeFloor(map.graph.getNodes().get(indOfStart).getFloor(), true);
+          String floorForSNode = map.takeFloor(allNodes.get(indOfStart).getFloor(), true);
           System.out.println("Floor to move to " + floorForSNode);
           if (floorForSNode == "Third Floor") {
+            floorIndex = 4;
             ThirdFloorButton.fire();
           } else if (floorForSNode == "Second Floor") {
+            floorIndex = 3;
             SecondFloorButton.fire();
           } else if (floorForSNode == "First Floor") {
+            floorIndex = 2;
             // System.out.println("Got to First Floor");
             FirstFloorButton.fire();
           } else if (floorForSNode == "Lower Level 1") {
+            floorIndex = 1;
             LowerFirstButton.fire();
           } else if (floorForSNode == "Lower Level 2") {
+            floorIndex = 0;
             LowerSecondButton.fire();
           } else {
             System.out.println("Move to start node floor failed, should not be here");
@@ -428,6 +455,61 @@ public class MapController {
 
           FloorsToggle.setDisable(false);
           showPathFloors(false);
+
+          ArrayList<String> directions = map.getTextDirections();
+          int ind = 0;
+
+          int changes = 0;
+          int i = 0;
+          String oldFloor = map.getFloorArr()[floorIndex];
+          String newFloor = "";
+
+          while (i != directions.size()) {
+            //            System.out.println("IO: " + i + " DS: " + directions.size());
+            String textDirections = "";
+            for (i = ind; i < directions.size(); i++) {
+              //              System.out.println("II: " + i);
+              String s = directions.get(i);
+
+              //            "1: Left/Straight Pixels: 190"
+              textDirections += "\n" + s;
+              if (s.contains("loor")) {
+                if (s.contains("own")) {
+                  System.out.println("Down");
+                  floorIndex -= map.getFloorChanges().get(changes);
+                  changes++;
+                } else {
+                  System.out.println("UP");
+                  floorIndex += map.getFloorChanges().get(changes);
+                  changes++;
+                }
+
+                ind = i + 1;
+                break;
+              }
+            }
+
+            final var resource = App.class.getResource("views/TitlePane.fxml");
+            final FXMLLoader loader = new FXMLLoader(resource);
+            TitledPane t = null;
+            try {
+              t = loader.load();
+            } catch (IOException ex) {
+              throw new RuntimeException(ex);
+            }
+
+            Label l = (Label) ((AnchorPane) t.getContent()).getChildren().get(0);
+            l.setText(textDirections);
+
+            newFloor = map.getFloorArr()[floorIndex];
+
+            t.setText(oldFloor);
+            oldFloor = newFloor;
+            t.setExpanded(false);
+
+            directionsBox.getChildren().add(t);
+          }
+
           map.centerAndZoomStart(gp, OuterMapAnchor, globalStartNode);
 
           clickCount = 0;
@@ -606,9 +688,11 @@ public class MapController {
           System.out.println("Algo Changed");
           currentAlgo = AlgoSelect.getValue();
 
+          AvoidElevatorsToggle.setDisable(true);
           switch (AlgoSelect.getValue()) {
             case ("A-Star"):
               map.graph.setPathfindingAlgo(new AStarAlgo());
+              AvoidElevatorsToggle.setDisable(false);
               break;
             case ("Breadth First Search"):
               map.graph.setPathfindingAlgo(new BFSAlgo());
@@ -953,7 +1037,8 @@ public class MapController {
         @Override
         public void handle(MouseEvent event) {
           //        map.setShowEdges(EdgeSelector.isSelected());
-          map.setShowLegend(LegendSelector.isSelected());
+          map.setShowLegend(LegendSelector.isSelected() && NodeSelector.isSelected());
+          Legend.setVisible(map.getShowLegend());
 
           try {
             map.refresh();
@@ -979,6 +1064,15 @@ public class MapController {
           } catch (IOException e) {
             throw new RuntimeException(e);
           }
+        }
+      };
+
+  EventHandler<MouseEvent> toggleUseElevators =
+      new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent event) {
+          AStarAlgo.setNoStairs(AvoidElevatorsToggle.isSelected());
         }
       };
 
@@ -1076,6 +1170,24 @@ public class MapController {
     //    LowerFirstButton.setOnAction(setLowerFirst);
     //    LowerSecondButton.setOnAction(setLowerSecond);
 
+    datePickerUI
+        .valueProperty()
+        .addListener(
+            (ov, oldValue, newValue) -> {
+              LocalDate localDate = datePickerUI.getValue();
+              DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+              System.out.println("Print date");
+              LocalDateTime dateTime = localDate.atStartOfDay();
+              Timestamp date = Timestamp.valueOf(dateTime);
+              try {
+                map.refresh(date);
+              } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+              } catch (IOException ex) {
+                throw new RuntimeException(ex);
+              }
+            });
+
     // New Floor Stuff
     floorButtons.add(ThirdFloorButton);
     floorButtons.add(SecondFloorButton);
@@ -1100,6 +1212,8 @@ public class MapController {
 
     NodeSelector.setOnMouseClicked(toggleNodes);
     LegendSelector.setOnMouseClicked(toggleLegend);
+
+    AvoidElevatorsToggle.setOnMouseClicked(toggleUseElevators);
 
     // MapAccordion.setExpandedPane(PathfindingTitlePane); // set initial expanded pane
     DirectionsTitlePane.setExpanded(false);
