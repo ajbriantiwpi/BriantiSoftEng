@@ -5,6 +5,7 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalTime;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,7 +19,7 @@ public class SignageController {
   @FXML VBox labelsVbox;
   @FXML HBox labelHBox;
   @FXML Label labelLine;
-  @FXML ComboBox<Integer> Kiosks;
+  @FXML ComboBox<Integer> KskBox;
   @FXML ObservableList<Integer> kioskList;
   @FXML DatePicker dateChos;
   @FXML MFXButton submit;
@@ -26,33 +27,36 @@ public class SignageController {
 
   @FXML
   public void initialize() throws SQLException {
-    submit.setDisable(true);
-    submit.setVisible(false);
-    Kiosks.setDisable(true);
-    Kiosks.setVisible(false);
-
+    //    submit.setDisable(true);
+    //    submit.setVisible(false);
+    //    KskBox.setDisable(true);
+    //    KskBox.setVisible(false);
+    kioskList.add(0);
+    KskBox.setItems(kioskList);
     dateChos.setOnAction(
         event -> {
-          date = Timestamp.valueOf(dateChos.getValue().toString());
-          try {
-            kioskList = FXCollections.observableArrayList(DataManager.getKiosks(date));
-            Kiosks.setItems(kioskList);
-          } catch (SQLException e) {
-            System.out.println(e);
+          if (dateChos.getValue() != null) {
+            date = Timestamp.valueOf(dateChos.getValue().atTime(LocalTime.of(0, 0)));
+            try {
+              kioskList = FXCollections.observableArrayList(DataManager.getKiosks(date));
+              KskBox.setItems(kioskList);
+            } catch (SQLException e) {
+              System.out.println(e);
+            }
+            //            KskBox.setDisable(false);
+            //            KskBox.setVisible(true);
           }
-          Kiosks.setDisable(false);
-          Kiosks.setVisible(true);
         });
 
-    Kiosks.setOnAction(
+    KskBox.setOnMouseClicked(
         event -> {
           try {
-            DataManager.getSignage(Kiosks.getValue(), date);
+            DataManager.getSignage(KskBox.getValue(), date);
           } catch (SQLException e) {
             System.out.println(e);
           }
-          submit.setDisable(true);
-          submit.setVisible(false);
+          //          submit.setDisable(true);
+          //          submit.setVisible(false);
         });
 
     submit.setOnMouseClicked(event -> {});

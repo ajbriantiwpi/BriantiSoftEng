@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,11 +12,10 @@
 
 <HBox xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.SignageController">
    <children>
-      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="929.0">
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
          <center>
             <AnchorPane style="-fx-background-color: #bfddff;" BorderPane.alignment="CENTER">
                <children>
-                  <MFXComboBox fx:id="Kiosks" floatingText="Select Kiosk" />
                   <VBox fx:id="labelsVbox" layoutX="221.0" layoutY="15.0">
                      <children>
                         <HBox fx:id="labelHBox" prefHeight="77.0" prefWidth="571.0">
@@ -30,8 +29,9 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <DatePicker fx:id="dateChos" layoutY="67.0" />
+                  <DatePicker fx:id="dateChos" layoutY="3.0" />
                   <MFXButton fx:id="submit" layoutY="120.0" text="Submit" />
+                  <ComboBox fx:id="KskBox" layoutY="54.0" prefWidth="150.0" />
                </children>
             </AnchorPane>
          </center>
