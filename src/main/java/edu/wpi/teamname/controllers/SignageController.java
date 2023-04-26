@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalTime;
 import java.util.ArrayList;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -30,10 +29,10 @@ public class SignageController {
 
   @FXML
   public void initialize() throws SQLException {
-    //    submit.setDisable(true);
-    //    submit.setVisible(false);
-    //    KskBox.setDisable(true);
-    //    KskBox.setVisible(false);
+    // Initialize kioskList before adding elements to it
+    kioskList = FXCollections.observableArrayList();
+
+    // Now you can safely add elements to kioskList
     kioskList.add(0);
     KskBox.setItems(kioskList);
     dateChos.setOnAction(
@@ -46,8 +45,6 @@ public class SignageController {
             } catch (SQLException e) {
               System.out.println(e);
             }
-            //            KskBox.setDisable(false);
-            //            KskBox.setVisible(true);
           }
         });
 
@@ -58,13 +55,12 @@ public class SignageController {
           } catch (SQLException e) {
             System.out.println(e);
           }
-          //          submit.setDisable(true);
-          //          submit.setVisible(false);
         });
 
-    submit.setOnMouseClicked(event -> {
-        //loop thru kiosksForDate and put them below eachother in VBox
-    });
+    submit.setOnMouseClicked(
+        event -> {
+          // loop thru kiosksForDate and put them below each other in VBox
+        });
 
     // set default date to 2023-05-02
   }
