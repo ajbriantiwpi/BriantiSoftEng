@@ -12,7 +12,7 @@ import lombok.Setter;
 
 public class AStarAlgo implements IStrategyAlgo {
 
-  @Getter @Setter private boolean wheelChair = false;
+  @Getter @Setter private boolean noStairs = false;
 
   @Override
   public ArrayList<Node> getPathBetween(Graph g, int startNodeId, int targetNodeId) {
@@ -48,7 +48,7 @@ public class AStarAlgo implements IStrategyAlgo {
 
       for (Node nei : ex.getNeighbors()) {
 
-        if (this.wheelChair) {
+        if (this.noStairs) {
           ArrayList<LocationName> listA = GlobalVariables.getHMap().get(ex.getId());
           ArrayList<LocationName> listB = GlobalVariables.getHMap().get(nei.getId());
           if (listA != null && listB != null) {
@@ -61,7 +61,7 @@ public class AStarAlgo implements IStrategyAlgo {
           }
         }
 
-        double totalWeight = ex.getG() + nei.findWeight(ex, wheelChair);
+        double totalWeight = ex.getG() + nei.findWeight(ex);
 
         //        System.out.println(closedList.size());
 

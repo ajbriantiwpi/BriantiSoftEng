@@ -45,7 +45,7 @@ public class DijkstraAlgo implements IStrategyAlgo {
       }
 
       for (Node nei : ex.getNeighbors()) {
-        double totalWeight = ex.getG() + nei.findWeight(ex, false);
+        double totalWeight = ex.getG() + nei.findWeight(ex);
 
         System.out.println(closedList.size());
 
