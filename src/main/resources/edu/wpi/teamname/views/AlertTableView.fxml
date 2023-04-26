@@ -71,8 +71,10 @@
                               </font>
                               <styleClass>
                                  <String fx:value="headline-large" />
+
                                  <String fx:value="primary" />
                                  <String fx:value="outline" />
+                                 <String fx:value="small-text" />
                               </styleClass>
                            </MFXButton>
                         </children>
@@ -139,7 +141,9 @@
                                  <Insets top="10.0" />
                               </HBox.margin>
                            </Label>
+
                            <TextField fx:id="searchTextField" styleClass="primary-container" stylesheets="@../stylesheets/TextField.css">
+
                               <HBox.margin>
                                  <Insets top="10.0" />
                               </HBox.margin>

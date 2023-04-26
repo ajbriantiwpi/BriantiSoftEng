@@ -41,6 +41,7 @@ public class Map {
   private AnchorPane subAnchor;
 
   /** An array of strings that represent the names of different floors. */
+  @Getter
   private String[] floorArr = {
     "Lower Level 2", "Lower Level 1", "First Floor", "Second Floor", "Third Floor"
   };
@@ -62,6 +63,13 @@ public class Map {
   @Getter @Setter private int startEdgeNodeId;
   @Getter @Setter private int movingNodeId;
 
+  @Getter @Setter private ArrayList<String> textDirections;
+
+  @Getter @Setter private ArrayList<Integer> floorChanges;
+
+  @Getter @Setter private String startFloor;
+  @Getter @Setter private String endFloor;
+
   /**
    * Constructs a Map object with the given sub-anchor pane.
    *
@@ -82,7 +90,7 @@ public class Map {
     this.movingNodeId = -1;
 
     this.showNodes = !this.isMapPage;
-    this.showLegend = true;
+    this.showLegend = !this.isMapPage;
   }
 
   public boolean getShowLegend() {
@@ -223,11 +231,19 @@ public class Map {
     this.setCurrentDisplayFloor(this.getCurrentDisplayFloor());
   }
 
+  public void refresh(Timestamp time) throws SQLException, IOException {
+    this.setCurrentDisplayFloor(this.getCurrentDisplayFloor(), time);
+  }
+
   public void setCurrentDisplayFloor(String currentDisplayFloor) throws SQLException, IOException {
+    this.setCurrentDisplayFloor(currentDisplayFloor, new Timestamp(System.currentTimeMillis()));
+  }
+
+  public void setCurrentDisplayFloor(String currentDisplayFloor, Timestamp time)
+      throws SQLException, IOException {
     this.currentDisplayFloor = currentDisplayFloor;
 
-    GlobalVariables.setHMap(
-        DataManager.getAllLocationNamesMappedByNode(new Timestamp(System.currentTimeMillis())));
+    GlobalVariables.setHMap(DataManager.getAllLocationNamesMappedByNode(time));
 
     subAnchor.getStyleClass().remove(0);
 
@@ -322,7 +338,15 @@ public class Map {
 
     // pathAllFloor.add(0,listFloor2);
 
-    for (Node n : nodes) {
+    for (int i = 0; i < nodes.size(); i++) {
+      Node n = nodes.get(i);
+      if (i == 0) {
+        startFloor = n.getFloor();
+      }
+      if (i == nodes.size() - 1) {
+        endFloor = n.getFloor();
+      }
+
       if (n.getFloor().equals("L1")) {
         listFloor1.add(n);
       } else if (n.getFloor().equals("L2")) {
@@ -427,20 +451,59 @@ public class Map {
 
     for (int i = 0; i < listNode.size(); i++) {
 
-      if (i == 0 || i == listNode.size() - 1) {
-        c =
-            new Circle(
-                listNode.get(i).getX(),
-                listNode.get(i).getY(),
-                GlobalVariables.getCircleR() + GlobalVariables.getStrokeThickness());
-        c.setFill(GlobalVariables.getBorderColor());
-        shapes.add(c);
+      if (i == 0) {
 
-        c =
-            new Circle(
-                listNode.get(i).getX(), listNode.get(i).getY(), GlobalVariables.getCircleR());
-        c.setFill(GlobalVariables.getInsideColor());
-        shapes.add(c);
+        ArrayList<Shape> newShapes = new ArrayList<>();
+
+        if (floor.equals(startFloor)) {
+          System.out.println("ABST");
+          newShapes = NodeCircle.makeNodeShape("ABST");
+        } else {
+          System.out.println("STAR");
+          newShapes = NodeCircle.makeNodeShape("STAR");
+        }
+
+        for (Shape s : newShapes) {
+          s.setTranslateX(listNode.get(i).getX());
+          s.setTranslateY(listNode.get(i).getY());
+        }
+
+        shapes.addAll(newShapes);
+
+      } else if (i == listNode.size() - 1) {
+        //        c =
+        //            new Circle(
+        //                listNode.get(i).getX(),
+        //                listNode.get(i).getY(),
+        //                GlobalVariables.getCircleR() + GlobalVariables.getStrokeThickness());
+        //        c.setFill(GlobalVariables.getBorderColor());
+        //        shapes.add(c);
+
+        //        c =
+        //            new Circle(
+        //                listNode.get(i).getX(), listNode.get(i).getY(),
+        // GlobalVariables.getCircleR());
+        //        c.setFill(GlobalVariables.getInsideColor());
+        //        shapes.add(c);
+
+        //        listNode.get(i).getY(),
+
+        ArrayList<Shape> newShapes = new ArrayList<>();
+
+        if (floor.equals(endFloor)) {
+          System.out.println("ABSE");
+          newShapes = NodeCircle.makeNodeShape("ABSE");
+        } else {
+          System.out.println("ENDF");
+          newShapes = NodeCircle.makeNodeShape("ENDF");
+        }
+
+        for (Shape s : newShapes) {
+          s.setTranslateX(listNode.get(i).getX());
+          s.setTranslateY(listNode.get(i).getY());
+        }
+
+        shapes.addAll(newShapes);
       }
     }
     prevPath.addAll(shapes);
@@ -536,7 +599,8 @@ public class Map {
 
     shapes = makeShapePath(nodePath);
 
-    getTextual(nodePath);
+    this.floorChanges = new ArrayList<>();
+    this.textDirections = getTextual(nodePath);
 
     // return shapes
 
@@ -552,7 +616,10 @@ public class Map {
     StringBuilder sb = new StringBuilder();
     Direction direction;
     String distance;
-    sb.append("1: ");
+
+    //    sb.append("1: ");
+    sb.append("1: Go ");
+
     System.out.print("1: ");
     direction = Direction.STRAIGHT;
     sb.append(direction.getString());
@@ -572,7 +639,16 @@ public class Map {
         sb.append(String.valueOf(i + 1) + ": ");
         System.out.print(String.valueOf(i + 1) + ": ");
         direction = getDirection(prevNode, node, nextNode);
-        sb.append(direction.getString());
+
+        if (direction.getString().equals("Straight")) {
+          sb.append("Continue Straight ");
+        } else if (direction.getString().equals("Down") || direction.getString().equals("Up")) {
+          sb.append("Go " + direction.getString());
+        } else {
+          sb.append("Turn " + direction.getString() + " then Continue Straight ");
+        }
+        //        sb.append(direction.getString());
+
         System.out.print(direction.getString());
         distance = getTextDistance(node, nextNode);
         sb.append(distance);
@@ -581,6 +657,14 @@ public class Map {
         textuals.add(sb.toString());
       }
     }
+
+    //    DatePicker datePicker = new DatePicker();
+    //
+    //    datePicker.valueProperty().addListener((ov, oldValue, newValue) -> {
+    //      map.refresh(newValue);
+    ////      newValue;
+    //    });
+
     return textuals;
   }
 
@@ -602,6 +686,7 @@ public class Map {
     // System.out.println(angDelta);
     if (curFloor != nextFloor) {
       int delFloor = nextFloor - curFloor;
+      this.floorChanges.add(Math.abs(delFloor));
       if (delFloor > 0) {
         direction = Direction.UP;
       } else {
@@ -629,10 +714,20 @@ public class Map {
     int nextFloor = nextNode.getFloorNum();
     if (curFloor != nextFloor) {
       int delFloor = nextFloor - curFloor;
-      distance = " Floors: " + String.valueOf(Math.abs(delFloor));
+      //      distance = " Floors: " + String.valueOf(Math.abs(delFloor));
+
+      if (delFloor > 1) {
+        distance = " " + String.valueOf(Math.abs(delFloor)) + " Floors";
+      } else {
+        distance = " " + String.valueOf(Math.abs(delFloor)) + " Floor";
+      }
 
     } else {
-      distance = " Pixels: " + String.valueOf(node.calculateHeuristic(nextNode));
+
+      double val = Math.round(node.calculateHeuristic(nextNode) * 100.0) / 100.0;
+
+      distance = " " + String.valueOf(val) + " units";
+      //      distance = " Pixels: " + String.valueOf(node.calculateHeuristic(nextNode));
     }
     return distance;
   }
@@ -674,8 +769,10 @@ public class Map {
     //      nodeNames.addAll(("" + n.getId()));
     //    }
 
-    HashMap<Integer, ArrayList<LocationName>> hMap =
-        DataManager.getAllLocationNamesMappedByNode(new Timestamp(System.currentTimeMillis()));
+    HashMap<Integer, ArrayList<LocationName>> hMap = GlobalVariables.getHMap();
+    //    HashMap<Integer, ArrayList<LocationName>> hMap =
+    //        DataManager.getAllLocationNamesMappedByNode(new
+    // Timestamp(System.currentTimeMillis()));
 
     for (Integer i : hMap.keySet()) {
       // Gets rid of all Hallway locations

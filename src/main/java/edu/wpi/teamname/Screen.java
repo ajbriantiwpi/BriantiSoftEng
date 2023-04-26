@@ -9,7 +9,7 @@ public enum Screen {
   MAP("views/Map.fxml"),
 
   TEST("views/Test.fxml"),
-  SIGNAGE("views/Signage.fxml"),
+  SIGNAGE("views/SignageLevels.fxml"),
   EDIT_SIGNAGE("views/SignageLevels.fxml"),
 
   LOGIN("views/Login.fxml"),
@@ -25,6 +25,8 @@ public enum Screen {
   ALERT("views/AlertTableView.fxml"),
   SMILE("views/Smily.fxml"),
   SERVICE_REQUEST_ANALYTICS("views/ServiceRequestAnalytics.fxml"),
+  ABOUT("views/AboutPage.fxml"),
+  CREDITS("views/CreditsPage.fxml"),
   DATA_MANAGER("views/Data.fxml");
 
   private final String filename;

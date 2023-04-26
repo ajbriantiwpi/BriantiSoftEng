@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.*?>
-<?import java.net.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" prefHeight="1080.0" prefWidth="1920.0" styleClass="body" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.HomeController">
+<AnchorPane fx:id="rootPane" prefHeight="1080.0" prefWidth="1920.0" styleClass="body" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.HomeController">
     <children>
         <GridPane fx:id="homeGrid" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
@@ -257,42 +263,49 @@
                   <Insets bottom="12.0" />
                </padding>
             </VBox>
-                <HBox alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
-                    <children>
-                        <MFXButton fx:id="helpButton" alignment="CENTER" style="-fx-border-color: #f6bd38; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Help" textAlignment="CENTER" textFill="#fdfbff" HBox.hgrow="ALWAYS">
-                            <font>
-                                <Font size="20.0" />
-                            </font>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                        </MFXButton>
-                        <MFXButton fx:id="notificationPopupButtonSimple" alignment="CENTER" style="-fx-border-color: #f6bd38; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Notifications" textAlignment="CENTER" textFill="#fdfbff" HBox.hgrow="ALWAYS">
-                            <font>
-                                <Font size="20.0" />
-                            </font>
-                            <HBox.margin>
-                                <Insets />
-                            </HBox.margin>
-                        </MFXButton>
-                        <MFXButton fx:id="dataButton" alignment="CENTER" style="-fx-border-color: #456d4c; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Data" textAlignment="CENTER" textFill="#fdfbff">
-                            <font>
-                                <Font size="20.0" />
-                            </font>
-                        </MFXButton>
-                        <MFXButton fx:id="exitButton" alignment="CENTER" style="-fx-border-color: #BA1A1A; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Exit" textAlignment="CENTER" textFill="#fdfbff" HBox.hgrow="ALWAYS">
-                            <font>
-                                <Font size="20.0" />
-                            </font>
-                        </MFXButton>
-                    </children>
-                    <GridPane.margin>
-                        <Insets right="20.0" top="10.0" />
-                    </GridPane.margin>
-                </HBox>
                 <AnchorPane maxHeight="200.0" maxWidth="200.0" prefHeight="120.0" prefWidth="120.0" styleClass="body3" stylesheets="@../stylesheets/logoScale.css" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER" />
             </children>
         </GridPane>
+          <HBox alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+              <children>
+            <MFXButton fx:id="helpButton" alignment="CENTER" style="-fx-border-color: #f6bd38; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Help" textAlignment="CENTER" textFill="#fdfbff">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </MFXButton>
+                  <MFXButton fx:id="aboutButton" alignment="CENTER" style="-fx-border-color: #b3009e; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="About" textAlignment="CENTER" textFill="#fdfbff" HBox.hgrow="ALWAYS">
+                      <font>
+                          <Font size="20.0" />
+                      </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+                  </MFXButton>
+            <MFXButton fx:id="creditButton" alignment="CENTER" style="-fx-border-color: #f7fcd9; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Credits" textAlignment="CENTER" textFill="#fdfbff">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </MFXButton>
+                  <MFXButton fx:id="notificationPopupButtonSimple" alignment="CENTER" style="-fx-border-color: #f6bd38; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Notifications" textAlignment="CENTER" textFill="#fdfbff" HBox.hgrow="ALWAYS">
+                      <font>
+                          <Font size="20.0" />
+                      </font>
+                      <HBox.margin>
+                          <Insets />
+                      </HBox.margin>
+                  </MFXButton>
+                  <MFXButton fx:id="dataButton" alignment="CENTER" style="-fx-border-color: #456d4c; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Data" textAlignment="CENTER" textFill="#fdfbff">
+                      <font>
+                          <Font size="20.0" />
+                      </font>
+                  </MFXButton>
+                  <MFXButton fx:id="exitButton" alignment="CENTER" style="-fx-border-color: #BA1A1A; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Exit" textAlignment="CENTER" textFill="#fdfbff" HBox.hgrow="ALWAYS">
+                      <font>
+                          <Font size="20.0" />
+                      </font>
+                  </MFXButton>
+              </children>
+          </HBox>
 
     </children>
    <stylesheets>

@@ -2,11 +2,16 @@ package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.Navigation;
+import edu.wpi.teamname.alerts.Alert;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.Employee;
+import edu.wpi.teamname.employees.EmployeeType;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.temporal.ChronoField;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
@@ -68,7 +73,7 @@ public class LoginController {
         event -> {
           try {
             String tempPassword = forgotPasswordPressed(loginText.getText());
-            newPassword.setText("Your new password is: \n" + tempPassword);
+            newPassword.setText(tempPassword);
             newPassword.setVisible(true);
             paneOfStuff.setDisable(true);
           } catch (SQLException e) {
@@ -127,11 +132,19 @@ public class LoginController {
     //    return DataManager.forgotPassword(username);
     Employee employee = DataManager.getEmployee(username);
     if (employee != null) {
-      String pass = "NewPassword1!";
-      employee.setLogin(username, pass);
-      DataManager.syncEmployee(employee);
-      return pass;
+      edu.wpi.teamname.alerts.Alert newAlert =
+          new Alert(
+              Instant.now().get(ChronoField.MICRO_OF_SECOND),
+              new Timestamp(System.currentTimeMillis()),
+              (new Timestamp((long) (System.currentTimeMillis() + 6.048e+8))),
+              "AUTO",
+              "Reset password request for " + username,
+              "Reset Password Request",
+              EmployeeType.ADMINISTRATOR,
+              Alert.Urgency.MILD);
+      DataManager.addAlert(newAlert);
+      return "Reset Password Request Submitted";
     }
-    return "Please Retype Password";
+    return "No Username Inputted";
   }
 }

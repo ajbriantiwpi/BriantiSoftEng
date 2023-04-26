@@ -48,6 +48,8 @@ public class HomeController {
   @FXML MFXButton editMapButton;
   @FXML MFXButton exitButton;
   @FXML MFXButton employeeButton;
+  @FXML MFXButton aboutButton;
+  @FXML MFXButton creditButton;
 
   @FXML MFXButton viewSignageButton;
   @FXML MFXButton editSignageButton;
@@ -176,11 +178,12 @@ public class HomeController {
                   description.getStyleClass().add("primary-text-container");
                   description.getStyleClass().add("primary");
                   Label announcement = new Label();
+                  announcement.setText(alertList.get(i).getAnnouncement());
                   announcement.getStyleClass().add("primary-text-container");
                   announcement.getStyleClass().add("primary");
                   announcement.wrapTextProperty().set(true);
                   description.wrapTextProperty().set(true);
-                  HBox.setHgrow(description, Priority.ALWAYS);
+                  HBox.setHgrow(description, Priority.SOMETIMES);
                   HBox.setHgrow(announcement, Priority.ALWAYS);
                   temp.setSpacing(20);
                   temp.getChildren().add(announcement);
@@ -380,6 +383,8 @@ public class HomeController {
     requestRoomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CONFERENCE_ROOM));
     dataButton.setOnMouseClicked(event -> Navigation.navigate(Screen.DATA_MANAGER));
     notificationPopupButtonSimple.setOnMouseClicked(NotificationPopupEvent);
+    aboutButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ABOUT));
+    creditButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CREDITS));
     serviceRequestAnalyticsButton.setOnMouseClicked(
         event -> Navigation.navigate(Screen.SERVICE_REQUEST_ANALYTICS));
     //    notifsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERT));
