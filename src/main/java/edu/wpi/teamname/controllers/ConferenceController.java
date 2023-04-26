@@ -13,6 +13,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -176,7 +177,7 @@ public class ConferenceController {
               ArrayList<String> times = activeSelector.getTimes();
               ConfReservation c =
                   new ConfReservation(
-                      resID,
+                      Instant.now().get(ChronoField.MICRO_OF_SECOND),
                       times.get(0),
                       times.get(1),
                       dateBook,
