@@ -1149,7 +1149,7 @@ public class MapEditController {
     //    map.centerAndZoom(gp, OuterMapAnchor);
     Platform.runLater(() -> map.centerAndZoom(gp, OuterMapAnchor));
 
-    ParentController.titleString.set("Map");
+    ParentController.titleString.set("Map Edit Page");
 
     ArrayList<javafx.scene.Node> currentFloorNodes = (map.makeAllFloorShapes(defaultFloor));
     anchor.getChildren().addAll(currentFloorNodes);

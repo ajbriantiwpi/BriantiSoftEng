@@ -152,23 +152,23 @@ public class AlertDAOImpl implements AlertDAO {
 
     FileWriter writer = new FileWriter(csvFilePath);
     writer.write(
-        "Alert ID,Creator Name,Start Date,End Date,Employee Type,Announcement,Description,Urgency\n");
+        "Alert ID,Start Date,End Date,Creator Name,Description,Announcement,Employee Type,Urgency\n");
 
     for (Alert al : alerts) {
       writer.write(
           al.getId()
               + ","
-              + al.getCreator()
-              + ","
               + al.getStartDisplayDate()
               + ","
               + al.getEndDisplayDate()
               + ","
-              + al.getType()
+              + al.getCreator()
+              + ","
+              + al.getDescription()
               + ","
               + al.getAnnouncement()
               + ","
-              + al.getDescription()
+              + al.getType()
               + ","
               + al.getUrgency()
               + "\n");
@@ -195,7 +195,7 @@ public class AlertDAOImpl implements AlertDAO {
       String query =
           "INSERT INTO \"Alert\" (\"alertID\", \"startDate\", \"endDate\", \"creator\", \"description\", \"announcement\", \"employeeType\", \"urgency\") "
               + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-      PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"ALERT\";");
+      PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"Alert\";");
       statement.executeUpdate();
       statement = connection.prepareStatement(query);
 

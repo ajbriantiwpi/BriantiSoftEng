@@ -56,7 +56,7 @@ public class EditSignageController {
 
   public void initialize() {
     DataManager signageDAO = new DataManager();
-    ParentController.titleString.set("Edit Signage Table");
+    ParentController.titleString.set("Signage Edit Table");
     TableColumn<Signage, String> longNameColumn = new TableColumn<>("Long Name");
     longNameColumn.setCellValueFactory(new PropertyValueFactory<>("longName"));
 

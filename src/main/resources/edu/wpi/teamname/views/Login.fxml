@@ -50,43 +50,31 @@
                               <Insets bottom="6.0" />
                            </VBox.margin>
                         </PasswordField>
-                                  <MFXButton fx:id="loginButton" maxHeight="48.0" maxWidth="400.0" prefHeight="48.0" styleClass="primary-on-container" text="Sign In" textAlignment="CENTER" textFill="#d5e3ff">
+                                  <MFXButton fx:id="loginButton" maxHeight="48.0" maxWidth="400.0" prefHeight="48.0" styleClass="primary-on-container" stylesheets="@../stylesheets/login.css" text="Sign In" textAlignment="CENTER" textFill="#d5e3ff">
                                       <font>
                                           <Font name="Roboto" size="28.0" />
                                       </font>
                            <VBox.margin>
                               <Insets bottom="6.0" />
                            </VBox.margin>
-                           <stylesheets>
-                              <URL value="@../stylesheets/login.css" />
-                              <URL value="@../stylesheets/button.css" />
-                           </stylesheets>
                                   </MFXButton>
                                 <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" spacing="16.0" style="-fx-border-radius: 16; -fx-background-radius: 16;" VBox.vgrow="NEVER">
                                     <children>
                               <AnchorPane prefWidth="200.0">
                                  <children>
-                                    <MFXButton fx:id="cancel" maxHeight="44.0" prefHeight="44.0" styleClass="primary" text="Cancel" textAlignment="CENTER" textFill="#d5e3ff" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <MFXButton fx:id="cancel" maxHeight="44.0" prefHeight="44.0" styleClass="primary" stylesheets="@../stylesheets/login.css" text="Cancel" textAlignment="CENTER" textFill="#d5e3ff" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <font>
                                           <Font name="Roboto" size="24.0" />
                                        </font>
-                                       <stylesheets>
-                                          <URL value="@../stylesheets/login.css" />
-                                          <URL value="@../stylesheets/button.css" />
-                                       </stylesheets>
                                     </MFXButton>
                                  </children>
                               </AnchorPane>
                               <AnchorPane prefWidth="200.0">
                                  <children>
-                                              <MFXButton fx:id="forgotPassword" maxHeight="44.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="44.0" styleClass="primary-container" text="Forgot Password" textAlignment="CENTER" textFill="#004788" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                              <MFXButton fx:id="forgotPassword" maxHeight="44.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="44.0" styleClass="primary-container" stylesheets="@../stylesheets/login.css" text="Forgot Password" textAlignment="CENTER" textFill="#004788" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                   <font>
                                                       <Font name="Roboto" size="24.0" />
                                                   </font>
-                                       <stylesheets>
-                                          <URL value="@../stylesheets/login.css" />
-                                          <URL value="@../stylesheets/button.css" />
-                                       </stylesheets>
                                               </MFXButton>
                                  </children>
                               </AnchorPane>
@@ -116,7 +104,7 @@
         </StackPane>
       <HBox layoutX="319.3333435058594" layoutY="10.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
          <children>
-              <MFXButton fx:id="exit" alignment="CENTER" style="-fx-border-color: #BA1A1A; -fx-border-width: 3;" styleClass="primary-on-container" stylesheets="@../stylesheets/button.css" text="Exit" textAlignment="CENTER" textFill="#d5e3ff">
+              <MFXButton fx:id="exit" alignment="CENTER" style="-fx-border-color: #BA1A1A; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Exit" textAlignment="CENTER" textFill="#d5e3ff">
                   <font>
                       <Font size="20.0" />
                   </font>

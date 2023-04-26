@@ -607,6 +607,7 @@ public class Map {
     //    System.out.println(nodePath);
 
     // parent.getChildren().addAll(shapes);
+
   }
 
   public ArrayList<String> getTextual(ArrayList<Node> nodePath) {

@@ -5,12 +5,14 @@ import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.database.PathMessageDAOImpl;
 import edu.wpi.teamname.navigation.AlgoStrategy.AStarAlgo;
 import edu.wpi.teamname.navigation.AlgoStrategy.BFSAlgo;
 import edu.wpi.teamname.navigation.AlgoStrategy.DFSAlgo;
 import edu.wpi.teamname.navigation.AlgoStrategy.DijkstraAlgo;
 import edu.wpi.teamname.navigation.Map;
 import edu.wpi.teamname.navigation.Node;
+import edu.wpi.teamname.navigation.PathMessage;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -20,8 +22,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -40,11 +47,11 @@ public class MapController {
   Map map;
   @FXML GesturePane gp;
   @FXML AnchorPane anchor;
-  @FXML HBox SelectCombo = new HBox();
-  @FXML ComboBox<String> LocationOne = new ComboBox<>();
-  @FXML ComboBox<String> EndPointSelect = new ComboBox<>();
-  @FXML MFXButton DeleteNodeButton = new MFXButton();
-  @FXML MFXButton findPathButton = new MFXButton();
+  @FXML HBox SelectCombo;
+  @FXML ComboBox<String> LocationOne;
+  @FXML ComboBox<String> EndPointSelect;
+  @FXML MFXButton DeleteNodeButton;
+  @FXML MFXButton findPathButton;
   // @FXML ComboBox<String> FloorSelect = new ComboBox<>();
   @FXML ComboBox<String> AlgoSelect = new ComboBox<>();
 
@@ -62,14 +69,29 @@ public class MapController {
 
   @FXML DatePicker datePickerUI;
 
-  @FXML ComboBox<String> FloorSelect = new ComboBox<>();
+  @FXML ComboBox<String> FloorSelect;
 
   @FXML MFXButton downFloor;
   @FXML MFXButton upFloor;
+  @FXML MFXButton ViewMessageButton;
+  @FXML MFXButton AddMessageButton;
 
   @FXML HBox floorSelector;
 
   @FXML AnchorPane OuterMapAnchor;
+  @FXML TableView<PathMessage> MessageTableView;
+
+  @FXML TableColumn<PathMessage, Timestamp> DateColumn;
+  @FXML TableColumn<PathMessage, Integer> AdminColumn;
+  @FXML TableColumn<PathMessage, String> MessageColumn;
+
+  // Add Message Pop-Up
+  @FXML TextField AdminIDVal;
+  @FXML TextField MessageVal;
+  @FXML Label AdminIDLabel;
+  @FXML Label MessageLabel;
+  @FXML VBox AddMessageVBox;
+  @FXML MFXButton MessageSubmitButton;
 
   // New Floor Button Layout
   @FXML MFXButton ThirdFloorButton;
@@ -86,8 +108,10 @@ public class MapController {
   @FXML TitledPane DirectionsTitlePane;
   @FXML TitledPane FloorTitlePane;
   @FXML TitledPane TickTitlePane;
+  @FXML TitledPane DateTitlePane;
+  @FXML TitledPane MessageTitlePane;
 
-  @FXML TitledPane DateTitledPane;
+//  @FXML TitledPane DateTitledPane;
 
   String defaultFloor = "L1";
   int clickCount = 0;
@@ -249,10 +273,146 @@ public class MapController {
         }
       };
 
+  EventHandler<MouseEvent> submitMessage =
+      new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+          System.out.println("Submit Button Pressed");
+
+          //          String adminIDIn = AdminIDVal.getText();
+          //          String messageIn = MessageVal.getText();
+          //
+          //          System.out.println("AdminId -- Message: " + adminIDIn + " -- " + messageIn);
+
+          int currentSNode = sNode;
+          int currentENode = eNode;
+          String currentAlgo = AlgoSelect.getValue();
+          Timestamp date = new Timestamp(System.currentTimeMillis());
+          int adminID = Integer.parseInt(AdminIDVal.getText());
+          String message = MessageVal.getText();
+          System.out.println(
+              "Adding Message: "
+                  + currentENode
+                  + ", "
+                  + currentSNode
+                  + ", "
+                  + currentAlgo
+                  + ", "
+                  + date
+                  + ", "
+                  + adminID
+                  + ", "
+                  + message);
+          PathMessage pm =
+              new PathMessage(currentSNode, currentENode, currentAlgo, date, adminID, message);
+          PathMessageDAOImpl pmdao = new PathMessageDAOImpl();
+          try {
+            pmdao.add(pm);
+          } catch (SQLException ex) {
+            System.out.println("Error adding: " + ex);
+          }
+
+          // Gets rid of the Pop-Up after submission
+          MessageVal.setVisible(false);
+          MessageSubmitButton.setVisible(false);
+          MessageLabel.setVisible(false);
+          AdminIDLabel.setVisible(false);
+          AdminIDVal.setVisible(false);
+          AddMessageVBox.setVisible(false);
+
+          MessageVal.setText("");
+          AdminIDVal.setText("");
+          MessageVal.setPromptText("Type Message");
+          AdminIDVal.setPromptText("Type Admin ID");
+          AddMessageButton.setText("Add Message");
+        }
+      };
+
+  EventHandler<MouseEvent> viewMessage =
+      new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+          System.out.println("Viewing Message");
+
+          if (MessageTableView.isVisible() == true) {
+            MessageTableView.setVisible(false);
+            ViewMessageButton.setText("View Messages");
+          } else {
+
+            MessageTableView.setVisible(true);
+            MessageTableView.setDisable(false);
+            int currentSNode = sNode;
+            int currentENode = eNode;
+            String currentAlgo = AlgoSelect.getValue();
+            System.out.println(
+                "Viewing Message: " + currentSNode + ", " + currentENode + ", " + currentAlgo);
+
+            // displaying messages
+            ObservableList<PathMessage> PMS = null;
+            try {
+              PMS =
+                  FXCollections.observableList(
+                      DataManager.getPathMessage(currentSNode, currentENode, currentAlgo).stream()
+                          .filter(Objects::nonNull)
+                          .toList());
+            } catch (SQLException ex) {
+              System.out.println("Error viewing: " + ex);
+            }
+
+            System.out.println(PMS.size());
+            FilteredList<PathMessage> PMS1 = new FilteredList<>(PMS);
+            SortedList<PathMessage> sortedPM = new SortedList<>(PMS1);
+            MessageTableView.setItems(sortedPM);
+            System.out.println(sortedPM);
+
+            ViewMessageButton.setText("Cancel");
+          }
+        }
+      };
+
+  EventHandler<MouseEvent> addMessage =
+      new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+          System.out.println("Add Message Running");
+
+          if (MessageVal.isVisible() == true) {
+            MessageVal.setVisible(false);
+            MessageVal.setPromptText("Type Message");
+            MessageLabel.setVisible(false);
+            AdminIDVal.setVisible(false);
+            AdminIDVal.setPromptText("Type AdminID");
+            AdminIDLabel.setVisible(false);
+            AddMessageVBox.setVisible(false);
+            MessageSubmitButton.setVisible(false);
+            AddMessageButton.setText("Add Message");
+          } else {
+
+            MessageVal.setVisible(true);
+            MessageVal.setPromptText("Type Message");
+            MessageLabel.setVisible(true);
+            AdminIDVal.setVisible(true);
+            AdminIDVal.setPromptText("Type AdminID");
+            AdminIDLabel.setVisible(true);
+            AddMessageVBox.setVisible(true);
+            MessageSubmitButton.setVisible(true);
+            AddMessageButton.setText("Cancel");
+
+            //          String adminIDIn = AdminIDVal.getText();
+            //          String messageIn = MessageVal.getText();
+            //
+            //          System.out.println("AdminId -- Message: " + adminIDIn + " -- " + messageIn);
+
+          }
+        }
+      };
+
   EventHandler<MouseEvent> findPathWButton =
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
+          ViewMessageButton.setDisable(false);
+          AddMessageButton.setDisable(false);
           map.drawPath(anchor, sNode, eNode);
           int secInd = map.getAllFloors().indexOf(currFloor);
           System.out.println("secInd: " + secInd);
@@ -348,7 +508,7 @@ public class MapController {
             directionsBox.getChildren().add(t);
           }
 
-          //          map.centerAndZoomStart(gp, OuterMapAnchor, globalStartNode);
+          map.centerAndZoomStart(gp, OuterMapAnchor, globalStartNode);
 
           clickCount = 0;
         }
@@ -980,6 +1140,23 @@ public class MapController {
     FloorsToggle.setSelected(false);
     FloorsToggle.setDisable(true);
 
+    ViewMessageButton.setOnMouseClicked(viewMessage);
+    ViewMessageButton.setDisable(true);
+
+    AddMessageButton.setOnMouseClicked(addMessage);
+    AddMessageButton.setDisable(true);
+
+    MessageTableView.setVisible(false);
+
+    // Initialize for AddMessage Pop-Up
+    AdminIDVal.setVisible(false);
+    MessageVal.setVisible(false);
+    AdminIDLabel.setVisible(false);
+    MessageLabel.setVisible(false);
+    AddMessageVBox.setVisible(false);
+    MessageSubmitButton.setVisible(false);
+    MessageSubmitButton.setOnMouseClicked(submitMessage);
+
     anchor.setOnMouseClicked(e);
 
     // New Floor Button Layout
@@ -1038,7 +1215,14 @@ public class MapController {
     DirectionsTitlePane.setExpanded(false);
     FloorTitlePane.setExpanded(false);
     TickTitlePane.setExpanded(false);
-    DateTitledPane.setExpanded(false);
+    DateTitlePane.setExpanded(false);
+    MessageTitlePane.setExpanded(false);
+
+    DateColumn.setCellValueFactory((row) -> new SimpleObjectProperty<>(row.getValue().getDate()));
+    AdminColumn.setCellValueFactory(
+        (row) -> new SimpleObjectProperty<>(row.getValue().getAdminID()));
+    MessageColumn.setCellValueFactory(
+        (row) -> new SimpleObjectProperty<>(row.getValue().getMessage()));
 
     //    System.out.println(getAllNodeNames("L1"));
 
