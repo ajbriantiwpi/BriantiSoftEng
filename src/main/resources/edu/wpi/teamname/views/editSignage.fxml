@@ -143,6 +143,27 @@
                   <URL value="@../stylesheets/dateBoxSmall.css" />
                </stylesheets>
             </DatePicker>
+            <Label prefHeight="17.0" prefWidth="138.0" text="End Date">
+               <font>
+                  <Font name="Roboto" size="28.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="on-suface-text" />
+                  <String fx:value="headline-med" />
+               </styleClass>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </Label>
+            <DatePicker fx:id="endDateInput">
+               <stylesheets>
+                  <URL value="@../stylesheets/TextField.css" />
+                  <URL value="@../stylesheets/dateBoxSmall.css" />
+               </stylesheets>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </DatePicker>
             <Label prefHeight="17.0" prefWidth="138.0" text="Direction">
                 <font>
                     <Font name="Roboto" size="28.0" />

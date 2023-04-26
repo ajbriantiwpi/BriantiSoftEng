@@ -34,6 +34,7 @@ public class EditSignageController {
   @FXML private DatePicker dateInput;
   @FXML private ComboBox<String> directionPicker;
   @FXML private TextField kioskInput;
+  @FXML private DatePicker endDateInput;
   @FXML private MFXButton submitButton;
   //  @FXML private MFXButton importButton;
   //  @FXML private MFXButton exportButton;
@@ -52,6 +53,15 @@ public class EditSignageController {
     TableColumn<Signage, Timestamp> dateColumn = new TableColumn<>("Date");
     dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
     dateColumn.setCellFactory(
+        new Callback<TableColumn<Signage, Timestamp>, TableCell<Signage, Timestamp>>() {
+          @Override
+          public TableCell<Signage, Timestamp> call(TableColumn<Signage, Timestamp> param) {
+            return new DatePickerTableCell();
+          }
+        });
+    TableColumn<Signage, Timestamp> endDateColumn = new TableColumn<>("End Date");
+    endDateColumn.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+    endDateColumn.setCellFactory(
         new Callback<TableColumn<Signage, Timestamp>, TableCell<Signage, Timestamp>>() {
           @Override
           public TableCell<Signage, Timestamp> call(TableColumn<Signage, Timestamp> param) {
@@ -169,6 +179,16 @@ public class EditSignageController {
             throw new RuntimeException(e);
           }
         });
+    endDateColumn.setOnEditCommit(
+        event -> {
+          Signage editedSignage = event.getRowValue();
+          editedSignage.setEndDate((java.sql.Timestamp) event.getNewValue());
+          try {
+            syncSignage(editedSignage);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          }
+        });
     editSignageTable.addEventFilter(
         KeyEvent.KEY_PRESSED,
         event -> {
@@ -239,6 +259,7 @@ public class EditSignageController {
             longNameColumn,
             shortNameColumn,
             dateColumn,
+            endDateColumn,
             arrowDirectionColumn,
             signIDColumn,
             kioskIDColumn);
@@ -310,10 +331,12 @@ public class EditSignageController {
     String longName = longNameInput.getText();
     String shortName = shortNameInput.getText();
     java.sql.Timestamp date = java.sql.Timestamp.valueOf(dateInput.getValue().atStartOfDay());
+    java.sql.Timestamp endDate = java.sql.Timestamp.valueOf(endDateInput.getValue().atStartOfDay());
     Direction direction = directionConverter.fromString(directionPicker.getValue());
     int kioskId = Integer.parseInt(kioskInput.getText());
 
-    Signage newSignage = new Signage(longName, shortName, date, direction, signId, kioskId);
+    Signage newSignage =
+        new Signage(longName, shortName, date, endDate, direction, signId, kioskId);
     SignageDAO signageDAO = new SignageDAOImpl();
 
     try {
@@ -328,6 +351,7 @@ public class EditSignageController {
     longNameInput.clear();
     shortNameInput.clear();
     dateInput.setValue(null);
+    endDateInput.setValue(null);
     kioskInput.clear();
     directionPicker.setValue(null);
   }
@@ -349,6 +373,8 @@ public class EditSignageController {
               + selectedSignage.getArrowDirection()
               + "\nDate: "
               + selectedSignage.getDate()
+              + "\nEnd Date: "
+              + selectedSignage.getEndDate()
               + "\nKiosk ID: "
               + selectedSignage.getKioskId());
 
