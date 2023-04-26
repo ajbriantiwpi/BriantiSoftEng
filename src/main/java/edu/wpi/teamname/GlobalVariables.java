@@ -3,6 +3,7 @@ package edu.wpi.teamname;
 import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
+import java.sql.Timestamp;
 import javafx.scene.paint.Color;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +19,7 @@ public class GlobalVariables {
   @Getter @Setter private static int strokeThickness = 2;
   @Getter @Setter private static Color labelColor = new Color(.835, .89, 1, 1);
   @Getter @Setter private static Color labelTextColor = new Color(0, .106, .231, 1);
+  @Getter @Setter private static Timestamp today = new Timestamp(System.currentTimeMillis());
 
   private static final Employee dummyEmployee =
       new Employee(
