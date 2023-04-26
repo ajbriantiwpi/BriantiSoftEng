@@ -178,7 +178,7 @@
                   <ColorInput paint="#235fa6" />
                </effect>
             </MFXButton>
-            <Label prefHeight="35.0" prefWidth="195.0" text="CSV Manager">
+            <Label disable="true" prefHeight="35.0" prefWidth="195.0" text="CSV Manager" visible="false">
                <font>
                   <Font name="Roboto" size="28.0" />
                </font>
@@ -190,7 +190,7 @@
                   <String fx:value="on-suface-text" />
                </styleClass>
             </Label>
-            <HBox prefHeight="82.0" prefWidth="202.0">
+            <HBox disable="true" prefHeight="82.0" prefWidth="202.0" visible="false">
                <children>
                   <MFXButton fx:id="importButton" buttonType="RAISED" prefHeight="26.0" prefWidth="118.0" rippleColor="#235fa6" style="-fx-font-size: 20;" styleClass="primary" stylesheets="@../stylesheets/button.css" text="Import">
                      <HBox.margin>
