@@ -178,44 +178,6 @@
                   <ColorInput paint="#235fa6" />
                </effect>
             </MFXButton>
-            <Label disable="true" prefHeight="35.0" prefWidth="195.0" text="CSV Manager" visible="false">
-               <font>
-                  <Font name="Roboto" size="28.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" top="30.0" />
-               </VBox.margin>
-               <styleClass>
-                  <String fx:value="headline-med" />
-                  <String fx:value="on-suface-text" />
-               </styleClass>
-            </Label>
-            <HBox disable="true" prefHeight="82.0" prefWidth="202.0" visible="false">
-               <children>
-                  <MFXButton fx:id="importButton" buttonType="RAISED" prefHeight="26.0" prefWidth="118.0" rippleColor="#235fa6" style="-fx-font-size: 20;" styleClass="primary" stylesheets="@../stylesheets/button.css" text="Import">
-                     <HBox.margin>
-                        <Insets left="5.0" right="5.0" />
-                     </HBox.margin>
-                      <font>
-                          <Font name="Roboto" size="14.0" />
-                      </font>
-                      <effect>
-                          <ColorInput paint="#235fa6" />
-                      </effect>
-                  </MFXButton>
-                  <MFXButton fx:id="exportButton" buttonType="RAISED" prefHeight="26.0" prefWidth="115.0" rippleColor="#235fa6" style="-fx-font-size: 20;" styleClass="primary" stylesheets="@../stylesheets/button.css" text="Export">
-                     <HBox.margin>
-                        <Insets left="5.0" right="5.0" />
-                     </HBox.margin>
-                      <font>
-                          <Font name="Roboto" size="14.0" />
-                      </font>
-                      <effect>
-                          <ColorInput paint="#235fa6" />
-                      </effect>
-                  </MFXButton>
-               </children>
-            </HBox>
          </children></VBox>
        <TableView fx:id="editSignageTable" layoutX="249.0" layoutY="75.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="852.0" prefWidth="352.0" stylesheets="@../stylesheets/TableViewStuff.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="75.0">
          <columnResizePolicy>
