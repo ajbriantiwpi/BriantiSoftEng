@@ -2,6 +2,7 @@ package edu.wpi.teamname.alerts;
 
 import edu.wpi.teamname.employees.EmployeeType;
 import java.sql.Timestamp;
+import java.util.Comparator;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -94,6 +95,12 @@ public class Alert {
   //  public boolean addStaff(Employee adder) {
   //    return this.employeeList.add(adder);
   //  }
+  public static Comparator<Timestamp> startDateComparator =
+      Comparator.comparing(Timestamp::getTime).reversed();
+
+  public Timestamp getStartDate() {
+    return this.startDisplayDate;
+  }
 
   @Override
   public String toString() {
