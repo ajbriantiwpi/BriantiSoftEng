@@ -176,11 +176,12 @@ public class HomeController {
                   description.getStyleClass().add("primary-text-container");
                   description.getStyleClass().add("primary");
                   Label announcement = new Label();
+                  announcement.setText(alertList.get(i).getAnnouncement());
                   announcement.getStyleClass().add("primary-text-container");
                   announcement.getStyleClass().add("primary");
                   announcement.wrapTextProperty().set(true);
                   description.wrapTextProperty().set(true);
-                  HBox.setHgrow(description, Priority.ALWAYS);
+                  HBox.setHgrow(description, Priority.SOMETIMES);
                   HBox.setHgrow(announcement, Priority.ALWAYS);
                   temp.setSpacing(20);
                   temp.getChildren().add(announcement);
