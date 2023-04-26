@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.*?>
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorInput?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.EditSignageController">
+<AnchorPane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.EditSignageController">
    <children>
       <VBox minWidth="200.0" prefHeight="400.0" prefWidth="202.0" spacing="12.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -172,46 +178,11 @@
                   <ColorInput paint="#235fa6" />
                </effect>
             </MFXButton>
-            <Label prefHeight="35.0" prefWidth="195.0" text="CSV Manager">
-               <font>
-                  <Font name="Roboto" size="28.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" top="30.0" />
-               </VBox.margin>
-               <styleClass>
-                  <String fx:value="headline-med" />
-                  <String fx:value="on-suface-text" />
-               </styleClass>
-            </Label>
-            <HBox prefHeight="82.0" prefWidth="202.0">
-               <children>
-                  <MFXButton fx:id="importButton" buttonType="RAISED" prefHeight="26.0" prefWidth="118.0" rippleColor="#235fa6" style="-fx-font-size: 20;" styleClass="primary" stylesheets="@../stylesheets/button.css" text="Import">
-                     <HBox.margin>
-                        <Insets left="5.0" right="5.0" />
-                     </HBox.margin>
-                      <font>
-                          <Font name="Roboto" size="14.0" />
-                      </font>
-                      <effect>
-                          <ColorInput paint="#235fa6" />
-                      </effect>
-                  </MFXButton>
-                  <MFXButton fx:id="exportButton" buttonType="RAISED" prefHeight="26.0" prefWidth="115.0" rippleColor="#235fa6" style="-fx-font-size: 20;" styleClass="primary" stylesheets="@../stylesheets/button.css" text="Export">
-                     <HBox.margin>
-                        <Insets left="5.0" right="5.0" />
-                     </HBox.margin>
-                      <font>
-                          <Font name="Roboto" size="14.0" />
-                      </font>
-                      <effect>
-                          <ColorInput paint="#235fa6" />
-                      </effect>
-                  </MFXButton>
-               </children>
-            </HBox>
          </children></VBox>
-       <TableView fx:id="editSignageTable" layoutX="249.0" layoutY="75.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="852.0" prefWidth="352.0" stylesheets="@../stylesheets/TableViewStuff.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="75.0" />
+       <TableView fx:id="editSignageTable" layoutX="249.0" layoutY="75.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="852.0" prefWidth="352.0" stylesheets="@../stylesheets/TableViewStuff.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="75.0">
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy></TableView>
        <HBox layoutX="205.0" prefHeight="50.0" prefWidth="396.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label text="Edit Location" textFill="#235fa6">
