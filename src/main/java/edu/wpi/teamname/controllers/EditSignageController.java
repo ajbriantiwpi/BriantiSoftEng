@@ -9,10 +9,7 @@ import edu.wpi.teamname.database.interfaces.SignageDAO;
 import edu.wpi.teamname.navigation.Direction;
 import edu.wpi.teamname.navigation.Signage;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import java.io.File;
-import java.io.IOException;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.Optional;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -24,7 +21,6 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.FileChooser;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import jdk.jfr.Timestamp;
@@ -49,8 +45,8 @@ public class EditSignageController {
   @FXML private ComboBox<String> directionPicker;
   @FXML private TextField kioskInput;
   @FXML private MFXButton submitButton;
-  @FXML private MFXButton importButton;
-  @FXML private MFXButton exportButton;
+  //  @FXML private MFXButton importButton;
+  //  @FXML private MFXButton exportButton;
   @FXML private AnchorPane rootPane;
   @FXML private TextField searchBar;
 
@@ -190,44 +186,44 @@ public class EditSignageController {
           }
         });
     searchBar.textProperty().addListener((observable, oldValue, newValue) -> filterTable(newValue));
-    exportButton.setOnAction(
-        event -> {
-          FileChooser fileChooser = new FileChooser();
-          fileChooser.setTitle("Save CSV File");
-          fileChooser.setInitialFileName("signage.csv");
-          fileChooser
-              .getExtensionFilters()
-              .addAll(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
-          File file = fileChooser.showSaveDialog(exportButton.getScene().getWindow());
-          if (file != null) {
-            try {
-              signageDAO.exportSignageToCSV(file.getAbsolutePath());
-            } catch (SQLException | IOException e) {
-              System.err.println("Error exporting data to CSV file: " + e.getMessage());
-            }
-          }
-        });
-    importButton.setOnAction(
-        event -> {
-          FileChooser fileChooser = new FileChooser();
-          fileChooser.setTitle("Select CSV File");
-          fileChooser
-              .getExtensionFilters()
-              .addAll(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
-          File file = fileChooser.showOpenDialog(importButton.getScene().getWindow());
-          if (file != null) {
-            try {
-              signageDAO.uploadSignage(file.getAbsolutePath());
-              // refresh table view
-              signageDAO.getAllSignage().clear();
-              editSignageTable.getItems().addAll(signageDAO.getAllSignage());
-            } catch (SQLException e) {
-              System.err.println("Error uploading data to database: " + e.getMessage());
-            } catch (ParseException e) {
-              throw new RuntimeException(e);
-            }
-          }
-        });
+    //    exportButton.setOnAction(
+    //        event -> {
+    //          FileChooser fileChooser = new FileChooser();
+    //          fileChooser.setTitle("Save CSV File");
+    //          fileChooser.setInitialFileName("signage.csv");
+    //          fileChooser
+    //              .getExtensionFilters()
+    //              .addAll(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+    //          File file = fileChooser.showSaveDialog(exportButton.getScene().getWindow());
+    //          if (file != null) {
+    //            try {
+    //              signageDAO.exportSignageToCSV(file.getAbsolutePath());
+    //            } catch (SQLException | IOException e) {
+    //              System.err.println("Error exporting data to CSV file: " + e.getMessage());
+    //            }
+    //          }
+    //        });
+    //    importButton.setOnAction(
+    //        event -> {
+    //          FileChooser fileChooser = new FileChooser();
+    //          fileChooser.setTitle("Select CSV File");
+    //          fileChooser
+    //              .getExtensionFilters()
+    //              .addAll(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+    //          File file = fileChooser.showOpenDialog(importButton.getScene().getWindow());
+    //          if (file != null) {
+    //            try {
+    //              signageDAO.uploadSignage(file.getAbsolutePath());
+    //              // refresh table view
+    //              signageDAO.getAllSignage().clear();
+    //              editSignageTable.getItems().addAll(signageDAO.getAllSignage());
+    //            } catch (SQLException e) {
+    //              System.err.println("Error uploading data to database: " + e.getMessage());
+    //            } catch (ParseException e) {
+    //              throw new RuntimeException(e);
+    //            }
+    //          }
+    //        });
     editSignageTable.setRowFactory(
         TableView -> {
           TableRow<Signage> row = new TableRow<>();

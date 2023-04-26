@@ -48,6 +48,8 @@ public class HomeController {
   @FXML MFXButton editMapButton;
   @FXML MFXButton exitButton;
   @FXML MFXButton employeeButton;
+  @FXML MFXButton aboutButton;
+  @FXML MFXButton creditButton;
 
   @FXML MFXButton viewSignageButton;
   @FXML MFXButton editSignageButton;
@@ -381,6 +383,8 @@ public class HomeController {
     requestRoomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CONFERENCE_ROOM));
     dataButton.setOnMouseClicked(event -> Navigation.navigate(Screen.DATA_MANAGER));
     notificationPopupButtonSimple.setOnMouseClicked(NotificationPopupEvent);
+    aboutButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ABOUT));
+    creditButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CREDITS));
     serviceRequestAnalyticsButton.setOnMouseClicked(
         event -> Navigation.navigate(Screen.SERVICE_REQUEST_ANALYTICS));
     //    notifsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERT));
