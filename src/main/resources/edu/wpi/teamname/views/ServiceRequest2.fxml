@@ -1,26 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import java.lang.String?>
-<?import java.net.URL?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import org.controlsfx.control.SearchableComboBox?>
+<?import io.github.palexdev.materialfx.controls.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import org.controlsfx.control.*?>
 
-<AnchorPane fx:id="root" styleClass="surface-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestController">
+<AnchorPane fx:id="root" styleClass="surface-container" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestController">
     <children>
         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -195,7 +184,7 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <MFXButton fx:id="nextButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-width: 2; -fx-background-radius: 16; -fx-border-radius: 16;" stylesheets="@../stylesheets/button.css" text="Next" textFill="#235fa6" GridPane.columnIndex="2">
+                                <MFXButton fx:id="nextButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-width: 2; -fx-background-radius: 16; -fx-border-radius: 16;" text="Next" textFill="#235fa6" GridPane.columnIndex="2">
                                     <font>
                                         <Font name="Roboto" size="36.0" />
                                     </font>
@@ -204,7 +193,7 @@
                               <String fx:value="primary" />
                            </styleClass>
                                 </MFXButton>
-                                <MFXButton fx:id="clearButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-width: 2; -fx-background-radius: 16; -fx-border-radius: 16;" stylesheets="@../stylesheets/button.css" text="Clear" textFill="#2f3033">
+                                <MFXButton fx:id="clearButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-width: 2; -fx-background-radius: 16; -fx-border-radius: 16;" text="Clear" textFill="#2f3033">
                                     <font>
                                         <Font name="Roboto" size="36.0" />
                                     </font>
@@ -213,7 +202,7 @@
                               <String fx:value="outline" />
                            </styleClass>
                                 </MFXButton>
-                                <MFXButton fx:id="cancelButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-width: 2; -fx-background-radius: 16; -fx-border-radius: 16;" stylesheets="@../stylesheets/button.css" text="Cancel" textFill="#2f3033" GridPane.columnIndex="1">
+                                <MFXButton fx:id="cancelButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-width: 2; -fx-background-radius: 16; -fx-border-radius: 16;" text="Cancel" textFill="#2f3033" GridPane.columnIndex="1">
                                     <font>
                                         <Font name="Roboto" size="36.0" />
                                     </font>
