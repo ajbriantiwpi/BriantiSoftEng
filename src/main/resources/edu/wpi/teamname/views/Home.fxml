@@ -85,7 +85,7 @@
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0">
                            <image>
-                              <Image url="@../images/MenuIcons/assignment.png" />
+                              <Image url="@../images/MenuIcons/bar_chart.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -263,42 +263,49 @@
                   <Insets bottom="12.0" />
                </padding>
             </VBox>
-                <HBox alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
-                    <children>
-                        <MFXButton fx:id="helpButton" alignment="CENTER" style="-fx-border-color: #f6bd38; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Help" textAlignment="CENTER" textFill="#fdfbff" HBox.hgrow="ALWAYS">
-                            <font>
-                                <Font size="20.0" />
-                            </font>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                        </MFXButton>
-                        <MFXButton fx:id="notificationPopupButtonSimple" alignment="CENTER" style="-fx-border-color: #f6bd38; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Notifications" textAlignment="CENTER" textFill="#fdfbff" HBox.hgrow="ALWAYS">
-                            <font>
-                                <Font size="20.0" />
-                            </font>
-                            <HBox.margin>
-                                <Insets />
-                            </HBox.margin>
-                        </MFXButton>
-                        <MFXButton fx:id="dataButton" alignment="CENTER" style="-fx-border-color: #456d4c; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Data" textAlignment="CENTER" textFill="#fdfbff">
-                            <font>
-                                <Font size="20.0" />
-                            </font>
-                        </MFXButton>
-                        <MFXButton fx:id="exitButton" alignment="CENTER" style="-fx-border-color: #BA1A1A; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Exit" textAlignment="CENTER" textFill="#fdfbff" HBox.hgrow="ALWAYS">
-                            <font>
-                                <Font size="20.0" />
-                            </font>
-                        </MFXButton>
-                    </children>
-                    <GridPane.margin>
-                        <Insets right="20.0" top="10.0" />
-                    </GridPane.margin>
-                </HBox>
                 <AnchorPane maxHeight="200.0" maxWidth="200.0" prefHeight="120.0" prefWidth="120.0" styleClass="body3" stylesheets="@../stylesheets/logoScale.css" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER" />
             </children>
         </GridPane>
+          <HBox alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+              <children>
+            <MFXButton fx:id="helpButton" alignment="CENTER" style="-fx-border-color: #f6bd38; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Help" textAlignment="CENTER" textFill="#fdfbff">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </MFXButton>
+                  <MFXButton fx:id="aboutButton" alignment="CENTER" style="-fx-border-color: #b3009e; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="About" textAlignment="CENTER" textFill="#fdfbff" HBox.hgrow="ALWAYS">
+                      <font>
+                          <Font size="20.0" />
+                      </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+                  </MFXButton>
+            <MFXButton fx:id="creditButton" alignment="CENTER" style="-fx-border-color: #f7fcd9; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Credits" textAlignment="CENTER" textFill="#fdfbff">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </MFXButton>
+                  <MFXButton fx:id="notificationPopupButtonSimple" alignment="CENTER" style="-fx-border-color: #f6bd38; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Notifications" textAlignment="CENTER" textFill="#fdfbff" HBox.hgrow="ALWAYS">
+                      <font>
+                          <Font size="20.0" />
+                      </font>
+                      <HBox.margin>
+                          <Insets />
+                      </HBox.margin>
+                  </MFXButton>
+                  <MFXButton fx:id="dataButton" alignment="CENTER" style="-fx-border-color: #456d4c; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Data" textAlignment="CENTER" textFill="#fdfbff">
+                      <font>
+                          <Font size="20.0" />
+                      </font>
+                  </MFXButton>
+                  <MFXButton fx:id="exitButton" alignment="CENTER" style="-fx-border-color: #BA1A1A; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Exit" textAlignment="CENTER" textFill="#fdfbff" HBox.hgrow="ALWAYS">
+                      <font>
+                          <Font size="20.0" />
+                      </font>
+                  </MFXButton>
+              </children>
+          </HBox>
 
     </children>
    <stylesheets>
