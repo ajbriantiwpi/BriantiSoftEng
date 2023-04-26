@@ -6,6 +6,8 @@ import java.awt.*;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalTime;
+import java.util.ArrayList;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -24,6 +26,7 @@ public class SignageController {
   @FXML DatePicker dateChos;
   @FXML MFXButton submit;
   private static Timestamp date;
+  private static ArrayList<String> kiosksForDate = new ArrayList<>();
 
   @FXML
   public void initialize() throws SQLException {
@@ -51,7 +54,7 @@ public class SignageController {
     KskBox.setOnMouseClicked(
         event -> {
           try {
-            DataManager.getSignage(KskBox.getValue(), date);
+            kiosksForDate = DataManager.getSignage(KskBox.getValue(), date);
           } catch (SQLException e) {
             System.out.println(e);
           }
@@ -59,7 +62,9 @@ public class SignageController {
           //          submit.setVisible(false);
         });
 
-    submit.setOnMouseClicked(event -> {});
+    submit.setOnMouseClicked(event -> {
+        //loop thru kiosksForDate and put them below eachother in VBox
+    });
 
     // set default date to 2023-05-02
   }
