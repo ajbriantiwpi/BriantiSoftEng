@@ -70,6 +70,8 @@ public class Map {
   @Getter @Setter private String startFloor;
   @Getter @Setter private String endFloor;
 
+  @Getter @Setter private Timestamp currTime;
+
   /**
    * Constructs a Map object with the given sub-anchor pane.
    *
@@ -91,6 +93,7 @@ public class Map {
 
     this.showNodes = !this.isMapPage;
     this.showLegend = !this.isMapPage;
+    this.currTime = new Timestamp(System.currentTimeMillis());
   }
 
   public boolean getShowLegend() {
@@ -236,7 +239,7 @@ public class Map {
   }
 
   public void setCurrentDisplayFloor(String currentDisplayFloor) throws SQLException, IOException {
-    this.setCurrentDisplayFloor(currentDisplayFloor, new Timestamp(System.currentTimeMillis()));
+    this.setCurrentDisplayFloor(currentDisplayFloor, currTime);
   }
 
   public void setCurrentDisplayFloor(String currentDisplayFloor, Timestamp time)

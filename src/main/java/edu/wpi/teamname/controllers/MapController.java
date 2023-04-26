@@ -475,7 +475,7 @@ public class MapController {
               textDirections += "\n" + s;
               if (s.contains("loor")) {
                 if (s.contains("own")) {
-                  System.out.println("Down");
+                  System.out.println("Down " + map.getFloorChanges().get(changes));
                   floorIndex -= map.getFloorChanges().get(changes);
                   changes++;
                 } else {
@@ -1037,7 +1037,7 @@ public class MapController {
         @Override
         public void handle(MouseEvent event) {
           //        map.setShowEdges(EdgeSelector.isSelected());
-          map.setShowLegend(LegendSelector.isSelected() && NodeSelector.isSelected());
+          map.setShowLegend(LegendSelector.isSelected()); // && NodeSelector.isSelected());
           Legend.setVisible(map.getShowLegend());
 
           try {
@@ -1179,6 +1179,7 @@ public class MapController {
               System.out.println("Print date");
               LocalDateTime dateTime = localDate.atStartOfDay();
               Timestamp date = Timestamp.valueOf(dateTime);
+              map.setCurrTime(date);
               try {
                 map.refresh(date);
               } catch (SQLException ex) {
