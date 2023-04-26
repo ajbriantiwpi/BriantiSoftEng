@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #000000;" stylesheets="@../stylesheets/Colors/theme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.views.MapLegend">
    <children>
-      <VBox layoutX="226.0" layoutY="94.0" prefHeight="240.0" prefWidth="194.0" style="-fx-border-radius: 10; -fx-border-color: #012d5a; -fx-background-color: #ffffff; -fx-background-radius: 10;" stylesheets="@../stylesheets/Colors/theme.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox fx:id="Legend" layoutX="226.0" layoutY="94.0" prefHeight="333.0" prefWidth="237.0" style="-fx-border-radius: 10; -fx-border-color: #012d5a; -fx-background-color: #ffffff; -fx-background-radius: 10;" stylesheets="@../stylesheets/Colors/theme.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label text="Map Symbols">
                <font>
@@ -47,7 +47,7 @@
                   </Label>
                </children>
                <VBox.margin>
-                  <Insets bottom="-10.0" top="-10.0" />
+                  <Insets bottom="-7.0" top="-7.0" />
                </VBox.margin>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
@@ -89,7 +89,7 @@
                   </Label>
                </children>
                <VBox.margin>
-                  <Insets bottom="-10.0" top="-10.0" />
+                  <Insets bottom="-7.0" top="-7.0" />
                </VBox.margin>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
@@ -131,7 +131,7 @@
                   </Label>
                </children>
                <VBox.margin>
-                  <Insets bottom="-10.0" top="-10.0" />
+                  <Insets bottom="-7.0" top="-7.0" />
                </VBox.margin>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
@@ -177,7 +177,7 @@
                   </Label>
                </children>
                <VBox.margin>
-                  <Insets bottom="-10.0" top="-10.0" />
+                  <Insets bottom="-7.0" top="-7.0" />
                </VBox.margin>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
@@ -198,7 +198,7 @@
                   </Label>
                </children>
                <VBox.margin>
-                  <Insets bottom="-10.0" />
+                  <Insets bottom="-7.0" />
                </VBox.margin>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
@@ -219,8 +219,21 @@
                   </Label>
                </children>
                <VBox.margin>
-                  <Insets />
+                  <Insets bottom="-7.0" />
                </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
+               <children>
+                  <Ellipse fill="#edb230" radiusX="6.0" radiusY="6.0" stroke="#012d5a" strokeType="INSIDE" />
+                  <Label prefHeight="27.0" prefWidth="232.0" text="Current Floor Destination">
+                     <HBox.margin>
+                        <Insets left="4.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
             </HBox>
          </children>
          <padding>
