@@ -56,9 +56,10 @@
                         <children>
                            <MFXButton fx:id="createNewAlert" stylesheets="@../stylesheets/button.css" text="Create New Alert" >
                               <styleClass>
-                                 <String fx:value="display-med" />
+<!--                                 <String fx:value="display-small" />-->
                                  <String fx:value="primary" />
                                  <String fx:value="outline" />
+                                 <String fx:value="small-text" />
                               </styleClass>
                            </MFXButton>
                         </children>
