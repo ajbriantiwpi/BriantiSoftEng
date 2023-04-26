@@ -31,7 +31,8 @@ public class SignageDAOImpl implements SignageDAO {
       statement.setTimestamp(2, signage.getDate());
       statement.setString(3, signage.getArrowDirection().name());
       statement.setInt(4, signage.getSignId());
-      statement.setString(5, signage.getLongName());
+      statement.setInt(5, signage.getKioskId()); // This line was modified
+      statement.setString(6, signage.getLongName());
 
       statement.executeUpdate();
     } catch (SQLException e) {

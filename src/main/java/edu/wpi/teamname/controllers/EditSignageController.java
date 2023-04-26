@@ -25,16 +25,6 @@ import javafx.util.Callback;
 import javafx.util.StringConverter;
 import jdk.jfr.Timestamp;
 
-/*
-TODO
-check export
-get import to update asap
-fix enum add error
-be able to edit dates
-editing directions should be drop down
-
- */
-
 public class EditSignageController {
 
   @FXML private TableView<Signage> editSignageTable;
@@ -161,13 +151,14 @@ public class EditSignageController {
     arrowDirectionColumn.setOnEditCommit(
         event -> {
           Signage editedSignage = event.getRowValue();
-          editedSignage.setArrowDirection(Direction.valueOf(event.getNewValue().toString()));
+          editedSignage.setArrowDirection(event.getNewValue());
           try {
             syncSignage(editedSignage);
           } catch (SQLException e) {
             throw new RuntimeException(e);
           }
         });
+
     dateColumn.setOnEditCommit(
         event -> {
           Signage editedSignage = event.getRowValue();
