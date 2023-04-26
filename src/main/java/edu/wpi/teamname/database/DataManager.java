@@ -49,6 +49,75 @@ public class DataManager {
     }
     return connection;
   }
+  // ----------------Signage---------
+  public static ArrayList<Integer> getKiosks(Timestamp date) throws SQLException {
+    ArrayList<Integer> items = new ArrayList<>();
+    Connection connection = DataManager.DbConnection();
+    String query =
+        "Select \"kioskID\"\n" + "From \"Signage\"\n" + "Where \"date\" = ? Group by \"kioskID\"";
+    try (connection) {
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setTimestamp(1, date);
+
+      ResultSet rs = statement.executeQuery();
+      while (rs.next()) {
+        int kioskID = rs.getInt("kioskID");
+        items.add(kioskID);
+      }
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return items;
+  }
+
+  public static ArrayList<String> getSignage(int kiosk, Timestamp date) throws SQLException {
+    ArrayList<String> items = new ArrayList<>();
+    Connection connection = DataManager.DbConnection();
+    String query = "Select *\n" + "From \"Signage\"\n" + "Where \"kioskID\" = ? AND \"date\" = ?";
+    try (connection) {
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setInt(1, kiosk);
+      statement.setTimestamp(2, date);
+
+      ResultSet rs = statement.executeQuery();
+      while (rs.next()) {
+        String lName = rs.getString("longName");
+        String dir = rs.getString("arrowDirection");
+        int kioskID = rs.getInt("kioskID");
+        int signID = rs.getInt("signID");
+
+        switch (dir) {
+          case "UP":
+            dir = "^  ";
+            break;
+          case "LEFT":
+            dir = "<--";
+            break;
+          case "DOWN":
+            dir = "v  ";
+            break;
+          case "RIGHT":
+            dir = "-->";
+            break;
+          case "STOP HERE":
+            dir = "Stop Here";
+            break;
+          case "STRAIGHT":
+            dir = "Straight";
+            break;
+          default:
+            System.out.println("Not Valid Direction");
+        }
+
+        items.add(dir + " | " + lName);
+      }
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return items;
+  }
+
+  // --------------------------------
 
   // ----------------SAM FUNCTIONS-------------
   public static ArrayList<Room> getAllRooms() throws SQLException {
