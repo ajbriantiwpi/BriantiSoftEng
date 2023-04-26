@@ -688,9 +688,12 @@ public class MapController {
           System.out.println("Algo Changed");
           currentAlgo = AlgoSelect.getValue();
 
+          AvoidElevatorsToggle.setDisable(true);
           switch (AlgoSelect.getValue()) {
             case ("A-Star"):
               map.graph.setPathfindingAlgo(new AStarAlgo());
+
+              AvoidElevatorsToggle.setDisable(false);
               break;
             case ("Breadth First Search"):
               map.graph.setPathfindingAlgo(new BFSAlgo());
