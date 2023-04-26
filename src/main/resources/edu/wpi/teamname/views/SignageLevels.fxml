@@ -10,32 +10,37 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.SignageController">
-   <children>
-      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
-         <center>
-            <AnchorPane style="-fx-background-color: #bfddff;" BorderPane.alignment="CENTER">
-               <children>
-                  <VBox fx:id="labelsVbox" layoutX="221.0" layoutY="15.0">
-                     <children>
-                        <HBox fx:id="labelHBox" prefHeight="77.0" prefWidth="571.0">
-                           <children>
-                              <Label fx:id="labelLine" style="-fx-font-weight: BOLD;" text="^v-&gt;&lt;- | Watkins Clinics A &amp; B (this floor)">
-                                 <font>
-                                    <Font name="Roboto Bold" size="40.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-                  <DatePicker fx:id="dateChos" layoutY="3.0" />
-                  <MFXButton fx:id="submit" layoutY="120.0" text="Submit" />
-                  <ComboBox fx:id="KskBox" layoutY="54.0" prefWidth="150.0" />
-               </children>
-            </AnchorPane>
-         </center>
-      </BorderPane>
 
+<AnchorPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.SignageController">
+   <children>
+      <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
+               <center>
+                  <AnchorPane style="-fx-background-color: #bfddff;" BorderPane.alignment="CENTER">
+                     <children>
+                        <VBox fx:id="labelsVbanchox" layoutX="221.0" layoutY="15.0">
+                           <children>
+                              <HBox fx:id="labelHBox" prefHeight="77.0" prefWidth="571.0">
+                                 <children>
+                                    <Label fx:id="labelLine" style="-fx-font-weight: BOLD;" text="^v-&gt;&lt;- | Watkins Clinics A &amp; B (this floor)">
+                                       <font>
+                                          <Font name="Roboto Bold" size="40.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <DatePicker fx:id="dateChos" layoutY="3.0" />
+                        <MFXButton fx:id="submit" layoutY="120.0" text="Submit" />
+                        <ComboBox fx:id="KskBox" layoutY="54.0" prefWidth="150.0" />
+                     </children>
+                  </AnchorPane>
+               </center>
+            </BorderPane>
+      
+         </children>
+      </HBox>
    </children>
-</HBox>
+</AnchorPane>
