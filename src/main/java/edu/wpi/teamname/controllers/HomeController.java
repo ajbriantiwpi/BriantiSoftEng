@@ -58,6 +58,7 @@ public class HomeController {
   @FXML MFXButton upcomingMoves;
   @FXML MFXButton doneRequests;
   @FXML MFXButton dataButton;
+  @FXML MFXButton serviceRequestAnalyticsButton;
 
   // test push
   @Setter @Getter private static ObservableBooleanValue loggedIn = new SimpleBooleanProperty(false);
@@ -91,6 +92,7 @@ public class HomeController {
     upcomingMoves.setVisible(false);
     doneRequests.setVisible(false);
     editSignageButton.setVisible(false);
+    dataButton.setVisible(false);
     showRequestsButton.setManaged(false);
     editMapButton.setManaged(false);
     editMoveButton.setManaged(false);
@@ -102,6 +104,7 @@ public class HomeController {
     actionVBox.setManaged(false);
     SRVBox.setManaged(false);
     editSignageButton.setManaged(false);
+    dataButton.setManaged(false);
   }
 
   @FXML
@@ -130,7 +133,9 @@ public class HomeController {
                 && !(GlobalVariables.getCurrentUser().getType().toString().equals("NONE"))) {
 
               try {
+
                 alertList = FXCollections.observableList(DataManager.getAllAlerts());
+                //                alertList.stream().sorted().collect(Collectors.toList());
                 alertList =
                     FXCollections.observableList(
                         alertList.stream()
@@ -158,20 +163,26 @@ public class HomeController {
                             .toList());
                 for (int i = 0; i < alertList.size(); i++) {
                   HBox temp = new HBox();
+
+                  temp.getStylesheets()
+                      .add(
+                          App.class
+                              .getResource("stylesheets/Colors/lightTheme.css")
+                              .toExternalForm());
+                  temp.getStyleClass().add("primary-text-container");
+                  temp.getStyleClass().add("primary");
                   Label description = new Label();
                   description.setText(alertList.get(i).getDescription());
-                  description.getStylesheets().add("@../stylesheets/RowLabel.css");
-                  description.getStylesheets().add("@../stylesheets/Colors/lightTheme.css");
+                  description.getStyleClass().add("primary-text-container");
+                  description.getStyleClass().add("primary");
                   Label announcement = new Label();
-                  announcement.setText(alertList.get(i).getAnnouncement());
-                  announcement.getStylesheets().add("@../stylesheets/RowLabel.css");
-                  announcement.getStylesheets().add("@../stylesheets/Colors/lightTheme.css");
+                  announcement.getStyleClass().add("primary-text-container");
+                  announcement.getStyleClass().add("primary");
                   announcement.wrapTextProperty().set(true);
                   description.wrapTextProperty().set(true);
-
-                  HBox.setHgrow(description, Priority.SOMETIMES);
+                  HBox.setHgrow(description, Priority.ALWAYS);
                   HBox.setHgrow(announcement, Priority.ALWAYS);
-                  temp.setSpacing(50);
+                  temp.setSpacing(20);
                   temp.getChildren().add(announcement);
                   temp.getChildren().add(description);
                   VBox.setVgrow(temp, Priority.ALWAYS);
@@ -274,12 +285,14 @@ public class HomeController {
       upcomingMoves.setManaged(true);
       doneRequests.setVisible(true);
       doneRequests.setManaged(true);
+      viewAlertsButton.setVisible(false);
+      viewAlertsButton.setManaged(false);
       showRequestsButton.setVisible(true);
       showRequestsButton.setManaged(true);
       actionVBox.setManaged(true);
       SRVBox.setManaged(true);
-      editSignageButton.setVisible(true);
-      editSignageButton.setManaged(true);
+      editSignageButton.setVisible(false);
+      editSignageButton.setManaged(false);
 
       /** * Enables all buttons for the Admin login */
     } else if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.ADMIN)) {
@@ -325,6 +338,8 @@ public class HomeController {
       SRVBox.setManaged(true);
       editSignageButton.setVisible(true);
       editSignageButton.setManaged(true);
+      dataButton.setVisible(true);
+      dataButton.setManaged(true);
     }
 
     upcomingMoves.setOnMouseClicked(
@@ -365,6 +380,8 @@ public class HomeController {
     requestRoomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CONFERENCE_ROOM));
     dataButton.setOnMouseClicked(event -> Navigation.navigate(Screen.DATA_MANAGER));
     notificationPopupButtonSimple.setOnMouseClicked(NotificationPopupEvent);
+    serviceRequestAnalyticsButton.setOnMouseClicked(
+        event -> Navigation.navigate(Screen.SERVICE_REQUEST_ANALYTICS));
     //    notifsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERT));
   }
 }

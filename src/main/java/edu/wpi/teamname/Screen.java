@@ -23,6 +23,8 @@ public enum Screen {
   SIGNAGE_TABLE("views/editSignage.fxml"),
   CONFERENCE_ROOM("views/ConferenceRoom.fxml"),
   ALERT("views/AlertTableView.fxml"),
+  SMILE("views/Smily.fxml"),
+  SERVICE_REQUEST_ANALYTICS("views/ServiceRequestAnalytics.fxml"),
   DATA_MANAGER("views/Data.fxml");
 
   private final String filename;

@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoField;
+import java.util.ArrayList;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -80,6 +81,7 @@ public class AlertTableViewController {
 
   @FXML
   public void initialize() throws SQLException {
+    ParentController.titleString.set("Alerts");
     ObservableList<EmployeeType> staffTypes =
         FXCollections.observableArrayList(EmployeeType.values());
     staffTypes.add(null);
@@ -212,6 +214,10 @@ public class AlertTableViewController {
     announcementCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("announcement"));
     urgencyCol.setCellValueFactory(new PropertyValueFactory<Alert, String>("urgency"));
     table.setItems(sortedListAlerts);
+
+    searchTextField
+        .textProperty()
+        .addListener((observable, oldValue, newValue) -> filterTable(newValue));
   }
 
   public ObservableList<Alert> tableFilter(Alert.Urgency one, EmployeeType two)
@@ -232,5 +238,33 @@ public class AlertTableViewController {
                   .toList());
     }
     return alertList;
+  }
+
+  private void filterTable(String searchText) {
+    DataManager employeeDAO = new DataManager();
+    if (searchText == null || searchText.isEmpty()) {
+      try {
+        ArrayList<Alert> alerts = employeeDAO.getAllAlerts();
+        table.setItems(FXCollections.observableArrayList(alerts));
+      } catch (SQLException e) {
+        System.err.println("Error getting employees from database: " + e.getMessage());
+      }
+    } else {
+      ObservableList<Alert> allAlerts = table.getItems();
+      ObservableList<Alert> filteredAlerts = FXCollections.observableArrayList();
+
+      for (Alert alert : allAlerts) {
+        if (String.valueOf(alert.getId()).contains(searchText)
+            || alert.getCreator().toLowerCase().contains(searchText.toLowerCase())
+            || alert.getDescription().toLowerCase().contains(searchText.toLowerCase())
+            || alert.getAnnouncement().toLowerCase().contains(searchText.toLowerCase())
+            || alert.getType().getString().toLowerCase().contains(searchText.toLowerCase())
+            || alert.getUrgency().getString().toLowerCase().contains(searchText.toLowerCase())) {
+          filteredAlerts.add(alert);
+        }
+      }
+
+      table.setItems(filteredAlerts);
+    }
   }
 }

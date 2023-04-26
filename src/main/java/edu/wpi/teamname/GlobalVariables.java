@@ -6,6 +6,8 @@ import edu.wpi.teamname.employees.EmployeeType;
 import edu.wpi.teamname.navigation.LocationName;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.paint.Color;
 import lombok.Getter;
 import lombok.Setter;
@@ -42,6 +44,9 @@ public class GlobalVariables {
   @Getter @Setter private static Employee currentUser = dummyEmployee;
   @Getter @Setter private static Screen currentScreen = Screen.HOME;
   @Getter @Setter private static Screen previousScreen = Screen.HOME;
+
+  @Getter @Setter private static BooleanProperty darkMode = new SimpleBooleanProperty(true) {};
+
   /** Sets the current user to be null indicating no user is logged in */
   public static void logOut() {
     // dummyEmployee.setType(new ArrayList<>());
