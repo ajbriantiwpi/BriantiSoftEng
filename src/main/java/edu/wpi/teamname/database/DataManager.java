@@ -53,7 +53,8 @@ public class DataManager {
   public static ArrayList<Integer> getKiosks(Timestamp date) throws SQLException {
     ArrayList<Integer> items = new ArrayList<>();
     Connection connection = DataManager.DbConnection();
-    String query = "Select \"kioskID\"\n" + "From \"Signage\"\n" + "Where \"date\" = ?";
+    String query =
+        "Select \"kioskID\"\n" + "From \"Signage\"\n" + "Where \"date\" = ? Group by \"kioskID\"";
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setTimestamp(1, date);
@@ -81,7 +82,7 @@ public class DataManager {
       ResultSet rs = statement.executeQuery();
       while (rs.next()) {
         String lName = rs.getString("longName");
-        String dir = rs.getString("arrowDirerction");
+        String dir = rs.getString("arrowDirection");
         int kioskID = rs.getInt("kioskID");
         int signID = rs.getInt("signID");
 
