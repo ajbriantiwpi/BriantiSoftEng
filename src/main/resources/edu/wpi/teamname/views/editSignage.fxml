@@ -19,7 +19,7 @@
    <children>
       <VBox minWidth="200.0" prefHeight="400.0" prefWidth="202.0" spacing="12.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label text="Add Location" textFill="#235fa6">
+            <Label text="Add Signage" textFill="#235fa6">
                 <font>
                     <Font name="Roboto" size="28.0" />
                 </font>
@@ -206,7 +206,7 @@
          </columnResizePolicy></TableView>
        <HBox layoutX="205.0" prefHeight="50.0" prefWidth="396.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label text="Edit Location" textFill="#235fa6">
+            <Label text="Edit Signage" textFill="#235fa6">
                <font>
                   <Font name="Roboto" size="28.0" />
                </font>
