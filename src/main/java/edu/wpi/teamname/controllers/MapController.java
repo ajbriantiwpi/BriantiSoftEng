@@ -34,8 +34,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javax.swing.*;
-import javax.xml.stream.Location;
-
 import net.kurobako.gesturefx.GesturePane;
 
 public class MapController {
