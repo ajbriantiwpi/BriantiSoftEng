@@ -322,12 +322,15 @@
                             </GesturePane>
                         </children>
                     </StackPane>
-                  <VBox layoutX="236.0" layoutY="104.0" prefHeight="303.0" prefWidth="220.0" style="-fx-border-radius: 10; -fx-border-color: #012d5a; -fx-background-color: #ffffff;" stylesheets="@../stylesheets/Colors/theme.css" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox layoutX="236.0" layoutY="104.0" prefHeight="228.0" prefWidth="194.0" style="-fx-border-radius: 10; -fx-border-color: #012d5a; -fx-background-color: #ffffff; -fx-background-radius: 10;" stylesheets="@../stylesheets/Colors/theme.css" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
                      <children>
                         <Label text="Map Symbols">
                            <font>
                               <Font name="Roboto" size="18.0" />
                            </font>
+                           <VBox.margin>
+                              <Insets bottom="-5.0" />
+                           </VBox.margin>
                         </Label>
                         <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                            <children>
@@ -355,7 +358,7 @@
                               </Label>
                            </children>
                            <VBox.margin>
-                              <Insets bottom="-5.0" top="-5.0" />
+                              <Insets bottom="-10.0" top="-10.0" />
                            </VBox.margin>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
@@ -397,7 +400,7 @@
                               </Label>
                            </children>
                            <VBox.margin>
-                              <Insets bottom="-5.0" top="-5.0" />
+                              <Insets bottom="-10.0" top="-10.0" />
                            </VBox.margin>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
@@ -439,7 +442,7 @@
                               </Label>
                            </children>
                            <VBox.margin>
-                              <Insets bottom="-5.0" top="-5.0" />
+                              <Insets bottom="-10.0" top="-10.0" />
                            </VBox.margin>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
@@ -485,15 +488,15 @@
                               </Label>
                            </children>
                            <VBox.margin>
-                              <Insets bottom="-5.0" top="-5.0" />
+                              <Insets bottom="-10.0" top="-10.0" />
                            </VBox.margin>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                            <children>
                               <Ellipse fill="WHITE" radiusX="6.0" radiusY="6.0" stroke="#012d5a" strokeType="INSIDE" />
-                              <Ellipse fill="#012d5a" nodeOrientation="LEFT_TO_RIGHT" radiusX="3.0" radiusY="3.0" stroke="#012d5a" strokeType="INSIDE">
+                              <Ellipse fill="#012d5a" nodeOrientation="LEFT_TO_RIGHT" radiusX="2.0" radiusY="2.0" stroke="#012d5a" strokeType="INSIDE">
                                  <HBox.margin>
-                                    <Insets left="-9.0" />
+                                    <Insets left="-8.0" />
                                  </HBox.margin>
                               </Ellipse>
                               <Label prefHeight="18.0" prefWidth="122.0" text="Destination">
@@ -505,13 +508,16 @@
                                  </font>
                               </Label>
                            </children>
+                           <VBox.margin>
+                              <Insets bottom="-10.0" />
+                           </VBox.margin>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                            <children>
                               <Ellipse fill="#edb230" radiusX="6.0" radiusY="6.0" stroke="#012d5a" strokeType="INSIDE" />
-                              <Ellipse fill="#012d5a" nodeOrientation="LEFT_TO_RIGHT" radiusX="3.0" radiusY="3.0" stroke="#012d5a" strokeType="INSIDE">
+                              <Ellipse fill="#012d5a" nodeOrientation="LEFT_TO_RIGHT" radiusX="2.0" radiusY="2.0" stroke="#012d5a" strokeType="INSIDE">
                                  <HBox.margin>
-                                    <Insets left="-9.0" />
+                                    <Insets left="-8.0" />
                                  </HBox.margin>
                               </Ellipse>
                               <Label prefHeight="23.0" prefWidth="187.0" text="Current Floor Start">
@@ -524,12 +530,12 @@
                               </Label>
                            </children>
                            <VBox.margin>
-                              <Insets bottom="-5.0" top="-5.0" />
+                              <Insets />
                            </VBox.margin>
                         </HBox>
                      </children>
                      <padding>
-                        <Insets left="10.0" top="10.0" />
+                        <Insets left="10.0" />
                      </padding>
                   </VBox>
                </children>
