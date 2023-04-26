@@ -54,14 +54,12 @@
                      </VBox>
                      <VBox prefHeight="200.0" prefWidth="100.0">
                         <children>
-                           <MFXButton fx:id="createNewAlert" stylesheets="@../stylesheets/button.css" text="Create New Alert">
-                              <font>
-                                 <Font name="Roboto" size="36.0" />
-                              </font>
+                           <MFXButton fx:id="createNewAlert" stylesheets="@../stylesheets/button.css" text="Create New Alert" >
                               <styleClass>
-                                 <String fx:value="display-med" />
+<!--                                 <String fx:value="display-small" />-->
                                  <String fx:value="primary" />
                                  <String fx:value="outline" />
+                                 <String fx:value="small-text" />
                               </styleClass>
                            </MFXButton>
                         </children>

@@ -1,23 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.legacy.MFXLegacyListView?>
-<?import java.lang.String?>
-<?import java.net.URL?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import org.controlsfx.control.RangeSlider?>
+<?import io.github.palexdev.materialfx.controls.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import org.controlsfx.control.*?>
 
-<?import javafx.scene.control.ListView?>
-<AnchorPane fx:id="root" prefHeight="1080.0" prefWidth="1280.0" styleClass="body" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ConferenceController">
+<AnchorPane fx:id="root" prefHeight="1080.0" prefWidth="1280.0" styleClass="body" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ConferenceController">
     <children>
         <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <ScrollPane fitToHeight="true" fitToWidth="true" prefWidth="420.0" HBox.hgrow="NEVER">
@@ -103,9 +95,9 @@
                                 </VBox.margin>
                             </Label>
                             <ComboBox fx:id="roomBox" layoutX="10.0" layoutY="158.0" prefHeight="50.0" prefWidth="396.0" promptText="Choose Room" stylesheets="@../stylesheets/combo.css" />
-                            <MFXButton fx:id="submitButton" mnemonicParsing="false" styleClass="primary" stylesheets="@../stylesheets/button.css" text="Request">
+                            <MFXButton fx:id="submitButton" mnemonicParsing="false" styleClass="primary" text="Request">
                                 <font>
-                                    <Font name="Times New Roman" size="32.0" />
+                                    <Font name="Roboto" size="32.0" />
                                 </font>
                                 <VBox.margin>
                                     <Insets />

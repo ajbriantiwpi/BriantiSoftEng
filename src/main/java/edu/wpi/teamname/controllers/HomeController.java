@@ -133,7 +133,9 @@ public class HomeController {
                 && !(GlobalVariables.getCurrentUser().getType().toString().equals("NONE"))) {
 
               try {
+
                 alertList = FXCollections.observableList(DataManager.getAllAlerts());
+                //                alertList.stream().sorted().collect(Collectors.toList());
                 alertList =
                     FXCollections.observableList(
                         alertList.stream()
@@ -161,20 +163,27 @@ public class HomeController {
                             .toList());
                 for (int i = 0; i < alertList.size(); i++) {
                   HBox temp = new HBox();
+
+                  temp.getStylesheets()
+                      .add(
+                          App.class
+                              .getResource("stylesheets/Colors/lightTheme.css")
+                              .toExternalForm());
+                  temp.getStyleClass().add("primary-text-container");
+                  temp.getStyleClass().add("primary");
                   Label description = new Label();
                   description.setText(alertList.get(i).getDescription());
-                  description.getStylesheets().add("@../stylesheets/RowLabel.css");
-                  description.getStylesheets().add("@../stylesheets/Colors/lightTheme.css");
+                  description.getStyleClass().add("primary-text-container");
+                  description.getStyleClass().add("primary");
                   Label announcement = new Label();
                   announcement.setText(alertList.get(i).getAnnouncement());
-                  announcement.getStylesheets().add("@../stylesheets/RowLabel.css");
-                  announcement.getStylesheets().add("@../stylesheets/Colors/lightTheme.css");
+                  announcement.getStyleClass().add("primary-text-container");
+                  announcement.getStyleClass().add("primary");
                   announcement.wrapTextProperty().set(true);
                   description.wrapTextProperty().set(true);
-
                   HBox.setHgrow(description, Priority.SOMETIMES);
                   HBox.setHgrow(announcement, Priority.ALWAYS);
-                  temp.setSpacing(50);
+                  temp.setSpacing(20);
                   temp.getChildren().add(announcement);
                   temp.getChildren().add(description);
                   VBox.setVgrow(temp, Priority.ALWAYS);

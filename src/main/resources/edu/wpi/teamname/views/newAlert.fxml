@@ -46,22 +46,24 @@
         </HBox>
         <HBox alignment="CENTER" prefHeight="47.0" prefWidth="580.0" spacing="50.0">
             <children>
-                <MFXButton stylesheets="@../stylesheets/button.css" text="Cancel">
+                <MFXButton stylesheets="@../stylesheets/button.css" text="Cancel" styleClass="small-text">
                     <font>
                         <Font name="Roboto" size="36.0" />
                     </font>
                     <styleClass>
-                        <String fx:value="display-med" />
+                        <String fx:value="small-text" />
+<!--                        <String fx:value="display-med" />-->
                         <String fx:value="primary" />
                         <String fx:value="outline" />
                     </styleClass>
                 </MFXButton>
-                <MFXButton stylesheets="@../stylesheets/button.css" text="Submit">
+                <MFXButton stylesheets="@../stylesheets/button.css" text="Submit" styleClass="small-text">
                     <font>
                         <Font name="Roboto" size="36.0" />
                     </font>
                     <styleClass>
-                        <String fx:value="display-med" />
+                        <String fx:value="small-text" />
+<!--                        <String fx:value="display-med" />-->
                         <String fx:value="primary" />
                         <String fx:value="outline" />
                     </styleClass>

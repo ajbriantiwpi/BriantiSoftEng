@@ -134,19 +134,16 @@ public class ReqMenuItems extends GridPane {
       button.setPadding(new Insets(this.getHeight() / 2 - button.getHeight() / 2, 25, 0, 25));
       button.setAlignment(Pos.CENTER_RIGHT);
       button.setStyle(
-          "-fx-background-color: #555F71; "
-              + "-fx-text-fill:  #FFFFFF; "
-              + "-fx-background-radius: 100;"
-              + " -fx-font-family: Roboto;"
-              + " -fx-font-size: 32 ");
+          "-fx-background-radius: 8;" + " -fx-font-family: Roboto;" + " -fx-font-size: 32 ");
     }
+    button.getStyleClass().add("primary");
     quantity = new TextField("");
     quantity.setPromptText("Quantity");
     quantity.setFont(Font.font("Roboto", 32));
 
     quantity.setStyle(
-        "-fx-background-color: #D9E3F8 ;-fx-font-fill: #121C2B; -fx-background-radius: 8;-fx-border-radius: 8; -fx-border-color: #6F797A; -fx-border-width: 1");
-
+        "-fx-background-radius: 8;-fx-border-radius: 8; -fx-border-color: #6F797A; -fx-border-width: 1");
+    quantity.getStyleClass().add("primary-container");
     add(label, 1, 0);
     add(labelP, 2, 0);
     add(quantity, 3, 0);
@@ -158,7 +155,8 @@ public class ReqMenuItems extends GridPane {
     setHalignment(labelP, HPos.LEFT);
     setHalignment(quantity, HPos.LEFT);
 
-    setStyle("-fx-background-color: #D5E3FF;" + "-fx-background-radius: 8");
+    setStyle("-fx-background-radius: 8");
+    getStyleClass().add("primary-container");
   }
 
   public int getQuantity() {
