@@ -164,32 +164,66 @@ public class HomeController {
                                     alert.getEndDisplayDate().toInstant().isAfter(Instant.now()))
                             .toList());
                 for (int i = 0; i < alertList.size(); i++) {
-                  HBox temp = new HBox();
+                  Alert tempAlert = alertList.get(i);
+                  final var innerNotif = App.class.getResource("views/Notification.fxml");
+                  final FXMLLoader loader1 = new FXMLLoader(innerNotif);
+                  HBox in;
+                  //                  new HBox();
+                  try {
+                    in = loader1.load();
+                  } catch (IOException e) {
+                    throw new RuntimeException(e);
+                  }
+                  Label idLabel = (Label) ((Pane) in.getChildren().get(0)).getChildren().get(0);
+                  idLabel.setText("Request ID: " + tempAlert.getId());
+                  Label announcement =
+                      (Label) ((Pane) in.getChildren().get(0)).getChildren().get(1);
+                  announcement.setText(tempAlert.getAnnouncement());
+                  Label description = (Label) ((Pane) in.getChildren().get(0)).getChildren().get(2);
+                  description.setText(tempAlert.getDescription());
+                  Label urgency = (Label) ((Pane) (in.getChildren().get(1))).getChildren().get(0);
+                  urgency.setText(tempAlert.getUrgency().getString());
+                  switch (tempAlert.getUrgency()) {
+                    case MILD:
+                      in.getStyleClass().add("mild");
+                      break;
+                    case NONE:
+                      in.getStyleClass().add("none");
+                      break;
+                    case MEDIUM:
+                      in.getStyleClass().add("medium");
+                      break;
+                    case SEVERE:
+                      in.getStyleClass().add("severe");
+                      break;
+                  }
+                  v.getChildren().add(in);
 
-                  temp.getStylesheets()
-                      .add(
-                          App.class
-                              .getResource("stylesheets/Colors/lightTheme.css")
-                              .toExternalForm());
-                  temp.getStyleClass().add("primary-text-container");
-                  temp.getStyleClass().add("primary");
-                  Label description = new Label();
-                  description.setText(alertList.get(i).getDescription());
-                  description.getStyleClass().add("primary-text-container");
-                  description.getStyleClass().add("primary");
-                  Label announcement = new Label();
-                  announcement.setText(alertList.get(i).getAnnouncement());
-                  announcement.getStyleClass().add("primary-text-container");
-                  announcement.getStyleClass().add("primary");
-                  announcement.wrapTextProperty().set(true);
-                  description.wrapTextProperty().set(true);
-                  HBox.setHgrow(description, Priority.SOMETIMES);
-                  HBox.setHgrow(announcement, Priority.ALWAYS);
-                  temp.setSpacing(20);
-                  temp.getChildren().add(announcement);
-                  temp.getChildren().add(description);
-                  VBox.setVgrow(temp, Priority.ALWAYS);
-                  v.getChildren().add(temp);
+                  //
+                  //                  temp.getStylesheets()
+                  //                      .add(
+                  //                          App.class
+                  //                              .getResource("stylesheets/Colors/lightTheme.css")
+                  //                              .toExternalForm());
+                  //                  temp.getStyleClass().add("primary-text-container");
+                  //                  temp.getStyleClass().add("primary");
+                  //                  Label description = new Label();
+                  //                  description.setText(alertList.get(i).getDescription());
+                  //                  description.getStyleClass().add("primary-text-container");
+                  //                  description.getStyleClass().add("primary");
+                  //                  Label announcement = new Label();
+                  //                  announcement.setText(alertList.get(i).getAnnouncement());
+                  //                  announcement.getStyleClass().add("primary-text-container");
+                  //                  announcement.getStyleClass().add("primary");
+                  //                  announcement.wrapTextProperty().set(true);
+                  //                  description.wrapTextProperty().set(true);
+                  //                  HBox.setHgrow(description, Priority.SOMETIMES);
+                  //                  HBox.setHgrow(announcement, Priority.ALWAYS);
+                  //                  temp.setSpacing(20);
+                  //                  temp.getChildren().add(announcement);
+                  //                  temp.getChildren().add(description);
+                  //                  VBox.setVgrow(temp, Priority.ALWAYS);
+
                 }
               } catch (SQLException e) {
                 throw new RuntimeException(e);
