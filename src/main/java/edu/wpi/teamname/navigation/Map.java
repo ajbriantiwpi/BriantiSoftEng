@@ -67,6 +67,9 @@ public class Map {
 
   @Getter @Setter private ArrayList<Integer> floorChanges;
 
+  @Getter @Setter private String startFloor;
+  @Getter @Setter private String endFloor;
+
   /**
    * Constructs a Map object with the given sub-anchor pane.
    *
@@ -335,7 +338,15 @@ public class Map {
 
     // pathAllFloor.add(0,listFloor2);
 
-    for (Node n : nodes) {
+    for (int i = 0; i < nodes.size(); i++) {
+      Node n = nodes.get(i);
+      if (i == 0) {
+        startFloor = n.getFloor();
+      }
+      if (i == nodes.size() - 1) {
+        endFloor = n.getFloor();
+      }
+
       if (n.getFloor().equals("L1")) {
         listFloor1.add(n);
       } else if (n.getFloor().equals("L2")) {
@@ -440,20 +451,59 @@ public class Map {
 
     for (int i = 0; i < listNode.size(); i++) {
 
-      if (i == 0 || i == listNode.size() - 1) {
-        c =
-            new Circle(
-                listNode.get(i).getX(),
-                listNode.get(i).getY(),
-                GlobalVariables.getCircleR() + GlobalVariables.getStrokeThickness());
-        c.setFill(GlobalVariables.getBorderColor());
-        shapes.add(c);
+      if (i == 0) {
 
-        c =
-            new Circle(
-                listNode.get(i).getX(), listNode.get(i).getY(), GlobalVariables.getCircleR());
-        c.setFill(GlobalVariables.getInsideColor());
-        shapes.add(c);
+        ArrayList<Shape> newShapes = new ArrayList<>();
+
+        if (floor.equals(startFloor)) {
+          System.out.println("ABST");
+          newShapes = NodeCircle.makeNodeShape("ABST");
+        } else {
+          System.out.println("STAR");
+          newShapes = NodeCircle.makeNodeShape("STAR");
+        }
+
+        for (Shape s : newShapes) {
+          s.setTranslateX(listNode.get(i).getX());
+          s.setTranslateY(listNode.get(i).getY());
+        }
+
+        shapes.addAll(newShapes);
+
+      } else if (i == listNode.size() - 1) {
+        //        c =
+        //            new Circle(
+        //                listNode.get(i).getX(),
+        //                listNode.get(i).getY(),
+        //                GlobalVariables.getCircleR() + GlobalVariables.getStrokeThickness());
+        //        c.setFill(GlobalVariables.getBorderColor());
+        //        shapes.add(c);
+
+        //        c =
+        //            new Circle(
+        //                listNode.get(i).getX(), listNode.get(i).getY(),
+        // GlobalVariables.getCircleR());
+        //        c.setFill(GlobalVariables.getInsideColor());
+        //        shapes.add(c);
+
+        //        listNode.get(i).getY(),
+
+        ArrayList<Shape> newShapes = new ArrayList<>();
+
+        if (floor.equals(endFloor)) {
+          System.out.println("ABSE");
+          newShapes = NodeCircle.makeNodeShape("ABSE");
+        } else {
+          System.out.println("ENDF");
+          newShapes = NodeCircle.makeNodeShape("ENDF");
+        }
+
+        for (Shape s : newShapes) {
+          s.setTranslateX(listNode.get(i).getX());
+          s.setTranslateY(listNode.get(i).getY());
+        }
+
+        shapes.addAll(newShapes);
       }
     }
     prevPath.addAll(shapes);

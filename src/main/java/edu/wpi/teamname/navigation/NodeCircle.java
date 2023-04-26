@@ -160,6 +160,7 @@ public class NodeCircle {
   public static ArrayList<Shape> makeNodeShape(String nodeType) {
     Shape outer;
     Shape inner;
+    Shape inner2 = null;
 
     float shiftX = 0; // circleR;
     float shiftY = 0; // circleR;
@@ -190,6 +191,8 @@ public class NodeCircle {
             shiftX, shiftY, (circleRCopy * scaleDown) + GlobalVariables.getStrokeThickness());
 
     Circle innerCircle = new Circle(shiftX, shiftY, (circleRCopy * scaleDown));
+
+    ArrayList<Shape> ret = new ArrayList<>();
 
     switch (nodeType) {
       case "BATH":
@@ -279,6 +282,40 @@ public class NodeCircle {
         inner.setFill(GlobalVariables.getInsideOrange());
 
         break;
+      case "ABST":
+        outer = outerCircle;
+        inner = innerCircle;
+
+        inner.setFill(GlobalVariables.getInsideWhite());
+
+        break;
+      case "STAR":
+        outer = outerCircle;
+        inner = innerCircle;
+
+        inner.setFill(GlobalVariables.getInsideOrange());
+
+        break;
+      case "ABSE":
+        outer = outerCircle;
+        inner = innerCircle;
+
+        inner2 = new Circle(shiftX, shiftY, (circleRCopy * scaleDown * 0.6));
+
+        inner.setFill(GlobalVariables.getInsideWhite());
+        inner2.setFill(GlobalVariables.getBorderColor());
+
+        break;
+      case "ENDF":
+        outer = outerCircle;
+        inner = innerCircle;
+
+        inner2 = new Circle(shiftX, shiftY, (circleRCopy * scaleDown * 0.6));
+
+        inner.setFill(GlobalVariables.getInsideOrange());
+        inner2.setFill(GlobalVariables.getBorderColor());
+
+        break;
       default:
         outer = outerCircle;
         inner = innerCircle;
@@ -289,9 +326,11 @@ public class NodeCircle {
 
     outer.setFill(GlobalVariables.getBorderColor());
 
-    ArrayList<Shape> ret = new ArrayList<>();
     ret.add(outer);
     ret.add(inner);
+    if (inner2 != null) {
+      ret.add(inner2);
+    }
 
     return ret;
   }

@@ -221,6 +221,7 @@
                                                       <CheckBox fx:id="NodeSelector" mnemonicParsing="false" styleClass="primary-text-container" text="Show Nodes" />
                                                       <CheckBox fx:id="LegendSelector" mnemonicParsing="false" selected="true" styleClass="primary-text-container" text="Unique Shapes" />
                                                       <CheckBox fx:id="FloorsToggle" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" styleClass="primary-text-container" text="Display All Floors" />
+                                                      <CheckBox fx:id="AvoidElevatorsToggle" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" styleClass="primary-text-container" text="Avoid Elevators" />
                                                    </children>
                                                 </VBox>
                                              </children>

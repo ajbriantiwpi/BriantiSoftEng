@@ -56,6 +56,7 @@ public class MapController {
   @FXML CheckBox HallNamesSelector;
   @FXML CheckBox NodeSelector;
   @FXML CheckBox LegendSelector;
+  @FXML CheckBox AvoidElevatorsToggle;
 
   @FXML CheckBox FloorsToggle = new CheckBox();
 
@@ -901,6 +902,16 @@ public class MapController {
         }
       };
 
+  EventHandler<MouseEvent> toggleUseElevators =
+      new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent event) {
+          //
+
+        }
+      };
+
   @FXML
   public void initialize() throws SQLException, IOException {
 
@@ -1020,6 +1031,8 @@ public class MapController {
 
     NodeSelector.setOnMouseClicked(toggleNodes);
     LegendSelector.setOnMouseClicked(toggleLegend);
+
+    AvoidElevatorsToggle.setOnMouseClicked(toggleUseElevators);
 
     // MapAccordion.setExpandedPane(PathfindingTitlePane); // set initial expanded pane
     DirectionsTitlePane.setExpanded(false);
