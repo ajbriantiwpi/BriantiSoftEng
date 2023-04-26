@@ -19,17 +19,14 @@ public class EdgeDAOTest {
   void setUp() throws SQLException {
     // TODO: Put in docker info
     DataManager.configConnection("jdbc:postgresql://localhost:5432/postgres", "user", "pass");
-    String query = "Truncate Table \"Edge\"";
-    Connection connection = DataManager.DbConnection();
-    DataManager.createTableIfNotExists(
-        "Edge",
-        "CREATE TABLE IF NOT EXISTS \"Edge\" (\"startNode\" INTEGER, \"endNode\" INTEGER);");
-    try (PreparedStatement statement = connection.prepareStatement(query)) {
-      statement.executeUpdate();
-    } catch (SQLException e) {
-      System.out.println("Truncate Error. " + e);
-    }
-    connection.close();
+    //    DataManager.createTableIfNotExists(
+    //        "Edge",
+    //        "CREATE TABLE IF NOT EXISTS \"Edge\" (\"startNode\" INTEGER, \"endNode\" INTEGER);");
+    //    try (PreparedStatement statement = connection.prepareStatement(query)) {
+    //      statement.executeUpdate();
+    //    } catch (SQLException e) {
+    //      System.out.println("Truncate Error. " + e);
+    //    }
   }
 
   @Test
