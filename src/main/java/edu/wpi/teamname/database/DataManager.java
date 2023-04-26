@@ -88,13 +88,13 @@ public class DataManager {
 
         switch (dir) {
           case "UP":
-            dir = "^";
+            dir = "^  ";
             break;
           case "LEFT":
             dir = "<--";
             break;
           case "DOWN":
-            dir = "v";
+            dir = "v  ";
             break;
           case "RIGHT":
             dir = "-->";

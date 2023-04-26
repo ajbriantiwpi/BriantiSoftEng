@@ -13,12 +13,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 public class SignageController {
-  @FXML VBox labelsVbox;
-  @FXML HBox labelHBox;
   @FXML Label labelLine;
   @FXML ComboBox<Integer> KskBox;
   @FXML ObservableList<Integer> kioskList;
@@ -33,28 +29,30 @@ public class SignageController {
     kioskList = FXCollections.observableArrayList();
     kioskList.add(null);
     KskBox.setItems(kioskList);
-    dateChos.setOnAction(
-        event -> {
-          if (dateChos.getValue() != null) {
-            System.out.println(
-                dateChos
-                    .getValue()
-                    .atTime(12, 0)
-                    .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.nnn")));
-            dateChosen =
-                Timestamp.valueOf(
+    dateChos
+        .valueProperty()
+        .addListener(
+            (t, o, n) -> {
+              if (dateChos.getValue() != null) {
+                System.out.println(
                     dateChos
                         .getValue()
                         .atTime(12, 0)
                         .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.nnn")));
-            try {
-              kioskList = FXCollections.observableArrayList(DataManager.getKiosks(dateChosen));
-              KskBox.setItems(kioskList);
-            } catch (SQLException e) {
-              System.out.println(e);
-            }
-          }
-        });
+                dateChosen =
+                    Timestamp.valueOf(
+                        dateChos
+                            .getValue()
+                            .atTime(12, 0)
+                            .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.nnn")));
+                try {
+                  kioskList = FXCollections.observableArrayList(DataManager.getKiosks(dateChosen));
+                  KskBox.setItems(kioskList);
+                } catch (SQLException e) {
+                  System.out.println(e);
+                }
+              }
+            });
 
     KskBox.setOnAction(
         event -> {
@@ -72,7 +70,7 @@ public class SignageController {
           String finalSign = "";
           System.out.println(kiosksForDate);
           for (int i = 0; i < kiosksForDate.size(); i++) {
-            finalSign = finalSign + "\n" + kiosksForDate.get(i);
+            finalSign = finalSign + "\n\n" + kiosksForDate.get(i);
           }
           labelLine.setText(finalSign);
         });
