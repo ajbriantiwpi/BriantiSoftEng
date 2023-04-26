@@ -176,7 +176,7 @@ public class FurnitureDAOImpl implements FurnitureDAO {
       while (resultSet.next()) {
         int id = resultSet.getInt("furnitureID");
         String name = resultSet.getString("name");
-        int price = resultSet.getInt("price");
+        float price = resultSet.getFloat("price");
         String category = resultSet.getString("category");
         String size = resultSet.getString("size");
         String color = resultSet.getString("color");
@@ -225,6 +225,33 @@ public class FurnitureDAOImpl implements FurnitureDAO {
       System.out.println("CSV data uploaded to PostgreSQL database");
     } catch (SQLException e) {
       System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
+    }
+  }
+
+  /**
+   * * Creates a table for storing Furniture data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createTable() throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try (connection) {
+      String query =
+          "create table if not exists \"Furniture\"\n"
+              + "(\n"
+              + "    \"furnitureID\" integer not null\n"
+              + "        constraint \"Furniture_pk\"\n"
+              + "            primary key,\n"
+              + "    name          varchar(40),\n"
+              + "    price         double precision,\n"
+              + "    category      varchar(30),\n"
+              + "    size          varchar(30),\n"
+              + "    color         varchar(30)\n"
+              + ");";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
     }
   }
 }

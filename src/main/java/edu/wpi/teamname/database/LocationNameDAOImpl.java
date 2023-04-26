@@ -204,9 +204,9 @@ public class LocationNameDAOImpl implements LocationNameDAO {
       FileWriter fileWriter = new FileWriter(csvFilePath);
       for (String[] row : csvData) {
         for (int i = 0; i < row.length; i++) {
-          fileWriter.append("\"");
+          // fileWriter.append("\"");
           fileWriter.append(row[i].replace("\"", "\"\""));
-          fileWriter.append("\"");
+          // fileWriter.append("\"");
           if (i < row.length - 1) {
             fileWriter.append(",");
           }
@@ -382,5 +382,29 @@ public class LocationNameDAOImpl implements LocationNameDAO {
       System.err.println(e.getMessage());
     }
     return rooms;
+  }
+
+  /**
+   * * Creates a table for storing LocationName data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createTable() throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try (connection) {
+      String query =
+          "create table if not exists \"LocationName\"\n"
+              + "(\n"
+              + "    \"longName\"  text not null\n"
+              + "        constraint \"LocationName_pk\"\n"
+              + "            primary key,\n"
+              + "    \"shortName\" text,\n"
+              + "    \"nodeType\"  text\n"
+              + ");";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+    }
   }
 }

@@ -1,0 +1,19 @@
+.combo-box-popup .list-view {
+    -fx-background-color: #235fA6;
+    -fx-text-fill: #FFFFFF;
+}
+.combo-box-popup .list-view .list-cell {
+    -fx-background-color: #235fA6;
+    -fx-text-fill: #FFFFFF;
+}
+.combo-box, .combo-box .text-field{
+    -fx-background-color: #235fA6;
+    -fx-text-fill: #FFFFFF;
+}
+.combo-box-base{
+    -fx-background-color: #235fA6;
+    -fx-text-fill: #FFFFFF;
+}
+.combo-box .arrow{
+    -fx-background-color: #FFFFFF;
+}

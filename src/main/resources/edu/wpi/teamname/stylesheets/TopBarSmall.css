@@ -1,0 +1,12 @@
+.label {
+    -fx-font-family: Roboto;
+    -fx-font-style: normal;
+    -fx-text-fill: #2FA7B0;
+    /*-fx-background-color: --md-sys-color-surface;*/
+}
+.check-box {
+    -fx-text-fill: #2FA7B0;
+}
+
+
+

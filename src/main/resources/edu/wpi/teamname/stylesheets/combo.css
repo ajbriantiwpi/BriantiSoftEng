@@ -24,7 +24,7 @@
     /*-fx-text-fill: #001B3B;*/
     -fx-background-radius: 8;
     -fx-border-radius: 8;
-    -fx-border-color: #6F797A;
+    /*-fx-border-color: #6F797A;*/
     -fx-border-width: 1;
     -fx-min-height: 60;
 }

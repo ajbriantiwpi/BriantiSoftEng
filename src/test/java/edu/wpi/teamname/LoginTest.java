@@ -14,7 +14,7 @@ public class LoginTest {
   // assertEquals(converter.toKibenian(), "I");
 
   @BeforeEach
-  void setup() {
+  void setup() throws SQLException {
     DataManager.configConnection(
         "jdbc:postgresql://database.cs.wpi.edu:5432/teamddb?currentSchema=\"teamD\"",
         "teamd",

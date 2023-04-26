@@ -56,6 +56,7 @@ public class EditSignageController {
 
   public void initialize() {
     DataManager signageDAO = new DataManager();
+    ParentController.titleString.set("Signage Edit Table");
     TableColumn<Signage, String> longNameColumn = new TableColumn<>("Long Name");
     longNameColumn.setCellValueFactory(new PropertyValueFactory<>("longName"));
 
@@ -83,6 +84,7 @@ public class EditSignageController {
 
     longNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
     shortNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+
     StringConverter<Direction> directionConverter =
         new StringConverter<Direction>() {
           @Override
@@ -227,7 +229,7 @@ public class EditSignageController {
           }
         });
     editSignageTable.setRowFactory(
-        tableView -> {
+        TableView -> {
           TableRow<Signage> row = new TableRow<>();
 
           ContextMenu ccontextMenu = new ContextMenu();

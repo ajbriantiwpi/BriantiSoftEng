@@ -186,6 +186,11 @@ public class Node implements Comparable<Node> {
     return index;
   }
 
+  public static int indexToId(int index) {
+    int id = (5 * index) + 100;
+    return id;
+  }
+
   /**
    * This gets the number that the floor is on for math purposes. Lower level floors are negative
    *
