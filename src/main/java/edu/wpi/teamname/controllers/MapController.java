@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -44,12 +45,14 @@ import net.kurobako.gesturefx.GesturePane;
 
 public class MapController {
 
-  Map map;
+  static Map map;
   @FXML GesturePane gp;
   @FXML AnchorPane anchor;
   @FXML HBox SelectCombo;
   @FXML ComboBox<String> LocationOne;
+  public static ComboBox<String> LocOne;
   @FXML ComboBox<String> EndPointSelect;
+  public static ComboBox<String> endSel;
   @FXML MFXButton DeleteNodeButton;
   @FXML MFXButton findPathButton;
   // @FXML ComboBox<String> FloorSelect = new ComboBox<>();
@@ -526,10 +529,9 @@ public class MapController {
           // System.out.println(LocationOne.getValue());
           // System.out.println(EndPointSelect.getValue());
           String startLName = LocationOne.getValue();
+
           try {
-            nodeForStart =
-                DataManager.getNodeByLocationName(
-                    startLName, new Timestamp(System.currentTimeMillis()));
+            nodeForStart = DataManager.getNodeByLocationName(startLName, map.getCurrTime());
           } catch (SQLException ex) {
             throw new RuntimeException(ex);
           }
@@ -554,9 +556,7 @@ public class MapController {
           System.out.println("changed end " + EndPointSelect.getValue());
           String endLName = EndPointSelect.getValue();
           try {
-            nodeForEnd =
-                DataManager.getNodeByLocationName(
-                    endLName, new Timestamp(System.currentTimeMillis()));
+            nodeForEnd = DataManager.getNodeByLocationName(endLName, map.getCurrTime());
           } catch (SQLException ex) {
             throw new RuntimeException(ex);
           }
@@ -1076,6 +1076,17 @@ public class MapController {
         }
       };
 
+  public static void updateNames() {
+    try {
+      LocOne.setItems(new SimpleListProperty<>());
+      endSel.setItems(new SimpleListProperty<>());
+      LocOne.setItems(map.getAllNodeNames());
+      endSel.setItems(map.getAllNodeNames());
+    } catch (SQLException ex) {
+      throw new RuntimeException(ex);
+    }
+  }
+
   @FXML
   public void initialize() throws SQLException, IOException {
 
@@ -1232,5 +1243,8 @@ public class MapController {
     //    System.out.println(getAllNodeNames("L1"));
 
     ParentController.titleString.set("Map");
+
+    endSel = EndPointSelect;
+    LocOne = LocationOne;
   }
 }
