@@ -135,8 +135,8 @@ public class ReqMenuItems extends GridPane {
       button.setAlignment(Pos.CENTER_RIGHT);
       button.setStyle(
           "-fx-background-radius: 8;" + " -fx-font-family: Roboto;" + " -fx-font-size: 32 ");
+      button.getStyleClass().add("primary");
     }
-    button.getStyleClass().add("primary");
     quantity = new TextField("");
     quantity.setPromptText("Quantity");
     quantity.setFont(Font.font("Roboto", 32));
