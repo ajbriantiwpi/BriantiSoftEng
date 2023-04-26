@@ -9,33 +9,38 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #000000;" stylesheets="@../stylesheets/Colors/theme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.views.MapLegend">
    <children>
-      <VBox layoutX="226.0" layoutY="94.0" prefHeight="219.0" prefWidth="168.0" style="-fx-border-radius: 10; -fx-border-color: #012d5a; -fx-background-color: #ffffff;" stylesheets="@../stylesheets/Colors/theme.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox layoutX="226.0" layoutY="94.0" prefHeight="303.0" prefWidth="220.0" style="-fx-border-radius: 10; -fx-border-color: #012d5a; -fx-background-color: #ffffff;" stylesheets="@../stylesheets/Colors/theme.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label text="Map Symbols">
                <font>
-                  <Font name="Roboto" size="12.0" />
+                  <Font name="Roboto" size="18.0" />
                </font>
             </Label>
             <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                <children>
-                  <Rectangle fill="#35a7ff" height="10.0" rotate="45.0" smooth="false" stroke="#012d5a" strokeType="INSIDE" width="10.0" />
-                  <Label prefHeight="18.0" prefWidth="122.0" text="Conference Room">
+                  <Rectangle fill="#35a7ff" height="12.0" rotate="45.0" smooth="false" stroke="#012d5a" strokeType="INSIDE" width="12.0" />
+                  <Label prefHeight="23.0" prefWidth="192.0" text="Conference Room">
                      <HBox.margin>
                         <Insets left="5.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font>
                   </Label>
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                <children>
-                  <Rectangle fill="#6bd425" height="10.0" rotate="45.0" smooth="false" stroke="#012d5a" strokeType="INSIDE" width="10.0" />
+                  <Rectangle fill="#6bd425" height="12.0" rotate="45.0" smooth="false" stroke="#012d5a" strokeType="INSIDE" width="12.0" />
                   <Label prefHeight="18.0" prefWidth="122.0" text="Department">
                      <HBox.margin>
                         <Insets left="5.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font>
                   </Label>
                </children>
                <VBox.margin>
@@ -44,31 +49,40 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                <children>
-                  <Rectangle fill="#edb230" height="10.0" rotate="45.0" smooth="false" stroke="#012d5a" strokeType="INSIDE" width="10.0" />
+                  <Rectangle fill="#edb230" height="12.0" rotate="45.0" smooth="false" stroke="#012d5a" strokeType="INSIDE" width="12.0" />
                   <Label prefHeight="18.0" prefWidth="122.0" text="Lab">
                      <HBox.margin>
                         <Insets left="5.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font>
                   </Label>
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                <children>
-                  <Ellipse fill="#35a7ff" radiusX="5.0" radiusY="5.0" stroke="#012d5a" strokeType="INSIDE" />
+                  <Ellipse fill="#35a7ff" radiusX="6.0" radiusY="6.0" stroke="#012d5a" strokeType="INSIDE" />
                   <Label prefHeight="18.0" prefWidth="122.0" text="Info">
                      <HBox.margin>
                         <Insets left="5.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font>
                   </Label>
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                <children>
-                  <Ellipse fill="#6bd425" radiusX="5.0" radiusY="5.0" stroke="#012d5a" strokeType="INSIDE" />
-                  <Label prefHeight="18.0" prefWidth="122.0" text="Bathroom/Restroom">
+                  <Ellipse fill="#6bd425" radiusX="6.0" radiusY="6.0" stroke="#012d5a" strokeType="INSIDE" />
+                  <Label prefHeight="23.0" prefWidth="186.0" text="Bathroom/Restroom">
                      <HBox.margin>
                         <Insets left="5.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font>
                   </Label>
                </children>
                <VBox.margin>
@@ -77,31 +91,40 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                <children>
-                  <Ellipse fill="#edb230" radiusX="5.0" radiusY="5.0" stroke="#012d5a" strokeType="INSIDE" />
+                  <Ellipse fill="#edb230" radiusX="6.0" radiusY="6.0" stroke="#012d5a" strokeType="INSIDE" />
                   <Label prefHeight="18.0" prefWidth="122.0" text="Service/Retail">
                      <HBox.margin>
                         <Insets left="5.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font>
                   </Label>
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                <children>
-                  <Rectangle fill="#35a7ff" height="10.0" smooth="false" stroke="#012d5a" strokeType="INSIDE" width="10.0" />
+                  <Rectangle fill="#35a7ff" height="12.0" smooth="false" stroke="#012d5a" strokeType="INSIDE" width="12.0" />
                   <Label prefHeight="18.0" prefWidth="122.0" text="Elevator">
                      <HBox.margin>
                         <Insets left="5.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font>
                   </Label>
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                <children>
-                  <Rectangle fill="#6bd425" height="10.0" smooth="false" stroke="#012d5a" strokeType="INSIDE" width="10.0" />
+                  <Rectangle fill="#6bd425" height="12.0" smooth="false" stroke="#012d5a" strokeType="INSIDE" width="12.0" />
                   <Label prefHeight="18.0" prefWidth="122.0" text="Stairs">
                      <HBox.margin>
                         <Insets left="5.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font>
                   </Label>
                </children>
                <VBox.margin>
@@ -110,35 +133,44 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                <children>
-                  <Rectangle fill="#ed6a5a" height="10.0" smooth="false" stroke="#012d5a" strokeType="INSIDE" width="10.0" />
+                  <Rectangle fill="#ed6a5a" height="12.0" smooth="false" stroke="#012d5a" strokeType="INSIDE" width="12.0" />
                   <Label prefHeight="18.0" prefWidth="122.0" text="Exit">
                      <HBox.margin>
                         <Insets left="5.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font>
                   </Label>
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                <children>
-                  <Ellipse fill="WHITE" radiusX="5.0" radiusY="5.0" stroke="#012d5a" strokeType="INSIDE" />
+                  <Ellipse fill="WHITE" radiusX="6.0" radiusY="6.0" stroke="#012d5a" strokeType="INSIDE" />
                   <Label prefHeight="18.0" prefWidth="122.0" text="Start">
                      <HBox.margin>
                         <Insets left="5.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font>
                   </Label>
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                <children>
-                  <Rectangle arcHeight="5.0" fill="#35a7ff" height="5.0" smooth="false" stroke="#012d5a" strokeType="INSIDE" width="15.0">
+                  <Rectangle arcHeight="5.0" fill="#35a7ff" height="7.0" smooth="false" stroke="#012d5a" strokeType="INSIDE" width="18.0">
                      <HBox.margin>
-                        <Insets left="-2.5" />
+                        <Insets left="-3.0" />
                      </HBox.margin>
                   </Rectangle>
                   <Label prefHeight="18.0" prefWidth="122.0" text="Path">
                      <HBox.margin>
-                        <Insets left="2.0" />
+                        <Insets left="1.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font>
                   </Label>
                </children>
                <VBox.margin>
@@ -147,31 +179,37 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                <children>
-                  <Ellipse fill="WHITE" radiusX="5.0" radiusY="5.0" stroke="#012d5a" strokeType="INSIDE" />
-                  <Ellipse fill="#012d5a" nodeOrientation="LEFT_TO_RIGHT" radiusX="2.0" radiusY="2.0" stroke="#012d5a" strokeType="INSIDE">
+                  <Ellipse fill="WHITE" radiusX="6.0" radiusY="6.0" stroke="#012d5a" strokeType="INSIDE" />
+                  <Ellipse fill="#012d5a" nodeOrientation="LEFT_TO_RIGHT" radiusX="3.0" radiusY="3.0" stroke="#012d5a" strokeType="INSIDE">
                      <HBox.margin>
-                        <Insets left="-7.0" />
+                        <Insets left="-9.0" />
                      </HBox.margin>
                   </Ellipse>
                   <Label prefHeight="18.0" prefWidth="122.0" text="Destination">
                      <HBox.margin>
                         <Insets left="8.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font>
                   </Label>
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                <children>
-                  <Ellipse fill="#edb230" radiusX="5.0" radiusY="5.0" stroke="#012d5a" strokeType="INSIDE" />
-                  <Ellipse fill="#012d5a" nodeOrientation="LEFT_TO_RIGHT" radiusX="2.0" radiusY="2.0" stroke="#012d5a" strokeType="INSIDE">
+                  <Ellipse fill="#edb230" radiusX="6.0" radiusY="6.0" stroke="#012d5a" strokeType="INSIDE" />
+                  <Ellipse fill="#012d5a" nodeOrientation="LEFT_TO_RIGHT" radiusX="3.0" radiusY="3.0" stroke="#012d5a" strokeType="INSIDE">
                      <HBox.margin>
-                        <Insets left="-7.0" />
+                        <Insets left="-9.0" />
                      </HBox.margin>
                   </Ellipse>
-                  <Label prefHeight="18.0" prefWidth="122.0" text="Current Floor Start">
+                  <Label prefHeight="23.0" prefWidth="187.0" text="Current Floor Start">
                      <HBox.margin>
                         <Insets left="8.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font>
                   </Label>
                </children>
                <VBox.margin>
