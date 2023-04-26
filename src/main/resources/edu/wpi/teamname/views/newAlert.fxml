@@ -51,7 +51,8 @@
                         <Font name="Roboto" size="36.0" />
                     </font>
                     <styleClass>
-                        <String fx:value="display-med" />
+                        <String fx:value="small-text" />
+<!--                        <String fx:value="display-med" />-->
                         <String fx:value="primary" />
                         <String fx:value="outline" />
                     </styleClass>
@@ -61,7 +62,8 @@
                         <Font name="Roboto" size="36.0" />
                     </font>
                     <styleClass>
-                        <String fx:value="display-med" />
+                        <String fx:value="small-text" />
+<!--                        <String fx:value="display-med" />-->
                         <String fx:value="primary" />
                         <String fx:value="outline" />
                     </styleClass>
