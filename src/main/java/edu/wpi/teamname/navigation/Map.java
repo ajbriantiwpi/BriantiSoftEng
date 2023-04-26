@@ -90,7 +90,7 @@ public class Map {
     this.movingNodeId = -1;
 
     this.showNodes = !this.isMapPage;
-    this.showLegend = true;
+    this.showLegend = !this.isMapPage;
   }
 
   public boolean getShowLegend() {

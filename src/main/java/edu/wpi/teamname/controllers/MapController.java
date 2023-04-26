@@ -111,7 +111,7 @@ public class MapController {
   @FXML TitledPane DateTitlePane;
   @FXML TitledPane MessageTitlePane;
 
-//  @FXML TitledPane DateTitledPane;
+  //  @FXML TitledPane DateTitledPane;
 
   String defaultFloor = "L1";
   int clickCount = 0;
@@ -127,6 +127,8 @@ public class MapController {
   String currentAlgo = "";
   ArrayList<MFXButton> floorButtons = new ArrayList<>();
   @FXML VBox directionsBox;
+
+  @FXML VBox Legend;
 
   EventHandler<MouseEvent> e =
       new EventHandler<MouseEvent>() {
@@ -1033,7 +1035,8 @@ public class MapController {
         @Override
         public void handle(MouseEvent event) {
           //        map.setShowEdges(EdgeSelector.isSelected());
-          map.setShowLegend(LegendSelector.isSelected());
+          map.setShowLegend(LegendSelector.isSelected() && NodeSelector.isSelected());
+          Legend.setVisible(map.getShowLegend());
 
           try {
             map.refresh();
@@ -1067,8 +1070,7 @@ public class MapController {
 
         @Override
         public void handle(MouseEvent event) {
-          //
-
+          AStarAlgo.setNoStairs(AvoidElevatorsToggle.isSelected());
         }
       };
 

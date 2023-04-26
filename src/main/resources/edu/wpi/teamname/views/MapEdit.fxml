@@ -289,7 +289,7 @@
                         </TableView>
                     </children>
                 </StackPane>
-            <VBox layoutX="236.0" layoutY="104.0" prefHeight="240.0" prefWidth="194.0" style="-fx-border-radius: 10; -fx-border-color: #012d5a; -fx-background-color: #ffffff; -fx-background-radius: 10;" stylesheets="@../stylesheets/Colors/theme.css" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+            <VBox fx:id="Legend" layoutX="236.0" layoutY="104.0" prefHeight="240.0" prefWidth="194.0" style="-fx-border-radius: 10; -fx-border-color: #012d5a; -fx-background-color: #ffffff; -fx-background-radius: 10;" stylesheets="@../stylesheets/Colors/theme.css" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
                <children>
                   <Label text="Map Symbols">
                      <font>
