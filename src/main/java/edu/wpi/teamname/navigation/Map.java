@@ -1,6 +1,7 @@
 package edu.wpi.teamname.navigation;
 
 import edu.wpi.teamname.GlobalVariables;
+import edu.wpi.teamname.controllers.MapController;
 import edu.wpi.teamname.database.DataManager;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -70,6 +72,8 @@ public class Map {
   @Getter @Setter private String startFloor;
   @Getter @Setter private String endFloor;
 
+  @Getter @Setter private Timestamp currTime;
+
   /**
    * Constructs a Map object with the given sub-anchor pane.
    *
@@ -91,6 +95,7 @@ public class Map {
 
     this.showNodes = !this.isMapPage;
     this.showLegend = !this.isMapPage;
+    this.currTime = new Timestamp(System.currentTimeMillis());
   }
 
   public boolean getShowLegend() {
@@ -236,7 +241,7 @@ public class Map {
   }
 
   public void setCurrentDisplayFloor(String currentDisplayFloor) throws SQLException, IOException {
-    this.setCurrentDisplayFloor(currentDisplayFloor, new Timestamp(System.currentTimeMillis()));
+    this.setCurrentDisplayFloor(currentDisplayFloor, currTime);
   }
 
   public void setCurrentDisplayFloor(String currentDisplayFloor, Timestamp time)
@@ -244,6 +249,8 @@ public class Map {
     this.currentDisplayFloor = currentDisplayFloor;
 
     GlobalVariables.setHMap(DataManager.getAllLocationNamesMappedByNode(time));
+
+    Platform.runLater(() -> MapController.updateNames());
 
     subAnchor.getStyleClass().remove(0);
 

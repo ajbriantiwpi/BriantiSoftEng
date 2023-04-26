@@ -870,7 +870,7 @@ public class MapEditController {
         @Override
         public void handle(MouseEvent event) {
           //        map.setShowEdges(EdgeSelector.isSelected());
-          map.setShowLegend(LegendSelector.isSelected() && NodeSelector.isSelected());
+          map.setShowLegend(LegendSelector.isSelected()); // && NodeSelector.isSelected());
           Legend.setVisible(map.getShowLegend());
 
           try {
