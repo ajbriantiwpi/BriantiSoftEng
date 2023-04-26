@@ -43,6 +43,11 @@ public class DatePickerTableCell<S> extends TableCell<S, Timestamp> {
               }
             });
 
+    datePicker.setOnMouseClicked(
+        event -> {
+          startEdit();
+        });
+
     setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
   }
 
@@ -57,5 +62,19 @@ public class DatePickerTableCell<S> extends TableCell<S, Timestamp> {
       }
       setGraphic(datePicker);
     }
+  }
+
+  @Override
+  public void startEdit() {
+    super.startEdit();
+    if (!isEmpty()) {
+      datePicker.setValue(getItem().toLocalDateTime().toLocalDate());
+    }
+  }
+
+  @Override
+  public void commitEdit(Timestamp newValue) {
+    super.commitEdit(newValue);
+    datePicker.setValue(newValue.toLocalDateTime().toLocalDate());
   }
 }
