@@ -15,7 +15,11 @@ import java.util.List;
 /** LINK FUNCTION TO DATAMANAGER */
 public class ConfReservationDAOImpl implements ConfReservationDAO {
 
-
+  /**
+   * sets the reservation ID in conference reservations table
+   * @return int reservationID
+   * @throws SQLException
+   */
   public int setResID() throws SQLException {
     int resID = -1;
     Connection connection = DataManager.DbConnection();
@@ -30,6 +34,13 @@ public class ConfReservationDAOImpl implements ConfReservationDAO {
     }
     return resID;
   }
+
+  /**
+   * Gets all the reservations for a conference rooom in conference reservations table
+   * @param confrom
+   * @return List of conference reservations
+   * @throws SQLException
+   */
   public ArrayList<ConfReservation> getResForRoom(ConfRoom confrom) throws SQLException {
     int confID = confrom.getRoomID();
     ArrayList<ConfReservation> rooms = new ArrayList<>();
@@ -60,6 +71,12 @@ public class ConfReservationDAOImpl implements ConfReservationDAO {
     }
     return rooms;
   }
+
+  /**
+   * Syncs the conference reservation table with incoming conference reservation objects
+   * @param ConfReservation
+   * @throws SQLException
+   */
   @Override
   public void sync(ConfReservation ConfReservation) throws SQLException {
     Connection connection = DataManager.DbConnection();
