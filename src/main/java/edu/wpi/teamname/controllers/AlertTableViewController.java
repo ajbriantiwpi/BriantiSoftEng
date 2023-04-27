@@ -159,11 +159,12 @@ public class AlertTableViewController {
             submit.setOnMouseClicked(
                 event1 -> {
                   LocalDate startDateDate = start.getValue();
-                  LocalTime time = LocalTime.of(0, 0);
-                  LocalDateTime startDateTime = startDateDate.atTime(time);
+                  LocalTime startTime = LocalTime.of(0, 0);
+                  LocalTime endTime = LocalTime.of(23, 59);
+                  LocalDateTime startDateTime = startDateDate.atTime(startTime);
                   Timestamp startDate = Timestamp.valueOf(startDateTime);
                   LocalDate endDateDate = end.getValue();
-                  LocalDateTime endDateTime = endDateDate.atTime(time);
+                  LocalDateTime endDateTime = endDateDate.atTime(endTime);
                   Timestamp endDate = Timestamp.valueOf(endDateTime);
                   try {
                     if (urgencies.valueProperty().getValue() == null) {
