@@ -865,6 +865,12 @@ public class DataManager {
     edgeDAO.delete(edge);
   }
 
+  /**
+   * This method deletes the given Alert object from the database
+   *
+   * @param alert the Alert object that will be deleted in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
   public static void deleteAlert(Alert alert) throws SQLException {
     AlertDAOImpl alertDAO = new AlertDAOImpl();
     alertDAO.delete(alert);
