@@ -12,6 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AlertDAOImpl implements AlertDAO {
+  /**
+   * This method updates an existing Alert object in the "Alert" table in the
+   * database with the new Alert object.
+   *
+   * @param alert the new Alert object to be updated in the "Alert"
+   *     table
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void sync(Alert alert) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -37,6 +45,12 @@ public class AlertDAOImpl implements AlertDAO {
     connection.close();
   }
 
+  /**
+   * The method retrieves all the Alert objects from the "Alert" table in the database.
+   *
+   * @return an ArrayList of the Alert objects in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public ArrayList<Alert> getAll() throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -73,6 +87,12 @@ public class AlertDAOImpl implements AlertDAO {
     return list;
   }
 
+  /**
+   * This method adds a new Alert object to the "Alert" table in the database.
+   *
+   * @param alert the Alert object to be added to the "Alert" table
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void add(Alert alert) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -98,12 +118,18 @@ public class AlertDAOImpl implements AlertDAO {
     connection.close();
   }
 
+  /**
+   * The method retrieves the alertIDs of all the Alert objects in the "Alert" table in the database.
+   *
+   * @return an ArrayList of the alertIDs of the Alert objects in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
   public ArrayList<Integer> getAllIDs() throws SQLException {
     Connection connection = DataManager.DbConnection();
     ArrayList<Integer> list = new ArrayList<Integer>();
 
     try (connection) {
-      String query = "SELECT * FROM \"Alert\"";
+      String query = "SELECT \"alertID\" FROM \"Alert\"";
       PreparedStatement statement = connection.prepareStatement(query);
       ResultSet rs = statement.executeQuery();
 
@@ -116,8 +142,16 @@ public class AlertDAOImpl implements AlertDAO {
     return list;
   }
 
+  /**
+   * This method deletes the given Alert object from the Alert
+   *
+   * @param alert the Alert object that will be deleted in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
-  public void delete(Alert alert) throws SQLException {}
+  public void delete(Alert alert) throws SQLException {
+
+  }
 
   /**
    * * Creates a table for storing Alert data if it doesn't already exist
@@ -146,6 +180,14 @@ public class AlertDAOImpl implements AlertDAO {
     }
   }
 
+  /**
+   * This method exports all the Alert objects from the "Alert" table in the database
+   * to a CSV file at the specified file path.
+   *
+   * @param csvFilePath the file path of the CSV file to export the Alert objects to
+   * @throws SQLException if there is a problem accessing the database
+   * @throws IOException if there is a problem writing the CSV file
+   */
   public static void exportAlertToCSV(String csvFilePath) throws SQLException, IOException {
     AlertDAOImpl AlertDao = new AlertDAOImpl();
     ArrayList<Alert> alerts = AlertDao.getAll();
@@ -176,6 +218,13 @@ public class AlertDAOImpl implements AlertDAO {
     writer.close();
   }
 
+  /**
+   * Uploads CSV data to a PostgreSQL database table "Alert"-also creates one if one does not
+   * exist
+   *
+   * @param csvFilePath a string that represents a file path (/ is illegal so you must use double//)
+   * @throws SQLException if an error occurs while uploading the data to the database
+   */
   public static void uploadAlertToPostgreSQL(String csvFilePath) throws SQLException {
     List<String[]> csvData;
     Connection connection = DataManager.DbConnection();

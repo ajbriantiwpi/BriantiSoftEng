@@ -2110,11 +2110,23 @@ public class DataManager {
   }
 
   /**
+   * * Creates a table for storing PathMessage data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createPathMessagesTable() throws SQLException {
+    PathMessageDAOImpl.createTable();
+  }
+
+  /**
    * * Creates all tables in the database unless they already exist then do nothing
    *
    * @throws SQLException connection to the database fails
    */
   public static void tryToCreateAllTables() throws SQLException {
+    createAlertTable();
+    createConfReservationsTable();
+    createConfRoomsTable();
     createEdgeTable();
     createEmployeeTable();
     createFlowerTable();
@@ -2126,10 +2138,8 @@ public class DataManager {
     createMoveTable();
     createNodeTable();
     createOfficeSupplyTable();
+    createPathMessagesTable();
     createServiceRequestTable();
-    createAlertTable();
     createSignageTable();
-    createConfReservationsTable();
-    createConfRoomsTable();
   }
 }

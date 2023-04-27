@@ -32,7 +32,7 @@ public class Furniture extends RequestItem {
   }
 
   /**
-   * creates a furniture object in the database
+   * Creates a furniture object only using the ID and gets the rest of the data from the database
    *
    * @param id id of the object
    * @throws SQLException thrown when there is an error connecting to the database or an error with
