@@ -13,6 +13,7 @@ public class ItemsOrderedDAOImpl implements ItemsOrderedDAO {
 
   /**
    * gets all the items that were ordered in a certain request based on the ID of that request
+   *
    * @param reqID
    * @return list of items ordered
    * @throws SQLException

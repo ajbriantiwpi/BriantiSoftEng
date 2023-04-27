@@ -14,6 +14,7 @@ import java.util.Random;
 public class ConfRoomDAOImpl implements ConfRomDAO {
   /**
    * Gets the buildings of all the conference room node types
+   *
    * @return list of string
    * @throws SQLException
    */
@@ -21,10 +22,10 @@ public class ConfRoomDAOImpl implements ConfRomDAO {
     ArrayList<String> buildings = new ArrayList<>();
     Connection connection = DataManager.DbConnection();
     String query =
-            "Select n.building\n"
-                    + "From \"Node\" n, \"Move\" m, \"LocationName\" l\n"
-                    + "Where n.\"nodeID\" = m.\"nodeID\" AND l.\"longName\" = m.\"longName\" AND l.\"nodeType\" = 'CONF'\n"
-                    + "Group by n.building;";
+        "Select n.building\n"
+            + "From \"Node\" n, \"Move\" m, \"LocationName\" l\n"
+            + "Where n.\"nodeID\" = m.\"nodeID\" AND l.\"longName\" = m.\"longName\" AND l.\"nodeType\" = 'CONF'\n"
+            + "Group by n.building;";
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
       ResultSet rs = statement.executeQuery();
@@ -39,8 +40,9 @@ public class ConfRoomDAOImpl implements ConfRomDAO {
   }
 
   /**
-   * Gets the conference rooms base off the building
-   * Or gets all the conference rooms if passed in "all"
+   * Gets the conference rooms base off the building Or gets all the conference rooms if passed in
+   * "all"
+   *
    * @param building
    * @return list of string
    * @throws SQLException
@@ -49,13 +51,13 @@ public class ConfRoomDAOImpl implements ConfRomDAO {
     ArrayList<String> rooms = new ArrayList<>();
     Connection connection = DataManager.DbConnection();
     String queryAll =
-            "Select \"n.nodeID\"\n"
-                    + "From \"Node\" n, \"Move\" m, \"LocationName\" l\n"
-                    + "Where n.\"nodeID\" = m.\"nodeID\" AND l.\"longName\" = m.\"longName\" AND l.\"nodeType\" = 'CONF'\n";
+        "Select \"n.nodeID\"\n"
+            + "From \"Node\" n, \"Move\" m, \"LocationName\" l\n"
+            + "Where n.\"nodeID\" = m.\"nodeID\" AND l.\"longName\" = m.\"longName\" AND l.\"nodeType\" = 'CONF'\n";
     String queryOne =
-            "Select \"n.nodeID\"\n"
-                    + "From \"Node\" n, \"Move\" m, \"LocationName\" l\n"
-                    + "Where n.\"nodeID\" = m.\"nodeID\" AND l.\"longName\" = m.\"longName\" AND l.\"nodeType\" = 'CONF' AND building = ? \n";
+        "Select \"n.nodeID\"\n"
+            + "From \"Node\" n, \"Move\" m, \"LocationName\" l\n"
+            + "Where n.\"nodeID\" = m.\"nodeID\" AND l.\"longName\" = m.\"longName\" AND l.\"nodeType\" = 'CONF' AND building = ? \n";
     PreparedStatement statement;
     try (connection) {
 
@@ -79,17 +81,18 @@ public class ConfRoomDAOImpl implements ConfRomDAO {
   }
 
   /**
-   * populates the conference rooms table using move, node, and longName table where the nodeType is a conference room
-   * and the date <= todays date
+   * populates the conference rooms table using move, node, and longName table where the nodeType is
+   * a conference room and the date <= todays date
+   *
    * @throws SQLException
    */
   public void refreshConfRooms() throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query =
-            "Select m.\"nodeID\" as nodeID, ln.\"shortName\" as shortName, n.floor, n.building, max(m.date) as date\n"
-                    + "From \"Move\" m, \"Node\" n, \"LocationName\" ln\n"
-                    + "Where m.\"nodeID\" = n.\"nodeID\" AND m.\"longName\" = ln.\"longName\" AND m.date <= ? AND ln.\"nodeType\" = ?\n"
-                    + "Group by n.building, n.floor, ln.\"shortName\", m.\"nodeID\"";
+        "Select m.\"nodeID\" as nodeID, ln.\"shortName\" as shortName, n.floor, n.building, max(m.date) as date\n"
+            + "From \"Move\" m, \"Node\" n, \"LocationName\" ln\n"
+            + "Where m.\"nodeID\" = n.\"nodeID\" AND m.\"longName\" = ln.\"longName\" AND m.date <= ? AND ln.\"nodeType\" = ?\n"
+            + "Group by n.building, n.floor, ln.\"shortName\", m.\"nodeID\"";
     try (connection) {
       PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"ConfRooms\";");
       statement.executeUpdate();
@@ -100,11 +103,11 @@ public class ConfRoomDAOImpl implements ConfRomDAO {
       while (rs.next()) {
         int roomID = rs.getInt("nodeID");
         String name =
-                rs.getString("shortName")
-                        + ", LVL"
-                        + rs.getString("floor")
-                        + ", "
-                        + rs.getString("building");
+            rs.getString("shortName")
+                + ", LVL"
+                + rs.getString("floor")
+                + ", "
+                + rs.getString("building");
         Random r = new Random();
         int seats = r.nextInt(20, 100);
         ConfRoom c = new ConfRoom(roomID, name, seats);
@@ -117,6 +120,7 @@ public class ConfRoomDAOImpl implements ConfRomDAO {
 
   /**
    * Gets the number of seats from conference room table based on the room
+   *
    * @param room
    * @return int
    * @throws SQLException
@@ -140,6 +144,7 @@ public class ConfRoomDAOImpl implements ConfRomDAO {
 
   /**
    * Gets the roomID based on the room from conference room table
+   *
    * @param room
    * @return int
    * @throws SQLException

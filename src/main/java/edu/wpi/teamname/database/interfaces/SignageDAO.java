@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public interface SignageDAO {
 
   ArrayList<String> getSignage(int kiosk, Timestamp date) throws SQLException;
+
   ArrayList<Integer> getKiosks(Timestamp date) throws SQLException;
 
   void sync(Signage signage) throws SQLException;

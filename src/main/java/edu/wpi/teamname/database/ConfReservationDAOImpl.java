@@ -3,7 +3,6 @@ package edu.wpi.teamname.database;
 import edu.wpi.teamname.database.interfaces.ConfReservationDAO;
 import edu.wpi.teamname.servicerequest.ConfReservation;
 import edu.wpi.teamname.servicerequest.requestitem.ConfRoom;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,6 +16,7 @@ public class ConfReservationDAOImpl implements ConfReservationDAO {
 
   /**
    * sets the reservation ID in conference reservations table
+   *
    * @return int reservationID
    * @throws SQLException
    */
@@ -37,6 +37,7 @@ public class ConfReservationDAOImpl implements ConfReservationDAO {
 
   /**
    * Gets all the reservations for a conference rooom in conference reservations table
+   *
    * @param confrom
    * @return List of conference reservations
    * @throws SQLException
@@ -62,8 +63,8 @@ public class ConfReservationDAOImpl implements ConfReservationDAO {
         String staff = rs.getString("staffAssigned");
         int roomID = rs.getInt("roomID");
         ConfReservation res =
-                new ConfReservation(
-                        resID, startT, endT, dateBook, dateMade, name, username, staff, roomID);
+            new ConfReservation(
+                resID, startT, endT, dateBook, dateMade, name, username, staff, roomID);
         rooms.add(res);
       }
     } catch (SQLException e) {
@@ -74,6 +75,7 @@ public class ConfReservationDAOImpl implements ConfReservationDAO {
 
   /**
    * Syncs the conference reservation table with incoming conference reservation objects
+   *
    * @param ConfReservation
    * @throws SQLException
    */

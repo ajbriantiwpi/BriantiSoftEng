@@ -55,6 +55,7 @@ public class DataManager {
 
   /**
    * Gets the kiosks for specific date
+   *
    * @param date
    * @return list of Integers which are kiosk id's
    * @throws SQLException
@@ -66,6 +67,7 @@ public class DataManager {
 
   /**
    * Gets the specific signage based on kiosk and date
+   *
    * @param kiosk
    * @param date
    * @return list of strings which is the signage
@@ -76,11 +78,11 @@ public class DataManager {
     return sign.getSignage(kiosk, date);
   }
 
-
   // ----------------Unique FUNCTIONS-------------
 
   /**
    * Gets the specific reservations based off the conference room
+   *
    * @param confrom
    * @return list of reservations
    * @throws SQLException
@@ -92,6 +94,7 @@ public class DataManager {
 
   /**
    * adds a reservation to conferenceReservation table
+   *
    * @param res
    * @throws SQLException
    */
@@ -103,6 +106,7 @@ public class DataManager {
 
   /**
    * sets the reservation ID correctly so there is no repeated one
+   *
    * @return int which is the new resID
    * @throws SQLException
    */
@@ -113,6 +117,7 @@ public class DataManager {
 
   /**
    * Gets the room ID based off the specific room
+   *
    * @param room
    * @return int which is the roomID
    * @throws SQLException
@@ -124,6 +129,7 @@ public class DataManager {
 
   /**
    * gets the number of seats based off the room
+   *
    * @param room
    * @return int which is seats
    * @throws SQLException
@@ -135,6 +141,7 @@ public class DataManager {
 
   /**
    * gets list of all the conference buildings
+   *
    * @return list of strings
    * @throws SQLException
    */
@@ -145,6 +152,7 @@ public class DataManager {
 
   /**
    * gets the conference rooms based on selected building
+   *
    * @param building
    * @return list of strings
    * @throws SQLException
@@ -156,6 +164,7 @@ public class DataManager {
 
   /**
    * fills the conference rooms table based on rest of nodes
+   *
    * @throws SQLException
    */
   public static void refreshConfRooms() throws SQLException {
@@ -165,6 +174,7 @@ public class DataManager {
 
   /**
    * gets the items for a specific request
+   *
    * @param reqID
    * @return
    * @throws SQLException

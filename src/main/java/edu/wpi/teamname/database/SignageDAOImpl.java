@@ -13,8 +13,8 @@ import java.util.List;
 
 public class SignageDAOImpl implements SignageDAO {
   /**
-   * Gets the signage based on specific kiosk and date from signage table
-   * Configures arrows as well
+   * Gets the signage based on specific kiosk and date from signage table Configures arrows as well
+   *
    * @param kiosk
    * @param date
    * @return list of strings
@@ -69,6 +69,7 @@ public class SignageDAOImpl implements SignageDAO {
 
   /**
    * Gets the kiosk ID based on date selected from signage table
+   *
    * @param date
    * @return list of int
    * @throws SQLException
@@ -77,7 +78,7 @@ public class SignageDAOImpl implements SignageDAO {
     ArrayList<Integer> items = new ArrayList<>();
     Connection connection = DataManager.DbConnection();
     String query =
-            "Select \"kioskID\"\n" + "From \"Signage\"\n" + "Where \"date\" = ? Group by \"kioskID\"";
+        "Select \"kioskID\"\n" + "From \"Signage\"\n" + "Where \"date\" = ? Group by \"kioskID\"";
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setTimestamp(1, date);
