@@ -415,7 +415,6 @@ public class HomeController {
     viewSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
     viewAlertsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERT));
     requestRoomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CONFERENCE_ROOM));
-    dataButton.setOnMouseClicked(event -> Navigation.navigate(Screen.DATA_MANAGER));
     notificationPopupButtonSimple.setOnMouseClicked(NotificationPopupEvent);
     aboutButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ABOUT));
     creditButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CREDITS));
