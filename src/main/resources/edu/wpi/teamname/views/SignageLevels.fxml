@@ -55,9 +55,12 @@
                   </MFXButton>
                </children>
             </VBox>
-            <HBox alignment="CENTER" prefHeight="800.0" prefWidth="987.0">
+            <HBox alignment="CENTER" prefHeight="800.0" prefWidth="987.0" HBox.hgrow="ALWAYS">
                <children>
-                  <VBox fx:id="textVbox" alignment="CENTER" layoutX="10.0" layoutY="10.0" />
+                  <VBox fx:id="textVbox" alignment="CENTER" layoutX="10.0" layoutY="10.0" spacing="8.0" HBox.hgrow="ALWAYS">
+                     <padding>
+                        <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+                     </padding></VBox>
                </children>
             </HBox>
          </children>
