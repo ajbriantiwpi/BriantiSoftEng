@@ -6,32 +6,34 @@ import edu.wpi.teamname.database.DataManager;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import org.controlsfx.control.PopOver;
 
 public class NodeCircle {
 
   public Pane p;
-  private Circle inner;
-  private Circle outer;
+  private Shape inner;
+  private Shape outer;
 
-  public Label label = new Label();
+  public Label label;
 
   private Point2D nodeCords;
   private int nodeID;
   private String firstShortName;
 
+  private VBox nodeBox;
+  private PopOver nodePop;
   private VBox changeBox;
 
   private Map map;
@@ -56,57 +58,14 @@ public class NodeCircle {
     this.map = map;
 
     this.firstShortName = firstShortName;
-
     float circleRCopy = GlobalVariables.getCircleR();
-    float scaleDown;
 
     nodeCords = new Point2D(n.getX(), n.getY());
     nodeID = n.getId();
 
-    //    ArrayList<LocationName> locations = null;
-    // DataManager.getLocationNameByNode(nodeID, Timestamp.from(Instant.now()));
-
     p = new Pane();
 
-    //    if (locations.size() > 0 && locations.get(0).getNodeType().equals("HALL")) {
-    //      if (isMapPage) {
-    //        //        System.out.println("HM");
-    //        //        p.getChildren().addAll(this.label);
-    //        return;
-    //      } else {
-    //        //        System.out.println("HME");
-    //        scaleDown = 0.5f;
-    //      }
-    //      //      scaleDown = 0.5f;
-    //    } else {
-    //      scaleDown = 0.75f;
-    //    }
-
-    scaleDown = 0.75f;
-
-    this.outer =
-        new Circle(
-            shiftX, shiftY, (circleRCopy * scaleDown) + GlobalVariables.getStrokeThickness());
-    this.inner = new Circle(shiftX, shiftY, (circleRCopy * scaleDown));
-    outer.setFill(GlobalVariables.getBorderColor());
-    inner.setFill(GlobalVariables.getInsideColor());
     // Visible By default
-
-    // Get short name(s) from table
-
-    //    if (!(locations == null) && locations.size() > 0) {
-    //      label.setText(locations.get(0).getShortName());
-    //    } else {
-    //      label.setText(" " + nodeID);
-    label.setText(firstShortName);
-    //    }
-
-    CornerRadii corn = new CornerRadii(7);
-    label.setBackground(
-        new Background(new BackgroundFill(GlobalVariables.getLabelColor(), corn, Insets.EMPTY)));
-    label.setTextFill(GlobalVariables.getLabelTextColor());
-    label.setTranslateX(-GlobalVariables.getCircleR());
-    label.setTranslateY(-30);
 
     float boxW = circleRCopy;
     float boxH = circleRCopy;
@@ -126,12 +85,254 @@ public class NodeCircle {
       // Map Edit Page
       // Display All nodes and edges (Edges will have to be made somewhere else)
 
-      p.setOnMouseEntered(makeVisible);
-      p.setOnMouseExited(hide);
-      p.setOnMouseClicked(boxVisible);
+      //      p.setOnMouseEntered(makeVisible);
+      //      p.setOnMouseExited(hide);
+      p.setOnMouseClicked(editNodeBox);
     }
 
-    p.getChildren().addAll(this.outer, this.inner, this.label);
+    final var resource = App.class.getResource("views/TextLabel.fxml");
+
+    ArrayList<LocationName> l = GlobalVariables.getHMap().get(this.nodeID);
+
+    String nodeType = "";
+    if (l != null) {
+      nodeType = l.get(0).getNodeType();
+    }
+
+    //    map.getShowLegend();
+
+    ArrayList<Shape> nodeShapes;
+
+    if (map.getShowLegend()) {
+      nodeShapes = NodeCircle.makeNodeShape(nodeType);
+    } else {
+      // Nothing means it will be drawn default, and doesnt edit the node type!
+      nodeShapes = NodeCircle.makeNodeShape("");
+    }
+
+    this.outer = nodeShapes.get(0);
+    this.inner = nodeShapes.get(1);
+
+    p.getChildren().addAll(this.outer, this.inner);
+
+    int index = map.getRoomTypes().indexOf(nodeType);
+
+    // Only show this if the variable is set to true.
+    if (index == -1 || map.getShowTypeLabels()[index]) {
+      final FXMLLoader loader = new FXMLLoader(resource);
+      try {
+        label = loader.load();
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      }
+
+      int labelTextType = map.getLabelTextType();
+      if (labelTextType == 0) {
+        // Show Long Name
+
+        label.setText(firstShortName);
+        if (l != null) {
+          label.setText(l.get(0).getLongName());
+        }
+      } else if (labelTextType == 1) {
+        // Show Short Name
+        label.setText(firstShortName);
+      } else if (labelTextType == 2) {
+        // Show ID
+        label.setText("" + this.nodeID);
+      } else {
+        // Dont add the label.
+        return;
+      }
+
+      //    CornerRadii corn = new CornerRadii(7);
+      //    label.setBackground(new Background(new BackgroundFill(GlobalVariables.getLabelColor(),
+      // corn, Insets.EMPTY)));
+      //    label.setTextFill(GlobalVariables.getLabelTextColor());
+
+      label.setTranslateX(-GlobalVariables.getCircleR());
+      label.setTranslateY(-30);
+
+      p.getChildren().add(this.label);
+    }
+  }
+
+  public static ArrayList<Shape> makeNodeShape(String nodeType) {
+    Shape outer;
+    Shape inner;
+    Shape inner2 = null;
+
+    float shiftX = 0; // circleR;
+    float shiftY = 0; // circleR;
+
+    float circleRCopy = GlobalVariables.getCircleR();
+
+    float squareShift = GlobalVariables.getStrokeThickness();
+    float scaleDown = 0.75f;
+
+    float outerRectLength = (circleRCopy * scaleDown + GlobalVariables.getStrokeThickness()) * 2;
+    float innerRectLength = (circleRCopy * scaleDown) * 2;
+    Rectangle outerRect =
+        new Rectangle(
+            shiftX - (outerRectLength / 2),
+            shiftY - (outerRectLength / 2),
+            outerRectLength,
+            outerRectLength);
+
+    Rectangle innerRect =
+        new Rectangle(
+            shiftX + squareShift - (outerRectLength / 2),
+            shiftY + squareShift - (outerRectLength / 2),
+            innerRectLength,
+            innerRectLength);
+
+    Circle outerCircle =
+        new Circle(
+            shiftX, shiftY, (circleRCopy * scaleDown) + GlobalVariables.getStrokeThickness());
+
+    Circle innerCircle = new Circle(shiftX, shiftY, (circleRCopy * scaleDown));
+
+    ArrayList<Shape> ret = new ArrayList<>();
+
+    switch (nodeType) {
+      case "BATH":
+        outer = outerCircle;
+        inner = innerCircle;
+        inner.setFill(GlobalVariables.getInsideYellow());
+
+        break;
+      case "CONF":
+        outer = outerRect;
+        inner = innerRect;
+
+        outer.setRotate(45);
+        inner.setRotate(45);
+
+        inner.setFill(GlobalVariables.getInsideBlue());
+
+        break;
+      case "DEPT":
+        outer = outerRect;
+        inner = innerRect;
+
+        outer.setRotate(45);
+        inner.setRotate(45);
+
+        inner.setFill(GlobalVariables.getInsideGreen());
+
+        break;
+      case "ELEV":
+        outer = outerRect;
+        inner = innerRect;
+
+        inner.setFill(GlobalVariables.getInsideBlue());
+
+        break;
+      case "EXIT":
+        outer = outerRect;
+        inner = innerRect;
+
+        inner.setFill(GlobalVariables.getInsideRed());
+
+        break;
+        //      case "HALL":
+        //        break;
+      case "INFO":
+        outer = outerCircle;
+        inner = innerCircle;
+
+        inner.setFill(GlobalVariables.getInsideBlue());
+
+        break;
+      case "LABS":
+        outer = outerRect;
+        inner = innerRect;
+
+        outer.setRotate(45);
+        inner.setRotate(45);
+
+        inner.setFill(GlobalVariables.getInsideOrange());
+
+        break;
+      case "REST":
+        outer = outerCircle;
+        inner = innerCircle;
+
+        inner.setFill(GlobalVariables.getInsideYellow());
+
+        break;
+      case "RETL":
+        outer = outerCircle;
+        inner = innerCircle;
+
+        inner.setFill(GlobalVariables.getInsideGreen());
+
+        break;
+      case "SERV":
+        outer = outerCircle;
+        inner = innerCircle;
+
+        inner.setFill(GlobalVariables.getInsideGreen());
+
+        break;
+      case "STAI":
+        outer = outerRect;
+        inner = innerRect;
+
+        inner.setFill(GlobalVariables.getInsideOrange());
+
+        break;
+      case "ABST":
+        outer = outerCircle;
+        inner = innerCircle;
+
+        inner.setFill(GlobalVariables.getInsideWhite());
+
+        break;
+      case "STAR":
+        outer = outerCircle;
+        inner = innerCircle;
+
+        inner.setFill(GlobalVariables.getInsideOrange());
+
+        break;
+      case "ABSE":
+        outer = outerCircle;
+        inner = innerCircle;
+
+        inner2 = new Circle(shiftX, shiftY, (circleRCopy * scaleDown * 0.6));
+
+        inner.setFill(GlobalVariables.getInsideWhite());
+        inner2.setFill(GlobalVariables.getBorderColor());
+
+        break;
+      case "ENDF":
+        outer = outerCircle;
+        inner = innerCircle;
+
+        inner2 = new Circle(shiftX, shiftY, (circleRCopy * scaleDown * 0.6));
+
+        inner.setFill(GlobalVariables.getInsideOrange());
+        inner2.setFill(GlobalVariables.getBorderColor());
+
+        break;
+      default:
+        outer = outerCircle;
+        inner = innerCircle;
+
+        inner.setFill(GlobalVariables.getInsideColor());
+        break;
+    }
+
+    outer.setFill(GlobalVariables.getBorderColor());
+
+    ret.add(outer);
+    ret.add(inner);
+    if (inner2 != null) {
+      ret.add(inner2);
+    }
+
+    return ret;
   }
 
   /**
@@ -181,21 +382,11 @@ public class NodeCircle {
         }
       };
 
-  /**
-   * EventHandler for saving changes made to a node in the system. This EventHandler is triggered
-   * when the "Save Changes" button is clicked on the edit node screen. It retrieves the updated
-   * information from the relevant TextFields and constructs a new Node object with the updated
-   * information. It then calls the DataManager to update the information in the system database,
-   * and prints a message to the console to confirm that the synchronization has been completed.
-   *
-   * @param event The MouseEvent that triggered the EventHandler.
-   * @throws RuntimeException if an SQL exception occurs during the data synchronization process.
-   */
   EventHandler<MouseEvent> boxVisible =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
-          Pane p = ((Pane) event.getSource());
-          p.setOpacity(1);
+          MFXButton button = ((MFXButton) event.getSource());
+          //        p.setOpacity(1);
 
           final var resource = App.class.getResource("views/ChangeNode.fxml");
           final FXMLLoader loader = new FXMLLoader(resource);
@@ -207,16 +398,16 @@ public class NodeCircle {
 
           // Set Location Name
           TextField Location =
-              (TextField) ((Pane) (changeBox.getChildren().get(0))).getChildren().get(1);
+              (TextField) ((Pane) (changeBox.getChildren().get(0))).getChildren().get(2);
 
-          HashMap<Integer, ArrayList<LocationName>> map;
-          try {
-            map =
-                DataManager.getAllLocationNamesMappedByNode(
-                    new Timestamp(System.currentTimeMillis()));
-          } catch (SQLException e) {
-            throw new RuntimeException(e);
-          }
+          //          HashMap<Integer, ArrayList<LocationName>> map
+          //          try {
+          //            map =
+          //                DataManager.getAllLocationNamesMappedByNode(
+          //                    new Timestamp(System.currentTimeMillis()));
+          //          } catch (SQLException e) {
+          //            throw new RuntimeException(e);
+          //          }
 
           //          for (Integer key : map.keySet()) {
           //            System.out.println("Key: " + key + " Val: " + map.get(key));
@@ -225,9 +416,11 @@ public class NodeCircle {
 
           String location;
 
-          if (map.get(nodeID) != null) {
+          HashMap<Integer, ArrayList<LocationName>> idToLocation = GlobalVariables.getHMap();
+
+          if (idToLocation.get(nodeID) != null) {
             //          if (map.get(nodeID).size() > 0) {
-            location = map.get(nodeID).get(0).getLongName();
+            location = idToLocation.get(nodeID).get(0).getLongName();
           } else {
             location = "" + nodeID;
           }
@@ -235,11 +428,11 @@ public class NodeCircle {
 
           // Set X
           TextField XText =
-              (TextField) ((Pane) (changeBox.getChildren().get(1))).getChildren().get(1);
+              (TextField) ((Pane) (changeBox.getChildren().get(1))).getChildren().get(2);
           XText.setText("" + nodeCords.getX());
           // Set Y
           TextField YText =
-              (TextField) ((Pane) (changeBox.getChildren().get(2))).getChildren().get(1);
+              (TextField) ((Pane) (changeBox.getChildren().get(2))).getChildren().get(2);
           YText.setText("" + nodeCords.getY());
 
           Node currNode = null;
@@ -252,10 +445,10 @@ public class NodeCircle {
           }
 
           TextField floorText =
-              (TextField) ((Pane) (changeBox.getChildren().get(3))).getChildren().get(1);
+              (TextField) ((Pane) (changeBox.getChildren().get(3))).getChildren().get(2);
 
           TextField buildingText =
-              (TextField) ((Pane) (changeBox.getChildren().get(4))).getChildren().get(1);
+              (TextField) ((Pane) (changeBox.getChildren().get(4))).getChildren().get(2);
 
           if (currNode != null) {
             floorText.setText(currNode.getFloor());
@@ -268,7 +461,7 @@ public class NodeCircle {
           removeNodeButton.setOnMouseClicked(removeNode);
           // Set Submit
           MFXButton submitButton =
-              (MFXButton) ((Pane) (changeBox.getChildren().get(7))).getChildren().get(1);
+              (MFXButton) ((Pane) (changeBox.getChildren().get(7))).getChildren().get(2);
           submitButton.setOnMouseClicked(saveNodeChanges);
 
           changeBox.getChildren().remove(6);
@@ -277,12 +470,218 @@ public class NodeCircle {
 
           System.out.println("AddBox");
 
+          nodePop.hide();
+
           PopOver pop = new PopOver(changeBox);
           pop.show(inner);
+          changeBox.setOnMouseExited(event2 -> pop.hide());
 
           //          p.getChildren().addAll(changeBox);
 
           //
+        }
+      };
+
+  EventHandler<MouseEvent> startMoveNode =
+      new EventHandler<MouseEvent>() {
+        public void handle(MouseEvent event) {
+          //          System.out.println("SMN");
+
+          if (map.getMovingNodeId() == -1) {
+            map.setMovingNodeId(nodeID);
+          } else {
+
+          }
+        }
+      };
+
+  EventHandler<MouseEvent> startCreateEdge =
+      new EventHandler<MouseEvent>() {
+        public void handle(MouseEvent event) {
+          System.out.println("SCE");
+
+          if (map.getStartEdgeNodeId() == -1) {
+            map.setStartEdgeNodeId(nodeID);
+          } else {
+            // addEdge
+            //            map.getStartEdgeNodeId(); nodeID;
+            Edge e = new Edge(map.getStartEdgeNodeId(), nodeID);
+
+            try {
+              DataManager.addEdge(e);
+              map.setCurrentDisplayFloor(map.getCurrentDisplayFloor());
+              //              changeFloor();
+            } catch (SQLException ex) {
+              System.out.println(ex);
+              //            throw new RuntimeException(ex);
+            } catch (IOException ex) {
+              throw new RuntimeException(ex);
+            }
+
+            map.setStartEdgeNodeId(-1);
+
+            try {
+              map.refresh();
+            } catch (SQLException ex) {
+              throw new RuntimeException(ex);
+            } catch (IOException ex) {
+              throw new RuntimeException(ex);
+            }
+          }
+        }
+      };
+
+  private void addSelfToAlign() {
+    try {
+      Node n = DataManager.getNode(nodeID);
+      ArrayList<Node> selection = map.getAlignSelection();
+      selection.add(n);
+      //      System.out.println(nodeID);
+      map.setAlignSelection(selection);
+      //      System.out.println(map.getAlignSelection().size());
+      //      System.out.println(map.getAlignSelection());
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  EventHandler<MouseEvent> startAlign =
+      new EventHandler<MouseEvent>() {
+        public void handle(MouseEvent event) {
+          System.out.println("SA");
+          addSelfToAlign();
+        }
+      };
+
+  EventHandler<MouseEvent> align =
+      new EventHandler<MouseEvent>() {
+        public void handle(MouseEvent event) {
+          System.out.println("A");
+          addSelfToAlign();
+          //          System.out.println(map.getAlignSelection().size());
+          //          System.out.println(map.getAlignSelection());
+
+          float averageX = 0, averageY = 0;
+
+          ArrayList<Node> selection = map.getAlignSelection();
+
+          for (Node n : selection) {
+            averageX += n.getX();
+            averageY += n.getY();
+          }
+
+          averageX /= (float) selection.size();
+          averageY /= (float) selection.size();
+
+          System.out.println("AX: " + averageX + " AY: " + averageY);
+
+          float projChangeX = 0, projChangeY = 0;
+
+          for (Node n : selection) {
+            projChangeX += Math.abs(averageX - n.getX());
+            projChangeY += Math.abs(averageY - n.getY());
+          }
+
+          System.out.println("PCX: " + projChangeX + " PCY: " + projChangeY);
+
+          for (Node n : selection) {
+            int currX = n.getX();
+            int currY = n.getY();
+
+            if (projChangeX < projChangeY) {
+              System.out.println("Xc");
+              //              currX = (int) averageX;
+              currX = selection.get(selection.size() - 1).getX();
+            } else {
+              System.out.println("YC");
+              //              currY = (int) averageY;
+              currY = selection.get(selection.size() - 1).getY();
+            }
+
+            Node newN = new Node(n.getId(), currX, currY, n.getFloor(), n.getBuilding());
+
+            try {
+              DataManager.syncNode(newN);
+            } catch (SQLException e) {
+              throw new RuntimeException(e);
+            }
+          }
+
+          map.setAlignSelection(new ArrayList<>());
+          try {
+            map.refresh();
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+        }
+      };
+
+  /**
+   * EventHandler for saving changes made to a node in the system. This EventHandler is triggered
+   * when the "Save Changes" button is clicked on the edit node screen. It retrieves the updated
+   * information from the relevant TextFields and constructs a new Node object with the updated
+   * information. It then calls the DataManager to update the information in the system database,
+   * and prints a message to the console to confirm that the synchronization has been completed.
+   *
+   * @param event The MouseEvent that triggered the EventHandler.
+   * @throws RuntimeException if an SQL exception occurs during the data synchronization process.
+   */
+  EventHandler<MouseEvent> editNodeBox =
+      new EventHandler<MouseEvent>() {
+        public void handle(MouseEvent event) {
+          Pane p = ((Pane) event.getSource());
+          p.setOpacity(1);
+
+          final var resource = App.class.getResource("views/NodePopup.fxml");
+          final FXMLLoader loader = new FXMLLoader(resource);
+          try {
+            nodeBox = loader.load();
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+
+          MFXButton moveButton =
+              (MFXButton) ((Pane) (nodeBox.getChildren().get(0))).getChildren().get(0);
+          moveButton.setOnMouseClicked(startMoveNode);
+
+          MFXButton editNodeButton =
+              (MFXButton) ((Pane) (nodeBox.getChildren().get(1))).getChildren().get(0);
+          editNodeButton.setOnMouseClicked(boxVisible);
+
+          MFXButton createEdgeButton =
+              (MFXButton) ((Pane) (nodeBox.getChildren().get(2))).getChildren().get(0);
+          createEdgeButton.setOnMouseClicked(startCreateEdge);
+          if (map.getStartEdgeNodeId() != -1) {
+            editNodeButton.getStyleClass().remove("primary");
+            editNodeButton.getStyleClass().add("primary-container");
+
+            createEdgeButton.getStyleClass().remove("primary-container");
+            createEdgeButton.getStyleClass().add("primary");
+            createEdgeButton.setText("Compleate Edge");
+          }
+
+          MFXButton addAlignButton =
+              (MFXButton) ((Pane) (nodeBox.getChildren().get(3))).getChildren().get(0);
+          addAlignButton.setOnMouseClicked(startAlign);
+
+          if (map.getAlignSelection().size() > 0) {
+            MFXButton alignButton =
+                (MFXButton) ((Pane) (nodeBox.getChildren().get(4))).getChildren().get(0);
+            alignButton.setOnMouseClicked(align);
+            editNodeButton.getStyleClass().remove("primary");
+            editNodeButton.getStyleClass().add("primary-container");
+
+          } else {
+            ((Pane) (nodeBox.getChildren().get(4))).getChildren().remove(0);
+          }
+
+          System.out.println("NodePop");
+
+          nodePop = new PopOver(nodeBox);
+          nodePop.show(inner);
+          nodeBox.setOnMouseExited(event2 -> nodePop.hide());
         }
       };
 
@@ -303,11 +702,109 @@ public class NodeCircle {
           // Only the Node ID is important for Deletion
           Node n = new Node(nodeID, 0, 0, "", "");
 
+          ArrayList<Node> AllNodes;
+          try {
+            AllNodes = DataManager.getAllNodes();
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          }
+
+          ArrayList<Edge> AllEdges;
+          try {
+            AllEdges = DataManager.getAllEdges();
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          }
+
+          for (int i = 0; i < AllEdges.size(); i++) {
+            Edge e = AllEdges.get(i);
+            Edge edge = null;
+            Node adj = null;
+            if (e.getStartNodeID() == nodeID) {
+              adj = AllNodes.get(Node.idToIndex(e.getEndNodeID()));
+              edge = new Edge(nodeID, adj.getId());
+            } else if (e.getEndNodeID() == nodeID) {
+              adj = AllNodes.get(Node.idToIndex(e.getStartNodeID()));
+              edge = new Edge(adj.getId(), nodeID);
+            }
+            if (edge != null) {
+              try {
+                DataManager.deleteEdge(edge);
+              } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+              }
+            }
+          }
+
           try {
             DataManager.deleteNode(n);
-            map.setCurrentDisplayFloor(map.getCurrentDisplayFloor(), isMapPage);
-          } catch (SQLException | IOException ex) {
+            //            map.setCurrentDisplayFloor(map.getCurrentDisplayFloor());
+          } catch (SQLException ex) {
             System.out.println(ex);
+          }
+
+          try {
+            AllNodes = DataManager.getAllNodes();
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          }
+
+          for (int i = 0; i < AllNodes.size(); i++) {
+            Node node = AllNodes.get(i);
+            int actualId = node.getId();
+            int expectedId = Node.indexToId(i);
+            if (expectedId != actualId) {
+
+              System.out.println("EID: " + expectedId + ", AID: " + actualId);
+
+              node.setId(expectedId);
+
+              try {
+                DataManager.syncNode(node);
+              } catch (SQLException e) {
+                throw new RuntimeException(e);
+              }
+
+              // Update all edges
+              try {
+
+                AllEdges = DataManager.getAllEdges();
+              } catch (SQLException e) {
+                throw new RuntimeException(e);
+              }
+
+              for (int j = 0; j < AllEdges.size(); j++) {
+                Edge e = AllEdges.get(j);
+                //                System.out.println("Edge " + j + " " + e.getStartNodeID()  + ", "
+                // + e.getEndNodeID() );
+                boolean changed = false;
+                if (e.getStartNodeID() == actualId) {
+                  System.out.println("Changed ES: " + e.getStartNodeID() + " to: " + expectedId);
+                  e.setStartNodeID(expectedId);
+                  changed = true;
+                } else if (e.getEndNodeID() == actualId) {
+                  System.out.println("Changed EE: " + e.getEndNodeID() + " to: " + expectedId);
+                  e.setEndNodeID(expectedId);
+                  changed = true;
+                }
+                if (changed) {
+
+                  try {
+                    DataManager.syncEdge(e);
+                  } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                  }
+                }
+              }
+            }
+          }
+
+          try {
+            map.refresh();
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
           }
         }
       };
@@ -327,11 +824,11 @@ public class NodeCircle {
           MFXButton SubmitButton = ((MFXButton) event.getSource());
           VBox v = (VBox) ((HBox) SubmitButton.getParent()).getParent();
 
-          TextField xText = (TextField) ((Pane) (v.getChildren().get(1))).getChildren().get(1);
-          TextField yText = (TextField) ((Pane) (v.getChildren().get(2))).getChildren().get(1);
-          TextField floorText = (TextField) ((Pane) (v.getChildren().get(3))).getChildren().get(1);
+          TextField xText = (TextField) ((Pane) (v.getChildren().get(1))).getChildren().get(2);
+          TextField yText = (TextField) ((Pane) (v.getChildren().get(2))).getChildren().get(2);
+          TextField floorText = (TextField) ((Pane) (v.getChildren().get(3))).getChildren().get(2);
           TextField buildingText =
-              (TextField) ((Pane) (v.getChildren().get(4))).getChildren().get(1);
+              (TextField) ((Pane) (v.getChildren().get(4))).getChildren().get(2);
 
           Node currNode = null;
           try {
@@ -364,15 +861,12 @@ public class NodeCircle {
             throw new RuntimeException(ex);
           }
 
-          // This is working on the assumption that We still want all id's to be a difference of 5
-          // and that the last one in the table is the biggest ID
-          int highestID = allNodes.get(allNodes.size() - 1).getId();
-
           Node n = new Node(nodeID, xPos, yPos, floor, building);
+          //          n.setId();
 
           try {
             DataManager.syncNode(n);
-            map.setCurrentDisplayFloor(map.getCurrentDisplayFloor(), isMapPage);
+            map.refresh();
           } catch (SQLException ex) {
             System.out.println(ex);
           } catch (IOException e) {

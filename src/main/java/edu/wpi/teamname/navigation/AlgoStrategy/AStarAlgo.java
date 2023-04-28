@@ -1,17 +1,25 @@
 package edu.wpi.teamname.navigation.AlgoStrategy;
 
+import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.navigation.Graph;
+import edu.wpi.teamname.navigation.LocationName;
 import edu.wpi.teamname.navigation.Node;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.PriorityQueue;
+import lombok.Getter;
+import lombok.Setter;
 
 public class AStarAlgo implements IStrategyAlgo {
+
+  @Getter @Setter private static boolean noStairs = false;
+
   @Override
   public ArrayList<Node> getPathBetween(Graph g, int startNodeId, int targetNodeId) {
     System.out.println("ASTAR T");
 
     ArrayList<Node> nodes = g.getNodes();
+
     Node s = nodes.get(Node.idToIndex(startNodeId));
     Node t = nodes.get(Node.idToIndex(targetNodeId));
 
@@ -20,6 +28,7 @@ public class AStarAlgo implements IStrategyAlgo {
     }
 
     g.setAllG(s, t);
+
     Node start = s;
     Node target = t;
 
@@ -31,12 +40,27 @@ public class AStarAlgo implements IStrategyAlgo {
 
     while (!openList.isEmpty()) {
       Node ex = openList.peek();
+
       if (ex == target) {
         System.out.println(closedList.size());
         return getPath(ex);
       }
 
       for (Node nei : ex.getNeighbors()) {
+
+        if (this.noStairs) {
+          ArrayList<LocationName> listA = GlobalVariables.getHMap().get(ex.getId());
+          ArrayList<LocationName> listB = GlobalVariables.getHMap().get(nei.getId());
+          if (listA != null && listB != null) {
+            LocationName a = listA.get(0);
+            LocationName b = listB.get(0);
+            if (a.getNodeType().equals("STAI") && b.getNodeType().equals("STAI")) {
+              // System.out.print("Continued");
+              continue;
+            }
+          }
+        }
+
         double totalWeight = ex.getG() + nei.findWeight(ex);
 
         //        System.out.println(closedList.size());

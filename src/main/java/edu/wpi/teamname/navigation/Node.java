@@ -16,7 +16,7 @@ public class Node implements Comparable<Node> {
 
   @Getter @Setter private Node parent = null;
   @Getter @Setter private List<Node> neighbors;
-  //  @Getter @Setter private List<Edge> edges;
+
   @Getter @Setter private List<Edge> edges;
   @Getter private final int originalID;
   // f: sum of g and h;
@@ -117,6 +117,7 @@ public class Node implements Comparable<Node> {
     double x = Math.pow((x2 - x1), 2);
     double y = Math.pow((y2 - y1), 2);
     double z = Math.pow((z2 - z1), 2);
+
     return Math.sqrt(x + y + z);
   }
 
@@ -157,6 +158,20 @@ public class Node implements Comparable<Node> {
   public double calculateHeuristic(Node target) {
     // Heuristic will return distance from target
 
+    //    if (wheelChair == true) {
+    //      try {
+    //        String s = DataManager.isNodeType(this.getId());
+    //        // System.out.println(s);
+    //        if (s.equals("STAI")) {
+    //          return 100000; // returning a high h value will cause AStar to pass up this node
+    // when
+    //          // creating a path
+    //        }
+    //      } catch (SQLException e) {
+    //        throw new RuntimeException(e);
+    //      }
+    //    }
+
     int x1 = this.x;
     int x2 = target.getX();
     int y1 = this.y;
@@ -184,5 +199,24 @@ public class Node implements Comparable<Node> {
   public static int idToIndex(int id) {
     int index = ((id - 100) / 5);
     return index;
+  }
+
+  public static int indexToId(int index) {
+    int id = (5 * index) + 100;
+    return id;
+  }
+
+  /**
+   * This gets the number that the floor is on for math purposes. Lower level floors are negative
+   *
+   * @return number the floor is on
+   */
+  public int getFloorNum() {
+    return Integer.valueOf(getFloor().replace('L', '-'));
+    //    try{
+    //      return Integer.valueOf(getFloor());
+    //    } catch(NumberFormatException e){
+    //      return -1*Integer.valueOf(getFloor().r)
+    //    }
   }
 }

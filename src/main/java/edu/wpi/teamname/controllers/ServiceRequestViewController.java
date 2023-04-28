@@ -337,6 +337,7 @@ public class ServiceRequestViewController {
         totalPrice += (orderedItems.get(i).getQuantity() * tempItems.get(i).getPrice());
         cartBox.getChildren().add(new ReqMenuItems(tempItems.get(i), folder, item.getQuantity()));
       } catch (NullPointerException e) { // no items in request
+        System.out.println(e);
         totalPrice = 0.0;
       }
     }

@@ -2,11 +2,16 @@ package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.Navigation;
+import edu.wpi.teamname.alerts.Alert;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.Employee;
+import edu.wpi.teamname.employees.EmployeeType;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.temporal.ChronoField;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
@@ -28,7 +33,7 @@ public class LoginController {
   @FXML MFXTextField loginText;
   @FXML PasswordField passwordText;
   @FXML MFXButton cancel;
-  @FXML MFXButton help;
+  // @FXML MFXButton help;
 
   /**
    * handles when the login button is pressed
@@ -56,7 +61,7 @@ public class LoginController {
   /** initializes the view for the login page */
   @FXML
   public void initialize() {
-    help.setVisible(false);
+    // help.setVisible(false);
     newPassword.setVisible(false);
     success.setText("Username or password\nis incorrect");
     success.setVisible(false);
@@ -68,7 +73,7 @@ public class LoginController {
         event -> {
           try {
             String tempPassword = forgotPasswordPressed(loginText.getText());
-            newPassword.setText("Your new password is: \n" + tempPassword);
+            newPassword.setText(tempPassword);
             newPassword.setVisible(true);
             paneOfStuff.setDisable(true);
           } catch (SQLException e) {
@@ -117,7 +122,8 @@ public class LoginController {
   }
 
   /**
-   * handles when the forgot password button is pressed
+   * Handles when the forgot password button is pressed Sends an alert to ADMINISTRATORs that the
+   * user's password needs to be reset
    *
    * @param username the username from the text field that we want to reset the password of
    * @return the new password string
@@ -127,11 +133,19 @@ public class LoginController {
     //    return DataManager.forgotPassword(username);
     Employee employee = DataManager.getEmployee(username);
     if (employee != null) {
-      String pass = "NewPassword1!";
-      employee.setLogin(username, pass);
-      DataManager.syncEmployee(employee);
-      return pass;
+      edu.wpi.teamname.alerts.Alert newAlert =
+          new Alert(
+              Instant.now().get(ChronoField.MICRO_OF_SECOND),
+              new Timestamp(System.currentTimeMillis()),
+              (new Timestamp((long) (System.currentTimeMillis() + 6.048e+8))),
+              "AUTO",
+              "Reset password request for " + username,
+              "Reset Password Request",
+              EmployeeType.ADMINISTRATOR,
+              Alert.Urgency.MILD);
+      DataManager.addAlert(newAlert);
+      return "Reset Password Request Submitted";
     }
-    return "INCORRECTPASSWORD_DONOTUSE";
+    return "Please Enter a Correct Username";
   }
 }

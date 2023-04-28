@@ -1,0 +1,15 @@
+.severe{
+    -fx-border-color: #7E0007;
+}
+
+.mild{
+    -fx-border-color: #456d4c;
+}
+
+.medium {
+    -fx-border-color: #D8A31B;
+}
+
+.none {
+    -fx-border-color: #6F797A;
+}

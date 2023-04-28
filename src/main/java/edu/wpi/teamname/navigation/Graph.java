@@ -24,9 +24,7 @@ public class Graph {
     this.initializeEdges();
     pathfindingAlgo = new AStarAlgo();
     // pathfindingAlgo = new BFSAlgo();
-
-    pathfindingAlgo = new AStarAlgo();
-
+    // pathfindingAlgo = new DFSAlgo();
     // pathfindingAlgo = new DijkstraAlgo();
   }
 
@@ -131,7 +129,12 @@ public class Graph {
    */
   private void initializeEdges() {
     // Initialize the nodes with the node lines data
+
     for (int i = 0; i < Edges.size(); i++) {
+
+      //      Node startNode = AllNodes.get(Node.idToIndex(Edges.get(i).getStartNodeID()));
+      //      Node endNode = AllNodes.get(Node.idToIndex(Edges.get(i).getEndNodeID()));
+
       Node startNode = this.findNodeByID(Edges.get(i).getStartNodeID());
       Node endNode = this.findNodeByID(Edges.get(i).getEndNodeID());
 
@@ -166,7 +169,11 @@ public class Graph {
    * @return the path between the start and target nodes as an ArrayList of Node objects.
    */
   public ArrayList<Node> getPathBetween(int startNodeId, int targetNodeId) {
-    return pathfindingAlgo.getPathBetween(this, startNodeId, targetNodeId);
+    try {
+      return pathfindingAlgo.getPathBetween(this, startNodeId, targetNodeId);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   /**
@@ -177,6 +184,10 @@ public class Graph {
    * @return the path between the start and target nodes as an ArrayList of Node objects.
    */
   public ArrayList<Node> getPathBetween(Node startNode, Node endNode) {
-    return pathfindingAlgo.getPathBetween(this, startNode.getId(), endNode.getId());
+    try {
+      return pathfindingAlgo.getPathBetween(this, startNode.getId(), endNode.getId());
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
   }
 }

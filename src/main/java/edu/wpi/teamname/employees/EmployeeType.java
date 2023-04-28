@@ -24,6 +24,12 @@ public enum EmployeeType {
     return type;
   }
 
+  /**
+   * * Gets the string values of all of the EmployeeTypes and returns a string array of all of them
+   * formatted It is formatted with first letter is capitalized and the rest is lowercase
+   *
+   * @return The string array with all formatted values
+   */
   public static String[] formattedValues() {
     String[] output = new String[values().length];
     String string = "";

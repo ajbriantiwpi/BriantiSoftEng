@@ -26,7 +26,7 @@ public class OfficeSupply extends RequestItem {
   }
 
   /**
-   * creates an office supply item in the database
+   * Creates a OfficeSupply object only using the ID and gets the rest of the data from the database
    *
    * @param id id of the item
    * @throws SQLException thrown when there is an error connecting to the database or an error with
