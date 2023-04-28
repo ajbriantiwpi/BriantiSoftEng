@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import io.github.palexdev.materialfx.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="aboutAnchorPane" prefHeight="900.0" prefWidth="1600.0" styleClass="primary-container" stylesheets="@../stylesheets/Colors/lightTheme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.AboutPageController">
+<AnchorPane fx:id="aboutAnchorPane" prefHeight="900.0" prefWidth="1600.0" styleClass="primary-container" stylesheets="@../stylesheets/Colors/lightTheme.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.AboutPageController">
    <children>
       <VBox layoutX="32.0" layoutY="582.0" spacing="20.0">
          <children>
@@ -85,11 +77,16 @@
                            <children>
                               <Label text=" Ian Wright">
                                  <graphic>
-                                    <ImageView fx:id="ianButton" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/ian_profile.png" />
-                                       </image>
-                                    </ImageView>
+                                    <StackPane>
+                                       <children>
+                                          <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/ian_profile.png" />
+                                             </image>
+                                          </ImageView>
+                                          <MFXButton fx:id="ianButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" />
+                                       </children>
+                                    </StackPane>
                                  </graphic>
                                  <font>
                                     <Font size="30.0" />
@@ -106,20 +103,30 @@
                                     <Insets left="5.0" top="10.0" />
                                  </VBox.margin>
                                  <graphic>
-                                    <ImageView fx:id="jasonButton" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/jason_icon.png" />
-                                       </image>
-                                    </ImageView>
+                                    <StackPane>
+                                       <children>
+                                          <MFXButton fx:id="jasonButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" />
+                                          <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/jason_icon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </StackPane>
                                  </graphic>
                               </Label>
                               <Label text="Alessandro Brianti">
                                  <graphic>
-                                    <ImageView fx:id="alessandroButton" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/ian_profile.png" />
-                                       </image>
-                                    </ImageView>
+                                    <StackPane>
+                                       <children>
+                                          <MFXButton fx:id="alessandroButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" />
+                                          <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/ian_profile.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </StackPane>
                                  </graphic>
                                  <VBox.margin>
                                     <Insets left="5.0" top="10.0" />
@@ -130,11 +137,16 @@
                               </Label>
                               <Label text="Adelynn Martin">
                                  <graphic>
-                                    <ImageView fx:id="adelynnButton" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/addy_profile.png" />
-                                       </image>
-                                    </ImageView>
+                                    <StackPane>
+                                       <children>
+                                          <MFXButton fx:id="adelynnButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" />
+                                          <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/addy_profile.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </StackPane>
                                  </graphic>
                                  <VBox.margin>
                                     <Insets left="5.0" top="10.0" />
@@ -145,11 +157,16 @@
                               </Label>
                               <Label text="Aleksandr Samarin">
                                  <graphic>
-                                    <ImageView fx:id="aleksandrButton" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/ian_profile.png" />
-                                       </image>
-                                    </ImageView>
+                                    <StackPane>
+                                       <children>
+                                          <MFXButton fx:id="aleksandrButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" />
+                                          <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/ian_profile.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </StackPane>
                                  </graphic>
                                  <VBox.margin>
                                     <Insets left="5.0" top="10.0" />
@@ -160,11 +177,16 @@
                               </Label>
                               <Label text=" Samuel Markwick">
                                  <graphic>
-                                    <ImageView fx:id="samuelButton" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/sam_profile.png" />
-                                       </image>
-                                    </ImageView>
+                                    <StackPane>
+                                       <children>
+                                          <MFXButton fx:id="samuelButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" />
+                                          <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/sam_profile.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </StackPane>
                                  </graphic>
                                  <font>
                                     <Font size="30.0" />
@@ -184,11 +206,16 @@
                      <children>
                         <Label prefHeight="70.0" prefWidth="327.0" text="Ryan Offstein">
                            <graphic>
-                              <ImageView fx:id="ryanButton" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/ian_profile.png" />
-                                 </image>
-                              </ImageView>
+                              <StackPane>
+                                 <children>
+                                    <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/ian_profile.png" />
+                                       </image>
+                                    </ImageView>
+                                    <MFXButton fx:id="ryanButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" />
+                                 </children>
+                              </StackPane>
                            </graphic>
                            <VBox.margin>
                               <Insets top="30.0" />
@@ -206,7 +233,7 @@
                                           <Image url="@../images/conor_profile.png" />
                                        </image>
                                     </ImageView>
-                                    <MFXButton fx:id="conorButton" prefHeight="62.0" prefWidth="50.0" />
+                                    <MFXButton fx:id="conorButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" />
                                  </children>
                               </StackPane>
                            </graphic>
@@ -219,11 +246,16 @@
                         </Label>
                         <Label text="Hunter Poulin">
                            <graphic>
-                              <ImageView fx:id="hunterButton" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/ian_profile.png" />
-                                 </image>
-                              </ImageView>
+                              <StackPane>
+                                 <children>
+                                    <MFXButton fx:id="hunterButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" />
+                                    <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/ian_profile.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </StackPane>
                            </graphic>
                            <VBox.margin>
                               <Insets top="10.0" />
@@ -234,11 +266,16 @@
                         </Label>
                         <Label text="Arturo Lemos">
                            <graphic>
-                              <ImageView fx:id="arturoButton" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/ian_profile.png" />
-                                 </image>
-                              </ImageView>
+                              <StackPane>
+                                 <children>
+                                    <MFXButton fx:id="arturoButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" />
+                                    <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/ian_profile.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </StackPane>
                            </graphic>
                            <VBox.margin>
                               <Insets top="10.0" />
@@ -249,11 +286,16 @@
                         </Label>
                         <Label text="Andrew Cash">
                            <graphic>
-                              <ImageView fx:id="andrewButton" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/ian_profile.png" />
-                                 </image>
-                              </ImageView>
+                              <StackPane>
+                                 <children>
+                                    <MFXButton fx:id="andrewButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" />
+                                    <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/ian_profile.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </StackPane>
                            </graphic>
                            <VBox.margin>
                               <Insets top="10.0" />

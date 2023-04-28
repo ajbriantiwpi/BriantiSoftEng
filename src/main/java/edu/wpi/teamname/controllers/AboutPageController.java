@@ -1,10 +1,10 @@
 package edu.wpi.teamname.controllers;
 
-import java.io.IOException;
+import static edu.wpi.teamname.Screen.*;
 
 import edu.wpi.teamname.Navigation;
-import edu.wpi.teamname.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,30 +14,50 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import static edu.wpi.teamname.Screen.CONOR_POPUP;
-
 public class AboutPageController {
 
-  @FXML ImageView ianButton;
-  @FXML ImageView jasonButton;
-  @FXML ImageView alessandroButton;
-  @FXML ImageView adelynnButton;
-  @FXML ImageView aleksandrButton;
-  @FXML ImageView samuelButton;
-  @FXML ImageView ryanButton;
+  @FXML MFXButton ianButton;
+  @FXML MFXButton jasonButton;
+  @FXML MFXButton alessandroButton;
+  @FXML MFXButton adelynnButton;
+  @FXML MFXButton aleksandrButton;
+  @FXML MFXButton samuelButton;
+  @FXML MFXButton ryanButton;
   @FXML MFXButton conorButton;
-  @FXML ImageView hunterButton;
-  @FXML ImageView arturoButton;
-  @FXML ImageView andrewButton;
+  @FXML MFXButton hunterButton;
+  @FXML MFXButton arturoButton;
+  @FXML MFXButton andrewButton;
   @FXML VBox memberVBox;
   @FXML AnchorPane aboutAnchorPane;
 
   public void initialize() {
 
-   conorButton.setOnMouseClicked(event -> Navigation.navigate(CONOR_POPUP));
-
-    aboutAnchorPane.setOnMouseExited(event -> hidePopup());
-
+    /**
+     * final var resource = App.class.getResource("ConorPopup.fxml"); final FXMLLoader loader = new
+     * FXMLLoader(resource); VBox v;
+     *
+     * <p>try { v = loader.load(); } catch (IOException e) { throw new RuntimeException(e); }
+     * PopOver pop = new PopOver(v); *
+     */
+    conorButton.setOnMouseClicked(
+        event -> Navigation.navigate(CONOR_POPUP)); // change this to popup
+    ianButton.setOnMouseClicked(event -> Navigation.navigate(IAN_POPUP)); // change this to popup
+    jasonButton.setOnMouseClicked(
+        event -> Navigation.navigate(JASON_POPUP)); // change this to popup
+    alessandroButton.setOnMouseClicked(
+        event -> Navigation.navigate(ALESSANDRO_POPUP)); // change this to popup
+    adelynnButton.setOnMouseClicked(
+        event -> Navigation.navigate(ADDY_POPUP)); // change this to popup
+    aleksandrButton.setOnMouseClicked(
+        event -> Navigation.navigate(ALEK_POPUP)); // change this to popup
+    samuelButton.setOnMouseClicked(event -> Navigation.navigate(SAM_POPUP)); // change this to popup
+    ryanButton.setOnMouseClicked(event -> Navigation.navigate(RYAN_POPUP)); // change this to popup
+    hunterButton.setOnMouseClicked(
+        event -> Navigation.navigate(HUNTER_POPUP)); // change this to popup
+    arturoButton.setOnMouseClicked(
+        event -> Navigation.navigate(ARTURO_POPUP)); // change this to popup
+    andrewButton.setOnMouseClicked(
+        event -> Navigation.navigate(ANDREW_POPUP)); // change this to popup
   }
 
   private void showPopupForTeamMember(String fxmlFile, ImageView imageView) {
@@ -84,8 +104,8 @@ public class AboutPageController {
 /**
  * aboutAnchorPane.setOnMouseEntered( event -> { // Check if the mouse click event occurred on one
  * of the ImageView controls if (event.getTarget() == conorButton) { // Show the popup for team
- * member 1 showPopupForTeamMember("ConorPopup.fxml"); } else if (event.getTarget() == ianButton)
- * { // Show the popup for team member 2 showPopupForTeamMember("IanPopup.fxml"); } else if
+ * member 1 showPopupForTeamMember("ConorPopup.fxml"); } else if (event.getTarget() == ianButton) {
+ * // Show the popup for team member 2 showPopupForTeamMember("IanPopup.fxml"); } else if
  * (event.getTarget() == jasonButton) { // Show the popup for team member 3
  * showPopupForTeamMember("JasonPopup.fxml"); } // Add more else if statements for other team
  * members }); aboutAnchorPane.setOnMouseExited( event -> { hidePopup(); }); } *
