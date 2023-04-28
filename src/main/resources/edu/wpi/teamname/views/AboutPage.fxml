@@ -84,7 +84,10 @@
                                                 <Image url="@../images/ian_profile.png" />
                                              </image>
                                           </ImageView>
-                                          <MFXButton fx:id="ianButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" />
+                                          <MFXButton fx:id="ianButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" text=".">
+                                             <font>
+                                                <Font size="1.0" />
+                                             </font></MFXButton>
                                        </children>
                                     </StackPane>
                                  </graphic>
@@ -105,26 +108,26 @@
                                  <graphic>
                                     <StackPane>
                                        <children>
-                                          <MFXButton fx:id="jasonButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" />
                                           <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/jason_icon.png" />
                                              </image>
                                           </ImageView>
+                                          <MFXButton fx:id="jasonButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" text="_" textFill="WHITE" />
                                        </children>
                                     </StackPane>
                                  </graphic>
                               </Label>
-                              <Label text="Alessandro Brianti">
+                              <Label text=" Alessandro Brianti">
                                  <graphic>
                                     <StackPane>
                                        <children>
-                                          <MFXButton fx:id="alessandroButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" />
                                           <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/ian_profile.png" />
                                              </image>
                                           </ImageView>
+                                          <MFXButton fx:id="alessandroButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" text="_" />
                                        </children>
                                     </StackPane>
                                  </graphic>
@@ -135,16 +138,16 @@
                                     <Font size="30.0" />
                                  </font>
                               </Label>
-                              <Label text="Adelynn Martin">
+                              <Label text=" Adelynn Martin">
                                  <graphic>
                                     <StackPane>
                                        <children>
-                                          <MFXButton fx:id="adelynnButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" />
                                           <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/addy_profile.png" />
                                              </image>
                                           </ImageView>
+                                          <MFXButton fx:id="adelynnButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" text="_" />
                                        </children>
                                     </StackPane>
                                  </graphic>
@@ -155,16 +158,16 @@
                                     <Font size="30.0" />
                                  </font>
                               </Label>
-                              <Label text="Aleksandr Samarin">
+                              <Label text=" Aleksandr Samarin">
                                  <graphic>
                                     <StackPane>
                                        <children>
-                                          <MFXButton fx:id="aleksandrButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" />
                                           <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/ian_profile.png" />
                                              </image>
                                           </ImageView>
+                                          <MFXButton fx:id="aleksandrButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" text="_" />
                                        </children>
                                     </StackPane>
                                  </graphic>
@@ -179,12 +182,12 @@
                                  <graphic>
                                     <StackPane>
                                        <children>
-                                          <MFXButton fx:id="samuelButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" />
                                           <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/sam_profile.png" />
                                              </image>
                                           </ImageView>
+                                          <MFXButton fx:id="samuelButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" />
                                        </children>
                                     </StackPane>
                                  </graphic>
@@ -204,7 +207,7 @@
                   </VBox>
                   <VBox prefHeight="507.0" prefWidth="335.0">
                      <children>
-                        <Label prefHeight="70.0" prefWidth="327.0" text="Ryan Offstein">
+                        <Label prefHeight="70.0" prefWidth="327.0" text=" Ryan Offstein">
                            <graphic>
                               <StackPane>
                                  <children>
@@ -213,7 +216,10 @@
                                           <Image url="@../images/ian_profile.png" />
                                        </image>
                                     </ImageView>
-                                    <MFXButton fx:id="ryanButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" />
+                                    <MFXButton fx:id="ryanButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" text=".">
+                                       <font>
+                                          <Font size="1.0" />
+                                       </font></MFXButton>
                                  </children>
                               </StackPane>
                            </graphic>
@@ -233,7 +239,10 @@
                                           <Image url="@../images/conor_profile.png" />
                                        </image>
                                     </ImageView>
-                                    <MFXButton fx:id="conorButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" />
+                                    <MFXButton fx:id="conorButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" text=".">
+                                       <font>
+                                          <Font size="1.0" />
+                                       </font></MFXButton>
                                  </children>
                               </StackPane>
                            </graphic>
@@ -244,16 +253,16 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                         </Label>
-                        <Label text="Hunter Poulin">
+                        <Label text=" Hunter Poulin">
                            <graphic>
                               <StackPane>
                                  <children>
-                                    <MFXButton fx:id="hunterButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" />
                                     <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/ian_profile.png" />
                                        </image>
                                     </ImageView>
+                                    <MFXButton fx:id="hunterButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" text="." />
                                  </children>
                               </StackPane>
                            </graphic>
@@ -264,16 +273,16 @@
                               <Font size="30.0" />
                            </font>
                         </Label>
-                        <Label text="Arturo Lemos">
+                        <Label text=" Arturo Lemos">
                            <graphic>
                               <StackPane>
                                  <children>
-                                    <MFXButton fx:id="arturoButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" />
                                     <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/ian_profile.png" />
                                        </image>
                                     </ImageView>
+                                    <MFXButton fx:id="arturoButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" text="_" />
                                  </children>
                               </StackPane>
                            </graphic>
@@ -284,16 +293,16 @@
                               <Font size="30.0" />
                            </font>
                         </Label>
-                        <Label text="Andrew Cash">
+                        <Label text=" Andrew Cash">
                            <graphic>
                               <StackPane>
                                  <children>
+                                    <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/ian_profile.png" />
+                                       </image>
+                                    </ImageView>
                                     <MFXButton fx:id="andrewButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" />
-                                    <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/ian_profile.png" />
-                                       </image>
-                                    </ImageView>
                                  </children>
                               </StackPane>
                            </graphic>
