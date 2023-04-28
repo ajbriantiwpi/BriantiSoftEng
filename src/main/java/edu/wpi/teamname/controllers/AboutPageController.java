@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.PopOver;
 
@@ -86,9 +87,15 @@ public class AboutPageController {
               } catch (IOException e) {
                 throw new RuntimeException(e);
               }
+              MFXButton close =
+                  (MFXButton) ((Pane) popupContent.getChildren().get(3)).getChildren().get(0);
 
               PopOver popOver = new PopOver(popupContent);
               popOver.show(clickedButton);
+              close.setOnMouseClicked(
+                  event1 -> {
+                    popOver.hide();
+                  });
             }
           }
         };
