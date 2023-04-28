@@ -417,6 +417,7 @@ public class HomeController {
     requestRoomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CONFERENCE_ROOM));
     notificationPopupButtonSimple.setOnMouseClicked(NotificationPopupEvent);
     aboutButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ABOUT));
+    dataButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SETTINGS));
     creditButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CREDITS));
     serviceRequestAnalyticsButton.setOnMouseClicked(
         event -> Navigation.navigate(Screen.SERVICE_REQUEST_ANALYTICS));

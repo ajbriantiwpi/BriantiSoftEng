@@ -27,7 +27,8 @@ public enum Screen {
   SERVICE_REQUEST_ANALYTICS("views/ServiceRequestAnalytics.fxml"),
   ABOUT("views/AboutPage.fxml"),
   CREDITS("views/CreditsPage.fxml"),
-  DATA_MANAGER("views/Data.fxml");
+  DATA_MANAGER("views/Data.fxml"),
+  SETTINGS("views/Settings.fxml");
 
   private final String filename;
 
