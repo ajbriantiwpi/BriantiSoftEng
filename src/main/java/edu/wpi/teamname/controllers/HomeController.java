@@ -7,6 +7,7 @@ import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.alerts.Alert;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
+import edu.wpi.teamname.employees.EmployeeType;
 import edu.wpi.teamname.extras.Joke;
 import edu.wpi.teamname.navigation.Move;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
@@ -148,10 +149,16 @@ public class HomeController {
                             .filter(
                                 (alert) ->
                                     alert
-                                        .getType()
-                                        .toString()
-                                        .equals(
-                                            GlobalVariables.getCurrentUser().getType().toString()))
+                                            .getType()
+                                            .toString()
+                                            .equals(
+                                                GlobalVariables.getCurrentUser()
+                                                    .getType()
+                                                    .toString())
+                                        || alert
+                                            .getType()
+                                            .toString()
+                                            .equals(EmployeeType.ALL.toString()))
                             .toList());
                 alertList =
                     FXCollections.observableList(
