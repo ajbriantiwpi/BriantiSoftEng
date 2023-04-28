@@ -122,7 +122,8 @@ public class LoginController {
   }
 
   /**
-   * handles when the forgot password button is pressed
+   * Handles when the forgot password button is pressed Sends an alert to ADMINISTRATORs that the
+   * user's password needs to be reset
    *
    * @param username the username from the text field that we want to reset the password of
    * @return the new password string
@@ -145,6 +146,6 @@ public class LoginController {
       DataManager.addAlert(newAlert);
       return "Reset Password Request Submitted";
     }
-    return "No Username Inputted";
+    return "Please Enter a Correct Username";
   }
 }

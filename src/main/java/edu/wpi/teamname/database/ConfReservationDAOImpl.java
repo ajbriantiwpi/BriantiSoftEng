@@ -74,10 +74,12 @@ public class ConfReservationDAOImpl implements ConfReservationDAO {
   }
 
   /**
-   * Syncs the conference reservation table with incoming conference reservation objects
+   * This method updates an existing ConfReservation object in the "ConfReservation" table in the
+   * database with the new ConfReservation object.
    *
-   * @param ConfReservation
-   * @throws SQLException
+   * @param ConfReservation the new ConfReservation object to be updated in the "ConfReservation"
+   *     table
+   * @throws SQLException if there is a problem accessing the database
    */
   @Override
   public void sync(ConfReservation ConfReservation) throws SQLException {
