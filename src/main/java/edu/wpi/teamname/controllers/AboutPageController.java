@@ -29,7 +29,7 @@ public class AboutPageController {
 
   public void initialize() {
     MFXButton.class.getClassLoader().setDefaultAssertionStatus(false);
-      ParentController.titleString.set("About");
+    ParentController.titleString.set("About");
 
     EventHandler<MouseEvent> PersonPopup =
         new EventHandler<MouseEvent>() {
