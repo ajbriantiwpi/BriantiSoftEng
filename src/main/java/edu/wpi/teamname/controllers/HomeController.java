@@ -11,7 +11,6 @@ import edu.wpi.teamname.extras.Joke;
 import edu.wpi.teamname.navigation.Move;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import java.io.IOException;
 import io.github.palexdev.materialfx.controls.MFXNotificationCenter;
 import java.io.IOException;
 import java.sql.Connection;
@@ -24,12 +23,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
 import lombok.Getter;
 import lombok.Setter;
 import org.controlsfx.control.PopOver;
@@ -75,6 +73,7 @@ public class HomeController {
   @FXML MFXButton logoutButton;
   @FXML MFXButton editMoveButton;
   @FXML Label jokesLabel;
+  @FXML Label jokeIDLabel;
 
   /** logs the current user out of the application */
   private void logout() {
@@ -252,7 +251,10 @@ public class HomeController {
     // Lambda Expression. parameter -> expression
     // Basically just runs the Navigation.navigate Function
     // "event" is a parameter, but there is no
-    jokesLabel.setText(Joke.getJoke().toString());
+    Joke joke = Joke.getJoke();
+    jokeIDLabel.setText("Joke #" + Integer.toString(joke.getId()));
+    jokesLabel.setText(joke.toString());
+
     helpButton.setVisible(false);
     if (loggedIn.getValue()) {
       loginButton.setVisible(false);

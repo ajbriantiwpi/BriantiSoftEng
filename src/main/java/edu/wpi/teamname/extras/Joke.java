@@ -24,7 +24,7 @@ public class Joke {
   private static final String API_URL =
       "https://official-joke-api.appspot.com/jokes/general/random";
   private static final ArrayList<Integer> badJokeIDs =
-      new ArrayList<>(List.of(53, 92, 45, 208, 46));
+      new ArrayList<>(List.of(53, 92, 45, 208, 46, 48));
 
   public Joke(String type, String setup, String punchline, int id) {
     this.type = type;
@@ -35,6 +35,7 @@ public class Joke {
 
   public Joke() {}
 
+  // Don't delete this code, the program does not start up if it's deleted
   /*public static Joke getJoke() throws IOException {
     // create a Retrofit instance
     Retrofit retrofit =
@@ -63,9 +64,20 @@ public class Joke {
     if (punchline.charAt(0) == ' ') {
       punchline = punchline.substring(1);
     }
-    return "Joke #" + this.getId() + ":\n" + this.getSetup() + "\n" + this.getPunchline();
+    // Fixes Typo
+    if (id == 312) {
+      setup = "Why can't you use \"Beef stew\" as a password?";
+    }
+    return this.getSetup() + "\n\n" + this.getPunchline();
   }
 
+  /**
+   * * Queries the Official Joke API and gets a random general joke If the joke is one of the bad
+   * jokes, it queries again until it is a good joke
+   *
+   * @return the joke to display on the homepage
+   * @throws IOException Connection to the API fails
+   */
   public static Joke getJoke() throws IOException {
 
     OkHttpClient client = new OkHttpClient();
@@ -73,6 +85,7 @@ public class Joke {
     Response response = client.newCall(request).execute();
     String responseBody = response.body().string();
     ObjectMapper mapper = new ObjectMapper();
+
     ArrayList<Joke> jokes = mapper.readValue(responseBody, new TypeReference<ArrayList<Joke>>() {});
     if (badJokeIDs.contains(jokes.get(0).getId())) {
       return getJoke();
