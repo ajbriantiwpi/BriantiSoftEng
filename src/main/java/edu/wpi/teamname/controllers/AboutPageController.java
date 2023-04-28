@@ -1,3 +1,6 @@
 package edu.wpi.teamname.controllers;
 
-public class AboutPageController {}
+public class AboutPageController {
+
+    //add popups for selected developer
+}
