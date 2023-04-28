@@ -8,7 +8,6 @@ import lombok.NonNull;
 import lombok.Setter;
 
 public class Alert {
-  @Getter private static int idCounter = 0;
   @Getter @Setter private int id; // UUID for the announcement
   private int originalID;
 
@@ -46,7 +45,6 @@ public class Alert {
       @NonNull String announcement,
       @NonNull EmployeeType type,
       @NonNull Urgency urgency) {
-    idCounter++;
     this.id = alertID;
     originalID = alertID;
     this.startDisplayDate = startDisplayDate;
