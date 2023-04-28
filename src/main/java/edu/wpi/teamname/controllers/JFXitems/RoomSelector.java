@@ -147,7 +147,7 @@ public class RoomSelector extends BorderPane {
         oEnd = timeToID(reservation.getEndTime());
         System.out.println(reservation.getEndTime());
         System.out.println(oEnd);
-        for (int i = oStart; i < oEnd; i++) {
+        for (int i = oStart; i < oEnd + 1; i++) {
           buttons.get(i).setStatus(RoomStatus.BOOKED);
         }
       }

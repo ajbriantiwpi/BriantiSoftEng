@@ -8,6 +8,7 @@ public class Signage {
   @Getter private String longName;
   @Getter private String shortName;
   @Getter @Setter private Timestamp date;
+  @Getter @Setter private Timestamp endDate;
   @Getter @Setter private Direction arrowDirection;
   @Getter @Setter private int signId;
   @Getter @Setter private int kioskId;
@@ -16,12 +17,14 @@ public class Signage {
       String longName,
       String shortName,
       Timestamp date,
+      Timestamp endDate,
       Direction arrowDirection,
       int signId,
       int kioskId) {
     this.longName = longName;
     this.shortName = shortName;
     this.date = date;
+    this.endDate = endDate;
     this.arrowDirection = arrowDirection;
     this.signId = signId;
     this.kioskId = kioskId;
@@ -40,6 +43,8 @@ public class Signage {
         + shortName
         + ", "
         + date
+        + ", "
+        + endDate
         + ", "
         + arrowDirection
         + ", "
@@ -67,6 +72,7 @@ public class Signage {
     return this.longName.equals(otherSignage.getLongName())
         && this.shortName.equals(otherSignage.getShortName())
         && this.date.equals(otherSignage.getDate())
+        && this.endDate.equals(otherSignage.getEndDate())
         && this.kioskId == (otherSignage.getKioskId())
         && this.arrowDirection.equals(otherSignage.getArrowDirection())
         && this.signId == otherSignage.getSignId();
@@ -86,5 +92,9 @@ public class Signage {
 
   public void setShortName(String newValue) {
     this.shortName = newValue;
+  }
+
+  public Timestamp getEndDate() {
+    return endDate;
   }
 }

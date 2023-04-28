@@ -19,19 +19,20 @@ public class SignageDAOImpl implements SignageDAO {
    * @param signage the new Signage object to be updated in the "Signage" table
    * @throws SQLException if there is a problem accessing the database
    */
-  @Override
   public void sync(Signage signage) throws SQLException {
     Connection connection = DataManager.DbConnection();
     try (connection) {
       String query =
-          "UPDATE \"Signage\" SET \"shortName\" = ?, \"date\" = ?, \"arrowDirection\" = ?, \"signID\" = ?, \"kioskID\" = ?"
+          "UPDATE \"Signage\" SET \"shortName\" = ?, \"date\" = ?, \"endDate\" = ?, \"arrowDirection\" = ?, \"signID\" = ?, \"kioskID\" = ?"
               + " WHERE \"longName\" = ?";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setString(1, signage.getShortName());
       statement.setTimestamp(2, signage.getDate());
-      statement.setString(3, signage.getArrowDirection().name());
-      statement.setInt(4, signage.getSignId());
-      statement.setString(5, signage.getLongName());
+      statement.setTimestamp(3, signage.getEndDate());
+      statement.setString(4, signage.getArrowDirection().name());
+      statement.setInt(5, signage.getSignId());
+      statement.setInt(6, signage.getKioskId());
+      statement.setString(7, signage.getLongName());
 
       statement.executeUpdate();
     } catch (SQLException e) {
@@ -62,7 +63,8 @@ public class SignageDAOImpl implements SignageDAO {
         Direction arrowDirection = Direction.valueOf(rs.getString("arrowDirection"));
         int signId = rs.getInt("signID");
         int kioskId = rs.getInt("kioskID");
-        list.add(new Signage(longn, shortn, date, arrowDirection, signId, kioskId));
+        Timestamp endDate = rs.getTimestamp("endDate");
+        list.add(new Signage(longn, shortn, date, endDate, arrowDirection, signId, kioskId));
       }
     } catch (SQLException e) {
       System.out.println("Get all Signage error.");
@@ -80,17 +82,18 @@ public class SignageDAOImpl implements SignageDAO {
   public void add(Signage signage) throws SQLException {
     Connection connection = DataManager.DbConnection();
     String query =
-        "INSERT INTO \"Signage\" (\"longName\", \"shortName\", \"date\", \"arrowDirection\", \"signID\", \"kioskID\") "
-            + "VALUES (?, ?, ?, ?, ?, ?)";
+        "INSERT INTO \"Signage\" (\"longName\", \"shortName\", \"date\", \"endDate\", \"arrowDirection\", \"signID\", \"kioskID\") "
+            + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setString(1, signage.getLongName());
       statement.setString(2, signage.getShortName());
       statement.setTimestamp(3, signage.getDate());
-      statement.setString(4, signage.getArrowDirection().toString());
-      statement.setInt(5, signage.getSignId());
-      statement.setInt(6, signage.getKioskId());
+      statement.setTimestamp(4, signage.getEndDate());
+      statement.setString(5, signage.getArrowDirection().toString());
+      statement.setInt(6, signage.getSignId());
+      statement.setInt(7, signage.getKioskId());
       statement.executeUpdate();
       System.out.println("Signage information has been successfully added to the database.");
     } catch (SQLException e) {
@@ -154,8 +157,8 @@ public class SignageDAOImpl implements SignageDAO {
       createTableStatement.execute();
 
       String query =
-          "INSERT INTO \"Signage\" (\"longName\", \"shortName\", \"date\", \"arrowDirection\", \"signID\", \"kioskID\") "
-              + "VALUES (?, ?, ?, ?, ?, ?)";
+          "INSERT INTO \"Signage\" (\"longName\", \"shortName\", \"date\", \"endDate\", \"arrowDirection\", \"signID\", \"kioskID\") "
+              + "VALUES (?, ?, ?, ?, ?, ?, ?)";
       PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"Signage\";");
       statement.executeUpdate();
       statement = connection.prepareStatement(query);
@@ -169,13 +172,17 @@ public class SignageDAOImpl implements SignageDAO {
         java.util.Date parsedDate = dateFormat.parse(timestampString);
         java.sql.Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
         statement.setTimestamp(3, timestamp);
+        String timestampEndString = row[3];
+        java.util.Date parsedEndDate = dateFormat.parse(timestampEndString);
+        java.sql.Timestamp endDate = new java.sql.Timestamp(parsedEndDate.getTime());
+        statement.setTimestamp(4, endDate);
         Direction arrowDirection =
-            Direction.valueOf(row[3].toUpperCase()); // arrowDirection is now an enum
+            Direction.valueOf(row[4].toUpperCase()); // arrowDirection is now an enum
         statement.setString(
-            4,
+            5,
             arrowDirection.toString()); // convert the enum to a string for storage in the database
-        statement.setInt(5, Integer.parseInt(row[4]));
         statement.setInt(6, Integer.parseInt(row[5]));
+        statement.setInt(7, Integer.parseInt(row[6]));
         statement.executeUpdate();
       }
       System.out.println("CSV data imported to PostgreSQL database");
@@ -257,6 +264,7 @@ public class SignageDAOImpl implements SignageDAO {
               + "    \"longName\"       text,\n"
               + "    \"shortName\"      text,\n"
               + "    date             timestamp,\n"
+              + "    \"endDate\"             timestamp,\n"
               + "    \"signID\"         integer not null\n"
               + "        constraint \"Signage_pk\"\n"
               + "            primary key,\n"
