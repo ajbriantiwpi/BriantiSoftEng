@@ -59,7 +59,7 @@ public class HomeController {
   @FXML MFXButton activeRequests;
   @FXML MFXButton upcomingMoves;
   @FXML MFXButton doneRequests;
-  @FXML MFXButton dataButton;
+  @FXML MFXButton settingsButton;
   @FXML MFXButton serviceRequestAnalyticsButton;
 
   // test push
@@ -94,7 +94,7 @@ public class HomeController {
     upcomingMoves.setVisible(false);
     doneRequests.setVisible(false);
     editSignageButton.setVisible(false);
-    dataButton.setVisible(false);
+    settingsButton.setVisible(false);
     showRequestsButton.setManaged(false);
     editMapButton.setManaged(false);
     editMoveButton.setManaged(false);
@@ -106,7 +106,7 @@ public class HomeController {
     actionVBox.setManaged(false);
     SRVBox.setManaged(false);
     editSignageButton.setManaged(false);
-    dataButton.setManaged(false);
+    settingsButton.setManaged(false);
   }
 
   @FXML
@@ -375,8 +375,8 @@ public class HomeController {
       SRVBox.setManaged(true);
       editSignageButton.setVisible(true);
       editSignageButton.setManaged(true);
-      dataButton.setVisible(true);
-      dataButton.setManaged(true);
+      settingsButton.setVisible(true);
+      settingsButton.setManaged(true);
     }
 
     upcomingMoves.setOnMouseClicked(
@@ -417,7 +417,7 @@ public class HomeController {
     requestRoomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CONFERENCE_ROOM));
     notificationPopupButtonSimple.setOnMouseClicked(NotificationPopupEvent);
     aboutButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ABOUT));
-    dataButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SETTINGS));
+    settingsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SETTINGS));
     creditButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CREDITS));
     serviceRequestAnalyticsButton.setOnMouseClicked(
         event -> Navigation.navigate(Screen.SERVICE_REQUEST_ANALYTICS));
