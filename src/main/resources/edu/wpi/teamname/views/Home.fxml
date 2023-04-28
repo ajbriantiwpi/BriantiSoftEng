@@ -267,7 +267,7 @@
                 <AnchorPane maxHeight="200.0" maxWidth="200.0" prefHeight="120.0" prefWidth="120.0" styleClass="body3" stylesheets="@../stylesheets/logoScale.css" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER" />
             <VBox fx:id="actionVBox1" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="500.0" prefWidth="500.0" spacing="12.0" style="-fx-background-radius: 16;" styleClass="primary-container" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <children>
-                  <Label fx:id="jokeIDLabel" alignment="CENTER" maxWidth="500.0" minHeight="10.0" minWidth="444.0" style="-fx-background-radius: 16;" text="Joke ID" textFill="#fdfbff">
+                  <Label fx:id="jokeIDLabel" alignment="CENTER" maxWidth="500.0" minHeight="50.0" minWidth="444.0" style="-fx-background-radius: 16;" text="Joke ID" textFill="#fdfbff">
                      <font>
                         <Font name="Roboto" size="36.0" />
                      </font>
@@ -291,7 +291,7 @@
                      </padding>
                      <styleClass>
                         <String fx:value="primary-on-container" />
-                        <String fx:value="headline-med" />
+                        <String fx:value="headline-large" />
                         <String fx:value="surface" />
                      </styleClass>
                   </Label>
