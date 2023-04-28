@@ -57,6 +57,9 @@ public class DirectionArrow extends BorderPane {
         this.text.getStyleClass().add("primary-text-container");
         this.text.setStyle("-fx-font-size: "+String.valueOf(h/2));
         this.setCenter(this.text);
+        this.getStyleClass().add("secondary-container");
+        this.getStyleClass().add("outline");
+        this.setStyle("-fx-background-radius: 8; -fx-border-radius: 8");
     }
 
 }
