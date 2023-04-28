@@ -1,6 +1,10 @@
 package edu.wpi.teamname.controllers;
 
 import java.io.IOException;
+
+import edu.wpi.teamname.Navigation;
+import edu.wpi.teamname.Screen;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,6 +13,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import static edu.wpi.teamname.Screen.CONOR_POPUP;
 
 public class AboutPageController {
 
@@ -19,7 +25,7 @@ public class AboutPageController {
   @FXML ImageView aleksandrButton;
   @FXML ImageView samuelButton;
   @FXML ImageView ryanButton;
-  @FXML ImageView conorButton;
+  @FXML MFXButton conorButton;
   @FXML ImageView hunterButton;
   @FXML ImageView arturoButton;
   @FXML ImageView andrewButton;
@@ -27,26 +33,11 @@ public class AboutPageController {
   @FXML AnchorPane aboutAnchorPane;
 
   public void initialize() {
-    ianButton.setOnMouseEntered(event -> showPopupForTeamMember("IanPopup.fxml", ianButton));
-    jasonButton.setOnMouseEntered(event -> showPopupForTeamMember("JasonPopup.fxml", jasonButton));
-    alessandroButton.setOnMouseEntered(
-        event -> showPopupForTeamMember("AlessandroPopup.fxml", alessandroButton));
-    adelynnButton.setOnMouseEntered(
-        event -> showPopupForTeamMember("AdelynnPopup.fxml", adelynnButton));
-    aleksandrButton.setOnMouseEntered(
-        event -> showPopupForTeamMember("AleksandrPopup.fxml", aleksandrButton));
-    samuelButton.setOnMouseEntered(
-        event -> showPopupForTeamMember("SamuelPopup.fxml", samuelButton));
-    ryanButton.setOnMouseEntered(event -> showPopupForTeamMember("RyanPopup.fxml", ryanButton));
-    conorButton.setOnMouseEntered(event -> showPopupForTeamMember("ConorPopup.fxml", conorButton));
-    hunterButton.setOnMouseEntered(
-        event -> showPopupForTeamMember("HunterPopup.fxml", hunterButton));
-    arturoButton.setOnMouseEntered(
-        event -> showPopupForTeamMember("ArturoPopup.fxml", arturoButton));
-    andrewButton.setOnMouseEntered(
-        event -> showPopupForTeamMember("AndrewPopup.fxml", andrewButton));
+
+   conorButton.setOnMouseClicked(event -> Navigation.navigate(CONOR_POPUP));
 
     aboutAnchorPane.setOnMouseExited(event -> hidePopup());
+
   }
 
   private void showPopupForTeamMember(String fxmlFile, ImageView imageView) {
