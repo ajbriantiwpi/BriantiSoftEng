@@ -865,6 +865,12 @@ public class DataManager {
     edgeDAO.delete(edge);
   }
 
+  /**
+   * This method deletes the given Alert object from the database
+   *
+   * @param alert the Alert object that will be deleted in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
   public static void deleteAlert(Alert alert) throws SQLException {
     AlertDAOImpl alertDAO = new AlertDAOImpl();
     alertDAO.delete(alert);
@@ -2110,11 +2116,23 @@ public class DataManager {
   }
 
   /**
+   * * Creates a table for storing PathMessage data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createPathMessagesTable() throws SQLException {
+    PathMessageDAOImpl.createTable();
+  }
+
+  /**
    * * Creates all tables in the database unless they already exist then do nothing
    *
    * @throws SQLException connection to the database fails
    */
   public static void tryToCreateAllTables() throws SQLException {
+    createAlertTable();
+    createConfReservationsTable();
+    createConfRoomsTable();
     createEdgeTable();
     createEmployeeTable();
     createFlowerTable();
@@ -2126,10 +2144,8 @@ public class DataManager {
     createMoveTable();
     createNodeTable();
     createOfficeSupplyTable();
+    createPathMessagesTable();
     createServiceRequestTable();
-    createAlertTable();
     createSignageTable();
-    createConfReservationsTable();
-    createConfRoomsTable();
   }
 }
