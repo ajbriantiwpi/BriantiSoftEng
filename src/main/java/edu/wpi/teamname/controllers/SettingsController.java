@@ -13,7 +13,6 @@ import javafx.scene.control.ToggleGroup;
 public class SettingsController {
   private static boolean wpiSelected = true;
   @FXML Slider volumeSlide;
-  @FXML Slider brightnessSlider;
 
   @FXML MFXButton dataManageButton;
   @FXML RadioButton wpiButton;
@@ -28,15 +27,6 @@ public class SettingsController {
             (observable, oldValue, newValue) -> {
               // Change volume of the application
               setApplicationVolume(newValue.doubleValue());
-            });
-
-    // Add a listener to the brightness slider
-    brightnessSlider
-        .valueProperty()
-        .addListener(
-            (observable, oldValue, newValue) -> {
-              // Change brightness of the application
-              setApplicationBrightness(newValue.doubleValue());
             });
 
     // Create a ToggleGroup to ensure only one button can be selected at a time
@@ -75,9 +65,5 @@ public class SettingsController {
 
   private void setApplicationVolume(double volume) {
     // Implement logic to control the volume of the specific application
-  }
-
-  private void setApplicationBrightness(double brightness) {
-    // Implement logic to control the brightness of the specific application
   }
 }
