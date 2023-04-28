@@ -1441,6 +1441,18 @@ public class DataManager {
   }
 
   /**
+   * Updates the staff name for a conference room request with the given request ID in the database.
+   *
+   * @param requestID the ID of the conference room request to update.
+   * @param staffName the new staff name to set.
+   * @throws SQLException if a database error occurs.
+   */
+  public static void uploadStaffNameToConferenceRequest(int requestID, String staffName)
+      throws SQLException {
+    ConfReservationDAOImpl.uploadStaff(requestID, staffName);
+  }
+
+  /**
    * Updates the status for a service request with the given request ID in the database.
    *
    * @param requestID the ID of the service request to update.

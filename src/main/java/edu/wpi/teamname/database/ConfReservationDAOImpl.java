@@ -302,4 +302,25 @@ public class ConfReservationDAOImpl implements ConfReservationDAO {
       System.err.println(e.getMessage());
     }
   }
+
+  /**
+   * Updates the staff name for a conference room request with the given request ID in the database.
+   *
+   * @param requestID the ID of the conference room request to update.
+   * @param staffName the new staff name to set.
+   * @throws SQLException if a database error occurs.
+   */
+  public static void uploadStaff(int requestID, String staffName) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try {
+      String query = "UPDATE \"ConfReservations\" SET \"staffAssigned\" = ? WHERE \"resID\" = ?";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setString(1, staffName);
+      statement.setInt(2, requestID);
+      statement.executeUpdate();
+      connection.close();
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+  }
 }
