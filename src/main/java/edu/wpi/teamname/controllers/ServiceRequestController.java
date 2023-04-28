@@ -111,6 +111,18 @@ public class ServiceRequestController {
     System.out.println("NEXT");
     if (requestPage == 0) {
 
+      if (requestType.getValue() == "Meal Delivery") {
+        reqType = RequestType.MEAL;
+      } else if (requestType.getValue() == "Flower Delivery") {
+        reqType = RequestType.FLOWER;
+      } else if (requestType.getValue() == "Office Supply Delivery") {
+        reqType = RequestType.OFFICESUPPLY;
+      } else if (requestType.getValue() == "Medical Supply Delivery") {
+        reqType = RequestType.MEDICALSUPPLY;
+      } else { // "Furniture Delivery"
+        reqType = RequestType.FURNITURE;
+      }
+
       String timeString = timeBox.getValue().toString();
       System.out.println(timeString);
       int hour = Integer.valueOf(timeString.split(":")[0]);
@@ -162,6 +174,7 @@ public class ServiceRequestController {
       } else if (t == "Flower Request") {
         f = "FlowerIcons";
         tem.addAll(DataManager.getAllFlowers());
+
       } else if (t == "Office Supply Request") {
         f = "OfficeIcons";
         tem.addAll(DataManager.getAllOfficeSupplies());
