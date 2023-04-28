@@ -113,7 +113,10 @@
                                                 <Image url="@../images/jason_icon.png" />
                                              </image>
                                           </ImageView>
-                                          <MFXButton fx:id="jasonButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" text="_" textFill="WHITE" />
+                                          <MFXButton fx:id="jasonButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" text=".">
+                                             <font>
+                                                <Font size="1.0" />
+                                             </font></MFXButton>
                                        </children>
                                     </StackPane>
                                  </graphic>
@@ -127,7 +130,10 @@
                                                 <Image url="@../images/ian_profile.png" />
                                              </image>
                                           </ImageView>
-                                          <MFXButton fx:id="alessandroButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" text="_" />
+                                          <MFXButton fx:id="alessandroButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" text=".">
+                                             <font>
+                                                <Font size="1.0" />
+                                             </font></MFXButton>
                                        </children>
                                     </StackPane>
                                  </graphic>
@@ -147,7 +153,10 @@
                                                 <Image url="@../images/addy_profile.png" />
                                              </image>
                                           </ImageView>
-                                          <MFXButton fx:id="adelynnButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" text="_" />
+                                          <MFXButton fx:id="adelynnButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" text=".">
+                                             <font>
+                                                <Font size="1.0" />
+                                             </font></MFXButton>
                                        </children>
                                     </StackPane>
                                  </graphic>
@@ -167,7 +176,10 @@
                                                 <Image url="@../images/ian_profile.png" />
                                              </image>
                                           </ImageView>
-                                          <MFXButton fx:id="aleksandrButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" text="_" />
+                                          <MFXButton fx:id="aleksandrButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" text=".">
+                                             <font>
+                                                <Font size="1.0" />
+                                             </font></MFXButton>
                                        </children>
                                     </StackPane>
                                  </graphic>
@@ -187,7 +199,10 @@
                                                 <Image url="@../images/sam_profile.png" />
                                              </image>
                                           </ImageView>
-                                          <MFXButton fx:id="samuelButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" />
+                                          <MFXButton fx:id="samuelButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" text=".">
+                                             <font>
+                                                <Font size="1.0" />
+                                             </font></MFXButton>
                                        </children>
                                     </StackPane>
                                  </graphic>
@@ -262,7 +277,10 @@
                                           <Image url="@../images/ian_profile.png" />
                                        </image>
                                     </ImageView>
-                                    <MFXButton fx:id="hunterButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" text="." />
+                                    <MFXButton fx:id="hunterButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" text=".">
+                                       <font>
+                                          <Font size="1.0" />
+                                       </font></MFXButton>
                                  </children>
                               </StackPane>
                            </graphic>
@@ -282,7 +300,10 @@
                                           <Image url="@../images/ian_profile.png" />
                                        </image>
                                     </ImageView>
-                                    <MFXButton fx:id="arturoButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" text="_" />
+                                    <MFXButton fx:id="arturoButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" text=".">
+                                       <font>
+                                          <Font size="1.0" />
+                                       </font></MFXButton>
                                  </children>
                               </StackPane>
                            </graphic>
@@ -302,7 +323,7 @@
                                           <Image url="@../images/ian_profile.png" />
                                        </image>
                                     </ImageView>
-                                    <MFXButton fx:id="andrewButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" />
+                                    <MFXButton fx:id="andrewButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent; -fx-background-insets: transparent;" text="." />
                                  </children>
                               </StackPane>
                            </graphic>
