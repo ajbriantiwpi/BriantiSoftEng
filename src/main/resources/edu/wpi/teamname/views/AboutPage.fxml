@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="900.0" prefWidth="1600.0" styleClass="primary-container" stylesheets="@../stylesheets/Colors/lightTheme.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.AboutPageController">
+<AnchorPane fx:id="aboutAnchorPane" prefHeight="900.0" prefWidth="1600.0" styleClass="primary-container" stylesheets="@../stylesheets/Colors/lightTheme.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.AboutPageController">
    <children>
       <VBox layoutX="32.0" layoutY="582.0" spacing="20.0">
          <children>
@@ -72,11 +72,11 @@
                   </VBox>
                   <VBox prefHeight="470.0" prefWidth="196.0" GridPane.halignment="CENTER">
                      <children>
-                        <VBox prefHeight="470.0" prefWidth="826.0">
+                        <VBox fx:id="memberVBox" prefHeight="470.0" prefWidth="826.0">
                            <children>
-                              <Label fx:id="ianButton" text=" Ian Wright">
+                              <Label text=" Ian Wright">
                                  <graphic>
-                                    <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="ianButton" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/ian_profile.png" />
                                        </image>
@@ -89,7 +89,7 @@
                                     <Insets left="5.0" />
                                  </VBox.margin>
                               </Label>
-                              <Label fx:id="jasonButton" text=" Jason Kardon">
+                              <Label text=" Jason Kardon">
                                  <font>
                                     <Font size="30.0" />
                                  </font>
@@ -97,16 +97,16 @@
                                     <Insets left="5.0" top="10.0" />
                                  </VBox.margin>
                                  <graphic>
-                                    <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="jasonButton" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/jason_icon.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
                               </Label>
-                              <Label fx:id="alessandroButton" text="Alessandro Brianti">
+                              <Label text="Alessandro Brianti">
                                  <graphic>
-                                    <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="alessandroButton" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/ian_profile.png" />
                                        </image>
@@ -119,9 +119,9 @@
                                     <Font size="30.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="adelynnButton" text="Adelynn Martin">
+                              <Label text="Adelynn Martin">
                                  <graphic>
-                                    <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="adelynnButton" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/ian_profile.png" />
                                        </image>
@@ -134,9 +134,9 @@
                                     <Font size="30.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="aleksandrButton" text="Aleksandr Samarin">
+                              <Label text="Aleksandr Samarin">
                                  <graphic>
-                                    <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="aleksandrButton" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/ian_profile.png" />
                                        </image>
@@ -149,9 +149,9 @@
                                     <Font size="30.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="samuelButton" text=" Samuel Markwick">
+                              <Label text=" Samuel Markwick">
                                  <graphic>
-                                    <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="samuelButton" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/sam_profile.png" />
                                        </image>
@@ -173,9 +173,9 @@
                   </VBox>
                   <VBox prefHeight="507.0" prefWidth="335.0">
                      <children>
-                        <Label fx:id="ryanButton" prefHeight="70.0" prefWidth="327.0" text="Ryan Offstein">
+                        <Label prefHeight="70.0" prefWidth="327.0" text="Ryan Offstein">
                            <graphic>
-                              <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="ryanButton" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/ian_profile.png" />
                                  </image>
@@ -188,13 +188,17 @@
                               <Font size="30.0" />
                            </font>
                         </Label>
-                        <Label fx:id="conorButton" text=" Conor Slattery">
+                        <Label text=" Conor Slattery">
                            <graphic>
-                              <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/conor_profile.png" />
-                                 </image>
-                              </ImageView>
+                              <StackPane style="-fx-background-color: transparent;">
+                                 <children>
+                                    <ImageView fx:id="conorButton" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/conor_profile.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </StackPane>
                            </graphic>
                            <font>
                               <Font size="30.0" />
@@ -203,24 +207,9 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                         </Label>
-                        <Label fx:id="hunterButton" text="Hunter Poulin">
+                        <Label text="Hunter Poulin">
                            <graphic>
-                              <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/ian_profile.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                           <font>
-                              <Font size="30.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="arturoButton" text="Arturo Lemos">
-                           <graphic>
-                              <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="hunterButton" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/ian_profile.png" />
                                  </image>
@@ -233,9 +222,24 @@
                               <Font size="30.0" />
                            </font>
                         </Label>
-                        <Label fx:id="andrewButton" text="Andrew Cash">
+                        <Label text="Arturo Lemos">
                            <graphic>
-                              <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="arturoButton" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/ian_profile.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Label>
+                        <Label text="Andrew Cash">
+                           <graphic>
+                              <ImageView fx:id="andrewButton" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/ian_profile.png" />
                                  </image>
