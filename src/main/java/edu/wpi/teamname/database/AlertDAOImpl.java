@@ -124,7 +124,7 @@ public class AlertDAOImpl implements AlertDAO {
     ArrayList<Integer> list = new ArrayList<Integer>();
 
     try (connection) {
-      String query = "SELECT * FROM \"Alert\"";
+      String query = "SELECT \"alertID\" FROM \"Alert\"";
       PreparedStatement statement = connection.prepareStatement(query);
       ResultSet rs = statement.executeQuery();
 

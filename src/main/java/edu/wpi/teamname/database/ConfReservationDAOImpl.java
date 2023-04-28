@@ -12,6 +12,15 @@ import java.util.List;
 
 /** LINK FUNCTION TO DATAMANAGER */
 public class ConfReservationDAOImpl implements ConfReservationDAO {
+
+  /**
+   * This method updates an existing ConfReservation object in the "ConfReservation" table in the
+   * database with the new ConfReservation object.
+   *
+   * @param ConfReservation the new ConfReservation object to be updated in the "ConfReservation"
+   *     table
+   * @throws SQLException if there is a problem accessing the database
+   */
   @Override
   public void sync(ConfReservation ConfReservation) throws SQLException {
     Connection connection = DataManager.DbConnection();

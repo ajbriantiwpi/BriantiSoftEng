@@ -25,7 +25,7 @@ public class Meal extends RequestItem {
   }
 
   /**
-   * creates a meal in the database
+   * Creates a meal object only using the ID and gets the rest of the data from the database
    *
    * @param mealID id of the meal
    * @throws SQLException thrown when there is an error connecting to the database or an error with

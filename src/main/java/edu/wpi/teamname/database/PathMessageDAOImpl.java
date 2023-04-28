@@ -267,4 +267,31 @@ public class PathMessageDAOImpl implements PathMessageDAO {
       System.err.println("Error exporting data from PostgreSQL database: " + e.getMessage());
     }
   }
+
+  /**
+   * * Creates a table for storing PathMessage data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createTable() throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try (connection) {
+      String query =
+          "create table if not exists \"PathMessages\"\n"
+              + "(\n"
+              + "    \"startNode\" integer not null,\n"
+              + "    \"endNode\"   integer not null,\n"
+              + "    algorithm   varchar not null,\n"
+              + "    date        timestamp,\n"
+              + "    \"adminID\"   integer,\n"
+              + "    message     varchar not null,\n"
+              + "    constraint \"sNode_pk\"\n"
+              + "        primary key (message, \"startNode\", \"endNode\", algorithm)\n"
+              + ");";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+    }
+  }
 }
