@@ -90,6 +90,12 @@
                                  </VBox.margin>
                               </Label>
                               <Label fx:id="jasonButton" text=" Jason Kardon">
+                                 <font>
+                                    <Font size="30.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="5.0" top="10.0" />
+                                 </VBox.margin>
                                  <graphic>
                                     <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -97,12 +103,6 @@
                                        </image>
                                     </ImageView>
                                  </graphic>
-                                 <font>
-                                    <Font size="30.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets left="5.0" top="10.0" />
-                                 </VBox.margin>
                               </Label>
                               <Label fx:id="alessandroButton" text="Alessandro Brianti">
                                  <graphic>
