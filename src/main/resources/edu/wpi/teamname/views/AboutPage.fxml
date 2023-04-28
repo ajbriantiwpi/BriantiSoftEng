@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="900.0" prefWidth="1600.0" styleClass="primary-container" stylesheets="@../stylesheets/Colors/lightTheme.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.AboutPageController">
+<AnchorPane prefHeight="900.0" prefWidth="1600.0" styleClass="primary-container" stylesheets="@../stylesheets/Colors/lightTheme.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.AboutPageController">
    <children>
       <VBox layoutX="32.0" layoutY="582.0" spacing="20.0">
          <children>
@@ -98,7 +91,7 @@
                               </Label>
                               <Label fx:id="jasonButton" text=" Jason Kardon">
                                  <graphic>
-                                    <ImageView fx:id="jasonButton" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/jason_profile%20(1).png" />
                                        </image>
@@ -197,7 +190,7 @@
                         </Label>
                         <Label fx:id="conorButton" text=" Conor Slattery">
                            <graphic>
-                              <ImageView fx:id="conorButton" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/conor_profile.png" />
                                  </image>
@@ -212,7 +205,7 @@
                         </Label>
                         <Label fx:id="hunterButton" text="Hunter Poulin">
                            <graphic>
-                              <ImageView fx:id="ianButton" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/ian_profile.png" />
                                  </image>
