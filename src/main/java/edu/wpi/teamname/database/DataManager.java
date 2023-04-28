@@ -73,9 +73,9 @@ public class DataManager {
    * @return list of strings which is the signage
    * @throws SQLException
    */
-  public static ArrayList<String> getSignage(int kiosk, Timestamp date) throws SQLException {
+  public static ArrayList<Signage> getSignages(int kiosk, Timestamp date) throws SQLException {
     SignageDAO sign = new SignageDAOImpl();
-    return sign.getSignage(kiosk, date);
+    return sign.getSignages(kiosk, date);
   }
 
   // ----------------Unique FUNCTIONS-------------

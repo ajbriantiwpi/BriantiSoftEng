@@ -15,6 +15,7 @@ public class AlertDAOImpl implements AlertDAO {
   /**
    * This method updates an existing Alert object in the "Alert" table in the database with the new
    * Alert object.
+   *
    * @param alert new alert object
    * @throws SQLException
    */
@@ -45,6 +46,7 @@ public class AlertDAOImpl implements AlertDAO {
 
   /**
    * gets a list of all the alerts in the database
+   *
    * @return the list of alerts
    * @throws SQLException
    */
@@ -86,6 +88,7 @@ public class AlertDAOImpl implements AlertDAO {
 
   /**
    * adds an alert to the database
+   *
    * @param alert to add
    * @throws SQLException
    */
@@ -116,6 +119,7 @@ public class AlertDAOImpl implements AlertDAO {
 
   /**
    * gets a list of all of the request IDs to fill the combobox
+   *
    * @return a list of ids
    * @throws SQLException
    */
@@ -139,6 +143,7 @@ public class AlertDAOImpl implements AlertDAO {
 
   /**
    * deletes an alert from the database
+   *
    * @param alert to delete
    * @throws SQLException
    */
@@ -147,7 +152,8 @@ public class AlertDAOImpl implements AlertDAO {
     Connection connection = DataManager.DbConnection();
     String del = "Delete ";
     String sel = "Select * ";
-    String query = "from \"Alert\" where \"alertID\" = ? AND \"announcement\" = ? AND \"startDate\" = ?";
+    String query =
+        "from \"Alert\" where \"alertID\" = ? AND \"announcement\" = ? AND \"startDate\" = ?";
 
     try (PreparedStatement statement = connection.prepareStatement(del + query)) {
       statement.setInt(1, alert.getId());
@@ -198,7 +204,8 @@ public class AlertDAOImpl implements AlertDAO {
   }
 
   /**
-   *  Exports data from a PostgreSQL database table "Alert" to a CSV file
+   * Exports data from a PostgreSQL database table "Alert" to a CSV file
+   *
    * @param csvFilePath filename and path for making the csv
    * @throws SQLException
    * @throws IOException
@@ -235,6 +242,7 @@ public class AlertDAOImpl implements AlertDAO {
 
   /**
    * Uploads CSV data to a PostgreSQL database table "Alert"
+   *
    * @param csvFilePath file path of the csv we are using
    * @throws SQLException
    */

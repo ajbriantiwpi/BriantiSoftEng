@@ -20,8 +20,8 @@ public class SignageDAOImpl implements SignageDAO {
    * @return list of strings
    * @throws SQLException
    */
-  public ArrayList<String> getSignage(int kiosk, Timestamp date) throws SQLException {
-    ArrayList<String> items = new ArrayList<>();
+  public ArrayList<Signage> getSignages(int kiosk, Timestamp date) throws SQLException {
+    ArrayList<Signage> items = new ArrayList<>();
     Connection connection = DataManager.DbConnection();
     String query = "Select *\n" + "From \"Signage\"\n" + "Where \"kioskID\" = ? AND \"date\" = ?";
     try (connection) {
@@ -32,34 +32,16 @@ public class SignageDAOImpl implements SignageDAO {
       ResultSet rs = statement.executeQuery();
       while (rs.next()) {
         String lName = rs.getString("longName");
+        String sName = rs.getString("shortName");
+        Timestamp dateSet = rs.getTimestamp("date");
+        Timestamp endDate = rs.getTimestamp("endDate");
         String dir = rs.getString("arrowDirection");
-        int kioskID = rs.getInt("kioskID");
         int signID = rs.getInt("signID");
+        int kioskID = rs.getInt("kioskID");
 
-        switch (dir) {
-          case "UP":
-            dir = "^  ";
-            break;
-          case "LEFT":
-            dir = "<--";
-            break;
-          case "DOWN":
-            dir = "v  ";
-            break;
-          case "RIGHT":
-            dir = "-->";
-            break;
-          case "STOP HERE":
-            dir = "Stop Here";
-            break;
-          case "STRAIGHT":
-            dir = "Straight";
-            break;
-          default:
-            System.out.println("Not Valid Direction");
-        }
-
-        items.add(dir + " | " + lName);
+        Direction direction = Direction.valueOf(dir);
+        Signage s = new Signage(lName, sName, dateSet, endDate, direction, signID, kioskID);
+        items.add(s);
       }
     } catch (SQLException e) {
       System.out.println(e.getMessage());

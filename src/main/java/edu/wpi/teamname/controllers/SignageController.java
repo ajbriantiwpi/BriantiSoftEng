@@ -1,6 +1,9 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.controllers.JFXitems.DirectionArrow;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.navigation.Direction;
+import edu.wpi.teamname.navigation.Signage;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
 import java.sql.SQLException;
@@ -12,20 +15,23 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 
 public class SignageController {
-  @FXML Label labelLine;
+  // @FXML Label labelLine;
   @FXML ComboBox<Integer> KskBox;
   @FXML ObservableList<Integer> kioskList;
   @FXML DatePicker dateChos;
   @FXML MFXButton submit;
+  @FXML VBox arrowVbox;
+  @FXML VBox textVbox;
+
   private static Timestamp dateChosen;
-  private static ArrayList<String> kiosksForDate = new ArrayList<>();
+  private static ArrayList<Signage> signsForDate = new ArrayList<>();
 
   @FXML
   public void initialize() throws SQLException {
-    labelLine.setText("");
+    // labelLine.setText("");
     kioskList = FXCollections.observableArrayList();
     kioskList.add(null);
     KskBox.setItems(kioskList);
@@ -58,7 +64,7 @@ public class SignageController {
         event -> {
           if (KskBox.getValue() != null) {
             try {
-              kiosksForDate = DataManager.getSignage(KskBox.getValue(), dateChosen);
+              signsForDate = DataManager.getSignages(KskBox.getValue(), dateChosen);
             } catch (SQLException e) {
               System.out.println(e);
             }
@@ -67,12 +73,46 @@ public class SignageController {
 
     submit.setOnMouseClicked(
         event -> {
+          textVbox.getChildren().clear();
           String finalSign = "";
-          System.out.println(kiosksForDate);
-          for (int i = 0; i < kiosksForDate.size(); i++) {
-            finalSign = finalSign + "\n\n" + kiosksForDate.get(i);
+          System.out.println(signsForDate);
+          for (int i = 0; i < signsForDate.size(); i++) {
+            Direction dir = signsForDate.get(i).getArrowDirection();
+            String text = signsForDate.get(i).getLongName();
+            DirectionArrow da = new DirectionArrow(dir, text, 100);
+            da.setMaxHeight(100);
+            textVbox.getChildren().add(da);
+
+            // arrowVbox.getChildren().add();
+
           }
-          labelLine.setText(finalSign);
+          // labelLine.setText(finalSign);
         });
   }
+
+  //  private void setArrow(String dir){
+  //      switch (dir) {
+  //          case "UP":
+  //              dir = "^  ";
+  //              break;
+  //          case "LEFT":
+  //              dir = "<--";
+  //              break;
+  //          case "DOWN":
+  //              dir = "v  ";
+  //              break;
+  //          case "RIGHT":
+  //              dir = "-->";
+  //              break;
+  //          case "STOP HERE":
+  //              dir = "Stop Here";
+  //              break;
+  //          case "STRAIGHT":
+  //              dir = "Straight";
+  //              break;
+  //          default:
+  //              System.out.println("Not Valid Direction");
+  //      }
+  //  }
+
 }
