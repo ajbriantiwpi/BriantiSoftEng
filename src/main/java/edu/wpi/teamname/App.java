@@ -1,6 +1,7 @@
 package edu.wpi.teamname;
 
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.extras.Songs;
 import edu.wpi.teamname.extras.Sound;
 import java.io.IOException;
 import java.sql.Connection;
@@ -32,6 +33,7 @@ public class App extends Application {
     //    l.displayLoading();
 
     /* primaryStage is generally only used if one of your components require the stage to display */
+    Sound.setBackgroundSong(Songs.JETPACKJOYRIDE);
     Sound.playMusic();
     App.primaryStage = primaryStage;
     primaryStage.setFullScreen(true);

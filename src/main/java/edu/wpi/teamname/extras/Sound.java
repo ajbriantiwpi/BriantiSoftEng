@@ -8,9 +8,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class Sound {
-  @Getter @Setter
-  private static String musicFile =
-      "src/main/resources/edu/wpi/teamname/sounds/eco-technology-145636.mp3";
+
+  @Getter @Setter private static Songs backgroundSong;
 
   private static MediaPlayer backgroundMusicPlayer;
 
@@ -18,7 +17,7 @@ public class Sound {
     if (backgroundMusicPlayer != null) {
       backgroundMusicPlayer.stop();
     }
-    Media sound = new Media(new File(musicFile).toURI().toString());
+    Media sound = new Media(new File(backgroundSong.getFilename()).toURI().toString());
     backgroundMusicPlayer = new MediaPlayer(sound);
 
     // mediaPlayer2.seek(Duration.ZERO);

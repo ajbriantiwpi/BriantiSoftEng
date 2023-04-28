@@ -290,8 +290,8 @@
                         <Insets left="12.0" right="12.0" />
                      </padding>
                      <styleClass>
-                        <String fx:value="headline-med" />
                         <String fx:value="surface" />
+                        <String fx:value="headline-med" />
                      </styleClass>
                   </Label>
                </children>
