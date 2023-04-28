@@ -292,6 +292,7 @@
                      <styleClass>
                         <String fx:value="primary-on-container" />
                         <String fx:value="headline-med" />
+                        <String fx:value="surface" />
                      </styleClass>
                   </Label>
                </children>
