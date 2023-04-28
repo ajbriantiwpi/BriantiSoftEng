@@ -86,10 +86,19 @@ public class Joke {
     String responseBody = response.body().string();
     ObjectMapper mapper = new ObjectMapper();
 
-    ArrayList<Joke> jokes = mapper.readValue(responseBody, new TypeReference<ArrayList<Joke>>() {});
-    if (badJokeIDs.contains(jokes.get(0).getId())) {
-      return getJoke();
+    try {
+      ArrayList<Joke> jokes =
+          mapper.readValue(responseBody, new TypeReference<ArrayList<Joke>>() {});
+      if (badJokeIDs.contains(jokes.get(0).getId())) {
+        return getJoke();
+      }
+      return jokes.get(0);
+    } catch (Exception e) {
+      Joke joke = mapper.readValue(responseBody, new TypeReference<Joke>() {});
+      if (badJokeIDs.contains(joke)) {
+        return getJoke();
+      }
+      return joke;
     }
-    return jokes.get(0);
   }
 }

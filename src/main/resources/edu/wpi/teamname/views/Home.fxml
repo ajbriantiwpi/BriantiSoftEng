@@ -290,8 +290,7 @@
                         <Insets left="12.0" right="12.0" />
                      </padding>
                      <styleClass>
-                        <String fx:value="primary-on-container" />
-                        <String fx:value="headline-large" />
+                        <String fx:value="headline-med" />
                         <String fx:value="surface" />
                      </styleClass>
                   </Label>

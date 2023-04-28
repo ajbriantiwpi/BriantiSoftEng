@@ -8,6 +8,7 @@ import edu.wpi.teamname.alerts.Alert;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.extras.Joke;
+import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.navigation.Move;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -82,6 +83,7 @@ public class HomeController {
     logoutButton.setVisible(false);
     GlobalVariables.logOut();
     disableButtonsWhenLoggedOut();
+    Sound.playMusic();
   }
 
   /** Disables all the buttons that can not be accessed without logging in */
