@@ -94,7 +94,7 @@ public class HomeController {
     upcomingMoves.setVisible(false);
     doneRequests.setVisible(false);
     editSignageButton.setVisible(false);
-    settingsButton.setVisible(false);
+    settingsButton.setVisible(true);
     showRequestsButton.setManaged(false);
     editMapButton.setManaged(false);
     editMoveButton.setManaged(false);
@@ -106,7 +106,7 @@ public class HomeController {
     actionVBox.setManaged(false);
     SRVBox.setManaged(false);
     editSignageButton.setManaged(false);
-    settingsButton.setManaged(false);
+    settingsButton.setManaged(true);
   }
 
   @FXML
