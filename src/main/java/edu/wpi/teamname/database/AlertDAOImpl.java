@@ -13,12 +13,10 @@ import java.util.List;
 
 public class AlertDAOImpl implements AlertDAO {
   /**
-   * This method updates an existing Alert object in the "Alert" table in the
-   * database with the new Alert object.
-   *
-   * @param alert the new Alert object to be updated in the "Alert"
-   *     table
-   * @throws SQLException if there is a problem accessing the database
+   * This method updates an existing Alert object in the "Alert" table in the database with the new
+   * Alert object.
+   * @param alert new alert object
+   * @throws SQLException
    */
   @Override
   public void sync(Alert alert) throws SQLException {
@@ -46,10 +44,9 @@ public class AlertDAOImpl implements AlertDAO {
   }
 
   /**
-   * The method retrieves all the Alert objects from the "Alert" table in the database.
-   *
-   * @return an ArrayList of the Alert objects in the database
-   * @throws SQLException if there is a problem accessing the database
+   * gets a list of all the alerts in the database
+   * @return the list of alerts
+   * @throws SQLException
    */
   @Override
   public ArrayList<Alert> getAll() throws SQLException {
@@ -88,10 +85,9 @@ public class AlertDAOImpl implements AlertDAO {
   }
 
   /**
-   * This method adds a new Alert object to the "Alert" table in the database.
-   *
-   * @param alert the Alert object to be added to the "Alert" table
-   * @throws SQLException if there is a problem accessing the database
+   * adds an alert to the database
+   * @param alert to add
+   * @throws SQLException
    */
   @Override
   public void add(Alert alert) throws SQLException {
@@ -119,10 +115,9 @@ public class AlertDAOImpl implements AlertDAO {
   }
 
   /**
-   * The method retrieves the alertIDs of all the Alert objects in the "Alert" table in the database.
-   *
-   * @return an ArrayList of the alertIDs of the Alert objects in the database
-   * @throws SQLException if there is a problem accessing the database
+   * gets a list of all of the request IDs to fill the combobox
+   * @return a list of ids
+   * @throws SQLException
    */
   public ArrayList<Integer> getAllIDs() throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -143,14 +138,36 @@ public class AlertDAOImpl implements AlertDAO {
   }
 
   /**
-   * This method deletes the given Alert object from the Alert
-   *
-   * @param alert the Alert object that will be deleted in the database
-   * @throws SQLException if there is a problem accessing the database
+   * deletes an alert from the database
+   * @param alert to delete
+   * @throws SQLException
    */
   @Override
   public void delete(Alert alert) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    String del = "Delete ";
+    String sel = "Select * ";
+    String query = "from \"Alert\" where \"alertID\" = ? AND \"announcement\" = ? AND \"startDate\" = ?";
 
+    try (PreparedStatement statement = connection.prepareStatement(del + query)) {
+      statement.setInt(1, alert.getId());
+      statement.setString(2, alert.getAnnouncement());
+      statement.setTimestamp(3, alert.getStartDate());
+
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      System.out.println("Delete in Move table error. " + e);
+    }
+
+    try (Statement statement = connection.createStatement()) {
+      ResultSet rs2 = statement.executeQuery(sel + query);
+      int count = 0;
+      while (rs2.next()) count++;
+      if (count == 0) System.out.println("Alert information deleted successfully.");
+      else System.out.println("Alert information did not delete.");
+    } catch (SQLException e2) {
+      System.out.println("Error checking delete. " + e2);
+    }
   }
 
   /**
@@ -181,12 +198,10 @@ public class AlertDAOImpl implements AlertDAO {
   }
 
   /**
-   * This method exports all the Alert objects from the "Alert" table in the database
-   * to a CSV file at the specified file path.
-   *
-   * @param csvFilePath the file path of the CSV file to export the Alert objects to
-   * @throws SQLException if there is a problem accessing the database
-   * @throws IOException if there is a problem writing the CSV file
+   *  Exports data from a PostgreSQL database table "Alert" to a CSV file
+   * @param csvFilePath filename and path for making the csv
+   * @throws SQLException
+   * @throws IOException
    */
   public static void exportAlertToCSV(String csvFilePath) throws SQLException, IOException {
     AlertDAOImpl AlertDao = new AlertDAOImpl();
@@ -219,11 +234,9 @@ public class AlertDAOImpl implements AlertDAO {
   }
 
   /**
-   * Uploads CSV data to a PostgreSQL database table "Alert"-also creates one if one does not
-   * exist
-   *
-   * @param csvFilePath a string that represents a file path (/ is illegal so you must use double//)
-   * @throws SQLException if an error occurs while uploading the data to the database
+   * Uploads CSV data to a PostgreSQL database table "Alert"
+   * @param csvFilePath file path of the csv we are using
+   * @throws SQLException
    */
   public static void uploadAlertToPostgreSQL(String csvFilePath) throws SQLException {
     List<String[]> csvData;
