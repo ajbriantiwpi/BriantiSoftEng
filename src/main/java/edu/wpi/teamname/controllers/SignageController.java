@@ -25,6 +25,7 @@ public class SignageController {
 
   @FXML
   public void initialize() throws SQLException {
+    ParentController.titleString.set("Signage");
     labelLine.setText("");
     kioskList = FXCollections.observableArrayList();
     kioskList.add(null);

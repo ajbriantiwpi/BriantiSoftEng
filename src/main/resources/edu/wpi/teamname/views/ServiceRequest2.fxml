@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.*?>
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import org.controlsfx.control.*?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.SearchableComboBox?>
 
-<AnchorPane fx:id="root" prefHeight="720.0" prefWidth="1280.0" styleClass="surface-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestController">
+<AnchorPane fx:id="root" prefHeight="720.0" prefWidth="1280.0" styleClass="surface" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestController">
 
     <children>
         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -28,28 +41,46 @@
                                                       <content>
                                                             <VBox spacing="24.0" styleClass="surface">
                                                                 <children>
-                                                                    <Label style="-fx-font-family: Roboto;" styleClass="primary-text-container" stylesheets="@../stylesheets/TextField.css" text="Patient Name" textFill="#001b3b" VBox.vgrow="ALWAYS" />
+                                                                    <Label style="-fx-font-family: Roboto;" styleClass="primary-text-container" stylesheets="@../stylesheets/TextField.css" text="Patient Name" textFill="#001b3b" VBox.vgrow="ALWAYS">
+                                                         <VBox.margin>
+                                                            <Insets bottom="-8.0" />
+                                                         </VBox.margin></Label>
                                                                     <TextField fx:id="patientName" maxWidth="500.0" prefHeight="49.0" style="-fx-background-radius: 8;" styleClass="primary-container" stylesheets="@../stylesheets/TextField.css" VBox.vgrow="ALWAYS">
                                                                          <font>
                                                                             <Font name="Roboto" size="28.0" />
                                                                          </font>
                                                                     </TextField>
                                                                     <Separator prefWidth="200.0" />
-                                                      <Label style="-fx-font-family: Roboto;" styleClass="primary-text-container" stylesheets="@../stylesheets/TextField.css" text="Location" textFill="#001b3b" />
+                                                      <Label style="-fx-font-family: Roboto;" styleClass="primary-text-container" stylesheets="@../stylesheets/TextField.css" text="Location" textFill="#001b3b">
+                                                         <VBox.margin>
+                                                            <Insets bottom="-8.0" />
+                                                         </VBox.margin></Label>
                                                                     <SearchableComboBox fx:id="nodeBox" maxWidth="500.0" prefWidth="500.0" promptText="Choose Location" styleClass="primary-container" stylesheets="@../stylesheets/combo.css" />
                                                                     <Separator prefWidth="200.0" />
-                                                                    <Label style="-fx-font-family: Roboto;" styleClass="primary-text-container" stylesheets="@../stylesheets/TextField.css" text="Date" textFill="#001b3b" />
+                                                                    <Label style="-fx-font-family: Roboto;" styleClass="primary-text-container" stylesheets="@../stylesheets/TextField.css" text="Date" textFill="#001b3b">
+                                                         <VBox.margin>
+                                                            <Insets bottom="-8.0" />
+                                                         </VBox.margin></Label>
                                                                     <DatePicker fx:id="dateBox" maxWidth="500.0" styleClass="text-field" stylesheets="@../stylesheets/dateBox.css" GridPane.rowIndex="1" />
                                                       <Separator prefWidth="200.0" />
-                                                                    <Label style="-fx-font-family: Roboto;" stylesheets="@../stylesheets/TextField.css" text="Time" textFill="#001b3b" GridPane.columnIndex="1" />
+                                                                    <Label style="-fx-font-family: Roboto;" stylesheets="@../stylesheets/TextField.css" text="Time" textFill="#001b3b" GridPane.columnIndex="1">
+                                                         <VBox.margin>
+                                                            <Insets bottom="-8.0" />
+                                                         </VBox.margin></Label>
                                                                     <SearchableComboBox fx:id="timeBox" maxWidth="500.0" promptText="Choose Time of Delivery" stylesheets="@../stylesheets/combo.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                                     
-                                                                                <Separator prefWidth="200.0" VBox.vgrow="ALWAYS" />
-                                                                    <Label styleClass="primary-text-container" stylesheets="@../stylesheets/TextField.css" text="Service Request Type" textFill="#001b3b" VBox.vgrow="ALWAYS" />
+                                                                                <Separator prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                         <VBox.margin>
+                                                            <Insets bottom="-6.0" top="-6.0" />
+                                                         </VBox.margin></Separator>
+                                                                    <Label styleClass="primary-text-container" stylesheets="@../stylesheets/TextField.css" text="Service Request Type" textFill="#001b3b" VBox.vgrow="ALWAYS">
+                                                         <VBox.margin>
+                                                            <Insets bottom="-8.0" />
+                                                         </VBox.margin></Label>
                                                                     <ComboBox fx:id="requestType" maxWidth="500.0" promptText="Choose Service Request Type" stylesheets="@../stylesheets/combo.css" VBox.vgrow="ALWAYS" />
                                                                 </children>
                                                    <padding>
-                                                      <Insets bottom="24.0" left="24.0" right="24.0" top="24.0" />
+                                                      <Insets bottom="24.0" left="24.0" right="24.0" top="12.0" />
                                                    </padding>
                                                             </VBox>
                                                       </content>
@@ -58,14 +89,14 @@
                                     </AnchorPane>
                                  </children>
                                  <padding>
-                                    <Insets bottom="12.0" left="12.0" top="12.0" />
+                                    <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
                                  </padding>
                               </VBox>
                            </children>
                         </AnchorPane>
-                                <AnchorPane fx:id="summaryPane" disable="true" styleClass="surface-container" visible="false" StackPane.alignment="TOP_CENTER">
+                                <AnchorPane fx:id="summaryPane" disable="true" styleClass="surface" visible="false" StackPane.alignment="TOP_CENTER">
                                     <children>
-                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="12.0" style="-fx-background-radius: 16;" styleClass="surface" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="12.0" style="-fx-background-radius: 16;" styleClass="surface-container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
                                     <Label style="-fx-font-family: Roboto;" styleClass="primary-text-container" stylesheets="@../stylesheets/TextField.css" text="Order Details" textFill="#001b3b">
                                        <font>
@@ -82,9 +113,9 @@
                                           <Font name="Roboto" size="40.0" />
                                        </font>
                                     </Label>
-                                     <ScrollPane fitToHeight="true" fitToWidth="true" pannable="true" style="-fx-background-radius: 8;" styleClass="surface-container-highest" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
+                                     <ScrollPane fitToHeight="true" fitToWidth="true" pannable="true" style="-fx-background-radius: 8;" styleClass="surface-container" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
                                          <content>
-                                             <AnchorPane style="-fx-background-radius: 8;" styleClass="surface-container-highest" VBox.vgrow="ALWAYS">
+                                             <AnchorPane style="-fx-background-radius: 8;" styleClass="surface-container" VBox.vgrow="ALWAYS">
                                                  <children>
                                                      <VBox fx:id="cartBox" fillWidth="true" spacing="12.0" style="-fx-background-radius: 8;" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="0.0">
                                                          <children>
@@ -131,41 +162,80 @@
                                     </GridPane>
                                  </children>
                                  <padding>
-                                    <Insets left="12.0" right="12.0" top="12.0" />
+                                    <Insets left="36.0" right="6.0" top="12.0" />
                                  </padding>
                               </VBox>
                                     </children>
                                 </AnchorPane>
 
-                                <AnchorPane fx:id="menuPane" disable="true" styleClass="surface" visible="false" StackPane.alignment="TOP_CENTER" VBox.vgrow="ALWAYS">
+                                <AnchorPane fx:id="menuPane" styleClass="surface" StackPane.alignment="TOP_CENTER" VBox.vgrow="ALWAYS">
                                     <children>
 
                                         <VBox alignment="CENTER" stylesheets="@../stylesheets/TextField.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <children>
-<!--                                                <HBox minHeight="100.0" spacing="30.0" VBox.vgrow="SOMETIMES">-->
-<!--                                                    <children>-->
-<!--&lt;!&ndash;                                                        <TextField fx:id="searchBar" prefWidth="1700.0" style="-fx-background-radius: 100; -fx-border-radius: 100;" styleClass="primary-container" stylesheets="@../stylesheets/TextField.css" text="Search">&ndash;&gt;-->
-<!--&lt;!&ndash;                                                            <font>&ndash;&gt;-->
-<!--&lt;!&ndash;                                                                <Font name="Roboto" size="28.0" />&ndash;&gt;-->
-<!--&lt;!&ndash;                                                            </font>&ndash;&gt;-->
-<!--&lt;!&ndash;                                                        </TextField>&ndash;&gt;-->
-<!--                                                    </children>-->
-<!--                                                    <padding>-->
-<!--                                                        <Insets left="25.0" right="25.0" top="32.0" />-->
-<!--                                                    </padding>-->
-<!--                                                </HBox>-->
+                                    <HBox VBox.vgrow="SOMETIMES">
+                                       <children>
+                                                      <HBox alignment="CENTER_LEFT" style="-fx-background-radius: 100; -fx-border-radius: 100;">
+                                                          <children>
+                                                <Label contentDisplay="CENTER" ellipsisString="" minWidth="90.0" text="Search" textFill="#001b3b" HBox.hgrow="ALWAYS">
+                                                   <styleClass>
+                                                      <String fx:value="secondary-text-container" />
+                                                      <String fx:value="headline-med" />
+                                                   </styleClass>
+                                                </Label>
+                                                              <TextField fx:id="searchBar" prefWidth="1700.0" style="-fx-background-color: #ffffff00; -fx-border-width: 0;">
+                                                                  <font>
+                                                                      <Font name="Roboto" size="28.0" />
+                                                                  </font>
+                                                   <styleClass>
+                                                      <String fx:value="secondary-text-container" />
+                                                      <String fx:value="headline-med" />
+                                                   </styleClass>
+                                                              </TextField>
+                                                <MFXButton fx:id="searchButton" ellipsisString="" maxHeight="48.0" maxWidth="48.0" style="-fx-background-color: #ffffff00;">
+                                                   <graphic>
+                                                      <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../images/MenuIcons/search.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                   <padding>
+                                                      <Insets bottom="-4.0" right="-4.0" top="-4.0" />
+                                                   </padding>
+                                                </MFXButton>
+                                                          </children>
+                                             <styleClass>
+                                                <String fx:value="secondary-container" />
+                                                <String fx:value="outline" />
+                                             </styleClass>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                             <padding>
+                                                <Insets left="12.0" right="12.0" />
+                                             </padding>
+                                                      </HBox>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+                                       </padding>
+                                    </HBox>
                                     <AnchorPane VBox.vgrow="ALWAYS">
                                        <VBox.margin>
                                           <Insets />
                                        </VBox.margin>
                                        <children>
       
-                                                      <ScrollPane fx:id="glitchyPane" fitToHeight="true" fitToWidth="true" layoutY="0.79998779296875" styleClass="surface-container-highest" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="12.0">
+                                                      <ScrollPane fx:id="glitchyPane" fitToHeight="true" fitToWidth="true" layoutY="0.79998779296875" styleClass="surface-container" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="12.0">
                                                           <content>
       
                                                                       <VBox fx:id="itemBox" fillWidth="false" spacing="12.0" style="-fx-background-radius: 8;" styleClass="surface-container-highest">
                                                                           <children>
                                                                     </children>
+                                                   <padding>
+                                                      <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+                                                   </padding>
                                                                       </VBox>
       
                                                           </content>
@@ -173,6 +243,9 @@
                                        </children>
                                     </AnchorPane>
                                             </children>
+                                 <padding>
+                                    <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+                                 </padding>
                                         </VBox>
 
                                     </children>
@@ -180,7 +253,7 @@
 
                             </children>
                         </StackPane>
-                        <GridPane alignment="BOTTOM_CENTER" hgap="12.0" minHeight="75.0" prefHeight="75.0" VBox.vgrow="NEVER">
+                        <GridPane alignment="BOTTOM_CENTER" hgap="12.0" minHeight="75.0" prefHeight="75.0" styleClass="surface" VBox.vgrow="NEVER">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -219,7 +292,7 @@
                                 </MFXButton>
                             </children>
                      <VBox.margin>
-                        <Insets bottom="12.0" />
+                        <Insets bottom="12.0" left="12.0" right="12.0" />
                      </VBox.margin>
                         </GridPane>
                     </children>
