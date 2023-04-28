@@ -187,6 +187,7 @@ public class ConferenceController {
                       staff,
                       activeSelector.getRoom().getRoomID());
               DataManager.addConfReservation(c);
+
             } catch (SQLException e) {
               System.out.println(e);
             }
