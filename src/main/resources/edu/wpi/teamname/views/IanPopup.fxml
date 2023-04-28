@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" minHeight="300.0" minWidth="600.0" prefHeight="358.0" prefWidth="748.0" spacing="10.0" style="-fx-background-radius: 16; -fx-border-radius: 16;" styleClass="surface-container-highest" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+   <children>
+      <HBox alignment="CENTER" prefHeight="62.0" prefWidth="369.0" spacing="50.0" style="-fx-background-radius: 16;">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" stylesheets="@../stylesheets/TextField.css" text="Ian Wright">
+               <styleClass>
+                  <String fx:value="primary-text-container" />
+                  <String fx:value="headline-large" />
+               </styleClass>
+               <font>
+                  <Font name="Roboto" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <TextArea prefHeight="330.0" prefWidth="728.0" promptText="Description" style="-fx-background-radius: 8; -fx-border-radius: 8;" stylesheets="@../stylesheets/TextField.css" text="Team Position: Team Coach&#10;&#10;Major: Computer Science&#10;&#10;Quote: &quot;If you don't take risks, you can't create a &#10;              future.&quot; -Monkey D. Luffy" VBox.vgrow="ALWAYS">
+         <styleClass>
+            <String fx:value="popup" />
+            <String fx:value="label-med" />
+            <String fx:value="primary-container" />
+         </styleClass>
+      </TextArea>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" />
+      <HBox alignment="CENTER" prefHeight="47.0" prefWidth="580.0" spacing="50.0">
+         <children>
+            <MFXButton stylesheets="@../stylesheets/button.css" text="Close">
+               <styleClass>
+                  <String fx:value="small-text" />
+                  <String fx:value="primary" />
+                  <String fx:value="outline" />
+               </styleClass>
+               <font>
+                  <Font name="Roboto" size="36.0" />
+               </font>
+            </MFXButton>
+         </children>
+      </HBox>
+   </children>
+   <stylesheets>
+      <URL value="@../stylesheets/Colors/lightTheme.css" />
+      <URL value="@../stylesheets/Colors/darkTheme.css" />
+   </stylesheets>
+</VBox>
