@@ -18,12 +18,10 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.layout.VBox;
 
 public class SignageController {
-  // @FXML Label labelLine;
   @FXML ComboBox<Integer> KskBox;
   @FXML ObservableList<Integer> kioskList;
   @FXML DatePicker dateChos;
   @FXML MFXButton submit;
-  @FXML VBox arrowVbox;
   @FXML VBox textVbox;
 
   private static Timestamp dateChosen;
@@ -32,7 +30,6 @@ public class SignageController {
   @FXML
   public void initialize() throws SQLException {
     ParentController.titleString.set("Signage");
-    labelLine.setText("");
     kioskList = FXCollections.observableArrayList();
     kioskList.add(null);
     KskBox.setItems(kioskList);
