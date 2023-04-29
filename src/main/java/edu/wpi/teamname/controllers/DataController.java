@@ -1,6 +1,7 @@
 package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.extras.Sound;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -71,6 +72,7 @@ public class DataController implements Initializable {
     // Hook up the methods to the toggle buttons
     wpiButton.setOnAction(
         e -> {
+          Sound.playOnButtonClick();
           try {
             DataManager.connectToWPI();
             wpiSelected = true;
@@ -81,6 +83,7 @@ public class DataController implements Initializable {
 
     awsButton.setOnAction(
         e -> {
+          Sound.playOnButtonClick();
           try {
             DataManager.connectToAWS();
             wpiSelected = false;
@@ -91,6 +94,7 @@ public class DataController implements Initializable {
   }
 
   private void onImportButtonClicked() {
+    Sound.playOnButtonClick();
     FileChooser fileChooser = new FileChooser();
     String selectedItem = importComboBox.getSelectionModel().getSelectedItem();
     fileChooser.setTitle("Open CSV File");
@@ -166,6 +170,7 @@ public class DataController implements Initializable {
   }
 
   private void onExportButtonClicked() {
+    Sound.playOnButtonClick();
     String selectedItem = exportComboBox.getSelectionModel().getSelectedItem();
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Save CSV File");

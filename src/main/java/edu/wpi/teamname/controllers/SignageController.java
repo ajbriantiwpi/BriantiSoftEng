@@ -2,6 +2,7 @@ package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.controllers.JFXitems.DirectionArrow;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.navigation.Direction;
 import edu.wpi.teamname.navigation.Signage;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -71,6 +72,7 @@ public class SignageController {
 
     submit.setOnMouseClicked(
         event -> {
+          Sound.playOnButtonClick();
           textVbox.getChildren().clear();
           String finalSign = "";
           System.out.println(signsForDate);

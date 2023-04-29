@@ -41,7 +41,7 @@ public class DataManager {
         connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
         System.out.println(" Successfully connected to database!");
       } catch (SQLException e) {
-        System.out.println(" Connection Failed! Check output console");
+        System.err.println(" Connection Failed! Check output console");
         e.printStackTrace();
         connection = null;
       } catch (ClassNotFoundException e) {

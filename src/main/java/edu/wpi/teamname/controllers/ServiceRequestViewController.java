@@ -3,6 +3,7 @@ package edu.wpi.teamname.controllers;
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.controllers.JFXitems.ReqMenuItems;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
 import edu.wpi.teamname.servicerequest.RequestType;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
@@ -147,6 +148,7 @@ public class ServiceRequestViewController {
 
     submitButton.setOnMouseClicked(
         event -> {
+          Sound.playOnButtonClick();
           try {
             assignStuff(
                 requestIDText.valueProperty().getValue(),
@@ -291,6 +293,7 @@ public class ServiceRequestViewController {
                 if (newValue != null) {
                   ViewButton.setOnMouseClicked(
                       event -> {
+                        Sound.playOnButtonClick();
                         table.setVisible(false);
                         table.setDisable(true);
                         ViewButton.setVisible(false);
@@ -317,6 +320,7 @@ public class ServiceRequestViewController {
 
     backButton.setOnMouseClicked(
         event -> {
+          Sound.playOnButtonClick();
           totalPrice = 0.0;
           System.out.println("Back " + totalPrice);
           table.setVisible(true);
