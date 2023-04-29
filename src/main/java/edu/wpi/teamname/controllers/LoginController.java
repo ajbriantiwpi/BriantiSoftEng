@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.temporal.ChronoField;
+import java.util.Calendar;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
@@ -35,6 +36,8 @@ public class LoginController {
   @FXML PasswordField passwordText;
   @FXML MFXButton cancel;
   // @FXML MFXButton help;
+  private String tempUser;
+  private int failedCounter;
 
   /**
    * handles when the login button is pressed
@@ -46,7 +49,7 @@ public class LoginController {
    * @throws ExceptionInInitializerError for testing, when we change pages without initializing the
    *     screen
    */
-  public static boolean loginPressed(String username, String password)
+  public boolean loginPressed(String username, String password)
       throws SQLException, ExceptionInInitializerError {
     Employee user = DataManager.checkLogin(username, password);
     if (user != null) {
@@ -55,6 +58,35 @@ public class LoginController {
       Navigation.navigate(GlobalVariables.getPreviousScreen());
       return true;
     } else {
+      if (tempUser == null) {
+        tempUser = username;
+        failedCounter = 1;
+      } else if (tempUser.equals(username)) {
+        failedCounter++;
+      } else {
+        tempUser = username;
+        failedCounter = 1;
+      }
+
+      if (failedCounter == 5) {
+        Timestamp ts = Timestamp.from(Instant.now());
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(ts);
+        cal.add(Calendar.DAY_OF_WEEK, 14);
+        Timestamp tmrw = new Timestamp(cal.getTime().getTime());
+        Alert alert =
+            new Alert(
+                Instant.now().get(ChronoField.MICRO_OF_SECOND),
+                ts,
+                tmrw,
+                "admin",
+                "Five failed attempts",
+                "User " + username + " failed login 5 times in a row.",
+                EmployeeType.ADMINISTRATOR,
+                Alert.Urgency.MEDIUM);
+        DataManager.addAlert(alert);
+      }
+
       return false;
     }
   }
