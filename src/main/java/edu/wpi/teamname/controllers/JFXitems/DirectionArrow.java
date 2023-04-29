@@ -2,7 +2,6 @@ package edu.wpi.teamname.controllers.JFXitems;
 
 import edu.wpi.teamname.navigation.Direction;
 import java.awt.*;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
