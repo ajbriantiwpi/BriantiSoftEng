@@ -52,7 +52,10 @@ public class ParentController {
               Screen.CONFERENCE_ROOM,
               Screen.ALERT,
               Screen.DATA_MANAGER,
-              Screen.SIGNAGE_TABLE));
+              Screen.SIGNAGE_TABLE,
+              Screen.SERVICE_REQUEST_ANALYTICS,
+              Screen.CONF_VIEW,
+              Screen.SMILE));
 
   @Setter public static StringProperty titleString = new SimpleStringProperty();
 
