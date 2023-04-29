@@ -34,6 +34,7 @@ public class App extends Application {
     /* primaryStage is generally only used if one of your components require the stage to display */
 
     Sound.playMusic();
+
     App.primaryStage = primaryStage;
     primaryStage.setFullScreen(true);
 
