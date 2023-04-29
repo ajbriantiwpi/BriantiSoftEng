@@ -27,9 +27,11 @@ public class ConfrenceViewController {
   @FXML TableColumn assignedStaffCol;
   @FXML TableColumn madeCol;
   @FXML TableColumn roomCol;
-  @FXML SearchableComboBox<String> requestIDText;
+  @FXML SearchableComboBox<Integer> reservationIDText;
   @FXML SearchableComboBox<String> assignStaffText;
   @FXML MFXButton submitButton;
+
+  @FXML MFXButton refreshButton;
 
   private double totalPrice = 0.0;
 
@@ -40,7 +42,6 @@ public class ConfrenceViewController {
   //          "", "Meal Request", "Flower Request", "Furniture Request", "Office Supply Request");
   ObservableList<String> statusValue =
       FXCollections.observableArrayList("", "PROCESSING", "BLANK", "DONE");
-  @FXML ComboBox<Status> requestStatusCombo;
 
   /**
    * filters the list of service requests to add it to the table
@@ -80,7 +81,7 @@ public class ConfrenceViewController {
    */
   public void assignStuff(String id, String assignStaff) throws SQLException {
     DataManager.uploadStaffNameToConferenceRequest(Integer.parseInt(id), assignStaff);
-    requestIDText.setValue(null);
+    reservationIDText.setValue(null);
     assignStaffText.setValue(null);
     refreshTable();
   }
@@ -101,15 +102,15 @@ public class ConfrenceViewController {
    */
   @FXML
   public void initialize() throws SQLException {
-    ParentController.titleString.set("Service Request View");
-    submitButton.disableProperty().bind(Bindings.isNull(requestIDText.valueProperty()));
+    ParentController.titleString.set("Conference Room Reservations View");
+    submitButton.disableProperty().bind(Bindings.isNull(reservationIDText.valueProperty()));
     submitButton.disableProperty().bind(Bindings.isNull(assignStaffText.valueProperty()));
 
     submitButton.setOnMouseClicked(
         event -> {
           try {
             assignStuff(
-                requestIDText.valueProperty().getValue(),
+                String.valueOf(reservationIDText.valueProperty().getValue()),
                 assignStaffText.valueProperty().getValue());
           } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -121,7 +122,8 @@ public class ConfrenceViewController {
     staffNames.add(null);
     requestStaffCombo.setItems(staffNames);
 
-    //    requestIDText.setItems(FXCollections.observableList(DataManager.getAllConfReservation()));
+    reservationIDText.setItems(
+        FXCollections.observableList(DataManager.getAllConferenceRequestIDs()));
     assignStaffText.setItems(FXCollections.observableList(DataManager.getAllUsernames()));
 
     ObservableList<ConfReservation> reservations =
@@ -130,9 +132,9 @@ public class ConfrenceViewController {
     //    serviceRequests1.predicateProperty().bind(table.predicateProperty());
     SortedList<ConfReservation> sortedRes = new SortedList<>(reservation1);
     resIDCol.setCellValueFactory(new PropertyValueFactory<ConfReservation, String>("resID"));
-    startCol.setCellValueFactory(new PropertyValueFactory<ConfReservation, String>("starttime"));
-    endCol.setCellValueFactory(new PropertyValueFactory<ConfReservation, String>("endtime"));
-    dateCol.setCellValueFactory(new PropertyValueFactory<ConfReservation, String>("datebook"));
+    startCol.setCellValueFactory(new PropertyValueFactory<ConfReservation, String>("startTime"));
+    endCol.setCellValueFactory(new PropertyValueFactory<ConfReservation, String>("endTime"));
+    dateCol.setCellValueFactory(new PropertyValueFactory<ConfReservation, String>("dateBook"));
     nameCol.setCellValueFactory(new PropertyValueFactory<ConfReservation, String>("name"));
     usernameCol.setCellValueFactory(new PropertyValueFactory<ConfReservation, String>("username"));
     assignedStaffCol.setCellValueFactory(
@@ -150,6 +152,16 @@ public class ConfrenceViewController {
                     requestStaffCombo.getValue()));
           } catch (SQLException e) {
             e.printStackTrace();
+          }
+        });
+    refreshButton.setOnAction(
+        event -> {
+          dateBox.cancelEdit();
+          dateBox.setValue(null);
+          try {
+            table.setItems(tableFilter(null, requestStaffCombo.getValue()));
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
           }
         });
 

@@ -5,6 +5,7 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -23,168 +24,211 @@
 
 <AnchorPane styleClass="surface-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestViewController">
     <children>
-        <HBox style="-fx-background-radius: 16;" styleClass="surface" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <VBox HBox.hgrow="ALWAYS">
-                <children>
-               <VBox styleClass="surface-container-high">
-                  <children>
-                     <VBox spacing="12.0">
+        <HBox style="-fx-background-radius: 16;" styleClass="surface-container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="surface-container" HBox.hgrow="ALWAYS">
+            <content>
+                  <VBox styleClass="surface-container">
+                      <children>
+                     <VBox styleClass="surface-container">
                         <children>
-                           <Label styleClass="primary-text-container" text="Filter Table" textFill="#001b3b">
-                              <font>
-                                 <Font name="Roboto" size="32.0" />
-                              </font>
+                           <VBox spacing="12.0">
+                              <children>
+                                 <Label text="Filter Table" textFill="#001b3b">
+                                    <font>
+                                       <Font name="Roboto" size="32.0" />
+                                    </font>
+                                    <VBox.margin>
+                                       <Insets bottom="4.0" />
+                                    </VBox.margin>
+                                    <styleClass>
+                                       <String fx:value="primary-text-container" />
+                                       <String fx:value="headline-large" />
+                                    </styleClass>
+                                 </Label>
+                                 <Label text="Request Type" textFill="#001b3b">
+                                    <font>
+                                        <Font name="Roboto" size="28.0" />
+                                    </font>
+                                    <VBox.margin>
+                                       <Insets />
+                                    </VBox.margin>
+                                    <styleClass>
+                                       <String fx:value="headline-med" />
+                                       <String fx:value="primary-text-container" />
+                                    </styleClass>
+                                 </Label>
+                                 <ComboBox fx:id="requestTypeCombo" maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="396.0" promptText="Choose Request Type" styleClass="combo-box" stylesheets="@../stylesheets/comboSmall.css">
+                                    <VBox.margin>
+                                       <Insets bottom="4.0" />
+                                    </VBox.margin>
+                                 </ComboBox>
+                                 <Label text="Request Status" textFill="#001b3b">
+                                    <font>
+                                        <Font name="Roboto" size="28.0" />
+                                    </font>
+                                    <VBox.margin>
+                                       <Insets />
+                                    </VBox.margin>
+                                    <styleClass>
+                                       <String fx:value="headline-med" />
+                                       <String fx:value="primary-text-container" />
+                                    </styleClass>
+                                 </Label>
+                                 <ComboBox fx:id="requestStatusCombo" maxHeight="50.0" prefHeight="50.0" prefWidth="396.0" promptText="Choose Status" stylesheets="@../stylesheets/comboSmall.css">
+                                    <VBox.margin>
+                                       <Insets />
+                                    </VBox.margin>
+                                 </ComboBox>
+                                 <Label text="Assigned Staff" textFill="#001b3b">
+                                    <font>
+                                       <Font name="Roboto" size="28.0" />
+                                    </font>
+                                    <styleClass>
+                                       <String fx:value="headline-med" />
+                                       <String fx:value="primary-text-container" />
+                                    </styleClass>
+                                 </Label>
+                                 <ComboBox fx:id="requestStaffCombo" maxHeight="50.0" prefHeight="50.0" prefWidth="396.0" promptText="Choose Staff" stylesheets="@../stylesheets/comboSmall.css" />
+                                 <Label styleClass="primary-text-container" text="Date" textFill="#001b3b">
+                                    <font>
+                                       <Font name="Roboto" size="28.0" />
+                                    </font>
+                                 </Label>
+                                 <DatePicker fx:id="dateBox" maxHeight="50.0" maxWidth="396.0" minHeight="50.0" styleClass="text-field" stylesheets="@../stylesheets/dateBoxSmall.css" />
+                                 <MFXButton fx:id="refreshButton" styleClass="primary-container" stylesheets="@../stylesheets/button.css" text="Refresh" />
+                              </children>
                               <VBox.margin>
-                                 <Insets bottom="4.0" />
+                                 <Insets bottom="12.0" top="12.0" />
                               </VBox.margin>
-                           </Label>
-                           <Label styleClass="primary-text-container" text="Request Type" textFill="#001b3b">
-                              <font>
-                                  <Font name="Roboto" size="28.0" />
-                              </font>
+                              <padding>
+                                 <Insets left="12.0" right="12.0" />
+                              </padding>
+                           </VBox>
+                           <VBox maxWidth="-Infinity" spacing="12.0" style="-fx-background-radius: 16;" styleClass="surface-container-highest">
+                              <children>
+                                 <Label text="Assign Staff to Request" textFill="#001b3b">
+                                    <font>
+                                       <Font name="Roboto" size="32.0" />
+                                    </font>
+                                    <VBox.margin>
+                                       <Insets bottom="4.0" />
+                                    </VBox.margin>
+                                    <styleClass>
+                                       <String fx:value="primary-text-container" />
+                                       <String fx:value="headline-large" />
+                                    </styleClass>
+                                 </Label>
+                                 <Label text="Request ID" textFill="#001b3b">
+                                    <font>
+                                        <Font name="Roboto" size="28.0" />
+                                    </font>
+                                    <VBox.margin>
+                                       <Insets />
+                                    </VBox.margin>
+                                    <styleClass>
+                                       <String fx:value="headline-med" />
+                                       <String fx:value="primary-text-container" />
+                                    </styleClass>
+                                 </Label>
+                                 <SearchableComboBox fx:id="requestIDText" maxHeight="50.0" prefHeight="50.0" prefWidth="396.0" promptText="Select Request ID" stylesheets="@../stylesheets/comboSmall.css">
+                                    <VBox.margin>
+                                       <Insets bottom="4.0" />
+                                    </VBox.margin>
+                                 </SearchableComboBox>
+                                 <Label text="Assign Staff" textFill="#001b3b">
+                                    <font>
+                                        <Font name="Roboto" size="28.0" />
+                                    </font>
+                                    <VBox.margin>
+                                       <Insets />
+                                    </VBox.margin>
+                                    <styleClass>
+                                       <String fx:value="headline-med" />
+                                       <String fx:value="primary-text-container" />
+                                    </styleClass>
+                                 </Label>
+                                 <SearchableComboBox fx:id="assignStaffText" maxHeight="50.0" prefHeight="50.0" prefWidth="396.0" promptText="Select Staff" stylesheets="@../stylesheets/comboSmall.css">
+                                    <VBox.margin>
+                                       <Insets bottom="4.0" />
+                                    </VBox.margin>
+                                 </SearchableComboBox>
+                                 <Label text="Set Request Status" textFill="#001b3b">
+                                    <font>
+                                       <Font name="Roboto" size="28.0" />
+                                    </font>
+                                    <VBox.margin>
+                                       <Insets />
+                                    </VBox.margin>
+                                    <styleClass>
+                                       <String fx:value="headline-med" />
+                                       <String fx:value="primary-text-container" />
+                                    </styleClass>
+                                 </Label>
+                                 <SearchableComboBox fx:id="requestStatusText" maxHeight="50.0" prefHeight="50.0" prefWidth="396.0" promptText="Select Request Status" stylesheets="@../stylesheets/comboSmall.css">
+                                    <VBox.margin>
+                                       <Insets bottom="12.0" />
+                                    </VBox.margin>
+                                 </SearchableComboBox>
+                              </children>
+                              <padding>
+                                 <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+                              </padding>
+                           </VBox>
+                           <GridPane>
+                             <columnConstraints>
+                               <ColumnConstraints hgrow="NEVER" maxWidth="240.0" minWidth="10.0" prefWidth="193.0" />
+                               <ColumnConstraints hgrow="NEVER" maxWidth="256.0" minWidth="10.0" prefWidth="203.0" />
+                             </columnConstraints>
+                             <rowConstraints>
+                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                             </rowConstraints>
+                              <children>
+                                              <MFXButton fx:id="backButton" disable="true" minHeight="50.0" minWidth="100.0" style="-fx-font-family: Roboto;" stylesheets="@../stylesheets/button.css" text="Back" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                                                  <font>
+                                                      <Font name="Roboto" size="36.0" />
+                                                  </font>
+                                    <styleClass>
+                                       <String fx:value="primary" />
+                                       <String fx:value="title-large" />
+                                    </styleClass>
+                                              </MFXButton>
+                                 <MFXButton fx:id="submitButton" maxHeight="50.0" minHeight="50.0" minWidth="150.0" stylesheets="@../stylesheets/button.css" text="Assign" GridPane.halignment="CENTER">
+                                    <font>
+                                       <Font name="Roboto" size="36.0" />
+                                    </font>
+                                    <styleClass>
+      <!--                                 <String fx:value="display-med" />-->
+                                       <String fx:value="primary" />
+                                       <String fx:value="outline" />
+                                        <String fx:value="title-large" />
+                                    </styleClass>
+                                 </MFXButton>
+                                 <MFXButton fx:id="ViewButton" disable="true" minHeight="50.0" minWidth="110.0" stylesheets="@../stylesheets/button.css" text="View Order #" textAlignment="CENTER" textOverrun="CLIP" visible="false" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.vgrow="NEVER">
+                                    <font>
+                                       <Font name="Roboto" size="36.0" />
+                                    </font>
+                                    <styleClass>
+                                       <String fx:value="primary" />
+                                       <String fx:value="title-large" />
+                                    </styleClass>
+                                 </MFXButton>
+                              </children>
                               <VBox.margin>
-                                 <Insets />
+                                 <Insets bottom="12.0" top="12.0" />
                               </VBox.margin>
-                           </Label>
-                           <ComboBox fx:id="requestTypeCombo" prefHeight="71.0" prefWidth="396.0" promptText="Choose Request Type" styleClass="combo-box" stylesheets="@../stylesheets/combo.css">
-                              <VBox.margin>
-                                 <Insets bottom="4.0" />
-                              </VBox.margin>
-                           </ComboBox>
-                           <Label styleClass="primary-text-container" text="Request Status" textFill="#001b3b">
-                              <font>
-                                  <Font name="Roboto" size="28.0" />
-                              </font>
-                              <VBox.margin>
-                                 <Insets />
-                              </VBox.margin>
-                           </Label>
-                           <ComboBox fx:id="requestStatusCombo" prefHeight="71.0" prefWidth="396.0" promptText="Choose Status" stylesheets="@../stylesheets/combo.css">
-                              <VBox.margin>
-                                 <Insets bottom="12.0" />
-                              </VBox.margin>
-                           </ComboBox>
-                           <Label styleClass="primary-text-container" text="Assigned Staff" textFill="#001b3b">
-                              <font>
-                                 <Font name="Roboto" size="28.0" />
-                              </font>
-                           </Label>
-                           <ComboBox fx:id="requestStaffCombo" prefHeight="71.0" prefWidth="396.0" promptText="Choose Staff" stylesheets="@../stylesheets/combo.css" />
+                              <padding>
+                                 <Insets bottom="12.0" top="12.0" />
+                              </padding>
+                           </GridPane>
                         </children>
-                        <VBox.margin>
-                           <Insets bottom="12.0" top="12.0" />
-                        </VBox.margin>
                         <padding>
                            <Insets left="12.0" right="12.0" />
                         </padding>
                      </VBox>
-                     <VBox maxWidth="-Infinity" spacing="12.0" style="-fx-background-radius: 16;" styleClass="surface-container-highest">
-                        <children>
-                           <Label styleClass="primary-text-container" text="Assign Staff to Request" textFill="#001b3b">
-                              <font>
-                                 <Font name="Roboto" size="32.0" />
-                              </font>
-                              <VBox.margin>
-                                 <Insets bottom="4.0" />
-                              </VBox.margin>
-                           </Label>
-                           <Label styleClass="primary-text-container" text="Request ID" textFill="#001b3b">
-                              <font>
-                                  <Font name="Roboto" size="28.0" />
-                              </font>
-                              <VBox.margin>
-                                 <Insets />
-                              </VBox.margin>
-                           </Label>
-                           <SearchableComboBox fx:id="requestIDText" prefHeight="71.0" prefWidth="396.0" promptText="Select Request ID" stylesheets="@../stylesheets/combo.css">
-                              <VBox.margin>
-                                 <Insets bottom="4.0" />
-                              </VBox.margin>
-                           </SearchableComboBox>
-                           <Label styleClass="primary-text-container" text="Assign Staff" textFill="#001b3b">
-                              <font>
-                                  <Font name="Roboto" size="28.0" />
-                              </font>
-                              <VBox.margin>
-                                 <Insets />
-                              </VBox.margin>
-                           </Label>
-                           <SearchableComboBox fx:id="assignStaffText" prefHeight="71.0" prefWidth="396.0" promptText="Select Staff" stylesheets="@../stylesheets/combo.css">
-                              <VBox.margin>
-                                 <Insets bottom="4.0" />
-                              </VBox.margin>
-                           </SearchableComboBox>
-                           <Label styleClass="primary-text-container" text="Set Request Status" textFill="#001b3b">
-                              <font>
-                                 <Font name="Roboto" size="28.0" />
-                              </font>
-                              <VBox.margin>
-                                 <Insets />
-                              </VBox.margin>
-                           </Label>
-                           <SearchableComboBox fx:id="requestStatusText" prefHeight="71.0" prefWidth="396.0" promptText="Select Request Status" stylesheets="@../stylesheets/combo.css">
-                              <VBox.margin>
-                                 <Insets bottom="12.0" />
-                              </VBox.margin>
-                           </SearchableComboBox>
-                        </children>
-                        <padding>
-                           <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
-                        </padding>
-                     </VBox>
-                     <GridPane>
-                       <columnConstraints>
-                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="240.0" minWidth="10.0" prefWidth="193.0" />
-                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="256.0" minWidth="10.0" prefWidth="203.0" />
-                       </columnConstraints>
-                       <rowConstraints>
-                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                       </rowConstraints>
-                        <children>
-                                        <MFXButton fx:id="backButton" disable="true" minWidth="150.0" style="-fx-font-family: Roboto;" stylesheets="@../stylesheets/button.css" text="Back" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                            <font>
-                                                <Font name="Roboto" size="36.0" />
-                                            </font>
-                              <styleClass>
-                                 <String fx:value="primary" />
-                                 <String fx:value="headline-med" />
-                              </styleClass>
-                                        </MFXButton>
-                           <MFXButton fx:id="submitButton" minWidth="150.0" stylesheets="@../stylesheets/button.css" text="Assign" GridPane.rowIndex="1">
-                              <font>
-                                 <Font name="Roboto" size="36.0" />
-                              </font>
-                              <styleClass>
-<!--                                 <String fx:value="display-med" />-->
-                                 <String fx:value="primary" />
-                                 <String fx:value="outline" />
-                                  <String fx:value="small-text" />
-                              </styleClass>
-                           </MFXButton>
-                           <MFXButton fx:id="ViewButton" disable="true" maxWidth="183.0" minHeight="83.0" minWidth="83.0" style="-fx-font-family: Roboto; -fx-font-size: 20;" stylesheets="@../stylesheets/button.css" text="View Order #" textAlignment="CENTER" visible="false" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                              <font>
-                                 <Font name="Roboto" size="36.0" />
-                              </font>
-                              <styleClass>
-                                 <String fx:value="primary" />
-                                 <String fx:value="headline-med" />
-                              </styleClass>
-                           </MFXButton>
-                        </children>
-                        <VBox.margin>
-                           <Insets top="12.0" />
-                        </VBox.margin>
-                     </GridPane>
-                  </children>
-                  <padding>
-                     <Insets left="12.0" right="12.0" />
-                  </padding>
-               </VBox>
-                </children>
-            </VBox>
+                      </children>
+                  </VBox>
+            </content>
+         </ScrollPane>
             <StackPane>
                 <HBox.margin>
                     <Insets right="10.0" />

@@ -79,7 +79,7 @@ public class ConfReservationDAOImpl implements ConfReservationDAO {
         String endTime = rs.getString("endtime");
         Timestamp dateBook = rs.getTimestamp("datebook");
         String name = rs.getString("name");
-        String username = rs.getString("dateMade");
+        String username = rs.getString("username");
         String staff = rs.getString("staffAssigned");
         Timestamp dateMade = rs.getTimestamp("dateMade");
         int roomID = rs.getInt("roomID");
