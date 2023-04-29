@@ -8,6 +8,7 @@ import edu.wpi.teamname.alerts.Alert;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.extras.Joke;
+import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.navigation.Move;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -77,6 +78,7 @@ public class HomeController {
 
   /** logs the current user out of the application */
   private void logout() {
+    Sound.playOnButtonClick();
     loggedIn = new SimpleBooleanProperty(false);
     loginButton.setVisible(true);
     logoutButton.setVisible(false);
@@ -120,6 +122,7 @@ public class HomeController {
         new EventHandler<MouseEvent>() {
           @Override
           public void handle(MouseEvent event) {
+            Sound.playOnButtonClick();
             ObservableList<Alert> alertList = null;
 
             MFXButton createNewButton = ((MFXButton) event.getSource());
@@ -410,6 +413,7 @@ public class HomeController {
     editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
     exitButton.setOnMouseClicked(
         event -> {
+          Sound.playOnButtonClick();
           try {
             Connection connection = DataManager.DbConnection();
             connection.close();
@@ -426,11 +430,7 @@ public class HomeController {
     requestRoomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CONFERENCE_ROOM));
     dataButton.setOnMouseClicked(event -> Navigation.navigate(Screen.DATA_MANAGER));
     notificationPopupButtonSimple.setOnMouseClicked(NotificationPopupEvent);
-    aboutButton.setOnMouseClicked(
-        event -> {
-          // Sound.playOnButtonClick();
-          Navigation.navigate(Screen.ABOUT);
-        });
+    aboutButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ABOUT));
     creditButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CREDITS));
     serviceRequestAnalyticsButton.setOnMouseClicked(
         event -> Navigation.navigate(Screen.SERVICE_REQUEST_ANALYTICS));

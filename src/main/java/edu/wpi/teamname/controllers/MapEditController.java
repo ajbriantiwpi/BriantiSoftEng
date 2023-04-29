@@ -3,6 +3,7 @@ package edu.wpi.teamname.controllers;
 import edu.wpi.teamname.App;
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.navigation.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.File;
@@ -728,7 +729,7 @@ public class MapEditController {
 
         @Override
         public void handle(MouseEvent event) {
-
+          Sound.playOnButtonClick();
           MFXButton newButton = ((MFXButton) event.getSource());
 
           String oldFloor = map.getCurrentDisplayFloor();

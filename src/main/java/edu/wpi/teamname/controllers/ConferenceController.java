@@ -3,6 +3,7 @@ package edu.wpi.teamname.controllers;
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.controllers.JFXitems.RoomSelector;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.servicerequest.ConfReservation;
 import edu.wpi.teamname.servicerequest.RoomManager;
 import edu.wpi.teamname.servicerequest.requestitem.ConfRoom;
@@ -170,6 +171,7 @@ public class ConferenceController {
 
     submitButton.setOnMouseClicked(
         event -> { // add to db and make new relation in array in confroomrequests
+          Sound.playOnButtonClick();
           if (roomManager.isViableRoom(activeSelector.getRoom(), dateBook)) {
             try {
               resID = DataManager.setResID();

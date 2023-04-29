@@ -6,6 +6,7 @@ import edu.wpi.teamname.alerts.Alert;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
+import edu.wpi.teamname.extras.Sound;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.sql.SQLException;
@@ -130,6 +131,7 @@ public class LoginController {
    * @throws SQLException if there is an error connecting to the database
    */
   public static String forgotPasswordPressed(String username) throws SQLException {
+    Sound.playOnButtonClick();
     //    return DataManager.forgotPassword(username);
     Employee employee = DataManager.getEmployee(username);
     if (employee != null) {
