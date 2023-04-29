@@ -6,6 +6,10 @@ import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.servicerequest.*;
 import edu.wpi.teamname.servicerequest.requestitem.RequestItem;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -16,14 +20,7 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import org.controlsfx.control.SearchableComboBox;
-
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
 
 public class ConfrenceViewController {
 
@@ -41,11 +38,9 @@ public class ConfrenceViewController {
   @FXML SearchableComboBox<String> assignStaffText;
   @FXML MFXButton submitButton;
 
-
   private double totalPrice = 0.0;
 
-  @FXML
-  DatePicker dateBox;
+  @FXML DatePicker dateBox;
   @FXML SearchableComboBox<String> requestStaffCombo;
   //  ObservableList<String> serviceType =
   //      FXCollections.observableArrayList(
@@ -62,15 +57,15 @@ public class ConfrenceViewController {
    * @return the list of filtered items
    * @throws SQLException if there is an error when connecting to the database
    */
-  public static ObservableList<ConfReservation> tableFilter(
-          Timestamp date, String username) throws SQLException {
+  public static ObservableList<ConfReservation> tableFilter(Timestamp date, String username)
+      throws SQLException {
     ObservableList<ConfReservation> reservationList =
         FXCollections.observableList(DataManager.getAllConfReservation());
     if (!(date == (null))) {
       reservationList =
           FXCollections.observableList(
               reservationList.stream()
-                  .filter((reservation) -> reservation.getDateBook().getDate()==date.getDate())
+                  .filter((reservation) -> reservation.getDateBook().getDate() == date.getDate())
                   .toList());
     }
     if (!(username == (null)) && !(username.toString().equals(""))) {

@@ -323,4 +323,28 @@ public class ConfReservationDAOImpl implements ConfReservationDAO {
       System.out.println(e.getMessage());
     }
   }
+
+  /**
+   * * Returns an ArrayList of all the IDs from the Conference Room Request Table
+   *
+   * @return an ArrayList of all the IDs
+   * @throws SQLException error connecting to the database
+   */
+  public static ArrayList<Integer> getAllIDs() throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    ArrayList<Integer> list = new ArrayList<Integer>();
+
+    try (connection) {
+      String query = "SELECT \"resID\" FROM \"ConfReservations\"";
+      PreparedStatement statement = connection.prepareStatement(query);
+      ResultSet rs = statement.executeQuery();
+
+      while (rs.next()) {
+        int requestID = rs.getInt("requestID");
+        list.add(requestID);
+      }
+    }
+    connection.close();
+    return list;
+  }
 }

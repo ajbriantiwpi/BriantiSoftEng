@@ -90,6 +90,12 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
     return list;
   }
 
+  /**
+   * * Returns an ArrayList of all the IDs as Strings from the Service Request Table
+   *
+   * @return an ArrayList of strings of all the IDs
+   * @throws SQLException error connecting to the database
+   */
   public ArrayList<String> getAllIDs() throws SQLException {
     Connection connection = DataManager.DbConnection();
     ArrayList<String> list = new ArrayList<String>();

@@ -7,7 +7,8 @@ import java.text.ParseException;
 
 public class Main {
   public static void main(String[] args) throws SQLException, IOException, ParseException {
-    App.launch(App.class, args);
+    // App.launch(App.class, args);
+    System.out.println(DataManager.getAllConferenceRequestIDs());
   }
   // shortcut: psvm
 }
