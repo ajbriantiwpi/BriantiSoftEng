@@ -12,9 +12,10 @@ public class Sound {
 
   @Getter private static MediaPlayer backgroundMusicPlayer;
 
-  private static String filename = "src/main/resources/edu/wpi/teamname/sounds/buttonclick.mp3";
-  private static Media soundB = new Media(new File(filename).toURI().toString());
-  @Getter private static MediaPlayer buttonPlayer = new MediaPlayer(soundB);
+  private static String buttonClickFilename =
+      "src/main/resources/edu/wpi/teamname/sounds/buttonclick.mp3";
+  private static Media soundButton = new Media(new File(buttonClickFilename).toURI().toString());
+  @Getter private static MediaPlayer buttonPlayer = new MediaPlayer(soundButton);
   @Getter private static double volume = 1.0;
 
   /**
@@ -67,7 +68,7 @@ public class Sound {
 
   /** * Plays the button click sound effect Call this function whenever a button is pressed */
   public static void playOnButtonClick() {
-    buttonPlayer = new MediaPlayer(soundB);
+    buttonPlayer = new MediaPlayer(soundButton);
     buttonPlayer.setVolume(volume);
     buttonPlayer.play();
   }

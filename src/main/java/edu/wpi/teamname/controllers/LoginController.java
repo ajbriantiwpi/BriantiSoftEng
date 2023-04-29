@@ -192,6 +192,6 @@ public class LoginController {
       DataManager.addAlert(newAlert);
       return "Reset Password Request Submitted";
     }
-    return "Please Enter a Correct Username";
+    return "Please Enter a Valid Username";
   }
 }
