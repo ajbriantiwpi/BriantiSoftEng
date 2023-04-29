@@ -8,7 +8,7 @@ import lombok.Getter;
 
 public class Sound {
 
-  @Getter private static Song backgroundSong = Song.OTJANBIRD2;
+  @Getter private static Song backgroundSong = Song.OTJANBIRD1;
   @Getter private static MediaPlayer backgroundMusicPlayer;
   @Getter private static MediaPlayer buttonPlayer;
 

@@ -68,6 +68,9 @@ public class Joke {
     if (id == 312) {
       setup = "Why can't you use \"Beef stew\" as a password?";
     }
+    if (id == 79) {
+      punchline = "Pop, goes the weasel.";
+    }
     return this.getSetup() + "\n\n" + this.getPunchline();
   }
 
