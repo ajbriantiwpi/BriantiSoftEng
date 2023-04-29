@@ -16,7 +16,6 @@ public class Navigation {
       //      final FXMLLoader loader = new FXMLLoader(resource);
       //
       //      App.getRootPane().setCenter(loader.load());
-
       final var resource = App.class.getResource(filename);
       final FXMLLoader loader = new FXMLLoader(resource);
       System.out.println(filename);

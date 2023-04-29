@@ -12,7 +12,6 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
@@ -128,7 +127,7 @@ public class ConferenceController {
           //          int hour = Integer.valueOf(timeString.split(":")[0]);
           //          int min = Integer.valueOf(timeString.split(":")[1]);
           //          LocalTime time = LocalTime.of(hour, min);
-          dateBook = Timestamp.valueOf(dateBox.getValue().atTime(LocalTime.of(0, 0)));
+          dateBook = Timestamp.valueOf(dateBox.getValue().atStartOfDay());
 
           refreshRooms(dateBook);
           /**

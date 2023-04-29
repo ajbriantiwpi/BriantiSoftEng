@@ -52,7 +52,7 @@ public class MoveTableController {
     //      // EXTEND TABLEVIEW SOMEHOW
     //    }
 
-    ParentController.titleString.set("Move Edit Table");
+    ParentController.titleString.set("Move Editor");
     TableColumn<Move, Integer> nodeIDColumn = new TableColumn<>("Node ID");
     nodeIDColumn.setCellValueFactory(new PropertyValueFactory<>("nodeID"));
 

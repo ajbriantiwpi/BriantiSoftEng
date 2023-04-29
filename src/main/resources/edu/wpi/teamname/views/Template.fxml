@@ -8,10 +8,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -26,36 +23,21 @@
                      <Insets />
                   </StackPane.margin>
                   <children>
-                     <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                        <columnConstraints>
-                           <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="33.34" />
-                           <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="33.33" />
-                           <ColumnConstraints hgrow="NEVER" minWidth="10.0" percentWidth="33.3" />
-                        </columnConstraints>
-                        <rowConstraints>
-                           <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                        </rowConstraints>
+                     <StackPane layoutX="12.0" layoutY="2.4000000953674316" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="0.0">
                         <children>
-                           <ImageView fitHeight="100.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="LEFT">
+                           <ImageView fitHeight="100.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                               <image>
                                  <Image url="@../images/Logos/Logo_With_Name%203.png" />
                               </image>
-                              <GridPane.margin>
-                                 <Insets left="12.0" />
-                              </GridPane.margin>
                            </ImageView>
-                           <Label fx:id="titleLabel" maxHeight="96.0" minHeight="96.0" prefHeight="96.0" stylesheets="@../stylesheets/TopBar.css" text="Template Page" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           <Label fx:id="titleLabel" maxHeight="96.0" minHeight="96.0" prefHeight="96.0" stylesheets="@../stylesheets/TopBar.css" text="Template Page" StackPane.alignment="CENTER">
                               <padding>
                                  <Insets left="10.0" />
                               </padding>
                            </Label>
-                           <CheckBox fx:id="darkToggle" mnemonicParsing="false" styleClass="label-large" text="Dark Mode" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
-                              <GridPane.margin>
-                                 <Insets right="12.0" />
-                              </GridPane.margin>
-                           </CheckBox>
+                           <CheckBox fx:id="darkToggle" mnemonicParsing="false" styleClass="label-large" text="Dark Mode" textFill="WHITE" StackPane.alignment="CENTER_RIGHT" />
                         </children>
-                     </GridPane>
+                     </StackPane>
                   </children>
                </AnchorPane>
             </children>

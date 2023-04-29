@@ -50,14 +50,12 @@ public class DirectionArrow extends BorderPane {
     this.imageView.setFitWidth(h);
     this.imageView.setFitHeight(h);
     this.setLeft(this.imageView);
-    //    this.text.setAlignment(Pos);
     this.text = new Label(details);
     this.setMaxHeight(h);
     this.text.getStyleClass().add("headline-med");
     this.text.getStyleClass().add("primary-text-container");
     this.text.setStyle("-fx-font-size: " + String.valueOf(h / 2));
     this.setCenter(this.text);
-    this.text.setAlignment(Pos.BASELINE_LEFT);
     this.getStyleClass().add("secondary-container");
     this.getStyleClass().add("outline");
     this.setStyle("-fx-background-radius: 8; -fx-border-radius: 8");
