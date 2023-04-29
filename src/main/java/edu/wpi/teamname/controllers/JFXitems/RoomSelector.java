@@ -76,8 +76,10 @@ public class RoomSelector extends BorderPane {
       setSelect(true, id);
       start = id;
       end = id + 1;
+      controller.setFromSelector(true);
       controller.setStartBox(idToTime(start));
       controller.setEndBox(idToTime(end));
+      controller.setFromSelector(false);
       selected = 1;
       controller.setActiveSelector(this);
     } else if (selected == 1) {
@@ -86,14 +88,18 @@ public class RoomSelector extends BorderPane {
         setSelect(false, id);
       } else {
         if (id > start) {
+          //          start = end;
           end = id + 1;
           setSelect(false, start);
         } else {
+          //          end = start;
           start = id;
           setSelect(false, end);
         }
+        controller.setFromSelector(true);
         controller.setStartBox(idToTime(start));
         controller.setEndBox(idToTime(end));
+        controller.setFromSelector(false);
         setAllInRange(true);
         selected = 2;
       }

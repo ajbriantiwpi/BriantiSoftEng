@@ -20,6 +20,8 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import lombok.Getter;
+import lombok.Setter;
 import org.controlsfx.control.RangeSlider;
 
 public class ConferenceController {
@@ -49,14 +51,14 @@ public class ConferenceController {
   ObservableList<String> buildings;
   ObservableList<String> startTimes =
       FXCollections.observableArrayList(
-          "8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30",
-          "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30",
-          "18:00", "18:30");
+          "7:00", "7:30", "8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30",
+          "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30",
+          "17:00", "17:30", "18:00", "18:30");
   ObservableList<String> endTimes =
       FXCollections.observableArrayList(
-          "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00",
-          "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00",
-          "18:30", "19:00");
+          "7:30", "8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00",
+          "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00",
+          "17:30", "18:00", "18:30", "19:00");
 
   //  private static Timestamp today = new Timestamp(System.currentTimeMillis());
   private static Timestamp dateBook;
@@ -68,6 +70,8 @@ public class ConferenceController {
   private static String nameRes;
   private static String username;
   private static String staff = "None";
+
+  @Getter @Setter boolean fromSelector;
 
   @FXML
   public void initialize() throws SQLException {
@@ -137,18 +141,22 @@ public class ConferenceController {
            */
         });
 
-    startBox.setOnMouseClicked(
+    startBox.setOnAction(
         event -> { // set start time
-          startTime = startBox.getValue().toString();
-          roomManager.setStart(startTime);
-          refreshRooms();
+          if (!fromSelector) {
+            startTime = startBox.getValue();
+            roomManager.setStart(startTime);
+            refreshRooms();
+          }
         });
 
-    endBox.setOnMouseClicked(
+    endBox.setOnAction(
         event -> { // set end time
-          endTime = endBox.getValue().toString();
-          roomManager.setStart(endTime);
-          refreshRooms();
+          if (!fromSelector) {
+            endTime = endBox.getValue();
+            roomManager.setEnd(endTime);
+            refreshRooms();
+          }
         });
 
     roomBox.setOnAction(

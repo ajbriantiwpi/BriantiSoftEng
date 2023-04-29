@@ -4,6 +4,7 @@ import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.servicerequest.requestitem.ConfRoom;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.util.ArrayList;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,9 +30,9 @@ public class RoomManager {
       System.out.println(e);
     }
 
-    start = "";
-    end = "";
-    building = "";
+    this.start = "";
+    this.end = "";
+    this.building = "";
   }
 
   public ArrayList<ConfRoom> getViableRooms(Timestamp date) {
@@ -45,7 +46,12 @@ public class RoomManager {
   }
 
   public boolean isViableRoom(ConfRoom room, Timestamp date) {
-    return (buildingCheck(room, date) && timeCheck(room, date));
+    boolean timeOK = timeCheck(room, date);
+
+    boolean buildingOK = buildingCheck(room, date);
+    boolean ok = timeOK && buildingOK;
+    System.out.println(timeOK);
+    return ok;
   }
 
   private boolean buildingCheck(ConfRoom room, Timestamp date) {
@@ -65,18 +71,25 @@ public class RoomManager {
   }
 
   private boolean timeCheck(ConfRoom room, Timestamp date) {
-    if (start.contains(":") && end.contains(":")) {
-      try {
-        if (room.checkAvailable(start, end, date)) {
+    try {
+      //      System.out.println(start);
+      //      System.out.println(end);
+      if (start.contains(":") && end.contains(":")) {
+        try {
+          if (room.checkAvailable(start, end, date)) {
+            return true;
+          } else {
+            System.out.println("Time Fail");
+            return false;
+          }
+        } catch (ParseException e) {
+          System.out.println("Parse Exception");
           return true;
-        } else {
-          System.out.println("Time Fail");
-          return false;
         }
-      } finally {
+      } else {
         return true;
       }
-    } else {
+    } catch (NullPointerException e) {
       return true;
     }
   }
