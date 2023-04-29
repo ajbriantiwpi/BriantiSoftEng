@@ -3,6 +3,7 @@ package edu.wpi.teamname.navigation;
 import edu.wpi.teamname.App;
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.extras.Sound;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -385,6 +386,7 @@ public class NodeCircle {
   EventHandler<MouseEvent> boxVisible =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
+          Sound.playOnButtonClick();
           MFXButton button = ((MFXButton) event.getSource());
           //        p.setOpacity(1);
 
@@ -485,6 +487,7 @@ public class NodeCircle {
   EventHandler<MouseEvent> startMoveNode =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
+          Sound.playOnButtonClick();
           //          System.out.println("SMN");
 
           if (map.getMovingNodeId() == -1) {
@@ -498,6 +501,7 @@ public class NodeCircle {
   EventHandler<MouseEvent> startCreateEdge =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
+          Sound.playOnButtonClick();
           System.out.println("SCE");
 
           if (map.getStartEdgeNodeId() == -1) {
@@ -548,6 +552,7 @@ public class NodeCircle {
   EventHandler<MouseEvent> startAlign =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
+          Sound.playOnButtonClick();
           System.out.println("SA");
           addSelfToAlign();
         }
@@ -556,6 +561,7 @@ public class NodeCircle {
   EventHandler<MouseEvent> align =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
+          Sound.playOnButtonClick();
           System.out.println("A");
           addSelfToAlign();
           //          System.out.println(map.getAlignSelection().size());
@@ -697,6 +703,7 @@ public class NodeCircle {
   EventHandler<MouseEvent> removeNode =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
+          Sound.playOnButtonClick();
           System.out.println("REM");
 
           // Only the Node ID is important for Deletion
@@ -821,6 +828,7 @@ public class NodeCircle {
   EventHandler<MouseEvent> saveNodeChanges =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
+          Sound.playOnButtonClick();
           MFXButton SubmitButton = ((MFXButton) event.getSource());
           VBox v = (VBox) ((HBox) SubmitButton.getParent()).getParent();
 

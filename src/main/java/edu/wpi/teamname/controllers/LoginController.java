@@ -9,6 +9,7 @@ import edu.wpi.teamname.employees.EmployeeType;
 import edu.wpi.teamname.extras.Sound;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -98,7 +99,17 @@ public class LoginController {
     newPassword.setVisible(false);
     success.setText("Username or password\nis incorrect");
     success.setVisible(false);
-    exit.setOnMouseClicked(event -> System.exit(0));
+    exit.setOnMouseClicked(
+        event -> {
+          Sound.playOnButtonClick();
+          try {
+            Connection connection = DataManager.DbConnection();
+            connection.close();
+          } catch (SQLException e) {
+            System.out.println(e.getMessage());
+          }
+          System.exit(0);
+        });
     forgotPassword.disableProperty().bind(Bindings.isEmpty(loginText.textProperty()));
     loginButton.disableProperty().bind(Bindings.isEmpty(loginText.textProperty()));
     loginButton.disableProperty().bind((Bindings.isEmpty(passwordText.textProperty())));
@@ -125,6 +136,7 @@ public class LoginController {
           try {
             boolean temp = loginPressed(loginText.getText(), passwordText.getText());
             if (!temp) {
+              Sound.playOnButtonClick();
               paneOfStuff.setDisable(true);
               success.setVisible(true);
               passwordText.clear();

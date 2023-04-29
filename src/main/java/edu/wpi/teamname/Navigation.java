@@ -16,6 +16,7 @@ public class Navigation {
     } else {
       first = false;
     }
+
     final String filename = screen.getFilename();
 
     try {

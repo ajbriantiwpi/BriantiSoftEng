@@ -1,6 +1,7 @@
 package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.extras.Sound;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
 import java.sql.SQLException;
@@ -68,6 +69,7 @@ public class SignageController {
 
     submit.setOnMouseClicked(
         event -> {
+          Sound.playOnButtonClick();
           String finalSign = "";
           System.out.println(kiosksForDate);
           for (int i = 0; i < kiosksForDate.size(); i++) {

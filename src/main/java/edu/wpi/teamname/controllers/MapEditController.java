@@ -118,6 +118,7 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
+          Sound.playOnButtonClick();
           String retStr = "";
           String table = selectTable.getValue();
 
@@ -188,6 +189,7 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
+          Sound.playOnButtonClick();
           String retStr = "";
           String table = selectTable.getValue();
 
@@ -425,6 +427,7 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
+          Sound.playOnButtonClick();
 
           MFXButton addButton = ((MFXButton) event.getSource());
           //          VBox outerPane = (VBox) addButton.getParent();
@@ -461,6 +464,7 @@ public class MapEditController {
         @Override
         public void handle(MouseEvent event) {
 
+          Sound.playOnButtonClick();
           MFXButton addButton = ((MFXButton) event.getSource());
           //          VBox outerPane = (VBox) addButton.getParent();
 
@@ -505,6 +509,7 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
+          Sound.playOnButtonClick();
           MFXButton addButton = ((MFXButton) event.getSource());
 
           final var resource = App.class.getResource("views/EditEdge.fxml");
@@ -536,6 +541,7 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
+          Sound.playOnButtonClick();
           isMap = !isMap;
           if (isMap) {
             gp.setVisible(true);
@@ -563,6 +569,7 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
+          Sound.playOnButtonClick();
           System.out.println("Save Loc");
 
           MFXButton SubmitButton = ((MFXButton) event.getSource());
@@ -624,6 +631,7 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
+          Sound.playOnButtonClick();
           System.out.println("Rem");
 
           LocationName currLocation;
@@ -656,7 +664,7 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-
+          Sound.playOnButtonClick();
           TableRow<LocationName> row = ((TableRow<LocationName>) event.getSource());
           selectedRowIndex = row.getIndex();
 
@@ -805,6 +813,7 @@ public class MapEditController {
 
         @Override
         public void handle(MouseEvent event) {
+          Sound.playOnButtonClick();
           CheckBox newCheck = ((CheckBox) event.getSource());
 
           int oldLabel = map.getLabelTextType();
@@ -836,6 +845,7 @@ public class MapEditController {
 
         @Override
         public void handle(MouseEvent event) {
+          Sound.playOnButtonClick();
           map.setShowEdges(EdgeSelector.isSelected());
           try {
             map.refresh();
@@ -852,6 +862,7 @@ public class MapEditController {
 
         @Override
         public void handle(MouseEvent event) {
+          Sound.playOnButtonClick();
           //        map.setShowEdges(EdgeSelector.isSelected());
           map.setShowNodes(NodeSelector.isSelected());
 
@@ -870,6 +881,7 @@ public class MapEditController {
 
         @Override
         public void handle(MouseEvent event) {
+          Sound.playOnButtonClick();
           //        map.setShowEdges(EdgeSelector.isSelected());
           map.setShowLegend(LegendSelector.isSelected()); // && NodeSelector.isSelected());
           Legend.setVisible(map.getShowLegend());
@@ -889,6 +901,7 @@ public class MapEditController {
 
         @Override
         public void handle(MouseEvent event) {
+          Sound.playOnButtonClick();
           map.setShowTypeLabels(new boolean[] {HallNamesSelector.isSelected()});
 
           try {
@@ -965,7 +978,7 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-
+          Sound.playOnButtonClick();
           int xPos = (int) clickPos.getX();
           int yPos = (int) clickPos.getY();
           String floor = map.takeFloor(map.getCurrentDisplayFloor(), false);
@@ -1004,7 +1017,7 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-
+          Sound.playOnButtonClick();
           int xPos = (int) clickPos.getX();
           int yPos = (int) clickPos.getY();
           String floor = map.takeFloor(map.getCurrentDisplayFloor(), false);
