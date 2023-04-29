@@ -13,6 +13,70 @@ import java.util.List;
 
 public class SignageDAOImpl implements SignageDAO {
   /**
+   * Gets the signage based on specific kiosk and date from signage table Configures arrows as well
+   *
+   * @param kiosk
+   * @param date
+   * @return list of strings
+   * @throws SQLException
+   */
+  public ArrayList<Signage> getSignages(int kiosk, Timestamp date) throws SQLException {
+    ArrayList<Signage> items = new ArrayList<>();
+    Connection connection = DataManager.DbConnection();
+    String query = "Select *\n" + "From \"Signage\"\n" + "Where \"kioskID\" = ? AND \"date\" = ?";
+    try (connection) {
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setInt(1, kiosk);
+      statement.setTimestamp(2, date);
+
+      ResultSet rs = statement.executeQuery();
+      while (rs.next()) {
+        String lName = rs.getString("longName");
+        String sName = rs.getString("shortName");
+        Timestamp dateSet = rs.getTimestamp("date");
+        Timestamp endDate = rs.getTimestamp("endDate");
+        String dir = rs.getString("arrowDirection");
+        int signID = rs.getInt("signID");
+        int kioskID = rs.getInt("kioskID");
+
+        Direction direction = Direction.valueOf(dir);
+        Signage s = new Signage(lName, sName, dateSet, endDate, direction, signID, kioskID);
+        items.add(s);
+      }
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return items;
+  }
+
+  /**
+   * Gets the kiosk ID based on date selected from signage table
+   *
+   * @param date
+   * @return list of int
+   * @throws SQLException
+   */
+  public ArrayList<Integer> getKiosks(Timestamp date) throws SQLException {
+    ArrayList<Integer> items = new ArrayList<>();
+    Connection connection = DataManager.DbConnection();
+    String query =
+        "Select \"kioskID\"\n" + "From \"Signage\"\n" + "Where \"date\" = ? Group by \"kioskID\"";
+    try (connection) {
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setTimestamp(1, date);
+
+      ResultSet rs = statement.executeQuery();
+      while (rs.next()) {
+        int kioskID = rs.getInt("kioskID");
+        items.add(kioskID);
+      }
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return items;
+  }
+
+  /**
    * This method updates an existing Signage object in the "Signage" table in the database with the
    * new Signage object.
    *

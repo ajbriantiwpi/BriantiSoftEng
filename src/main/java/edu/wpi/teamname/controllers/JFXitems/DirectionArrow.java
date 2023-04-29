@@ -2,13 +2,14 @@ package edu.wpi.teamname.controllers.JFXitems;
 
 import edu.wpi.teamname.navigation.Direction;
 import java.awt.*;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import lombok.Getter;
 import lombok.Setter;
 
-public class DirectionArrow extends BorderPane {
+public class DirectionArrow extends GridPane {
   @Getter @Setter Direction direction;
 
   @Getter @Setter String details;
@@ -48,13 +49,16 @@ public class DirectionArrow extends BorderPane {
     this.imageView = new ImageView("edu/wpi/teamname/images/DirectionIcons/" + image);
     this.imageView.setFitWidth(h);
     this.imageView.setFitHeight(h);
-    this.setLeft(this.imageView);
+    this.add(this.imageView, 0, 0);
+    this.setPadding(new Insets(0, 0, 0, 12));
+    this.setHgap(8);
     this.text = new Label(details);
     this.setMaxHeight(h);
+    setFillWidth(text, true);
     this.text.getStyleClass().add("headline-med");
     this.text.getStyleClass().add("primary-text-container");
     this.text.setStyle("-fx-font-size: " + String.valueOf(h / 2));
-    this.setCenter(this.text);
+    this.add(this.text, 1, 0);
     this.getStyleClass().add("secondary-container");
     this.getStyleClass().add("outline");
     this.setStyle("-fx-background-radius: 8; -fx-border-radius: 8");
