@@ -4,12 +4,14 @@ import edu.wpi.teamname.App;
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
+import edu.wpi.teamname.controllers.JFXitems.DirectionArrow;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.database.PathMessageDAOImpl;
 import edu.wpi.teamname.navigation.AlgoStrategy.AStarAlgo;
 import edu.wpi.teamname.navigation.AlgoStrategy.BFSAlgo;
 import edu.wpi.teamname.navigation.AlgoStrategy.DFSAlgo;
 import edu.wpi.teamname.navigation.AlgoStrategy.DijkstraAlgo;
+import edu.wpi.teamname.navigation.Direction;
 import edu.wpi.teamname.navigation.Map;
 import edu.wpi.teamname.navigation.Node;
 import edu.wpi.teamname.navigation.PathMessage;
@@ -412,6 +414,142 @@ public class MapController {
         }
       };
 
+  public void generateTextDirections(int startFloorIndex) {
+    int floorIndex = startFloorIndex;
+    //    ArrayList<String> directions = map.getTextDirections();
+    ArrayList<Node> nodePath = map.getNodeDirections();
+    int ind = 1;
+    int changes = 0;
+    int i = 1;
+    String oldFloor = map.getFloorArr()[floorIndex];
+    String newFloor = "";
+
+    Direction direction;
+    double distance;
+
+    int directionNum = 1;
+
+    int deltaFloor = 0;
+
+    distance = 0;
+
+    while (i != nodePath.size()) {
+      //      System.out.println("IO: " + i + " DS: " + nodePath.size());
+
+      StringBuilder sb = new StringBuilder();
+      sb = new StringBuilder();
+
+      ArrayList<DirectionArrow> directionObjs = new ArrayList<>();
+      //      String textDirections = "";
+      for (i = ind; i < nodePath.size(); i++) {
+        //        System.out.println("II: " + i + " DS: " + nodePath.size());
+        Node prevNode;
+        Node node;
+        Node nextNode;
+
+        prevNode = nodePath.get(i - 1);
+        node = nodePath.get(i);
+
+        String textLine = "";
+        int height = 35;
+
+        if (i == nodePath.size() - 1) {
+          distance += map.getNumericalDistance(prevNode, node);
+
+          textLine += String.valueOf(directionNum) + ": ";
+          textLine += String.format("In %.2f Units, you will reach your destination!\n", distance);
+
+          //          sb.append(String.valueOf(directionNum) + ": ");
+          //          sb.append(String.format("In %.2f Units, you will reach your destination\n",
+          // distance));
+
+          directionObjs.add(new DirectionArrow(Direction.END, textLine, height));
+
+        } else {
+          nextNode = nodePath.get(i + 1);
+
+          direction = map.getDirection(prevNode, node, nextNode);
+          distance += map.getNumericalDistance(prevNode, node);
+
+          if (direction == Direction.STRAIGHT) {
+            // Do Nothing
+          } else {
+
+            textLine += String.valueOf(directionNum) + ": ";
+            //            sb.append(String.valueOf(directionNum) + ": ");
+
+            if (i == ind && i != 1) {
+
+              //              sb.append(String.format("Turn %s\n", direction.getString()));
+
+              //              if (deltaFloor < 0) {
+              //                System.out.println("INV");
+              //              }
+              //
+              //              textLine += (String.format("Turn %s\n", direction.getString()));
+              //              directionObjs.add(new DirectionArrow(direction, textLine, height));
+
+              directionNum--;
+
+            } else if (direction == Direction.UP || direction == Direction.DOWN) {
+              deltaFloor = (int) map.getNumericalDistance(node, nextNode);
+              floorIndex += deltaFloor;
+              changes++;
+
+              ind = i + 1;
+
+              //              sb.append(String.format("In %.2f Units, Go up %d floors\n", distance,
+              // deltaFloor));
+
+              textLine +=
+                  String.format(
+                      "In %.2f Units, Go %s %d floors\n",
+                      distance, direction.getString(), Math.abs(deltaFloor));
+              directionObjs.add(new DirectionArrow(direction, textLine, height));
+              distance = 0;
+              directionNum++;
+              break;
+            } else {
+              //              sb.append(String.format("In %.2f Units, Turn %s\n", distance,
+              // direction.getString()));
+              textLine +=
+                  String.format("In %.2f Units, Turn %s\n", distance, direction.getString());
+              directionObjs.add(new DirectionArrow(direction, textLine, height));
+            }
+            distance = 0;
+            directionNum++;
+          }
+        }
+      }
+
+      final var resource = App.class.getResource("views/TitlePane.fxml");
+      final FXMLLoader loader = new FXMLLoader(resource);
+      TitledPane t = null;
+      try {
+        t = loader.load();
+      } catch (IOException ex) {
+        throw new RuntimeException(ex);
+      }
+
+      //      Label l = (Label) ((AnchorPane) t.getContent()).getChildren().get(0);
+      VBox v = (VBox) ((AnchorPane) t.getContent()).getChildren().get(0);
+
+      v.setMinWidth(250);
+      v.setMaxWidth(250);
+
+      v.getChildren().addAll(directionObjs);
+
+      newFloor = map.getFloorArr()[floorIndex];
+
+      t.setText(oldFloor);
+      oldFloor = newFloor;
+      t.setExpanded(false);
+
+      directionsBox.getChildren().add(t);
+    }
+    System.out.println("DOne!");
+  }
+
   EventHandler<MouseEvent> findPathWButton =
       new EventHandler<MouseEvent>() {
         @Override
@@ -459,59 +597,7 @@ public class MapController {
           FloorsToggle.setDisable(false);
           showPathFloors(false);
 
-          ArrayList<String> directions = map.getTextDirections();
-          int ind = 0;
-
-          int changes = 0;
-          int i = 0;
-          String oldFloor = map.getFloorArr()[floorIndex];
-          String newFloor = "";
-
-          while (i != directions.size()) {
-            //            System.out.println("IO: " + i + " DS: " + directions.size());
-            String textDirections = "";
-            for (i = ind; i < directions.size(); i++) {
-              //              System.out.println("II: " + i);
-              String s = directions.get(i);
-
-              //            "1: Left/Straight Pixels: 190"
-              textDirections += "\n" + s;
-              if (s.contains("loor")) {
-                if (s.contains("own")) {
-                  System.out.println("Down " + map.getFloorChanges().get(changes));
-                  floorIndex -= map.getFloorChanges().get(changes);
-                  changes++;
-                } else {
-                  System.out.println("UP");
-                  floorIndex += map.getFloorChanges().get(changes);
-                  changes++;
-                }
-
-                ind = i + 1;
-                break;
-              }
-            }
-
-            final var resource = App.class.getResource("views/TitlePane.fxml");
-            final FXMLLoader loader = new FXMLLoader(resource);
-            TitledPane t = null;
-            try {
-              t = loader.load();
-            } catch (IOException ex) {
-              throw new RuntimeException(ex);
-            }
-
-            Label l = (Label) ((AnchorPane) t.getContent()).getChildren().get(0);
-            l.setText(textDirections);
-
-            newFloor = map.getFloorArr()[floorIndex];
-
-            t.setText(oldFloor);
-            oldFloor = newFloor;
-            t.setExpanded(false);
-
-            directionsBox.getChildren().add(t);
-          }
+          generateTextDirections(floorIndex);
 
           map.centerAndZoomStart(gp, OuterMapAnchor, globalStartNode);
 
@@ -1172,7 +1258,7 @@ public class MapController {
     MessageSubmitButton.setVisible(false);
     MessageSubmitButton.setOnMouseClicked(submitMessage);
 
-    anchor.setOnMouseClicked(e);
+    //    anchor.setOnMouseClicked(e);
 
     // New Floor Button Layout
     //    ThirdFloorButton.setOnAction(setThirdFloor);

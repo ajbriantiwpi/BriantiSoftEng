@@ -1,7 +1,6 @@
 package edu.wpi.teamname.navigation;
 
 import edu.wpi.teamname.GlobalVariables;
-import edu.wpi.teamname.controllers.MapController;
 import edu.wpi.teamname.database.DataManager;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -10,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -66,6 +64,7 @@ public class Map {
   @Getter @Setter private int movingNodeId;
 
   @Getter @Setter private ArrayList<String> textDirections;
+  @Getter @Setter private ArrayList<Node> nodeDirections;
 
   @Getter @Setter private ArrayList<Integer> floorChanges;
 
@@ -167,14 +166,6 @@ public class Map {
       //      Node StartNode = this.graph.findNodeByID(mapEdges.get(i).getStartNodeID());
       //      Node EndNode = this.graph.findNodeByID(mapEdges.get(i).getEndNodeID());
 
-      if (StartNode.getId() == 1785) {
-        System.out.println("EDGE 1785: " + i);
-      }
-
-      if (mapEdges.get(i).getStartNodeID() == 1785) {
-        System.out.println("EL 1785: " + i);
-      }
-
       if (StartNode.getFloor().equals(floor) && EndNode.getFloor().equals(floor)) {
         EdgeRectangle er = new EdgeRectangle(StartNode, EndNode, this.isMapPage, this);
         allEdges.add(er.p);
@@ -250,7 +241,9 @@ public class Map {
 
     GlobalVariables.setHMap(DataManager.getAllLocationNamesMappedByNode(time));
 
-    Platform.runLater(() -> MapController.updateNames());
+    if (this.isMapPage) {
+      //    Platform.runLater(() -> MapController.updateNames());
+    }
 
     subAnchor.getStyleClass().remove(0);
 
@@ -607,6 +600,7 @@ public class Map {
     shapes = makeShapePath(nodePath);
 
     this.floorChanges = new ArrayList<>();
+    this.nodeDirections = nodePath;
     this.textDirections = getTextual(nodePath);
 
     // return shapes
@@ -636,6 +630,8 @@ public class Map {
     System.out.println(distance);
 
     textuals.add(sb.toString());
+
+    int distanceNum = 0;
 
     if (nodePath.size() > 2) {
       for (int i = 1; i < nodePath.size() - 1; i++) {
@@ -715,7 +711,19 @@ public class Map {
     return direction;
   }
 
-  String getTextDistance(Node node, Node nextNode) {
+  public double getNumericalDistance(Node node, Node nextNode) {
+    int curFloor = node.getFloorNum();
+    int nextFloor = nextNode.getFloorNum();
+    if (curFloor != nextFloor) {
+      int delFloor = nextFloor - curFloor;
+      return delFloor;
+    } else {
+      double val = Math.round(node.calculateHeuristic(nextNode) * 100.0) / 100.0;
+      return val;
+    }
+  }
+
+  public String getTextDistance(Node node, Node nextNode) {
     String distance;
     int curFloor = node.getFloorNum();
     int nextFloor = nextNode.getFloorNum();

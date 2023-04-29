@@ -1,5 +1,6 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.App;
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
@@ -15,10 +16,15 @@ import java.util.Arrays;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import lombok.Setter;
+import org.controlsfx.control.PopOver;
 
 public class ParentController {
   @FXML CheckBox darkToggle;
@@ -39,6 +45,10 @@ public class ParentController {
   @FXML MFXButton editSignageButton;
   @FXML MFXButton viewAlertsButton;
   @FXML Label titleLabel;
+
+  PopOver mapPop;
+  PopOver signagePop;
+  PopOver servicePop;
 
   ArrayList<Screen> secureScreens =
       new ArrayList<>(
@@ -78,6 +88,60 @@ public class ParentController {
     if (secureScreens.contains(GlobalVariables.getCurrentScreen())) {
       Navigation.navigate(Screen.HOME);
     }
+  }
+
+  EventHandler<MouseEvent> showMapButtons =
+      new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+          MFXButton button = (MFXButton) event.getSource();
+          mapPop.show(button);
+        }
+      };
+  EventHandler<MouseEvent> showSignageButtons =
+      new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+          MFXButton button = (MFXButton) event.getSource();
+          signagePop.show(button);
+        }
+      };
+
+  EventHandler<MouseEvent> showServiceRequestButtons =
+      new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+          MFXButton button = (MFXButton) event.getSource();
+          servicePop.show(button);
+        }
+      };
+
+  EventHandler<MouseEvent> hideAllPop =
+      new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent event) {
+          System.out.println("HideP");
+          mapPop.hide();
+          signagePop.hide();
+          servicePop.hide();
+        }
+      };
+
+  PopOver loadButtons(String path) {
+
+    final var resource = App.class.getResource(path);
+    final FXMLLoader loader = new FXMLLoader(resource);
+    //    System.out.println(filename);
+    VBox v = null;
+    try {
+      v = loader.load();
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+
+    PopOver pop = new PopOver(v);
+    return pop;
   }
 
   @FXML
@@ -138,6 +202,19 @@ public class ParentController {
     editSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TABLE));
     viewAlertsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERT));
     requestRoomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CONFERENCE_ROOM));
+
+    mapButton.setOnMouseEntered(showMapButtons);
+    viewSignageButton.setOnMouseEntered(showSignageButtons);
+    makeRequestsButton.setOnMouseEntered(showServiceRequestButtons);
+
+    mapPop = loadButtons("views/MapButtons.fxml");
+    signagePop = loadButtons("views/SignageButtons.fxml");
+    servicePop = loadButtons("views/ServiceButtons.fxml");
+
+    mapButton.setOnMouseExited(hideAllPop);
+    viewSignageButton.setOnMouseExited(hideAllPop);
+    makeRequestsButton.setOnMouseExited(hideAllPop);
+
     exitButton.setOnMouseClicked(
         event -> {
           try {

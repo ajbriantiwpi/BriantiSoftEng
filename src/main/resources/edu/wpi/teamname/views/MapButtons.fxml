@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" styleClass="primary-on-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <MFXButton fx:id="mapButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="primary-on-container" stylesheets="@../stylesheets/Colors/sideBarColor.css" text="View Map" textFill="#1a1c1e">
+         <font>
+            <Font name="Roboto" size="22.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="34.0" fitWidth="34.0">
+               <image>
+                  <Image url="@../images/MenuIcons/map_sidebar.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </MFXButton>
+      <Separator />
+      <MFXButton fx:id="editMoveButton" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="263.0" maxWidth="1.7976931348623157E308" styleClass="primary-on-container" stylesheets="@../stylesheets/Colors/sideBarColor.css" text="View Moves" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
+         <font>
+            <Font name="Roboto" size="22.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="34.0" fitWidth="34.0">
+               <image>
+                  <Image url="@../images/MenuIcons/view_moves_sidebar.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </MFXButton>
+      <Separator />
+      <MFXButton fx:id="editMapButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="primary-on-container" stylesheets="@../stylesheets/Colors/sideBarColor.css" text="Edit Map" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
+         <font>
+            <Font name="Roboto" size="22.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="34.0" fitWidth="34.0">
+               <image>
+                  <Image url="@../images/MenuIcons/edit_map_sidebar.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </MFXButton>
+   </children>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+   <padding>
+      <Insets top="1.0" />
+   </padding>
+   <stylesheets>
+      <URL value="@../stylesheets/SideBar.css" />
+      <URL value="@../stylesheets/Colors/lightTheme.css" />
+   </stylesheets>
+</VBox>
