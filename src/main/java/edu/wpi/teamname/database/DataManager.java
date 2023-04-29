@@ -872,8 +872,24 @@ public class DataManager {
     return (new ServiceRequestDAOImpl()).getAll();
   }
 
+  /**
+   * * Returns an ArrayList of all the IDs as Strings from the Service Request Table
+   *
+   * @return an ArrayList of strings of all the IDs
+   * @throws SQLException error connecting to the database
+   */
   public static ArrayList<String> getAllRequestIDs() throws SQLException {
     return (new ServiceRequestDAOImpl()).getAllIDs();
+  }
+
+  /**
+   * * Returns an ArrayList of all the IDs from the Conference Room Request Table
+   *
+   * @return an ArrayList of all the IDs
+   * @throws SQLException error connecting to the database
+   */
+  public static ArrayList<Integer> getAllConferenceRequestIDs() throws SQLException {
+    return ConfReservationDAOImpl.getAllIDs();
   }
 
   public static ArrayList<Alert> getAllAlerts() throws SQLException {
@@ -1225,6 +1241,18 @@ public class DataManager {
       throws SQLException {
     ServiceRequestDAOImpl serviceRequestDAO = new ServiceRequestDAOImpl();
     serviceRequestDAO.uploadStaffName(requestID, staffName);
+  }
+
+  /**
+   * Updates the staff name for a conference room request with the given request ID in the database.
+   *
+   * @param requestID the ID of the conference room request to update.
+   * @param staffName the new staff name to set.
+   * @throws SQLException if a database error occurs.
+   */
+  public static void uploadStaffNameToConferenceRequest(int requestID, String staffName)
+      throws SQLException {
+    ConfReservationDAOImpl.uploadStaff(requestID, staffName);
   }
 
   /**

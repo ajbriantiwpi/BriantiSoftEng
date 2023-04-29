@@ -47,7 +47,7 @@ public class EmployeeTableController {
     ObservableList<String> clearanceLevels =
         FXCollections.observableArrayList(ClearanceLevel.formattedValues());
     employeeLevelText.setItems(clearanceLevels);
-    ParentController.titleString.set("Employee Edit Table");
+    ParentController.titleString.set("Employees");
     TableColumn<Employee, Integer> employeeIDColumn = new TableColumn<>("Employee ID");
     employeeIDColumn.setCellValueFactory(new PropertyValueFactory<>("employeeID"));
 

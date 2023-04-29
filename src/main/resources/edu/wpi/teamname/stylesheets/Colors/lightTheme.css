@@ -61,6 +61,9 @@
     -fx-background-color: #D9E3F8;
     -fx-text-fill: #121C2B;
 }
+.secondary-text-container{
+    -fx-text-fill: #121C2B;
+}
 .tertiary{
     -fx-background-color: #7A5900;
     -fx-text-fill: #FFFFFF;

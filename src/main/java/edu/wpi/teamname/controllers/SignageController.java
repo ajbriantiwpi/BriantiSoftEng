@@ -31,7 +31,8 @@ public class SignageController {
 
   @FXML
   public void initialize() throws SQLException {
-    // labelLine.setText("");
+    ParentController.titleString.set("Signage");
+    labelLine.setText("");
     kioskList = FXCollections.observableArrayList();
     kioskList.add(null);
     KskBox.setItems(kioskList);
@@ -89,30 +90,4 @@ public class SignageController {
           // labelLine.setText(finalSign);
         });
   }
-
-  //  private void setArrow(String dir){
-  //      switch (dir) {
-  //          case "UP":
-  //              dir = "^  ";
-  //              break;
-  //          case "LEFT":
-  //              dir = "<--";
-  //              break;
-  //          case "DOWN":
-  //              dir = "v  ";
-  //              break;
-  //          case "RIGHT":
-  //              dir = "-->";
-  //              break;
-  //          case "STOP HERE":
-  //              dir = "Stop Here";
-  //              break;
-  //          case "STRAIGHT":
-  //              dir = "Straight";
-  //              break;
-  //          default:
-  //              System.out.println("Not Valid Direction");
-  //      }
-  //  }
-
 }
