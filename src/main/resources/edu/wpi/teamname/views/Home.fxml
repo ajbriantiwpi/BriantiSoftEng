@@ -279,19 +279,19 @@
                         <Insets />
                      </VBox.margin>
                   </Label>
-                  <Label fx:id="jokesLabel" alignment="CENTER" prefHeight="200.0" prefWidth="600.0" style="-fx-background-radius: 16;" text="Joke Body" textAlignment="CENTER" textFill="#fdfbff" wrapText="true">
+                  <Label fx:id="jokesLabel" alignment="CENTER" prefHeight="150.0" prefWidth="600.0" style="-fx-background-radius: 16;" text="Joke Body" textAlignment="CENTER" textFill="#fdfbff" wrapText="true">
                      <font>
                         <Font name="Roboto" size="36.0" />
                      </font>
                      <VBox.margin>
-                        <Insets left="12.0" right="12.0" />
+                        <Insets left="6.0" right="6.0" />
                      </VBox.margin>
                      <padding>
                         <Insets left="12.0" right="12.0" />
                      </padding>
                      <styleClass>
                         <String fx:value="surface" />
-                        <String fx:value="headline-med" />
+                        <String fx:value="headline-small" />
                      </styleClass>
                   </Label>
                </children>

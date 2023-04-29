@@ -5,13 +5,12 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import lombok.Getter;
-import lombok.Setter;
 
 public class Sound {
 
-  @Getter @Setter private static Songs backgroundSong;
-
-  private static MediaPlayer backgroundMusicPlayer;
+  @Getter private static Song backgroundSong = Song.OTJANBIRD;
+  @Getter private static MediaPlayer backgroundMusicPlayer;
+  @Getter private static MediaPlayer buttonPlayer;
 
   public static void playMusic() {
     if (backgroundMusicPlayer != null) {
@@ -29,5 +28,26 @@ public class Sound {
           backgroundMusicPlayer.play();
         });
     backgroundMusicPlayer.play();
+  }
+
+  public static void stopMusic() {
+    backgroundMusicPlayer.stop();
+  }
+
+  public static void setSong(Song song) {
+    backgroundSong = song;
+    playMusic();
+  }
+
+  public static void setVolume(float vol) {
+    backgroundMusicPlayer.setVolume(vol);
+    buttonPlayer.setVolume(vol);
+  }
+
+  public static void playOnButtonClick() {
+    String filename = "src/main/resources/edu/wpi/teamname/sounds/buttonclick.mp3";
+    Media sound = new Media(new File(filename).toURI().toString());
+    buttonPlayer = new MediaPlayer(sound);
+    buttonPlayer.play();
   }
 }
