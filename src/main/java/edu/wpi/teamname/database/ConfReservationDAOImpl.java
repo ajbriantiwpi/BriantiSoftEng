@@ -79,7 +79,7 @@ public class ConfReservationDAOImpl implements ConfReservationDAO {
         String endTime = rs.getString("endtime");
         Timestamp dateBook = rs.getTimestamp("datebook");
         String name = rs.getString("name");
-        String username = rs.getString("dateMade");
+        String username = rs.getString("username");
         String staff = rs.getString("staffAssigned");
         Timestamp dateMade = rs.getTimestamp("dateMade");
         int roomID = rs.getInt("roomID");
@@ -301,5 +301,52 @@ public class ConfReservationDAOImpl implements ConfReservationDAO {
     } catch (SQLException e) {
       System.err.println(e.getMessage());
     }
+  }
+
+  /**
+   * Updates the staff name for a conference room request with the given request ID in the database.
+   *
+   * @param requestID the ID of the conference room request to update.
+   * @param staffName the new staff name to set.
+   * @throws SQLException if a database error occurs.
+   */
+  public static void uploadStaff(int requestID, String staffName) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    try {
+      String query = "UPDATE \"ConfReservations\" SET \"staffAssigned\" = ? WHERE \"resID\" = ?";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.setString(1, staffName);
+      statement.setInt(2, requestID);
+      statement.executeUpdate();
+      connection.close();
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+  }
+
+  /**
+   * * Returns an ArrayList of all the IDs from the Conference Room Request Table
+   *
+   * @return an ArrayList of all the IDs
+   * @throws SQLException error connecting to the database
+   */
+  public static ArrayList<Integer> getAllIDs() throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    ArrayList<Integer> list = new ArrayList<Integer>();
+
+    try (connection) {
+      String query = "SELECT \"resID\" FROM \"ConfReservations\"";
+      PreparedStatement statement = connection.prepareStatement(query);
+      ResultSet rs = statement.executeQuery();
+
+      while (rs.next()) {
+        int requestID = rs.getInt("resID");
+        list.add(requestID);
+      }
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+    }
+    connection.close();
+    return list;
   }
 }
