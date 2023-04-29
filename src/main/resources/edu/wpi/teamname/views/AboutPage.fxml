@@ -228,7 +228,7 @@
                                  <children>
                                     <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/ian_profile.png" />
+                                          <Image url="@../images/ryan_profile.png" />
                                        </image>
                                     </ImageView>
                                     <MFXButton fx:id="ryanButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent;" text=".">
@@ -297,7 +297,7 @@
                                  <children>
                                     <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/ian_profile.png" />
+                                          <Image url="@../images/arturo_profile.png" />
                                        </image>
                                     </ImageView>
                                     <MFXButton fx:id="arturoButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent;" text=".">
