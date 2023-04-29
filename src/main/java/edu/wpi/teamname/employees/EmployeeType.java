@@ -12,7 +12,8 @@ public enum EmployeeType {
   ADMINISTRATOR("ADMINISTRATOR"),
   SECURITY("SECURITY"),
   PLUMBER("PLUMBER"),
-  NONE("NONE");
+  NONE("NONE"),
+  ALL("ALL");
 
   private final String type;
 
@@ -35,7 +36,9 @@ public enum EmployeeType {
     String string = "";
     for (int i = 0; i < values().length; i++) {
       string = values()[i].getString();
-      output[i] = string.substring(0, 1) + string.substring(1).toLowerCase();
+      if (!string.equals("ALL")) {
+        output[i] = string.substring(0, 1) + string.substring(1).toLowerCase();
+      }
     }
     return output;
   }
