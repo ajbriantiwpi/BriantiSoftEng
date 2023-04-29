@@ -340,9 +340,11 @@ public class ConfReservationDAOImpl implements ConfReservationDAO {
       ResultSet rs = statement.executeQuery();
 
       while (rs.next()) {
-        int requestID = rs.getInt("requestID");
+        int requestID = rs.getInt("resID");
         list.add(requestID);
       }
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
     }
     connection.close();
     return list;

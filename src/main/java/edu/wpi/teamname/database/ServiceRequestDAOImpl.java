@@ -107,20 +107,10 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
 
       while (rs.next()) {
         int requestID = rs.getInt("requestID");
-        list.add(
-            String.valueOf(requestID)
-            //                new ServiceRequest(
-            //                        requestID,
-            //                        staffName,
-            //                        patientName,
-            //                        roomNum,
-            //                        deliverBy,
-            //                        requestedAt,
-            //                        status,
-            //                        requestMadeBy,
-            //                        requestType)
-            );
+        list.add(String.valueOf(requestID));
       }
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
     }
     connection.close();
     return list;
