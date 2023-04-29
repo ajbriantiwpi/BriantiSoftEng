@@ -169,7 +169,7 @@
                             <TableColumn fx:id="nameCol" prefWidth="148.5" text="Name" />
                             <TableColumn fx:id="usernameCol" prefWidth="148.5" text="username" />
                             <TableColumn fx:id="assignedStaffCol" prefWidth="148.5" text="Assigned Staff" />
-                            <TableColumn fx:id="madeCole" prefWidth="148.5" text="Date Made" />
+                            <TableColumn fx:id="madeCol" prefWidth="148.5" text="Date Made" />
                      <TableColumn fx:id="roomCol" prefWidth="148.5" text="Room ID" />
 <!--                            styleClass="primary-container"-->
 <!--                            styleClass="primary-fixed-dim"-->

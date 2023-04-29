@@ -15,6 +15,7 @@ public enum Screen {
   LOGIN("views/Login.fxml"),
 
   SERVICE_REQUEST_VIEW("views/ServiceRequestView2.fxml"),
+  CONF_VIEW("views/ConferenceView.fxml"),
 
   MAP_EDIT("views/MapEdit.fxml"),
 
