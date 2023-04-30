@@ -114,7 +114,7 @@ public class Model extends JPanel implements ActionListener {
   private void showIntroScreen(Graphics2D g2d) {
 
     String start = "Press SPACE to start";
-    g2d.setColor(Color.blue);
+    g2d.setColor(Color.white);
     g2d.drawString(start, (SCREEN_SIZE) / 4, 150);
   }
 

@@ -145,7 +145,6 @@ public class SignageController {
                             play.setVisible(true);
                             play.setDisable(false);
                             System.out.println("Pacman!");
-                            Pacman.pacBear();
                           }
                           leftC = 0;
                           rightC = 0;
@@ -158,6 +157,7 @@ public class SignageController {
                       }
                       event.consume();
                     }));
+    play.setOnMouseClicked(event -> Pacman.pacBear());
   }
 
   private void fillDir() {
