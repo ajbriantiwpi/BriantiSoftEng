@@ -5,6 +5,7 @@ import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
+import edu.wpi.teamname.extras.Sound;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
 import java.io.IOException;
@@ -51,7 +52,10 @@ public class ParentController {
               Screen.CONFERENCE_ROOM,
               Screen.ALERT,
               Screen.DATA_MANAGER,
-              Screen.SIGNAGE_TABLE));
+              Screen.SIGNAGE_TABLE,
+              Screen.SERVICE_REQUEST_ANALYTICS,
+              Screen.CONF_VIEW,
+              Screen.SMILE));
 
   @Setter public static StringProperty titleString = new SimpleStringProperty();
 
@@ -77,6 +81,8 @@ public class ParentController {
 
     if (secureScreens.contains(GlobalVariables.getCurrentScreen())) {
       Navigation.navigate(Screen.HOME);
+    } else {
+      Sound.playOnButtonClick();
     }
   }
 

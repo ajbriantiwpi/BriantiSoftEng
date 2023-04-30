@@ -5,6 +5,7 @@ import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.controllers.JFXitems.ReqMenuItems;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.servicerequest.RequestType;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import edu.wpi.teamname.servicerequest.Status;
@@ -71,7 +72,8 @@ public class ServiceRequestController {
           "Flower Delivery",
           "Office Supply Delivery",
           "Furniture Delivery",
-          "Medical Supply Delivery");
+          "Medical Supply Delivery",
+          "Pharmaceutical Delivery");
 
   @Setter @Getter private RequestType reqType;
   @FXML ComboBox requestType;
@@ -107,7 +109,9 @@ public class ServiceRequestController {
    * @throws SQLException
    */
   private void nextPane() throws SQLException {
-
+    if (requestPage != 2) {
+      Sound.playOnButtonClick();
+    }
     System.out.println("NEXT");
     if (requestPage == 0) {
 
@@ -119,6 +123,8 @@ public class ServiceRequestController {
         reqType = RequestType.OFFICESUPPLY;
       } else if (requestType.getValue() == "Medical Supply Delivery") {
         reqType = RequestType.MEDICALSUPPLY;
+      } else if (requestType.getValue() == "Pharmaceutical Delivery") {
+        reqType = RequestType.PHARMACEUTICAL;
       } else { // "Furniture Delivery"
         reqType = RequestType.FURNITURE;
       }
@@ -141,7 +147,7 @@ public class ServiceRequestController {
       setRequest(
           new ServiceRequest(
               Instant.now().get(ChronoField.MICRO_OF_SECOND),
-              "null",
+              "No Staff Assigned",
               patientName.toString(),
               loc,
               reqTS,
@@ -174,13 +180,15 @@ public class ServiceRequestController {
       } else if (t == "Flower Request") {
         f = "FlowerIcons";
         tem.addAll(DataManager.getAllFlowers());
-
       } else if (t == "Office Supply Request") {
         f = "OfficeIcons";
         tem.addAll(DataManager.getAllOfficeSupplies());
       } else if (t == "Medical Supply Request") {
         f = "MedicalIcons";
         tem.addAll(DataManager.getAllMedicalSupplies());
+      } else if (t == "Pharmaceutical Request") {
+        f = "PharmaceuticalIcons";
+        tem.addAll(DataManager.getAllPharmaceuticals());
       } else {
         f = "FurnitureIcons";
         System.out.println(t);
@@ -298,7 +306,11 @@ public class ServiceRequestController {
           }
         });
     cancelButton.setOnMouseClicked(event -> cancelAction());
-    clearButton.setOnMouseClicked(event -> clearAction());
+    clearButton.setOnMouseClicked(
+        event -> {
+          Sound.playOnButtonClick();
+          clearAction();
+        });
 
     requestType.setItems(serviceType);
 
@@ -310,6 +322,7 @@ public class ServiceRequestController {
 
     forgotButton.setOnMouseClicked(
         event -> {
+          Sound.playOnButtonClick();
           setVisibleScreen(1);
           cartBox.getChildren().clear();
           totalLabel.setText("Total Price: ");
@@ -323,6 +336,7 @@ public class ServiceRequestController {
 
     searchButton.setOnMouseClicked(
         event -> {
+          Sound.playOnButtonClick();
           try {
             refreshItems();
           } catch (SQLException e) {
@@ -349,12 +363,14 @@ public class ServiceRequestController {
       tem.addAll(DataManager.getAllOfficeSupplies());
     } else if (t == "Medical Supply Request") {
       tem.addAll(DataManager.getAllMedicalSupplies());
+    } else if (t == "Pharmaceutical Request") {
+      tem.addAll(DataManager.getAllPharmaceuticals());
     } else {
       System.out.println(t);
       tem.addAll(DataManager.getAllFurniture());
     }
     int c = 0;
-    // System.out.println(tem);
+    System.out.println("tem: " + tem);
     // System.out.println(request.getItems());
     for (RequestItem item : tem) {
       c = request.countItem(item.getItemID());
@@ -364,6 +380,7 @@ public class ServiceRequestController {
       }
     }
     System.out.println(totalPrice);
+    System.out.println("Here");
     DecimalFormat format = new DecimalFormat("###0.00");
     totalLabel.setText(totalLabel.getText() + format.format(totalPrice));
   }
@@ -396,6 +413,11 @@ public class ServiceRequestController {
       ArrayList<MedicalSupply> temp = DataManager.getAllMedicalSupplies();
       items.addAll(temp);
       reqType = RequestType.MEDICALSUPPLY;
+    } else if (requestType.getValue() == "Pharmaceutical Delivery") {
+      folder = "PharmaceuticalIcons";
+      ArrayList<Pharmaceutical> temp = DataManager.getAllPharmaceuticals();
+      items.addAll(temp);
+      reqType = RequestType.PHARMACEUTICAL;
     } else { // "Furniture Delivery"
       folder = "FurnitureIcons";
       ArrayList<Furniture> tems = DataManager.getAllFurniture();

@@ -1,6 +1,7 @@
 package edu.wpi.teamname.controllers.JFXitems;
 
 import edu.wpi.teamname.controllers.ConferenceController;
+import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.servicerequest.ConfReservation;
 import edu.wpi.teamname.servicerequest.requestitem.ConfRoom;
 import java.sql.Time;
@@ -71,6 +72,7 @@ public class RoomSelector extends BorderPane {
   }
 
   void handleButtonClick(int id) {
+    Sound.playOnButtonClick();
     System.out.println(String.valueOf(room.getRoomID()) + ": " + String.valueOf(selected));
     if (selected == 0) {
       setSelect(true, id);
