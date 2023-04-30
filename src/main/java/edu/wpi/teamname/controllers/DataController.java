@@ -19,8 +19,6 @@ import javafx.stage.Stage;
 
 public class DataController implements Initializable {
   @FXML private ComboBox<String> importComboBox;
-  @FXML private RadioButton wpiButton;
-  @FXML private RadioButton awsButton;
 
   @FXML private ComboBox<String> exportComboBox;
 
@@ -58,38 +56,6 @@ public class DataController implements Initializable {
     importButton.setOnAction(e -> onImportButtonClicked());
     exportButton.setOnAction(e -> onExportButtonClicked());
 
-    // Create a ToggleGroup to ensure only one button can be selected at a time
-    ToggleGroup databaseToggleGroup = new ToggleGroup();
-    wpiButton.setToggleGroup(databaseToggleGroup);
-    awsButton.setToggleGroup(databaseToggleGroup);
-    if (wpiSelected) {
-      wpiButton.setSelected(true);
-    } else {
-      awsButton.setSelected(true);
-    }
-
-    // Hook up the methods to the toggle buttons
-    wpiButton.setOnAction(
-        e -> {
-          Sound.playOnButtonClick();
-          try {
-            DataManager.connectToWPI();
-            wpiSelected = true;
-          } catch (SQLException ex) {
-            ex.printStackTrace();
-          }
-        });
-
-    awsButton.setOnAction(
-        e -> {
-          Sound.playOnButtonClick();
-          try {
-            DataManager.connectToAWS();
-            wpiSelected = false;
-          } catch (SQLException ex) {
-            ex.printStackTrace();
-          }
-        });
   }
 
   private void onImportButtonClicked() {
