@@ -378,6 +378,9 @@ public class ServiceRequestViewController {
       } else if (item.getItemID() / 100 >= 15 && item.getItemID() / 100 < 16) { // medical Supply
         folder = "MedicalIcons";
         tempItems.add(DataManager.getMedicalSupply(item.getItemID()));
+      } else if (item.getItemID() / 100 >= 12 && item.getItemID() / 100 < 13) { // pharmacuedical
+        folder = "PharmaceuticalIcons";
+        tempItems.add(DataManager.getPharmaceutical(item.getItemID()));
       }
       try {
         tempItems.get(i).getItemID();

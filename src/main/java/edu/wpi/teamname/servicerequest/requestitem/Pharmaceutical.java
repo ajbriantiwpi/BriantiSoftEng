@@ -8,21 +8,21 @@ import java.sql.SQLException;
 import lombok.Getter;
 import lombok.Setter;
 
-public class OfficeSupply extends RequestItem {
+public class Pharmaceutical extends RequestItem {
   @Setter @Getter private String category;
-  @Setter @Getter private boolean isElectric;
+  @Setter @Getter private int dosage;
 
   /**
    * @param itemID id of the item
    * @param name name of the item
    * @param price price of the item
    * @param category type of item
-   * @param isElectric if it needs electricity to operate
+   * @param dosage the dosage of the item
    */
-  public OfficeSupply(int itemID, String name, float price, String category, boolean isElectric) {
+  public Pharmaceutical(int itemID, String name, float price, String category, int dosage) {
     super(itemID, name, price);
     this.category = category;
-    this.isElectric = isElectric;
+    this.dosage = dosage;
   }
 
   /**
@@ -32,10 +32,10 @@ public class OfficeSupply extends RequestItem {
    * @throws SQLException thrown when there is an error connecting to the database or an error with
    *     the sql query syntax
    */
-  public OfficeSupply(int id) throws SQLException {
+  public Pharmaceutical(int id) throws SQLException {
     super(id);
     Connection connection = DataManager.DbConnection();
-    String query = "SELECT * FROM \"OfficeSupply\" WHERE \"supplyID\" = ?;";
+    String query = "SELECT * FROM \"Pharmaceutical\" WHERE \"pharmaceuticalID\" = ?;";
 
     String name = null;
     try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -46,17 +46,17 @@ public class OfficeSupply extends RequestItem {
         super.setName(rs.getString("name"));
         setPrice(rs.getFloat("price"));
         setCategory(rs.getString("category"));
-        setElectric(rs.getBoolean("isElectric"));
+        setDosage(rs.getInt("dosage"));
       }
     } catch (SQLException e) {
-      System.out.println("Error retrieving office supply data: " + e.getMessage());
+      System.out.println("Error retrieving pharmaceutical data: " + e.getMessage());
     }
   }
 
   /**
-   * a toString method for the officesupply items
+   * a toString method for the pharmaceutical items
    *
-   * @return String in format [ <itemID>, <name>, <price>, <category>, <isElectric>]
+   * @return String in format [ <itemID>, <name>, <price>, <category>, <dosage>]
    */
   public String toString() {
     return "["
@@ -68,7 +68,7 @@ public class OfficeSupply extends RequestItem {
         + ", "
         + category
         + ", "
-        + isElectric
+        + dosage
         + "]";
   }
 }
