@@ -501,14 +501,14 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
               + "    \"requestID\"     integer     not null\n"
               + "        constraint \"ServiceRequest_pk\"\n"
               + "            primary key,\n"
-              + "    \"roomNum\"       varchar(40) not null,\n"
+              + "    \"roomNum\"       varchar(100) not null,\n"
               + "    \"staffName\"     varchar(50) default 'No Staff Member Assigned'::character varying,\n"
               + "    \"patientName\"   varchar(50) not null,\n"
               + "    \"requestedAt\"   timestamp,\n"
               + "    \"deliverBy\"     timestamp,\n"
               + "    status          varchar(20),\n"
               + "    \"requestMadeBy\" varchar(30),\n"
-              + "    \"requestType\"   varchar(40)\n"
+              + "    \"requestType\"   varchar(50)\n"
               + ");";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.executeUpdate();
