@@ -76,10 +76,7 @@ public class RoomSelector extends BorderPane {
       setSelect(true, id);
       start = id;
       end = id + 1;
-      controller.setFromSelector(true);
-      controller.setStartBox(idToTime(start));
-      controller.setEndBox(idToTime(end));
-      controller.setFromSelector(false);
+      setStartEnd();
       selected = 1;
       controller.setActiveSelector(this);
     } else if (selected == 1) {
@@ -96,10 +93,7 @@ public class RoomSelector extends BorderPane {
           start = id;
           setSelect(false, end);
         }
-        controller.setFromSelector(true);
-        controller.setStartBox(idToTime(start));
-        controller.setEndBox(idToTime(end));
-        controller.setFromSelector(false);
+        setStartEnd();
         setAllInRange(true);
         selected = 2;
       }
@@ -112,6 +106,17 @@ public class RoomSelector extends BorderPane {
       //      controller.setStartBox(idToTime(start));
       //      controller.setEndBox(idToTime(end));
     }
+  }
+
+  private void setStartEnd() {
+    controller.setFromSelector(true);
+    System.out.println();
+    System.out.println(start);
+    System.out.println(end);
+    System.out.println();
+    controller.setStartBox(idToTime(start));
+    controller.setEndBox(idToTime(end));
+    controller.setFromSelector(false);
   }
 
   void setSelect(boolean select, int id) {

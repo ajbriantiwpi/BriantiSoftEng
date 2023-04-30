@@ -161,7 +161,7 @@ public class ConferenceController {
 
     roomBox.setOnAction(
         event -> { // when room chosen set size slider and store into room variable
-          room = roomBox.getValue().toString();
+          room = roomBox.getValue();
           try {
             roomID = DataManager.getRoomID(room);
             sizeSlider.setMax(DataManager.getSeats(room));
@@ -172,7 +172,7 @@ public class ConferenceController {
 
     nameText.setOnMouseExited(
         event -> {
-          nameRes = nameText.getText().toString();
+          nameRes = nameText.getText();
         });
 
     submitButton.setOnMouseClicked(
