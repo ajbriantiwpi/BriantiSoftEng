@@ -529,8 +529,7 @@ public class MapController {
 
           clickCount = 0;
 
-          LocationOne.setValue(globalLongNames);
-          EndPointSelect.setValue(globalLongNamee);
+          System.out.println("Test Alek: " + globalLongNames + " " + globalLongNamee);
         }
       };
 
@@ -561,7 +560,12 @@ public class MapController {
               // map.drawPath(anchor, sNode, eNode);
             }
           } else {
-            System.out.println("Start is null");
+            try {
+              LocationOne.setItems(map.getAllNodeNames());
+            } catch (SQLException e) {
+              throw new RuntimeException(e);
+            }
+            LocationOne.setValue(globalLongNames);
           }
         }
       };
@@ -590,7 +594,15 @@ public class MapController {
               //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
             }
           } else {
-            System.out.println("End is null");
+            try {
+              EndPointSelect.setItems(map.getAllNodeNames());
+            } catch (SQLException e) {
+              throw new RuntimeException(e);
+            }
+            EndPointSelect.setValue(globalLongNamee);
+            // System.out.println("End is null " + globalLongNamee + " " +
+            // EndPointSelect.getValue());
+            // EndPointSelect.setValue("Hello");
           }
         }
       };
