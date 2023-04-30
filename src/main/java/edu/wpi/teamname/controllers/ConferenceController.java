@@ -21,6 +21,8 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import lombok.Getter;
+import lombok.Setter;
 import org.controlsfx.control.RangeSlider;
 
 public class ConferenceController {
@@ -40,7 +42,9 @@ public class ConferenceController {
   @FXML RangeSlider sizeSlider;
   @FXML MFXButton submitButton;
   @FXML TextField nameText;
-
+  @Getter
+  @Setter
+  boolean fromSelector;
   @FXML ListView<RoomSelector> listView;
   @FXML TableView<ConfRoom> confTable;
   ConfRoom uno = new ConfRoom(1, "Uno", 10);
@@ -141,7 +145,7 @@ public class ConferenceController {
     }
    }
 
-  @Getter @Setter boolean fromSelector;
+
 
   @FXML
   public void initialize() throws SQLException {
