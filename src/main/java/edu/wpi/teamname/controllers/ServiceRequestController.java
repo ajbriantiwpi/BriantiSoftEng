@@ -370,7 +370,7 @@ public class ServiceRequestController {
       tem.addAll(DataManager.getAllFurniture());
     }
     int c = 0;
-    // System.out.println(tem);
+    System.out.println("tem: " + tem);
     // System.out.println(request.getItems());
     for (RequestItem item : tem) {
       c = request.countItem(item.getItemID());

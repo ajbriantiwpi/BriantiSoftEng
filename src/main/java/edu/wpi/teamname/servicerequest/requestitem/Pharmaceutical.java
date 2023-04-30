@@ -32,7 +32,6 @@ public class Pharmaceutical extends RequestItem {
    * @throws SQLException thrown when there is an error connecting to the database or an error with
    *     the sql query syntax
    */
-  // TODO FIX
   public Pharmaceutical(int id) throws SQLException {
     super(id);
     Connection connection = DataManager.DbConnection();
