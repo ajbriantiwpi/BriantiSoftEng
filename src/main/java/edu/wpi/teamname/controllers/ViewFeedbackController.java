@@ -27,6 +27,7 @@ public class ViewFeedbackController {
   @FXML
   private void initialize() {
     DataManager dm = new DataManager();
+    ParentController.titleString.set("Feedback Requests");
     // Fetch all feedback records from the database
     ArrayList<Feedback> feedbackList = new ArrayList<>();
     try {

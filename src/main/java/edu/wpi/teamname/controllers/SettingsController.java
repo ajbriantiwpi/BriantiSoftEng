@@ -1,19 +1,25 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.employees.ClearanceLevel;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.sql.SQLException;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleGroup;
 
 public class SettingsController {
+
   private static boolean wpiSelected = true;
   @FXML Slider volumeSlide;
   @FXML MFXButton feedbackButton;
+  @FXML Label dbConnectionLabel;
+  @FXML Label appSettingsLabel;
 
   @FXML MFXButton dataManageButton;
   @FXML MFXButton viewFeedbackButton;
@@ -22,6 +28,43 @@ public class SettingsController {
 
   @FXML
   public void initialize() throws SQLException {
+    ParentController.titleString.set("Settings");
+    viewFeedbackButton.setDisable(true);
+    wpiButton.setDisable(true);
+    awsButton.setDisable(true);
+    feedbackButton.setDisable(true);
+    appSettingsLabel.setVisible(false);
+    dbConnectionLabel.setVisible(false);
+    dataManageButton.setVisible(false);
+    viewFeedbackButton.setVisible(false);
+    wpiButton.setVisible(false);
+    feedbackButton.setVisible(false);
+    awsButton.setVisible(false);
+    if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.ADMIN)) {
+      viewFeedbackButton.setDisable(false);
+      wpiButton.setDisable(false);
+      awsButton.setDisable(false);
+      feedbackButton.setDisable(false);
+      appSettingsLabel.setVisible(true);
+      dbConnectionLabel.setVisible(true);
+      dataManageButton.setVisible(true);
+      viewFeedbackButton.setVisible(true);
+      wpiButton.setVisible(true);
+      feedbackButton.setVisible(true);
+      awsButton.setVisible(true);
+    } else if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.STAFF)) {
+      viewFeedbackButton.setDisable(false);
+      wpiButton.setDisable(false);
+      awsButton.setDisable(false);
+      feedbackButton.setDisable(false);
+      appSettingsLabel.setVisible(true);
+      dbConnectionLabel.setVisible(true);
+      dataManageButton.setVisible(true);
+      viewFeedbackButton.setVisible(true);
+      wpiButton.setVisible(true);
+      feedbackButton.setVisible(true);
+      awsButton.setVisible(true);
+    }
     // Add a listener to the volume slider
     volumeSlide
         .valueProperty()
@@ -33,6 +76,7 @@ public class SettingsController {
 
     // Create a ToggleGroup to ensure only one button can be selected at a time
     ToggleGroup databaseToggleGroup = new ToggleGroup();
+
     wpiButton.setToggleGroup(databaseToggleGroup);
     awsButton.setToggleGroup(databaseToggleGroup);
     if (wpiSelected) {

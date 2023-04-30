@@ -43,7 +43,8 @@ public class DataController implements Initializable {
     "Path Messages",
     "Pharmaceutical",
     "Service Request",
-    "Signage"
+    "Signage",
+    "Feedback"
   };
 
   @Override

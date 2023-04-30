@@ -59,7 +59,7 @@
             </ScrollPane>
             <VBox prefHeight="138.0" prefWidth="19.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Label prefHeight="40.0" prefWidth="1110.0" stylesheets="@../stylesheets/RowLabel.css" text="App Settings">
+                  <Label fx:id="appSettingsLabel" prefHeight="40.0" prefWidth="1110.0" stylesheets="@../stylesheets/RowLabel.css" text="App Settings">
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>
@@ -83,7 +83,7 @@
                         </MFXButton>
                      </children>
                   </HBox>
-                  <Label prefHeight="40.0" prefWidth="1110.0" stylesheets="@../stylesheets/RowLabel.css" text="Database Connection">
+                  <Label fx:id="dbConnectionLabel" prefHeight="40.0" prefWidth="1110.0" stylesheets="@../stylesheets/RowLabel.css" text="Database Connection">
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>

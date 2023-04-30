@@ -2070,7 +2070,6 @@ public class DataManager {
     fb.importFeedbackFromCSV(path);
   }
 
-
   /**
    * Exports feedback data from the database to a CSV file.
    *
@@ -2078,21 +2077,20 @@ public class DataManager {
    * @throws SQLException if an error occurs while exporting the data from the database
    * @throws IOException if an error occurs while writing the data to the file
    */
-
   public static void exportFeedbackToCSV(String path) throws SQLException, IOException {
     FeedbackDAOImpl fb = new FeedbackDAOImpl();
     fb.exportFeedbackToCSV(path);
   }
 
   /**
-   Creates a new feedback table in the database if one does not exist.
-   @throws SQLException if there is an error creating the table in the database.
+   * Creates a new feedback table in the database if one does not exist.
+   *
+   * @throws SQLException if there is an error creating the table in the database.
    */
   public static void createFeedbackTable() throws SQLException {
     FeedbackDAOImpl fb = new FeedbackDAOImpl();
     fb.createTable();
   }
-
 
   /**
    * Synchronizes a feedback object with the corresponding entry in the database.

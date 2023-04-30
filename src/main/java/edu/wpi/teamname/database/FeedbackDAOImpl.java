@@ -3,7 +3,6 @@ package edu.wpi.teamname.database;
 import edu.wpi.teamname.database.interfaces.FeedbackDAO;
 import edu.wpi.teamname.employees.Feedback;
 import edu.wpi.teamname.servicerequest.Status;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
@@ -15,11 +14,8 @@ import java.util.List;
 public class FeedbackDAOImpl implements FeedbackDAO {
 
   /**
-   * TODO
-   * fix export import in datamanager
-   * make it so you cant view feedback unless admin
-   * cant use feed back if not signed in
-   * java docs
+   * TODO make it so you cant view feedback unless admin cant use feed back if not signed in volume
+   * impl
    */
 
   /**
@@ -154,6 +150,7 @@ public class FeedbackDAOImpl implements FeedbackDAO {
       connection.close();
     }
   }
+
   public static void importFeedbackFromCSV(String csvFilePath) throws SQLException {
     List<String[]> csvData;
     Connection connection = DataManager.DbConnection();
@@ -162,20 +159,20 @@ public class FeedbackDAOImpl implements FeedbackDAO {
 
     try (connection) {
       String createTableQuery =
-              "CREATE TABLE IF NOT EXISTS \"Feedback\" ("
-                      + "\"reporter\" varchar(255),"
-                      + "\"description\" varchar(255),"
-                      + "\"dateReported\" timestamp,"
-                      + "\"assignee\" varchar(255),"
-                      + "\"id\" SERIAL PRIMARY KEY,"
-                      + "\"status\" varchar(255)"
-                      + ");";
+          "CREATE TABLE IF NOT EXISTS \"Feedback\" ("
+              + "\"reporter\" varchar(255),"
+              + "\"description\" varchar(255),"
+              + "\"dateReported\" timestamp,"
+              + "\"assignee\" varchar(255),"
+              + "\"id\" SERIAL PRIMARY KEY,"
+              + "\"status\" varchar(255)"
+              + ");";
       PreparedStatement createTableStatement = connection.prepareStatement(createTableQuery);
       createTableStatement.execute();
 
       String query =
-              "INSERT INTO \"Feedback\" (\"reporter\", \"description\", \"dateReported\", \"assignee\", \"status\") "
-                      + "VALUES (?, ?, ?, ?, ?)";
+          "INSERT INTO \"Feedback\" (\"reporter\", \"description\", \"dateReported\", \"assignee\", \"status\") "
+              + "VALUES (?, ?, ?, ?, ?)";
       PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"Feedback\";");
       statement.executeUpdate();
       statement = connection.prepareStatement(query);
@@ -249,21 +246,20 @@ public class FeedbackDAOImpl implements FeedbackDAO {
       System.err.println("Error exporting data from PostgreSQL database: " + e.getMessage());
       throw e;
     }
-
   }
 
   public static void createTable() throws SQLException {
     Connection connection = DataManager.DbConnection();
     try (connection) {
       String query =
-              "CREATE TABLE IF NOT EXISTS \"Feedback\" ("
-                      + "    \"reporter\" varchar(255),"
-                      + "    \"description\" varchar(255),"
-                      + "    \"dateReported\" timestamp,"
-                      + "    \"assignee\" varchar(255),"
-                      + "    \"id\" SERIAL PRIMARY KEY,"
-                      + "    \"status\" varchar(255)"
-                      + ");";
+          "CREATE TABLE IF NOT EXISTS \"Feedback\" ("
+              + "    \"reporter\" varchar(255),"
+              + "    \"description\" varchar(255),"
+              + "    \"dateReported\" timestamp,"
+              + "    \"assignee\" varchar(255),"
+              + "    \"id\" SERIAL PRIMARY KEY,"
+              + "    \"status\" varchar(255)"
+              + ");";
 
       PreparedStatement statement = connection.prepareStatement(query);
       statement.executeUpdate();
