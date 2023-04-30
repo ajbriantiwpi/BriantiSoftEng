@@ -4,6 +4,7 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -35,7 +36,12 @@
                                  <Insets left="10.0" />
                               </padding>
                            </Label>
-                           <CheckBox fx:id="darkToggle" mnemonicParsing="false" styleClass="label-large" text="Dark Mode" textFill="WHITE" StackPane.alignment="CENTER_RIGHT" />
+                           <HBox alignment="CENTER_RIGHT" prefHeight="8.0" prefWidth="312.0" spacing="15.0" StackPane.alignment="CENTER_RIGHT">
+                              <children>
+                                 <ComboBox fx:id="languageChooser" prefWidth="150.0" promptText="Choose Language" />
+                                 <CheckBox fx:id="darkToggle" alignment="CENTER_RIGHT" mnemonicParsing="false" styleClass="label-large" text="Dark Mode" textFill="WHITE" />
+                              </children>
+                           </HBox>
                         </children>
                      </StackPane>
                   </children>

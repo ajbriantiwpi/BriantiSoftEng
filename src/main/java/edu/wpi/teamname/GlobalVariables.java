@@ -3,17 +3,23 @@ package edu.wpi.teamname;
 import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
+import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.navigation.LocationName;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.paint.Color;
 import lombok.Getter;
 import lombok.Setter;
 
 public class GlobalVariables {
+  //  @Getter @Setter private static Language currentLanguage = Language.ENGLISH; // default
+  // language is set to English
+  @Getter @Setter public static Property<Language> b = new SimpleObjectProperty<>(Language.ENGLISH);
   @Getter @Setter private static boolean futureMovesPressed = false;
   @Getter @Setter private static boolean activeRequestsPressed = false;
   @Getter @Setter private static boolean doneRequestsPressed = false;

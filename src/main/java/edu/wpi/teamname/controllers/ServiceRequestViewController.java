@@ -3,6 +3,7 @@ package edu.wpi.teamname.controllers;
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.controllers.JFXitems.ReqMenuItems;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
 import edu.wpi.teamname.servicerequest.RequestType;
@@ -15,6 +16,7 @@ import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -29,7 +31,16 @@ import javafx.scene.layout.VBox;
 import org.controlsfx.control.SearchableComboBox;
 
 public class ServiceRequestViewController {
-
+  @FXML Label filterTableLabel;
+  @FXML Label requestTypeLabel;
+  @FXML Label statusLabel;
+  @FXML Label assignedLabel;
+  @FXML Label dateLabel;
+  @FXML Label assignStaffLabel;
+  @FXML Label requestIDLabel;
+  @FXML Label staffLabel;
+  @FXML Label setStatusLabel;
+  @FXML Label requestDetailsLabel;
   @FXML TableView<ServiceRequest> table;
   @FXML TableColumn requestIDCol;
   @FXML TableColumn patientNameCol;
@@ -108,6 +119,48 @@ public class ServiceRequestViewController {
     return requestList;
   }
 
+  public void setLanguage(Language lang) {
+    switch (lang) {
+      case ENGLISH:
+        filterTableLabel.setText("A");
+        requestTypeLabel.setText("B");
+        requestTypeCombo.setPromptText("C");
+        statusLabel.setText("D");
+        requestStatusCombo.setPromptText("E");
+        assignedLabel.setText("F");
+        requestStaffCombo.setPromptText("G");
+        dateLabel.setText("H");
+        refreshButton.setText("I");
+        assignStaffLabel.setText("J");
+        requestIDLabel.setText("K");
+        requestIDText.setPromptText("L");
+        staffLabel.setText("M");
+        assignStaffText.setPromptText("N");
+        setStatusLabel.setText("O");
+        requestStatusText.setPromptText("P");
+        backButton.setText("Q");
+        submitButton.setText("R");
+        ViewButton.setText("S");
+        requestIDCol.setText("T");
+        patientNameCol.setText("U");
+        roomNumCol.setText("V");
+        requestIDCol.setText("W");
+        requestedAtCol.setText("X");
+        requestedForCol.setText("Y");
+        assignedStaffCol.setText("Z");
+        statusCol.setText("AA");
+        break;
+      case JAPANESE:
+        break;
+      case ITALIAN:
+        break;
+      case FRENCH:
+        break;
+      case SPANISH:
+        break;
+    }
+  }
+
   /**
    * assigns a staff and status to a request
    *
@@ -141,6 +194,12 @@ public class ServiceRequestViewController {
    */
   @FXML
   public void initialize() throws SQLException {
+    setLanguage(GlobalVariables.getB().getValue());
+    GlobalVariables.b.addListener(
+        (options, oldValue, newValue) -> {
+          setLanguage(newValue);
+          GlobalVariables.setB(new SimpleObjectProperty<>(newValue));
+        });
     ParentController.titleString.set("Service Request View");
     submitButton.disableProperty().bind(Bindings.isNull(requestIDText.valueProperty()));
     submitButton.disableProperty().bind(Bindings.isNull(assignStaffText.valueProperty()));

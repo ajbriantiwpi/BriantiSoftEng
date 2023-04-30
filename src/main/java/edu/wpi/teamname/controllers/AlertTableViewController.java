@@ -83,6 +83,14 @@ public class AlertTableViewController {
   @FXML
   public void initialize() throws SQLException {
     ParentController.titleString.set("Alerts");
+    //    if (GlobalVariables.getB().getValue() != Language.ENGLISH) {
+    ////      switch (GlobalVariables.getCurrentLanguage()) {
+    ////        case ITALIAN:
+    ////          ParentController.titleString.set("PV");
+    ////          break;
+    ////      }
+    //    }
+
     ObservableList<EmployeeType> staffTypes =
         FXCollections.observableArrayList(EmployeeType.values());
     staffTypes.add(null);
