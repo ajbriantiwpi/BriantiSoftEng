@@ -2,6 +2,7 @@ package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.alerts.Alert;
 import edu.wpi.teamname.database.interfaces.ConfReservationDAO;
+import edu.wpi.teamname.database.interfaces.PharmaceuticalDAO;
 import edu.wpi.teamname.database.interfaces.SignageDAO;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
@@ -423,13 +424,26 @@ public class DataManager {
    * This method updates an existing PathMessage object in the "PathMessages" table in the database
    * with the new PathMessage object.
    *
-   * @param pm the new MedicalSupply object to be updated in the "PathMessages" table
+   * @param pm the new PathMessages object to be updated in the "PathMessages" table
    * @throws SQLException if there is a problem accessing the database
    */
   public static void syncPM(PathMessage pm) throws SQLException {
     PathMessageDAOImpl pmDAO = new PathMessageDAOImpl();
     pmDAO.sync(pm);
   }
+
+  /**
+   * This method updates an existing Pharmaceutical object in the "Pharmaceutical" table in the
+   * database with the new Pharmaceutical object.
+   *
+   * @param pm the new Pharmaceutical object to be updated in the "Pharmaceutical" table
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static void syncPharmaceutical(Pharmaceutical pm) throws SQLException {
+    PharmaceuticalDAOImpl pmDAO = new PharmaceuticalDAOImpl();
+    pmDAO.sync(pm);
+  }
+
   /**
    * This method returns the employee type of a user
    *
@@ -612,8 +626,19 @@ public class DataManager {
    * @param pm the PathMessage object to be added to the "PathMessages" table
    * @throws SQLException if there is a problem accessing the database
    */
-  public static void addMedicalSupply(PathMessage pm) throws SQLException {
+  public static void addPathMessage(PathMessage pm) throws SQLException {
     PathMessageDAOImpl pmDAO = new PathMessageDAOImpl();
+    pmDAO.add(pm);
+  }
+
+  /**
+   * This method adds a new Pharmaceutical object to the "Pharmaceutical" table in the database.
+   *
+   * @param pm the Pharmaceutical object to be added to the "Pharmaceutical" table
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static void addPharmaceutical(Pharmaceutical pm) throws SQLException {
+    PharmaceuticalDAOImpl pmDAO = new PharmaceuticalDAOImpl();
     pmDAO.add(pm);
   }
 
@@ -812,6 +837,17 @@ public class DataManager {
    */
   public static void deletePathMessage(PathMessage pm) throws SQLException {
     PathMessageDAOImpl pmDAO = new PathMessageDAOImpl();
+    pmDAO.delete(pm);
+  }
+
+  /**
+   * This method deletes the given Pharmaceutical object from the database
+   *
+   * @param pm the Pharmaceutical object that will be deleted in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static void deletePharmaceutical(Pharmaceutical pm) throws SQLException {
+    PharmaceuticalDAOImpl pmDAO = new PharmaceuticalDAOImpl();
     pmDAO.delete(pm);
   }
 
@@ -1031,6 +1067,18 @@ public class DataManager {
     return pmDAO.getAll();
   }
 
+  /**
+   * The method retrieves all the Pharmaceutical objects from the "Pharmaceutical" table in the
+   * database.
+   *
+   * @return an ArrayList of the Pharmaceutical objects in the database
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static ArrayList<Pharmaceutical> getAllPharmaceuticals() throws SQLException {
+    PharmaceuticalDAO pmDAO = new PharmaceuticalDAOImpl();
+    return pmDAO.getAll();
+  }
+
   // --------------------------------GETSINGLE----------------------------------
 
   /**
@@ -1197,6 +1245,19 @@ public class DataManager {
       throws SQLException {
     return PathMessageDAOImpl.getPathMessage(sNode, eNode, alg);
   }
+
+  /**
+   * This method retrieves a Pharmaceutical object with the specified ID from the "ConfReservation"
+   * table in the database.
+   *
+   * @param id the ID of the Pharmaceutical object to retrieve from the "Pharmaceutical" table
+   * @return the Pharmaceutical object with the specified ID, or null if not found
+   * @throws SQLException if there is a problem accessing the database
+   */
+  public static Pharmaceutical getPharmaceutical(int id) throws SQLException {
+    return PharmaceuticalDAOImpl.getPharmaceutical(id);
+  }
+
   // --------------------------------UPLOADS----------------------------------
 
   /**
@@ -1463,6 +1524,17 @@ public class DataManager {
     PathMessageDAOImpl.uploadPMToPostgreSQL(path);
   }
 
+  /**
+   * Uploads CSV data to a PostgreSQL database table "Pharmaceutical"-also creates one if one does
+   * not exist
+   *
+   * @param path a string that represents a file path (/ is illegal so you must use double//)
+   * @throws SQLException if an error occurs while uploading the data to the database
+   */
+  public static void uploadPharmaceutical(String path) throws SQLException, ParseException {
+    PharmaceuticalDAOImpl.uploadPharmaceuticalToPostgreSQL(path);
+  }
+
   // --------------------------------EXPORTS----------------------------------
 
   /**
@@ -1695,6 +1767,17 @@ public class DataManager {
    */
   public static void exportPathMessageToCSV(String path) throws SQLException, IOException {
     PathMessageDAOImpl.exportPMToCSV(path);
+  }
+
+  /**
+   * Exports data from a PostgreSQL database table "Pharmaceutical" to a CSV file
+   *
+   * @param path a String representing the csv data (must use "//" not "/")
+   * @throws SQLException if an error occurs while exporting the data from the database
+   * @throws IOException if an error occurs while writing the data to the file
+   */
+  public static void exportPharmaceuticalToCSV(String path) throws SQLException, IOException {
+    PharmaceuticalDAOImpl.exportPharmeceuticalToCSV(path);
   }
 
   // --------------------------OTHER----------------------
@@ -1940,6 +2023,15 @@ public class DataManager {
   }
 
   /**
+   * * Creates a table for storing Pharmaceutical data if it doesn't already exist
+   *
+   * @throws SQLException if connection to the database fails
+   */
+  public static void createPharmaceuticalTable() throws SQLException {
+    PharmaceuticalDAOImpl.createTable();
+  }
+
+  /**
    * * Creates all tables in the database unless they already exist then do nothing
    *
    * @throws SQLException connection to the database fails
@@ -1960,6 +2052,7 @@ public class DataManager {
     createNodeTable();
     createOfficeSupplyTable();
     createPathMessagesTable();
+    createPharmaceuticalTable();
     createServiceRequestTable();
     createSignageTable();
   }
