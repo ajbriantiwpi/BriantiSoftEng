@@ -64,7 +64,6 @@ public class DataController implements Initializable {
 
     Stage stage = (Stage) importButton.getScene().getWindow();
     File csvFile = fileChooser.showOpenDialog(stage);
-
     if (csvFile != null) {
       if (selectedItem != null) {
         try {
@@ -122,6 +121,9 @@ public class DataController implements Initializable {
               break;
             case "Signage":
               DataManager.uploadSignage(csvFile.getPath());
+              break;
+            case "Feedback":
+              DataManager.uploadFeedback(csvFile.getPath());
               break;
           }
         } catch (SQLException | ParseException e) {
@@ -216,6 +218,10 @@ public class DataController implements Initializable {
             case "Signage":
               fileChooser.setInitialFileName("signage.csv");
               DataManager.exportSignageToCSV(csvFile.getPath());
+              break;
+            case "Feedback":
+              fileChooser.setInitialFileName("feedback.csv");
+              DataManager.exportFeedbackToCSV(csvFile.getPath());
               break;
           }
         } catch (SQLException e) {
