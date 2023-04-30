@@ -189,7 +189,7 @@ public class HomeController {
                     throw new RuntimeException(e);
                   }
                   Label idLabel = (Label) ((Pane) in.getChildren().get(0)).getChildren().get(0);
-                  idLabel.setText("Request ID: " + tempAlert.getId());
+                  idLabel.setText("Alert ID: " + tempAlert.getId());
                   Label announcement =
                       (Label) ((Pane) in.getChildren().get(0)).getChildren().get(1);
                   announcement.setText(tempAlert.getAnnouncement());
