@@ -15,7 +15,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -209,13 +208,8 @@ public class ParentController {
         .addListener(
             (options, oldValue, newValue) -> {
               setLanguage(newValue);
-              GlobalVariables.setB(new SimpleObjectProperty<>(newValue));
+              GlobalVariables.b.setValue(newValue);
             });
-    //    languageChooser.setOnMouseClicked(
-    //        event -> {
-    //          GlobalVariables.setCurrentLanguage(languageChooser.getValue());
-    //          setLanguage(languageChooser.getValue());
-    //        });
     titleLabel.setText(titleString.getValue());
     System.out.println("Parent!");
     darkToggle.selectedProperty().bindBidirectional(GlobalVariables.getDarkMode());
