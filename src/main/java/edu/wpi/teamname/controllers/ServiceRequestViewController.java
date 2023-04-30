@@ -135,7 +135,18 @@ public class ServiceRequestViewController {
     FilteredList<ServiceRequest> serviceRequests1 = new FilteredList<>(serviceRequests);
     //    serviceRequests1.predicateProperty().bind(table.predicateProperty());
     SortedList<ServiceRequest> sortedServiceReq = new SortedList<>(serviceRequests1);
-    table.setItems(sortedServiceReq);
+    Timestamp date;
+    try {
+      date = Timestamp.valueOf(dateBox.getValue().atStartOfDay());
+    } catch (NullPointerException e) {
+      date = null;
+    }
+    table.setItems(
+        tableFilter(
+            requestTypeCombo.getValue(),
+            requestStatusCombo.getValue(),
+            date,
+            requestStaffCombo.getValue()));
   }
 
   /**
