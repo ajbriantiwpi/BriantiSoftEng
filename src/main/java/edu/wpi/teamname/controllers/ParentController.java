@@ -157,8 +157,6 @@ public class ParentController {
         logoutButton.setText("Cerrar sesión");
         exitButton.setText("Salir");
         break;
-      case JAPANESE:
-        break;
     }
   }
 

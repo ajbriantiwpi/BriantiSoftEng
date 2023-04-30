@@ -7,8 +7,7 @@ public enum Language implements Observable {
   ENGLISH("English"),
   FRENCH("Français"),
   ITALIAN("Italiano"),
-  SPANISH("Espanol"),
-  JAPANESE("日本語");
+  SPANISH("Espanol");
 
   private final String type;
 

@@ -30,6 +30,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.SearchableComboBox;
 
+import javax.swing.text.View;
+
 public class ServiceRequestViewController {
   @FXML Label filterTableLabel;
   @FXML Label requestTypeLabel;
@@ -122,6 +124,7 @@ public class ServiceRequestViewController {
   public void setLanguage(Language lang) {
     switch (lang) {
       case ENGLISH:
+          ParentController.titleString.set("Title");
         filterTableLabel.setText("A");
         requestTypeLabel.setText("B");
         requestTypeCombo.setPromptText("C");
@@ -149,9 +152,9 @@ public class ServiceRequestViewController {
         requestedForCol.setText("Y");
         assignedStaffCol.setText("Z");
         statusCol.setText("AA");
-        break;
-      case JAPANESE:
-        break;
+        requesterIDCol.setText("AB");
+        ViewButton.setText("AC");
+          break;
       case ITALIAN:
         break;
       case FRENCH:
@@ -160,6 +163,44 @@ public class ServiceRequestViewController {
         break;
     }
   }
+    /*
+     * How to set the labels for everything we want translated
+ParentController.titleString.set("Title");
+    filterTableLabel.setText("A");
+        requestTypeLabel.setText("B");
+        requestTypeCombo.setPromptText("C");
+        statusLabel.setText("D");
+        requestStatusCombo.setPromptText("E");
+        assignedLabel.setText("F");
+        requestStaffCombo.setPromptText("G");
+        dateLabel.setText("H");
+        refreshButton.setText("I");
+        assignStaffLabel.setText("J");
+        requestIDLabel.setText("K");
+        requestIDText.setPromptText("L");
+        staffLabel.setText("M");
+        assignStaffText.setPromptText("N");
+        setStatusLabel.setText("O");
+        requestStatusText.setPromptText("P");
+        backButton.setText("Q");
+        submitButton.setText("R");
+        ViewButton.setText("S");
+        requestIDCol.setText("T");
+        patientNameCol.setText("U");
+        roomNumCol.setText("V");
+        requestIDCol.setText("W");
+        requestedAtCol.setText("X");
+        requestedForCol.setText("Y");
+        assignedStaffCol.setText("Z");
+        statusCol.setText("AA");
+        requesterIDCol.setText("AB");
+        ViewButton.setText("AC");
+     */
+    /*
+     * List of Text that we need translated:
+     *
+
+     */
 
   /**
    * assigns a staff and status to a request
