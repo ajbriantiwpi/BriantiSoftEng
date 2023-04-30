@@ -13,7 +13,6 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoField;
-import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -84,15 +83,17 @@ public class ConferenceController {
     buildings = FXCollections.observableArrayList(DataManager.getConfBuildings());
     buildings.add("None");
     roomsString = FXCollections.observableArrayList();
-
+    roomManager = new RoomManager();
     buildingBox.setItems(buildings);
     startBox.setItems(startTimes);
     endBox.setItems(endTimes);
     roomBox.setItems(roomsString);
     sizeSlider.setMax(100);
     sizeSlider.setMin(0);
-
-    roomManager = new RoomManager();
+    sizeSlider.highValueProperty().bindBidirectional(roomManager.getHigh());
+    sizeSlider.lowValueProperty().bindBidirectional(roomManager.getLow());
+    sizeSlider.setLowValue(0);
+    sizeSlider.setHighValue(100);
 
     //    startBox.valueProperty().bindBidirectional(roomManager.getStart());
     //    endBox.valueProperty().bindBidirectional(roomManager.getEnd());
@@ -159,14 +160,26 @@ public class ConferenceController {
           }
         });
 
+    sizeSlider.setOnMouseClicked(
+        event -> {
+          refreshRooms();
+        });
+
     roomBox.setOnAction(
         event -> { // when room chosen set size slider and store into room variable
           room = roomBox.getValue();
-          try {
-            roomID = DataManager.getRoomID(room);
-            sizeSlider.setMax(DataManager.getSeats(room));
-          } catch (SQLException e) {
-            System.out.println(e);
+          setActiveSelector(findSelector(room));
+          if (startBox.getValue().contains(":") && endBox.getValue().contains(":")) {
+            if (RoomSelector.timeToID(endBox.getValue())
+                <= RoomSelector.timeToID(startBox.getValue())) {
+              String tEnd = endTime;
+              endBox.setValue(startTime);
+              startBox.setValue(tEnd);
+              //              return;
+            }
+            activeSelector.setStart(RoomSelector.timeToID(startBox.getValue()));
+            activeSelector.setEnd(RoomSelector.timeToID(endBox.getValue()));
+            activeSelector.setAllInRange(true);
           }
         });
 
@@ -181,18 +194,17 @@ public class ConferenceController {
             try {
               resID = DataManager.setResID();
               username = GlobalVariables.getCurrentUser().getUsername();
-              ArrayList<String> times = activeSelector.getTimes();
               ConfReservation c =
                   new ConfReservation(
                       Instant.now().get(ChronoField.MICRO_OF_SECOND),
-                      times.get(0),
-                      times.get(1),
+                      startBox.getValue(),
+                      endBox.getValue(),
                       dateBook,
                       Timestamp.from(Instant.now()),
                       nameRes,
                       username,
                       staff,
-                      activeSelector.getRoom().getRoomID());
+                      findSelector(roomBox.getValue()).getRoom().getRoomID());
               DataManager.addConfReservation(c);
 
             } catch (SQLException e) {
@@ -202,7 +214,17 @@ public class ConferenceController {
         });
   }
 
+  private RoomSelector findSelector(String room) {
+    for (RoomSelector selector : selectors) {
+      if (selector.getRoom().getLocationName().split(",")[0].equals(room)) {
+        return selector;
+      }
+    }
+    return null;
+  }
+
   private void refreshRooms(Timestamp date) {
+    String roomName = roomBox.getValue();
     selectors.clear();
     rooms.clear();
     roomsString.clear();
@@ -210,9 +232,14 @@ public class ConferenceController {
     for (ConfRoom room : roomManager.getViableRooms(date)) {
       selectors.add(new RoomSelector(room, this, date));
       rooms.add(room);
-      roomsString.add(room.getLocationName());
+      roomsString.add(room.getLocationName().split(",")[0]);
     }
-    activeSelector = selectors.get(0);
+    if (findSelector(roomName) == null) {
+      activeSelector = selectors.get(0);
+    } else {
+      activeSelector = findSelector(roomName);
+      roomBox.setValue(roomName);
+    }
   }
 
   private void refreshRooms() {
@@ -227,6 +254,7 @@ public class ConferenceController {
       selector.setAllInRange(true);
     }
     activeSelector = selector;
+    roomBox.setValue(activeSelector.getRoom().getLocationName().split(",")[0]);
   }
 
   public void setStartBox(String time) {

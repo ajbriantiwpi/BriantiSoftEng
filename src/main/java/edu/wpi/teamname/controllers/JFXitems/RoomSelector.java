@@ -31,8 +31,8 @@ public class RoomSelector extends BorderPane {
 
   @Getter private static int slots = 22;
 
-  @Getter private int start = 0;
-  @Getter private int end = 0;
+  @Getter @Setter private int start = 0;
+  @Getter @Setter private int end = 0;
   @Getter @Setter int selected = 0;
 
   public RoomSelector(ConfRoom room, ConferenceController controller, Timestamp date) {
@@ -138,6 +138,13 @@ public class RoomSelector extends BorderPane {
   }
 
   public void setAllInRange(boolean select) {
+    //    if (start == end) {
+    //      end++;
+    //    } else if (start > end) {
+    //      int tStart = start;
+    //      start = end;
+    //      end = tStart;
+    //    }
     for (int i = start; i < end; i++) {
       setSelect(select, i);
     }
@@ -165,7 +172,7 @@ public class RoomSelector extends BorderPane {
     }
   }
 
-  int timeToID(String time) {
+  public static int timeToID(String time) {
     DateFormat format = new SimpleDateFormat("HH:mm");
     Time tim;
     try {
