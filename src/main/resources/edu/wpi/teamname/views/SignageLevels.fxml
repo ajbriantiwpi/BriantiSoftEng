@@ -45,14 +45,20 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>
                   </ComboBox>
-                  <MFXButton fx:id="submit" alignment="CENTER" prefHeight="25.0" prefWidth="275.0" stylesheets="@../stylesheets/blueButton.css" text="Submit">
-                     <VBox.margin>
-                        <Insets bottom="10.0" left="100.0" right="10.0" top="30.0" />
-                     </VBox.margin>
-                     <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                     </padding>
-                  </MFXButton>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <MFXButton fx:id="submit" alignment="CENTER" prefHeight="25.0" prefWidth="275.0" stylesheets="@../stylesheets/blueButton.css" text="Submit">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                        </MFXButton>
+                        <MFXButton fx:id="play" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="25.0" prefWidth="275.0" stylesheets="@../stylesheets/blueButton.css" text="Play">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                        </MFXButton>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
             <HBox alignment="CENTER" prefHeight="800.0" prefWidth="987.0" HBox.hgrow="ALWAYS">
