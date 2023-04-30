@@ -42,6 +42,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javax.swing.*;
 import net.kurobako.gesturefx.GesturePane;
+import org.controlsfx.control.SearchableComboBox;
 
 public class MapController {
 
@@ -49,9 +50,9 @@ public class MapController {
   @FXML GesturePane gp;
   @FXML AnchorPane anchor;
   @FXML HBox SelectCombo;
-  @FXML ComboBox<String> LocationOne = new ComboBox<>();
+  @FXML SearchableComboBox<String> LocationOne = new SearchableComboBox<>();
   public static ComboBox<String> LocOne;
-  @FXML ComboBox<String> EndPointSelect = new ComboBox<>();
+  @FXML SearchableComboBox<String> EndPointSelect = new SearchableComboBox<>();
   public static ComboBox<String> endSel;
   @FXML MFXButton DeleteNodeButton;
   @FXML MFXButton findPathButton;
@@ -538,7 +539,7 @@ public class MapController {
 
         @Override
         public void handle(ActionEvent event) {
-          if (!LocationOne.getValue().equals(null)) {
+          if (LocationOne.getValue() != null) {
             Node nodeForStart;
             System.out.println("changed start " + LocationOne.getValue());
             // System.out.println(LocationOne.getValue());
@@ -570,22 +571,26 @@ public class MapController {
 
         @Override
         public void handle(ActionEvent event) {
-          Node nodeForEnd;
+          if (EndPointSelect.getValue() != null) {
+            Node nodeForEnd;
 
-          System.out.println("changed end " + EndPointSelect.getValue());
-          String endLName = EndPointSelect.getValue();
-          globalLongNamee = EndPointSelect.getValue();
-          try {
-            nodeForEnd = DataManager.getNodeByLocationName(endLName, map.getCurrTime());
-          } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-          }
-          eNode = nodeForEnd.getId();
-          //          System.out.println("eNode LName: " + endLName);
-          //          System.out.println("eNode: " + eNode);
-          if (sNode != 0 && eNode != 0) {
-            findPathButton.setDisable(false);
-            //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
+            System.out.println("changed end " + EndPointSelect.getValue());
+            String endLName = EndPointSelect.getValue();
+            globalLongNamee = EndPointSelect.getValue();
+            try {
+              nodeForEnd = DataManager.getNodeByLocationName(endLName, map.getCurrTime());
+            } catch (SQLException ex) {
+              throw new RuntimeException(ex);
+            }
+            eNode = nodeForEnd.getId();
+            //          System.out.println("eNode LName: " + endLName);
+            //          System.out.println("eNode: " + eNode);
+            if (sNode != 0 && eNode != 0) {
+              findPathButton.setDisable(false);
+              //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
+            }
+          } else {
+            System.out.println("End is null");
           }
         }
       };
@@ -1164,51 +1169,85 @@ public class MapController {
     findPathButton.setDisable(true);
 
     //    LocationOne.setStyle("-fx-padding: 5 25 5 5;");
-    // LocationOne.setPromptText("Select start");
-    // LocationOne.setItems(
-    // map.getAllNodeNames()); // change for when the floor changes to update the nodes shown
-    // LocationOne.setOnAction(changeStart);
-    LocationOne.setEditable(true);
-
-    ObservableList<String> items = map.getAllNodeNames();
-    // Create a FilteredList wrapping the ObservableList.
-    FilteredList<String> filteredItems = new FilteredList<String>(items, p -> true);
-
-    // Add a listener to the textProperty of the combobox editor. The
-    // listener will simply filter the list every time the input is changed
-    // as long as the user hasn't selected an item in the list.
-    LocationOne.getEditor()
-        .textProperty()
-        .addListener(
-            (obs, oldValue, newValue) -> {
-              final TextField editor = LocationOne.getEditor();
-              final String selected = LocationOne.getSelectionModel().getSelectedItem();
-
-              // This needs run on the GUI thread to avoid the error described
-              // here: https://bugs.openjdk.java.net/browse/JDK-8081700.
-              Platform.runLater(
-                  () -> {
-                    // If the no item in the list is selected or the selected item
-                    // isn't equal to the current input, we refilter the list.
-                    if (selected == null || !selected.equals(editor.getText())) {
-                      filteredItems.setPredicate(
-                          item -> {
-                            // We return true for any items that starts with the
-                            // same letters as the input. We use toUpperCase to
-                            // avoid case sensitivity.
-                            if (item.toUpperCase().startsWith(newValue.toUpperCase())) {
-                              return true;
-                            } else {
-                              return false;
-                            }
-                          });
-                    }
-                  });
-            });
-
-    LocationOne.setItems(filteredItems);
-
+    LocationOne.setPromptText("Select start");
+    LocationOne.setItems(
+        map.getAllNodeNames()); // change for when the floor changes to update the nodes shown
     LocationOne.setOnAction(changeStart);
+    //    LocationOne.setEditable(true);
+    //    EndPointSelect.setEditable(true);
+
+    //    ObservableList<String> items = map.getAllNodeNames();
+    //    // Create a FilteredList wrapping the ObservableList.
+    //    FilteredList<String> filteredItems = new FilteredList<String>(items, p -> true);
+    //
+    //    // Add a listener to the textProperty of the combobox editor. The
+    //    // listener will simply filter the list every time the input is changed
+    //    // as long as the user hasn't selected an item in the list.
+    //    LocationOne.getEditor()
+    //        .textProperty()
+    //        .addListener(
+    //            (obs, oldValue, newValue) -> {
+    //              final TextField editor = LocationOne.getEditor();
+    //              final String selected = LocationOne.getSelectionModel().getSelectedItem();
+    //
+    //              // This needs run on the GUI thread to avoid the error described
+    //              // here: https://bugs.openjdk.java.net/browse/JDK-8081700.
+    //              Platform.runLater(
+    //                  () -> {
+    //                    // If the no item in the list is selected or the selected item
+    //                    // isn't equal to the current input, we refilter the list.
+    //                    if (selected == null || !selected.equals(editor.getText())) {
+    //                      filteredItems.setPredicate(
+    //                          item -> {
+    //                            // We return true for any items that starts with the
+    //                            // same letters as the input. We use toUpperCase to
+    //                            // avoid case sensitivity.
+    //                            if (item.toUpperCase().startsWith(newValue.toUpperCase())) {
+    //                              return true;
+    //                            } else {
+    //                              return false;
+    //                            }
+    //                          });
+    //                    }
+    //                  });
+    //            });
+    //
+    //    EndPointSelect.getEditor()
+    //        .textProperty()
+    //        .addListener(
+    //            (obs, oldValue, newValue) -> {
+    //              final TextField editor = EndPointSelect.getEditor();
+    //              final String selected = EndPointSelect.getSelectionModel().getSelectedItem();
+    //
+    //              // This needs run on the GUI thread to avoid the error described
+    //              // here: https://bugs.openjdk.java.net/browse/JDK-8081700.
+    //              Platform.runLater(
+    //                  () -> {
+    //                    // If the no item in the list is selected or the selected item
+    //                    // isn't equal to the current input, we refilter the list.
+    //                    if (selected == null || !selected.equals(editor.getText())) {
+    //                      filteredItems.setPredicate(
+    //                          item -> {
+    //                            // We return true for any items that starts with the
+    //                            // same letters as the input. We use toUpperCase to
+    //                            // avoid case sensitivity.
+    //                            if (item.toUpperCase().startsWith(newValue.toUpperCase())) {
+    //                              return true;
+    //                            } else {
+    //                              return false;
+    //                            }
+    //                          });
+    //                    }
+    //                  });
+    //            });
+    //
+    //    LocationOne.setItems(filteredItems);
+    //
+    //    LocationOne.setOnAction(changeStart);
+    //
+    //    EndPointSelect.setItems(filteredItems);
+    //
+    //    EndPointSelect.setOnAction(changeEnd);
 
     EndPointSelect.setPromptText("Select end");
     EndPointSelect.setItems(map.getAllNodeNames()); // switched to every node in map
@@ -1223,20 +1262,20 @@ public class MapController {
 
     // LocationOne.setPromptText("Type here to search");
 
-    LocationOne.setButtonCell(new ListCell<>());
-    LocationOne.setCellFactory(
-        param ->
-            new ListCell<>() {
-              @Override
-              protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                  setText(null);
-                } else {
-                  setText(item);
-                }
-              }
-            });
+    //    LocationOne.setButtonCell(new ListCell<>());
+    //    LocationOne.setCellFactory(
+    //        param ->
+    //            new ListCell<>() {
+    //              @Override
+    //              protected void updateItem(String item, boolean empty) {
+    //                super.updateItem(item, empty);
+    //                if (empty || item == null) {
+    //                  setText(null);
+    //                } else {
+    //                  setText(item);
+    //                }
+    //              }
+    //            });
 
     //    FloorSelect.setPromptText("Select floor");
     //    FloorSelect.setItems(map.getAllFloors());
