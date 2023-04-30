@@ -72,7 +72,8 @@ public class ServiceRequestController {
           "Flower Delivery",
           "Office Supply Delivery",
           "Furniture Delivery",
-          "Medical Supply Delivery");
+          "Medical Supply Delivery",
+          "Pharmaceutical Delivery");
 
   @Setter @Getter private RequestType reqType;
   @FXML ComboBox requestType;
@@ -122,6 +123,8 @@ public class ServiceRequestController {
         reqType = RequestType.OFFICESUPPLY;
       } else if (requestType.getValue() == "Medical Supply Delivery") {
         reqType = RequestType.MEDICALSUPPLY;
+      } else if (requestType.getValue() == "Pharmaceutical Delivery") {
+        reqType = RequestType.PHARMACEUTICAL;
       } else { // "Furniture Delivery"
         reqType = RequestType.FURNITURE;
       }
@@ -177,13 +180,15 @@ public class ServiceRequestController {
       } else if (t == "Flower Request") {
         f = "FlowerIcons";
         tem.addAll(DataManager.getAllFlowers());
-
       } else if (t == "Office Supply Request") {
         f = "OfficeIcons";
         tem.addAll(DataManager.getAllOfficeSupplies());
       } else if (t == "Medical Supply Request") {
         f = "MedicalIcons";
         tem.addAll(DataManager.getAllMedicalSupplies());
+      } else if (t == "Pharmaceutical Request") {
+        f = "PharmaceuticalIcons";
+        tem.addAll(DataManager.getAllPharmaceuticals());
       } else {
         f = "FurnitureIcons";
         System.out.println(t);
@@ -358,6 +363,8 @@ public class ServiceRequestController {
       tem.addAll(DataManager.getAllOfficeSupplies());
     } else if (t == "Medical Supply Request") {
       tem.addAll(DataManager.getAllMedicalSupplies());
+    } else if (t == "Pharmaceutical Request") {
+      tem.addAll(DataManager.getAllPharmaceuticals());
     } else {
       System.out.println(t);
       tem.addAll(DataManager.getAllFurniture());
@@ -373,6 +380,7 @@ public class ServiceRequestController {
       }
     }
     System.out.println(totalPrice);
+    System.out.println("Here");
     DecimalFormat format = new DecimalFormat("###0.00");
     totalLabel.setText(totalLabel.getText() + format.format(totalPrice));
   }
@@ -405,6 +413,11 @@ public class ServiceRequestController {
       ArrayList<MedicalSupply> temp = DataManager.getAllMedicalSupplies();
       items.addAll(temp);
       reqType = RequestType.MEDICALSUPPLY;
+    } else if (requestType.getValue() == "Pharmaceutical Delivery") {
+      folder = "PharmaceuticalIcons";
+      ArrayList<Pharmaceutical> temp = DataManager.getAllPharmaceuticals();
+      items.addAll(temp);
+      reqType = RequestType.PHARMACEUTICAL;
     } else { // "Furniture Delivery"
       folder = "FurnitureIcons";
       ArrayList<Furniture> tems = DataManager.getAllFurniture();
