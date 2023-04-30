@@ -13,6 +13,7 @@ import javafx.scene.control.ToggleGroup;
 public class SettingsController {
   private static boolean wpiSelected = true;
   @FXML Slider volumeSlide;
+  @FXML MFXButton feedbackButton;
 
   @FXML MFXButton dataManageButton;
   @FXML RadioButton wpiButton;
@@ -61,6 +62,7 @@ public class SettingsController {
         });
 
     dataManageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.DATA_MANAGER));
+    feedbackButton.setOnMouseClicked(event -> Navigation.navigate(Screen.FEEDBACK));
   }
 
   private void setApplicationVolume(double volume) {

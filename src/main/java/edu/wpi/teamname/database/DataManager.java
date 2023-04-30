@@ -3,6 +3,7 @@ package edu.wpi.teamname.database;
 import edu.wpi.teamname.alerts.Alert;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
+import edu.wpi.teamname.employees.Feedback;
 import edu.wpi.teamname.navigation.*;
 import edu.wpi.teamname.servicerequest.ConfReservation;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
@@ -2131,5 +2132,15 @@ public class DataManager {
     createSignageTable();
     createConfReservationsTable();
     createConfRoomsTable();
+  }
+
+  public void syncFeedback(Feedback feedback) throws SQLException {
+    FeedbackDAOImpl fb = new FeedbackDAOImpl();
+    fb.sync(feedback);
+  }
+
+  public void addFeedback(Feedback feedback) throws SQLException {
+    FeedbackDAOImpl fb = new FeedbackDAOImpl();
+    fb.add(feedback);
   }
 }
