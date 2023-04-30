@@ -14,6 +14,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+/**
+
+ The DataController class is responsible for handling the importing and exporting of data to and from the database.
+ It contains methods for initializing the GUI components and for handling the actions performed by the user on the GUI.
+ */
+
 
 public class DataController implements Initializable {
   @FXML private ComboBox<String> importComboBox;
@@ -47,6 +53,11 @@ public class DataController implements Initializable {
     "Feedback"
   };
 
+  /**
+
+   Initializes the GUI components of the Data Manager page.
+   Sets the title of the page, populates the import and export ComboBoxes with the available options, and sets the action listeners for the buttons.
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     ParentController.titleString.set("Data Manager");

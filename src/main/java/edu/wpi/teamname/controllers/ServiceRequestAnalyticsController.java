@@ -12,6 +12,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.*;
+/**
+
+ The ServiceRequestAnalyticsController class is responsible for populating and managing the
+ Service Request Analytics view.
+ */
 
 public class ServiceRequestAnalyticsController {
   @FXML private BarChart<String, Number> barChart;
@@ -25,6 +30,10 @@ public class ServiceRequestAnalyticsController {
     populateCharts();
   }
 
+  /**
+
+   Populates the charts with data obtained from the database.
+   */
   public void populateCharts() {
     ServiceRequestDAOImpl serviceRequestDAO = new ServiceRequestDAOImpl();
     List<ServiceRequest> serviceRequests = new ArrayList<>();

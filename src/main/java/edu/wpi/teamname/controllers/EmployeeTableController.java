@@ -27,6 +27,10 @@ import javafx.stage.FileChooser;
 import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
 import org.controlsfx.control.SearchableComboBox;
+/**
+
+ The EmployeeTableController class controls the behavior of the employee table in the user interface.
+ */
 
 public class EmployeeTableController {
   @FXML private TableView<Employee> employeeTable;
@@ -41,6 +45,11 @@ public class EmployeeTableController {
   @FXML private TextField searchEmployee;
   @FXML private TextField employeePasswordTextField;
 
+
+    /**
+
+     Initializes the employee table and sets up the event handlers for interacting with the table.
+     */
   public void initialize() {
     ObservableList<String> employeeTypes =
         FXCollections.observableArrayList(EmployeeType.formattedValues());
@@ -287,7 +296,10 @@ public class EmployeeTableController {
         .textProperty()
         .addListener((observable, oldValue, newValue) -> filterTable(newValue));
   }
+    /**
 
+     Deletes the selected employee from the database and updates the employee table.
+     */
   private void deleteSelectedEmployee() {
     DataManager employeeDAO = new DataManager();
     Employee selectedEmployee = employeeTable.getSelectionModel().getSelectedItem();
@@ -318,7 +330,12 @@ public class EmployeeTableController {
       }
     }
   }
+    /**
 
+     Adds a new employee to the database and updates the employee table.
+
+     Validates the password input against certain criteria.
+     */
   @FXML
   private void handleSubmitButton() {
     Sound.playOnButtonClick();
@@ -383,7 +400,11 @@ public class EmployeeTableController {
       alert.showAndWait();
     }
   }
+    /**
 
+     Filters the employee table based on the search text.
+     If search text is empty, shows all employees in the database.
+     */
   private void filterTable(String searchText) {
     DataManager employeeDAO = new DataManager();
     if (searchText == null || searchText.isEmpty()) {
