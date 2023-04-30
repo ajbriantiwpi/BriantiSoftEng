@@ -91,12 +91,16 @@ public class ServiceRequestViewController {
                   .filter((request) -> request.getStatus().toString().equals(two.toString()))
                   .toList());
     }
-    if (!(date == (null))) {
-      requestList =
-          FXCollections.observableList(
-              requestList.stream()
-                  .filter((request) -> request.getDeliverBy().getDate() == date.getDate())
-                  .toList());
+    try {
+      if (!(date == (null))) {
+        requestList =
+            FXCollections.observableList(
+                requestList.stream()
+                    .filter((request) -> request.getDeliverBy().getDate() == date.getDate())
+                    .toList());
+      }
+    } catch (NullPointerException e) {
+      System.out.println("No Date");
     }
     if (!(username == (null)) && !(username.toString().equals(""))) {
       requestList =
@@ -199,12 +203,18 @@ public class ServiceRequestViewController {
     requestStatusCombo.setOnAction(
         event -> {
           try {
+            Timestamp date;
+            try {
+              date = Timestamp.valueOf(dateBox.getValue().atStartOfDay());
+            } catch (NullPointerException e) {
+              date = null;
+            }
             // update the table when the status combo box is changed
             table.setItems(
                 tableFilter(
                     requestTypeCombo.getValue(),
                     requestStatusCombo.getValue(),
-                    Timestamp.valueOf(dateBox.getValue().atStartOfDay()),
+                    date,
                     requestStaffCombo.getValue()));
           } catch (SQLException e) {
             e.printStackTrace();
@@ -214,12 +224,18 @@ public class ServiceRequestViewController {
     dateBox.setOnAction(
         event -> {
           try {
+            Timestamp date;
+            try {
+              date = Timestamp.valueOf(dateBox.getValue().atStartOfDay());
+            } catch (NullPointerException e) {
+              date = null;
+            }
             // update the table when the status combo box is changed
             table.setItems(
                 tableFilter(
                     requestTypeCombo.getValue(),
                     requestStatusCombo.getValue(),
-                    Timestamp.valueOf(dateBox.getValue().atStartOfDay()),
+                    date,
                     requestStaffCombo.getValue()));
           } catch (SQLException e) {
             e.printStackTrace();
@@ -229,12 +245,18 @@ public class ServiceRequestViewController {
     requestTypeCombo.setOnAction(
         event -> {
           try {
+            Timestamp date;
+            try {
+              date = Timestamp.valueOf(dateBox.getValue().atStartOfDay());
+            } catch (NullPointerException e) {
+              date = null;
+            }
             // update the table when the status combo box is changed
             table.setItems(
                 tableFilter(
                     requestTypeCombo.getValue(),
                     requestStatusCombo.getValue(),
-                    Timestamp.valueOf(dateBox.getValue().atStartOfDay()),
+                    date,
                     requestStaffCombo.getValue()));
           } catch (SQLException e) {
             e.printStackTrace();
@@ -260,12 +282,18 @@ public class ServiceRequestViewController {
     requestStaffCombo.setOnAction(
         event -> {
           try {
+            Timestamp date;
+            try {
+              date = Timestamp.valueOf(dateBox.getValue().atStartOfDay());
+            } catch (NullPointerException e) {
+              date = null;
+            }
             // update the table when the status combo box is changed
             table.setItems(
                 tableFilter(
                     requestTypeCombo.getValue(),
                     requestStatusCombo.getValue(),
-                    Timestamp.valueOf(dateBox.getValue().atStartOfDay()),
+                    date,
                     requestStaffCombo.getValue()));
           } catch (SQLException e) {
             e.printStackTrace();
