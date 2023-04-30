@@ -2,6 +2,7 @@ package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.controllers.JFXitems.DirectionArrow;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.extras.Pacman;
 import edu.wpi.teamname.navigation.Direction;
 import edu.wpi.teamname.navigation.Signage;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -144,6 +145,7 @@ public class SignageController {
                             play.setVisible(true);
                             play.setDisable(false);
                             System.out.println("Pacman!");
+                            Pacman.pacBear();
                           }
                           leftC = 0;
                           rightC = 0;

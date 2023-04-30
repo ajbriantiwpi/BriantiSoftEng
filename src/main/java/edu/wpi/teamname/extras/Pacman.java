@@ -2,23 +2,19 @@ package edu.wpi.teamname.extras;
 
 import javax.swing.JFrame;
 
-public class Pacman extends JFrame{
+public class Pacman extends JFrame {
 
-    public Pacman() {
-        add(new Model());
-    }
+  public Pacman() {
+    add(new Model());
+  }
 
+  public static void pacBear() {
 
-    public static void main(String[] args) {
-
-        Pacman pac = new Pacman();
-        pac.setVisible(true);
-        pac.setTitle("Pacbear");
-        pac.setSize(400,440);
-        pac.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        pac.setLocationRelativeTo(null);
-
-    }
-
+    Pacman pac = new Pacman();
+    pac.setVisible(true);
+    pac.setTitle("PAC-DROPBEAR!");
+    pac.setSize(400, 440);
+    pac.setDefaultCloseOperation(EXIT_ON_CLOSE);
+    pac.setLocationRelativeTo(null);
+  }
 }
-
