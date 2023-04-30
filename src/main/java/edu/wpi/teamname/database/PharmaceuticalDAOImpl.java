@@ -53,7 +53,7 @@ public class PharmaceuticalDAOImpl implements PharmaceuticalDAO {
     ArrayList<Pharmaceutical> list = new ArrayList<Pharmaceutical>();
 
     try (connection) {
-      String query = "SELECT * FROM \"Pharmaceutical\"";
+      String query = "SELECT * FROM \"Pharmaceutical\" ORDER BY name";
       PreparedStatement statement = connection.prepareStatement(query);
       ResultSet rs = statement.executeQuery();
 
