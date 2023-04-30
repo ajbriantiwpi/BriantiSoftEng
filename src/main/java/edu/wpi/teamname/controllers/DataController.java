@@ -41,6 +41,7 @@ public class DataController implements Initializable {
     "Node",
     "Office Supply",
     "Path Messages",
+    "Pharmaceutical",
     "Service Request",
     "Signage"
   };
@@ -124,6 +125,9 @@ public class DataController implements Initializable {
               break;
             case "Feedback":
               DataManager.uploadFeedback(csvFile.getPath());
+              break;
+            case "Pharmaceutical":
+              DataManager.uploadPharmaceutical(csvFile.getPath());
               break;
           }
         } catch (SQLException | ParseException e) {
@@ -210,6 +214,10 @@ public class DataController implements Initializable {
             case "Path Messages":
               fileChooser.setInitialFileName("pathMessages.csv");
               // DataManager.exportPathMessagesToCSV(csvFile.getPath());
+              break;
+            case "Pharmaceutical":
+              fileChooser.setInitialFileName("pharmaceutical.csv");
+              DataManager.exportPharmaceuticalToCSV(csvFile.getPath());
               break;
             case "Service Request":
               fileChooser.setInitialFileName("serviceRequest.csv");

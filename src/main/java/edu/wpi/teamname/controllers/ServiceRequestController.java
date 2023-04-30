@@ -5,6 +5,7 @@ import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.controllers.JFXitems.ReqMenuItems;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.employees.EmployeeType;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.servicerequest.RequestType;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
@@ -311,7 +312,10 @@ public class ServiceRequestController {
           Sound.playOnButtonClick();
           clearAction();
         });
-
+    if (!GlobalVariables.userIsType(EmployeeType.DOCTOR)) {
+      serviceType.remove("Pharmaceutical Delivery");
+    }
+    System.out.println("service type: " + serviceType);
     requestType.setItems(serviceType);
 
     // request = new ServiceRequest();
