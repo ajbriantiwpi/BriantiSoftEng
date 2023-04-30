@@ -1,7 +1,6 @@
 package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.App;
-import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.database.DataManager;
@@ -50,9 +49,9 @@ public class MapController {
   @FXML GesturePane gp;
   @FXML AnchorPane anchor;
   @FXML HBox SelectCombo;
-  @FXML ComboBox<String> LocationOne;
+  @FXML ComboBox<String> LocationOne = new ComboBox<>();
   public static ComboBox<String> LocOne;
-  @FXML ComboBox<String> EndPointSelect;
+  @FXML ComboBox<String> EndPointSelect = new ComboBox<>();
   public static ComboBox<String> endSel;
   @FXML MFXButton DeleteNodeButton;
   @FXML MFXButton findPathButton;
@@ -115,6 +114,9 @@ public class MapController {
   @FXML TitledPane DateTitlePane;
   @FXML TitledPane MessageTitlePane;
 
+  // Searchable Combobox
+  @FXML TextField comboField = new TextField();
+
   //  @FXML TitledPane DateTitledPane;
 
   String defaultFloor = "L1";
@@ -128,133 +130,137 @@ public class MapController {
   int eNode = 0;
   Node globalStartNode;
 
+  String globalLongNames = "";
+  String globalLongNamee = "";
+
   String currentAlgo = "";
   ArrayList<MFXButton> floorButtons = new ArrayList<>();
   @FXML VBox directionsBox;
 
   @FXML VBox Legend;
 
-  EventHandler<MouseEvent> e =
-      new EventHandler<MouseEvent>() {
-        @Override
-        public void handle(MouseEvent event) {
-          clickCount++;
-
-          if (clickCount == 1) {
-
-            // Capture the first click
-            firstClick = new Point2D(event.getX(), event.getY());
-            LocationOne.setOnAction(e -> {});
-
-            floor1 = map.takeFloor(FloorSelect.getValue(), false);
-
-          } else if (clickCount == 2) {
-            // Capture the second click
-            secondClick = new Point2D(event.getX(), event.getY());
-
-            floor2 = map.takeFloor(FloorSelect.getValue(), false);
-
-            List<Node> allNodes = map.graph.getNodes();
-
-            //    System.out.println(firstClick);
-            //    System.out.println(secondClick); // Coordinates in inner, now goes up to 5000
-
-            int startIndex = -1;
-            int endIndex = -1;
-            double leastDistance;
-            double nodeDist;
-
-            Point2D currentClick;
-            String currentFloor;
-            int checkIndex;
-
-            for (int j = 0; j < 2; j++) {
-              if (j == 0) {
-                // Start Node
-                currentFloor = floor1;
-                currentClick = firstClick;
-              } else {
-                // End Node
-                currentFloor = floor2;
-                currentClick = secondClick;
-              }
-
-              leastDistance = Double.MAX_VALUE;
-              checkIndex = -1;
-
-              for (int i = 0; i < allNodes.size(); i++) {
-                if (i == startIndex) {
-                  continue;
-                } else {
-                  Node currentNode = allNodes.get(i);
-                  if (currentNode.getFloor().equals(currentFloor)) {
-                    nodeDist = currentClick.distance(currentNode.getX(), currentNode.getY());
-                    if (nodeDist < leastDistance) {
-                      leastDistance = nodeDist;
-                      checkIndex = i;
-                    }
-                  }
-                }
-              }
-
-              if (j == 0) {
-                // Start Node
-                startIndex = checkIndex;
-              } else {
-                // End Node
-                endIndex = checkIndex;
-              }
-            }
-
-            //    Node startNode = allNodes.get(startIndex);
-            //    Node endNode = allNodes.get(endIndex);
-            System.out.println(startIndex + " " + endIndex);
-            int startId = (startIndex * 5) + 100; // allNodes.get(startIndex).getId();
-            int endId = (endIndex * 5) + 100; // allNodes.get(endIndex).getId();
-
-            System.out.println("startId: " + startId);
-            System.out.println("endId: " + endId);
-
-            sNode = startId;
-            eNode = endId;
-
-            findPathButton.setVisible(true);
-            //            try {
-            //              LocationOne.setValue(DataManager.getAllLocationNamesMappedByNode( new
-            // Timestamp(System.currentTimeMillis())).get(sNode).get(0).getLongName());
-            //            } catch (SQLException ex) {
-            //              throw new RuntimeException(ex);
-            //            }
-
-            LocationOne.setValue(GlobalVariables.getHMap().get(sNode).get(0).getLongName());
-
-            //            try {
-            //              EndPointSelect.setValue(
-            //                  DataManager.getAllLocationNamesMappedByNode(
-            //                          new Timestamp(System.currentTimeMillis()))
-            //                      .get(eNode)
-            //                      .get(0)
-            //                      .getLongName());
-            //            } catch (SQLException ex) {
-            //              throw new RuntimeException(ex);
-            //            }
-
-            EndPointSelect.setValue(GlobalVariables.getHMap().get(eNode).get(0).getLongName());
-
-            // Call drawAStarPath with both points
-            // map.drawPath(anchor, firstClick, secondClick, floor1, floor2);
-            //            String[] parts = nToPars.split("_");
-            //            int sInd = Integer.parseInt(parts[0]);
-            //            int eInd = Integer.parseInt(parts[1]);
-            // listPaths = map.drawAStarPath(anchor, sInd, eInd);
-            //            int secInd = map.getAllFloors().indexOf(FloorSelect.getValue());
-            //            System.out.println(FloorSelect.getValue() + " " + secInd);
-            //            anchor.getChildren().addAll(map.getShapes().get(secInd));
-
-            // clickCount = 0;
-          }
-        }
-      };
+  //  EventHandler<MouseEvent> e =
+  //      new EventHandler<MouseEvent>() {
+  //        @Override
+  //        public void handle(MouseEvent event) {
+  //          clickCount++;
+  //
+  //          if (clickCount == 1) {
+  //
+  //            // Capture the first click
+  //            firstClick = new Point2D(event.getX(), event.getY());
+  //            //LocationOne.setOnAction(e -> {});
+  //
+  //            floor1 = map.takeFloor(FloorSelect.getValue(), false);
+  //
+  //          } else if (clickCount == 2) {
+  //            // Capture the second click
+  //            secondClick = new Point2D(event.getX(), event.getY());
+  //
+  //            floor2 = map.takeFloor(FloorSelect.getValue(), false);
+  //
+  //            List<Node> allNodes = map.graph.getNodes();
+  //
+  //            //    System.out.println(firstClick);
+  //            //    System.out.println(secondClick); // Coordinates in inner, now goes up to 5000
+  //
+  //            int startIndex = -1;
+  //            int endIndex = -1;
+  //            double leastDistance;
+  //            double nodeDist;
+  //
+  //            Point2D currentClick;
+  //            String currentFloor;
+  //            int checkIndex;
+  //
+  //            for (int j = 0; j < 2; j++) {
+  //              if (j == 0) {
+  //                // Start Node
+  //                currentFloor = floor1;
+  //                currentClick = firstClick;
+  //              } else {
+  //                // End Node
+  //                currentFloor = floor2;
+  //                currentClick = secondClick;
+  //              }
+  //
+  //              leastDistance = Double.MAX_VALUE;
+  //              checkIndex = -1;
+  //
+  //              for (int i = 0; i < allNodes.size(); i++) {
+  //                if (i == startIndex) {
+  //                  continue;
+  //                } else {
+  //                  Node currentNode = allNodes.get(i);
+  //                  if (currentNode.getFloor().equals(currentFloor)) {
+  //                    nodeDist = currentClick.distance(currentNode.getX(), currentNode.getY());
+  //                    if (nodeDist < leastDistance) {
+  //                      leastDistance = nodeDist;
+  //                      checkIndex = i;
+  //                    }
+  //                  }
+  //                }
+  //              }
+  //
+  //              if (j == 0) {
+  //                // Start Node
+  //                startIndex = checkIndex;
+  //              } else {
+  //                // End Node
+  //                endIndex = checkIndex;
+  //              }
+  //            }
+  //
+  //            //    Node startNode = allNodes.get(startIndex);
+  //            //    Node endNode = allNodes.get(endIndex);
+  //            System.out.println(startIndex + " " + endIndex);
+  //            int startId = (startIndex * 5) + 100; // allNodes.get(startIndex).getId();
+  //            int endId = (endIndex * 5) + 100; // allNodes.get(endIndex).getId();
+  //
+  //            System.out.println("startId: " + startId);
+  //            System.out.println("endId: " + endId);
+  //
+  //            sNode = startId;
+  //            eNode = endId;
+  //
+  //            findPathButton.setVisible(true);
+  //            //            try {
+  //            //              LocationOne.setValue(DataManager.getAllLocationNamesMappedByNode(
+  // new
+  //            // Timestamp(System.currentTimeMillis())).get(sNode).get(0).getLongName());
+  //            //            } catch (SQLException ex) {
+  //            //              throw new RuntimeException(ex);
+  //            //            }
+  //
+  //            LocationOne.setValue(GlobalVariables.getHMap().get(sNode).get(0).getLongName());
+  //
+  //            //            try {
+  //            //              EndPointSelect.setValue(
+  //            //                  DataManager.getAllLocationNamesMappedByNode(
+  //            //                          new Timestamp(System.currentTimeMillis()))
+  //            //                      .get(eNode)
+  //            //                      .get(0)
+  //            //                      .getLongName());
+  //            //            } catch (SQLException ex) {
+  //            //              throw new RuntimeException(ex);
+  //            //            }
+  //
+  //            EndPointSelect.setValue(GlobalVariables.getHMap().get(eNode).get(0).getLongName());
+  //
+  //            // Call drawAStarPath with both points
+  //            // map.drawPath(anchor, firstClick, secondClick, floor1, floor2);
+  //            //            String[] parts = nToPars.split("_");
+  //            //            int sInd = Integer.parseInt(parts[0]);
+  //            //            int eInd = Integer.parseInt(parts[1]);
+  //            // listPaths = map.drawAStarPath(anchor, sInd, eInd);
+  //            //            int secInd = map.getAllFloors().indexOf(FloorSelect.getValue());
+  //            //            System.out.println(FloorSelect.getValue() + " " + secInd);
+  //            //            anchor.getChildren().addAll(map.getShapes().get(secInd));
+  //
+  //            // clickCount = 0;
+  //          }
+  //        }
+  //      };
 
   EventHandler<MouseEvent> deleteNodeButton =
       new EventHandler<MouseEvent>() {
@@ -521,6 +527,9 @@ public class MapController {
           map.centerAndZoomStart(gp, OuterMapAnchor, globalStartNode);
 
           clickCount = 0;
+
+          LocationOne.setValue(globalLongNames);
+          EndPointSelect.setValue(globalLongNamee);
         }
       };
 
@@ -529,24 +538,29 @@ public class MapController {
 
         @Override
         public void handle(ActionEvent event) {
-          Node nodeForStart;
-          System.out.println("changed start " + LocationOne.getValue());
-          // System.out.println(LocationOne.getValue());
-          // System.out.println(EndPointSelect.getValue());
-          String startLName = LocationOne.getValue();
+          if (!LocationOne.getValue().equals(null)) {
+            Node nodeForStart;
+            System.out.println("changed start " + LocationOne.getValue());
+            // System.out.println(LocationOne.getValue());
+            // System.out.println(EndPointSelect.getValue());
+            String startLName = LocationOne.getValue();
+            globalLongNames = LocationOne.getValue();
 
-          try {
-            nodeForStart = DataManager.getNodeByLocationName(startLName, map.getCurrTime());
-          } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-          }
-          globalStartNode = nodeForStart;
-          sNode = nodeForStart.getId(); // Integer.parseInt(LocationOne.getValue());
-          // System.out.println("sNode: " + sNode);
-          if (eNode != 0 && sNode != 0) {
-            findPathButton.setDisable(
-                false); //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
-            // map.drawPath(anchor, sNode, eNode);
+            try {
+              nodeForStart = DataManager.getNodeByLocationName(startLName, map.getCurrTime());
+            } catch (SQLException ex) {
+              throw new RuntimeException(ex);
+            }
+            globalStartNode = nodeForStart;
+            sNode = nodeForStart.getId(); // Integer.parseInt(LocationOne.getValue());
+            // System.out.println("sNode: " + sNode);
+            if (eNode != 0 && sNode != 0) {
+              findPathButton.setDisable(
+                  false); //            map.drawAStarPath(anchor, floor1, floor2, sNode, eNode);
+              // map.drawPath(anchor, sNode, eNode);
+            }
+          } else {
+            System.out.println("Start is null");
           }
         }
       };
@@ -560,6 +574,7 @@ public class MapController {
 
           System.out.println("changed end " + EndPointSelect.getValue());
           String endLName = EndPointSelect.getValue();
+          globalLongNamee = EndPointSelect.getValue();
           try {
             nodeForEnd = DataManager.getNodeByLocationName(endLName, map.getCurrTime());
           } catch (SQLException ex) {
@@ -1100,6 +1115,18 @@ public class MapController {
     }
   }
 
+  private List<String> filterItems(String userInput) {
+    List<String> filteredItems = new ArrayList<>();
+
+    for (String item : LocationOne.getItems()) {
+      if (item.toLowerCase().startsWith(userInput.toLowerCase())) {
+        filteredItems.add(item);
+      }
+    }
+
+    return filteredItems;
+  }
+
   @FXML
   public void initialize() throws SQLException, IOException {
 
@@ -1137,14 +1164,79 @@ public class MapController {
     findPathButton.setDisable(true);
 
     //    LocationOne.setStyle("-fx-padding: 5 25 5 5;");
-    LocationOne.setPromptText("Select start");
-    LocationOne.setItems(
-        map.getAllNodeNames()); // change for when the floor changes to update the nodes shown
+    // LocationOne.setPromptText("Select start");
+    // LocationOne.setItems(
+    // map.getAllNodeNames()); // change for when the floor changes to update the nodes shown
+    // LocationOne.setOnAction(changeStart);
+    LocationOne.setEditable(true);
+
+    ObservableList<String> items = map.getAllNodeNames();
+    // Create a FilteredList wrapping the ObservableList.
+    FilteredList<String> filteredItems = new FilteredList<String>(items, p -> true);
+
+    // Add a listener to the textProperty of the combobox editor. The
+    // listener will simply filter the list every time the input is changed
+    // as long as the user hasn't selected an item in the list.
+    LocationOne.getEditor()
+        .textProperty()
+        .addListener(
+            (obs, oldValue, newValue) -> {
+              final TextField editor = LocationOne.getEditor();
+              final String selected = LocationOne.getSelectionModel().getSelectedItem();
+
+              // This needs run on the GUI thread to avoid the error described
+              // here: https://bugs.openjdk.java.net/browse/JDK-8081700.
+              Platform.runLater(
+                  () -> {
+                    // If the no item in the list is selected or the selected item
+                    // isn't equal to the current input, we refilter the list.
+                    if (selected == null || !selected.equals(editor.getText())) {
+                      filteredItems.setPredicate(
+                          item -> {
+                            // We return true for any items that starts with the
+                            // same letters as the input. We use toUpperCase to
+                            // avoid case sensitivity.
+                            if (item.toUpperCase().startsWith(newValue.toUpperCase())) {
+                              return true;
+                            } else {
+                              return false;
+                            }
+                          });
+                    }
+                  });
+            });
+
+    LocationOne.setItems(filteredItems);
+
     LocationOne.setOnAction(changeStart);
 
     EndPointSelect.setPromptText("Select end");
     EndPointSelect.setItems(map.getAllNodeNames()); // switched to every node in map
     EndPointSelect.setOnAction(changeEnd);
+
+    //    comboField
+    //        .textProperty()
+    //        .addListener(
+    //            (observable, oldValue, newValue) -> {
+    //              LocationOne.getItems().setAll(filterItems(newValue));
+    //            });
+
+    // LocationOne.setPromptText("Type here to search");
+
+    LocationOne.setButtonCell(new ListCell<>());
+    LocationOne.setCellFactory(
+        param ->
+            new ListCell<>() {
+              @Override
+              protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                  setText(null);
+                } else {
+                  setText(item);
+                }
+              }
+            });
 
     //    FloorSelect.setPromptText("Select floor");
     //    FloorSelect.setItems(map.getAllFloors());
@@ -1185,7 +1277,7 @@ public class MapController {
     MessageSubmitButton.setVisible(false);
     MessageSubmitButton.setOnMouseClicked(submitMessage);
 
-    anchor.setOnMouseClicked(e);
+    // anchor.setOnMouseClicked(e);
 
     // New Floor Button Layout
     //    ThirdFloorButton.setOnAction(setThirdFloor);
