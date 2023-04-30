@@ -34,6 +34,7 @@ public class GlobalVariables {
   @Getter @Setter private static Color labelTextColor = new Color(0, .106, .231, 1);
   @Getter @Setter private static Timestamp today = new Timestamp(System.currentTimeMillis());
   @Getter @Setter private static HashMap<Integer, ArrayList<LocationName>> hMap;
+  @Getter @Setter private static ScreenSaver ss = new ScreenSaver();
   //  @Getter @Setter private static Color labelColor = new Color(.835, .89, 1, 1);
   //  @Getter @Setter private static Color labelTextColor = new Color(0, .106, .231, 1);
 

@@ -6,6 +6,7 @@ import java.text.ParseException;
 
 public class Main {
   public static void main(String[] args) throws SQLException, IOException, ParseException {
+    // ScreenSaver.launch(ScreenSaver.class, args);
     App.launch(App.class, args);
   }
 

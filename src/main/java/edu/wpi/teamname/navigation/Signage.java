@@ -85,6 +85,4 @@ public class Signage {
   public void setShortName(String newValue) {
     this.shortName = newValue;
   }
-
-
 }
