@@ -153,7 +153,7 @@ public class ServiceRequestViewController {
         break;
       case ITALIAN:
         ParentController.titleString.set("Vista Richiesta Servizio");
-        filterTableLabel.setText("Filtro Tabella");
+        filterTableLabel.setText("Filtrare la Tabella");
         requestTypeLabel.setText("Tipo di Richiesta");
         requestTypeCombo.setPromptText("Scegli Tipo di Richiesta");
         statusLabel.setText("Stato Richiesta");
@@ -443,7 +443,7 @@ public class ServiceRequestViewController {
     requestStaffCombo.setOnAction(
         event -> {
           try {
-            // update the table when the status combo box is changed
+            // update the table when the staff combo box is changed
             table.setItems(
                 tableFilter(
                     requestTypeCombo.getValue(),

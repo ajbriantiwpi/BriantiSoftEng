@@ -28,7 +28,7 @@
                   <children>
                      <VBox spacing="12.0" style="-fx-background-radius: 16;" styleClass="surface-container-highest">
                         <children>
-                           <Label styleClass="primary-text-container" text="Filter Table" textFill="#001b3b">
+                           <Label fx:id="filterTable" styleClass="primary-text-container" text="Filter Table" textFill="#001b3b">
                               <font>
                                  <Font name="Roboto" size="32.0" />
                               </font>
@@ -36,7 +36,7 @@
                                  <Insets bottom="4.0" />
                               </VBox.margin>
                            </Label>
-                           <Label styleClass="primary-text-container" text="Alert Urgency" textFill="#001b3b">
+                           <Label fx:id="urgencyLabel" styleClass="primary-text-container" text="Alert Urgency" textFill="#001b3b">
                               <font>
                                  <Font name="Roboto" size="28.0" />
                               </font>
@@ -49,12 +49,12 @@
                                  <Insets bottom="12.0" />
                               </VBox.margin>
                            </ComboBox>
-                           <Label styleClass="primary-text-container" text="Staff Type" textFill="#001b3b">
+                           <Label fx:id="staffTypeLabel" styleClass="primary-text-container" text="Staff Type" textFill="#001b3b">
                               <font>
                                  <Font name="Roboto" size="28.0" />
                               </font>
                            </Label>
-                           <ComboBox fx:id="staffTypeCombo" prefHeight="71.0" prefWidth="396.0" promptText="Choose Staff" stylesheets="@../stylesheets/combo.css" />
+                           <ComboBox fx:id="staffTypeCombo" prefHeight="71.0" prefWidth="396.0" promptText="Choose Staff Type" stylesheets="@../stylesheets/combo.css" />
                         </children>
                         <VBox.margin>
                            <Insets bottom="32.0" top="24.0" />
@@ -133,7 +133,7 @@
                   <children>
                      <HBox alignment="CENTER_RIGHT">
                         <children>
-                           <Label alignment="CENTER" prefHeight="34.0" prefWidth="144.0" styleClass="primary-text-container" text="Search">
+                           <Label fx:id="searchLabel" alignment="CENTER" prefHeight="34.0" prefWidth="144.0" styleClass="primary-text-container" text="Search">
                               <font>
                                  <Font name="Roboto" size="18.0" />
                               </font>

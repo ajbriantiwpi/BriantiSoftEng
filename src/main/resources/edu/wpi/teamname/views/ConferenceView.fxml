@@ -29,7 +29,7 @@
                         <children>
                            <VBox spacing="12.0">
                               <children>
-                                 <Label styleClass="primary-text-container" text="Filter Table" textFill="#001b3b">
+                                 <Label fx:id="filterTableLabel" styleClass="primary-text-container" text="Filter Table" textFill="#001b3b">
                                     <font>
                                        <Font name="Roboto" size="32.0" />
                                     </font>
@@ -37,7 +37,7 @@
                                        <Insets bottom="4.0" />
                                     </VBox.margin>
                                  </Label>
-                                 <Label styleClass="primary-text-container" text="Date" textFill="#001b3b">
+                                 <Label fx:id="dateLabel" styleClass="primary-text-container" text="Date" textFill="#001b3b">
                                     <font>
                                         <Font name="Roboto" size="28.0" />
                                     </font>
@@ -47,7 +47,7 @@
                                  </Label>
                                  <DatePicker fx:id="dateBox" maxWidth="500.0" styleClass="text-field" stylesheets="@../stylesheets/dateBox.css" />
                                  <MFXButton fx:id="refreshButton" styleClass="primary-container" stylesheets="@../stylesheets/button.css" text="Refresh" />
-                                 <Label text="Assigned Staff" textFill="#001b3b">
+                                 <Label fx:id="assignedLabel" text="Assigned Staff" textFill="#001b3b">
                                     <font>
                                        <Font name="Roboto" size="28.0" />
                                     </font>
@@ -67,7 +67,7 @@
                            </VBox>
                            <VBox spacing="12.0" style="-fx-background-radius: 16;" styleClass="surface-container-highest">
                               <children>
-                                 <Label text="Assign Staff to Reservaiton" textFill="#001b3b">
+                                 <Label fx:id="assignStaffLabel" text="Assign Staff to Reservaiton" textFill="#001b3b">
                                     <font>
                                        <Font name="Roboto" size="32.0" />
                                     </font>
@@ -79,7 +79,7 @@
                                        <String fx:value="headline-large" />
                                     </styleClass>
                                  </Label>
-                                 <Label text="Reservaiton ID" textFill="#001b3b">
+                                 <Label fx:id="idLabel" text="Reservation ID" textFill="#001b3b">
                                     <font>
                                         <Font name="Roboto" size="28.0" />
                                     </font>
@@ -96,7 +96,7 @@
                                        <Insets bottom="4.0" />
                                     </VBox.margin>
                                  </SearchableComboBox>
-                                 <Label text="Assign Staff" textFill="#001b3b">
+                                 <Label fx:id="assignStaffLabel1" text="Assign Staff" textFill="#001b3b">
                                     <font>
                                         <Font name="Roboto" size="28.0" />
                                     </font>

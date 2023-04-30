@@ -3,6 +3,7 @@ package edu.wpi.teamname.controllers;
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.controllers.JFXitems.RoomSelector;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.servicerequest.ConfReservation;
 import edu.wpi.teamname.servicerequest.RoomManager;
@@ -24,7 +25,13 @@ import javafx.scene.layout.AnchorPane;
 import org.controlsfx.control.RangeSlider;
 
 public class ConferenceController {
-
+  @FXML Label dateLabel;
+  @FXML Label buildingLabel;
+  @FXML Label startTimeLabel;
+  @FXML Label endTimeLabel;
+  @FXML Label roomSizeLabel;
+  @FXML Label nameLabel;
+  @FXML Label roomLabel;
   @FXML AnchorPane root;
   @FXML ComboBox<String> startBox;
   @FXML ComboBox<String> endBox;
@@ -69,6 +76,71 @@ public class ConferenceController {
   private static String nameRes;
   private static String username;
   private static String staff = "None";
+
+  public void setLanguage(Language lang) {
+    switch (lang) {
+      case ENGLISH:
+        ParentController.titleString.set("Conference Room Request");
+        dateLabel.setText("Date");
+        buildingLabel.setText("Building");
+        buildingBox.setPromptText("Choose Building");
+        startTimeLabel.setText("Start Time");
+        startBox.setPromptText("Choose Start Time");
+        endTimeLabel.setText("End Time");
+        endBox.setPromptText("Choose End Time");
+        roomSizeLabel.setText("Room Size");
+        nameLabel.setText("Name");
+        roomLabel.setText("Room");
+        roomBox.setPromptText("Choose Room");
+        submitButton.setText("Request");
+        break;
+      case ITALIAN:
+        ParentController.titleString.set("Richiesta sala conferenze");
+        dateLabel.setText("Data");
+        buildingLabel.setText("Edificio");
+        buildingBox.setPromptText("Scegli Edificio");
+        startTimeLabel.setText("Orario di inizio");
+        startBox.setPromptText("Scegli orario di inizio");
+        endTimeLabel.setText("Orario di fine");
+        endBox.setPromptText("Scegli orario di fine");
+        roomSizeLabel.setText("Dimensioni della stanza");
+        nameLabel.setText("Nome");
+        roomLabel.setText("Stanza");
+        roomBox.setPromptText("Scegli la stanza");
+        submitButton.setText("Richiesta");
+        break;
+      case FRENCH:
+        ParentController.titleString.set("Demande de salle de conférence");
+        dateLabel.setText("Date");
+        buildingLabel.setText("Bâtiment");
+        buildingBox.setPromptText("Choisir un bâtiment");
+        startTimeLabel.setText("Heure de début");
+        startBox.setPromptText("Choisir une heure de début");
+        endTimeLabel.setText("Heure de fin");
+        endBox.setPromptText("Choisir une heure de fin");
+        roomSizeLabel.setText("Taille de la salle");
+        nameLabel.setText("Nom");
+        roomLabel.setText("Salle");
+        roomBox.setPromptText("Choisir une salle");
+        submitButton.setText("Demande");
+        break;
+      case SPANISH:
+        ParentController.titleString.set("Solicitud de Sala de Conferencias");
+        dateLabel.setText("Fecha");
+        buildingLabel.setText("Edificio");
+        buildingBox.setPromptText("Seleccione un edificio");
+        startTimeLabel.setText("Hora de inicio");
+        startBox.setPromptText("Seleccione la hora de inicio");
+        endTimeLabel.setText("Hora de finalización");
+        endBox.setPromptText("Seleccione la hora de finalización");
+        roomSizeLabel.setText("Tamaño de la sala");
+        nameLabel.setText("Nombre");
+        roomLabel.setText("Sala");
+        roomBox.setPromptText("Seleccione la sala");
+        submitButton.setText("Solicitud");
+        break;
+    }
+   }
 
   @FXML
   public void initialize() throws SQLException {
