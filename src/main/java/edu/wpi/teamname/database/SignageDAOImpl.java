@@ -23,7 +23,7 @@ public class SignageDAOImpl implements SignageDAO {
   public ArrayList<Signage> getSignages(int kiosk, Timestamp date) throws SQLException {
     ArrayList<Signage> items = new ArrayList<>();
     Connection connection = DataManager.DbConnection();
-    String query = "Select *\n" + "From \"Signage\"\n" + "Where \"kioskID\" = ? AND \"date\" = ?";
+    String query = "Select *\n" + "From \"Signage\"\n" + "Where \"kioskID\" = ? AND \"date\" = ? AND \"date\" <= ?";
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, kiosk);

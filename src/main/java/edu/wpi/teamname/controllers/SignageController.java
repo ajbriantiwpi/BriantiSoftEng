@@ -38,10 +38,12 @@ public class SignageController {
   private static int r = 0;
   private static int u = 0;
   private static int d = 0;
+  private static int s = 0;
   private static int leftC = 0;
   private static int rightC = 0;
   private static int upC = 0;
   private static int downC = 0;
+  private static int stopC = 0;
 
   @FXML
   public void initialize() throws SQLException, IOException {
@@ -97,6 +99,7 @@ public class SignageController {
           rightC = 0;
           upC = 0;
           downC = 0;
+          stopC = 0;
           play.setVisible(false);
           play.setDisable(true);
           submited = true;
@@ -131,10 +134,13 @@ public class SignageController {
                           downC++;
                         } else if (event.getCode().equals(KeyCode.UP)) {
                           upC++;
+                        } else if (event.getCode().equals(KeyCode.SPACE)) {
+                          stopC++;
                         } else if (event.getCode().equals(KeyCode.ENTER)) {
-                          System.out.println(leftC + ", " + rightC + ", " + downC + ", " + upC);
-                          System.out.println(l + ", " + r + ", " + d + ", " + u);
-                          if (leftC == l && rightC == r && upC == u && downC == d) {
+                          System.out.println(
+                              leftC + ", " + rightC + ", " + downC + ", " + upC + ", " + stopC);
+                          System.out.println(l + ", " + r + ", " + d + ", " + u + ", " + s);
+                          if (leftC == l && rightC == r && upC == u && downC == d && stopC == s) {
                             play.setVisible(true);
                             play.setDisable(false);
                             System.out.println("Pacman!");
@@ -143,6 +149,7 @@ public class SignageController {
                           rightC = 0;
                           upC = 0;
                           downC = 0;
+                          stopC = 0;
                         } else {
                           System.out.println("Nothing");
                         }
@@ -156,6 +163,7 @@ public class SignageController {
     r = 0;
     u = 0;
     d = 0;
+    s = 0;
     // get the specific directions for specific signage
     for (int i = 0; i < directions.size(); i++) {
       String dir = directions.get(i).toString();
@@ -169,8 +177,11 @@ public class SignageController {
         case "UP":
           u++;
           break;
-        case "STOPHERE":
+        case "DOWN":
           d++;
+          break;
+        case "STOPHERE":
+          s++;
           break;
       }
     }
