@@ -1,5 +1,6 @@
 package edu.wpi.teamname;
 
+import edu.wpi.teamname.extras.Sound;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.HBox;
@@ -7,8 +8,15 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 
 public class Navigation {
+  private static boolean first = true;
 
   public static void navigate(final Screen screen) {
+    if (!first) {
+      Sound.playOnButtonClick();
+    } else {
+      first = false;
+    }
+
     final String filename = screen.getFilename();
 
     try {
@@ -16,7 +24,6 @@ public class Navigation {
       //      final FXMLLoader loader = new FXMLLoader(resource);
       //
       //      App.getRootPane().setCenter(loader.load());
-
       final var resource = App.class.getResource(filename);
       final FXMLLoader loader = new FXMLLoader(resource);
       System.out.println(filename);

@@ -6,6 +6,7 @@ import edu.wpi.teamname.controllers.JFXitems.DatePickerTableCell;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.database.SignageDAOImpl;
 import edu.wpi.teamname.database.interfaces.SignageDAO;
+import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.navigation.Direction;
 import edu.wpi.teamname.navigation.Signage;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -43,7 +44,7 @@ public class EditSignageController {
 
   public void initialize() {
     DataManager signageDAO = new DataManager();
-    ParentController.titleString.set("Signage Edit Table");
+    ParentController.titleString.set("Signage Editor");
     TableColumn<Signage, String> longNameColumn = new TableColumn<>("Long Name");
     longNameColumn.setCellValueFactory(new PropertyValueFactory<>("longName"));
 
@@ -306,6 +307,7 @@ public class EditSignageController {
   }
 
   public void handleSubmitButton() {
+    Sound.playOnButtonClick();
     StringConverter<Direction> directionConverter =
         new StringConverter<Direction>() {
           @Override

@@ -12,6 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AlertDAOImpl implements AlertDAO {
+  /**
+   * This method updates an existing Alert object in the "Alert" table in the database with the new
+   * Alert object.
+   *
+   * @param alert new alert object
+   * @throws SQLException
+   */
   @Override
   public void sync(Alert alert) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -37,6 +44,12 @@ public class AlertDAOImpl implements AlertDAO {
     connection.close();
   }
 
+  /**
+   * gets a list of all the alerts in the database
+   *
+   * @return the list of alerts
+   * @throws SQLException
+   */
   @Override
   public ArrayList<Alert> getAll() throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -73,6 +86,12 @@ public class AlertDAOImpl implements AlertDAO {
     return list;
   }
 
+  /**
+   * adds an alert to the database
+   *
+   * @param alert to add
+   * @throws SQLException
+   */
   @Override
   public void add(Alert alert) throws SQLException {
     Connection connection = DataManager.DbConnection();
@@ -98,12 +117,18 @@ public class AlertDAOImpl implements AlertDAO {
     connection.close();
   }
 
+  /**
+   * gets a list of all of the request IDs to fill the combobox
+   *
+   * @return a list of ids
+   * @throws SQLException
+   */
   public ArrayList<Integer> getAllIDs() throws SQLException {
     Connection connection = DataManager.DbConnection();
     ArrayList<Integer> list = new ArrayList<Integer>();
 
     try (connection) {
-      String query = "SELECT * FROM \"Alert\"";
+      String query = "SELECT \"alertID\" FROM \"Alert\"";
       PreparedStatement statement = connection.prepareStatement(query);
       ResultSet rs = statement.executeQuery();
 
@@ -116,8 +141,40 @@ public class AlertDAOImpl implements AlertDAO {
     return list;
   }
 
+  /**
+   * deletes an alert from the database
+   *
+   * @param alert to delete
+   * @throws SQLException
+   */
   @Override
-  public void delete(Alert alert) throws SQLException {}
+  public void delete(Alert alert) throws SQLException {
+    Connection connection = DataManager.DbConnection();
+    String del = "Delete ";
+    String sel = "Select * ";
+    String query =
+        "from \"Alert\" where \"alertID\" = ? AND \"announcement\" = ? AND \"startDate\" = ?";
+
+    try (PreparedStatement statement = connection.prepareStatement(del + query)) {
+      statement.setInt(1, alert.getId());
+      statement.setString(2, alert.getAnnouncement());
+      statement.setTimestamp(3, alert.getStartDate());
+
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      System.out.println("Delete in Move table error. " + e);
+    }
+
+    try (Statement statement = connection.createStatement()) {
+      ResultSet rs2 = statement.executeQuery(sel + query);
+      int count = 0;
+      while (rs2.next()) count++;
+      if (count == 0) System.out.println("Alert information deleted successfully.");
+      else System.out.println("Alert information did not delete.");
+    } catch (SQLException e2) {
+      System.out.println("Error checking delete. " + e2);
+    }
+  }
 
   /**
    * * Creates a table for storing Alert data if it doesn't already exist
@@ -146,6 +203,13 @@ public class AlertDAOImpl implements AlertDAO {
     }
   }
 
+  /**
+   * Exports data from a PostgreSQL database table "Alert" to a CSV file
+   *
+   * @param csvFilePath filename and path for making the csv
+   * @throws SQLException
+   * @throws IOException
+   */
   public static void exportAlertToCSV(String csvFilePath) throws SQLException, IOException {
     AlertDAOImpl AlertDao = new AlertDAOImpl();
     ArrayList<Alert> alerts = AlertDao.getAll();
@@ -176,6 +240,12 @@ public class AlertDAOImpl implements AlertDAO {
     writer.close();
   }
 
+  /**
+   * Uploads CSV data to a PostgreSQL database table "Alert"
+   *
+   * @param csvFilePath file path of the csv we are using
+   * @throws SQLException
+   */
   public static void uploadAlertToPostgreSQL(String csvFilePath) throws SQLException {
     List<String[]> csvData;
     Connection connection = DataManager.DbConnection();

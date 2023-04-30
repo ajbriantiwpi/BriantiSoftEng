@@ -10,6 +10,8 @@ public enum Direction {
   BACK("Back"),
   UP("Up"),
   STOPHERE("Stop Here"),
+  START("Start"),
+  END("End"),
   DOWN("Down");
 
   private final String type;

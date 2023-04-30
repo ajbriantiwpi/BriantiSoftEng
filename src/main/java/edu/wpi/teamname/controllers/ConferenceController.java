@@ -3,6 +3,7 @@ package edu.wpi.teamname.controllers;
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.controllers.JFXitems.RoomSelector;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.servicerequest.ConfReservation;
 import edu.wpi.teamname.servicerequest.RoomManager;
 import edu.wpi.teamname.servicerequest.requestitem.ConfRoom;
@@ -12,7 +13,6 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
@@ -128,7 +128,7 @@ public class ConferenceController {
           //          int hour = Integer.valueOf(timeString.split(":")[0]);
           //          int min = Integer.valueOf(timeString.split(":")[1]);
           //          LocalTime time = LocalTime.of(hour, min);
-          dateBook = Timestamp.valueOf(dateBox.getValue().atTime(LocalTime.of(0, 0)));
+          dateBook = Timestamp.valueOf(dateBox.getValue().atStartOfDay());
 
           refreshRooms(dateBook);
           /**
@@ -170,6 +170,7 @@ public class ConferenceController {
 
     submitButton.setOnMouseClicked(
         event -> { // add to db and make new relation in array in confroomrequests
+          Sound.playOnButtonClick();
           if (roomManager.isViableRoom(activeSelector.getRoom(), dateBook)) {
             try {
               resID = DataManager.setResID();
@@ -187,6 +188,7 @@ public class ConferenceController {
                       staff,
                       activeSelector.getRoom().getRoomID());
               DataManager.addConfReservation(c);
+
             } catch (SQLException e) {
               System.out.println(e);
             }

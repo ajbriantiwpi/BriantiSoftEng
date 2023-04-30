@@ -3,6 +3,7 @@ package edu.wpi.teamname.controllers;
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.controllers.JFXitems.ReqMenuItems;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
 import edu.wpi.teamname.servicerequest.RequestType;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
@@ -10,6 +11,7 @@ import edu.wpi.teamname.servicerequest.Status;
 import edu.wpi.teamname.servicerequest.requestitem.RequestItem;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javafx.beans.binding.Bindings;
@@ -20,10 +22,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -53,6 +52,8 @@ public class ServiceRequestViewController {
   @FXML VBox cartBox;
   @FXML AnchorPane summaryPane;
   @FXML MFXButton ViewButton;
+  @FXML DatePicker dateBox;
+  @FXML MFXButton refreshButton;
   private double totalPrice = 0.0;
 
   @FXML ComboBox<RequestType> requestTypeCombo;
@@ -73,7 +74,7 @@ public class ServiceRequestViewController {
    * @throws SQLException if there is an error when connecting to the database
    */
   public static ObservableList<ServiceRequest> tableFilter(
-      RequestType one, Status two, String username) throws SQLException {
+      RequestType one, Status two, Timestamp date, String username) throws SQLException {
     ObservableList<ServiceRequest> requestList =
         FXCollections.observableList(DataManager.getAllServiceRequests());
     if (!(one == (null)) && !(one.toString().equals(""))) {
@@ -88,6 +89,13 @@ public class ServiceRequestViewController {
           FXCollections.observableList(
               requestList.stream()
                   .filter((request) -> request.getStatus().toString().equals(two.toString()))
+                  .toList());
+    }
+    if (!(date == (null))) {
+      requestList =
+          FXCollections.observableList(
+              requestList.stream()
+                  .filter((request) -> request.getDeliverBy().getDate() == date.getDate())
                   .toList());
     }
     if (!(username == (null)) && !(username.toString().equals(""))) {
@@ -140,6 +148,7 @@ public class ServiceRequestViewController {
 
     submitButton.setOnMouseClicked(
         event -> {
+          Sound.playOnButtonClick();
           try {
             assignStuff(
                 requestIDText.valueProperty().getValue(),
@@ -195,6 +204,22 @@ public class ServiceRequestViewController {
                 tableFilter(
                     requestTypeCombo.getValue(),
                     requestStatusCombo.getValue(),
+                    Timestamp.valueOf(dateBox.getValue().atStartOfDay()),
+                    requestStaffCombo.getValue()));
+          } catch (SQLException e) {
+            e.printStackTrace();
+          }
+        });
+
+    dateBox.setOnAction(
+        event -> {
+          try {
+            // update the table when the status combo box is changed
+            table.setItems(
+                tableFilter(
+                    requestTypeCombo.getValue(),
+                    requestStatusCombo.getValue(),
+                    Timestamp.valueOf(dateBox.getValue().atStartOfDay()),
                     requestStaffCombo.getValue()));
           } catch (SQLException e) {
             e.printStackTrace();
@@ -209,9 +234,26 @@ public class ServiceRequestViewController {
                 tableFilter(
                     requestTypeCombo.getValue(),
                     requestStatusCombo.getValue(),
+                    Timestamp.valueOf(dateBox.getValue().atStartOfDay()),
                     requestStaffCombo.getValue()));
           } catch (SQLException e) {
             e.printStackTrace();
+          }
+        });
+
+    refreshButton.setOnAction(
+        event -> {
+          dateBox.cancelEdit();
+          dateBox.setValue(null);
+          try {
+            table.setItems(
+                tableFilter(
+                    requestTypeCombo.getValue(),
+                    requestStatusCombo.getValue(),
+                    null,
+                    requestStaffCombo.getValue()));
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
           }
         });
 
@@ -223,6 +265,7 @@ public class ServiceRequestViewController {
                 tableFilter(
                     requestTypeCombo.getValue(),
                     requestStatusCombo.getValue(),
+                    Timestamp.valueOf(dateBox.getValue().atStartOfDay()),
                     requestStaffCombo.getValue()));
           } catch (SQLException e) {
             e.printStackTrace();
@@ -250,6 +293,7 @@ public class ServiceRequestViewController {
                 if (newValue != null) {
                   ViewButton.setOnMouseClicked(
                       event -> {
+                        Sound.playOnButtonClick();
                         table.setVisible(false);
                         table.setDisable(true);
                         ViewButton.setVisible(false);
@@ -276,6 +320,7 @@ public class ServiceRequestViewController {
 
     backButton.setOnMouseClicked(
         event -> {
+          Sound.playOnButtonClick();
           totalPrice = 0.0;
           System.out.println("Back " + totalPrice);
           table.setVisible(true);
@@ -296,6 +341,7 @@ public class ServiceRequestViewController {
           tableFilter(
               requestTypeCombo.getValue(),
               requestStatusCombo.getValue(),
+              Timestamp.valueOf(dateBox.getValue().atStartOfDay()),
               requestStaffCombo.getValue()));
     } else if (GlobalVariables.isActiveRequestsPressed()) {
       requestStatusCombo.setValue(Status.PROCESSING);
@@ -305,6 +351,7 @@ public class ServiceRequestViewController {
           tableFilter(
               requestTypeCombo.getValue(),
               requestStatusCombo.getValue(),
+              Timestamp.valueOf(dateBox.getValue().atStartOfDay()),
               requestStaffCombo.getValue()));
     }
   }

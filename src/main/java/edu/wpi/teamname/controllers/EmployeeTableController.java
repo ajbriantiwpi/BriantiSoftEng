@@ -5,6 +5,7 @@ import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
+import edu.wpi.teamname.extras.Sound;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -47,7 +48,7 @@ public class EmployeeTableController {
     ObservableList<String> clearanceLevels =
         FXCollections.observableArrayList(ClearanceLevel.formattedValues());
     employeeLevelText.setItems(clearanceLevels);
-    ParentController.titleString.set("Employee Edit Table");
+    ParentController.titleString.set("Employees");
     TableColumn<Employee, Integer> employeeIDColumn = new TableColumn<>("Employee ID");
     employeeIDColumn.setCellValueFactory(new PropertyValueFactory<>("employeeID"));
 
@@ -174,6 +175,7 @@ public class EmployeeTableController {
 
     exportButton.setOnAction(
         event -> {
+          Sound.playOnButtonClick();
           FileChooser fileChooser = new FileChooser();
           fileChooser.setTitle("Save CSV File");
           fileChooser.setInitialFileName("employees.csv");
@@ -192,6 +194,7 @@ public class EmployeeTableController {
 
     importButton.setOnAction(
         event -> {
+          Sound.playOnButtonClick();
           FileChooser fileChooser = new FileChooser();
           fileChooser.setTitle("Select CSV File");
           fileChooser
@@ -318,6 +321,7 @@ public class EmployeeTableController {
 
   @FXML
   private void handleSubmitButton() {
+    Sound.playOnButtonClick();
     try {
       DataManager employeeDAO = new DataManager();
       int employeeIDInput = Integer.parseInt(employeeIDField.getText());

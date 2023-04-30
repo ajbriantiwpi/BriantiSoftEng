@@ -5,6 +5,7 @@ import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.alerts.Alert;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.EmployeeType;
+import edu.wpi.teamname.extras.Sound;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -125,7 +126,7 @@ public class AlertTableViewController {
         new EventHandler<MouseEvent>() {
           @Override
           public void handle(MouseEvent event) {
-
+            Sound.playOnButtonClick();
             MFXButton createNewButton = ((MFXButton) event.getSource());
             VBox outerPane = (VBox) createNewButton.getParent();
 
@@ -158,12 +159,14 @@ public class AlertTableViewController {
             PopOver pop = new PopOver(v);
             submit.setOnMouseClicked(
                 event1 -> {
+                  Sound.playOnButtonClick();
                   LocalDate startDateDate = start.getValue();
-                  LocalTime time = LocalTime.of(0, 0);
-                  LocalDateTime startDateTime = startDateDate.atTime(time);
+                  LocalTime startTime = LocalTime.of(0, 0);
+                  LocalTime endTime = LocalTime.of(23, 59);
+                  LocalDateTime startDateTime = startDateDate.atTime(startTime);
                   Timestamp startDate = Timestamp.valueOf(startDateTime);
                   LocalDate endDateDate = end.getValue();
-                  LocalDateTime endDateTime = endDateDate.atTime(time);
+                  LocalDateTime endDateTime = endDateDate.atTime(endTime);
                   Timestamp endDate = Timestamp.valueOf(endDateTime);
                   try {
                     if (urgencies.valueProperty().getValue() == null) {
@@ -195,6 +198,7 @@ public class AlertTableViewController {
 
             cancel.setOnMouseClicked(
                 event1 -> {
+                  Sound.playOnButtonClick();
                   pop.hide();
                 });
             pop.show(createNewButton);

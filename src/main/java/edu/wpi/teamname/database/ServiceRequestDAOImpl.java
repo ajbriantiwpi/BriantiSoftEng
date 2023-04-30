@@ -90,6 +90,12 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
     return list;
   }
 
+  /**
+   * * Returns an ArrayList of all the IDs as Strings from the Service Request Table
+   *
+   * @return an ArrayList of strings of all the IDs
+   * @throws SQLException error connecting to the database
+   */
   public ArrayList<String> getAllIDs() throws SQLException {
     Connection connection = DataManager.DbConnection();
     ArrayList<String> list = new ArrayList<String>();
@@ -101,20 +107,10 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
 
       while (rs.next()) {
         int requestID = rs.getInt("requestID");
-        list.add(
-            String.valueOf(requestID)
-            //                new ServiceRequest(
-            //                        requestID,
-            //                        staffName,
-            //                        patientName,
-            //                        roomNum,
-            //                        deliverBy,
-            //                        requestedAt,
-            //                        status,
-            //                        requestMadeBy,
-            //                        requestType)
-            );
+        list.add(String.valueOf(requestID));
       }
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
     }
     connection.close();
     return list;

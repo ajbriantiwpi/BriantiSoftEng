@@ -77,14 +77,6 @@ public class Signage {
         && this.arrowDirection.equals(otherSignage.getArrowDirection())
         && this.signId == otherSignage.getSignId();
   }
-  // getter and setter methods
-  public Direction getArrowDirection() {
-    return arrowDirection;
-  }
-
-  public void setArrowDirection(Direction arrowDirection) {
-    this.arrowDirection = arrowDirection;
-  }
 
   public void setLongName(String newValue) {
     this.longName = newValue;
@@ -92,9 +84,5 @@ public class Signage {
 
   public void setShortName(String newValue) {
     this.shortName = newValue;
-  }
-
-  public Timestamp getEndDate() {
-    return endDate;
   }
 }

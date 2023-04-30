@@ -6,6 +6,7 @@ import edu.wpi.teamname.controllers.JFXitems.DatePickerEditingCell;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.database.MoveDAOImpl;
 import edu.wpi.teamname.employees.ClearanceLevel;
+import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.navigation.Move;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.File;
@@ -52,7 +53,7 @@ public class MoveTableController {
     //      // EXTEND TABLEVIEW SOMEHOW
     //    }
 
-    ParentController.titleString.set("Move Edit Table");
+    ParentController.titleString.set("Move Editor");
     TableColumn<Move, Integer> nodeIDColumn = new TableColumn<>("Node ID");
     nodeIDColumn.setCellValueFactory(new PropertyValueFactory<>("nodeID"));
 
@@ -84,6 +85,7 @@ public class MoveTableController {
     }
     importButton.setOnAction(
         event -> {
+          Sound.playOnButtonClick();
           FileChooser fileChooser = new FileChooser();
           fileChooser.setTitle("Select CSV File");
           fileChooser
@@ -105,6 +107,7 @@ public class MoveTableController {
     // event handler for export button
     exportButton.setOnAction(
         event -> {
+          Sound.playOnButtonClick();
           FileChooser fileChooser = new FileChooser();
           fileChooser.setTitle("Save CSV File");
           fileChooser.setInitialFileName("moves.csv");
@@ -122,6 +125,7 @@ public class MoveTableController {
         });
     newMovesCheck.setOnAction(
         event -> {
+          Sound.playOnButtonClick();
           if (newMovesCheck.isSelected()) {
             ObservableList<Move> allMoves = moveTable.getItems();
             ObservableList<Move> filteredMoves = FXCollections.observableArrayList();
@@ -147,6 +151,7 @@ public class MoveTableController {
     setupRowFactory();
     submitButton.setOnAction(
         event -> {
+          Sound.playOnButtonClick();
           int nodeId = Integer.parseInt(nodeIdTextField.getText());
           String longName = longNameTextField.getText();
           LocalDate localDate = datePicker.getValue();
