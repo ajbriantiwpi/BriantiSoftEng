@@ -12,8 +12,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -55,7 +53,6 @@ public class DataController implements Initializable {
 
     importButton.setOnAction(e -> onImportButtonClicked());
     exportButton.setOnAction(e -> onExportButtonClicked());
-
   }
 
   private void onImportButtonClicked() {

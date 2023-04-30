@@ -26,7 +26,7 @@ public class FeedbackController {
 
     Feedback feedback = new Feedback();
     feedback.setReporter(
-            String.valueOf(GlobalVariables.getCurrentUser())); // Replace with the actual reporter info
+        String.valueOf(GlobalVariables.getCurrentUser())); // Replace with the actual reporter info
     feedback.setDateReported(new Timestamp(System.currentTimeMillis()));
     feedback.setDescription(description);
     feedback.setAssignee("Unassigned");

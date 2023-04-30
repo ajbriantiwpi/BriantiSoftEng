@@ -76,6 +76,11 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
                         </MFXButton>
+                        <MFXButton fx:id="viewFeedbackButton" layoutX="190.0" layoutY="20.0" prefHeight="51.0" prefWidth="236.0" stylesheets="@../stylesheets/blueButton.css" text="View Feedback">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </MFXButton>
                      </children>
                   </HBox>
                   <Label prefHeight="40.0" prefWidth="1110.0" stylesheets="@../stylesheets/RowLabel.css" text="Database Connection">

@@ -2,7 +2,7 @@ package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.App;
 import edu.wpi.teamname.GlobalVariables;
-import edu.wpi.teamname.controllers.JFXitems.DatePickerEditingCell;
+import edu.wpi.teamname.controllers.helpers.DatePickerEditingCell;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.database.MoveDAOImpl;
 import edu.wpi.teamname.employees.ClearanceLevel;

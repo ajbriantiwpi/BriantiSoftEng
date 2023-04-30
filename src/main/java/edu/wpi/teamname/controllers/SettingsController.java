@@ -16,6 +16,7 @@ public class SettingsController {
   @FXML MFXButton feedbackButton;
 
   @FXML MFXButton dataManageButton;
+  @FXML MFXButton viewFeedbackButton;
   @FXML RadioButton wpiButton;
   @FXML RadioButton awsButton;
 
@@ -63,6 +64,7 @@ public class SettingsController {
 
     dataManageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.DATA_MANAGER));
     feedbackButton.setOnMouseClicked(event -> Navigation.navigate(Screen.FEEDBACK));
+    viewFeedbackButton.setOnMouseClicked(event -> Navigation.navigate(Screen.VIEW_FEEDBACK));
   }
 
   private void setApplicationVolume(double volume) {

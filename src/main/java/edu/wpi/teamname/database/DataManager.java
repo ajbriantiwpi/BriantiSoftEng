@@ -1974,4 +1974,9 @@ public class DataManager {
     FeedbackDAOImpl fb = new FeedbackDAOImpl();
     fb.add(feedback);
   }
+
+  public ArrayList<Feedback> getAllFeedback() throws SQLException {
+    FeedbackDAOImpl fb = new FeedbackDAOImpl();
+    return fb.getAll();
+  }
 }

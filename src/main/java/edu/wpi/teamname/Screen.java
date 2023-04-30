@@ -42,7 +42,8 @@ public enum Screen {
 
   DATA_MANAGER("views/Data.fxml"),
   SETTINGS("views/Settings.fxml"),
-  FEEDBACK("views/Feedback.fxml");
+  FEEDBACK("views/Feedback.fxml"),
+  VIEW_FEEDBACK("views/viewFeedback.fxml");
 
   private final String filename;
 
