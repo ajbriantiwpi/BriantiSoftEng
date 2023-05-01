@@ -134,7 +134,21 @@
 .titled-pane > *.content {
     -fx-background-color: #343538;
 }
+.text-area{
+    -fx-control-inner-background:#004788;
 
+    -fx-text-fill: #D5E3FF;
+    -fx-border-radius: 8;
+    -fx-border-color: #899393;
+    -fx-border-width: 1;
+    -fx-font-family: Roboto;
+    -fx-font-style: Normal;
+    -fx-font-size: 28;
+    -fx-line-height: 36;
+    -fx-letter-spacing:0px;
+    -fx-background-radius: 8;
+    -fx-min-height: 60;
+}
 /*.logo{*/
 /*    -fx-background-image: url("../resources/edu/wpi/teamname/images/Logos/LoginLogoIteration1.png");*/
 /*    -fx-background-position: center;*/
