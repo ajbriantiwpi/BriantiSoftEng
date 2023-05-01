@@ -3,6 +3,7 @@ package edu.wpi.teamname.controllers;
 import edu.wpi.teamname.controllers.JFXitems.DirectionArrow;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.extras.Pacman;
+import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.navigation.Direction;
 import edu.wpi.teamname.navigation.Signage;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -95,6 +96,7 @@ public class SignageController {
 
     submit.setOnMouseClicked(
         event -> {
+          Sound.playOnButtonClick();
           directions.clear();
           leftC = 0;
           rightC = 0;
@@ -157,7 +159,11 @@ public class SignageController {
                       }
                       event.consume();
                     }));
-    play.setOnMouseClicked(event -> Pacman.pacBear());
+    play.setOnMouseClicked(
+        event -> {
+          Sound.playOnButtonClick();
+          Pacman.pacBear();
+        });
   }
 
   private void fillDir() {
