@@ -13,7 +13,7 @@ public class Pacman extends JFrame {
   // All Pacman code used from GitHub
   // https://github.com/Gaspared/Pacman
   public static void pacBear() {
-
+    Sound.setSong(Song.JETPACKJOYRIDE);
     Pacman pac = new Pacman();
     pac.setVisible(true);
     pac.setTitle("PAC-DROPBEAR!");
