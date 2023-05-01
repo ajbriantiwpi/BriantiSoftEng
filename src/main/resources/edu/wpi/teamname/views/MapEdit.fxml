@@ -21,10 +21,10 @@
 <?import javafx.scene.text.Font?>
 <?import net.kurobako.gesturefx.GesturePane?>
 
+<?import javafx.scene.control.ScrollPane?>
 <HBox fx:id="root" style="-fx-background-radius: 16;" styleClass="surface" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MapEditController">
     <children>
-        <AnchorPane style="-fx-background-radius: 16;" styleClass="surface">
-            <children>
+
             <ScrollPane fx:id="MapScrollPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <content>
                   <AnchorPane style="-fx-background-color: #ff0000;">
@@ -269,10 +269,10 @@
                         </VBox>
                      </children>
                   </AnchorPane>
-               </children>
-            </VBox>
-            </children>
-        </AnchorPane>
+               </content>
+            </ScrollPane>
+
+
         <AnchorPane id="AP" fx:id="OuterMapAnchor" styleClass="surface" HBox.hgrow="ALWAYS">
             <children>
                 <StackPane fx:id="sp" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
