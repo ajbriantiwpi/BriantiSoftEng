@@ -2,6 +2,7 @@ package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.App;
 import edu.wpi.teamname.GlobalVariables;
+import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.navigation.*;
@@ -30,7 +31,7 @@ import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.PopOver;
 
 public class MapEditController {
-
+  @FXML HBox root;
   Map map;
   @FXML GesturePane gp;
   @FXML TableView<LocationName> table;
@@ -1166,6 +1167,7 @@ public class MapEditController {
 
   @FXML
   public void initialize() throws SQLException, IOException {
+    ThemeSwitch.switchTheme(root);
 
     map = new Map(anchor, false);
     //

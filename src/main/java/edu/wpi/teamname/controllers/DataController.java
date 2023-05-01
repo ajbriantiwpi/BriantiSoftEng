@@ -1,5 +1,6 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.extras.Sound;
 import java.io.File;
@@ -12,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -21,6 +23,7 @@ import javafx.stage.Stage;
  * actions performed by the user on the GUI.
  */
 public class DataController implements Initializable {
+  @FXML AnchorPane dataPage;
   @FXML private ComboBox<String> importComboBox;
 
   @FXML private ComboBox<String> exportComboBox;
@@ -59,6 +62,7 @@ public class DataController implements Initializable {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    ThemeSwitch.switchTheme(dataPage);
     ParentController.titleString.set("Data Manager");
     importComboBox.getItems().addAll(FIELDS);
     exportComboBox.getItems().addAll(FIELDS);

@@ -11,7 +11,7 @@
 
 <!--        style="-fx-background-color: #D9E3F8;" -->
 
-<AnchorPane styleClass="surface-container" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ConfrenceViewController">
+<AnchorPane fx:id="root" styleClass="surface-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ConfrenceViewController">
     <children>
         <HBox style="-fx-background-radius: 16;" styleClass="surface-container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="surface-container" HBox.hgrow="ALWAYS">

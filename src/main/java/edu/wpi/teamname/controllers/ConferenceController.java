@@ -1,6 +1,7 @@
 package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.GlobalVariables;
+import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.controllers.JFXitems.RoomSelector;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.extras.Sound;
@@ -76,11 +77,7 @@ public class ConferenceController {
   @FXML
   public void initialize() throws SQLException {
     ParentController.titleString.set("Conference Room Request");
-    if (GlobalVariables.getDarkMode().get()) {
-      root.getStylesheets().remove(0);
-    } else {
-      root.getStylesheets().remove(1);
-    }
+    ThemeSwitch.switchTheme(root);
     buildings = FXCollections.observableArrayList(DataManager.getConfBuildings());
     buildings.add("None");
     roomsString = FXCollections.observableArrayList();

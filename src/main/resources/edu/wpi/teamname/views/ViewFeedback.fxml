@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ViewFeedbackController">
+<AnchorPane fx:id="root" prefHeight="400.0" prefWidth="600.0" styleClass="surface" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ViewFeedbackController">
    <children>
       <VBox layoutX="-1.0" prefHeight="400.0" prefWidth="600.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TableView fx:id="feedbackTable" editable="true" prefHeight="412.0" prefWidth="600.0">
+            <TableView fx:id="feedbackTable" editable="true" prefHeight="412.0" prefWidth="600.0" styleClass="surface" stylesheets="@../stylesheets/TableViewStuff.css">
                <columns>
                   <TableColumn fx:id="reporterColumn" prefWidth="75.0" text="Reporter" />
                   <TableColumn fx:id="descriptionColumn" prefWidth="104.0" text="Description" />
@@ -25,4 +26,8 @@
          </children>
       </VBox>
    </children>
+   <stylesheets>
+      <URL value="@../stylesheets/Colors/lightTheme.css" />
+      <URL value="@../stylesheets/Colors/darkTheme.css" />
+   </stylesheets>
 </AnchorPane>
