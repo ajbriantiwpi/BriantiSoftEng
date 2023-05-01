@@ -3,7 +3,6 @@ package edu.wpi.teamname.controllers;
 import static edu.wpi.teamname.database.DataManager.syncSignage;
 
 import edu.wpi.teamname.ThemeSwitch;
-import edu.wpi.teamname.controllers.JFXitems.DatePickerTableCell;
 import edu.wpi.teamname.controllers.helpers.DatePickerTableCell;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.database.SignageDAOImpl;

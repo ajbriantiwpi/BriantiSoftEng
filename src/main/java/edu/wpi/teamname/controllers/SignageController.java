@@ -8,7 +8,6 @@ import edu.wpi.teamname.navigation.Direction;
 import edu.wpi.teamname.navigation.Signage;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.format.DateTimeFormatter;
@@ -19,9 +18,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -56,11 +55,9 @@ public class SignageController {
 
   /** Initializes the SignageController and sets up the UI elements and functionality. */
   @FXML
-
   public void initialize() throws SQLException {
     ThemeSwitch.switchTheme(root);
 
-  
     play.setVisible(false);
     play.setDisable(true);
 

@@ -13,8 +13,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 
 public class FeedbackController {
-  @FXML
-  AnchorPane root;
+  @FXML AnchorPane root;
   @FXML TextArea descriptionField;
 
   private DataManager dataManager;

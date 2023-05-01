@@ -9,7 +9,6 @@ import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
 import edu.wpi.teamname.extras.Sound;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -36,8 +35,7 @@ public class LoginController {
   @FXML Label success;
   @FXML MFXButton loginButton;
   @FXML MFXButton forgotPassword;
-  @FXML
-  TextField loginText;
+  @FXML TextField loginText;
   @FXML PasswordField passwordText;
   @FXML MFXButton cancel;
   // @FXML MFXButton help;

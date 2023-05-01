@@ -20,8 +20,7 @@ import javafx.scene.layout.AnchorPane;
  * adjusting the application's volume.
  */
 public class SettingsController {
-  @FXML
-  AnchorPane root;
+  @FXML AnchorPane root;
   private static boolean wpiSelected = true;
   @FXML Slider volumeSlide;
   @FXML MFXButton feedbackButton;
