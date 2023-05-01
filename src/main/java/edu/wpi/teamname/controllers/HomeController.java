@@ -261,7 +261,7 @@ public class HomeController {
     // Lambda Expression. parameter -> expression
     // Basically just runs the Navigation.navigate Function
     // "event" is a parameter, but there is no
-    Joke joke = Joke.getJoke();
+    Joke joke = Joke.getJoke(0);
     jokeIDLabel.setText("Joke #" + Integer.toString(joke.getId()));
     jokesLabel.setText(joke.toString());
 
