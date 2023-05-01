@@ -1,9 +1,6 @@
 package edu.wpi.teamname.controllers;
 
-import edu.wpi.teamname.App;
-import edu.wpi.teamname.GlobalVariables;
-import edu.wpi.teamname.Navigation;
-import edu.wpi.teamname.Screen;
+import edu.wpi.teamname.*;
 import edu.wpi.teamname.alerts.Alert;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
@@ -380,6 +377,7 @@ public class HomeController {
 
   @FXML
   public void initialize() throws SQLException, IOException {
+    ThemeSwitch.switchTheme(rootPane);
 
     languageChooser.setItems(
         FXCollections.observableList(Arrays.stream(Language.values()).toList()));

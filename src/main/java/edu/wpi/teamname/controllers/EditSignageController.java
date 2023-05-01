@@ -2,6 +2,7 @@ package edu.wpi.teamname.controllers;
 
 import static edu.wpi.teamname.database.DataManager.syncSignage;
 
+import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.controllers.helpers.DatePickerTableCell;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.database.SignageDAOImpl;
@@ -48,6 +49,7 @@ public class EditSignageController {
   @FXML private TextField searchBar;
   /** Initializes the GUI and sets up event handlers for various GUI components. */
   public void initialize() {
+    ThemeSwitch.switchTheme(rootPane);
     DataManager signageDAO = new DataManager();
     ParentController.titleString.set("Signage Editor");
     TableColumn<Signage, String> longNameColumn = new TableColumn<>("Long Name");

@@ -1,24 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import java.lang.String?>
-<?import java.net.URL?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import org.controlsfx.control.SearchableComboBox?>
+<?import io.github.palexdev.materialfx.controls.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import org.controlsfx.control.*?>
 
 <!--        style="-fx-background-color: #D9E3F8;" -->
 
-<AnchorPane styleClass="surface-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ConfrenceViewController">
+<AnchorPane fx:id="root" styleClass="surface-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ConfrenceViewController">
     <children>
         <HBox style="-fx-background-radius: 16;" styleClass="surface-container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="surface-container" HBox.hgrow="ALWAYS">
@@ -67,7 +60,7 @@
                            </VBox>
                            <VBox spacing="12.0" style="-fx-background-radius: 16;" styleClass="surface-container-highest">
                               <children>
-                                 <Label fx:id="assignStaffLabel" text="Assign Staff to Reservaiton" textFill="#001b3b">
+                                 <Label fx:id="assignStaffLabel" text="Assign Staff to Reservation" textFill="#001b3b">
                                     <font>
                                        <Font name="Roboto" size="32.0" />
                                     </font>

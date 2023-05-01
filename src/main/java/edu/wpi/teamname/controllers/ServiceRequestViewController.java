@@ -1,6 +1,7 @@
 package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.GlobalVariables;
+import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.controllers.JFXitems.ReqMenuItems;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.extras.Language;
@@ -40,6 +41,7 @@ public class ServiceRequestViewController {
   @FXML Label staffLabel;
   @FXML Label setStatusLabel;
   @FXML Label requestDetailsLabel;
+  @FXML AnchorPane root;
   @FXML TableView<ServiceRequest> table;
   @FXML TableColumn requestIDCol;
   @FXML TableColumn patientNameCol;
@@ -369,6 +371,7 @@ public class ServiceRequestViewController {
    */
   @FXML
   public void initialize() throws SQLException {
+    ThemeSwitch.switchTheme(root);
     ParentController.titleString.set("Service Request View");
     setLanguage(GlobalVariables.getB().getValue());
     GlobalVariables.b.addListener(

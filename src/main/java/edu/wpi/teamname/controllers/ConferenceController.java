@@ -1,6 +1,7 @@
 package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.GlobalVariables;
+import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.controllers.JFXitems.RoomSelector;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.extras.Language;
@@ -160,6 +161,7 @@ public class ConferenceController {
     } else {
       root.getStylesheets().remove(1);
     }
+    ThemeSwitch.switchTheme(root);
     buildings = FXCollections.observableArrayList(DataManager.getConfBuildings());
     buildings.add("None");
     roomsString = FXCollections.observableArrayList();

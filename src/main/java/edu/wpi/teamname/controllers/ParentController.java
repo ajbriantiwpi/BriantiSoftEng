@@ -557,10 +557,11 @@ public class ParentController {
               GlobalVariables.b.setValue(newValue);
             });
     setLanguage(GlobalVariables.getB().getValue());
+
     titleLabel.setText(titleString.getValue());
     System.out.println("Parent!");
     darkToggle.selectedProperty().bindBidirectional(GlobalVariables.getDarkMode());
-    darkToggle.setVisible(false);
+    //    darkToggle.setVisible(false);
     if (HomeController.getLoggedIn().getValue()) {
       // disableButtonsWhenNotLoggedIn();
       loginButton.setVisible(false);

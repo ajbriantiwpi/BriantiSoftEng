@@ -1,6 +1,7 @@
 package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.GlobalVariables;
+import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.controllers.JFXitems.DirectionArrow;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.extras.Language;
@@ -9,7 +10,6 @@ import edu.wpi.teamname.navigation.Direction;
 import edu.wpi.teamname.navigation.Signage;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.format.DateTimeFormatter;
@@ -23,6 +23,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -35,6 +36,7 @@ public class SignageController {
   @FXML Label dateLabel;
   @FXML Label kioskIDLabel;
 
+  @FXML AnchorPane root;
   @FXML ComboBox<Integer> KskBox;
   @FXML ObservableList<Integer> kioskList;
   @FXML DatePicker dateChos;
@@ -93,9 +95,12 @@ public class SignageController {
   }
 
   @FXML
-  public void initialize() throws SQLException, IOException {
+  public void initialize() throws SQLException {
+    ThemeSwitch.switchTheme(root);
+
     play.setVisible(false);
     play.setDisable(true);
+
     ParentController.titleString.set("Signage");
     setLanguage(GlobalVariables.getB().getValue());
     GlobalVariables.b.addListener(

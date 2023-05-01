@@ -2,6 +2,7 @@ package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.App;
 import edu.wpi.teamname.GlobalVariables;
+import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.alerts.Alert;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.EmployeeType;
@@ -34,6 +35,7 @@ import javafx.scene.layout.VBox;
 import org.controlsfx.control.PopOver;
 
 public class AlertTableViewController {
+  @FXML AnchorPane AlertTableViewPage;
   @FXML Label filterTable;
   @FXML Label urgencyLabel;
   @FXML Label staffTypeLabel;
@@ -164,6 +166,7 @@ public class AlertTableViewController {
 
   @FXML
   public void initialize() throws SQLException {
+    ThemeSwitch.switchTheme(AlertTableViewPage);
     ParentController.titleString.set("Alerts");
     setLanguage(GlobalVariables.getB().getValue());
     GlobalVariables.b.addListener(

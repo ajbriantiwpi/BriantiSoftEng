@@ -1,5 +1,6 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.extras.Sound;
@@ -100,6 +101,7 @@ public class AboutPageController {
   }
 
   public void initialize() {
+    ThemeSwitch.switchTheme(aboutAnchorPane);
     MFXButton.class.getClassLoader().setDefaultAssertionStatus(false);
     ParentController.titleString.set("About");
     setLanguage(GlobalVariables.getB().getValue());

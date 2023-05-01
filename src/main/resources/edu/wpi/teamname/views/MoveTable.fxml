@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="surface" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MoveTableController">
+<AnchorPane fx:id="root" prefHeight="400.0" prefWidth="600.0" styleClass="surface" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MoveTableController">
     <children>
       <HBox prefHeight="100.0" prefWidth="200.0" />
         <HBox layoutY="24.0" prefHeight="423.0" prefWidth="614.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

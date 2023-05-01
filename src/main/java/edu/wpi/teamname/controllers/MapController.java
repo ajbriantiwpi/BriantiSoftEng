@@ -1,9 +1,6 @@
 package edu.wpi.teamname.controllers;
 
-import edu.wpi.teamname.App;
-import edu.wpi.teamname.GlobalVariables;
-import edu.wpi.teamname.Navigation;
-import edu.wpi.teamname.Screen;
+import edu.wpi.teamname.*;
 import edu.wpi.teamname.controllers.JFXitems.DirectionArrow;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.database.PathMessageDAOImpl;
@@ -1423,6 +1420,7 @@ public class MapController {
 
   @FXML
   public void initialize() throws SQLException, IOException {
+    ThemeSwitch.switchTheme(OuterMapAnchor);
 
     map = new Map(anchor, true);
 
