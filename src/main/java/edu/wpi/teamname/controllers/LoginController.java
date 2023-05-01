@@ -2,6 +2,7 @@ package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.Navigation;
+import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.alerts.Alert;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.Employee;
@@ -25,6 +26,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
 public class LoginController {
+
   @FXML MFXButton exit;
   @FXML AnchorPane rootPane;
   @FXML StackPane paneOfStuff;
@@ -95,6 +97,7 @@ public class LoginController {
   /** initializes the view for the login page */
   @FXML
   public void initialize() {
+    ThemeSwitch.switchTheme(rootPane);
     // help.setVisible(false);
     newPassword.setVisible(false);
     success.setText("Username or password\nis incorrect");

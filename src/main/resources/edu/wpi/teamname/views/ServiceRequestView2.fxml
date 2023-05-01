@@ -22,14 +22,14 @@
 
 <!--        style="-fx-background-color: #D9E3F8;" -->
 
-<AnchorPane styleClass="surface-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestViewController">
+<AnchorPane fx:id="root" styleClass="surface-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestViewController">
     <children>
-        <HBox style="-fx-background-radius: 16;" styleClass="surface-container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="surface-container" HBox.hgrow="ALWAYS">
+        <HBox alignment="CENTER" style="-fx-background-radius: 16;" styleClass="surface" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-radius: 16;" styleClass="surface-container" HBox.hgrow="ALWAYS">
             <content>
-                  <VBox styleClass="surface-container">
+                  <VBox alignment="CENTER" styleClass="surface">
                       <children>
-                     <VBox styleClass="surface-container">
+                     <VBox style="-fx-background-radius: 16;" styleClass="surface-container">
                         <children>
                            <VBox spacing="12.0">
                               <children>
@@ -54,7 +54,7 @@
                                     </VBox.margin>
                                     <styleClass>
                                        <String fx:value="headline-med" />
-                                       <String fx:value="primary-text-container" />
+                                       <String fx:value="on-suface-text" />
                                     </styleClass>
                                  </Label>
                                  <ComboBox fx:id="requestTypeCombo" maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="396.0" promptText="Choose Request Type" styleClass="combo-box" stylesheets="@../stylesheets/comboSmall.css">
@@ -71,7 +71,7 @@
                                     </VBox.margin>
                                     <styleClass>
                                        <String fx:value="headline-med" />
-                                       <String fx:value="primary-text-container" />
+                                       <String fx:value="on-suface-text" />
                                     </styleClass>
                                  </Label>
                                  <ComboBox fx:id="requestStatusCombo" maxHeight="50.0" prefHeight="50.0" prefWidth="396.0" promptText="Choose Status" stylesheets="@../stylesheets/comboSmall.css">
@@ -85,14 +85,18 @@
                                     </font>
                                     <styleClass>
                                        <String fx:value="headline-med" />
-                                       <String fx:value="primary-text-container" />
+                                       <String fx:value="on-suface-text" />
                                     </styleClass>
                                  </Label>
                                  <ComboBox fx:id="requestStaffCombo" maxHeight="50.0" prefHeight="50.0" prefWidth="396.0" promptText="Choose Staff" stylesheets="@../stylesheets/comboSmall.css" />
-                                 <Label styleClass="primary-text-container" text="Date" textFill="#001b3b">
+                                 <Label text="Date" textFill="#001b3b">
                                     <font>
                                        <Font name="Roboto" size="28.0" />
                                     </font>
+                                    <styleClass>
+                                       <String fx:value="on-suface-text" />
+                                       <String fx:value="headline-med" />
+                                    </styleClass>
                                  </Label>
                                  <DatePicker fx:id="dateBox" maxHeight="50.0" maxWidth="396.0" minHeight="50.0" styleClass="text-field" stylesheets="@../stylesheets/dateBoxSmall.css" />
                                  <MFXButton fx:id="refreshButton" styleClass="primary-container" stylesheets="@../stylesheets/button.css" text="Refresh" />
@@ -127,7 +131,7 @@
                                     </VBox.margin>
                                     <styleClass>
                                        <String fx:value="headline-med" />
-                                       <String fx:value="primary-text-container" />
+                                       <String fx:value="on-suface-text" />
                                     </styleClass>
                                  </Label>
                                  <SearchableComboBox fx:id="requestIDText" maxHeight="50.0" prefHeight="50.0" prefWidth="396.0" promptText="Select Request ID" stylesheets="@../stylesheets/comboSmall.css">
@@ -144,7 +148,7 @@
                                     </VBox.margin>
                                     <styleClass>
                                        <String fx:value="headline-med" />
-                                       <String fx:value="primary-text-container" />
+                                       <String fx:value="on-suface-text" />
                                     </styleClass>
                                  </Label>
                                  <SearchableComboBox fx:id="assignStaffText" maxHeight="50.0" prefHeight="50.0" prefWidth="396.0" promptText="Select Staff" stylesheets="@../stylesheets/comboSmall.css">
@@ -161,7 +165,7 @@
                                     </VBox.margin>
                                     <styleClass>
                                        <String fx:value="headline-med" />
-                                       <String fx:value="primary-text-container" />
+                                       <String fx:value="on-suface-text" />
                                     </styleClass>
                                  </Label>
                                  <SearchableComboBox fx:id="requestStatusText" maxHeight="50.0" prefHeight="50.0" prefWidth="396.0" promptText="Select Request Status" stylesheets="@../stylesheets/comboSmall.css">
@@ -228,26 +232,15 @@
                       </children>
                   </VBox>
             </content>
+            <HBox.margin>
+               <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+            </HBox.margin>
          </ScrollPane>
             <StackPane>
                 <HBox.margin>
                     <Insets right="10.0" />
                 </HBox.margin>
                 <children>
-                    <TableView fx:id="table" editable="true" styleClass="surface" stylesheets="@../stylesheets/TableViewStuff.css">
-                        <columns>
-                            <TableColumn fx:id="requestIDCol" minWidth="0.0" prefWidth="148.5" text="Request ID" />
-                            <TableColumn fx:id="patientNameCol" prefWidth="148.5" text="Patient Name" />
-                            <TableColumn fx:id="roomNumCol" prefWidth="148.5" text="Room #" />
-                            <TableColumn fx:id="requesterIDCol" prefWidth="148.5" text="Requester ID" />
-                            <TableColumn fx:id="requestedAtCol" prefWidth="148.5" text="Requested At" />
-                            <TableColumn fx:id="requestedForCol" prefWidth="148.5" text="Requested For" />
-                            <TableColumn fx:id="assignedStaffCol" prefWidth="148.5" text="Assigned Staff" />
-                            <TableColumn fx:id="statusCol" prefWidth="148.5" text="Status" />
-<!--                            styleClass="primary-container"-->
-<!--                            styleClass="primary-fixed-dim"-->
-                        </columns>
-                    </TableView>
                     <AnchorPane fx:id="summaryPane" disable="true" mouseTransparent="true" visible="false">
                         <children>
                             <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" pannable="true" styleClass="surface" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -316,6 +309,20 @@
                             </ScrollPane>
                         </children>
                     </AnchorPane>
+                    <TableView fx:id="table" editable="true" styleClass="surface" stylesheets="@../stylesheets/TableViewStuff.css">
+                        <columns>
+                            <TableColumn fx:id="requestIDCol" minWidth="0.0" prefWidth="148.5" text="Request ID" />
+                            <TableColumn fx:id="patientNameCol" prefWidth="148.5" text="Patient Name" />
+                            <TableColumn fx:id="roomNumCol" prefWidth="148.5" text="Room #" />
+                            <TableColumn fx:id="requesterIDCol" prefWidth="148.5" text="Requester ID" />
+                            <TableColumn fx:id="requestedAtCol" prefWidth="148.5" text="Requested At" />
+                            <TableColumn fx:id="requestedForCol" prefWidth="148.5" text="Requested For" />
+                            <TableColumn fx:id="assignedStaffCol" prefWidth="148.5" text="Assigned Staff" />
+                            <TableColumn fx:id="statusCol" prefWidth="148.5" text="Status" />
+<!--                            styleClass="primary-container"-->
+<!--                            styleClass="primary-fixed-dim"-->
+                        </columns>
+                    </TableView>
                 </children>
             </StackPane>
         </HBox>

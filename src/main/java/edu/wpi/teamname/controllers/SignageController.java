@@ -1,5 +1,6 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.controllers.JFXitems.DirectionArrow;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.extras.Sound;
@@ -16,9 +17,11 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 public class SignageController {
+  @FXML AnchorPane root;
   @FXML ComboBox<Integer> KskBox;
   @FXML ObservableList<Integer> kioskList;
   @FXML DatePicker dateChos;
@@ -30,6 +33,7 @@ public class SignageController {
 
   @FXML
   public void initialize() throws SQLException {
+    ThemeSwitch.switchTheme(root);
     ParentController.titleString.set("Signage");
     kioskList = FXCollections.observableArrayList();
     kioskList.add(null);

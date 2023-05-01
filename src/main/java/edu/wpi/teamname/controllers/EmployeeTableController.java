@@ -1,6 +1,7 @@
 package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.App;
+import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.employees.Employee;
@@ -23,12 +24,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
 import org.controlsfx.control.SearchableComboBox;
 
 public class EmployeeTableController {
+  @FXML AnchorPane root;
   @FXML private TableView<Employee> employeeTable;
   @FXML private TextField employeeIDField;
   @FXML private TextField employeeFirstNameTextField;
@@ -42,6 +45,7 @@ public class EmployeeTableController {
   @FXML private TextField employeePasswordTextField;
 
   public void initialize() {
+    ThemeSwitch.switchTheme(root);
     ObservableList<String> employeeTypes =
         FXCollections.observableArrayList(EmployeeType.formattedValues());
     employeeTypeText.setItems(employeeTypes);

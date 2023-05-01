@@ -7,7 +7,6 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TitledPane?>
@@ -22,19 +21,19 @@
 <?import javafx.scene.text.Font?>
 <?import net.kurobako.gesturefx.GesturePane?>
 
-<HBox style="-fx-background-radius: 16;" styleClass="surface-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MapEditController">
+<HBox fx:id="root" style="-fx-background-radius: 16;" styleClass="surface" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MapEditController">
     <children>
         <AnchorPane style="-fx-background-radius: 16;" styleClass="surface">
             <children>
-            <ScrollPane fx:id="MapScrollPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <content>
-                  <AnchorPane>
+            <VBox styleClass="surface" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane style="-fx-background-color: #f00;" styleClass="surface">
                      <children>
-                        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox styleClass="surface" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <TitledPane fx:id="EditingTitledPane" animated="false" text="Editing">
+                              <TitledPane fx:id="EditingTitledPane" animated="false" styleClass="surface" text="Editing">
                                  <content>
-                                    <VBox spacing="24.0" style="-fx-background-radius: 16;" styleClass="surface-container-highest">
+                                    <VBox spacing="24.0" style="-fx-background-radius: 16;">
                                        <children>
                                           <AnchorPane>
                                              <children>
@@ -127,7 +126,7 @@
                                     </VBox>
                                  </content>
                               </TitledPane>
-                              <TitledPane fx:id="TickTitlePane" animated="false" text="TickBoxes">
+                              <TitledPane fx:id="TickTitlePane" animated="false" styleClass="surface" text="TickBoxes">
                                  <content>
                                     <VBox spacing="24.0">
                                        <padding>
@@ -140,44 +139,51 @@
                                                    <styleClass>
                                                       <String fx:value="primary-text-container" />
                                                       <String fx:value="label-med" />
-                                                   </styleClass></CheckBox>
+                                                   </styleClass>
+                                                </CheckBox>
                                                 <CheckBox id="1" fx:id="ShortNameSelector" mnemonicParsing="false" selected="true" text="Short">
                                                    <styleClass>
                                                       <String fx:value="primary-text-container" />
                                                       <String fx:value="label-med" />
-                                                   </styleClass></CheckBox>
+                                                   </styleClass>
+                                                </CheckBox>
                                                 <CheckBox id="2" fx:id="IdSelector" mnemonicParsing="false" text="ID">
                                                    <styleClass>
                                                       <String fx:value="primary-text-container" />
                                                       <String fx:value="label-med" />
-                                                   </styleClass></CheckBox>
+                                                   </styleClass>
+                                                </CheckBox>
                                              </children>
                                           </HBox>
                                           <CheckBox fx:id="HallNamesSelector" mnemonicParsing="false" text="Hall Names">
                                              <styleClass>
                                                 <String fx:value="primary-text-container" />
                                                 <String fx:value="label-med" />
-                                             </styleClass></CheckBox>
+                                             </styleClass>
+                                          </CheckBox>
                                           <CheckBox fx:id="EdgeSelector" mnemonicParsing="false" selected="true" text="Show Edges">
                                              <styleClass>
                                                 <String fx:value="primary-text-container" />
                                                 <String fx:value="label-med" />
-                                             </styleClass></CheckBox>
+                                             </styleClass>
+                                          </CheckBox>
                                           <CheckBox fx:id="NodeSelector" mnemonicParsing="false" selected="true" text="Show Nodes">
                                              <styleClass>
                                                 <String fx:value="primary-text-container" />
                                                 <String fx:value="label-med" />
-                                             </styleClass></CheckBox>
+                                             </styleClass>
+                                          </CheckBox>
                                           <CheckBox fx:id="LegendSelector" mnemonicParsing="false" selected="true" text="Unique Shapes">
                                              <styleClass>
                                                 <String fx:value="primary-text-container" />
                                                 <String fx:value="label-med" />
-                                             </styleClass></CheckBox>
+                                             </styleClass>
+                                          </CheckBox>
                                        </children>
                                     </VBox>
                                  </content>
                               </TitledPane>
-                              <TitledPane fx:id="FloorTitlePane" animated="false" text="Floors">
+                              <TitledPane fx:id="FloorTitlePane" animated="false" styleClass="surface" text="Floors" VBox.vgrow="ALWAYS">
                                  <content>
                                     <VBox spacing="12.0" style="-fx-background-radius: 16;" styleClass="surface-container-highest">
                                        <children>
@@ -263,11 +269,11 @@
                         </VBox>
                      </children>
                   </AnchorPane>
-               </content>
-            </ScrollPane>
+               </children>
+            </VBox>
             </children>
         </AnchorPane>
-        <AnchorPane id="AP" fx:id="OuterMapAnchor" HBox.hgrow="ALWAYS">
+        <AnchorPane id="AP" fx:id="OuterMapAnchor" styleClass="surface" HBox.hgrow="ALWAYS">
             <children>
                 <StackPane fx:id="sp" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
@@ -289,9 +295,9 @@
                         </TableView>
                     </children>
                 </StackPane>
-            <VBox fx:id="Legend" layoutX="236.0" layoutY="104.0" prefHeight="274.0" prefWidth="238.0" style="-fx-border-radius: 10; -fx-border-color: #012d5a; -fx-background-color: #ffffff; -fx-background-radius: 10;" stylesheets="@../stylesheets/Colors/theme.css" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+            <VBox fx:id="Legend" layoutX="236.0" layoutY="104.0" prefHeight="274.0" prefWidth="238.0" style="-fx-border-radius: 10; -fx-background-radius: 10;" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
                <children>
-                  <Label text="Map Symbols">
+                  <Label styleClass="primary-text-container" text="Map Symbols">
                      <font>
                         <Font name="Roboto" size="18.0" />
                      </font>
@@ -302,7 +308,7 @@
                   <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                      <children>
                         <Rectangle fill="#35a7ff" height="12.0" rotate="45.0" smooth="false" stroke="#012d5a" strokeType="INSIDE" width="12.0" />
-                        <Label prefHeight="23.0" prefWidth="192.0" text="Conference Room">
+                        <Label prefHeight="23.0" prefWidth="192.0" styleClass="on-suface-text" text="Conference Room">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
@@ -315,7 +321,7 @@
                   <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                      <children>
                         <Rectangle fill="#6bd425" height="12.0" rotate="45.0" smooth="false" stroke="#012d5a" strokeType="INSIDE" width="12.0" />
-                        <Label prefHeight="18.0" prefWidth="122.0" text="Department">
+                        <Label prefHeight="18.0" prefWidth="122.0" styleClass="on-suface-text" text="Department">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
@@ -331,7 +337,7 @@
                   <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                      <children>
                         <Rectangle fill="#edb230" height="12.0" rotate="45.0" smooth="false" stroke="#012d5a" strokeType="INSIDE" width="12.0" />
-                        <Label prefHeight="18.0" prefWidth="122.0" text="Lab">
+                        <Label prefHeight="18.0" prefWidth="122.0" styleClass="on-suface-text" text="Lab">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
@@ -344,7 +350,7 @@
                   <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                      <children>
                         <Ellipse fill="#35a7ff" radiusX="6.0" radiusY="6.0" stroke="#012d5a" strokeType="INSIDE" />
-                        <Label prefHeight="18.0" prefWidth="122.0" text="Info">
+                        <Label prefHeight="18.0" prefWidth="122.0" styleClass="on-suface-text" text="Info">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
@@ -357,7 +363,7 @@
                   <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                      <children>
                         <Ellipse fill="#6bd425" radiusX="6.0" radiusY="6.0" stroke="#012d5a" strokeType="INSIDE" />
-                        <Label prefHeight="23.0" prefWidth="186.0" text="Bathroom/Restroom">
+                        <Label prefHeight="23.0" prefWidth="186.0" styleClass="on-suface-text" text="Bathroom/Restroom">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
@@ -373,7 +379,7 @@
                   <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                      <children>
                         <Ellipse fill="#edb230" radiusX="6.0" radiusY="6.0" stroke="#012d5a" strokeType="INSIDE" />
-                        <Label prefHeight="18.0" prefWidth="122.0" text="Service/Retail">
+                        <Label prefHeight="18.0" prefWidth="122.0" styleClass="on-suface-text" text="Service/Retail">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
@@ -386,7 +392,7 @@
                   <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                      <children>
                         <Rectangle fill="#35a7ff" height="12.0" smooth="false" stroke="#012d5a" strokeType="INSIDE" width="12.0" />
-                        <Label prefHeight="18.0" prefWidth="122.0" text="Elevator">
+                        <Label prefHeight="18.0" prefWidth="122.0" styleClass="on-suface-text" text="Elevator">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
@@ -399,7 +405,7 @@
                   <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                      <children>
                         <Rectangle fill="#6bd425" height="12.0" smooth="false" stroke="#012d5a" strokeType="INSIDE" width="12.0" />
-                        <Label prefHeight="18.0" prefWidth="122.0" text="Stairs">
+                        <Label prefHeight="18.0" prefWidth="122.0" styleClass="on-suface-text" text="Stairs">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
@@ -415,7 +421,7 @@
                   <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                      <children>
                         <Rectangle fill="#ed6a5a" height="12.0" smooth="false" stroke="#012d5a" strokeType="INSIDE" width="12.0" />
-                        <Label prefHeight="18.0" prefWidth="122.0" text="Exit">
+                        <Label prefHeight="18.0" prefWidth="122.0" styleClass="on-suface-text" text="Exit">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
@@ -428,7 +434,7 @@
                   <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                      <children>
                         <Ellipse fill="WHITE" radiusX="6.0" radiusY="6.0" stroke="#012d5a" strokeType="INSIDE" />
-                        <Label prefHeight="18.0" prefWidth="122.0" text="Start">
+                        <Label prefHeight="18.0" prefWidth="122.0" styleClass="on-suface-text" text="Start">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
@@ -445,7 +451,7 @@
                               <Insets left="-3.0" />
                            </HBox.margin>
                         </Rectangle>
-                        <Label prefHeight="18.0" prefWidth="122.0" text="Path">
+                        <Label prefHeight="18.0" prefWidth="122.0" styleClass="on-suface-text" text="Path">
                            <HBox.margin>
                               <Insets left="1.0" />
                            </HBox.margin>
@@ -466,7 +472,7 @@
                               <Insets left="-8.0" />
                            </HBox.margin>
                         </Ellipse>
-                        <Label prefHeight="18.0" prefWidth="122.0" text="Destination">
+                        <Label prefHeight="18.0" prefWidth="122.0" styleClass="on-suface-text" text="Destination">
                            <HBox.margin>
                               <Insets left="8.0" />
                            </HBox.margin>
@@ -487,7 +493,7 @@
                               <Insets left="-8.0" />
                            </HBox.margin>
                         </Ellipse>
-                        <Label prefHeight="23.0" prefWidth="187.0" text="Current Floor Start">
+                        <Label prefHeight="23.0" prefWidth="187.0" styleClass="on-suface-text" text="Current Floor Start">
                            <HBox.margin>
                               <Insets left="8.0" />
                            </HBox.margin>
@@ -503,7 +509,7 @@
                   <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                      <children>
                         <Ellipse fill="#edb230" radiusX="6.0" radiusY="6.0" stroke="#012d5a" strokeType="INSIDE" />
-                        <Label prefHeight="27.0" prefWidth="232.0" text="Current Floor Destination">
+                        <Label prefHeight="27.0" prefWidth="232.0" styleClass="on-suface-text" text="Current Floor Destination">
                            <HBox.margin>
                               <Insets left="4.0" />
                            </HBox.margin>
@@ -517,6 +523,10 @@
                <padding>
                   <Insets left="10.0" />
                </padding>
+               <styleClass>
+                  <String fx:value="surface-container" />
+                  <String fx:value="outline" />
+               </styleClass>
             </VBox>
             </children>
         </AnchorPane>

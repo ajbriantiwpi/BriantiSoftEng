@@ -114,8 +114,9 @@
         </GridPane>
     </children>
     <stylesheets>
-        <URL value="@../stylesheets/imageScale.css" />
+
         <URL value="@../stylesheets/Colors/lightTheme.css" />
       <URL value="@../stylesheets/Colors/darkTheme.css" />
+        <URL value="@../stylesheets/imageScale.css" />
     </stylesheets>
 </AnchorPane>

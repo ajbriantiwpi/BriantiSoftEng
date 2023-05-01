@@ -1,5 +1,6 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.servicerequest.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -13,6 +14,7 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import org.controlsfx.control.SearchableComboBox;
 
 public class ConfrenceViewController {
@@ -32,6 +34,7 @@ public class ConfrenceViewController {
   @FXML MFXButton submitButton;
 
   @FXML MFXButton refreshButton;
+  @FXML AnchorPane root;
 
   private double totalPrice = 0.0;
 
@@ -102,6 +105,7 @@ public class ConfrenceViewController {
    */
   @FXML
   public void initialize() throws SQLException {
+    ThemeSwitch.switchTheme(root);
     ParentController.titleString.set("Conference Room Reservations View");
     submitButton.disableProperty().bind(Bindings.isNull(reservationIDText.valueProperty()));
     submitButton.disableProperty().bind(Bindings.isNull(assignStaffText.valueProperty()));

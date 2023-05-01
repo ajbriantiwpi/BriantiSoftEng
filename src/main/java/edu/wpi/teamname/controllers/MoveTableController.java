@@ -2,6 +2,7 @@ package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.App;
 import edu.wpi.teamname.GlobalVariables;
+import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.controllers.JFXitems.DatePickerEditingCell;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.database.MoveDAOImpl;
@@ -26,11 +27,13 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.util.converter.IntegerStringConverter;
 
 public class MoveTableController {
+  @FXML AnchorPane root;
   @FXML private TableView<Move> moveTable;
   @FXML private Button importButton;
 
@@ -44,6 +47,7 @@ public class MoveTableController {
   @FXML private VBox adminMoveView;
 
   public void initialize() {
+    ThemeSwitch.switchTheme(root);
     DataManager moveDAO = new DataManager();
 
     // Implement to disable buttons for staff

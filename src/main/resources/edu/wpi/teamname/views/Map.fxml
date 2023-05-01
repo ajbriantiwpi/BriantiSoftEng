@@ -45,17 +45,17 @@
                                                    <children>
                                                       <AnchorPane>
                                                          <children>
-                                                            <ComboBox fx:id="LocationOne" prefHeight="48.0" prefWidth="255.0" promptText="Select Start" />
+                                                            <ComboBox fx:id="LocationOne" prefHeight="48.0" prefWidth="255.0" promptText="Select Start" stylesheets="@../stylesheets/combo.css" />
                                                          </children>
                                                       </AnchorPane>
                                                       <AnchorPane>
                                                          <children>
-                                                            <ComboBox fx:id="EndPointSelect" prefHeight="48.0" prefWidth="255.0" promptText="Select Destination" />
+                                                            <ComboBox fx:id="EndPointSelect" prefHeight="48.0" prefWidth="255.0" promptText="Select Destination" stylesheets="@../stylesheets/combo.css" />
                                                          </children>
                                                       </AnchorPane>
                                                       <AnchorPane>
                                                          <children>
-                                                            <ComboBox fx:id="AlgoSelect" prefHeight="48.0" prefWidth="255.0" promptText="Select Algorithm" />
+                                                            <ComboBox fx:id="AlgoSelect" prefHeight="48.0" prefWidth="255.0" promptText="Select Algorithm" stylesheets="@../stylesheets/combo.css" />
                                                          </children>
                                                       </AnchorPane>
                                                       <AnchorPane>
@@ -114,7 +114,8 @@
                                       <AnchorPane>
                                              <children>
                                                 <VBox fx:id="directionsBox" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                             </children></AnchorPane>
+                                             </children>
+                                          </AnchorPane>
                                        </content>
                                     </TitledPane>
                                   <TitledPane fx:id="FloorTitlePane" animated="false" text="Floors">
@@ -236,7 +237,8 @@
                                           <AnchorPane>
                                              <children>
                                                 <DatePicker fx:id="datePickerUI" />
-                                             </children></AnchorPane>
+                                             </children>
+                                          </AnchorPane>
                                        </content>
                                     </TitledPane>
                                     <TitledPane fx:id="MessageTitlePane" animated="false" text="Messages">
@@ -304,9 +306,9 @@
                             </GesturePane>
                         </children>
                     </StackPane>
-                  <VBox fx:id="Legend" layoutX="236.0" layoutY="104.0" prefHeight="278.0" prefWidth="238.0" style="-fx-border-radius: 10; -fx-border-color: #012d5a; -fx-background-color: #ffffff; -fx-background-radius: 10;" stylesheets="@../stylesheets/Colors/theme.css" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+                  <VBox fx:id="Legend" layoutX="236.0" layoutY="104.0" prefHeight="278.0" prefWidth="238.0" style="-fx-border-radius: 10; -fx-background-radius: 10;" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
                      <children>
-                        <Label text="Map Symbols">
+                        <Label styleClass="primary-text" text="Map Symbols">
                            <font>
                               <Font name="Roboto" size="18.0" />
                            </font>
@@ -317,7 +319,7 @@
                         <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                            <children>
                               <Rectangle fill="#35a7ff" height="12.0" rotate="45.0" smooth="false" stroke="#012d5a" strokeType="INSIDE" width="12.0" />
-                              <Label prefHeight="23.0" prefWidth="192.0" text="Conference Room">
+                              <Label prefHeight="23.0" prefWidth="192.0" styleClass="on-suface-text" text="Conference Room">
                                  <HBox.margin>
                                     <Insets left="5.0" />
                                  </HBox.margin>
@@ -330,7 +332,7 @@
                         <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                            <children>
                               <Rectangle fill="#6bd425" height="12.0" rotate="45.0" smooth="false" stroke="#012d5a" strokeType="INSIDE" width="12.0" />
-                              <Label prefHeight="18.0" prefWidth="122.0" text="Department">
+                              <Label prefHeight="18.0" prefWidth="122.0" styleClass="on-suface-text" text="Department">
                                  <HBox.margin>
                                     <Insets left="5.0" />
                                  </HBox.margin>
@@ -346,7 +348,7 @@
                         <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                            <children>
                               <Rectangle fill="#edb230" height="12.0" rotate="45.0" smooth="false" stroke="#012d5a" strokeType="INSIDE" width="12.0" />
-                              <Label prefHeight="18.0" prefWidth="122.0" text="Lab">
+                              <Label prefHeight="18.0" prefWidth="122.0" styleClass="on-suface-text" text="Lab">
                                  <HBox.margin>
                                     <Insets left="5.0" />
                                  </HBox.margin>
@@ -359,7 +361,7 @@
                         <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                            <children>
                               <Ellipse fill="#35a7ff" radiusX="6.0" radiusY="6.0" stroke="#012d5a" strokeType="INSIDE" />
-                              <Label prefHeight="18.0" prefWidth="122.0" text="Info">
+                              <Label prefHeight="18.0" prefWidth="122.0" styleClass="on-suface-text" text="Info">
                                  <HBox.margin>
                                     <Insets left="5.0" />
                                  </HBox.margin>
@@ -372,7 +374,7 @@
                         <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                            <children>
                               <Ellipse fill="#6bd425" radiusX="6.0" radiusY="6.0" stroke="#012d5a" strokeType="INSIDE" />
-                              <Label prefHeight="23.0" prefWidth="186.0" text="Bathroom/Restroom">
+                              <Label prefHeight="23.0" prefWidth="186.0" styleClass="on-suface-text" text="Bathroom/Restroom">
                                  <HBox.margin>
                                     <Insets left="5.0" />
                                  </HBox.margin>
@@ -388,7 +390,7 @@
                         <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                            <children>
                               <Ellipse fill="#edb230" radiusX="6.0" radiusY="6.0" stroke="#012d5a" strokeType="INSIDE" />
-                              <Label prefHeight="18.0" prefWidth="122.0" text="Service/Retail">
+                              <Label prefHeight="18.0" prefWidth="122.0" styleClass="on-suface-text" text="Service/Retail">
                                  <HBox.margin>
                                     <Insets left="5.0" />
                                  </HBox.margin>
@@ -401,7 +403,7 @@
                         <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                            <children>
                               <Rectangle fill="#35a7ff" height="12.0" smooth="false" stroke="#012d5a" strokeType="INSIDE" width="12.0" />
-                              <Label prefHeight="18.0" prefWidth="122.0" text="Elevator">
+                              <Label prefHeight="18.0" prefWidth="122.0" styleClass="on-suface-text" text="Elevator">
                                  <HBox.margin>
                                     <Insets left="5.0" />
                                  </HBox.margin>
@@ -414,7 +416,7 @@
                         <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                            <children>
                               <Rectangle fill="#6bd425" height="12.0" smooth="false" stroke="#012d5a" strokeType="INSIDE" width="12.0" />
-                              <Label prefHeight="18.0" prefWidth="122.0" text="Stairs">
+                              <Label prefHeight="18.0" prefWidth="122.0" styleClass="on-suface-text" text="Stairs">
                                  <HBox.margin>
                                     <Insets left="5.0" />
                                  </HBox.margin>
@@ -430,7 +432,7 @@
                         <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                            <children>
                               <Rectangle fill="#ed6a5a" height="12.0" smooth="false" stroke="#012d5a" strokeType="INSIDE" width="12.0" />
-                              <Label prefHeight="18.0" prefWidth="122.0" text="Exit">
+                              <Label prefHeight="18.0" prefWidth="122.0" styleClass="on-suface-text" text="Exit">
                                  <HBox.margin>
                                     <Insets left="5.0" />
                                  </HBox.margin>
@@ -443,7 +445,7 @@
                         <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                            <children>
                               <Ellipse fill="WHITE" radiusX="6.0" radiusY="6.0" stroke="#012d5a" strokeType="INSIDE" />
-                              <Label prefHeight="18.0" prefWidth="122.0" text="Start">
+                              <Label prefHeight="18.0" prefWidth="122.0" styleClass="on-suface-text" text="Start">
                                  <HBox.margin>
                                     <Insets left="5.0" />
                                  </HBox.margin>
@@ -460,7 +462,7 @@
                                     <Insets left="-3.0" />
                                  </HBox.margin>
                               </Rectangle>
-                              <Label prefHeight="18.0" prefWidth="122.0" text="Path">
+                              <Label prefHeight="18.0" prefWidth="122.0" styleClass="on-suface-text" text="Path">
                                  <HBox.margin>
                                     <Insets left="1.0" />
                                  </HBox.margin>
@@ -481,7 +483,7 @@
                                     <Insets left="-8.0" />
                                  </HBox.margin>
                               </Ellipse>
-                              <Label prefHeight="18.0" prefWidth="122.0" text="Destination">
+                              <Label prefHeight="18.0" prefWidth="122.0" styleClass="on-suface-text" text="Destination">
                                  <HBox.margin>
                                     <Insets left="8.0" />
                                  </HBox.margin>
@@ -502,7 +504,7 @@
                                     <Insets left="-8.0" />
                                  </HBox.margin>
                               </Ellipse>
-                              <Label prefHeight="23.0" prefWidth="187.0" text="Current Floor Start">
+                              <Label prefHeight="23.0" prefWidth="187.0" styleClass="on-suface-text" text="Current Floor Start">
                                  <HBox.margin>
                                     <Insets left="8.0" />
                                  </HBox.margin>
@@ -518,7 +520,7 @@
                         <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                            <children>
                               <Ellipse fill="#edb230" radiusX="6.0" radiusY="6.0" stroke="#012d5a" strokeType="INSIDE" />
-                              <Label prefHeight="27.0" prefWidth="232.0" text="Current Floor Destination">
+                              <Label prefHeight="27.0" prefWidth="232.0" styleClass="on-suface-text" text="Current Floor Destination">
                                  <HBox.margin>
                                     <Insets left="4.0" />
                                  </HBox.margin>
@@ -532,24 +534,28 @@
                      <padding>
                         <Insets left="10.0" />
                      </padding>
+                     <styleClass>
+                        <String fx:value="surface-container" />
+                        <String fx:value="outline" />
+                     </styleClass>
                   </VBox>
                </children>
             </AnchorPane>
          </children>
       </HBox>
-      <VBox fx:id="AddMessageVBox" alignment="CENTER" layoutX="308.0" layoutY="14.0" prefHeight="259.0" prefWidth="268.0" spacing="20.0" style="-fx-background-color: #121C2B; -fx-background-radius: 16;">
+      <VBox fx:id="AddMessageVBox" alignment="CENTER" layoutX="308.0" layoutY="14.0" prefHeight="259.0" prefWidth="268.0" spacing="20.0" style="-fx-background-radius: 16;" styleClass="primary-container">
          <children>
-            <Label fx:id="AdminIDLabel" text="Admin ID" textFill="WHITE">
+            <Label fx:id="AdminIDLabel" styleClass="primary-text-container" text="Admin ID" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font></Label>
             <TextField fx:id="AdminIDVal" prefHeight="38.0" prefWidth="190.0" style="-fx-background-color: #D9E3F8; -fx-background-radius: 8;" />
-            <Label fx:id="MessageLabel" layoutX="10.0" layoutY="10.0" text="Message" textFill="WHITE">
+            <Label fx:id="MessageLabel" layoutX="10.0" layoutY="10.0" styleClass="primary-text-container" text="Message" textFill="WHITE">
                <font>
                   <Font name="Roboto" size="20.0" />
                </font></Label>
             <TextField fx:id="MessageVal" layoutX="10.0" layoutY="28.0" prefHeight="38.0" prefWidth="190.0" style="-fx-background-color: #D9E3F8; -fx-background-radius: 8;" />
-            <MFXButton fx:id="MessageSubmitButton" prefHeight="23.0" prefWidth="160.0" style="-fx-background-color: #555F71;" stylesheets="@../stylesheets/button.css" text="Submit" textFill="WHITE">
+            <MFXButton fx:id="MessageSubmitButton" prefHeight="23.0" prefWidth="160.0" styleClass="secondary" stylesheets="@../stylesheets/button.css" text="Submit" textFill="WHITE">
                <font>
                   <Font name="Roboto" size="12.0" />
                </font>
@@ -558,7 +564,7 @@
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding></VBox>
-      <TableView fx:id="MessageTableView" layoutX="297.0" layoutY="625.0" prefHeight="184.0" prefWidth="598.0">
+      <TableView fx:id="MessageTableView" layoutX="297.0" layoutY="625.0" prefHeight="184.0" prefWidth="598.0" stylesheets="@../stylesheets/TableViewStuff.css">
          <columns>
             <TableColumn fx:id="DateColumn" maxWidth="1.7976931348623157E308" prefWidth="120.0" text="Date" />
             <TableColumn fx:id="AdminColumn" prefWidth="75.0" text="AdminID" />
