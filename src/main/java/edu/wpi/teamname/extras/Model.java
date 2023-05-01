@@ -140,23 +140,24 @@ public class Model extends JPanel implements ActionListener {
     }
 
     if (finished) {
-
+      // games done
       score += 50;
-
       if (N_GHOSTS < MAX_GHOSTS) {
         N_GHOSTS++;
       }
-
       if (currentSpeed < maxSpeed) {
         currentSpeed++;
       }
 
-      initLevel();
+      frame.setVisible(false);
+      Sound.playOnButtonClick2();
+      Sound.setSong(Song.OTJANBIRD1);
+      // initLevel();
     }
   }
 
   private void death() {
-
+    Sound.playOnButtonClick2();
     lives--;
 
     if (lives == 0) {
@@ -429,6 +430,7 @@ public class Model extends JPanel implements ActionListener {
         } else if (key == KeyEvent.VK_ESCAPE && timer.isRunning()) {
           inGame = false;
           frame.setVisible(false);
+          Sound.setSong(Song.OTJANBIRD1);
         }
       } else {
         if (key == KeyEvent.VK_SPACE) {
