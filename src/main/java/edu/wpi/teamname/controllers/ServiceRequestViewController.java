@@ -1,6 +1,7 @@
 package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.GlobalVariables;
+import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.controllers.JFXitems.ReqMenuItems;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.extras.Sound;
@@ -29,7 +30,7 @@ import javafx.scene.layout.VBox;
 import org.controlsfx.control.SearchableComboBox;
 
 public class ServiceRequestViewController {
-
+  @FXML AnchorPane root;
   @FXML TableView<ServiceRequest> table;
   @FXML TableColumn requestIDCol;
   @FXML TableColumn patientNameCol;
@@ -156,6 +157,7 @@ public class ServiceRequestViewController {
    */
   @FXML
   public void initialize() throws SQLException {
+    ThemeSwitch.switchTheme(root);
     ParentController.titleString.set("Service Request View");
     submitButton.disableProperty().bind(Bindings.isNull(requestIDText.valueProperty()));
     submitButton.disableProperty().bind(Bindings.isNull(assignStaffText.valueProperty()));

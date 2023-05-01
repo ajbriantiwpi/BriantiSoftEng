@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox maxHeight="100.0" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0" style="-fx-border-width: 5;" styleClass="primary-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<HBox maxHeight="100.0" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0" style="-fx-border-width: 5;" styleClass="primary-container" stylesheets="@../stylesheets/notifsPage.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox spacing="10.0">
          <children>
@@ -48,8 +48,4 @@
          </children>
       </AnchorPane>
    </children>
-   <stylesheets>
-      <URL value="@../stylesheets/Colors/lightTheme.css" />
-      <URL value="@../stylesheets/notifsPage.css" />
-   </stylesheets>
 </HBox>

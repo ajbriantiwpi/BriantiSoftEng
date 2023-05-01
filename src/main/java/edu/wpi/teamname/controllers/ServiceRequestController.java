@@ -3,6 +3,7 @@ package edu.wpi.teamname.controllers;
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
+import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.controllers.JFXitems.ReqMenuItems;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.EmployeeType;
@@ -278,11 +279,12 @@ public class ServiceRequestController {
   }
 
   public void initialize() {
-    if (GlobalVariables.getDarkMode().get()) {
-      root.getStylesheets().remove(0);
-    } else {
-      root.getStylesheets().remove(1);
-    }
+    //    if (GlobalVariables.getDarkMode().get()) {
+    //      root.getStylesheets().remove(0);
+    //    } else {
+    //      root.getStylesheets().remove(1);
+    //    }
+    ThemeSwitch.switchTheme(root);
     ParentController.titleString.set("Service Request");
     setVisibleScreen(0);
 

@@ -3,6 +3,7 @@ package edu.wpi.teamname.controllers;
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
+import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.extras.Song;
@@ -11,6 +12,7 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import java.sql.SQLException;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * The SettingsController class is responsible for managing the settings screen of the application.
@@ -18,7 +20,7 @@ import javafx.scene.control.*;
  * adjusting the application's volume.
  */
 public class SettingsController {
-
+  @FXML AnchorPane root;
   private static boolean wpiSelected = true;
   @FXML Slider volumeSlide;
   @FXML MFXButton feedbackButton;
@@ -37,6 +39,7 @@ public class SettingsController {
    */
   @FXML
   public void initialize() throws SQLException {
+    ThemeSwitch.switchTheme(root);
     ParentController.titleString.set("Settings");
     viewFeedbackButton.setDisable(true);
     wpiButton.setDisable(true);

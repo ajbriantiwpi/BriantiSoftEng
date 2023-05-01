@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.*?>
-<?import java.net.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.SignageController">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1600.0" styleClass="surface" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.SignageController">
    <children>
       <HBox prefHeight="166.0" prefWidth="366.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <VBox prefHeight="800.0" prefWidth="486.0">
                <children>
-                  <Label prefHeight="89.0" prefWidth="578.0" text="Signage Search" textFill="#235fa6">
+                  <Label prefHeight="89.0" prefWidth="578.0" styleClass="primary-text-container" text="Signage Search" textFill="#235fa6">
                      <font>
                         <Font name="Roboto" size="36.0" />
                      </font>
@@ -21,7 +26,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <Label prefHeight="37.0" prefWidth="628.0" stylesheets="@../stylesheets/RowLabel.css" text="Choose Date">
+                  <Label prefHeight="37.0" prefWidth="628.0" styleClass="primary-text-container" stylesheets="@../stylesheets/RowLabel.css" text="Choose Date">
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>
@@ -31,7 +36,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>
                   </DatePicker>
-                  <Label prefHeight="37.0" prefWidth="628.0" stylesheets="@../stylesheets/RowLabel.css" text="Choose Kiosk ID">
+                  <Label prefHeight="37.0" prefWidth="628.0" styleClass="primary-text-container" stylesheets="@../stylesheets/RowLabel.css" text="Choose Kiosk ID">
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>
@@ -43,15 +48,23 @@
                   </ComboBox>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
                      <children>
-                        <MFXButton fx:id="submit" alignment="CENTER" prefHeight="25.0" prefWidth="275.0" stylesheets="@../stylesheets/blueButton.css" text="Submit">
+                        <MFXButton fx:id="submit" alignment="CENTER" prefHeight="25.0" prefWidth="275.0" stylesheets="@../stylesheets/button.css" text="Submit">
                            <padding>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </padding>
+                           <styleClass>
+                              <String fx:value="primary" />
+                              <String fx:value="headline-med" />
+                           </styleClass>
                         </MFXButton>
-                        <MFXButton fx:id="play" alignment="CENTER" prefHeight="25.0" prefWidth="275.0" stylesheets="@../stylesheets/blueButton.css" text="Play">
+                        <MFXButton fx:id="play" alignment="CENTER" prefHeight="25.0" prefWidth="275.0" stylesheets="@../stylesheets/button.css" text="Play">
                            <padding>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </padding>
+                           <styleClass>
+                              <String fx:value="primary" />
+                              <String fx:value="headline-med" />
+                           </styleClass>
                         </MFXButton>
                      </children>
                   </VBox>
