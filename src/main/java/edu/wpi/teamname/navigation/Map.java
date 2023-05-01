@@ -250,7 +250,9 @@ public class Map {
 
     GlobalVariables.setHMap(DataManager.getAllLocationNamesMappedByNode(time));
 
-    Platform.runLater(() -> MapController.updateNames());
+    if (this.isMapPage) {
+      Platform.runLater(() -> MapController.updateNames());
+    }
 
     subAnchor.getStyleClass().remove(0);
 

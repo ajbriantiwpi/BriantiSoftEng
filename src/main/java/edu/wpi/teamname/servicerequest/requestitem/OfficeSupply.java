@@ -54,7 +54,7 @@ public class OfficeSupply extends RequestItem {
   }
 
   /**
-   * a toString method for the meal items
+   * a toString method for the officesupply items
    *
    * @return String in format [ <itemID>, <name>, <price>, <category>, <isElectric>]
    */

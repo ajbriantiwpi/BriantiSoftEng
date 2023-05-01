@@ -1,5 +1,6 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.extras.Sound;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import javafx.event.EventHandler;
@@ -35,6 +36,7 @@ public class AboutPageController {
         new EventHandler<MouseEvent>() {
           @Override
           public void handle(MouseEvent event) {
+            Sound.playOnButtonClick();
             MFXButton clickedButton = (MFXButton) event.getSource();
             String fxmlFileName = null;
 
@@ -94,6 +96,7 @@ public class AboutPageController {
               popOver.show(clickedButton);
               close.setOnMouseClicked(
                   event1 -> {
+                    Sound.playOnButtonClick();
                     popOver.hide();
                   });
             }

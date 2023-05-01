@@ -69,6 +69,8 @@ public class ServiceRequest {
     } else if (requestType.equals(RequestType.MEDICALSUPPLY)) {
       int aLvl = 3;
       items.add(new MedicalSupply(requestID, aLvl));
+    } else if (requestType.equals(RequestType.PHARMACEUTICAL)) {
+      items.add(new Pharmaceutical(requestID));
     }
   }
 
