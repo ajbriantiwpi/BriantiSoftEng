@@ -241,11 +241,11 @@
                     <Insets right="10.0" />
                 </HBox.margin>
                 <children>
-                    <AnchorPane fx:id="summaryPane" disable="true" mouseTransparent="true" visible="false">
+                    <AnchorPane fx:id="summaryPane" disable="true" mouseTransparent="true" styleClass="surface" visible="false">
                         <children>
                             <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" pannable="true" styleClass="surface" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <content>
-                                    <AnchorPane>
+                                    <AnchorPane styleClass="surface">
                                         <children>
                                             <VBox fx:id="pane" prefHeight="200.0" prefWidth="100.0" spacing="12.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                 <children>
@@ -287,7 +287,7 @@
                                                     </Label>
                                                     <ScrollPane fitToHeight="true" fitToWidth="true" pannable="true" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
                                                         <content>
-                                                            <AnchorPane VBox.vgrow="ALWAYS">
+                                                            <AnchorPane styleClass="surface" VBox.vgrow="ALWAYS">
                                                                 <children>
                                                                     <VBox fx:id="cartBox" fillWidth="true" spacing="12.0" style="-fx-background-radius: 8;" styleClass="surface-container-high" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="0.0">
                                                                         <children>

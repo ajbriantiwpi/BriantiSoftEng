@@ -24,8 +24,7 @@ import javafx.util.StringConverter;
  * are synced with the database.
  */
 public class ViewFeedbackController {
-    @FXML
-    AnchorPane root;
+  @FXML AnchorPane root;
   @FXML private TableView<Feedback> feedbackTable;
   @FXML private TableColumn<Feedback, String> reporterColumn;
   @FXML private TableColumn<Feedback, String> descriptionColumn;
@@ -37,7 +36,7 @@ public class ViewFeedbackController {
   /** Initializes the ViewFeedbackController and sets up the UI elements and functionality. */
   @FXML
   private void initialize() {
-      ThemeSwitch.switchTheme(root);
+    ThemeSwitch.switchTheme(root);
     DataManager dm = new DataManager();
     ParentController.titleString.set("Feedback Requests");
     // Fetch all feedback records from the database
