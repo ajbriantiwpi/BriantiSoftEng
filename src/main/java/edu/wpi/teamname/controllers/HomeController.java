@@ -21,7 +21,6 @@ import java.sql.SQLException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Arrays;
-
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.FXCollections;
@@ -43,8 +42,7 @@ public class HomeController {
   @FXML Label actionItemsLabel;
   @FXML Label staffItemsLabel;
   @FXML Label navigationLabel;
-  @FXML
-  ComboBox<Language> languageChooser;
+  @FXML ComboBox<Language> languageChooser;
   @FXML MFXButton notificationPopupButtonSimple;
   @FXML MFXNotificationCenter notifsButton;
   @FXML MFXButton helpButton;
@@ -133,36 +131,38 @@ public class HomeController {
         actionItemsLabel.setText("Action Items");
         staffItemsLabel.setText("Staff Items");
         navigationLabel.setText("Navigation");
-        if(loggedIn.getValue()) {
+        if (loggedIn.getValue()) {
           ObservableList<ServiceRequest> requestList =
-                  FXCollections.observableList(
-                          DataManager.getAllServiceRequests().stream()
-                                  .filter(
-                                          (request) ->
-                                                  request
-                                                          .getStaffName()
-                                                          .equals(GlobalVariables.getCurrentUser().getUsername()))
-                                  .toList());
+              FXCollections.observableList(
+                  DataManager.getAllServiceRequests().stream()
+                      .filter(
+                          (request) ->
+                              request
+                                  .getStaffName()
+                                  .equals(GlobalVariables.getCurrentUser().getUsername()))
+                      .toList());
           ObservableList<ServiceRequest> processingRequestsList =
-                  FXCollections.observableList(
-                          requestList.stream()
-                                  .filter((request) -> request.getStatus().getStatusString().equals("PROCESSING"))
-                                  .toList());
+              FXCollections.observableList(
+                  requestList.stream()
+                      .filter(
+                          (request) -> request.getStatus().getStatusString().equals("PROCESSING"))
+                      .toList());
           ObservableList<ServiceRequest> doneRequestsList =
-                  FXCollections.observableList(
-                          requestList.stream()
-                                  .filter((request) -> request.getStatus().getStatusString().equals("DONE"))
-                                  .toList());
+              FXCollections.observableList(
+                  requestList.stream()
+                      .filter((request) -> request.getStatus().getStatusString().equals("DONE"))
+                      .toList());
           int processingSize = processingRequestsList.size();
           int doneSize = doneRequestsList.size();
           activeRequests.setText(processingSize + " Active Request(s)");
           doneRequests.setText(doneSize + " Done Request(s)");
-          ObservableList<Move> allMoves = FXCollections.observableArrayList(DataManager.getAllMoves());
+          ObservableList<Move> allMoves =
+              FXCollections.observableArrayList(DataManager.getAllMoves());
           LocalDate today = LocalDate.now();
           int futureMoves = 0;
           for (Move move : allMoves) {
             if (move.getDate().toLocalDateTime().toLocalDate().isAfter(today)
-                    || move.getDate().toLocalDateTime().toLocalDate().isEqual(today)) {
+                || move.getDate().toLocalDateTime().toLocalDate().isEqual(today)) {
               futureMoves++;
             }
           }
@@ -193,36 +193,38 @@ public class HomeController {
         actionItemsLabel.setText("Elementi di azione");
         staffItemsLabel.setText("Elementi del personale");
         navigationLabel.setText("Navigazione");
-        if(loggedIn.getValue()) {
+        if (loggedIn.getValue()) {
           ObservableList<ServiceRequest> requestList =
-                  FXCollections.observableList(
-                          DataManager.getAllServiceRequests().stream()
-                                  .filter(
-                                          (request) ->
-                                                  request
-                                                          .getStaffName()
-                                                          .equals(GlobalVariables.getCurrentUser().getUsername()))
-                                  .toList());
+              FXCollections.observableList(
+                  DataManager.getAllServiceRequests().stream()
+                      .filter(
+                          (request) ->
+                              request
+                                  .getStaffName()
+                                  .equals(GlobalVariables.getCurrentUser().getUsername()))
+                      .toList());
           ObservableList<ServiceRequest> processingRequestsList =
-                  FXCollections.observableList(
-                          requestList.stream()
-                                  .filter((request) -> request.getStatus().getStatusString().equals("PROCESSING"))
-                                  .toList());
+              FXCollections.observableList(
+                  requestList.stream()
+                      .filter(
+                          (request) -> request.getStatus().getStatusString().equals("PROCESSING"))
+                      .toList());
           ObservableList<ServiceRequest> doneRequestsList =
-                  FXCollections.observableList(
-                          requestList.stream()
-                                  .filter((request) -> request.getStatus().getStatusString().equals("DONE"))
-                                  .toList());
+              FXCollections.observableList(
+                  requestList.stream()
+                      .filter((request) -> request.getStatus().getStatusString().equals("DONE"))
+                      .toList());
           int processingSize = processingRequestsList.size();
           int doneSize = doneRequestsList.size();
           activeRequests.setText(processingSize + " Richieste attive");
           doneRequests.setText(doneSize + " Richieste completate");
-          ObservableList<Move> allMoves = FXCollections.observableArrayList(DataManager.getAllMoves());
+          ObservableList<Move> allMoves =
+              FXCollections.observableArrayList(DataManager.getAllMoves());
           LocalDate today = LocalDate.now();
           int futureMoves = 0;
           for (Move move : allMoves) {
             if (move.getDate().toLocalDateTime().toLocalDate().isAfter(today)
-                    || move.getDate().toLocalDateTime().toLocalDate().isEqual(today)) {
+                || move.getDate().toLocalDateTime().toLocalDate().isEqual(today)) {
               futureMoves++;
             }
           }
@@ -240,49 +242,51 @@ public class HomeController {
         editMapButton.setText("Modifica la mappa");
         viewSignageButton.setText("Visualizza la segnaletica");
         editSignageButton.setText("Modifica la segnaletica");
-        exitButton.setText("Esci");
+        exitButton.setText("Uscire");
         settingsButton.setText("Impostazioni");
         notificationPopupButtonSimple.setText("Notifiche");
         creditButton.setText("Crediti");
         aboutButton.setText("Informazioni");
         helpButton.setText("Aiuto");
-        loginButton.setText("Accedi");
-        logoutButton.setText("Esci");
+        loginButton.setText("Login");
+        logoutButton.setText("Disconnettersi");
         break;
       case FRENCH:
         actionItemsLabel.setText("Tâches à effectuer");
         staffItemsLabel.setText("Éléments du personnel");
         navigationLabel.setText("Navigation");
-        if(loggedIn.getValue()) {
+        if (loggedIn.getValue()) {
           ObservableList<ServiceRequest> requestList =
-                  FXCollections.observableList(
-                          DataManager.getAllServiceRequests().stream()
-                                  .filter(
-                                          (request) ->
-                                                  request
-                                                          .getStaffName()
-                                                          .equals(GlobalVariables.getCurrentUser().getUsername()))
-                                  .toList());
+              FXCollections.observableList(
+                  DataManager.getAllServiceRequests().stream()
+                      .filter(
+                          (request) ->
+                              request
+                                  .getStaffName()
+                                  .equals(GlobalVariables.getCurrentUser().getUsername()))
+                      .toList());
           ObservableList<ServiceRequest> processingRequestsList =
-                  FXCollections.observableList(
-                          requestList.stream()
-                                  .filter((request) -> request.getStatus().getStatusString().equals("PROCESSING"))
-                                  .toList());
+              FXCollections.observableList(
+                  requestList.stream()
+                      .filter(
+                          (request) -> request.getStatus().getStatusString().equals("PROCESSING"))
+                      .toList());
           ObservableList<ServiceRequest> doneRequestsList =
-                  FXCollections.observableList(
-                          requestList.stream()
-                                  .filter((request) -> request.getStatus().getStatusString().equals("DONE"))
-                                  .toList());
+              FXCollections.observableList(
+                  requestList.stream()
+                      .filter((request) -> request.getStatus().getStatusString().equals("DONE"))
+                      .toList());
           int processingSize = processingRequestsList.size();
           int doneSize = doneRequestsList.size();
           activeRequests.setText(processingSize + " demande(s) active(s)");
           doneRequests.setText(doneSize + " demande(s) effectuée(s)");
-          ObservableList<Move> allMoves = FXCollections.observableArrayList(DataManager.getAllMoves());
+          ObservableList<Move> allMoves =
+              FXCollections.observableArrayList(DataManager.getAllMoves());
           LocalDate today = LocalDate.now();
           int futureMoves = 0;
           for (Move move : allMoves) {
             if (move.getDate().toLocalDateTime().toLocalDate().isAfter(today)
-                    || move.getDate().toLocalDateTime().toLocalDate().isEqual(today)) {
+                || move.getDate().toLocalDateTime().toLocalDate().isEqual(today)) {
               futureMoves++;
             }
           }
@@ -313,36 +317,38 @@ public class HomeController {
         actionItemsLabel.setText("Elementos de acción");
         staffItemsLabel.setText("Elementos del personal");
         navigationLabel.setText("Navegación");
-        if(loggedIn.getValue()) {
+        if (loggedIn.getValue()) {
           ObservableList<ServiceRequest> requestList =
-                  FXCollections.observableList(
-                          DataManager.getAllServiceRequests().stream()
-                                  .filter(
-                                          (request) ->
-                                                  request
-                                                          .getStaffName()
-                                                          .equals(GlobalVariables.getCurrentUser().getUsername()))
-                                  .toList());
+              FXCollections.observableList(
+                  DataManager.getAllServiceRequests().stream()
+                      .filter(
+                          (request) ->
+                              request
+                                  .getStaffName()
+                                  .equals(GlobalVariables.getCurrentUser().getUsername()))
+                      .toList());
           ObservableList<ServiceRequest> processingRequestsList =
-                  FXCollections.observableList(
-                          requestList.stream()
-                                  .filter((request) -> request.getStatus().getStatusString().equals("PROCESSING"))
-                                  .toList());
+              FXCollections.observableList(
+                  requestList.stream()
+                      .filter(
+                          (request) -> request.getStatus().getStatusString().equals("PROCESSING"))
+                      .toList());
           ObservableList<ServiceRequest> doneRequestsList =
-                  FXCollections.observableList(
-                          requestList.stream()
-                                  .filter((request) -> request.getStatus().getStatusString().equals("DONE"))
-                                  .toList());
+              FXCollections.observableList(
+                  requestList.stream()
+                      .filter((request) -> request.getStatus().getStatusString().equals("DONE"))
+                      .toList());
           int processingSize = processingRequestsList.size();
           int doneSize = doneRequestsList.size();
           activeRequests.setText(processingSize + " solicitud(es) activa(s)");
           doneRequests.setText(doneSize + " solicitud(es) completada(s)");
-          ObservableList<Move> allMoves = FXCollections.observableArrayList(DataManager.getAllMoves());
+          ObservableList<Move> allMoves =
+              FXCollections.observableArrayList(DataManager.getAllMoves());
           LocalDate today = LocalDate.now();
           int futureMoves = 0;
           for (Move move : allMoves) {
             if (move.getDate().toLocalDateTime().toLocalDate().isAfter(today)
-                    || move.getDate().toLocalDateTime().toLocalDate().isEqual(today)) {
+                || move.getDate().toLocalDateTime().toLocalDate().isEqual(today)) {
               futureMoves++;
             }
           }
@@ -372,25 +378,25 @@ public class HomeController {
     }
   }
 
-
   @FXML
   public void initialize() throws SQLException, IOException {
 
     languageChooser.setItems(
-            FXCollections.observableList(Arrays.stream(Language.values()).toList()));
+        FXCollections.observableList(Arrays.stream(Language.values()).toList()));
     languageChooser.setValue(GlobalVariables.getB().getValue());
     languageChooser
-            .getSelectionModel()
-            .selectedItemProperty()
-            .addListener(
-                    (options, oldValue, newValue) -> {
-                      try {
-                        setLanguage(newValue);
-                      } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                      }
-                      GlobalVariables.b.setValue(newValue);
-                    });
+        .getSelectionModel()
+        .selectedItemProperty()
+        .addListener(
+            (options, oldValue, newValue) -> {
+              try {
+                setLanguage(newValue);
+              } catch (SQLException e) {
+                throw new RuntimeException(e);
+              }
+              GlobalVariables.b.setValue(newValue);
+            });
+    setLanguage(GlobalVariables.getB().getValue());
 
     EventHandler<MouseEvent> NotificationPopupEvent =
         new EventHandler<MouseEvent>() {
