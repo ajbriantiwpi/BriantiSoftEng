@@ -1,8 +1,8 @@
 package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.GlobalVariables;
-import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.ThemeSwitch;
+import edu.wpi.teamname.extras.Language;
 import java.sql.SQLException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
