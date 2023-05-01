@@ -5,19 +5,17 @@ import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
+import edu.wpi.teamname.extras.Song;
+import edu.wpi.teamname.extras.Sound;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.sql.SQLException;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.Slider;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 
 /**
-
- The SettingsController class is responsible for managing the settings screen of the application.
- It provides functionality for changing the database connection, managing application data,
- and adjusting the application's volume.
+ * The SettingsController class is responsible for managing the settings screen of the application.
+ * It provides functionality for changing the database connection, managing application data, and
+ * adjusting the application's volume.
  */
 public class SettingsController {
 
@@ -26,17 +24,17 @@ public class SettingsController {
   @FXML MFXButton feedbackButton;
   @FXML Label dbConnectionLabel;
   @FXML Label appSettingsLabel;
+  @FXML ComboBox songCombo;
 
   @FXML MFXButton dataManageButton;
   @FXML MFXButton viewFeedbackButton;
   @FXML RadioButton wpiButton;
   @FXML RadioButton awsButton;
   /**
-
-   Initializes the SettingsController and sets up the UI elements and functionality.
-   @throws SQLException if there is an error connecting to the database
+   * Initializes the SettingsController and sets up the UI elements and functionality.
+   *
+   * @throws SQLException if there is an error connecting to the database
    */
-
   @FXML
   public void initialize() throws SQLException {
     ParentController.titleString.set("Settings");
@@ -116,17 +114,48 @@ public class SettingsController {
             ex.printStackTrace();
           }
         });
+    // Set up the songCombo ComboBox
+    for (Song song : Song.values()) {
+      if (song == Song.JETPACKJOYRIDE
+          && !GlobalVariables.getCurrentUser().getUsername().equals("ian")) {
+        continue; // Skip adding the JETPACKJOYRIDE song if the user is not "ian"
+      }
+      songCombo.getItems().add(song.getTitle());
+    }
+
+    // Set the initial selection of the ComboBox
+    songCombo.getSelectionModel().select(Sound.getBackgroundSong().getTitle());
+
+    // Add a listener to the songCombo ComboBox
+    songCombo
+        .getSelectionModel()
+        .selectedItemProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              // Change the background song of the application
+              for (Song song : Song.values()) {
+                if (song.getTitle().equals(newValue)) {
+                  Sound.setSong(song);
+                  break;
+                }
+              }
+            });
 
     dataManageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.DATA_MANAGER));
     feedbackButton.setOnMouseClicked(event -> Navigation.navigate(Screen.FEEDBACK));
     viewFeedbackButton.setOnMouseClicked(event -> Navigation.navigate(Screen.VIEW_FEEDBACK));
   }
   /**
-
-   Sets the volume of the application to the specified value.
-   @param volume the new volume value
+   * Sets the volume of the application to the specified value.
+   *
+   * @param volume the new volume value
+   */
+  /**
+   * Sets the volume of the application to the specified value.
+   *
+   * @param volume the new volume value
    */
   private void setApplicationVolume(double volume) {
-    // Implement logic to control the volume of the specific application
+    Sound.setVolume(volume);
   }
 }
