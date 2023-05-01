@@ -40,7 +40,10 @@ public enum Screen {
   ARTURO_POPUP("views/ArturoPopup.fxml"),
   ANDREW_POPUP("views/AndrewPopup.fxml"),
 
-  DATA_MANAGER("views/Data.fxml");
+  DATA_MANAGER("views/Data.fxml"),
+  SETTINGS("views/Settings.fxml"),
+  FEEDBACK("views/Feedback.fxml"),
+  VIEW_FEEDBACK("views/viewFeedback.fxml");
 
   private final String filename;
 

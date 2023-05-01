@@ -2,7 +2,7 @@ package edu.wpi.teamname.controllers;
 
 import static edu.wpi.teamname.database.DataManager.syncSignage;
 
-import edu.wpi.teamname.controllers.JFXitems.DatePickerTableCell;
+import edu.wpi.teamname.controllers.helpers.DatePickerTableCell;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.database.SignageDAOImpl;
 import edu.wpi.teamname.database.interfaces.SignageDAO;
@@ -25,7 +25,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import jdk.jfr.Timestamp;
+/**
 
+ This class represents a controller for the Signage Table GUI, which allows users to view, add, edit,
+ and delete signage data. It initializes the GUI and sets up event handlers for various GUI components.
+ */
 public class EditSignageController {
 
   @FXML private TableView<Signage> editSignageTable;
@@ -41,7 +45,10 @@ public class EditSignageController {
   //  @FXML private MFXButton exportButton;
   @FXML private AnchorPane rootPane;
   @FXML private TextField searchBar;
+    /**
 
+     Initializes the GUI and sets up event handlers for various GUI components.
+     */
   public void initialize() {
     DataManager signageDAO = new DataManager();
     ParentController.titleString.set("Signage Editor");
@@ -269,7 +276,10 @@ public class EditSignageController {
     loadData();
     directionPicker.getItems().addAll(Direction.getAll());
   }
+    /**
 
+     This method loads all the data from the SignageDAOImpl and populates the editSignageTable with it.
+     */
   private void loadData() {
     SignageDAO signageDAO = new SignageDAOImpl();
     try {
@@ -279,7 +289,14 @@ public class EditSignageController {
       e.printStackTrace();
     }
   }
+    /**
 
+     This method filters the editSignageTable by searching for the searchText parameter in the longName, shortName,
+
+     signId, and kioskId fields of each signage object.
+
+     @param searchText A String representing the text to search for in the editSignageTable.
+     */
   private void filterTable(String searchText) {
     SignageDAO signageDAO = new SignageDAOImpl();
     try {
@@ -305,7 +322,14 @@ public class EditSignageController {
       e.printStackTrace();
     }
   }
+    /**
 
+     This method handles the submit button for adding a new signage object to the SignageDAOImpl and the editSignageTable.
+
+     It takes user input from various input fields and creates a new Signage object with that data.
+
+     @throws NumberFormatException If the signId or kioskId input field is not a valid integer.
+     */
   public void handleSubmitButton() {
     Sound.playOnButtonClick();
     StringConverter<Direction> directionConverter =
@@ -359,7 +383,7 @@ public class EditSignageController {
     kioskInput.clear();
     directionPicker.setValue(null);
   }
-
+//Deletes the selected signage from the editSignageTable and the database after showing a warning
   private void deleteSelectedSignageWithWarning() {
     Signage selectedSignage = editSignageTable.getSelectionModel().getSelectedItem();
     if (selectedSignage != null) {
