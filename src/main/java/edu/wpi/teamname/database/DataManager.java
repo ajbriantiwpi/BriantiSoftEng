@@ -6,6 +6,7 @@ import edu.wpi.teamname.database.interfaces.PharmaceuticalDAO;
 import edu.wpi.teamname.database.interfaces.SignageDAO;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
+import edu.wpi.teamname.employees.Feedback;
 import edu.wpi.teamname.navigation.*;
 import edu.wpi.teamname.servicerequest.ConfReservation;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
@@ -2055,5 +2056,72 @@ public class DataManager {
     createPharmaceuticalTable();
     createServiceRequestTable();
     createSignageTable();
+    createFeedbackTable();
+  }
+
+  /**
+   * Uploads feedback data from a CSV file to the database.
+   *
+   * @param path the path to the CSV file (must use "//" not "/")
+   * @throws SQLException if an error occurs while uploading the data to the database
+   */
+  public static void uploadFeedback(String path) throws SQLException {
+    FeedbackDAOImpl fb = new FeedbackDAOImpl();
+    fb.importFeedbackFromCSV(path);
+  }
+
+  /**
+   * Exports feedback data from the database to a CSV file.
+   *
+   * @param path the path to the CSV file where the data will be exported (must use "//" not "/")
+   * @throws SQLException if an error occurs while exporting the data from the database
+   * @throws IOException if an error occurs while writing the data to the file
+   */
+  public static void exportFeedbackToCSV(String path) throws SQLException, IOException {
+    FeedbackDAOImpl fb = new FeedbackDAOImpl();
+    fb.exportFeedbackToCSV(path);
+  }
+
+  /**
+   * Creates a new feedback table in the database if one does not exist.
+   *
+   * @throws SQLException if there is an error creating the table in the database.
+   */
+  public static void createFeedbackTable() throws SQLException {
+    FeedbackDAOImpl fb = new FeedbackDAOImpl();
+    fb.createTable();
+  }
+
+  /**
+   * Synchronizes a feedback object with the corresponding entry in the database.
+   *
+   * @param feedback the feedback object to be synchronized
+   * @throws SQLException if an error occurs while updating the database
+   */
+  public void syncFeedback(Feedback feedback) throws SQLException {
+    FeedbackDAOImpl fb = new FeedbackDAOImpl();
+    fb.sync(feedback);
+  }
+
+  /**
+   * Adds a new feedback object to the database.
+   *
+   * @param feedback the feedback object to be added
+   * @throws SQLException if an error occurs while adding the feedback to the database
+   */
+  public void addFeedback(Feedback feedback) throws SQLException {
+    FeedbackDAOImpl fb = new FeedbackDAOImpl();
+    fb.add(feedback);
+  }
+
+  /**
+   * Retrieves all feedback objects from the database.
+   *
+   * @return an ArrayList of Feedback objects
+   * @throws SQLException if an error occurs while fetching the data from the database
+   */
+  public ArrayList<Feedback> getAllFeedback() throws SQLException {
+    FeedbackDAOImpl fb = new FeedbackDAOImpl();
+    return fb.getAll();
   }
 }
