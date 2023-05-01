@@ -60,7 +60,7 @@ public class HomeController {
   @FXML MFXButton activeRequests;
   @FXML MFXButton upcomingMoves;
   @FXML MFXButton doneRequests;
-  @FXML MFXButton dataButton;
+  @FXML MFXButton settingsButton;
   @FXML MFXButton serviceRequestAnalyticsButton;
 
   // test push
@@ -98,7 +98,7 @@ public class HomeController {
     upcomingMoves.setVisible(false);
     doneRequests.setVisible(false);
     editSignageButton.setVisible(false);
-    dataButton.setVisible(false);
+    settingsButton.setVisible(true);
     showRequestsButton.setManaged(false);
     editMapButton.setManaged(false);
     editMoveButton.setManaged(false);
@@ -110,7 +110,7 @@ public class HomeController {
     actionVBox.setManaged(false);
     SRVBox.setManaged(false);
     editSignageButton.setManaged(false);
-    dataButton.setManaged(false);
+    settingsButton.setManaged(true);
   }
 
   @FXML
@@ -259,7 +259,7 @@ public class HomeController {
     // Lambda Expression. parameter -> expression
     // Basically just runs the Navigation.navigate Function
     // "event" is a parameter, but there is no
-    Joke joke = Joke.getJoke();
+    Joke joke = Joke.getJoke(0);
     jokeIDLabel.setText("Joke #" + Integer.toString(joke.getId()));
     jokesLabel.setText(joke.toString());
 
@@ -392,8 +392,8 @@ public class HomeController {
       SRVBox.setManaged(true);
       editSignageButton.setVisible(true);
       editSignageButton.setManaged(true);
-      dataButton.setVisible(true);
-      dataButton.setManaged(true);
+      settingsButton.setVisible(true);
+      settingsButton.setManaged(true);
     }
 
     upcomingMoves.setOnMouseClicked(
@@ -433,9 +433,9 @@ public class HomeController {
     viewSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
     viewAlertsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERT));
     requestRoomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CONFERENCE_ROOM));
-    dataButton.setOnMouseClicked(event -> Navigation.navigate(Screen.DATA_MANAGER));
     notificationPopupButtonSimple.setOnMouseClicked(NotificationPopupEvent);
     aboutButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ABOUT));
+    settingsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SETTINGS));
     creditButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CREDITS));
     serviceRequestAnalyticsButton.setOnMouseClicked(
         event -> Navigation.navigate(Screen.SERVICE_REQUEST_ANALYTICS));

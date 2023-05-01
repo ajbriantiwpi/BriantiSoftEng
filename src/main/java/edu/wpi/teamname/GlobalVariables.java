@@ -14,6 +14,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class GlobalVariables {
+  @Getter @Setter private static String[] args;
   @Getter @Setter private static boolean futureMovesPressed = false;
   @Getter @Setter private static boolean activeRequestsPressed = false;
   @Getter @Setter private static boolean doneRequestsPressed = false;

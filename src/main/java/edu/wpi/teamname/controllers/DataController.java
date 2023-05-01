@@ -19,18 +19,20 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+/**
+ * The DataController class is responsible for handling the importing and exporting of data to and
+ * from the database. It contains methods for initializing the GUI components and for handling the
+ * actions performed by the user on the GUI.
+ */
 public class DataController implements Initializable {
   @FXML AnchorPane dataPage;
   @FXML private ComboBox<String> importComboBox;
-  @FXML private RadioButton wpiButton;
-  @FXML private RadioButton awsButton;
 
   @FXML private ComboBox<String> exportComboBox;
 
   @FXML private Button importButton;
 
   @FXML private Button exportButton;
-  private static boolean wpiSelected = true;
 
   private static final String[] FIELDS = {
     "Alert",
@@ -51,9 +53,15 @@ public class DataController implements Initializable {
     "Path Messages",
     "Pharmaceutical",
     "Service Request",
-    "Signage"
+    "Signage",
+    "Feedback"
   };
 
+  /**
+   * Initializes the GUI components of the Data Manager page. Sets the title of the page, populates
+   * the import and export ComboBoxes with the available options, and sets the action listeners for
+   * the buttons.
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     ThemeSwitch.switchTheme(dataPage);
@@ -63,39 +71,6 @@ public class DataController implements Initializable {
 
     importButton.setOnAction(e -> onImportButtonClicked());
     exportButton.setOnAction(e -> onExportButtonClicked());
-
-    // Create a ToggleGroup to ensure only one button can be selected at a time
-    ToggleGroup databaseToggleGroup = new ToggleGroup();
-    wpiButton.setToggleGroup(databaseToggleGroup);
-    awsButton.setToggleGroup(databaseToggleGroup);
-    if (wpiSelected) {
-      wpiButton.setSelected(true);
-    } else {
-      awsButton.setSelected(true);
-    }
-
-    // Hook up the methods to the toggle buttons
-    wpiButton.setOnAction(
-        e -> {
-          Sound.playOnButtonClick();
-          try {
-            DataManager.connectToWPI();
-            wpiSelected = true;
-          } catch (SQLException ex) {
-            ex.printStackTrace();
-          }
-        });
-
-    awsButton.setOnAction(
-        e -> {
-          Sound.playOnButtonClick();
-          try {
-            DataManager.connectToAWS();
-            wpiSelected = false;
-          } catch (SQLException ex) {
-            ex.printStackTrace();
-          }
-        });
   }
 
   private void onImportButtonClicked() {
@@ -107,7 +82,6 @@ public class DataController implements Initializable {
 
     Stage stage = (Stage) importButton.getScene().getWindow();
     File csvFile = fileChooser.showOpenDialog(stage);
-
     if (csvFile != null) {
       if (selectedItem != null) {
         try {
@@ -165,6 +139,9 @@ public class DataController implements Initializable {
               break;
             case "Signage":
               DataManager.uploadSignage(csvFile.getPath());
+              break;
+            case "Feedback":
+              DataManager.uploadFeedback(csvFile.getPath());
               break;
             case "Pharmaceutical":
               DataManager.uploadPharmaceutical(csvFile.getPath());
@@ -266,6 +243,10 @@ public class DataController implements Initializable {
             case "Signage":
               fileChooser.setInitialFileName("signage.csv");
               DataManager.exportSignageToCSV(csvFile.getPath());
+              break;
+            case "Feedback":
+              fileChooser.setInitialFileName("feedback.csv");
+              DataManager.exportFeedbackToCSV(csvFile.getPath());
               break;
           }
         } catch (SQLException e) {

@@ -1,4 +1,4 @@
-package edu.wpi.teamname.controllers.JFXitems;
+package edu.wpi.teamname.controllers.helpers;
 
 import edu.wpi.teamname.navigation.Move;
 import java.sql.Timestamp;
