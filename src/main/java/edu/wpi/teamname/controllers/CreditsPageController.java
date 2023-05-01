@@ -1,15 +1,13 @@
 package edu.wpi.teamname.controllers;
 
-import java.sql.SQLException;
-
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.extras.Language;
+import java.sql.SQLException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 public class CreditsPageController {
-  @FXML
-  Label creditsLabel;
+  @FXML Label creditsLabel;
 
   public void setLanguage(Language lang) {
     switch (lang) {
@@ -37,8 +35,8 @@ public class CreditsPageController {
     ParentController.titleString.set("Credits");
     setLanguage(GlobalVariables.getB().getValue());
     GlobalVariables.b.addListener(
-            (options, oldValue, newValue) -> {
-              setLanguage(newValue);
-            });
+        (options, oldValue, newValue) -> {
+          setLanguage(newValue);
+        });
   }
 }

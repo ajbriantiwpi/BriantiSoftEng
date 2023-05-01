@@ -440,6 +440,9 @@ public class ParentController {
         loginButton.setText("Login");
         logoutButton.setText("Logout");
         exitButton.setText("Exit");
+        mapButtonSelector.setText("Map");
+        viewSignageButtonSelector.setText("Signage");
+        makeRequestsButtonSelector.setText("Service Requests");
         break;
       case FRENCH:
         homeButton.setText("Page D’accueil");
@@ -456,6 +459,9 @@ public class ParentController {
         loginButton.setText("Connexion");
         logoutButton.setText("Se déconnecter");
         exitButton.setText("Sortie");
+        mapButtonSelector.setText("Carte");
+        viewSignageButtonSelector.setText("Signalisation");
+        makeRequestsButtonSelector.setText("Demandes");
         break;
       case ITALIAN:
         homeButton.setText("Pagina Iniziale");
@@ -472,6 +478,9 @@ public class ParentController {
         loginButton.setText("Login");
         logoutButton.setText("Disconnettersi");
         exitButton.setText("Uscire");
+        mapButtonSelector.setText("Mappa");
+        viewSignageButtonSelector.setText("Segnaletica");
+        makeRequestsButtonSelector.setText("Richieste");
         break;
       case SPANISH:
         homeButton.setText("Página de Inicio");
@@ -488,6 +497,9 @@ public class ParentController {
         loginButton.setText("Acceso");
         logoutButton.setText("Cerrar sesión");
         exitButton.setText("Salir");
+        mapButtonSelector.setText("Mapa");
+        viewSignageButtonSelector.setText("Señalización");
+        makeRequestsButtonSelector.setText("Peticiones");
         break;
     }
   }

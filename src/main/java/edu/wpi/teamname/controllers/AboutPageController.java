@@ -5,8 +5,6 @@ import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.extras.Sound;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
-import java.sql.SQLException;
-
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -106,9 +104,9 @@ public class AboutPageController {
     ParentController.titleString.set("About");
     setLanguage(GlobalVariables.getB().getValue());
     GlobalVariables.b.addListener(
-            (options, oldValue, newValue) -> {
-              setLanguage(newValue);
-            });
+        (options, oldValue, newValue) -> {
+          setLanguage(newValue);
+        });
 
     EventHandler<MouseEvent> PersonPopup =
         new EventHandler<MouseEvent>() {
