@@ -11,7 +11,7 @@
 
 <VBox alignment="CENTER" styleClass="primary-on-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <MFXButton fx:id="makeRequestsButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="primary-on-container" stylesheets="@../stylesheets/Colors/sideBarColor.css" text="Make Requests" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
+      <MFXButton fx:id="makeRequestsButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="primary-on-container" stylesheets="@../stylesheets/Colors/sideBarColor.css" text="Make Requests" id="Make Requests" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
          <font>
             <Font name="Roboto" size="22.0" />
          </font>
@@ -24,7 +24,7 @@
          </graphic>
       </MFXButton>
       <Separator prefWidth="200.0" />
-      <MFXButton fx:id="requestRoomButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="primary-on-container" text="Request Room" textFill="#1a1c1e">
+      <MFXButton fx:id="requestRoomButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="primary-on-container" text="Request Room" id="Request Room" textFill="#1a1c1e">
          <font>
             <Font name="Roboto" size="22.0" />
          </font>
@@ -41,7 +41,7 @@
          </stylesheets>
       </MFXButton>
       <Separator prefWidth="200.0" />
-      <MFXButton fx:id="showRequestsButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="primary-on-container" stylesheets="@../stylesheets/Colors/sideBarColor.css" text="View Requests" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
+      <MFXButton fx:id="showRequestsButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="primary-on-container" stylesheets="@../stylesheets/Colors/sideBarColor.css" text="View Requests" id="View Requests" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
          <font>
             <Font name="Roboto" size="22.0" />
          </font>
@@ -54,7 +54,7 @@
          </graphic>
       </MFXButton>
       <Separator prefWidth="200.0" />
-      <MFXButton fx:id="showRequestsButton1" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="primary-on-container" stylesheets="@../stylesheets/Colors/sideBarColor.css" text="Service Request Analytics" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
+      <MFXButton fx:id="showRequestsButton1" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="primary-on-container" stylesheets="@../stylesheets/Colors/sideBarColor.css" text="Service Request Analytics" id="Service Request Analytics" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
          <font>
             <Font name="Roboto" size="22.0" />
          </font>
@@ -67,7 +67,7 @@
          </graphic>
       </MFXButton>
       <Separator prefWidth="200.0" />
-      <MFXButton fx:id="showRequestsButton2" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="primary-on-container" stylesheets="@../stylesheets/Colors/sideBarColor.css" text="View Confrence Room" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
+      <MFXButton fx:id="showRequestsButton2" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="primary-on-container" stylesheets="@../stylesheets/Colors/sideBarColor.css" text="View Confrence Room" id="View Confrence Room" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
          <font>
             <Font name="Roboto" size="22.0" />
          </font>

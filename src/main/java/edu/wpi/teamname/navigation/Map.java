@@ -1,6 +1,7 @@
 package edu.wpi.teamname.navigation;
 
 import edu.wpi.teamname.GlobalVariables;
+import edu.wpi.teamname.controllers.MapController;
 import edu.wpi.teamname.database.DataManager;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;

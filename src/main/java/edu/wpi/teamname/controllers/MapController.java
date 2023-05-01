@@ -56,7 +56,7 @@ public class MapController {
   public static ComboBox<String> LocOne;
   @FXML ComboBox<String> EndPointSelect;
   public static ComboBox<String> endSel;
-  @FXML MFXButton DeleteNodeButton;
+  @FXML MFXButton DeleteNodeButton; // On this page, this is actually the reset button
   @FXML MFXButton findPathButton;
   // @FXML ComboBox<String> FloorSelect = new ComboBox<>();
   @FXML ComboBox<String> AlgoSelect = new ComboBox<>();
@@ -418,6 +418,12 @@ public class MapController {
         }
       };
 
+  public void clearTextDriections() {
+    for (int i = directionsBox.getChildren().size() - 1; i >= 0; i--) {
+      directionsBox.getChildren().remove(i);
+    }
+  }
+
   public void generateTextDirections(int startFloorIndex) {
     int floorIndex = startFloorIndex;
     //    ArrayList<String> directions = map.getTextDirections();
@@ -602,6 +608,7 @@ public class MapController {
           FloorsToggle.setDisable(false);
           showPathFloors(false);
 
+          clearTextDriections();
           generateTextDirections(floorIndex);
 
           map.centerAndZoomStart(gp, OuterMapAnchor, globalStartNode);
@@ -1219,6 +1226,17 @@ public class MapController {
 
     // DeleteNodeButton.setOnMouseClicked(deleteNodeButton);
     DeleteNodeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
+    //    DeleteNodeButton.setOnMouseClicked(
+    //        event -> {
+    //          try {
+    //            map.refresh();
+    //          } catch (SQLException ex) {
+    //            throw new RuntimeException(ex);
+    //          } catch (IOException ex) {
+    //            throw new RuntimeException(ex);
+    //          }
+    //        });
+
     findPathButton.setOnMouseClicked(findPathWButton);
     findPathButton.setDisable(true);
 
