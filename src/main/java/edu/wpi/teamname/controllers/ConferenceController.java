@@ -141,6 +141,10 @@ public class ConferenceController {
         submitButton.setText("Solicitud");
         break;
     }
+    buildingBox.setItems(buildings);
+    startBox.setItems(startTimes);
+    endBox.setItems(endTimes);
+    roomBox.setItems(roomsString);
   }
 
   @FXML

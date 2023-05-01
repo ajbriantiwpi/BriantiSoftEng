@@ -251,7 +251,7 @@ public class ServiceRequestViewController {
 
         break;
     }
-    assignStaffText.setValue(assignStaffText.getValue());
+    //    assignStaffText.setValue(assignStaffText.getValue());
     if (assignStaffText.getValue() == null) {
       assignStaffText.setItems(FXCollections.observableList(DataManager.getAllUsernames()));
       assignStaffText.getSelectionModel().clearSelection();

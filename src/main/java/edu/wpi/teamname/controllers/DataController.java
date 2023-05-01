@@ -1,13 +1,18 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.extras.Sound;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.ResourceBundle;
+
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -51,9 +56,37 @@ public class DataController implements Initializable {
     "Signage"
   };
 
+  public void setLanguage(Language lang) throws SQLException{
+    switch (lang) {
+      case ENGLISH:
+        break;
+      case ITALIAN:
+        break;
+      case FRENCH:
+        break;
+      case SPANISH:
+        break;
+    }
+    importComboBox.setItems(FXCollections.observableList(Arrays.asList(FIELDS)));
+    exportComboBox.setItems(FXCollections.observableList(Arrays.asList(FIELDS)));
+  }
+
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     ParentController.titleString.set("Data Manager");
+    try {
+      setLanguage(GlobalVariables.getB().getValue());
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+    GlobalVariables.b.addListener(
+            (options, oldValue, newValue) -> {
+              try {
+                setLanguage(newValue);
+              } catch (SQLException e) {
+                throw new RuntimeException(e);
+              }
+            });
     importComboBox.getItems().addAll(FIELDS);
     exportComboBox.getItems().addAll(FIELDS);
 

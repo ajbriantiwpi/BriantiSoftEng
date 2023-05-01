@@ -104,7 +104,7 @@ public class ConfrenceViewController {
     table.setItems(sortedServiceReq);
   }
 
-  public void setLanguage(Language lang) {
+  public void setLanguage(Language lang) throws SQLException {
     switch (lang) {
       case ENGLISH:
         ParentController.titleString.set("Conference Room Reservations View");
@@ -199,6 +199,14 @@ public class ConfrenceViewController {
         roomCol.setText("ID de Sala");
         break;
     }
+    ObservableList<String> staffNames =
+        FXCollections.observableArrayList(DataManager.getAllUsernames());
+    staffNames.add(null);
+    requestStaffCombo.setItems(staffNames);
+
+    reservationIDText.setItems(
+        FXCollections.observableList(DataManager.getAllConferenceRequestIDs()));
+    assignStaffText.setItems(FXCollections.observableList(DataManager.getAllUsernames()));
   }
   /**
    * initializes the serviceRequestView page
@@ -211,7 +219,11 @@ public class ConfrenceViewController {
     setLanguage(GlobalVariables.getB().getValue());
     GlobalVariables.b.addListener(
         (options, oldValue, newValue) -> {
-          setLanguage(newValue);
+          try {
+            setLanguage(newValue);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          }
         });
     submitButton.disableProperty().bind(Bindings.isNull(reservationIDText.valueProperty()));
     submitButton.disableProperty().bind(Bindings.isNull(assignStaffText.valueProperty()));
