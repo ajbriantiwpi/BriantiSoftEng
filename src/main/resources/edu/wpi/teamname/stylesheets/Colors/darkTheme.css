@@ -83,6 +83,11 @@
 .outline{
     -fx-border-color: #899393;
 }
+.separator *.line{
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+    -fx-border-color: #899393;
+}
 .primary-fixed-dim{
     -fx-background-color: #A7C8FF;
     -fx-text-fill: #001B3B;

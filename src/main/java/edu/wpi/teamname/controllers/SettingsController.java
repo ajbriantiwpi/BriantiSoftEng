@@ -153,11 +153,6 @@ public class SettingsController {
    *
    * @param volume the new volume value
    */
-  /**
-   * Sets the volume of the application to the specified value.
-   *
-   * @param volume the new volume value
-   */
   private void setApplicationVolume(double volume) {
     Sound.setVolume(volume);
   }

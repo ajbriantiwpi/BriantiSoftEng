@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import java.lang.String?>
-<?import java.net.URL?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import io.github.palexdev.materialfx.controls.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="rootPane" prefHeight="1080.0" prefWidth="1920.0" styleClass="body" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.HomeController">
+<AnchorPane fx:id="rootPane" prefHeight="1080.0" prefWidth="1920.0" styleClass="body" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.HomeController">
     <children>
         <GridPane fx:id="homeGrid" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
@@ -104,6 +98,18 @@
                      </graphic>
                   </MFXButton>
                   <MFXButton fx:id="requestRoomButton" alignment="BASELINE_LEFT" maxWidth="476.0" styleClass="surface" text="Request Conference Room">
+                     <font>
+                        <Font name="Roboto" size="22.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                           <image>
+                              <Image url="@../images/MenuIcons/request_room_home.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MFXButton>
+                  <MFXButton fx:id="viewConfrenceRoomButton" alignment="BASELINE_LEFT" maxWidth="476.0" styleClass="surface" text="View Conference Room">
                      <font>
                         <Font name="Roboto" size="22.0" />
                      </font>

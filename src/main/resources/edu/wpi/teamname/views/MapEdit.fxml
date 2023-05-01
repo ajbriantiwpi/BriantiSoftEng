@@ -25,9 +25,9 @@
     <children>
         <AnchorPane style="-fx-background-radius: 16;" styleClass="surface">
             <children>
-            <VBox styleClass="surface" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <AnchorPane style="-fx-background-color: #f00;" styleClass="surface">
+            <ScrollPane fx:id="MapScrollPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <content>
+                  <AnchorPane style="-fx-background-color: #ff0000;">
                      <children>
                         <VBox styleClass="surface" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>

@@ -55,6 +55,7 @@ public class HomeController {
   @FXML MFXButton viewSignageButton;
   @FXML MFXButton editSignageButton;
   @FXML MFXButton requestRoomButton;
+  @FXML MFXButton viewConfrenceRoomButton;
   @FXML MFXButton viewAlertsButton; // TAKE OUT LATER
 
   @FXML MFXButton activeRequests;
@@ -439,6 +440,7 @@ public class HomeController {
     creditButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CREDITS));
     serviceRequestAnalyticsButton.setOnMouseClicked(
         event -> Navigation.navigate(Screen.SERVICE_REQUEST_ANALYTICS));
+    viewConfrenceRoomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CONF_VIEW));
     //    notifsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERT));
   }
 }

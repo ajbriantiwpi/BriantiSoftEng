@@ -95,7 +95,7 @@
                                 </VBox.margin>
                             </Label>
                             <ComboBox fx:id="roomBox" layoutX="10.0" layoutY="158.0" prefHeight="50.0" prefWidth="396.0" promptText="Choose Room" stylesheets="@../stylesheets/combo.css" />
-                            <MFXButton fx:id="submitButton" mnemonicParsing="false" styleClass="primary" text="Request">
+                            <MFXButton fx:id="submitButton" mnemonicParsing="false" styleClass="primary" stylesheets="@../stylesheets/button.css" text="Request">
                                 <font>
                                     <Font name="Roboto" size="32.0" />
                                 </font>

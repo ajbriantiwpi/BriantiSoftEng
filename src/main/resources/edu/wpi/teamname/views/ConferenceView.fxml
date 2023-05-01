@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import java.lang.String?>
-<?import java.net.URL?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import org.controlsfx.control.SearchableComboBox?>
+<?import io.github.palexdev.materialfx.controls.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import org.controlsfx.control.*?>
 
 <!--        style="-fx-background-color: #D9E3F8;" -->
 
@@ -67,7 +60,7 @@
                            </VBox>
                            <VBox spacing="12.0" style="-fx-background-radius: 16;" styleClass="surface-container-highest">
                               <children>
-                                 <Label text="Assign Staff to Reservaiton" textFill="#001b3b">
+                                 <Label text="Assign Staff to Reservation" textFill="#001b3b">
                                     <font>
                                        <Font name="Roboto" size="32.0" />
                                     </font>
@@ -79,7 +72,7 @@
                                        <String fx:value="headline-large" />
                                     </styleClass>
                                  </Label>
-                                 <Label text="Reservaiton ID" textFill="#001b3b">
+                                 <Label text="Reservation ID" textFill="#001b3b">
                                     <font>
                                         <Font name="Roboto" size="28.0" />
                                     </font>
