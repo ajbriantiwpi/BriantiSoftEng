@@ -650,7 +650,21 @@ public class Map {
         direction = getDirection(prevNode, node, nextNode);
 
         if (direction.getString().equals("Straight")) {
-          sb.append("Continue Straight ");
+          switch (GlobalVariables.getB().getValue()) {
+            case ENGLISH:
+              sb.append("Continue Straight ");
+              break;
+            case FRENCH:
+              sb.append("Continuer Droit");
+              break;
+            case ITALIAN:
+              sb.append("Continua Dritto");
+              break;
+            case SPANISH:
+              sb.append("Continuar Recto");
+              break;
+          }
+
         } else if (direction.getString().equals("Down") || direction.getString().equals("Up")) {
           sb.append("Go " + direction.getString());
         } else {

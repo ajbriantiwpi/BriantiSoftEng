@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Arrays;
 import java.util.ResourceBundle;
-
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -56,7 +55,7 @@ public class DataController implements Initializable {
     "Signage"
   };
 
-  public void setLanguage(Language lang) throws SQLException{
+  public void setLanguage(Language lang) throws SQLException {
     switch (lang) {
       case ENGLISH:
         break;
@@ -80,13 +79,13 @@ public class DataController implements Initializable {
       throw new RuntimeException(e);
     }
     GlobalVariables.b.addListener(
-            (options, oldValue, newValue) -> {
-              try {
-                setLanguage(newValue);
-              } catch (SQLException e) {
-                throw new RuntimeException(e);
-              }
-            });
+        (options, oldValue, newValue) -> {
+          try {
+            setLanguage(newValue);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          }
+        });
     importComboBox.getItems().addAll(FIELDS);
     exportComboBox.getItems().addAll(FIELDS);
 
