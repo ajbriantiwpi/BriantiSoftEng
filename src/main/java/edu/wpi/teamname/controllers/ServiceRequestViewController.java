@@ -122,7 +122,8 @@ public class ServiceRequestViewController {
     return requestList;
   }
 
-  public void setLanguage(Language lang) {
+  public void setLanguage(Language lang) throws SQLException {
+
     switch (lang) {
       case ENGLISH:
         ParentController.titleString.set("Service Request View");
@@ -247,7 +248,42 @@ public class ServiceRequestViewController {
         assignedStaffCol.setText("Personal Asignado");
         statusCol.setText("Estado");
         ViewButton.setText("Ver");
+
         break;
+    }
+    assignStaffText.setValue(assignStaffText.getValue());
+    if (assignStaffText.getValue() == null) {
+      assignStaffText.setItems(FXCollections.observableList(DataManager.getAllUsernames()));
+      assignStaffText.getSelectionModel().clearSelection();
+    }
+    if (requestStatusText.getValue() == null) {
+      requestStatusText.getSelectionModel().clearSelection();
+      ObservableList<Status> requestStatuses2 = FXCollections.observableArrayList(Status.values());
+      requestStatusText.setItems(requestStatuses2);
+    }
+    if (requestIDText.getValue() == null) {
+      requestIDText.getSelectionModel().clearSelection();
+      requestIDText.setItems(FXCollections.observableList(DataManager.getAllRequestIDs()));
+    }
+    if (requestTypeCombo.getValue() == null) {
+      requestTypeCombo.getSelectionModel().clearSelection();
+      ObservableList<RequestType> requestTypes =
+          FXCollections.observableArrayList(RequestType.values());
+      requestTypes.add(null);
+      requestTypeCombo.setItems(requestTypes);
+    }
+    if (requestStaffCombo.getValue() == null) {
+      ObservableList<String> staffNames =
+          FXCollections.observableArrayList(DataManager.getAllUsernames());
+      staffNames.add(null);
+      requestStaffCombo.setItems(staffNames);
+      requestStaffCombo.getSelectionModel().clearSelection();
+    }
+    if (requestStatusCombo.getValue() == null) {
+      ObservableList<Status> requestStatuses = FXCollections.observableArrayList(Status.values());
+      requestStatuses.add(null);
+      requestStatusCombo.setItems(requestStatuses);
+      requestStatusCombo.getSelectionModel().clearSelection();
     }
   }
   /*
@@ -337,7 +373,11 @@ public class ServiceRequestViewController {
     setLanguage(GlobalVariables.getB().getValue());
     GlobalVariables.b.addListener(
         (options, oldValue, newValue) -> {
-          setLanguage(newValue);
+          try {
+            setLanguage(newValue);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          }
         });
 
     submitButton.disableProperty().bind(Bindings.isNull(requestIDText.valueProperty()));

@@ -199,6 +199,7 @@ public class ParentController {
 
   @FXML
   public void initialize() throws IOException {
+    titleString.addListener((observable, oldValue, newValue) -> titleLabel.setText(newValue));
     languageChooser.setItems(
         FXCollections.observableList(Arrays.stream(Language.values()).toList()));
     languageChooser.setValue(GlobalVariables.getB().getValue());
@@ -210,6 +211,7 @@ public class ParentController {
               setLanguage(newValue);
               GlobalVariables.b.setValue(newValue);
             });
+    setLanguage(GlobalVariables.getB().getValue());
     titleLabel.setText(titleString.getValue());
     System.out.println("Parent!");
     darkToggle.selectedProperty().bindBidirectional(GlobalVariables.getDarkMode());

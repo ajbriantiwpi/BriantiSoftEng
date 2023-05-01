@@ -146,6 +146,11 @@ public class ConferenceController {
   @FXML
   public void initialize() throws SQLException {
     ParentController.titleString.set("Conference Room Request");
+    setLanguage(GlobalVariables.getB().getValue());
+    GlobalVariables.b.addListener(
+        (options, oldValue, newValue) -> {
+          setLanguage(newValue);
+        });
     if (GlobalVariables.getDarkMode().get()) {
       root.getStylesheets().remove(0);
     } else {
