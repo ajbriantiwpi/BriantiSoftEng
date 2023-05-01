@@ -1,5 +1,6 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.Feedback;
 import edu.wpi.teamname.servicerequest.Status;
@@ -13,6 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.StringConverter;
 
 /**
@@ -22,6 +24,8 @@ import javafx.util.StringConverter;
  * are synced with the database.
  */
 public class ViewFeedbackController {
+    @FXML
+    AnchorPane root;
   @FXML private TableView<Feedback> feedbackTable;
   @FXML private TableColumn<Feedback, String> reporterColumn;
   @FXML private TableColumn<Feedback, String> descriptionColumn;
@@ -33,6 +37,7 @@ public class ViewFeedbackController {
   /** Initializes the ViewFeedbackController and sets up the UI elements and functionality. */
   @FXML
   private void initialize() {
+      ThemeSwitch.switchTheme(root);
     DataManager dm = new DataManager();
     ParentController.titleString.set("Feedback Requests");
     // Fetch all feedback records from the database
