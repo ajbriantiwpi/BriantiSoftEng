@@ -24,6 +24,20 @@ public enum Direction {
     return type;
   }
 
+  public Direction getInverse() {
+    if (this == Direction.UP) {
+      return Direction.DOWN;
+    } else if (this == Direction.DOWN) {
+      return Direction.UP;
+    } else if (this == Direction.LEFT) {
+      return Direction.RIGHT;
+    } else if (this == Direction.RIGHT) {
+      return Direction.LEFT;
+    } else {
+      return this;
+    }
+  }
+
   public static List<String> getAll() {
     List<String> allDirections = new ArrayList<>();
     for (Direction direction : values()) {

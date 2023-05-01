@@ -116,6 +116,18 @@
                         </ImageView>
                      </graphic>
                   </MFXButton>
+                  <MFXButton fx:id="viewConfrenceRoomButton" alignment="BASELINE_LEFT" maxWidth="476.0" styleClass="surface" text="View Confrence Room">
+                     <font>
+                        <Font name="Roboto" size="22.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                           <image>
+                              <Image url="@../images/MenuIcons/request_room_home.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MFXButton>
                   <MFXButton fx:id="viewAlertsButton" alignment="BASELINE_LEFT" maxWidth="476.0" styleClass="surface" text="View Alerts">
                      <font>
                         <Font name="Roboto" size="22.0" />
