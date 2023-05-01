@@ -1,5 +1,10 @@
 package edu.wpi.teamname.employees;
 
+import edu.wpi.teamname.Screen;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public enum ClearanceLevel {
   ADMIN("ADMIN"),
   STAFF("STAFF"),
@@ -14,6 +19,33 @@ public enum ClearanceLevel {
 
   public String getString() {
     return level;
+  }
+
+  public List<Screen> accessableScreens() {
+    switch (this) {
+      case ADMIN:
+        List<Screen> allScreens = Arrays.stream(Screen.values()).toList();
+        return allScreens;
+      case STAFF:
+        List<Screen> staffScreens = ClearanceLevel.GUEST.accessableScreens();
+
+        staffScreens.add(Screen.SERVICE_REQUEST);
+        staffScreens.add(Screen.SERVICE_REQUEST_VIEW);
+        staffScreens.add(Screen.MOVE_TABLE);
+        staffScreens.add(Screen.CONFERENCE_ROOM);
+        staffScreens.add(Screen.SERVICE_REQUEST_ANALYTICS);
+        staffScreens.add(Screen.CONF_VIEW);
+
+        return staffScreens;
+      case GUEST:
+        ArrayList<Screen> guestScreens = new ArrayList<>();
+        guestScreens.add(Screen.HOME);
+        guestScreens.add(Screen.MAP);
+        guestScreens.add(Screen.SIGNAGE);
+        guestScreens.add(Screen.LOGIN);
+        return guestScreens;
+    }
+    return null;
   }
 
   /**

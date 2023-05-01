@@ -212,7 +212,15 @@ public class Node implements Comparable<Node> {
    * @return number the floor is on
    */
   public int getFloorNum() {
-    return Integer.valueOf(getFloor().replace('L', '-'));
+
+    if (this.getFloor().contains("L")) {
+      return Integer.valueOf(getFloor().replace('L', '-'));
+    } else {
+      return Integer.valueOf(getFloor().replace('L', '-')) - 1;
+    }
+
+    //    return Integer.valueOf(getFloor().replace('L', '-'));
+
     //    try{
     //      return Integer.valueOf(getFloor());
     //    } catch(NumberFormatException e){
