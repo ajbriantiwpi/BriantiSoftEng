@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.*?>
+<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="aboutAnchorPane" prefHeight="900.0" prefWidth="1600.0" styleClass="primary-container" stylesheets="@../stylesheets/Colors/lightTheme.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.AboutPageController">
+<AnchorPane fx:id="aboutAnchorPane" prefHeight="900.0" prefWidth="1600.0" styleClass="primary-container" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.AboutPageController">
    <children>
       <VBox layoutX="32.0" layoutY="582.0" spacing="20.0">
          <children>
@@ -173,7 +174,7 @@
                                        <children>
                                           <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../images/ian_profile.png" />
+                                                <Image url="@../images/alek_profile.png" />
                                              </image>
                                           </ImageView>
                                           <MFXButton fx:id="aleksandrButton" ellipsisString="" prefHeight="62.0" prefWidth="50.0" style="-fx-background-color: transparent;" text=".">
@@ -344,4 +345,8 @@
          </children>
       </GridPane>
    </children>
+   <stylesheets>
+      <URL value="@../stylesheets/Colors/lightTheme.css" />
+      <URL value="@../stylesheets/Colors/darkTheme.css" />
+   </stylesheets>
 </AnchorPane>
