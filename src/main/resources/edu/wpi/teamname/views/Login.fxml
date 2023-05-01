@@ -31,17 +31,15 @@
                               <Insets bottom="6.0" />
                            </VBox.margin>
                         </Text>
-                        <MFXTextField fx:id="loginText" floatMode="DISABLED" maxHeight="57.0" maxWidth="400.0" promptText="Username" styleClass="surface" stylesheets="@../stylesheets/login.css">
+                        <TextField fx:id="loginText"  maxHeight="57.0" maxWidth="400.0" promptText="Username" styleClass="surface" stylesheets="@../stylesheets/login.css">
                            <font>
                               <Font name="Roboto" size="28.0" />
                            </font>
-                           <textFill>
-                              <Color red="0.10196078568696976" green="0.10980392247438431" blue="0.11764705926179886" opacity="0.8700000047683716" />
-                           </textFill>
+
                            <VBox.margin>
                               <Insets bottom="6.0" />
                            </VBox.margin>
-                        </MFXTextField>
+                        </TextField>
                         <PasswordField fx:id="passwordText" maxHeight="57.0" maxWidth="400.0" promptText="Password" styleClass="surface" stylesheets="@../stylesheets/login.css">
                            <font>
                               <Font name="Roboto" size="28.0" />

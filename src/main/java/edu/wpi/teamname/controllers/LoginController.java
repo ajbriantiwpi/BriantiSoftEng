@@ -21,6 +21,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -35,7 +36,8 @@ public class LoginController {
   @FXML Label success;
   @FXML MFXButton loginButton;
   @FXML MFXButton forgotPassword;
-  @FXML MFXTextField loginText;
+  @FXML
+  TextField loginText;
   @FXML PasswordField passwordText;
   @FXML MFXButton cancel;
   // @FXML MFXButton help;
