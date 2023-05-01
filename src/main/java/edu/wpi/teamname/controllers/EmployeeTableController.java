@@ -5,6 +5,7 @@ import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
+import edu.wpi.teamname.extras.Sound;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -26,6 +27,10 @@ import javafx.stage.FileChooser;
 import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
 import org.controlsfx.control.SearchableComboBox;
+/**
+
+ The EmployeeTableController class controls the behavior of the employee table in the user interface.
+ */
 
 public class EmployeeTableController {
   @FXML private TableView<Employee> employeeTable;
@@ -40,6 +45,11 @@ public class EmployeeTableController {
   @FXML private TextField searchEmployee;
   @FXML private TextField employeePasswordTextField;
 
+
+    /**
+
+     Initializes the employee table and sets up the event handlers for interacting with the table.
+     */
   public void initialize() {
     ObservableList<String> employeeTypes =
         FXCollections.observableArrayList(EmployeeType.formattedValues());
@@ -174,6 +184,7 @@ public class EmployeeTableController {
 
     exportButton.setOnAction(
         event -> {
+          Sound.playOnButtonClick();
           FileChooser fileChooser = new FileChooser();
           fileChooser.setTitle("Save CSV File");
           fileChooser.setInitialFileName("employees.csv");
@@ -192,6 +203,7 @@ public class EmployeeTableController {
 
     importButton.setOnAction(
         event -> {
+          Sound.playOnButtonClick();
           FileChooser fileChooser = new FileChooser();
           fileChooser.setTitle("Select CSV File");
           fileChooser
@@ -284,7 +296,10 @@ public class EmployeeTableController {
         .textProperty()
         .addListener((observable, oldValue, newValue) -> filterTable(newValue));
   }
+    /**
 
+     Deletes the selected employee from the database and updates the employee table.
+     */
   private void deleteSelectedEmployee() {
     DataManager employeeDAO = new DataManager();
     Employee selectedEmployee = employeeTable.getSelectionModel().getSelectedItem();
@@ -315,9 +330,15 @@ public class EmployeeTableController {
       }
     }
   }
+    /**
 
+     Adds a new employee to the database and updates the employee table.
+
+     Validates the password input against certain criteria.
+     */
   @FXML
   private void handleSubmitButton() {
+    Sound.playOnButtonClick();
     try {
       DataManager employeeDAO = new DataManager();
       int employeeIDInput = Integer.parseInt(employeeIDField.getText());
@@ -379,7 +400,11 @@ public class EmployeeTableController {
       alert.showAndWait();
     }
   }
+    /**
 
+     Filters the employee table based on the search text.
+     If search text is empty, shows all employees in the database.
+     */
   private void filterTable(String searchText) {
     DataManager employeeDAO = new DataManager();
     if (searchText == null || searchText.isEmpty()) {

@@ -68,6 +68,9 @@ public class Joke {
     if (id == 312) {
       setup = "Why can't you use \"Beef stew\" as a password?";
     }
+    if (id == 79) {
+      punchline = "Pop, goes the weasel.";
+    }
     return this.getSetup() + "\n\n" + this.getPunchline();
   }
 
@@ -78,7 +81,7 @@ public class Joke {
    * @return the joke to display on the homepage
    * @throws IOException Connection to the API fails
    */
-  public static Joke getJoke() throws IOException {
+  public static Joke getJoke(int count) throws IOException {
 
     OkHttpClient client = new OkHttpClient();
     Request request = new Request.Builder().url(API_URL).build();
@@ -86,10 +89,30 @@ public class Joke {
     String responseBody = response.body().string();
     ObjectMapper mapper = new ObjectMapper();
 
-    ArrayList<Joke> jokes = mapper.readValue(responseBody, new TypeReference<ArrayList<Joke>>() {});
-    if (badJokeIDs.contains(jokes.get(0).getId())) {
-      return getJoke();
+    try {
+      ArrayList<Joke> jokes =
+          mapper.readValue(responseBody, new TypeReference<ArrayList<Joke>>() {});
+      if (badJokeIDs.contains(jokes.get(0).getId())) {
+        if (count > 3) {
+          return new Joke(
+              "general", "Why did the chicken cross the road?", "To get to the other side!", 0);
+        } else {
+          return getJoke(count + 1);
+        }
+      }
+      return jokes.get(0);
+    } catch (Exception e) {
+      Joke joke = mapper.readValue(responseBody, new TypeReference<Joke>() {});
+      if (badJokeIDs.contains(joke.getId())) {
+        System.out.println("here");
+        if (count > 3) {
+          return new Joke(
+              "general", "Why did the chicken cross the road?", "To get to the other side!", 0);
+        } else {
+          return getJoke(count + 1);
+        }
+      }
+      return joke;
     }
-    return jokes.get(0);
   }
 }

@@ -242,7 +242,7 @@ public class Map {
     GlobalVariables.setHMap(DataManager.getAllLocationNamesMappedByNode(time));
 
     if (this.isMapPage) {
-      //    Platform.runLater(() -> MapController.updateNames());
+      Platform.runLater(() -> MapController.updateNames());
     }
 
     subAnchor.getStyleClass().remove(0);
