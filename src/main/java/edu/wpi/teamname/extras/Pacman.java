@@ -5,9 +5,13 @@ import javax.swing.JFrame;
 public class Pacman extends JFrame {
 
   public Pacman() {
-    add(new Model());
+    Model m = new Model();
+    m.setFrame(this);
+    add(m);
   }
 
+  // All Pacman code used from GitHub
+  // https://github.com/Gaspared/Pacman
   public static void pacBear() {
 
     Pacman pac = new Pacman();

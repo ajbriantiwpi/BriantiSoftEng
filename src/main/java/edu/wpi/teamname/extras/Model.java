@@ -1,16 +1,14 @@
 package edu.wpi.teamname.extras;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
-import javax.swing.Timer;
+import java.awt.event.*;
+import javax.swing.*;
+import lombok.Getter;
+import lombok.Setter;
 
 public class Model extends JPanel implements ActionListener {
 
+  @Getter @Setter private JFrame frame;
   private Dimension d;
   private final Font smallFont = new Font("Arial", Font.BOLD, 14);
   private boolean inGame = false;
@@ -44,7 +42,7 @@ public class Model extends JPanel implements ActionListener {
     17, 16, 16, 20, 0, 17, 16, 16, 16, 16, 18, 18, 18, 18, 20,
     17, 24, 24, 28, 0, 25, 24, 24, 16, 16, 16, 16, 16, 16, 20,
     21, 0, 0, 0, 0, 0, 0, 0, 17, 16, 24, 24, 24, 16, 20,
-    17, 18, 18, 22, 0, 19, 18, 18, 16, 20, 26, 18, 30, 17, 20,
+    17, 18, 18, 22, 0, 19, 18, 18, 16, 20, 27, 18, 30, 17, 20,
     17, 16, 16, 20, 0, 17, 16, 16, 16, 16, 22, 21, 19, 16, 20,
     17, 16, 16, 20, 0, 17, 16, 16, 16, 16, 16, 16, 16, 16, 20,
     25, 24, 24, 24, 26, 24, 24, 24, 24, 24, 24, 24, 24, 24, 28
@@ -66,8 +64,6 @@ public class Model extends JPanel implements ActionListener {
     initGame();
   }
 
-  // String filepath
-  // ="C:\\Users\\Hunter\\IdeaProjects\\Dapp3\\src\\main\\resources\\edu\\wpi\\teamname\\images\\PacIcons";
   String filepath = "src/main/resources/edu/wpi/teamname/images/PacIcons";
 
   private void loadImages() {
@@ -432,11 +428,11 @@ public class Model extends JPanel implements ActionListener {
           req_dy = 1;
         } else if (key == KeyEvent.VK_ESCAPE && timer.isRunning()) {
           inGame = false;
+          frame.setVisible(false);
         }
       } else {
         if (key == KeyEvent.VK_SPACE) {
           inGame = true;
-          initGame();
         }
       }
     }
