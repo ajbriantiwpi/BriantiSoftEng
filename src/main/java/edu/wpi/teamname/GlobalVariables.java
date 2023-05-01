@@ -19,6 +19,7 @@ import lombok.Setter;
 public class GlobalVariables {
   // language is set to English by default
   @Getter @Setter public static Property<Language> b = new SimpleObjectProperty<>(Language.ENGLISH);
+  @Getter @Setter private static String[] args;
   @Getter @Setter private static boolean futureMovesPressed = false;
   @Getter @Setter private static boolean activeRequestsPressed = false;
   @Getter @Setter private static boolean doneRequestsPressed = false;

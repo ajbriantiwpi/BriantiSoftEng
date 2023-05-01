@@ -28,9 +28,6 @@ public class App extends Application {
 
   @Override
   public void start(Stage primaryStage) throws IOException, SQLException {
-    //    LoadingScreen l = new LoadingScreen();
-    //    l.displayLoading();
-
     /* primaryStage is generally only used if one of your components require the stage to display */
 
     Sound.playMusic();
