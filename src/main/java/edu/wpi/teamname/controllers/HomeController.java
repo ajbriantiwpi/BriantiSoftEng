@@ -40,6 +40,9 @@ import lombok.Setter;
 import org.controlsfx.control.PopOver;
 
 public class HomeController {
+  @FXML Label actionItemsLabel;
+  @FXML Label staffItemsLabel;
+  @FXML Label navigationLabel;
   @FXML
   ComboBox<Language> languageChooser;
   @FXML MFXButton notificationPopupButtonSimple;
@@ -124,15 +127,247 @@ public class HomeController {
     settingsButton.setManaged(true);
   }
 
-  public void setLanguage(Language lang) {
+  public void setLanguage(Language lang) throws SQLException {
     switch (lang) {
       case ENGLISH:
+        actionItemsLabel.setText("Action Items");
+        staffItemsLabel.setText("Staff Items");
+        navigationLabel.setText("Navigation");
+        if(loggedIn.getValue()) {
+          ObservableList<ServiceRequest> requestList =
+                  FXCollections.observableList(
+                          DataManager.getAllServiceRequests().stream()
+                                  .filter(
+                                          (request) ->
+                                                  request
+                                                          .getStaffName()
+                                                          .equals(GlobalVariables.getCurrentUser().getUsername()))
+                                  .toList());
+          ObservableList<ServiceRequest> processingRequestsList =
+                  FXCollections.observableList(
+                          requestList.stream()
+                                  .filter((request) -> request.getStatus().getStatusString().equals("PROCESSING"))
+                                  .toList());
+          ObservableList<ServiceRequest> doneRequestsList =
+                  FXCollections.observableList(
+                          requestList.stream()
+                                  .filter((request) -> request.getStatus().getStatusString().equals("DONE"))
+                                  .toList());
+          int processingSize = processingRequestsList.size();
+          int doneSize = doneRequestsList.size();
+          activeRequests.setText(processingSize + " Active Request(s)");
+          doneRequests.setText(doneSize + " Done Request(s)");
+          ObservableList<Move> allMoves = FXCollections.observableArrayList(DataManager.getAllMoves());
+          LocalDate today = LocalDate.now();
+          int futureMoves = 0;
+          for (Move move : allMoves) {
+            if (move.getDate().toLocalDateTime().toLocalDate().isAfter(today)
+                    || move.getDate().toLocalDateTime().toLocalDate().isEqual(today)) {
+              futureMoves++;
+            }
+          }
+          upcomingMoves.setText(futureMoves + " Upcoming Moves");
+        }
+        makeRequestsButton.setText("Make a Request");
+        showRequestsButton.setText("View Service Requests");
+        serviceRequestAnalyticsButton.setText("View Service Request Analytics");
+        employeeButton.setText("View Employees");
+        requestRoomButton.setText("Request Conference Room");
+        viewConfrenceRoomButton.setText("View Conference Room");
+        viewAlertsButton.setText("View Alerts");
+        mapButton.setText("View Map");
+        editMoveButton.setText("View Moves");
+        editMapButton.setText("Edit Map");
+        viewSignageButton.setText("View Signage");
+        editSignageButton.setText("Edit Signage");
+        exitButton.setText("Exit");
+        settingsButton.setText("Settings");
+        notificationPopupButtonSimple.setText("Notifications");
+        creditButton.setText("Credits");
+        aboutButton.setText("About");
+        helpButton.setText("Help");
+        loginButton.setText("Login");
+        logoutButton.setText("Logout");
         break;
       case ITALIAN:
+        actionItemsLabel.setText("Elementi di azione");
+        staffItemsLabel.setText("Elementi del personale");
+        navigationLabel.setText("Navigazione");
+        if(loggedIn.getValue()) {
+          ObservableList<ServiceRequest> requestList =
+                  FXCollections.observableList(
+                          DataManager.getAllServiceRequests().stream()
+                                  .filter(
+                                          (request) ->
+                                                  request
+                                                          .getStaffName()
+                                                          .equals(GlobalVariables.getCurrentUser().getUsername()))
+                                  .toList());
+          ObservableList<ServiceRequest> processingRequestsList =
+                  FXCollections.observableList(
+                          requestList.stream()
+                                  .filter((request) -> request.getStatus().getStatusString().equals("PROCESSING"))
+                                  .toList());
+          ObservableList<ServiceRequest> doneRequestsList =
+                  FXCollections.observableList(
+                          requestList.stream()
+                                  .filter((request) -> request.getStatus().getStatusString().equals("DONE"))
+                                  .toList());
+          int processingSize = processingRequestsList.size();
+          int doneSize = doneRequestsList.size();
+          activeRequests.setText(processingSize + " Richieste attive");
+          doneRequests.setText(doneSize + " Richieste completate");
+          ObservableList<Move> allMoves = FXCollections.observableArrayList(DataManager.getAllMoves());
+          LocalDate today = LocalDate.now();
+          int futureMoves = 0;
+          for (Move move : allMoves) {
+            if (move.getDate().toLocalDateTime().toLocalDate().isAfter(today)
+                    || move.getDate().toLocalDateTime().toLocalDate().isEqual(today)) {
+              futureMoves++;
+            }
+          }
+          upcomingMoves.setText(futureMoves + " Spostamenti futuri");
+        }
+        makeRequestsButton.setText("Fai una richiesta");
+        showRequestsButton.setText("Visualizza le richieste di servizio");
+        serviceRequestAnalyticsButton.setText("Visualizza le analisi delle richieste di servizio");
+        employeeButton.setText("Visualizza i dipendenti");
+        requestRoomButton.setText("Richiedi una sala conferenze");
+        viewConfrenceRoomButton.setText("Visualizza le sale conferenze");
+        viewAlertsButton.setText("Visualizza le notifiche");
+        mapButton.setText("Visualizza la mappa");
+        editMoveButton.setText("Visualizza gli spostamenti");
+        editMapButton.setText("Modifica la mappa");
+        viewSignageButton.setText("Visualizza la segnaletica");
+        editSignageButton.setText("Modifica la segnaletica");
+        exitButton.setText("Esci");
+        settingsButton.setText("Impostazioni");
+        notificationPopupButtonSimple.setText("Notifiche");
+        creditButton.setText("Crediti");
+        aboutButton.setText("Informazioni");
+        helpButton.setText("Aiuto");
+        loginButton.setText("Accedi");
+        logoutButton.setText("Esci");
         break;
       case FRENCH:
+        actionItemsLabel.setText("Tâches à effectuer");
+        staffItemsLabel.setText("Éléments du personnel");
+        navigationLabel.setText("Navigation");
+        if(loggedIn.getValue()) {
+          ObservableList<ServiceRequest> requestList =
+                  FXCollections.observableList(
+                          DataManager.getAllServiceRequests().stream()
+                                  .filter(
+                                          (request) ->
+                                                  request
+                                                          .getStaffName()
+                                                          .equals(GlobalVariables.getCurrentUser().getUsername()))
+                                  .toList());
+          ObservableList<ServiceRequest> processingRequestsList =
+                  FXCollections.observableList(
+                          requestList.stream()
+                                  .filter((request) -> request.getStatus().getStatusString().equals("PROCESSING"))
+                                  .toList());
+          ObservableList<ServiceRequest> doneRequestsList =
+                  FXCollections.observableList(
+                          requestList.stream()
+                                  .filter((request) -> request.getStatus().getStatusString().equals("DONE"))
+                                  .toList());
+          int processingSize = processingRequestsList.size();
+          int doneSize = doneRequestsList.size();
+          activeRequests.setText(processingSize + " demande(s) active(s)");
+          doneRequests.setText(doneSize + " demande(s) effectuée(s)");
+          ObservableList<Move> allMoves = FXCollections.observableArrayList(DataManager.getAllMoves());
+          LocalDate today = LocalDate.now();
+          int futureMoves = 0;
+          for (Move move : allMoves) {
+            if (move.getDate().toLocalDateTime().toLocalDate().isAfter(today)
+                    || move.getDate().toLocalDateTime().toLocalDate().isEqual(today)) {
+              futureMoves++;
+            }
+          }
+          upcomingMoves.setText(futureMoves + " Déplacements à venir");
+        }
+        makeRequestsButton.setText("Faire une demande");
+        showRequestsButton.setText("Voir les demandes de service");
+        serviceRequestAnalyticsButton.setText("Voir l'analyse des demandes de service");
+        employeeButton.setText("Voir les employés");
+        requestRoomButton.setText("Demander une salle de conférence");
+        viewConfrenceRoomButton.setText("Voir les salles de conférence");
+        viewAlertsButton.setText("Voir les alertes");
+        mapButton.setText("Voir la carte");
+        editMoveButton.setText("Voir les déplacements");
+        editMapButton.setText("Modifier la carte");
+        viewSignageButton.setText("Voir la signalisation");
+        editSignageButton.setText("Modifier la signalisation");
+        exitButton.setText("Sortir");
+        settingsButton.setText("Paramètres");
+        notificationPopupButtonSimple.setText("Notifications");
+        creditButton.setText("Crédits");
+        aboutButton.setText("À propos");
+        helpButton.setText("Aide");
+        loginButton.setText("Se connecter");
+        logoutButton.setText("Se déconnecter");
         break;
       case SPANISH:
+        actionItemsLabel.setText("Elementos de acción");
+        staffItemsLabel.setText("Elementos del personal");
+        navigationLabel.setText("Navegación");
+        if(loggedIn.getValue()) {
+          ObservableList<ServiceRequest> requestList =
+                  FXCollections.observableList(
+                          DataManager.getAllServiceRequests().stream()
+                                  .filter(
+                                          (request) ->
+                                                  request
+                                                          .getStaffName()
+                                                          .equals(GlobalVariables.getCurrentUser().getUsername()))
+                                  .toList());
+          ObservableList<ServiceRequest> processingRequestsList =
+                  FXCollections.observableList(
+                          requestList.stream()
+                                  .filter((request) -> request.getStatus().getStatusString().equals("PROCESSING"))
+                                  .toList());
+          ObservableList<ServiceRequest> doneRequestsList =
+                  FXCollections.observableList(
+                          requestList.stream()
+                                  .filter((request) -> request.getStatus().getStatusString().equals("DONE"))
+                                  .toList());
+          int processingSize = processingRequestsList.size();
+          int doneSize = doneRequestsList.size();
+          activeRequests.setText(processingSize + " solicitud(es) activa(s)");
+          doneRequests.setText(doneSize + " solicitud(es) completada(s)");
+          ObservableList<Move> allMoves = FXCollections.observableArrayList(DataManager.getAllMoves());
+          LocalDate today = LocalDate.now();
+          int futureMoves = 0;
+          for (Move move : allMoves) {
+            if (move.getDate().toLocalDateTime().toLocalDate().isAfter(today)
+                    || move.getDate().toLocalDateTime().toLocalDate().isEqual(today)) {
+              futureMoves++;
+            }
+          }
+          upcomingMoves.setText(futureMoves + " Movimientos futuros");
+        }
+        makeRequestsButton.setText("Hacer una solicitud");
+        showRequestsButton.setText("Ver solicitudes de servicio");
+        serviceRequestAnalyticsButton.setText("Ver análisis de solicitudes de servicio");
+        employeeButton.setText("Ver empleados");
+        requestRoomButton.setText("Solicitar una sala de conferencias");
+        viewConfrenceRoomButton.setText("Ver salas de conferencias");
+        viewAlertsButton.setText("Ver alertas");
+        mapButton.setText("Ver mapa");
+        editMoveButton.setText("Ver movimientos");
+        editMapButton.setText("Editar mapa");
+        viewSignageButton.setText("Ver señalización");
+        editSignageButton.setText("Editar señalización");
+        exitButton.setText("Salir");
+        settingsButton.setText("Configuración");
+        notificationPopupButtonSimple.setText("Notificaciones");
+        creditButton.setText("Créditos");
+        aboutButton.setText("Acerca de");
+        helpButton.setText("Ayuda");
+        loginButton.setText("Iniciar sesión");
+        logoutButton.setText("Cerrar sesión");
         break;
     }
   }
@@ -149,7 +384,11 @@ public class HomeController {
             .selectedItemProperty()
             .addListener(
                     (options, oldValue, newValue) -> {
-                      setLanguage(newValue);
+                      try {
+                        setLanguage(newValue);
+                      } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                      }
                       GlobalVariables.b.setValue(newValue);
                     });
 

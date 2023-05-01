@@ -91,6 +91,7 @@ public class SignageController {
         break;
     }
   }
+
   @FXML
   public void initialize() throws SQLException, IOException {
     play.setVisible(false);
