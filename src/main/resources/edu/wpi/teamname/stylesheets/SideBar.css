@@ -11,8 +11,8 @@ VBox{
     /*-fx-background-color: --md-sys-color-primary;*/
 }
 MFXButton{
-    -fx-border-color: #6F797A;
-    -fx-border-width: 0 0 2px 0;
+    /*-fx-border-color: #6F797A;*/
+    /*-fx-border-width: 0 0 2px 0;*/
     -fx-font-family: Roboto;
     -fx-font-size: 16px;
     -fx-line-height: 24px;

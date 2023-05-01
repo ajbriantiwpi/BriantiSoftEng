@@ -15,6 +15,9 @@ public class Sound {
   private static String buttonClickFilename =
       "src/main/resources/edu/wpi/teamname/sounds/buttonclick.mp3";
   private static Media soundButton = new Media(new File(buttonClickFilename).toURI().toString());
+  private static Media soundButton2 =
+      new Media(
+          new File("src/main/resources/edu/wpi/teamname/sounds/vine-boom.mp3").toURI().toString());
   @Getter private static MediaPlayer buttonPlayer = new MediaPlayer(soundButton);
   @Getter private static double volume = 0.5;
 
@@ -69,6 +72,12 @@ public class Sound {
   /** * Plays the button click sound effect Call this function whenever a button is pressed */
   public static void playOnButtonClick() {
     buttonPlayer = new MediaPlayer(soundButton);
+    buttonPlayer.setVolume(volume);
+    buttonPlayer.play();
+  }
+
+  public static void playOnButtonClick2() {
+    buttonPlayer = new MediaPlayer(soundButton2);
     buttonPlayer.setVolume(volume);
     buttonPlayer.play();
   }

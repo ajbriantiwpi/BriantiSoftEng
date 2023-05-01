@@ -24,7 +24,9 @@ public class Joke {
   private static final String API_URL =
       "https://official-joke-api.appspot.com/jokes/general/random";
   private static final ArrayList<Integer> badJokeIDs =
-      new ArrayList<>(List.of(53, 92, 45, 208, 46, 48, 364));
+      new ArrayList<>(
+          List.of(
+              53, 92, 45, 208, 46, 48, 140, 133, 238, 81, 203, 280, 399, 144, 276, 238, 364, 79));
 
   public Joke(String type, String setup, String punchline, int id) {
     this.type = type;

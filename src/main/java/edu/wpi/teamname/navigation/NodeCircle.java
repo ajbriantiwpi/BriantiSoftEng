@@ -509,27 +509,30 @@ public class NodeCircle {
           } else {
             // addEdge
             //            map.getStartEdgeNodeId(); nodeID;
-            Edge e = new Edge(map.getStartEdgeNodeId(), nodeID);
 
-            try {
-              DataManager.addEdge(e);
-              map.setCurrentDisplayFloor(map.getCurrentDisplayFloor());
-              //              changeFloor();
-            } catch (SQLException ex) {
-              System.out.println(ex);
-              //            throw new RuntimeException(ex);
-            } catch (IOException ex) {
-              throw new RuntimeException(ex);
-            }
+            if (map.getStartEdgeNodeId() != nodeID) {
 
-            map.setStartEdgeNodeId(-1);
+              Edge e = new Edge(map.getStartEdgeNodeId(), nodeID);
+              try {
+                DataManager.addEdge(e);
+                map.setCurrentDisplayFloor(map.getCurrentDisplayFloor());
+                //              changeFloor();
+              } catch (SQLException ex) {
+                System.out.println(ex);
+                //            throw new RuntimeException(ex);
+              } catch (IOException ex) {
+                throw new RuntimeException(ex);
+              }
 
-            try {
-              map.refresh();
-            } catch (SQLException ex) {
-              throw new RuntimeException(ex);
-            } catch (IOException ex) {
-              throw new RuntimeException(ex);
+              map.setStartEdgeNodeId(-1);
+
+              try {
+                map.refresh();
+              } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+              } catch (IOException ex) {
+                throw new RuntimeException(ex);
+              }
             }
           }
         }
@@ -659,13 +662,13 @@ public class NodeCircle {
           MFXButton createEdgeButton =
               (MFXButton) ((Pane) (nodeBox.getChildren().get(2))).getChildren().get(0);
           createEdgeButton.setOnMouseClicked(startCreateEdge);
-          if (map.getStartEdgeNodeId() != -1) {
+          if (map.getStartEdgeNodeId() != -1 && map.getStartEdgeNodeId() != nodeID) {
             editNodeButton.getStyleClass().remove("primary");
             editNodeButton.getStyleClass().add("primary-container");
 
             createEdgeButton.getStyleClass().remove("primary-container");
             createEdgeButton.getStyleClass().add("primary");
-            createEdgeButton.setText("Compleate Edge");
+            createEdgeButton.setText("Complete Edge");
           }
 
           MFXButton addAlignButton =
