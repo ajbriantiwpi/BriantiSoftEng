@@ -42,9 +42,7 @@ public class ConferenceController {
   @FXML RangeSlider sizeSlider;
   @FXML MFXButton submitButton;
   @FXML TextField nameText;
-  @Getter
-  @Setter
-  boolean fromSelector;
+  @Getter @Setter boolean fromSelector;
   @FXML ListView<RoomSelector> listView;
   @FXML TableView<ConfRoom> confTable;
   ConfRoom uno = new ConfRoom(1, "Uno", 10);
@@ -143,9 +141,7 @@ public class ConferenceController {
         submitButton.setText("Solicitud");
         break;
     }
-   }
-
-
+  }
 
   @FXML
   public void initialize() throws SQLException {
