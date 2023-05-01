@@ -55,8 +55,7 @@ public class ParentController {
   @FXML MFXButton loginButton;
   //  @FXML
   MFXButton editMoveButton = new MFXButton();
-  //  @FXML
-  MFXButton showEmployeesButton = new MFXButton();
+  @FXML MFXButton showEmployeesButton; // = new MFXButton();
   //  @FXML
   MFXButton requestRoomButton = new MFXButton();
   //    @FXML
@@ -64,8 +63,7 @@ public class ParentController {
   @FXML MFXButton viewSignageButtonSelector; // = new MFXButton();
   //  @FXML
   MFXButton editSignageButton = new MFXButton();
-  //  @FXML
-  MFXButton viewAlertsButton = new MFXButton();
+  @FXML MFXButton viewAlertsButton; // = new MFXButton();
   @FXML Label titleLabel;
 
   @FXML VBox SideBar;

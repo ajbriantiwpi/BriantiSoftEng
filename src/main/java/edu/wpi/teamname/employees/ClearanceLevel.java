@@ -34,6 +34,7 @@ public enum ClearanceLevel {
         staffScreens.add(Screen.MOVE_TABLE);
         staffScreens.add(Screen.CONFERENCE_ROOM);
         staffScreens.add(Screen.SERVICE_REQUEST_ANALYTICS);
+        staffScreens.add(Screen.CONF_VIEW);
 
         return staffScreens;
       case GUEST:
