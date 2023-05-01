@@ -26,7 +26,7 @@
             </Label>
          </children>
       </HBox>
-      <TextArea editable="false" prefHeight="420.0" prefWidth="730.0" promptText="Description" style="-fx-background-radius: 8; -fx-border-radius: 8;" stylesheets="@../stylesheets/TextField.css" text="Team Position: Full Time Developer&#10;&#10;Major: Computer Science&#10;&#10;Quote: &quot;If you don't take risks, you can't create a &#10;              future.&quot; -Monkey D. Luffy" VBox.vgrow="ALWAYS">
+      <TextArea editable="false" prefHeight="420.0" prefWidth="730.0" promptText="Description" style="-fx-background-radius: 8; -fx-border-radius: 8;" stylesheets="@../stylesheets/TextField.css" text="Team Position: Full Time Developer&#10;&#10;Major: Computer Science&#10;&#10;Hobbies: I love baseball and soccer as well &#10;                as cooking and spending time outside!" VBox.vgrow="ALWAYS">
          <styleClass>
             <String fx:value="popup" />
             <String fx:value="label-med" />
