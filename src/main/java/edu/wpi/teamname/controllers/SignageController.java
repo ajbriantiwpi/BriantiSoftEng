@@ -26,11 +26,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 
 /**
-
- The SignageController class is responsible for managing the "Signage" screen of the application.
- It allows the user to select a date and a kiosk, and then displays the signage information for the selected kiosk and date.
+ * The SignageController class is responsible for managing the "Signage" screen of the application.
+ * It allows the user to select a date and a kiosk, and then displays the signage information for
+ * the selected kiosk and date.
  */
-
 public class SignageController {
   @FXML Label signageSearchLabel;
   @FXML Label dateLabel;
@@ -59,11 +58,7 @@ public class SignageController {
   private static int downC = 0;
   private static int stopC = 0;
 
-    /**
-
-     Initializes the SignageController and sets up the UI elements and functionality.
-     */
-
+  /** Initializes the SignageController and sets up the UI elements and functionality. */
   public void setLanguage(Language lang) {
     switch (lang) {
       case ENGLISH:

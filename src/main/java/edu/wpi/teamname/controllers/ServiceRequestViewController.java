@@ -599,21 +599,33 @@ public class ServiceRequestViewController {
       GlobalVariables.setDoneRequestsPressed(false);
       requestStatusCombo.setValue(Status.DONE);
       requestStaffCombo.setValue(GlobalVariables.getCurrentUser().getUsername());
+      Timestamp date;
+      try {
+        date = Timestamp.valueOf(dateBox.getValue().atStartOfDay());
+      } catch (NullPointerException e) {
+        date = null;
+      }
       table.setItems(
           tableFilter(
               requestTypeCombo.getValue(),
               requestStatusCombo.getValue(),
-              Timestamp.valueOf(dateBox.getValue().atStartOfDay()),
+              date,
               requestStaffCombo.getValue()));
     } else if (GlobalVariables.isActiveRequestsPressed()) {
       requestStatusCombo.setValue(Status.PROCESSING);
       requestStaffCombo.setValue(GlobalVariables.getCurrentUser().getUsername());
       GlobalVariables.setActiveRequestsPressed(false);
+      Timestamp date;
+      try {
+        date = Timestamp.valueOf(dateBox.getValue().atStartOfDay());
+      } catch (NullPointerException e) {
+        date = null;
+      }
       table.setItems(
           tableFilter(
               requestTypeCombo.getValue(),
               requestStatusCombo.getValue(),
-              Timestamp.valueOf(dateBox.getValue().atStartOfDay()),
+              date,
               requestStaffCombo.getValue()));
     }
   }

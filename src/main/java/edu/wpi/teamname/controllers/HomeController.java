@@ -9,6 +9,7 @@ import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.employees.EmployeeType;
 import edu.wpi.teamname.extras.Joke;
+import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.navigation.Move;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
@@ -19,6 +20,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.Arrays;
+
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.FXCollections;
@@ -26,7 +29,9 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.layout.AnchorPane;
@@ -35,6 +40,8 @@ import lombok.Setter;
 import org.controlsfx.control.PopOver;
 
 public class HomeController {
+  @FXML
+  ComboBox<Language> languageChooser;
   @FXML MFXButton notificationPopupButtonSimple;
   @FXML MFXNotificationCenter notifsButton;
   @FXML MFXButton helpButton;
@@ -116,8 +123,34 @@ public class HomeController {
     settingsButton.setManaged(true);
   }
 
+  public void setLanguage(Language lang) {
+    switch (lang) {
+      case ENGLISH:
+        break;
+      case ITALIAN:
+        break;
+      case FRENCH:
+        break;
+      case SPANISH:
+        break;
+    }
+  }
+
+
   @FXML
   public void initialize() throws SQLException, IOException {
+
+    languageChooser.setItems(
+            FXCollections.observableList(Arrays.stream(Language.values()).toList()));
+    languageChooser.setValue(GlobalVariables.getB().getValue());
+    languageChooser
+            .getSelectionModel()
+            .selectedItemProperty()
+            .addListener(
+                    (options, oldValue, newValue) -> {
+                      setLanguage(newValue);
+                      GlobalVariables.b.setValue(newValue);
+                    });
 
     EventHandler<MouseEvent> NotificationPopupEvent =
         new EventHandler<MouseEvent>() {
@@ -131,12 +164,13 @@ public class HomeController {
 
             final var resource = App.class.getResource("views/NotificationPane.fxml");
             final FXMLLoader loader = new FXMLLoader(resource);
-            VBox v;
+            ScrollPane p;
             try {
-              v = loader.load();
+              p = loader.load();
             } catch (IOException e) {
               throw new RuntimeException(e);
             }
+            VBox v = (VBox) p.getContent();
             v.getChildren().clear();
             v.getChildren().removeAll();
             if (GlobalVariables.getCurrentUser() != null
