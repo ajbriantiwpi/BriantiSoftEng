@@ -28,7 +28,7 @@ public class Flower extends RequestItem {
   }
 
   /**
-   * Creates a flower object
+   * Creates a flower object only using the ID and gets the rest of the data from the database
    *
    * @param id the id of the object
    * @throws SQLException thrown when there is an error connecting to the database or an error with

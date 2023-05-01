@@ -28,7 +28,8 @@ public class MedicalSupply extends RequestItem {
   }
 
   /**
-   * Constructor alternative
+   * Creates a MedicalSupply object only using the ID and access level and gets the rest of the data
+   * from the database
    *
    * @param id
    * @throws SQLException

@@ -15,6 +15,7 @@ public enum Screen {
   LOGIN("views/Login.fxml"),
 
   SERVICE_REQUEST_VIEW("views/ServiceRequestView2.fxml"),
+  CONF_VIEW("views/ConferenceView.fxml"),
 
   MAP_EDIT("views/MapEdit.fxml"),
 
@@ -27,6 +28,18 @@ public enum Screen {
   SERVICE_REQUEST_ANALYTICS("views/ServiceRequestAnalytics.fxml"),
   ABOUT("views/AboutPage.fxml"),
   CREDITS("views/CreditsPage.fxml"),
+  CONOR_POPUP("views/ConorPopup.fxml"),
+  IAN_POPUP("views/IanPopup.fxml"),
+  JASON_POPUP("views/JasonPopup.fxml"),
+  ALESSANDRO_POPUP("views/AlessandroPopup.fxml"),
+  ADDY_POPUP("views/AddyPopup.fxml"),
+  ALEK_POPUP("views/AlekPopup.fxml"),
+  SAM_POPUP("views/SamPopup.fxml"),
+  RYAN_POPUP("views/RyanPopup.fxml"),
+  HUNTER_POPUP("views/HunterPopup.fxml"),
+  ARTURO_POPUP("views/ArturoPopup.fxml"),
+  ANDREW_POPUP("views/AndrewPopup.fxml"),
+
   DATA_MANAGER("views/Data.fxml");
 
   private final String filename;

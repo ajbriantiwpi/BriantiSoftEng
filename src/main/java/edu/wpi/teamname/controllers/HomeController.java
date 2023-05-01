@@ -7,6 +7,9 @@ import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.alerts.Alert;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
+import edu.wpi.teamname.employees.EmployeeType;
+import edu.wpi.teamname.extras.Joke;
+import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.navigation.Move;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -26,6 +29,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
 import lombok.Getter;
 import lombok.Setter;
 import org.controlsfx.control.PopOver;
@@ -70,9 +74,12 @@ public class HomeController {
   @FXML MFXButton loginButton;
   @FXML MFXButton logoutButton;
   @FXML MFXButton editMoveButton;
+  @FXML Label jokesLabel;
+  @FXML Label jokeIDLabel;
 
   /** logs the current user out of the application */
   private void logout() {
+    Sound.playOnButtonClick();
     loggedIn = new SimpleBooleanProperty(false);
     loginButton.setVisible(true);
     logoutButton.setVisible(false);
@@ -110,12 +117,13 @@ public class HomeController {
   }
 
   @FXML
-  public void initialize() throws SQLException {
+  public void initialize() throws SQLException, IOException {
 
     EventHandler<MouseEvent> NotificationPopupEvent =
         new EventHandler<MouseEvent>() {
           @Override
           public void handle(MouseEvent event) {
+            Sound.playOnButtonClick();
             ObservableList<Alert> alertList = null;
 
             MFXButton createNewButton = ((MFXButton) event.getSource());
@@ -144,10 +152,16 @@ public class HomeController {
                             .filter(
                                 (alert) ->
                                     alert
-                                        .getType()
-                                        .toString()
-                                        .equals(
-                                            GlobalVariables.getCurrentUser().getType().toString()))
+                                            .getType()
+                                            .toString()
+                                            .equals(
+                                                GlobalVariables.getCurrentUser()
+                                                    .getType()
+                                                    .toString())
+                                        || alert
+                                            .getType()
+                                            .toString()
+                                            .equals(EmployeeType.ALL.toString()))
                             .toList());
                 alertList =
                     FXCollections.observableList(
@@ -247,6 +261,10 @@ public class HomeController {
     // Lambda Expression. parameter -> expression
     // Basically just runs the Navigation.navigate Function
     // "event" is a parameter, but there is no
+    Joke joke = Joke.getJoke();
+    jokeIDLabel.setText("Joke #" + Integer.toString(joke.getId()));
+    jokesLabel.setText(joke.toString());
+
     helpButton.setVisible(false);
     if (loggedIn.getValue()) {
       loginButton.setVisible(false);
@@ -299,6 +317,7 @@ public class HomeController {
     //    homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
 
     //        helpButton.setOnMouseClicked(event -> Navigation.navigate(Screen));
+
     disableButtonsWhenLoggedOut();
 
     /** * Disables all the buttons that can not be accessed as Staff */
@@ -401,6 +420,7 @@ public class HomeController {
     editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
     exitButton.setOnMouseClicked(
         event -> {
+          Sound.playOnButtonClick();
           try {
             Connection connection = DataManager.DbConnection();
             connection.close();
