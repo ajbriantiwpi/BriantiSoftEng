@@ -90,6 +90,12 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
     return list;
   }
 
+  /**
+   * * Returns an ArrayList of all the IDs as Strings from the Service Request Table
+   *
+   * @return an ArrayList of strings of all the IDs
+   * @throws SQLException error connecting to the database
+   */
   public ArrayList<String> getAllIDs() throws SQLException {
     Connection connection = DataManager.DbConnection();
     ArrayList<String> list = new ArrayList<String>();
@@ -101,20 +107,10 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
 
       while (rs.next()) {
         int requestID = rs.getInt("requestID");
-        list.add(
-            String.valueOf(requestID)
-            //                new ServiceRequest(
-            //                        requestID,
-            //                        staffName,
-            //                        patientName,
-            //                        roomNum,
-            //                        deliverBy,
-            //                        requestedAt,
-            //                        status,
-            //                        requestMadeBy,
-            //                        requestType)
-            );
+        list.add(String.valueOf(requestID));
       }
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
     }
     connection.close();
     return list;
@@ -505,14 +501,14 @@ public class ServiceRequestDAOImpl implements ServiceRequestDAO {
               + "    \"requestID\"     integer     not null\n"
               + "        constraint \"ServiceRequest_pk\"\n"
               + "            primary key,\n"
-              + "    \"roomNum\"       varchar(40) not null,\n"
+              + "    \"roomNum\"       varchar(100) not null,\n"
               + "    \"staffName\"     varchar(50) default 'No Staff Member Assigned'::character varying,\n"
               + "    \"patientName\"   varchar(50) not null,\n"
               + "    \"requestedAt\"   timestamp,\n"
               + "    \"deliverBy\"     timestamp,\n"
               + "    status          varchar(20),\n"
               + "    \"requestMadeBy\" varchar(30),\n"
-              + "    \"requestType\"   varchar(40)\n"
+              + "    \"requestType\"   varchar(50)\n"
               + ");";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.executeUpdate();

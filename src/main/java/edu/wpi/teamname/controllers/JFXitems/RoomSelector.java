@@ -1,6 +1,7 @@
 package edu.wpi.teamname.controllers.JFXitems;
 
 import edu.wpi.teamname.controllers.ConferenceController;
+import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.servicerequest.ConfReservation;
 import edu.wpi.teamname.servicerequest.requestitem.ConfRoom;
 import java.sql.Time;
@@ -31,8 +32,8 @@ public class RoomSelector extends BorderPane {
 
   @Getter private static int slots = 22;
 
-  @Getter private int start = 0;
-  @Getter private int end = 0;
+  @Getter @Setter private int start = 0;
+  @Getter @Setter private int end = 0;
   @Getter @Setter int selected = 0;
 
   public RoomSelector(ConfRoom room, ConferenceController controller, Timestamp date) {
@@ -71,13 +72,13 @@ public class RoomSelector extends BorderPane {
   }
 
   void handleButtonClick(int id) {
+    Sound.playOnButtonClick();
     System.out.println(String.valueOf(room.getRoomID()) + ": " + String.valueOf(selected));
     if (selected == 0) {
       setSelect(true, id);
       start = id;
       end = id + 1;
-      controller.setStartBox(idToTime(start));
-      controller.setEndBox(idToTime(end));
+      setStartEnd();
       selected = 1;
       controller.setActiveSelector(this);
     } else if (selected == 1) {
@@ -86,14 +87,15 @@ public class RoomSelector extends BorderPane {
         setSelect(false, id);
       } else {
         if (id > start) {
+          //          start = end;
           end = id + 1;
           setSelect(false, start);
         } else {
+          //          end = start;
           start = id;
           setSelect(false, end);
         }
-        controller.setStartBox(idToTime(start));
-        controller.setEndBox(idToTime(end));
+        setStartEnd();
         setAllInRange(true);
         selected = 2;
       }
@@ -106,6 +108,17 @@ public class RoomSelector extends BorderPane {
       //      controller.setStartBox(idToTime(start));
       //      controller.setEndBox(idToTime(end));
     }
+  }
+
+  private void setStartEnd() {
+    controller.setFromSelector(true);
+    System.out.println();
+    System.out.println(start);
+    System.out.println(end);
+    System.out.println();
+    controller.setStartBox(idToTime(start));
+    controller.setEndBox(idToTime(end));
+    controller.setFromSelector(false);
   }
 
   void setSelect(boolean select, int id) {
@@ -127,6 +140,13 @@ public class RoomSelector extends BorderPane {
   }
 
   public void setAllInRange(boolean select) {
+    //    if (start == end) {
+    //      end++;
+    //    } else if (start > end) {
+    //      int tStart = start;
+    //      start = end;
+    //      end = tStart;
+    //    }
     for (int i = start; i < end; i++) {
       setSelect(select, i);
     }
@@ -154,7 +174,7 @@ public class RoomSelector extends BorderPane {
     }
   }
 
-  int timeToID(String time) {
+  public static int timeToID(String time) {
     DateFormat format = new SimpleDateFormat("HH:mm");
     Time tim;
     try {

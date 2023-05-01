@@ -44,20 +44,25 @@ public class ConfRoom {
   public boolean checkAvailable(String start, String end, Timestamp date) throws ParseException {
     SimpleDateFormat format = new SimpleDateFormat("HH:mm");
     for (ConfReservation reservation : reservations) {
-      if (reservation.getDateBook().getDate() == date.getDate()
-          && reservation.getDateBook().getMonth() == date.getMonth()) {
+      if ((reservation.getDateBook().getDate() == date.getDate())
+          && (reservation.getDateBook().getMonth() == date.getMonth())) {
+
         Date startDate = format.parse(start);
         Date endDate = format.parse(end);
         Date resStart = format.parse(reservation.getStartTime());
         Date resEnd = format.parse(reservation.getEndTime());
         if (startDate.after(resStart) && startDate.before(resEnd)) { // start inside res
+          System.out.println("Start in Reservation");
           return false;
         } else if (endDate.after(resStart) && endDate.before(resEnd)) { // end inside res
+          System.out.println("End in Reservation");
           return false;
         } else if (resStart.after(startDate)
             && resStart.before(endDate)) { // res start inside selected
+          System.out.println("Res Start in Chosen");
           return false;
         } else if (resEnd.after(startDate) && resEnd.before(endDate)) { // res end inside selected
+          System.out.println("Res End in Chosen");
           return false;
         }
       }
