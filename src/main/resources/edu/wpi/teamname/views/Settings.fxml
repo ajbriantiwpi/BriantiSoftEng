@@ -5,7 +5,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -28,46 +27,42 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ScrollPane prefHeight="200.0" prefWidth="291.0" GridPane.columnIndex="1">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="203.0" prefWidth="475.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="203.0" prefWidth="475.0">
+               <children>
+                  <VBox layoutX="10.0" layoutY="10.0" prefHeight="285.0" prefWidth="751.0">
                      <children>
-                        <VBox layoutX="10.0" layoutY="10.0" prefHeight="285.0" prefWidth="751.0">
-                           <children>
-                              <Label prefHeight="40.0" prefWidth="1110.0" stylesheets="@../stylesheets/RowLabel.css" text="Hardware Settings">
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <Label stylesheets="@../stylesheets/RowLabel.css" text="Volume">
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <Slider fx:id="volumeSlide" value="50.0">
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </Slider>
-                              <Label stylesheets="@../stylesheets/RowLabel.css" text="Choose Song">
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <ComboBox fx:id="songCombo" minHeight="31.0" prefHeight="31.0" prefWidth="165.0" stylesheets="@../stylesheets/comboSmall.css">
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </ComboBox>
-                           </children>
-                           <padding>
-                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                           </padding>
-                        </VBox>
+                        <Label prefHeight="40.0" prefWidth="1110.0" stylesheets="@../stylesheets/RowLabel.css" text="Hardware Settings">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label stylesheets="@../stylesheets/RowLabel.css" text="Volume">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Slider fx:id="volumeSlide" blockIncrement="0.1" max="1.0" showTickMarks="true" value="0.5">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                        </Slider>
+                        <Label stylesheets="@../stylesheets/RowLabel.css" text="Choose Song">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <ComboBox fx:id="songCombo" minHeight="31.0" prefHeight="31.0" prefWidth="165.0" stylesheets="@../stylesheets/comboSmall.css">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                        </ComboBox>
                      </children>
-                  </AnchorPane>
-              </content>
-            </ScrollPane>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </AnchorPane>
             <VBox prefHeight="138.0" prefWidth="19.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
                   <Label fx:id="appSettingsLabel" prefHeight="40.0" prefWidth="1110.0" stylesheets="@../stylesheets/RowLabel.css" text="App Settings">
