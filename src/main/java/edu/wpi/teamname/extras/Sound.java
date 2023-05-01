@@ -16,7 +16,7 @@ public class Sound {
       "src/main/resources/edu/wpi/teamname/sounds/buttonclick.mp3";
   private static Media soundButton = new Media(new File(buttonClickFilename).toURI().toString());
   @Getter private static MediaPlayer buttonPlayer = new MediaPlayer(soundButton);
-  @Getter private static double volume = 1.0;
+  @Getter private static double volume = 0.5;
 
   /**
    * * Starts playing the background music It will play whatever song is currently set and stop a
