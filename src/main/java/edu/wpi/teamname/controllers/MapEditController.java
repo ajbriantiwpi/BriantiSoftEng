@@ -4,6 +4,7 @@ import edu.wpi.teamname.App;
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.navigation.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -32,7 +33,9 @@ import org.controlsfx.control.PopOver;
 
 public class MapEditController {
   @FXML Label mapSymbolsLabel;
-
+  @FXML TitledPane EditingTitlePane;
+  @FXML TitledPane TickTitlePane;
+  @FXML TitledPane FloorTitlePane;
   @FXML Label conferenceRoomLabel;
 
   @FXML Label departmentLabel;
@@ -1192,6 +1195,56 @@ public class MapEditController {
         }
       };
 
+
+  public void setLanguage(Language lang) throws SQLException {
+    switch (lang) {
+      case ENGLISH:
+        TickTitlePane.setText("TickBoxes");
+        FloorTitlePane.setText("Floors");
+      EditingTitlePane.setText("Editing");
+      addNodeButton.setText("Add Node");
+      addLocationButton.setText("Add Location");
+      addEdgeButton.setText("Add Edge");
+      toggleTableButton.setText("Modify Locations");
+        ThirdFloorButton.setText("Third Floor");
+        SecondFloorButton.setText("Second Floor");
+        FirstFloorButton.setText("First Floor");
+        LowerLevelOneButton.setText("Lower Level 1");
+        LowerLevelTwoButton.setText("Lower Level 2");
+        LongNameSelector.setText("Long");
+        ShortNameSelector.setText("Short");
+        IdSelector.setText("ID");
+        HallNamesSelector.setText("Hall Names");
+        EdgeSelector.setText("Show Edges");
+        NodeSelector.setText("Node");
+        LegendSelector.setText("Unique Shapes");
+        mapSymbolsLabel.setText("Map Symbols");
+        conferenceRoomLabel.setText("Conference Room");
+        departmentLabel.setText("Department");
+        labLabel.setText("Label");
+        infoLabel.setText("Info");
+        bathroomLabel.setText("Bathroom/Restroom");
+        serviceLabel.setText("Service/Retail");
+        elevatorLabel.setText("Elevator");
+        stairsLabel.setText("Stairs");
+        exitLabel.setText("Exit");
+        startLabel.setText("Start");
+        pathLabel.setText("Path");
+        destinationLabel.setText("Destination");
+        currentFloorStart.setText("Current Floor Start");
+        currentFloorDestLabel.setText("Current Floor Destination");
+        break;
+      case ITALIAN:
+
+        break;
+      case SPANISH:
+
+        break;
+      case FRENCH:
+
+        break;
+    }
+  }
   @FXML
   public void initialize() throws SQLException, IOException {
     ThemeSwitch.switchTheme(root);
