@@ -2134,7 +2134,7 @@ public class DataManager {
    * @throws IOException if there is a problem writing the CSV file
    */
   public static void exportPMToCSV(String csvFilePath) throws SQLException, IOException {
-    PathMessageDAOImpl pm=new PathMessageDAOImpl();
+    PathMessageDAOImpl pm = new PathMessageDAOImpl();
     pm.exportPMToCSV(csvFilePath);
   }
 }

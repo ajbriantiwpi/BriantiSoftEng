@@ -90,7 +90,7 @@ public class DataController implements Initializable {
               DataManager.uploadNode(csvFile.getPath());
               break;
             case "Conference Room":
-               DataManager.uploadConfRoom(csvFile.getPath());
+              DataManager.uploadConfRoom(csvFile.getPath());
               break;
             case "Conference Reservations":
               DataManager.uploadConfReservation(csvFile.getPath());
@@ -126,7 +126,7 @@ public class DataController implements Initializable {
               DataManager.uploadOfficeSupply(csvFile.getPath());
               break;
             case "Path Messages":
-               DataManager.uploadPathMessage(csvFile.getPath());
+              DataManager.uploadPathMessage(csvFile.getPath());
               break;
             case "Service Requests":
               DataManager.uploadServiceRequest(csvFile.getPath());
@@ -176,11 +176,11 @@ public class DataController implements Initializable {
               break;
             case "Conference Room":
               fileChooser.setInitialFileName("conferenceRoom.csv");
-               DataManager.exportConfRoomToCSV(csvFile.getPath());
+              DataManager.exportConfRoomToCSV(csvFile.getPath());
               break;
             case "Conference Reservations":
               fileChooser.setInitialFileName("conferenceReservations.csv");
-               DataManager.exportConfReservationToCSV(csvFile.getPath());
+              DataManager.exportConfReservationToCSV(csvFile.getPath());
               break;
             case "Alert":
               fileChooser.setInitialFileName("alert.csv");
@@ -220,7 +220,7 @@ public class DataController implements Initializable {
               break;
             case "Path Messages":
               fileChooser.setInitialFileName("pathMessages.csv");
-               DataManager.exportPMToCSV(csvFile.getPath());
+              DataManager.exportPMToCSV(csvFile.getPath());
               break;
             case "Pharmaceutical":
               fileChooser.setInitialFileName("pharmaceutical.csv");
