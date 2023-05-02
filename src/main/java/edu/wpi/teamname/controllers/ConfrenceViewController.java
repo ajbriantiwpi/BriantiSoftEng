@@ -1,5 +1,6 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.servicerequest.*;
@@ -227,6 +228,19 @@ public class ConfrenceViewController {
 
     table.setItems(sortedRes);
 
+    if(GlobalVariables.isRequestFromMap()){
+      dateBox.setValue(GlobalVariables.getDateFromMap().toLocalDateTime().toLocalDate());
+      GlobalVariables.setRequestFromMap(false);
+      try {
+        // update the table when the status combo box is changed
+        table.setItems(
+                tableFilter(
+                        Timestamp.valueOf(dateBox.getValue().atStartOfDay()),
+                        requestStaffCombo.getValue()));
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
     //    backButton.setOnMouseClicked(
     //        event -> {
     //          totalPrice = 0.0;
