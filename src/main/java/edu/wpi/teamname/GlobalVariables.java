@@ -18,6 +18,10 @@ public class GlobalVariables {
   @Getter @Setter private static boolean futureMovesPressed = false;
   @Getter @Setter private static boolean activeRequestsPressed = false;
   @Getter @Setter private static boolean doneRequestsPressed = false;
+  @Getter @Setter private static boolean requestFromMap = false;
+  @Getter @Setter private static String roomFromMap = "";
+  @Getter @Setter private static Timestamp dateFromMap= null;
+  @Getter @Setter private static int roomIDFromMap=0;
   @Getter @Setter private static Color borderColor = Color.web("012D5A"); // Color.web("33567A");
   @Getter @Setter private static Color insideColor = Color.web("35A7FF"); // Color.web("2FA7B0");
   @Getter @Setter private static Color insideBlue = Color.web("35A7FF");
