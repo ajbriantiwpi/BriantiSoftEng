@@ -37,6 +37,7 @@ import org.controlsfx.control.PopOver;
 public class ParentController {
   @FXML ComboBox<Language> languageChooser;
   @FXML CheckBox darkToggle;
+
   @FXML MFXButton homeButton;
   @FXML MFXButton helpButton;
   //    @FXML
@@ -560,8 +561,7 @@ public class ParentController {
 
     titleLabel.setText(titleString.getValue());
     System.out.println("Parent!");
-    darkToggle.selectedProperty().bindBidirectional(GlobalVariables.getDarkMode());
-    //    darkToggle.setVisible(false);
+
     if (HomeController.getLoggedIn().getValue()) {
       // disableButtonsWhenNotLoggedIn();
       loginButton.setVisible(false);

@@ -42,6 +42,7 @@
                                  <CheckBox fx:id="darkToggle" alignment="CENTER_RIGHT" mnemonicParsing="false" styleClass="label-large" text="Dark Mode" textFill="WHITE" />
                               </children>
                            </HBox>
+<!--                           <CheckBox fx:id="darkToggle" mnemonicParsing="false" styleClass="label-large" text="Dark Mode" textFill="WHITE" StackPane.alignment="CENTER_RIGHT" />-->
                         </children>
                      </StackPane>
                   </children>

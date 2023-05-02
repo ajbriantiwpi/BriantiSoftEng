@@ -10,9 +10,11 @@ import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.extras.Song;
 import edu.wpi.teamname.extras.Sound;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.awt.*;
 import java.sql.SQLException;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -24,6 +26,7 @@ public class SettingsController {
   @FXML Label hardwareLabel;
   @FXML Label volumeLabel;
   @FXML Label songLabel;
+  @FXML CheckBox darkToggle;
   @FXML AnchorPane root;
   private static boolean wpiSelected = true;
   @FXML Slider volumeSlide;
@@ -93,7 +96,11 @@ public class SettingsController {
    */
   @FXML
   public void initialize() throws SQLException {
+
+    // darkToggle.setOnAction(event -> GlobalVariables.getDarkMode().set(darkToggle.isSelected()));
+
     ThemeSwitch.switchTheme(root);
+    darkToggle.selectedProperty().bindBidirectional(GlobalVariables.getDarkMode());
     ParentController.titleString.set("Settings");
     ParentController.titleString.set("Service Request View");
     setLanguage(GlobalVariables.getB().getValue());
