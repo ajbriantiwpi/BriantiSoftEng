@@ -24,7 +24,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -32,7 +31,7 @@ import lombok.Setter;
 import org.controlsfx.control.PopOver;
 
 public class ParentController {
-  @FXML CheckBox darkToggle;
+
   @FXML MFXButton homeButton;
   @FXML MFXButton helpButton;
   //    @FXML
@@ -424,8 +423,7 @@ public class ParentController {
 
     titleLabel.setText(titleString.getValue());
     System.out.println("Parent!");
-    darkToggle.selectedProperty().bindBidirectional(GlobalVariables.getDarkMode());
-    //    darkToggle.setVisible(false);
+
     if (HomeController.getLoggedIn().getValue()) {
       // disableButtonsWhenNotLoggedIn();
       loginButton.setVisible(false);
