@@ -1,5 +1,6 @@
 package edu.wpi.teamname.controllers.JFXitems;
 
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import java.sql.SQLException;
@@ -41,7 +42,7 @@ public class RequestMenuItemButton extends Button {
     // setStyle("-fx-background-color: #d9d9d9");
     setOnMouseClicked(
         event -> {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           for (int a = 0; a < parent.getQuantity(); a++) {
             try {
               if (add) {

@@ -4,6 +4,7 @@ import edu.wpi.teamname.App;
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.navigation.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -119,7 +120,7 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           String retStr = "";
           String table = selectTable.getValue();
 
@@ -190,7 +191,7 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           String retStr = "";
           String table = selectTable.getValue();
 
@@ -428,7 +429,7 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
 
           MFXButton addButton = ((MFXButton) event.getSource());
           //          VBox outerPane = (VBox) addButton.getParent();
@@ -466,7 +467,7 @@ public class MapEditController {
         @Override
         public void handle(MouseEvent event) {
 
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           MFXButton addButton = ((MFXButton) event.getSource());
           //          VBox outerPane = (VBox) addButton.getParent();
 
@@ -512,7 +513,7 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           MFXButton addButton = ((MFXButton) event.getSource());
 
           final var resource = App.class.getResource("views/EditEdge.fxml");
@@ -544,7 +545,7 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           isMap = !isMap;
           if (isMap) {
             gp.setVisible(true);
@@ -578,7 +579,7 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           System.out.println("Save Loc");
 
           MFXButton SubmitButton = ((MFXButton) event.getSource());
@@ -640,7 +641,7 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           System.out.println("Rem");
 
           LocationName currLocation;
@@ -673,7 +674,7 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           TableRow<LocationName> row = ((TableRow<LocationName>) event.getSource());
           selectedRowIndex = row.getIndex();
 
@@ -746,7 +747,7 @@ public class MapEditController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           MFXButton newButton = ((MFXButton) event.getSource());
 
           String oldFloor = map.getCurrentDisplayFloor();
@@ -822,7 +823,7 @@ public class MapEditController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           CheckBox newCheck = ((CheckBox) event.getSource());
 
           int oldLabel = map.getLabelTextType();
@@ -854,7 +855,7 @@ public class MapEditController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           map.setShowEdges(EdgeSelector.isSelected());
           try {
             map.refresh();
@@ -871,7 +872,7 @@ public class MapEditController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           //        map.setShowEdges(EdgeSelector.isSelected());
           map.setShowNodes(NodeSelector.isSelected());
 
@@ -890,7 +891,7 @@ public class MapEditController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           //        map.setShowEdges(EdgeSelector.isSelected());
           map.setShowLegend(LegendSelector.isSelected()); // && NodeSelector.isSelected());
           Legend.setVisible(map.getShowLegend());
@@ -910,7 +911,7 @@ public class MapEditController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           map.setShowTypeLabels(new boolean[] {HallNamesSelector.isSelected()});
 
           try {
@@ -940,15 +941,21 @@ public class MapEditController {
               throw new RuntimeException(e);
             }
 
-            MFXButton AddNode = (MFXButton) ((Pane) (v.getChildren().get(0))).getChildren().get(0);
+            MFXButton Cancel = (MFXButton) ((Pane) (v.getChildren().get(0))).getChildren().get(0);
+            MFXButton AddNode = (MFXButton) ((Pane) (v.getChildren().get(0))).getChildren().get(1);
             AddNode.setText("Confirm new Location");
 
             clickPos = new Point2D(event.getX(), event.getY());
             realClickPos = new Point2D(event.getScreenX(), event.getScreenY());
 
-            AddNode.setOnMouseClicked(updateNodePosition);
-
             PopOver pop = new PopOver(v);
+
+            AddNode.setOnMouseClicked(updateNodePosition);
+            Cancel.setOnMouseClicked(
+                event1 -> {
+                  pop.hide();
+                  map.setMovingNodeId(-1);
+                });
 
             v.setOnMouseExited(event2 -> pop.hide());
 
@@ -966,15 +973,17 @@ public class MapEditController {
               throw new RuntimeException(e);
             }
 
-            MFXButton AddNode = (MFXButton) ((Pane) (v.getChildren().get(0))).getChildren().get(0);
+            MFXButton Cancel = (MFXButton) ((Pane) (v.getChildren().get(0))).getChildren().get(0);
+            MFXButton AddNode = (MFXButton) ((Pane) (v.getChildren().get(0))).getChildren().get(1);
             AddNode.setText("Add Node Here");
 
             clickPos = new Point2D(event.getX(), event.getY());
             realClickPos = new Point2D(event.getScreenX(), event.getScreenY());
 
-            AddNode.setOnMouseClicked(addNode);
-
             PopOver pop = new PopOver(v);
+
+            AddNode.setOnMouseClicked(addNode);
+            Cancel.setOnMouseClicked(event1 -> pop.hide());
 
             v.setOnMouseExited(event2 -> pop.hide());
 
@@ -987,7 +996,7 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           int xPos = (int) clickPos.getX();
           int yPos = (int) clickPos.getY();
           String floor = map.takeFloor(map.getCurrentDisplayFloor(), false);
@@ -1026,7 +1035,7 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           int xPos = (int) clickPos.getX();
           int yPos = (int) clickPos.getY();
           String floor = map.takeFloor(map.getCurrentDisplayFloor(), false);

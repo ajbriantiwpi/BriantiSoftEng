@@ -66,6 +66,7 @@ public class Model extends JPanel implements ActionListener {
 
   String filepath = "src/main/resources/edu/wpi/teamname/images/PacIcons";
 
+  /** * Loads in the images into their respective variables */
   private void loadImages() {
     backG = new ImageIcon(filepath + "/backG.png").getImage();
     down = new ImageIcon(filepath + "/down.png").getImage();
@@ -76,6 +77,7 @@ public class Model extends JPanel implements ActionListener {
     heart = new ImageIcon(filepath + "/heart.png").getImage();
   }
 
+  /** * Initializes variables */
   private void initVariables() {
 
     screenData = new short[N_BLOCKS * N_BLOCKS];
@@ -150,14 +152,14 @@ public class Model extends JPanel implements ActionListener {
       }
 
       frame.setVisible(false);
-      Sound.playOnButtonClick2();
+      Sound.playSFX(SFX.VINE);
       Sound.setSong(Song.OTJANBIRD1);
       // initLevel();
     }
   }
 
   private void death() {
-    Sound.playOnButtonClick2();
+    Sound.playSFX(SFX.VINE);
     lives--;
 
     if (lives == 0) {

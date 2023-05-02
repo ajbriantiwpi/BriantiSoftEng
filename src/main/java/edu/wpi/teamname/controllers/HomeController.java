@@ -6,6 +6,7 @@ import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.employees.EmployeeType;
 import edu.wpi.teamname.extras.Joke;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.navigation.Move;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
@@ -78,7 +79,7 @@ public class HomeController {
 
   /** logs the current user out of the application */
   private void logout() {
-    Sound.playOnButtonClick();
+    Sound.playSFX(SFX.BUTTONCLICK);
     loggedIn = new SimpleBooleanProperty(false);
     loginButton.setVisible(true);
     logoutButton.setVisible(false);
@@ -159,7 +160,7 @@ public class HomeController {
         new EventHandler<MouseEvent>() {
           @Override
           public void handle(MouseEvent event) {
-            Sound.playOnButtonClick();
+            Sound.playSFX(SFX.BUTTONCLICK);
             ObservableList<Alert> alertList = null;
 
             MFXButton createNewButton = ((MFXButton) event.getSource());
@@ -456,7 +457,7 @@ public class HomeController {
     editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
     exitButton.setOnMouseClicked(
         event -> {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           try {
             Connection connection = DataManager.DbConnection();
             connection.close();
