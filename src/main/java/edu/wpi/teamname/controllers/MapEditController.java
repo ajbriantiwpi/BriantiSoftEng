@@ -1195,17 +1195,16 @@ public class MapEditController {
         }
       };
 
-
   public void setLanguage(Language lang) throws SQLException {
     switch (lang) {
       case ENGLISH:
         TickTitlePane.setText("TickBoxes");
         FloorTitlePane.setText("Floors");
-      EditingTitlePane.setText("Editing");
-      addNodeButton.setText("Add Node");
-      addLocationButton.setText("Add Location");
-      addEdgeButton.setText("Add Edge");
-      toggleTableButton.setText("Modify Locations");
+        EditingTitlePane.setText("Editing");
+        addNodeButton.setText("Add Node");
+        addLocationButton.setText("Add Location");
+        addEdgeButton.setText("Add Edge");
+        toggleTableButton.setText("Modify Locations");
         ThirdFloorButton.setText("Third Floor");
         SecondFloorButton.setText("Second Floor");
         FirstFloorButton.setText("First Floor");
@@ -1235,16 +1234,14 @@ public class MapEditController {
         currentFloorDestLabel.setText("Current Floor Destination");
         break;
       case ITALIAN:
-
         break;
       case SPANISH:
-
         break;
       case FRENCH:
-
         break;
     }
   }
+
   @FXML
   public void initialize() throws SQLException, IOException {
     ThemeSwitch.switchTheme(root);

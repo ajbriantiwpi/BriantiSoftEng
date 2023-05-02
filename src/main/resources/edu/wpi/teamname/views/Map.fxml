@@ -390,7 +390,7 @@
                         <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="138.0">
                            <children>
                               <Ellipse fill="#edb230" radiusX="6.0" radiusY="6.0" stroke="#012d5a" strokeType="INSIDE" />
-                              <Label fx:id="serviceLabel" prefHeight="18.0" prefWidth="122.0" styleClass="on-suface-text" text="Service/Retail">
+                              <Label fx:id="serviceLabel" prefHeight="18.0" prefWidth="122.0" styleClass="on-suface-text" text="Service/Retail" HBox.hgrow="SOMETIMES">
                                  <HBox.margin>
                                     <Insets left="5.0" />
                                  </HBox.margin>

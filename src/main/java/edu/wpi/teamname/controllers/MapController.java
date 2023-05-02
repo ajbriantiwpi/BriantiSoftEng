@@ -1658,7 +1658,5 @@ public class MapController {
             throw new RuntimeException(e);
           }
         });
-
-
   }
 }
