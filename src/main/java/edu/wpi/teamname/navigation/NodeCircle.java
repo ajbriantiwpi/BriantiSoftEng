@@ -20,6 +20,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -112,7 +113,7 @@ public class NodeCircle {
     }
 
     if (!locName.equals("")) {
-      System.out.println("Serv");
+      //      System.out.println("Serv");
       this.iconP = new Pane();
 
       int pSize = 20;
@@ -130,18 +131,27 @@ public class NodeCircle {
         iconP.setTranslateX(iconP.getTranslateX() - offset);
         iconP.setTranslateY(iconP.getTranslateY() - offset);
 
-        iconP.setBackground(Background.fill(Color.GREEN));
-        Shape s = NodeCircle.makeNodeShape("STAR").get(1);
+        //        iconP.setBackground(Background.fill(Color.GREEN));
+
+        ImageView servIcon;
+
+        Shape s = NodeCircle.makeNodeShape("").get(1);
+        Shape sO = NodeCircle.makeNodeShape("").get(0);
 
         s.setTranslateX(s.getTranslateX() + pSize / 2);
         s.setTranslateY(s.getTranslateY() + pSize / 2);
+
+        sO.setTranslateX(sO.getTranslateX() + pSize / 2);
+        sO.setTranslateY(sO.getTranslateY() + pSize / 2);
+
+        int iconS = 14;
 
         ArrayList<ServiceRequest> srs = GlobalVariables.getServiceRequests();
         for (ServiceRequest request : srs) {
           Timestamp curr = map.getCurrTime();
           String currStr = curr.toString().split("\\s+")[0];
           if (request.getRoomNumber().equals(locName)) {
-            s.setFill(Color.RED);
+            //            s.setFill(Color.RED);
             Timestamp t = request.getDeliverBy();
 
             String tStr = t.toString().split("\\s+")[0];
@@ -153,29 +163,65 @@ public class NodeCircle {
 
               switch (request.getRequestType()) {
                 case MEAL:
-                  s.setFill(Color.RED);
+                  //                  s.setFill(Color.RED);
+                  servIcon = new ImageView("edu/wpi/teamname/images/MenuIcons/SRIcons/meal.png");
                   break;
                 case FLOWER:
-                  s.setFill(Color.YELLOW);
+                  //                  s.setFill(Color.YELLOW);
+                  servIcon = new ImageView("edu/wpi/teamname/images/MenuIcons/SRIcons/flower.png");
                   break;
                 case FURNITURE:
-                  s.setFill(Color.ORANGE);
+                  //                  s.setFill(Color.ORANGE);
+                  servIcon =
+                      new ImageView("edu/wpi/teamname/images/MenuIcons/SRIcons/furniture.png");
                   break;
                 case OFFICESUPPLY:
-                  s.setFill(Color.PURPLE);
+                  //                  s.setFill(Color.PURPLE);
+                  servIcon = new ImageView("edu/wpi/teamname/images/MenuIcons/SRIcons/office.png");
                   break;
                 case MEDICALSUPPLY:
-                  s.setFill(Color.DARKGREEN);
+                  //                  s.setFill(Color.DARKGREEN);
+                  servIcon = new ImageView("edu/wpi/teamname/images/MenuIcons/SRIcons/bandaid.png");
                   break;
                 case PHARMACEUTICAL:
-                  s.setFill(Color.WHITE);
+                  //                  s.setFill(Color.WHITE);
+                  servIcon = new ImageView("edu/wpi/teamname/images/MenuIcons/SRIcons/pill.png");
                   break;
                 default:
-                  s.setFill(Color.BLUE);
+                  //                  s.setFill(Color.BLUE);
+                  servIcon = new ImageView("edu/wpi/teamname/images/MenuIcons/assignment.png");
                   break;
               }
 
+              System.out.println("STat: " + request.getStatus().toString());
+              switch (request.getStatus()) {
+                case DONE:
+                  s.setFill(Color.GREEN);
+                  break;
+                case BLANK:
+                  s.setFill(Color.GREY);
+                  break;
+                case PROCESSING:
+                  s.setFill(Color.ORANGE);
+                  break;
+                default:
+                  s.setFill(Color.WHITE);
+                  break;
+              }
+
+              //              servIcon.minHeight(iconS);
+              //              servIcon.maxHeight(iconS);
+              servIcon.setFitHeight(iconS);
+              servIcon.setFitWidth(iconS);
+
+              float circleR = GlobalVariables.getCircleR();
+
+              servIcon.setTranslateX(servIcon.getTranslateX() + (pSize / 2) - (iconS / 2));
+              servIcon.setTranslateY(servIcon.getTranslateY() + (pSize / 2) - (iconS / 2));
+
+              iconP.getChildren().add(sO);
               iconP.getChildren().add(s);
+              iconP.getChildren().add(servIcon);
 
               //              p.getChildren().add(this.iconP);
               added = true;
@@ -189,17 +235,38 @@ public class NodeCircle {
       }
       // */
 
+      // */
       if (GlobalVariables.getShowConfItems().booleanValue()) {
         int offset = 20;
 
         //        iconP.setTranslateX(iconP.getTranslateX() + offset);
         //        iconP.setTranslateY(iconP.getTranslateY() - offset);
 
-        iconP.setBackground(Background.fill(Color.GREEN));
-        Shape s2 = NodeCircle.makeNodeShape("STAR").get(1);
+        //        iconP.setBackground(Background.fill(Color.GREEN));
+
+        ImageView confIcon =
+            new ImageView("edu/wpi/teamname/images/MenuIcons/request_room_home.png");
+
+        Shape s2 = NodeCircle.makeNodeShape("").get(1);
+        Shape s2O = NodeCircle.makeNodeShape("").get(0);
 
         s2.setTranslateX(s2.getTranslateX() + pSize / 2 + 2 * offset);
         s2.setTranslateY(s2.getTranslateY() + pSize / 2);
+
+        s2O.setTranslateX(s2O.getTranslateX() + pSize / 2 + 2 * offset);
+        s2O.setTranslateY(s2O.getTranslateY() + pSize / 2);
+
+        int iconS = 14;
+
+        //        confIcon.minHeight(iconS);
+        //        confIcon.maxHeight(iconS);
+        confIcon.setFitHeight(iconS);
+        confIcon.setFitWidth(iconS);
+
+        float circleR = GlobalVariables.getCircleR();
+
+        confIcon.setTranslateX(confIcon.getTranslateX() + (pSize / 2) + (2 * offset) - (iconS / 2));
+        confIcon.setTranslateY(confIcon.getTranslateY() + (pSize / 2) - (iconS / 2));
 
         ArrayList<ConfRoom> confs = GlobalVariables.getConfRooms();
         String sName = l.get(0).getShortName();
@@ -214,18 +281,57 @@ public class NodeCircle {
             String currStr = curr.toString().split("\\s+")[0];
 
             for (ConfReservation res : reses) {
-              Timestamp resT = res.getDateMade();
+              Timestamp resT = res.getDateBook();
               String resTStr = resT.toString().split("\\s+")[0];
 
               if (currStr.equals(resTStr)) {
 
-                s2.setFill(Color.RED);
+                Timestamp mushedDateTime = curr;
 
+                Timestamp sysTime = new Timestamp(System.currentTimeMillis());
+
+                //                mushedDateTime.setHours(sysTime.getHours());
+                mushedDateTime.setHours(12);
+                mushedDateTime.setMinutes(sysTime.getMinutes());
+                mushedDateTime.setSeconds(sysTime.getSeconds());
+
+                //                mushedDateTime.set
+                //                int nodeID;
+
+                Boolean status = map.getRm().checkAvailable(nodeID, mushedDateTime);
+
+                //                RoomStatus status = RoomStatus.AVAILABLE;
+
+                if (status) {
+                  s2.setFill(Color.GREEN);
+                } else {
+                  s2.setFill(Color.RED);
+                }
+
+                //                switch (status) {
+                //                  case ERROR:
+                //                    s2.setFill(Color.RED);
+                //                    break;
+                //                  case BOOKED:
+                //                    s2.setFill(Color.ORANGE);
+                //                    break;
+                //                  case SELECTED:
+                //                    s2.setFill(Color.YELLOW);
+                //                    break;
+                //                  case AVAILABLE:
+                //                    s2.setFill(Color.GREEN);
+                //                  default:
+                //                    s2.setFill(Color.WHITE);
+                //                    break;
+                //                }
+                //
                 s2.setOnMouseClicked(event -> Navigation.navigate(Screen.CONF_VIEW));
 
                 System.out.println("Child");
 
+                iconP.getChildren().add(s2O);
                 iconP.getChildren().add(s2);
+                iconP.getChildren().add(confIcon);
 
                 added = true;
 
@@ -235,6 +341,7 @@ public class NodeCircle {
           }
         }
       }
+      // */
 
       if (added) {
         p.getChildren().add(this.iconP);

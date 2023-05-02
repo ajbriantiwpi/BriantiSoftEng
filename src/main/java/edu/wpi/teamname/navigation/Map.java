@@ -3,6 +3,7 @@ package edu.wpi.teamname.navigation;
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.controllers.MapController;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.servicerequest.RoomManager;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -75,6 +76,8 @@ public class Map {
 
   @Getter @Setter private Timestamp currTime;
 
+  @Getter @Setter private RoomManager rm;
+
   /**
    * Constructs a Map object with the given sub-anchor pane.
    *
@@ -87,6 +90,9 @@ public class Map {
     this.subAnchor = subAnchor;
     GlobalVariables.setHMap(
         DataManager.getAllLocationNamesMappedByNode(new Timestamp(System.currentTimeMillis())));
+    GlobalVariables.setServiceRequests(DataManager.getAllServiceRequests());
+    GlobalVariables.setConfReservations(DataManager.getAllConfReservation());
+    GlobalVariables.setConfRooms(DataManager.getAllConfRoom());
     this.labelTextType = 1;
     this.isMapPage = isMapPage;
     this.showEdges = !this.isMapPage;
@@ -97,6 +103,13 @@ public class Map {
     this.showNodes = !this.isMapPage;
     this.showLegend = !this.isMapPage;
     this.currTime = new Timestamp(System.currentTimeMillis());
+
+    this.rm = new RoomManager();
+    //    try {
+    //      this.refresh();
+    //    } catch (IOException e) {
+    //      throw new RuntimeException(e);
+    //    }
   }
 
   public boolean getShowLegend() {
@@ -114,6 +127,8 @@ public class Map {
   public ArrayList<javafx.scene.Node> makeAllFloorShapes(String floor)
       throws SQLException, IOException {
     ArrayList<javafx.scene.Node> allCirclesAndEdges = new ArrayList<>();
+
+    System.out.println("E: " + this.showEdges + ", " + this.showNodes);
 
     if (this.showEdges) {
       System.out.println("ADDEDGES");
@@ -258,18 +273,19 @@ public class Map {
     // Delete all nodeCircles
 
     System.out.println("Change Floor");
-
+    System.out.println("SubLC:" + subAnchor.getChildren().size());
     //    subAnchor.getChildren();currentFloorNodes;
     if (!this.currentFloorShapes.isEmpty()) {
       for (int i = subAnchor.getChildren().size() - 1; i >= 0; i--) {
         if (this.currentFloorShapes.contains(subAnchor.getChildren().get(i))) {
-          //          System.out.println("Rem: " + i);
+          System.out.println("Rem: " + i);
           subAnchor.getChildren().remove(i);
         }
       }
       //      this.setPrevPath(null);
       this.setCurrentFloorShapes(null);
     }
+    System.out.println("SubLC:" + subAnchor.getChildren().size());
 
     if (!this.getPrevPath().isEmpty()) {
       for (int i = subAnchor.getChildren().size() - 1; i >= 0; i--) {
@@ -280,7 +296,7 @@ public class Map {
       this.setPrevPath(null);
     }
 
-    if (!this.getShapes().isEmpty()) {
+    if (!this.getShapes().isEmpty() && this.isMapPage) {
 
       if (cssFloorName.equals("L1")) {
         //            for (int i = 0; i < map.getShapes().get(1).size(); i++) {
@@ -311,7 +327,9 @@ public class Map {
     currentFloorShapes = (this.makeAllFloorShapes(shortRealFloorName));
     System.out.println("SetFloor :" + shortRealFloorName);
 
+    System.out.println("SubL:" + subAnchor.getChildren().size());
     subAnchor.getChildren().addAll(currentFloorShapes);
+    System.out.println("SubL:" + subAnchor.getChildren().size());
 
     subAnchor.getStyleClass().add(cssFloorName);
   }
