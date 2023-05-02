@@ -157,7 +157,7 @@ public class SignageController {
                           if (leftC == l && rightC == r && upC == u && downC == d && stopC == s) {
                             play.setVisible(true);
                             play.setDisable(false);
-                            System.out.println("Pacman!");
+                            System.out.println("Pac-man!");
                           }
                           leftC = 0;
                           rightC = 0;
