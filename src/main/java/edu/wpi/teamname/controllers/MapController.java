@@ -564,7 +564,11 @@ public class MapController {
           Sound.playOnButtonClick();
           ViewMessageButton.setDisable(false);
           AddMessageButton.setDisable(false);
-          map.drawPath(anchor, sNode, eNode);
+          try {
+            map.drawPath(anchor, sNode, eNode);
+          } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+          }
           int secInd = map.getAllFloors().indexOf(currFloor);
           System.out.println("secInd: " + secInd);
           anchor.getChildren().addAll(map.getShapes().get(secInd));

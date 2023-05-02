@@ -319,7 +319,7 @@ public class Map {
    * @param nodes List of nodes to create the path from
    * @return An ArrayList of Shape objects representing the path
    */
-  private ArrayList<ArrayList<Shape>> makeShapePath(ArrayList<Node> nodes) {
+  private ArrayList<ArrayList<Shape>> makeShapePath(ArrayList<Node> nodes) throws SQLException {
     ArrayList<Node> listFloor1 = new ArrayList<>();
     ArrayList<Node> listFloor2 = new ArrayList<>();
     ArrayList<Node> listUpper1 = new ArrayList<>();
@@ -427,7 +427,8 @@ public class Map {
     //    return shapes;
   }
 
-  private ArrayList<Shape> makeShapePathFloor(ArrayList<Node> listNode, String floor) {
+  private ArrayList<Shape> makeShapePathFloor(ArrayList<Node> listNode, String floor)
+      throws SQLException {
     ArrayList<Shape> shapes = new ArrayList<Shape>();
 
     Circle c;
@@ -445,9 +446,22 @@ public class Map {
       path.getElements().add(new MoveTo(listNode.get(0).getX(), listNode.get(0).getY()));
 
       for (int i = 1; i < listNode.size(); i++) {
-        path.getElements().add(new LineTo(listNode.get(i).getX(), listNode.get(i).getY()));
+        boolean isConnectedToPrev = false;
+        for (Edge e : DataManager.getAllEdges()) {
+          if (((e.getEndNodeID() == listNode.get(i).getId())
+                  && (e.getStartNodeID() == listNode.get(i - 1).getId()))
+              || ((e.getStartNodeID() == listNode.get(i).getId())
+                  && (e.getEndNodeID() == listNode.get(i - 1).getId()))) {
+            path.getElements().add(new LineTo(listNode.get(i).getX(), listNode.get(i).getY()));
+            isConnectedToPrev = true;
+          }
+        }
+
+        if (!isConnectedToPrev) {
+          path.setStrokeLineJoin(StrokeLineJoin.ROUND);
+        }
+        // path.getElements().add(new LineTo(listNode.get(i).getX(), listNode.get(i).getY()));
       }
-      path.setStrokeLineJoin(StrokeLineJoin.ROUND);
       shapes.add(path);
     }
 
@@ -522,7 +536,8 @@ public class Map {
    * @param floor2 The ending floor
    */
   public void drawPath(
-      Pane parent, Point2D firstClick, Point2D secondClick, String floor1, String floor2) {
+      Pane parent, Point2D firstClick, Point2D secondClick, String floor1, String floor2)
+      throws SQLException {
 
     //    String floor = "L1";
 
@@ -594,7 +609,7 @@ public class Map {
    * @param startNodeId the starting MapNode ID
    * @param endNodeId the ending MapNode ID
    */
-  public void drawPath(Pane parent, int startNodeId, int endNodeId) {
+  public void drawPath(Pane parent, int startNodeId, int endNodeId) throws SQLException {
     ArrayList<Node> nodePath = this.graph.getPathBetween(startNodeId, endNodeId);
 
     System.out.println("SIZE: " + nodePath.size());
