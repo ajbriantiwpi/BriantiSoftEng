@@ -4,9 +4,7 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.scene.AccessibleRole;
 import lombok.Getter;
 
-/**
- * Custom button for RoomSelector that represents 30min in time
- */
+/** Custom button for RoomSelector that represents 30min in time */
 public class SelectorButton extends MFXButton {
   RoomSelector parent;
   int id;
@@ -39,6 +37,7 @@ public class SelectorButton extends MFXButton {
 
   /**
    * Sets the status and color of the button
+   *
    * @param status
    */
   void setStatus(RoomStatus status) {

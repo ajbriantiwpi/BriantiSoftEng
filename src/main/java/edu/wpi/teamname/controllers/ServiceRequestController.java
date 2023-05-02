@@ -32,14 +32,15 @@ import javafx.scene.layout.*;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * Controller for Creating service requests
- */
+//
+/// **
+// * Controller for Creating service requests
+// */
 public class ServiceRequestController {
 
   // requestInfo Error if not added anything to both meal and side
 
-  /*
+  /**
    * @FXML MFXButton backButton; @FXML MFXButton setDateButton; @FXML MFXButton
    * printDateButton; @FXML MFXButton printMealButton; @FXML MFXButton addFriesButton; @FXML
    * MFXButton addSandwichButton; @FXML MFXButton addFlowersButton;
@@ -178,33 +179,34 @@ public class ServiceRequestController {
       ArrayList<RequestItem> tem = new ArrayList<>();
       double totalPrice = 0.0;
       String t = request.getRequestType().toString();
-      String f;
+      String f = "";
       switch (t) {
-        case "Meal Request" -> {
+        case "Meal Request":
           f = "MealIcons";
           tem.addAll(DataManager.getAllMeals());
-        }
-        case "Flower Request" -> {
+          break;
+        case "Flower Request":
           f = "FlowerIcons";
           tem.addAll(DataManager.getAllFlowers());
-        }
-        case "Office Supply Request" -> {
+          break;
+        case "Office Supply Request":
           f = "OfficeIcons";
           tem.addAll(DataManager.getAllOfficeSupplies());
-        }
-        case "Medical Supply Request" -> {
+          break;
+        case "Medical Supply Request":
           f = "MedicalIcons";
           tem.addAll(DataManager.getAllMedicalSupplies());
-        }
-        case "Pharmaceutical Request" -> {
+          break;
+        case "Pharmaceutical Request":
           f = "PharmaceuticalIcons";
           tem.addAll(DataManager.getAllPharmaceuticals());
-        }
-        default -> {
+          break;
+
+        default:
           f = "FurnitureIcons";
           System.out.println(t);
           tem.addAll(DataManager.getAllFurniture());
-        }
+          break;
       }
       int c = 0;
 

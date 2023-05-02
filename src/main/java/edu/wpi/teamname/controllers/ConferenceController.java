@@ -25,9 +25,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.controlsfx.control.RangeSlider;
 
-/**
- * Controller for the UI to reserve a conference room
- */
+/** Controller for the UI to reserve a conference room */
 public class ConferenceController {
 
   @FXML AnchorPane root;
@@ -227,6 +225,7 @@ public class ConferenceController {
 
   /**
    * Refreshes the rooms on the screen to
+   *
    * @param date date to refresh the screen to
    */
   private void refreshRooms(Timestamp date) {
@@ -248,15 +247,14 @@ public class ConferenceController {
     }
   }
 
-  /**
-   * Refreshes the rooms on the screen to. defaulting date to the datebox
-   */
+  /** Refreshes the rooms on the screen to. defaulting date to the datebox */
   private void refreshRooms() {
     refreshRooms(Timestamp.valueOf(dateBox.getValue().atStartOfDay()));
   }
 
   /**
    * sets the active selector to the RoomSelector that is currently being worked on
+   *
    * @param selector RoomSelector currently being used
    */
   public void setActiveSelector(RoomSelector selector) {
@@ -272,6 +270,7 @@ public class ConferenceController {
 
   /**
    * sets the value of the start box as well as the start value in RoomManager
+   *
    * @param time starting time
    */
   public void setStartBox(String time) {
@@ -281,6 +280,7 @@ public class ConferenceController {
 
   /**
    * sets the value of the end box as well as the end value in RoomManager
+   *
    * @param time end time
    */
   public void setEndBox(String time) {

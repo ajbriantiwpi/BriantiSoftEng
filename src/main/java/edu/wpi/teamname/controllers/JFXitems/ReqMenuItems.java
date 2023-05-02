@@ -16,9 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 
-/**
- * Item for displaying items to be put in cart as well as in the cart for service requests
- */
+/** Item for displaying items to be put in cart as well as in the cart for service requests */
 public class ReqMenuItems extends GridPane {
   private String name;
   private int id;
@@ -164,6 +162,7 @@ public class ReqMenuItems extends GridPane {
 
   /**
    * gets the quantity of the of this item
+   *
    * @return the quantity of the item int he text field
    */
   public int getQuantity() {
@@ -182,6 +181,7 @@ public class ReqMenuItems extends GridPane {
 
   /**
    * deletes this item from the ui
+   *
    * @throws SQLException
    */
   void delete() throws SQLException {

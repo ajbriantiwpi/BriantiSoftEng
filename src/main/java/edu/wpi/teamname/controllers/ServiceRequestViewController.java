@@ -130,10 +130,11 @@ public class ServiceRequestViewController {
     refreshTable();
   }
 
-    /**
-     * Refreshes the service requests shown on the table
-     * @throws SQLException
-     */
+  /**
+   * Refreshes the service requests shown on the table
+   *
+   * @throws SQLException
+   */
   public void refreshTable() throws SQLException {
     ObservableList<ServiceRequest> serviceRequests =
         FXCollections.observableList(DataManager.getAllServiceRequests());
@@ -401,12 +402,13 @@ public class ServiceRequestViewController {
     }
   }
 
-    /**
-     * fills the pane of the cart view of an individual service request
-     * @param reqID request ID number to retrieve all the ordered items from
-     * @param folder folder to get the images for a specific service request type
-     * @throws SQLException
-     */
+  /**
+   * fills the pane of the cart view of an individual service request
+   *
+   * @param reqID request ID number to retrieve all the ordered items from
+   * @param folder folder to get the images for a specific service request type
+   * @throws SQLException
+   */
   private void fillPane(int reqID, String folder) throws SQLException {
     ServiceRequest request = DataManager.getServiceRequest(reqID);
     ArrayList<ItemsOrdered> orderedItems = new ArrayList<>();
