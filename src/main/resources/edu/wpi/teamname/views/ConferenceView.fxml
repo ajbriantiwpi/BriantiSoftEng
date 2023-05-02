@@ -39,7 +39,12 @@
                                     </VBox.margin>
                                  </Label>
                                  <DatePicker fx:id="dateBox" maxWidth="500.0" styleClass="text-field" stylesheets="@../stylesheets/dateBox.css" />
-                                 <MFXButton fx:id="refreshButton" styleClass="primary-container" stylesheets="@../stylesheets/button.css" text="Refresh" />
+                                 <MFXButton fx:id="refreshButton" stylesheets="@../stylesheets/button.css" text="Refresh">
+                                    <styleClass>
+                                       <String fx:value="primary" />
+                                       <String fx:value="outline" />
+                                       <String fx:value="small-text" />
+                                    </styleClass></MFXButton>
                                  <Label text="Assigned Staff" textFill="#001b3b">
                                     <font>
                                        <Font name="Roboto" size="28.0" />
@@ -60,7 +65,7 @@
                            </VBox>
                            <VBox spacing="12.0" style="-fx-background-radius: 16;" styleClass="surface-container-highest">
                               <children>
-                                 <Label text="Assign Staff to Reservation" textFill="#001b3b">
+                                 <Label text="Assign to Reservation" textFill="#001b3b">
                                     <font>
                                        <Font name="Roboto" size="32.0" />
                                     </font>
