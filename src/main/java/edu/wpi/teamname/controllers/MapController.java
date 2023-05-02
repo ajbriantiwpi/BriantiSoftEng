@@ -1280,7 +1280,7 @@ public class MapController {
   public void setLanguage(Language lang) throws SQLException {
     switch (lang) {
       case ENGLISH:
-        PathfindingTitlePane.setText("Pathfinding");
+        ParentController.titleString.set("Map");
         LocationOne.setPromptText("Select Start");
         EndPointSelect.setPromptText("Select Destination");
         AlgoSelect.setPromptText("Select Algorithm");
@@ -1328,6 +1328,7 @@ public class MapController {
         MessageColumn.setText("Message");
         break;
       case ITALIAN:
+        ParentController.titleString.set("Mappa");
         PathfindingTitlePane.setText("Ricerca del percorso");
         LocationOne.setPromptText("Seleziona la partenza");
         EndPointSelect.setPromptText("Seleziona la destinazione");
@@ -1376,6 +1377,7 @@ public class MapController {
         MessageColumn.setText("Messaggio");
         break;
       case SPANISH:
+        ParentController.titleString.set("Mapa");
         PathfindingTitlePane.setText("Búsqueda de ruta");
         LocationOne.setPromptText("Seleccionar inicio");
         EndPointSelect.setPromptText("Seleccionar destino");
@@ -1424,6 +1426,7 @@ public class MapController {
         MessageColumn.setText("Mensaje");
         break;
       case FRENCH:
+        ParentController.titleString.set("Carte");
         PathfindingTitlePane.setText("Recherche de chemin");
         LocationOne.setPromptText("Sélectionner le départ");
         EndPointSelect.setPromptText("Sélectionner la destination");
@@ -1648,7 +1651,7 @@ public class MapController {
 
     endSel = EndPointSelect;
     LocOne = LocationOne;
-    ParentController.titleString.set("Service Request View");
+    //    ParentController.titleString.set("Service Request View");
     setLanguage(GlobalVariables.getB().getValue());
     GlobalVariables.b.addListener(
         (options, oldValue, newValue) -> {

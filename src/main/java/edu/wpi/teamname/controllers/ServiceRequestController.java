@@ -7,6 +7,7 @@ import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.controllers.JFXitems.ReqMenuItems;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.EmployeeType;
+import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.servicerequest.RequestType;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
@@ -46,7 +47,15 @@ public class ServiceRequestController {
   // Sam's Form GUI
   @FXML AnchorPane root;
 
+  @FXML Label patientNameLabel;
+  @FXML Label locationLabel;
+  @FXML Label dateLabel;
+  @FXML Label timeLabel;
+  @FXML Label serviceRequestLabel;
+  @FXML Label searchLabel;
+  @FXML Label cartLabel;
   @FXML ImageView background;
+  @FXML Label detailsLabel;
   private int requestPage = 0; // used for keeping track of which page is active
 
   // Bottom Bar
@@ -91,6 +100,79 @@ public class ServiceRequestController {
   @FXML Label summaryLabel;
 
   @FXML VBox cartBox;
+
+  public void setLanguage(Language lang) {
+    switch (lang) {
+      case ENGLISH:
+        patientNameLabel.setText("Patient Name");
+        locationLabel.setText("Location");
+        nodeBox.setPromptText("Choose Location");
+        dateLabel.setText("Date");
+        timeLabel.setText("Time");
+        timeBox.setPromptText("Choose Time of Delivery");
+        serviceRequestLabel.setText("Service Request Type");
+        requestType.setPromptText("Choose Service Request Type");
+        clearButton.setText("Clear");
+        cancelButton.setText("Cancel");
+        nextButton.setText("Next");
+        forgotButton.setText("Forgot something?");
+        detailsLabel.setText("Order Details");
+        cartLabel.setText("Your Cart");
+        searchLabel.setText("Search");
+        break;
+      case FRENCH:
+        patientNameLabel.setText("Nom du patient");
+        locationLabel.setText("Emplacement");
+        nodeBox.setPromptText("Choisissez un emplacement");
+        dateLabel.setText("Date");
+        timeLabel.setText("Heure");
+        timeBox.setPromptText("Choisissez l'heure de livraison");
+        serviceRequestLabel.setText("Type de demande de service");
+        requestType.setPromptText("Choisissez le type de demande de service");
+        clearButton.setText("Effacer");
+        cancelButton.setText("Annuler");
+        nextButton.setText("Suivant");
+        forgotButton.setText("Vous avez oublié quelque chose?");
+        detailsLabel.setText("Détails de la commande");
+        cartLabel.setText("Votre panier");
+        searchLabel.setText("Rechercher");
+        break;
+      case ITALIAN:
+        patientNameLabel.setText("Nome Paziente");
+        locationLabel.setText("Posizione");
+        nodeBox.setPromptText("Scegli Posizione");
+        dateLabel.setText("Data");
+        timeLabel.setText("Ora");
+        timeBox.setPromptText("Scegli Ora di Consegna");
+        serviceRequestLabel.setText("Tipo di Richiesta di Servizio");
+        requestType.setPromptText("Scegli Tipo di Richiesta di Servizio");
+        clearButton.setText("Pulisci");
+        cancelButton.setText("Annulla");
+        nextButton.setText("Avanti");
+        forgotButton.setText("Hai dimenticato qualcosa?");
+        detailsLabel.setText("Dettagli Ordine");
+        cartLabel.setText("Il Tuo Carrello");
+        searchLabel.setText("Cerca");
+        break;
+      case SPANISH:
+        patientNameLabel.setText("Nombre del Paciente");
+        locationLabel.setText("Ubicación");
+        nodeBox.setPromptText("Elija Ubicación");
+        dateLabel.setText("Fecha");
+        timeLabel.setText("Hora");
+        timeBox.setPromptText("Elija Hora de Entrega");
+        serviceRequestLabel.setText("Tipo de Solicitud de Servicio");
+        requestType.setPromptText("Elija Tipo de Solicitud de Servicio");
+        clearButton.setText("Limpiar");
+        cancelButton.setText("Cancelar");
+        nextButton.setText("Siguiente");
+        forgotButton.setText("¿Olvidaste algo?");
+        detailsLabel.setText("Detalles del Pedido");
+        cartLabel.setText("Tu Carrito");
+        searchLabel.setText("Buscar");
+        break;
+    }
+  }
 
   public VBox getCartBox() {
     return cartBox;
@@ -284,6 +366,11 @@ public class ServiceRequestController {
     //    } else {
     //      root.getStylesheets().remove(1);
     //    }
+    setLanguage(GlobalVariables.getB().getValue());
+    GlobalVariables.b.addListener(
+        (options, oldValue, newValue) -> {
+          setLanguage(newValue);
+        });
     ThemeSwitch.switchTheme(root);
     ParentController.titleString.set("Service Request");
     setVisibleScreen(0);

@@ -1,6 +1,8 @@
 package edu.wpi.teamname.controllers.JFXitems;
 
+import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.controllers.ServiceRequestController;
+import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import edu.wpi.teamname.servicerequest.requestitem.RequestItem;
 import java.sql.SQLException;
@@ -55,6 +57,43 @@ public class ReqMenuItems extends GridPane {
     initialize();
   }
 
+  public void setTexts(Language lang, DecimalFormat df, Label labelP) {
+    switch (GlobalVariables.getB().getValue()) {
+      case ENGLISH:
+        quantity.setText("Quantity: " + String.valueOf(this.q));
+        quantity.setPromptText("Quantity");
+        break;
+      case ITALIAN:
+        quantity.setText("Quantità: " + String.valueOf(this.q));
+        quantity.setPromptText("Quantità");
+        break;
+      case FRENCH:
+        quantity.setText("Quantité: " + String.valueOf(this.q));
+        quantity.setPromptText("Quantité");
+        break;
+      case SPANISH:
+        quantity.setText("Cantidad: " + String.valueOf(this.q));
+        quantity.setPromptText("Cantidad");
+        break;
+    }
+    if (labelP != null) {
+      switch (GlobalVariables.getB().getValue()) {
+        case ENGLISH:
+          labelP.setText("Price: $" + df.format(item.getPrice()));
+          break;
+        case ITALIAN:
+          labelP.setText("Prezzo: $" + df.format(item.getPrice()));
+          break;
+        case FRENCH:
+          labelP.setText("Prix: $" + df.format(item.getPrice()));
+          break;
+        case SPANISH:
+          labelP.setText("Precio: $" + df.format(item.getPrice()));
+          break;
+      }
+    }
+  }
+
   public ReqMenuItems(
       RequestItem item,
       String folder,
@@ -74,7 +113,21 @@ public class ReqMenuItems extends GridPane {
 
     initialize();
 
-    quantity.setText("Quantity: " + String.valueOf(this.q));
+    switch (GlobalVariables.getB().getValue()) {
+      case ENGLISH:
+        quantity.setText("Quantity: " + String.valueOf(this.q));
+        break;
+      case ITALIAN:
+        quantity.setText("Quantità: " + String.valueOf(this.q));
+        break;
+      case FRENCH:
+        quantity.setText("Quantité: " + String.valueOf(this.q));
+        break;
+      case SPANISH:
+        quantity.setText("Cantidad: " + String.valueOf(this.q));
+        break;
+    }
+    //    quantity.setText("Quantity: " + String.valueOf(this.q));
     quantity.setDisable(true);
   }
 
@@ -87,7 +140,21 @@ public class ReqMenuItems extends GridPane {
     this.add = false;
 
     initialize();
-    quantity.setText("Quantity: " + String.valueOf(q));
+    switch (GlobalVariables.getB().getValue()) {
+      case ENGLISH:
+        quantity.setText("Quantity: " + String.valueOf(this.q));
+        break;
+      case ITALIAN:
+        quantity.setText("Quantità: " + String.valueOf(this.q));
+        break;
+      case FRENCH:
+        quantity.setText("Quantité: " + String.valueOf(this.q));
+        break;
+      case SPANISH:
+        quantity.setText("Cantidad: " + String.valueOf(this.q));
+        break;
+    }
+    //    quantity.setText("Quantity: " + String.valueOf(q));
     quantity.setDisable(true);
   }
 
@@ -115,7 +182,21 @@ public class ReqMenuItems extends GridPane {
     label.setFont(Font.font("Roboto", 32));
     label.setMinWidth(300);
     label.setMaxWidth(300);
-    labelP = new Label("Price: $" + df.format(item.getPrice()));
+    switch (GlobalVariables.getB().getValue()) {
+      case ENGLISH:
+        labelP = new Label("Price: $" + df.format(item.getPrice()));
+        break;
+      case ITALIAN:
+        labelP = new Label("Prezzo: $" + df.format(item.getPrice()));
+        break;
+      case FRENCH:
+        labelP = new Label("Prix: $" + df.format(item.getPrice()));
+        break;
+      case SPANISH:
+        labelP = new Label("Precio: $" + df.format(item.getPrice()));
+        break;
+    }
+
     labelP.setFont(Font.font("Roboto", 32));
     labelP.setMinWidth(200);
     labelP.setMaxWidth(200);
@@ -138,7 +219,21 @@ public class ReqMenuItems extends GridPane {
       button.getStyleClass().add("primary");
     }
     quantity = new TextField("");
-    quantity.setPromptText("Quantity");
+    switch (GlobalVariables.getB().getValue()) {
+      case ENGLISH:
+        quantity.setPromptText("Quantity");
+        break;
+      case ITALIAN:
+        quantity.setPromptText("Quantità");
+        break;
+      case FRENCH:
+        quantity.setPromptText("Quantité");
+        break;
+      case SPANISH:
+        quantity.setPromptText("Cantidad");
+        break;
+    }
+
     quantity.setFont(Font.font("Roboto", 32));
 
     quantity.setStyle(
@@ -157,6 +252,10 @@ public class ReqMenuItems extends GridPane {
 
     setStyle("-fx-background-radius: 8");
     getStyleClass().add("primary-container");
+    GlobalVariables.b.addListener(
+        (options, oldValue, newValue) -> {
+          setTexts(newValue, df, labelP);
+        });
   }
 
   public int getQuantity() {
