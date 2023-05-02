@@ -29,23 +29,24 @@ public class DirectionArrow extends GridPane {
     this.details = details;
     this.direction = direction;
     this.h = height;
-    this.styleClass="secondary-container";
+    this.styleClass = "secondary-container";
     initialize();
   }
+
   public DirectionArrow(Direction direction, String details, int height, String styleClass) {
     this.details = details;
     this.direction = direction;
     this.h = height;
-    this.styleClass=styleClass;
+    this.styleClass = styleClass;
     initialize();
   }
 
   private void initialize() {
     String folder;
-    if(GlobalVariables.getDarkMode().get()){
-      folder="dark";
-    } else{
-      folder="light";
+    if (GlobalVariables.getDarkMode().get()) {
+      folder = "dark";
+    } else {
+      folder = "light";
     }
     if (direction == Direction.UP) {
       this.image = "arrow_upward.png";
@@ -64,7 +65,8 @@ public class DirectionArrow extends GridPane {
     } else {
       this.image = "pin_drop.png";
     }
-    this.imageView = new ImageView("edu/wpi/teamname/images/DirectionIcons/"+ folder+ "/" + image);
+    this.imageView =
+        new ImageView("edu/wpi/teamname/images/DirectionIcons/" + folder + "/" + image);
     this.imageView.setFitWidth(h);
     this.imageView.setFitHeight(h);
     this.add(this.imageView, 0, 0);

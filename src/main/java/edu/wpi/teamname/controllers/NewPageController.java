@@ -10,8 +10,7 @@ import javafx.scene.layout.AnchorPane;
 public class NewPageController {
 
   @FXML MFXButton homebutton;
-  @FXML
-  AnchorPane rootPane;
+  @FXML AnchorPane rootPane;
 
   @FXML
   public void initialize() {
