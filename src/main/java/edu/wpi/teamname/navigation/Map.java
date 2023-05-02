@@ -365,25 +365,25 @@ public class Map {
     }
 
     if (listFloor2.size() != 0) {
-      pathAllFloor.add(0, makeShapePathFloor(listFloor2, "L2"));
+      pathAllFloor.add(0, makeShapePathFloor(listFloor2, "L2", true));
     }
 
     if (listFloor1.size() != 0) {
       System.out.println("size of list1: " + listFloor1.size());
       // System.out.println("size of list in list: " + pathAllFloor.get(1).size());
-      pathAllFloor.add(1, makeShapePathFloor(listFloor1, "L1"));
+      pathAllFloor.add(1, makeShapePathFloor(listFloor1, "L1", true));
     }
 
     if (listUpper1.size() != 0) {
-      pathAllFloor.add(2, makeShapePathFloor(listUpper1, "1"));
+      pathAllFloor.add(2, makeShapePathFloor(listUpper1, "1", true));
     }
 
     if (listUpper2.size() != 0) {
-      pathAllFloor.add(3, makeShapePathFloor(listUpper2, "2"));
+      pathAllFloor.add(3, makeShapePathFloor(listUpper2, "2", true));
     }
 
     if (listUpper3.size() != 0) {
-      pathAllFloor.add(4, makeShapePathFloor(listUpper3, "3"));
+      pathAllFloor.add(4, makeShapePathFloor(listUpper3, "3", true));
     }
 
     return pathAllFloor;
@@ -427,22 +427,28 @@ public class Map {
     //    return shapes;
   }
 
-  private ArrayList<Shape> makeShapePathFloor(ArrayList<Node> listNode, String floor)
+  private ArrayList<Shape> makeShapePathFloor(ArrayList<Node> listNode, String floor, boolean flag)
       throws SQLException {
     ArrayList<Shape> shapes = new ArrayList<Shape>();
+    ArrayList<Node> subsectionListNodes = new ArrayList<>();
 
+    int saveIndex;
     Circle c;
     Path path;
 
     for (int j = 0; j < 2; j++) {
       path = new Path();
-      if (j == 0) {
+      if (j == 0) { // runs first time
         path.setStroke(GlobalVariables.getBorderColor());
-      } else {
+      } else { // runs second time
         path.setStroke(GlobalVariables.getInsideColor());
       }
+
+      // This is setting the line width
       path.setStrokeWidth(
           GlobalVariables.getLineT() - (GlobalVariables.getStrokeThickness() * 2 * j));
+
+      // Adds new MoveTo object to the path elements, runs twice
       path.getElements().add(new MoveTo(listNode.get(0).getX(), listNode.get(0).getY()));
 
       for (int i = 1; i < listNode.size(); i++) {
@@ -458,10 +464,13 @@ public class Map {
         }
 
         if (!isConnectedToPrev) {
-          path.setStrokeLineJoin(StrokeLineJoin.ROUND);
+          ArrayList<Node> subSection = new ArrayList<>(listNode.subList(i, listNode.size()));
+          subsectionListNodes = subSection;
+          break;
         }
         // path.getElements().add(new LineTo(listNode.get(i).getX(), listNode.get(i).getY()));
       }
+      path.setStrokeLineJoin(StrokeLineJoin.ROUND);
       shapes.add(path);
     }
 
@@ -487,22 +496,6 @@ public class Map {
         shapes.addAll(newShapes);
 
       } else if (i == listNode.size() - 1) {
-        //        c =
-        //            new Circle(
-        //                listNode.get(i).getX(),
-        //                listNode.get(i).getY(),
-        //                GlobalVariables.getCircleR() + GlobalVariables.getStrokeThickness());
-        //        c.setFill(GlobalVariables.getBorderColor());
-        //        shapes.add(c);
-
-        //        c =
-        //            new Circle(
-        //                listNode.get(i).getX(), listNode.get(i).getY(),
-        // GlobalVariables.getCircleR());
-        //        c.setFill(GlobalVariables.getInsideColor());
-        //        shapes.add(c);
-
-        //        listNode.get(i).getY(),
 
         ArrayList<Shape> newShapes = new ArrayList<>();
 
@@ -521,6 +514,10 @@ public class Map {
 
         shapes.addAll(newShapes);
       }
+    }
+
+    if (flag && subsectionListNodes.size() > 0) {
+      shapes.addAll(makeShapePathFloor(subsectionListNodes, floor, false));
     }
     prevPath.addAll(shapes);
     return shapes;
