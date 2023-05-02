@@ -61,6 +61,9 @@
     -fx-background-color: #D9E3F8;
     -fx-text-fill: #121C2B;
 }
+.secondary-text-container{
+    -fx-text-fill: #121C2B;
+}
 .tertiary{
     -fx-background-color: #7A5900;
     -fx-text-fill: #FFFFFF;
@@ -80,6 +83,13 @@
 .outline{
     -fx-border-color: #6F797A;
 }
+
+.separator *.line{
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+    -fx-border-color: #6F797A;
+}
+
 .primary-fixed-dim{
     -fx-background-color: #A7C8FF;
     -fx-text-fill: #001B3B;
@@ -126,6 +136,7 @@
 
 .text-area{
     -fx-control-inner-background: #D5E3FF;
+    -fx-text-fill:  #001B3B;
     -fx-border-radius: 8;
     -fx-border-color: #6F797A;
     -fx-border-width: 1;
@@ -137,3 +148,9 @@
     -fx-background-radius: 8;
     -fx-min-height: 60;
 }
+/*.logo{*/
+/*    -fx-background-image: url("../resources/edu/wpi/teamname/images/Logos/LoginLogoIteration1.png");*/
+/*    -fx-background-position: center;*/
+/*    -fx-background-repeat: no-repeat;*/
+/*    -fx-background-size: 100% 100%;*/
+/*}*/

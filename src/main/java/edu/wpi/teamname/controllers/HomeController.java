@@ -1,12 +1,12 @@
 package edu.wpi.teamname.controllers;
 
-import edu.wpi.teamname.App;
-import edu.wpi.teamname.GlobalVariables;
-import edu.wpi.teamname.Navigation;
-import edu.wpi.teamname.Screen;
+import edu.wpi.teamname.*;
 import edu.wpi.teamname.alerts.Alert;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
+import edu.wpi.teamname.employees.EmployeeType;
+import edu.wpi.teamname.extras.Joke;
+import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.navigation.Move;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -26,6 +26,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
 import lombok.Getter;
 import lombok.Setter;
 import org.controlsfx.control.PopOver;
@@ -54,12 +55,13 @@ public class HomeController {
   @FXML MFXButton viewSignageButton;
   @FXML MFXButton editSignageButton;
   @FXML MFXButton requestRoomButton;
+  @FXML MFXButton viewConfrenceRoomButton;
   @FXML MFXButton viewAlertsButton; // TAKE OUT LATER
 
   @FXML MFXButton activeRequests;
   @FXML MFXButton upcomingMoves;
   @FXML MFXButton doneRequests;
-  @FXML MFXButton dataButton;
+  @FXML MFXButton settingsButton;
   @FXML MFXButton serviceRequestAnalyticsButton;
 
   // test push
@@ -70,9 +72,12 @@ public class HomeController {
   @FXML MFXButton loginButton;
   @FXML MFXButton logoutButton;
   @FXML MFXButton editMoveButton;
+  @FXML Label jokesLabel;
+  @FXML Label jokeIDLabel;
 
   /** logs the current user out of the application */
   private void logout() {
+    Sound.playOnButtonClick();
     loggedIn = new SimpleBooleanProperty(false);
     loginButton.setVisible(true);
     logoutButton.setVisible(false);
@@ -94,7 +99,7 @@ public class HomeController {
     upcomingMoves.setVisible(false);
     doneRequests.setVisible(false);
     editSignageButton.setVisible(false);
-    dataButton.setVisible(false);
+    settingsButton.setVisible(true);
     showRequestsButton.setManaged(false);
     editMapButton.setManaged(false);
     editMoveButton.setManaged(false);
@@ -106,16 +111,18 @@ public class HomeController {
     actionVBox.setManaged(false);
     SRVBox.setManaged(false);
     editSignageButton.setManaged(false);
-    dataButton.setManaged(false);
+    settingsButton.setManaged(true);
   }
 
   @FXML
-  public void initialize() throws SQLException {
+  public void initialize() throws SQLException, IOException {
+    ThemeSwitch.switchTheme(rootPane);
 
     EventHandler<MouseEvent> NotificationPopupEvent =
         new EventHandler<MouseEvent>() {
           @Override
           public void handle(MouseEvent event) {
+            Sound.playOnButtonClick();
             ObservableList<Alert> alertList = null;
 
             MFXButton createNewButton = ((MFXButton) event.getSource());
@@ -144,10 +151,16 @@ public class HomeController {
                             .filter(
                                 (alert) ->
                                     alert
-                                        .getType()
-                                        .toString()
-                                        .equals(
-                                            GlobalVariables.getCurrentUser().getType().toString()))
+                                            .getType()
+                                            .toString()
+                                            .equals(
+                                                GlobalVariables.getCurrentUser()
+                                                    .getType()
+                                                    .toString())
+                                        || alert
+                                            .getType()
+                                            .toString()
+                                            .equals(EmployeeType.ALL.toString()))
                             .toList());
                 alertList =
                     FXCollections.observableList(
@@ -247,6 +260,10 @@ public class HomeController {
     // Lambda Expression. parameter -> expression
     // Basically just runs the Navigation.navigate Function
     // "event" is a parameter, but there is no
+    Joke joke = Joke.getJoke(0);
+    jokeIDLabel.setText("Joke #" + Integer.toString(joke.getId()));
+    jokesLabel.setText(joke.toString());
+
     helpButton.setVisible(false);
     if (loggedIn.getValue()) {
       loginButton.setVisible(false);
@@ -299,6 +316,7 @@ public class HomeController {
     //    homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
 
     //        helpButton.setOnMouseClicked(event -> Navigation.navigate(Screen));
+
     disableButtonsWhenLoggedOut();
 
     /** * Disables all the buttons that can not be accessed as Staff */
@@ -375,8 +393,8 @@ public class HomeController {
       SRVBox.setManaged(true);
       editSignageButton.setVisible(true);
       editSignageButton.setManaged(true);
-      dataButton.setVisible(true);
-      dataButton.setManaged(true);
+      settingsButton.setVisible(true);
+      settingsButton.setManaged(true);
     }
 
     upcomingMoves.setOnMouseClicked(
@@ -401,6 +419,7 @@ public class HomeController {
     editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
     exitButton.setOnMouseClicked(
         event -> {
+          Sound.playOnButtonClick();
           try {
             Connection connection = DataManager.DbConnection();
             connection.close();
@@ -415,12 +434,13 @@ public class HomeController {
     viewSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
     viewAlertsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERT));
     requestRoomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CONFERENCE_ROOM));
-    dataButton.setOnMouseClicked(event -> Navigation.navigate(Screen.DATA_MANAGER));
     notificationPopupButtonSimple.setOnMouseClicked(NotificationPopupEvent);
     aboutButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ABOUT));
+    settingsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SETTINGS));
     creditButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CREDITS));
     serviceRequestAnalyticsButton.setOnMouseClicked(
         event -> Navigation.navigate(Screen.SERVICE_REQUEST_ANALYTICS));
+    viewConfrenceRoomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CONF_VIEW));
     //    notifsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERT));
   }
 }

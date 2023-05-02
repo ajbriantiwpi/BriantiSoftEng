@@ -3,6 +3,7 @@ package edu.wpi.teamname.navigation;
 import edu.wpi.teamname.App;
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.extras.Sound;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -385,6 +386,7 @@ public class NodeCircle {
   EventHandler<MouseEvent> boxVisible =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
+          Sound.playOnButtonClick();
           MFXButton button = ((MFXButton) event.getSource());
           //        p.setOpacity(1);
 
@@ -485,6 +487,7 @@ public class NodeCircle {
   EventHandler<MouseEvent> startMoveNode =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
+          Sound.playOnButtonClick();
           //          System.out.println("SMN");
 
           if (map.getMovingNodeId() == -1) {
@@ -498,6 +501,7 @@ public class NodeCircle {
   EventHandler<MouseEvent> startCreateEdge =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
+          Sound.playOnButtonClick();
           System.out.println("SCE");
 
           if (map.getStartEdgeNodeId() == -1) {
@@ -505,27 +509,30 @@ public class NodeCircle {
           } else {
             // addEdge
             //            map.getStartEdgeNodeId(); nodeID;
-            Edge e = new Edge(map.getStartEdgeNodeId(), nodeID);
 
-            try {
-              DataManager.addEdge(e);
-              map.setCurrentDisplayFloor(map.getCurrentDisplayFloor());
-              //              changeFloor();
-            } catch (SQLException ex) {
-              System.out.println(ex);
-              //            throw new RuntimeException(ex);
-            } catch (IOException ex) {
-              throw new RuntimeException(ex);
-            }
+            if (map.getStartEdgeNodeId() != nodeID) {
 
-            map.setStartEdgeNodeId(-1);
+              Edge e = new Edge(map.getStartEdgeNodeId(), nodeID);
+              try {
+                DataManager.addEdge(e);
+                map.setCurrentDisplayFloor(map.getCurrentDisplayFloor());
+                //              changeFloor();
+              } catch (SQLException ex) {
+                System.out.println(ex);
+                //            throw new RuntimeException(ex);
+              } catch (IOException ex) {
+                throw new RuntimeException(ex);
+              }
 
-            try {
-              map.refresh();
-            } catch (SQLException ex) {
-              throw new RuntimeException(ex);
-            } catch (IOException ex) {
-              throw new RuntimeException(ex);
+              map.setStartEdgeNodeId(-1);
+
+              try {
+                map.refresh();
+              } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+              } catch (IOException ex) {
+                throw new RuntimeException(ex);
+              }
             }
           }
         }
@@ -548,6 +555,7 @@ public class NodeCircle {
   EventHandler<MouseEvent> startAlign =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
+          Sound.playOnButtonClick();
           System.out.println("SA");
           addSelfToAlign();
         }
@@ -556,6 +564,7 @@ public class NodeCircle {
   EventHandler<MouseEvent> align =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
+          Sound.playOnButtonClick();
           System.out.println("A");
           addSelfToAlign();
           //          System.out.println(map.getAlignSelection().size());
@@ -653,13 +662,13 @@ public class NodeCircle {
           MFXButton createEdgeButton =
               (MFXButton) ((Pane) (nodeBox.getChildren().get(2))).getChildren().get(0);
           createEdgeButton.setOnMouseClicked(startCreateEdge);
-          if (map.getStartEdgeNodeId() != -1) {
+          if (map.getStartEdgeNodeId() != -1 && map.getStartEdgeNodeId() != nodeID) {
             editNodeButton.getStyleClass().remove("primary");
             editNodeButton.getStyleClass().add("primary-container");
 
             createEdgeButton.getStyleClass().remove("primary-container");
             createEdgeButton.getStyleClass().add("primary");
-            createEdgeButton.setText("Compleate Edge");
+            createEdgeButton.setText("Complete Edge");
           }
 
           MFXButton addAlignButton =
@@ -697,6 +706,7 @@ public class NodeCircle {
   EventHandler<MouseEvent> removeNode =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
+          Sound.playOnButtonClick();
           System.out.println("REM");
 
           // Only the Node ID is important for Deletion
@@ -821,6 +831,7 @@ public class NodeCircle {
   EventHandler<MouseEvent> saveNodeChanges =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
+          Sound.playOnButtonClick();
           MFXButton SubmitButton = ((MFXButton) event.getSource());
           VBox v = (VBox) ((HBox) SubmitButton.getParent()).getParent();
 

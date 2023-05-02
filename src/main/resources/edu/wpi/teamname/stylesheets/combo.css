@@ -1,7 +1,7 @@
 .combo-box-popup .list-view {
     -fx-font-size: 28px;
     -fx-font-family: Roboto;
-    -fx-line-height: 36px;
+    /*-fx-line-height: 36px;*/
     /*-fx-background-color: #D5E3FF;
     -fx-text-fill: #001B3B;*/
     -fx-background-radius: 8;

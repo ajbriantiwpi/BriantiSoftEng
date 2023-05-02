@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import org.controlsfx.control.*?>
+
+<!--        style="-fx-background-color: #D9E3F8;" -->
+
+<AnchorPane fx:id="root" styleClass="surface-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ConfrenceViewController">
+    <children>
+        <HBox style="-fx-background-radius: 16;" styleClass="surface-container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="surface-container" HBox.hgrow="ALWAYS">
+            <content>
+                  <VBox styleClass="surface-container">
+                      <children>
+                     <VBox spacing="16.0" styleClass="surface-container">
+                        <children>
+                           <VBox spacing="12.0">
+                              <children>
+                                 <Label styleClass="primary-text-container" text="Filter Table" textFill="#001b3b">
+                                    <font>
+                                       <Font name="Roboto" size="32.0" />
+                                    </font>
+                                    <VBox.margin>
+                                       <Insets bottom="4.0" />
+                                    </VBox.margin>
+                                 </Label>
+                                 <Label styleClass="primary-text-container" text="Date" textFill="#001b3b">
+                                    <font>
+                                        <Font name="Roboto" size="28.0" />
+                                    </font>
+                                    <VBox.margin>
+                                       <Insets />
+                                    </VBox.margin>
+                                 </Label>
+                                 <DatePicker fx:id="dateBox" maxWidth="500.0" styleClass="text-field" stylesheets="@../stylesheets/dateBox.css" />
+                                 <MFXButton fx:id="refreshButton" styleClass="primary-container" stylesheets="@../stylesheets/button.css" text="Refresh" />
+                                 <Label text="Assigned Staff" textFill="#001b3b">
+                                    <font>
+                                       <Font name="Roboto" size="28.0" />
+                                    </font>
+                                    <styleClass>
+                                       <String fx:value="primary-text-container" />
+                                       <String fx:value="headline-med" />
+                                    </styleClass>
+                                 </Label>
+                                 <SearchableComboBox fx:id="requestStaffCombo" prefHeight="71.0" prefWidth="396.0" promptText="Choose Staff" stylesheets="@../stylesheets/combo.css" />
+                              </children>
+                              <VBox.margin>
+                                 <Insets bottom="12.0" top="12.0" />
+                              </VBox.margin>
+                              <padding>
+                                 <Insets left="12.0" right="12.0" />
+                              </padding>
+                           </VBox>
+                           <VBox spacing="12.0" style="-fx-background-radius: 16;" styleClass="surface-container-highest">
+                              <children>
+                                 <Label text="Assign Staff to Reservation" textFill="#001b3b">
+                                    <font>
+                                       <Font name="Roboto" size="32.0" />
+                                    </font>
+                                    <VBox.margin>
+                                       <Insets bottom="4.0" />
+                                    </VBox.margin>
+                                    <styleClass>
+                                       <String fx:value="primary-text-container" />
+                                       <String fx:value="headline-large" />
+                                    </styleClass>
+                                 </Label>
+                                 <Label text="Reservation ID" textFill="#001b3b">
+                                    <font>
+                                        <Font name="Roboto" size="28.0" />
+                                    </font>
+                                    <VBox.margin>
+                                       <Insets />
+                                    </VBox.margin>
+                                    <styleClass>
+                                       <String fx:value="primary-text-container" />
+                                       <String fx:value="headline-med" />
+                                    </styleClass>
+                                 </Label>
+                                 <SearchableComboBox fx:id="reservationIDText" prefHeight="71.0" prefWidth="396.0" promptText="Select Reservation ID" stylesheets="@../stylesheets/combo.css">
+                                    <VBox.margin>
+                                       <Insets bottom="4.0" />
+                                    </VBox.margin>
+                                 </SearchableComboBox>
+                                 <Label text="Assign Staff" textFill="#001b3b">
+                                    <font>
+                                        <Font name="Roboto" size="28.0" />
+                                    </font>
+                                    <VBox.margin>
+                                       <Insets />
+                                    </VBox.margin>
+                                    <styleClass>
+                                       <String fx:value="primary-text-container" />
+                                       <String fx:value="headline-med" />
+                                    </styleClass>
+                                 </Label>
+                                 <SearchableComboBox fx:id="assignStaffText" prefHeight="71.0" prefWidth="396.0" promptText="Select Staff" stylesheets="@../stylesheets/combo.css">
+                                    <VBox.margin>
+                                       <Insets bottom="4.0" />
+                                    </VBox.margin>
+                                 </SearchableComboBox>
+                                 <MFXButton fx:id="submitButton" minWidth="150.0" stylesheets="@../stylesheets/button.css" text="Assign">
+                                    <font>
+                                       <Font name="Roboto" size="36.0" />
+                                    </font>
+                                    <styleClass>
+      <!--                                 <String fx:value="display-med" />-->
+                                       <String fx:value="primary" />
+                                       <String fx:value="outline" />
+                                        <String fx:value="small-text" />
+                                    </styleClass>
+                                 </MFXButton>
+                              </children>
+                              <padding>
+                                 <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+                              </padding>
+                           </VBox>
+                        </children>
+                        <padding>
+                           <Insets left="12.0" right="12.0" />
+                        </padding>
+                     </VBox>
+                      </children>
+                  </VBox>
+            </content>
+         </ScrollPane>
+            <StackPane>
+                <HBox.margin>
+                    <Insets right="10.0" />
+                </HBox.margin>
+                <children>
+                    <TableView fx:id="table" editable="true" styleClass="surface" stylesheets="@../stylesheets/TableViewStuff.css">
+                        <columns>
+                            <TableColumn fx:id="resIDCol" minWidth="0.0" prefWidth="148.5" text="Reservation ID" />
+                            <TableColumn fx:id="dateCol" prefWidth="148.5" text="Datebook" />
+                            <TableColumn fx:id="startCol" prefWidth="148.5" text="Start Time" />
+                            <TableColumn fx:id="endCol" prefWidth="148.5" text="End Time" />
+                            <TableColumn fx:id="nameCol" prefWidth="148.5" text="Name" />
+                            <TableColumn fx:id="usernameCol" prefWidth="148.5" text="username" />
+                            <TableColumn fx:id="assignedStaffCol" prefWidth="148.5" text="Assigned Staff" />
+                            <TableColumn fx:id="madeCol" prefWidth="148.5" text="Date Made" />
+                     <TableColumn fx:id="roomCol" prefWidth="148.5" text="Room ID" />
+<!--                            styleClass="primary-container"-->
+<!--                            styleClass="primary-fixed-dim"-->
+                        </columns>
+                    </TableView>
+                </children>
+            </StackPane>
+        </HBox>
+    </children>
+   <stylesheets>
+      <URL value="@../stylesheets/Colors/lightTheme.css" />
+      <URL value="@../stylesheets/Colors/darkTheme.css" />
+   </stylesheets>
+</AnchorPane>

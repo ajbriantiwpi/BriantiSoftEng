@@ -2,10 +2,12 @@ package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.App;
 import edu.wpi.teamname.GlobalVariables;
-import edu.wpi.teamname.controllers.JFXitems.DatePickerEditingCell;
+import edu.wpi.teamname.ThemeSwitch;
+import edu.wpi.teamname.controllers.helpers.DatePickerEditingCell;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.database.MoveDAOImpl;
 import edu.wpi.teamname.employees.ClearanceLevel;
+import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.navigation.Move;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.File;
@@ -25,11 +27,18 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.util.converter.IntegerStringConverter;
 
+/**
+ * This class represents a controller for the Move Table GUI, which allows users to view, add, edit,
+ * and delete move data. It initializes the GUI and sets up event handlers for various GUI
+ * components.
+ */
 public class MoveTableController {
+  @FXML AnchorPane root;
   @FXML private TableView<Move> moveTable;
   @FXML private Button importButton;
 
@@ -42,7 +51,9 @@ public class MoveTableController {
   @FXML private CheckBox newMovesCheck;
   @FXML private VBox adminMoveView;
 
+  /** Initializes the GUI and sets up event handlers for various GUI components. */
   public void initialize() {
+    ThemeSwitch.switchTheme(root);
     DataManager moveDAO = new DataManager();
 
     // Implement to disable buttons for staff
@@ -52,7 +63,7 @@ public class MoveTableController {
     //      // EXTEND TABLEVIEW SOMEHOW
     //    }
 
-    ParentController.titleString.set("Move Edit Table");
+    ParentController.titleString.set("Move Editor");
     TableColumn<Move, Integer> nodeIDColumn = new TableColumn<>("Node ID");
     nodeIDColumn.setCellValueFactory(new PropertyValueFactory<>("nodeID"));
 
@@ -84,6 +95,7 @@ public class MoveTableController {
     }
     importButton.setOnAction(
         event -> {
+          Sound.playOnButtonClick();
           FileChooser fileChooser = new FileChooser();
           fileChooser.setTitle("Select CSV File");
           fileChooser
@@ -105,6 +117,7 @@ public class MoveTableController {
     // event handler for export button
     exportButton.setOnAction(
         event -> {
+          Sound.playOnButtonClick();
           FileChooser fileChooser = new FileChooser();
           fileChooser.setTitle("Save CSV File");
           fileChooser.setInitialFileName("moves.csv");
@@ -122,6 +135,7 @@ public class MoveTableController {
         });
     newMovesCheck.setOnAction(
         event -> {
+          Sound.playOnButtonClick();
           if (newMovesCheck.isSelected()) {
             ObservableList<Move> allMoves = moveTable.getItems();
             ObservableList<Move> filteredMoves = FXCollections.observableArrayList();
@@ -147,6 +161,7 @@ public class MoveTableController {
     setupRowFactory();
     submitButton.setOnAction(
         event -> {
+          Sound.playOnButtonClick();
           int nodeId = Integer.parseInt(nodeIdTextField.getText());
           String longName = longNameTextField.getText();
           LocalDate localDate = datePicker.getValue();
@@ -269,6 +284,14 @@ public class MoveTableController {
     submitButton.disableProperty().bind(Bindings.isNull(datePicker.valueProperty()));
   }
 
+  /**
+   * Filters the moveTable based on a search string, showing only moves that match the search
+   * criteria.
+   *
+   * <p>If the search string is empty or null, shows all moves in the table.
+   *
+   * @param searchText the string to search for in the table
+   */
   private void filterTable(String searchText) {
     DataManager moveDAO = new DataManager();
     if (searchText == null || searchText.isEmpty()) {
@@ -294,6 +317,7 @@ public class MoveTableController {
     }
   }
 
+  /** Sets up the row factory for the moveTable to enable context menu and delete functionality. */
   private void setupRowFactory() {
     moveTable.setRowFactory(
         tableView -> {

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="800.0" styleClass="surface" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.SettingsController">
+   <children>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="203.0" prefWidth="475.0" AnchorPane.bottomAnchor="397.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox layoutX="10.0" layoutY="10.0" prefHeight="357.0" prefWidth="516.0" AnchorPane.bottomAnchor="-104.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="274.0" AnchorPane.topAnchor="10.0">
+               <children>
+                  <Label prefHeight="40.0" prefWidth="1110.0" stylesheets="@../stylesheets/RowLabel.css" text="Hardware Settings">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+
+                     <styleClass>
+                        <String fx:value="primary-text" />
+                        <String fx:value="display-med" />
+                     </styleClass>
+
+                  </Label>
+                  <Label stylesheets="@../stylesheets/RowLabel.css" text="Volume">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+
+                     <styleClass>
+                        <String fx:value="primary-text" />
+                        <String fx:value="headline-large" />
+                     </styleClass>
+             ]
+                        </Label>
+                  <Slider fx:id="volumeSlide" blockIncrement="0.1" max="1.0" prefHeight="24.0" prefWidth="261.0" showTickMarks="true" value="0.5">
+
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Slider>
+                  <Label stylesheets="@../stylesheets/RowLabel.css" text="Choose Song">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+
+                     <styleClass>
+                        <String fx:value="primary-text" />
+                        <String fx:value="headline-large" />
+                     </styleClass>
+
+                  </Label>
+                  <ComboBox fx:id="songCombo" minHeight="31.0" prefHeight="31.0" prefWidth="165.0" stylesheets="@../stylesheets/comboSmall.css">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </ComboBox>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </VBox>
+         </children>
+      </AnchorPane>
+      <VBox layoutX="15.0" layoutY="300.0" prefHeight="256.0" prefWidth="616.0" spacing="10.0" AnchorPane.bottomAnchor="44.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="169.0" AnchorPane.topAnchor="300.0">
+         <children>
+            <Label fx:id="appSettingsLabel" prefHeight="19.0" prefWidth="596.0" stylesheets="@../stylesheets/RowLabel.css" text="App Settings">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="40.0" />
+               </VBox.margin>
+               <styleClass>
+                  <String fx:value="primary-text" />
+                  <String fx:value="headline-large" />
+               </styleClass>
+            </Label>
+            <HBox prefHeight="64.0" prefWidth="472.0">
+               <children>
+                  <MFXButton fx:id="dataManageButton" prefHeight="51.0" prefWidth="150.0" stylesheets="@../stylesheets/button.css" text="Data">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                     <styleClass>
+                        <String fx:value="primary" />
+                        <String fx:value="headline-small" />
+                     </styleClass>
+                  </MFXButton>
+                  <MFXButton fx:id="feedbackButton" prefHeight="51.0" prefWidth="150.0" stylesheets="@../stylesheets/button.css" text="Feedback">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                     <styleClass>
+                        <String fx:value="primary" />
+                        <String fx:value="headline-small" />
+                     </styleClass>
+                  </MFXButton>
+                  <MFXButton fx:id="viewFeedbackButton" layoutX="190.0" layoutY="20.0" prefHeight="51.0" prefWidth="236.0" stylesheets="@../stylesheets/button.css" text="View Feedback">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                     <styleClass>
+                        <String fx:value="primary" />
+                        <String fx:value="headline-small" />
+                     </styleClass>
+                  </MFXButton>
+               </children>
+            </HBox>
+            <Label fx:id="dbConnectionLabel" prefHeight="40.0" prefWidth="1110.0" stylesheets="@../stylesheets/RowLabel.css" text="Database Connection">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+               <styleClass>
+                  <String fx:value="primary-text" />
+                  <String fx:value="headline-large" />
+               </styleClass>
+            </Label>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <RadioButton fx:id="wpiButton" mnemonicParsing="false" styleClass="primary-text-container" text="WPI">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </RadioButton>
+                  <RadioButton fx:id="awsButton" mnemonicParsing="false" styleClass="primary-text-container" text="AWS">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </RadioButton>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+   <stylesheets>
+      <URL value="@../stylesheets/Colors/lightTheme.css" />
+      <URL value="@../stylesheets/Colors/darkTheme.css" />
+   </stylesheets>
+</AnchorPane>
