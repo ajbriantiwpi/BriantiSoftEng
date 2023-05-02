@@ -6,6 +6,7 @@ import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import java.io.File;
 import java.io.IOException;
@@ -186,7 +187,7 @@ public class EmployeeTableController {
 
     exportButton.setOnAction(
         event -> {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           FileChooser fileChooser = new FileChooser();
           fileChooser.setTitle("Save CSV File");
           fileChooser.setInitialFileName("employees.csv");
@@ -205,7 +206,7 @@ public class EmployeeTableController {
 
     importButton.setOnAction(
         event -> {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           FileChooser fileChooser = new FileChooser();
           fileChooser.setTitle("Select CSV File");
           fileChooser
@@ -336,7 +337,7 @@ public class EmployeeTableController {
    */
   @FXML
   private void handleSubmitButton() {
-    Sound.playOnButtonClick();
+
     try {
       DataManager employeeDAO = new DataManager();
       int employeeIDInput = Integer.parseInt(employeeIDField.getText());
@@ -364,11 +365,12 @@ public class EmployeeTableController {
 
       // Validate the password using checkLegalLogin method
       if (employee.checkLegalLogin(password)) {
+
         // employee.addType(employeeType);
         // employeeDAO.addEmployeeType(username, employeeType);
         employeeDAO.addEmployee(employee);
         employeeTable.getItems().add(employee);
-
+        Sound.playSFX(SFX.SUCCESS);
         // Clear the input fields
         employeeFirstNameTextField.clear();
         employeeIDField.clear();
@@ -377,6 +379,7 @@ public class EmployeeTableController {
         employeePasswordTextField.clear();
       } else {
         // Display an error message if password validation fails
+        Sound.playSFX(SFX.ERROR);
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText("Invalid Password");
@@ -390,6 +393,7 @@ public class EmployeeTableController {
       }
     } catch (Exception e) {
       // Display an error message if an exception occurs
+      Sound.playSFX(SFX.ERROR);
       Alert alert = new Alert(Alert.AlertType.ERROR);
       alert.initOwner(App.getPrimaryStage());
       alert.setTitle("Error");

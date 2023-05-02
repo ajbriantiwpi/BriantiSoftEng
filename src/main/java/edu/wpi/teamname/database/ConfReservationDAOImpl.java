@@ -30,7 +30,7 @@ public class ConfReservationDAOImpl implements ConfReservationDAO {
       rs.next();
       resID = rs.getInt("resID") + 1;
     } catch (SQLException e) {
-      System.out.println(e.getMessage());
+      System.err.println(e.getMessage());
     }
     return resID;
   }
