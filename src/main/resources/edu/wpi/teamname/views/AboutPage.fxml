@@ -84,7 +84,7 @@
                      <children>
                         <VBox fx:id="memberVBox" prefHeight="470.0" prefWidth="826.0">
                            <children>
-                              <Label text=" Ian Wright">
+                              <Label styleClass="primary-text-container" text=" Ian Wright">
                                  <graphic>
                                     <StackPane>
                                        <children>
@@ -107,7 +107,7 @@
                                     <Insets left="5.0" />
                                  </VBox.margin>
                               </Label>
-                              <Label text=" Jason Kardon">
+                              <Label styleClass="primary-text-container" text=" Jason Kardon">
                                  <font>
                                     <Font size="30.0" />
                                  </font>
@@ -130,7 +130,7 @@
                                     </StackPane>
                                  </graphic>
                               </Label>
-                              <Label text=" Alessandro Brianti">
+                              <Label styleClass="primary-text-container" text=" Alessandro Brianti">
                                  <graphic>
                                     <StackPane>
                                        <children>
@@ -153,7 +153,7 @@
                                     <Font size="30.0" />
                                  </font>
                               </Label>
-                              <Label text=" Adelynn Martin">
+                              <Label styleClass="primary-text-container" text=" Adelynn Martin">
                                  <graphic>
                                     <StackPane>
                                        <children>
@@ -176,7 +176,7 @@
                                     <Font size="30.0" />
                                  </font>
                               </Label>
-                              <Label text=" Aleksandr Samarin">
+                              <Label styleClass="primary-text-container" text=" Aleksandr Samarin">
                                  <graphic>
                                     <StackPane>
                                        <children>
@@ -199,7 +199,7 @@
                                     <Font size="30.0" />
                                  </font>
                               </Label>
-                              <Label text=" Samuel Markwick">
+                              <Label styleClass="primary-text-container" text=" Samuel Markwick">
                                  <graphic>
                                     <StackPane>
                                        <children>
@@ -231,7 +231,7 @@
                   </VBox>
                   <VBox prefHeight="507.0" prefWidth="335.0">
                      <children>
-                        <Label prefHeight="70.0" prefWidth="327.0" text=" Ryan Offstein">
+                        <Label prefHeight="70.0" prefWidth="327.0" styleClass="primary-text-container" text=" Ryan Offstein">
                            <graphic>
                               <StackPane>
                                  <children>
@@ -254,7 +254,7 @@
                               <Font size="30.0" />
                            </font>
                         </Label>
-                        <Label text=" Conor Slattery">
+                        <Label styleClass="primary-text-container" text=" Conor Slattery">
                            <graphic>
                               <StackPane style="-fx-background-color: transparent;">
                                  <children>
@@ -277,7 +277,7 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                         </Label>
-                        <Label text=" Hunter Poulin">
+                        <Label styleClass="primary-text-container" text=" Hunter Poulin">
                            <graphic>
                               <StackPane>
                                  <children>
@@ -300,7 +300,7 @@
                               <Font size="30.0" />
                            </font>
                         </Label>
-                        <Label text=" Arturo Lemos">
+                        <Label styleClass="primary-text-container" text=" Arturo Lemos">
                            <graphic>
                               <StackPane>
                                  <children>
@@ -323,7 +323,7 @@
                               <Font size="30.0" />
                            </font>
                         </Label>
-                        <Label text=" Andrew Cash">
+                        <Label styleClass="primary-text-container" text=" Andrew Cash">
                            <graphic>
                               <StackPane>
                                  <children>
