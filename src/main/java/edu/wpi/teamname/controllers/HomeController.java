@@ -24,6 +24,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.layout.AnchorPane;
@@ -114,9 +115,45 @@ public class HomeController {
     settingsButton.setManaged(true);
   }
 
+  private ImageView getSizedGraphic(String url) {
+    ImageView imageView = new ImageView(url);
+    imageView.setFitHeight(48);
+    imageView.setFitWidth(48);
+    return imageView;
+  }
+
   @FXML
   public void initialize() throws SQLException, IOException {
     ThemeSwitch.switchTheme(rootPane);
+
+    if (!GlobalVariables.getDarkMode().get()) {
+      makeRequestsButton.setGraphic(
+          getSizedGraphic("edu/wpi/teamname/images/MenuIcons/light/assignment.png"));
+      showRequestsButton.setGraphic(
+          getSizedGraphic("edu/wpi/teamname/images/MenuIcons/light/edit_note.png"));
+      serviceRequestAnalyticsButton.setGraphic(
+          getSizedGraphic("edu/wpi/teamname/images/MenuIcons/light/add_chart.png"));
+
+      requestRoomButton.setGraphic(
+          getSizedGraphic("edu/wpi/teamname/images/MenuIcons/light/meeting_room.png"));
+      viewConfrenceRoomButton.setGraphic(
+          getSizedGraphic("edu/wpi/teamname/images/MenuIcons/light/room_preferences.png"));
+      viewAlertsButton.setGraphic(
+          getSizedGraphic("edu/wpi/teamname/images/MenuIcons/light/circle_notifications.png"));
+      employeeButton.setGraphic(
+          getSizedGraphic("edu/wpi/teamname/images/MenuIcons/light/badge.png"));
+
+      mapButton.setGraphic(getSizedGraphic("edu/wpi/teamname/images/MenuIcons/light/map.png"));
+      editMapButton.setGraphic(
+          getSizedGraphic("edu/wpi/teamname/images/MenuIcons/light/edit_location_alt.png"));
+      editMoveButton.setGraphic(
+          getSizedGraphic("edu/wpi/teamname/images/MenuIcons/light/edit_location.png"));
+
+      viewSignageButton.setGraphic(
+          getSizedGraphic("edu/wpi/teamname/images/MenuIcons/light/directions.png"));
+      editSignageButton.setGraphic(
+          getSizedGraphic("edu/wpi/teamname/images/MenuIcons/light/route.png"));
+    }
 
     EventHandler<MouseEvent> NotificationPopupEvent =
         new EventHandler<MouseEvent>() {
