@@ -781,23 +781,33 @@ public class NodeCircle {
               } catch (IOException ex) {
                 throw new RuntimeException(ex);
               }
+            } else {
+              map.setStartEdgeNodeId(-1);
             }
           }
         }
       };
 
   private void addSelfToAlign() {
-    try {
-      Node n = DataManager.getNode(nodeID);
-      ArrayList<Node> selection = map.getAlignSelection();
-      selection.add(n);
-      //      System.out.println(nodeID);
-      map.setAlignSelection(selection);
-      //      System.out.println(map.getAlignSelection().size());
-      //      System.out.println(map.getAlignSelection());
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
+    //      Node n = DataManager.getNode(nodeID);
+    //      ArrayList<Node> selection = map.getAlignSelection();
+    ArrayList<Integer> selection = map.getAlignSelection();
+
+    int ind = selection.indexOf(nodeID);
+
+    if (ind != -1) {
+      selection.remove(ind);
+    } else {
+      selection.add(nodeID);
     }
+
+    //      System.out.println(nodeID);
+    map.setAlignSelection(selection);
+
+    //      map.refresh();
+
+    //      System.out.println(map.getAlignSelection().size());
+    //      System.out.println(map.getAlignSelection());
   }
 
   EventHandler<MouseEvent> startAlign =
@@ -820,7 +830,18 @@ public class NodeCircle {
 
           float averageX = 0, averageY = 0;
 
-          ArrayList<Node> selection = map.getAlignSelection();
+          //          ArrayList<Node> selection = map.getAlignSelection();
+          ArrayList<Integer> sInt = map.getAlignSelection();
+
+          ArrayList<Node> selection = new ArrayList<>();
+
+          for (Integer i : sInt) {
+            try {
+              selection.add(DataManager.getNode(i));
+            } catch (SQLException e) {
+              throw new RuntimeException(e);
+            }
+          }
 
           for (Node n : selection) {
             averageX += n.getX();
@@ -909,19 +930,29 @@ public class NodeCircle {
 
           MFXButton createEdgeButton =
               (MFXButton) ((Pane) (nodeBox.getChildren().get(2))).getChildren().get(0);
-          createEdgeButton.setOnMouseClicked(startCreateEdge);
-          if (map.getStartEdgeNodeId() != -1 && map.getStartEdgeNodeId() != nodeID) {
-            editNodeButton.getStyleClass().remove("primary");
-            editNodeButton.getStyleClass().add("primary-container");
 
-            createEdgeButton.getStyleClass().remove("primary-container");
-            createEdgeButton.getStyleClass().add("primary");
-            createEdgeButton.setText("Complete Edge");
+          createEdgeButton.setOnMouseClicked(startCreateEdge);
+          if (map.getStartEdgeNodeId() != -1) {
+            if (map.getStartEdgeNodeId() != nodeID) {
+              editNodeButton.getStyleClass().remove("primary");
+              editNodeButton.getStyleClass().add("primary-container");
+
+              createEdgeButton.getStyleClass().remove("primary-container");
+              createEdgeButton.getStyleClass().add("primary");
+              createEdgeButton.setText("Complete Edge");
+            } else {
+              createEdgeButton.setText("Cancel Edge");
+            }
           }
 
           MFXButton addAlignButton =
               (MFXButton) ((Pane) (nodeBox.getChildren().get(3))).getChildren().get(0);
           addAlignButton.setOnMouseClicked(startAlign);
+          //          ArrayList<Node> selection = map.getAlignSelection();
+          ArrayList<Integer> selection = map.getAlignSelection();
+          if (selection.contains(nodeID)) {
+            addAlignButton.setText("Remove from selection");
+          }
 
           if (map.getAlignSelection().size() > 0) {
             MFXButton alignButton =
@@ -939,6 +970,8 @@ public class NodeCircle {
           nodePop = new PopOver(nodeBox);
           nodePop.show(inner);
           nodeBox.setOnMouseExited(event2 -> nodePop.hide());
+
+          event.consume();
         }
       };
 

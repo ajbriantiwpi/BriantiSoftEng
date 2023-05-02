@@ -61,7 +61,8 @@ public class Map {
   @Getter private ArrayList<String> roomTypes = new ArrayList<>();
   @Getter @Setter private boolean[] showTypeLabels = {false}; // HALL
 
-  @Getter @Setter private ArrayList<Node> alignSelection = new ArrayList<>();
+  //  @Getter @Setter private ArrayList<Node> alignSelection = new ArrayList<>();
+  @Getter @Setter private ArrayList<Integer> alignSelection = new ArrayList<>();
 
   @Getter @Setter private int startEdgeNodeId;
   @Getter @Setter private int movingNodeId;
