@@ -5,19 +5,22 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javax.swing.*;
 
 public class ScreenSaver extends Application {
 
-  private static final int WIDTH = 800;
-  private static final int HEIGHT = 600;
+  private static int count = 0;
+  private static double WIDTH;
+  private static double HEIGHT;
   private static final int CIRCLE_RADIUS = 50;
   private static final Color[] COLORS = {Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW};
   private Timeline timeline;
+  private static boolean screenSaverOn = false;
 
   //  private Pane root;
   //  private Scene scene;
@@ -44,40 +47,54 @@ public class ScreenSaver extends Application {
     //    primaryStage.setScene(scene);
     //    primaryStage.show();
 
-    Pane root = new Pane();
-    Scene scene = new Scene(root, WIDTH, HEIGHT);
-    primaryStage.setScene(scene);
-    primaryStage.show();
-    startScreenSaver(root);
+    //    primaryStage.setScene(scene);
+    //    primaryStage.show();
+    startScreenSaver(primaryStage);
   }
 
-  public void startScreenSaver(Pane root) {
-    for (int i = 0; i < 10; i++) {
-      Circle circle = new Circle(CIRCLE_RADIUS, COLORS[i % COLORS.length]);
-      circle.relocate(
-          Math.random() * (WIDTH - 2 * CIRCLE_RADIUS),
-          Math.random() * (HEIGHT - 2 * CIRCLE_RADIUS));
-      root.getChildren().add(circle);
+  public void startScreenSaver(Stage primaryStage) {
+    WIDTH = 35;
+    HEIGHT = 35;
+    System.out.println(WIDTH);
+    System.out.println(HEIGHT);
 
-      timeline =
-          new Timeline(
-              new KeyFrame(
-                  Duration.seconds(1),
-                  e -> {
-                    double dx = Math.random() * 10 - 5;
-                    double dy = Math.random() * 10 - 5;
-                    circle.setLayoutX(circle.getLayoutX() + dx);
-                    circle.setLayoutY(circle.getLayoutY() + dy);
-                  }));
-      timeline.setCycleCount(Animation.INDEFINITE);
-      timeline.play();
-    }
+    ImageView iView = new ImageView("edu/wpi/teamname/images/logo.png");
+
+    iView.setFitHeight(HEIGHT);
+    iView.setFitWidth(WIDTH);
+
+    Pane pane = new Pane(iView);
+    // StackPane sp = App.getRootPane();
+    // sp.getChildren().add(pane);
+
+    Scene scene = new Scene(pane, WIDTH, HEIGHT);//shit balls error
+
+    timeline =
+        new Timeline(
+            new KeyFrame(
+                Duration.seconds(1),
+                e -> {
+                  double x = Math.random() * (primaryStage.getWidth() - iView.getFitWidth());
+                  double y = Math.random() * (primaryStage.getHeight() - iView.getFitHeight());
+                  iView.setLayoutX(x);
+                  iView.setLayoutY(y);
+                }));
+    timeline.setCycleCount(Animation.INDEFINITE);
+    timeline.play();
+    // Scene scene = new Scene(paneRoot, 35, 35, Color.BLACK);
+
+    primaryStage.setScene(scene);
+    primaryStage.show();
+    screenSaverOn = true;
   }
 
   public void stopScreenSaver(Pane root) {
     if (timeline != null) {
       timeline.stop();
     }
-    root.getChildren().removeIf(node -> node instanceof Circle);
+    if (screenSaverOn) {
+      count = 0;
+      root.getChildren().remove(0);
+    }
   }
 }

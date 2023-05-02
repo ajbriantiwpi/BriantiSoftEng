@@ -11,6 +11,8 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -20,7 +22,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class App extends Application {
-
   @Setter @Getter private static Stage primaryStage;
   @Setter @Getter private static BorderPane rootPane;
 
@@ -29,7 +30,7 @@ public class App extends Application {
   boolean flag = false;
   AtomicInteger count = new AtomicInteger();
 
-  //ScreenSaver ss = new ScreenSaver();
+  // ScreenSaver ss = new ScreenSaver();
   private boolean loading;
 
   @Override
@@ -53,37 +54,28 @@ public class App extends Application {
 
     App.rootPane = root;
 
-    final Scene scene = new Scene(root);
-    primaryStage.setScene(scene);
+    final Scene scene2 = new Scene(root);
+    primaryStage.setScene(scene2);
     primaryStage.show();
 
     Navigation.navigate(Screen.HOME);
 
-    // SCREENSAVER PLAYTIME
+    // -------------SCREEN SAVER----------------
 
-    //    Timeline timeline =
-    //        new Timeline(
-    //            new KeyFrame(
-    //                Duration.seconds(5),
-    //                event -> {
-    //                  // Code to be executed after 20 seconds
-    //                  ss.startScreenSaver(root);
-    //                }));
-    //    timeline.play();
-
-    // Create a text node to display the idle time
-
-    // Create an event handler for mouse movement
-    root.setOnMouseMoved(
-        event -> {
-          // Reset the idle timeline when the mouse is moved
-          resetIdleTimeline(root);
-        });
-
-    root.setOnKeyPressed(
-        event -> {
-          resetIdleTimeline(root);
-        });
+    root.getScene()
+        .addEventFilter(
+            KeyEvent.KEY_PRESSED,
+            event -> {
+              // System.out.println(event);
+              resetIdleTimeline(root);
+            });
+    root.getScene()
+        .addEventFilter(
+            MouseEvent.ANY,
+            event -> {
+              // System.out.println(event);
+              resetIdleTimeline(root);
+            });
 
     // Create a timeline to track idle time
     idleTimeline =
@@ -93,16 +85,12 @@ public class App extends Application {
                 event -> {
                   count.getAndIncrement();
                   // Update the idle time display
-                  System.out.println("Time: " + count);
+                  // System.out.println("Time: " + count);
 
                   // Do something when the idle time exceeds a certain duration
-                  if (
-                  /*idleTimeline.getCurrentTime().greaterThanOrEqualTo(Duration.seconds(5)*/ count
-                              .get()
-                          == 5
-                      && !flag) {
+                  if (count.get() == 5 && !flag) {
                     flag = true;
-                    GlobalVariables.getSs().startScreenSaver(root);
+                    GlobalVariables.getSs().startScreenSaver(primaryStage);
                   }
                 }));
     idleTimeline.setCycleCount(Timeline.INDEFINITE);
@@ -111,7 +99,7 @@ public class App extends Application {
 
   private void resetIdleTimeline(BorderPane root) {
     // Stop and restart the idle timeline to reset the idle time
-    System.out.println("This ran");
+    // System.out.println("This ran");
     count.getAndSet(0);
     flag = false;
     GlobalVariables.getSs().stopScreenSaver(root);
@@ -125,9 +113,4 @@ public class App extends Application {
     connection.close();
     log.info("Shutting Down");
   }
-
-  //  public void screenSaver(){//every 5 minutes
-  //    Timer timer;
-  //    timer.schedule(showScreenSaver(), 300000);
-  //  }
 }
