@@ -14,7 +14,7 @@
             <children>
                 <VBox fx:id="adminMoveView" minWidth="240.0" prefHeight="240.0" prefWidth="100.0" spacing="12.0" styleClass="surface-container" HBox.hgrow="SOMETIMES">
                <children>
-                  <Label layoutX="20.0" layoutY="267.0" prefHeight="40.0" prefWidth="228.0" text="Add Move" textFill="#235fa6">
+                  <Label layoutX="20.0" layoutY="267.0" prefHeight="40.0" prefWidth="228.0" styleClass="primary-text-container" text="Add Move" textFill="#235fa6">
                      <font>
                         <Font name="Roboto" size="28.0" />
                      </font>
@@ -22,7 +22,7 @@
                         <Insets />
                      </VBox.margin>
                   </Label>
-                  <Label prefHeight="17.0" prefWidth="124.0" styleClass="primary-text-container" text="Node ID">
+                  <Label prefHeight="17.0" prefWidth="124.0" styleClass="on-suface-text" text="Node ID">
                      <VBox.margin>
                         <Insets top="12.0" />
                      </VBox.margin>
@@ -34,7 +34,7 @@
                      <VBox.margin>
                         <Insets />
                      </VBox.margin></TextField>
-                  <Label layoutX="20.0" layoutY="25.0" prefHeight="40.0" prefWidth="198.0" styleClass="primary-text-container" text="Long Name">
+                  <Label layoutX="20.0" layoutY="25.0" prefHeight="40.0" prefWidth="198.0" styleClass="on-suface-text" text="Long Name">
                      <font>
                         <Font name="Roboto" size="28.0" />
                      </font>
@@ -46,7 +46,7 @@
                      <VBox.margin>
                         <Insets />
                      </VBox.margin></TextField>
-                  <Label layoutX="10.0" layoutY="91.0" prefHeight="40.0" prefWidth="198.0" styleClass="primary-text-container" text="Date">
+                  <Label layoutX="10.0" layoutY="91.0" prefHeight="40.0" prefWidth="198.0" styleClass="on-suface-text" text="Date">
                      <font>
                         <Font name="Roboto" size="28.0" />
                      </font>

@@ -63,7 +63,10 @@ public class ConfrenceViewController {
       reservationList =
           FXCollections.observableList(
               reservationList.stream()
-                  .filter((reservation) -> (reservation.getDateBook().getDate() == date.getDate())&&(reservation.getDateBook().getMonth() == date.getMonth()))
+                  .filter(
+                      (reservation) ->
+                          (reservation.getDateBook().getDate() == date.getDate())
+                              && (reservation.getDateBook().getMonth() == date.getMonth()))
                   .toList());
     }
     if (!(username == (null)) && !(username.toString().equals(""))) {
@@ -228,15 +231,15 @@ public class ConfrenceViewController {
 
     table.setItems(sortedRes);
 
-    if(GlobalVariables.isRequestFromMap()){
+    if (GlobalVariables.isRequestFromMap()) {
       dateBox.setValue(GlobalVariables.getDateFromMap().toLocalDateTime().toLocalDate());
       GlobalVariables.setRequestFromMap(false);
       try {
         // update the table when the status combo box is changed
         table.setItems(
-                tableFilter(
-                        Timestamp.valueOf(dateBox.getValue().atStartOfDay()),
-                        requestStaffCombo.getValue()));
+            tableFilter(
+                Timestamp.valueOf(dateBox.getValue().atStartOfDay()),
+                requestStaffCombo.getValue()));
       } catch (SQLException e) {
         e.printStackTrace();
       }
