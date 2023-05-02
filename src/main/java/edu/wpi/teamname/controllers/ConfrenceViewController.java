@@ -62,7 +62,7 @@ public class ConfrenceViewController {
       reservationList =
           FXCollections.observableList(
               reservationList.stream()
-                  .filter((reservation) -> reservation.getDateBook().getDate() == date.getDate())
+                  .filter((reservation) -> (reservation.getDateBook().getDate() == date.getDate())&&(reservation.getDateBook().getMonth() == date.getMonth()))
                   .toList());
     }
     if (!(username == (null)) && !(username.toString().equals(""))) {

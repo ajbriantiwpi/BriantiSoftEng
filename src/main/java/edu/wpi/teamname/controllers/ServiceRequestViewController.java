@@ -97,7 +97,7 @@ public class ServiceRequestViewController {
         requestList =
             FXCollections.observableList(
                 requestList.stream()
-                    .filter((request) -> request.getDeliverBy().getDate() == date.getDate())
+                    .filter((request) -> (request.getDeliverBy().getDate() == date.getDate())&&(request.getDeliverBy().getMonth() == date.getMonth()))
                     .toList());
       }
     } catch (NullPointerException e) {
