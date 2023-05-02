@@ -3,7 +3,9 @@ package edu.wpi.teamname.navigation;
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.controllers.MapController;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.servicerequest.ConfReservation;
 import edu.wpi.teamname.servicerequest.RoomManager;
+import edu.wpi.teamname.servicerequest.requestitem.ConfRoom;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -89,11 +91,9 @@ public class Map {
     this.graph = new Graph();
     this.currentDisplayFloor = "Lower Level 1";
     this.subAnchor = subAnchor;
-    GlobalVariables.setHMap(
-        DataManager.getAllLocationNamesMappedByNode(new Timestamp(System.currentTimeMillis())));
-    GlobalVariables.setServiceRequests(DataManager.getAllServiceRequests());
-    GlobalVariables.setConfReservations(DataManager.getAllConfReservation());
-    GlobalVariables.setConfRooms(DataManager.getAllConfRoom());
+
+    setGlobalVars(new Timestamp(System.currentTimeMillis()));
+
     this.labelTextType = 1;
     this.isMapPage = isMapPage;
     this.showEdges = !this.isMapPage;
@@ -113,6 +113,20 @@ public class Map {
     //    }
   }
 
+  public void setGlobalVars(Timestamp time) throws SQLException {
+    GlobalVariables.setHMap(DataManager.getAllLocationNamesMappedByNode(time));
+    GlobalVariables.setServiceRequests(DataManager.getAllServiceRequests());
+    GlobalVariables.setConfReservations(DataManager.getAllConfReservation());
+    GlobalVariables.setConfRooms(DataManager.getAllConfRoom());
+
+    ArrayList<ArrayList<ConfReservation>> reses = new ArrayList<>();
+    ArrayList<ConfRoom> confs = GlobalVariables.getConfRooms();
+    for (int i = 0; i < confs.size(); i++) {
+      reses.add(DataManager.getResForRoom(confs.get(i)));
+    }
+    GlobalVariables.setAllRes(reses);
+  }
+
   public boolean getShowLegend() {
     return this.showLegend;
   }
@@ -129,10 +143,10 @@ public class Map {
       throws SQLException, IOException {
     ArrayList<javafx.scene.Node> allCirclesAndEdges = new ArrayList<>();
 
-    System.out.println("E: " + this.showEdges + ", " + this.showNodes);
+    //    System.out.println("E: " + this.showEdges + ", " + this.showNodes);
 
     if (this.showEdges) {
-      System.out.println("ADDEDGES");
+      //      System.out.println("ADDEDGES");
       allCirclesAndEdges.addAll(this.makeAllFloorEdges(floor));
     }
     if (this.showNodes) {
@@ -257,15 +271,16 @@ public class Map {
       throws SQLException, IOException {
     this.currentDisplayFloor = currentDisplayFloor;
 
-    GlobalVariables.setHMap(DataManager.getAllLocationNamesMappedByNode(time));
-    GlobalVariables.setServiceRequests(DataManager.getAllServiceRequests());
-    GlobalVariables.setConfReservations(DataManager.getAllConfReservation());
-    GlobalVariables.setConfRooms(DataManager.getAllConfRoom());
+    // Time
+    this.setGlobalVars(time);
+
+    //    System.out.println("Done");
 
     if (this.isMapPage) {
       Platform.runLater(() -> MapController.updateNames());
     }
 
+    // Time
     subAnchor.getStyleClass().remove(0);
 
     String cssFloorName = this.takeFloor(currentDisplayFloor, true);
@@ -273,20 +288,20 @@ public class Map {
 
     // Delete all nodeCircles
 
-    System.out.println("Change Floor");
-    System.out.println("SubLC:" + subAnchor.getChildren().size());
+    //    System.out.println("Change Floor");
+    //    System.out.println("SubLC:" + subAnchor.getChildren().size());
     //    subAnchor.getChildren();currentFloorNodes;
     if (!this.currentFloorShapes.isEmpty()) {
       for (int i = subAnchor.getChildren().size() - 1; i >= 0; i--) {
         if (this.currentFloorShapes.contains(subAnchor.getChildren().get(i))) {
-          System.out.println("Rem: " + i);
+          //          System.out.println("Rem: " + i);
           subAnchor.getChildren().remove(i);
         }
       }
       //      this.setPrevPath(null);
       this.setCurrentFloorShapes(null);
     }
-    System.out.println("SubLC:" + subAnchor.getChildren().size());
+    //    System.out.println("SubLC:" + subAnchor.getChildren().size());
 
     if (!this.getPrevPath().isEmpty()) {
       for (int i = subAnchor.getChildren().size() - 1; i >= 0; i--) {
@@ -325,12 +340,13 @@ public class Map {
 
     // Re add based on new floor
 
+    // Lots Of time.
     currentFloorShapes = (this.makeAllFloorShapes(shortRealFloorName));
-    System.out.println("SetFloor :" + shortRealFloorName);
+    //    System.out.println("SetFloor :" + shortRealFloorName);
 
-    System.out.println("SubL:" + subAnchor.getChildren().size());
+    //    System.out.println("SubL:" + subAnchor.getChildren().size());
     subAnchor.getChildren().addAll(currentFloorShapes);
-    System.out.println("SubL:" + subAnchor.getChildren().size());
+    //    System.out.println("SubL:" + subAnchor.getChildren().size());
 
     subAnchor.getStyleClass().add(cssFloorName);
   }
@@ -467,11 +483,23 @@ public class Map {
       path.getElements().add(new MoveTo(listNode.get(0).getX(), listNode.get(0).getY()));
 
       for (int i = 1; i < listNode.size(); i++) {
+
+        //        if(hasEdge){
         path.getElements().add(new LineTo(listNode.get(i).getX(), listNode.get(i).getY()));
+        //        }else {
+        // run the rest fo the method to draw the end circles
+        // break out of both for loops. and go to the go to.
+        // save you i index here. Then
+        // Recusively call make shape path floor, with a smaller subset of listNode
+        //        }
+
       }
+
       path.setStrokeLineJoin(StrokeLineJoin.ROUND);
       shapes.add(path);
     }
+
+    // goto to here!!
 
     for (int i = 0; i < listNode.size(); i++) {
 
@@ -530,6 +558,10 @@ public class Map {
         shapes.addAll(newShapes);
       }
     }
+
+    //    susection = ListNode from i to the end
+    //    shapes.addAll(makeShapePathFloor(subsectionOfListNode, sameFloor));
+
     prevPath.addAll(shapes);
     return shapes;
   }

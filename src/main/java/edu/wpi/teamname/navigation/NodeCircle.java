@@ -251,10 +251,10 @@ public class NodeCircle {
         Shape s2 = NodeCircle.makeNodeShape("").get(1);
         Shape s2O = NodeCircle.makeNodeShape("").get(0);
 
-        s2.setTranslateX(s2.getTranslateX() + pSize / 2 + 2 * offset);
+        s2.setTranslateX(s2.getTranslateX() + pSize / 2 + offset);
         s2.setTranslateY(s2.getTranslateY() + pSize / 2);
 
-        s2O.setTranslateX(s2O.getTranslateX() + pSize / 2 + 2 * offset);
+        s2O.setTranslateX(s2O.getTranslateX() + pSize / 2 + offset);
         s2O.setTranslateY(s2O.getTranslateY() + pSize / 2);
 
         int iconS = 14;
@@ -266,7 +266,7 @@ public class NodeCircle {
 
         float circleR = GlobalVariables.getCircleR();
 
-        confIcon.setTranslateX(confIcon.getTranslateX() + (pSize / 2) + (2 * offset) - (iconS / 2));
+        confIcon.setTranslateX(confIcon.getTranslateX() + (pSize / 2) + (offset) - (iconS / 2));
         confIcon.setTranslateY(confIcon.getTranslateY() + (pSize / 2) - (iconS / 2));
 
         ArrayList<ConfRoom> confs = GlobalVariables.getConfRooms();
@@ -276,7 +276,10 @@ public class NodeCircle {
           if (roomname.equals(sName)) {
 
             //            ArrayList<ConfReservation> allRes = GlobalVariables.getConfReservations();
-            ArrayList<ConfReservation> reses = DataManager.getResForRoom(room);
+
+            //            ArrayList<ConfReservation> reses = DataManager.getResForRoom(room);
+            ArrayList<ConfReservation> reses =
+                GlobalVariables.getAllRes().get(GlobalVariables.roomNumToIndex(room.getRoomID()));
 
             Timestamp curr = map.getCurrTime();
             String currStr = curr.toString().split("\\s+")[0];

@@ -288,9 +288,9 @@
                         </GesturePane>
                         <TableView fx:id="table" prefHeight="401.0" prefWidth="401.0" visible="false">
                             <columns>
-                                <TableColumn fx:id="longNameColumn" minWidth="200.0" prefWidth="200.0" text="longName" />
-                                <TableColumn fx:id="shortNameColumn" minWidth="200.0" prefWidth="200.0" text="shortName" />
-                                <TableColumn fx:id="nodeTypeColumn" minWidth="200.0" prefWidth="200.0" text="nodeType" />
+                                <TableColumn fx:id="longNameColumn" minWidth="300.0" prefWidth="300.0" text="Long Name" />
+                                <TableColumn fx:id="shortNameColumn" minWidth="300.0" prefWidth="300.0" text="Short Name" />
+                                <TableColumn fx:id="nodeTypeColumn" minWidth="300.0" prefWidth="300.0" text="Node Type" />
                             </columns>
                         </TableView>
                     </children>
