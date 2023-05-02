@@ -11,6 +11,7 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javafx.application.Platform;
@@ -61,11 +62,25 @@ public class SignageController {
 
     play.setVisible(false);
     play.setDisable(true);
+    dateChos.setValue(LocalDate.now());
+    dateChosen =
+        Timestamp.valueOf(
+            dateChos
+                .getValue()
+                .atTime(12, 0)
+                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.nnn")));
 
     ParentController.titleString.set("Signage");
     kioskList = FXCollections.observableArrayList();
     kioskList.add(null);
     KskBox.setItems(kioskList);
+
+    try {
+      kioskList = FXCollections.observableArrayList(DataManager.getKiosks(dateChosen));
+      KskBox.setItems(kioskList);
+    } catch (SQLException e) {
+      System.out.println(e);
+    }
     dateChos
         .valueProperty()
         .addListener(
