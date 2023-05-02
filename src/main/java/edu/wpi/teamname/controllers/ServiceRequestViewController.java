@@ -143,6 +143,11 @@ public class ServiceRequestViewController {
     refreshTable();
   }
 
+  /**
+   * Refreshes the service requests shown on the table
+   *
+   * @throws SQLException
+   */
   public void refreshTable() throws SQLException {
     ObservableList<ServiceRequest> serviceRequests =
         FXCollections.observableList(DataManager.getAllServiceRequests());
@@ -421,6 +426,13 @@ public class ServiceRequestViewController {
     }
   }
 
+  /**
+   * fills the pane of the cart view of an individual service request
+   *
+   * @param reqID request ID number to retrieve all the ordered items from
+   * @param folder folder to get the images for a specific service request type
+   * @throws SQLException
+   */
   private void fillPane(int reqID, String folder) throws SQLException {
     ServiceRequest request = DataManager.getServiceRequest(reqID);
     ArrayList<ItemsOrdered> orderedItems = new ArrayList<>();
@@ -428,22 +440,22 @@ public class ServiceRequestViewController {
     orderedItems = DataManager.getItemsFromReq(reqID);
     for (int i = 0; i < orderedItems.size(); i++) {
       ItemsOrdered item = orderedItems.get(i);
-      if (item.getItemID() / 100 >= 10 && item.getItemID() / 100 < 11) { // flower
+      if (item.getItemID() / 100 == 10) { // flower
         folder = "FlowerIcons";
         tempItems.add(DataManager.getFlower(item.getItemID()));
-      } else if (item.getItemID() / 100 >= 11 && item.getItemID() / 100 < 12) { // meal
+      } else if (item.getItemID() / 100 == 11) { // meal
         folder = "MealIcons";
         tempItems.add(DataManager.getMeal(item.getItemID()));
-      } else if (item.getItemID() / 100 >= 13 && item.getItemID() / 100 < 14) { // furniture
+      } else if (item.getItemID() / 100 == 13) { // furniture
         folder = "FurnitureIcons";
         tempItems.add(DataManager.getFurniture(item.getItemID()));
-      } else if (item.getItemID() / 100 >= 14 && item.getItemID() / 100 < 15) { // office supply
+      } else if (item.getItemID() / 100 == 14) { // office supply
         folder = "OfficeIcons";
         tempItems.add(DataManager.getOfficeSupply(item.getItemID()));
-      } else if (item.getItemID() / 100 >= 15 && item.getItemID() / 100 < 16) { // medical Supply
+      } else if (item.getItemID() / 100 == 15) { // medical Supply
         folder = "MedicalIcons";
         tempItems.add(DataManager.getMedicalSupply(item.getItemID()));
-      } else if (item.getItemID() / 100 >= 12 && item.getItemID() / 100 < 13) { // pharmacuedical
+      } else if (item.getItemID() / 100 == 12) { // pharmacuedical
         folder = "PharmaceuticalIcons";
         tempItems.add(DataManager.getPharmaceutical(item.getItemID()));
       }
