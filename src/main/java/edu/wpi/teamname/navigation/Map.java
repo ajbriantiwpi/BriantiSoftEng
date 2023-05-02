@@ -242,6 +242,9 @@ public class Map {
     this.currentDisplayFloor = currentDisplayFloor;
 
     GlobalVariables.setHMap(DataManager.getAllLocationNamesMappedByNode(time));
+    GlobalVariables.setServiceRequests(DataManager.getAllServiceRequests());
+    GlobalVariables.setConfReservations(DataManager.getAllConfReservation());
+    GlobalVariables.setConfRooms(DataManager.getAllConfRoom());
 
     if (this.isMapPage) {
       Platform.runLater(() -> MapController.updateNames());

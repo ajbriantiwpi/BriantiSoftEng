@@ -2,11 +2,17 @@ package edu.wpi.teamname.navigation;
 
 import edu.wpi.teamname.App;
 import edu.wpi.teamname.GlobalVariables;
+import edu.wpi.teamname.Navigation;
+import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.extras.Sound;
+import edu.wpi.teamname.servicerequest.ConfReservation;
+import edu.wpi.teamname.servicerequest.ServiceRequest;
+import edu.wpi.teamname.servicerequest.requestitem.ConfRoom;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.event.EventHandler;
@@ -16,6 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -24,6 +31,7 @@ import org.controlsfx.control.PopOver;
 public class NodeCircle {
 
   public Pane p;
+  private Pane iconP;
   private Shape inner;
   private Shape outer;
 
@@ -95,9 +103,142 @@ public class NodeCircle {
 
     ArrayList<LocationName> l = GlobalVariables.getHMap().get(this.nodeID);
 
+    String locName = "";
+
     String nodeType = "";
     if (l != null) {
       nodeType = l.get(0).getNodeType();
+      locName = l.get(0).getLongName();
+    }
+
+    if (!locName.equals("")) {
+      System.out.println("Serv");
+      this.iconP = new Pane();
+
+      int pSize = 20;
+
+      iconP.setMinWidth(pSize);
+      iconP.setMaxWidth(pSize);
+      iconP.setMinHeight(pSize);
+      iconP.setMaxHeight(pSize);
+      boolean added = false;
+
+      // */
+      if (GlobalVariables.getShowServiceIcons().booleanValue()) {
+        int offset = 20;
+
+        iconP.setTranslateX(iconP.getTranslateX() - offset);
+        iconP.setTranslateY(iconP.getTranslateY() - offset);
+
+        iconP.setBackground(Background.fill(Color.GREEN));
+        Shape s = NodeCircle.makeNodeShape("STAR").get(1);
+
+        s.setTranslateX(s.getTranslateX() + pSize / 2);
+        s.setTranslateY(s.getTranslateY() + pSize / 2);
+
+        ArrayList<ServiceRequest> srs = GlobalVariables.getServiceRequests();
+        for (ServiceRequest request : srs) {
+          Timestamp curr = map.getCurrTime();
+          String currStr = curr.toString().split("\\s+")[0];
+          if (request.getRoomNumber().equals(locName)) {
+            s.setFill(Color.RED);
+            Timestamp t = request.getDeliverBy();
+
+            String tStr = t.toString().split("\\s+")[0];
+
+            if (tStr.equals(currStr)) {
+              //            s.setFill(Color.BLUE);
+
+              s.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST_VIEW));
+
+              switch (request.getRequestType()) {
+                case MEAL:
+                  s.setFill(Color.RED);
+                  break;
+                case FLOWER:
+                  s.setFill(Color.YELLOW);
+                  break;
+                case FURNITURE:
+                  s.setFill(Color.ORANGE);
+                  break;
+                case OFFICESUPPLY:
+                  s.setFill(Color.PURPLE);
+                  break;
+                case MEDICALSUPPLY:
+                  s.setFill(Color.DARKGREEN);
+                  break;
+                case PHARMACEUTICAL:
+                  s.setFill(Color.WHITE);
+                  break;
+                default:
+                  s.setFill(Color.BLUE);
+                  break;
+              }
+
+              iconP.getChildren().add(s);
+
+              //              p.getChildren().add(this.iconP);
+              added = true;
+            }
+
+            //          Timestamp.
+
+            //          System.out.println("SD: " + tStr + " DPD:" + currStr + ": " + t.toString());
+          }
+        }
+      }
+      // */
+
+      if (GlobalVariables.getShowConfItems().booleanValue()) {
+        int offset = 20;
+
+        //        iconP.setTranslateX(iconP.getTranslateX() + offset);
+        //        iconP.setTranslateY(iconP.getTranslateY() - offset);
+
+        iconP.setBackground(Background.fill(Color.GREEN));
+        Shape s2 = NodeCircle.makeNodeShape("STAR").get(1);
+
+        s2.setTranslateX(s2.getTranslateX() + pSize / 2 + 2 * offset);
+        s2.setTranslateY(s2.getTranslateY() + pSize / 2);
+
+        ArrayList<ConfRoom> confs = GlobalVariables.getConfRooms();
+        String sName = l.get(0).getShortName();
+        for (ConfRoom room : confs) {
+          String roomname = room.getLocationName().split(",")[0];
+          if (roomname.equals(sName)) {
+
+            //            ArrayList<ConfReservation> allRes = GlobalVariables.getConfReservations();
+            ArrayList<ConfReservation> reses = DataManager.getResForRoom(room);
+
+            Timestamp curr = map.getCurrTime();
+            String currStr = curr.toString().split("\\s+")[0];
+
+            for (ConfReservation res : reses) {
+              Timestamp resT = res.getDateMade();
+              String resTStr = resT.toString().split("\\s+")[0];
+
+              if (currStr.equals(resTStr)) {
+
+                s2.setFill(Color.RED);
+
+                s2.setOnMouseClicked(event -> Navigation.navigate(Screen.CONF_VIEW));
+
+                System.out.println("Child");
+
+                iconP.getChildren().add(s2);
+
+                added = true;
+
+                break;
+              }
+            }
+          }
+        }
+      }
+
+      if (added) {
+        p.getChildren().add(this.iconP);
+      }
     }
 
     //    map.getShowLegend();
