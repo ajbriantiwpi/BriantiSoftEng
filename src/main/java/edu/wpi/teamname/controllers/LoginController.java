@@ -8,6 +8,7 @@ import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
 import edu.wpi.teamname.extras.Language;
+import edu.wpi.teamname.extras.Song;
 import edu.wpi.teamname.extras.Sound;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.sql.Connection;
@@ -58,6 +59,9 @@ public class LoginController {
     Employee user = DataManager.checkLogin(username, password);
     if (user != null) {
       GlobalVariables.setCurrentUser(user);
+      if (user.getUsername().equals("ian")) {
+        Sound.setSong(Song.JETPACKJOYRIDE);
+      }
       HomeController.setLoggedIn(new SimpleBooleanProperty(true));
       Navigation.navigate(GlobalVariables.getPreviousScreen());
       return true;

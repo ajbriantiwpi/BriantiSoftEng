@@ -145,6 +145,7 @@ public class SettingsController {
       awsButton.setVisible(true);
     }
     // Add a listener to the volume slider
+    volumeSlide.setValue(Sound.getVolume());
     volumeSlide
         .valueProperty()
         .addListener(

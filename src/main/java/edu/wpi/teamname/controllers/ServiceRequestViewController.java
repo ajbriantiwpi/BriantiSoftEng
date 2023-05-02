@@ -15,6 +15,7 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
@@ -77,6 +78,8 @@ public class ServiceRequestViewController {
       FXCollections.observableArrayList("", "PROCESSING", "BLANK", "DONE");
   @FXML ComboBox<Status> requestStatusCombo;
 
+  private static String room;
+
   /**
    * filters the list of service requests to add it to the table
    *
@@ -108,7 +111,7 @@ public class ServiceRequestViewController {
         requestList =
             FXCollections.observableList(
                 requestList.stream()
-                    .filter((request) -> request.getDeliverBy().getDate() == date.getDate())
+                    .filter((request) -> (request.getDeliverBy().getDate() == date.getDate())&&(request.getDeliverBy().getMonth() == date.getMonth()))
                     .toList());
       }
     } catch (NullPointerException e) {
@@ -120,6 +123,13 @@ public class ServiceRequestViewController {
               requestList.stream()
                   .filter((request) -> request.getStaffName().equals(username))
                   .toList());
+    }
+    if (!(room.equals(""))){
+        requestList =
+                FXCollections.observableList(
+                        requestList.stream()
+                                .filter((request) -> request.getRoomNumber().equals(room))
+                                .toList());
     }
     return requestList;
   }
@@ -371,6 +381,7 @@ public class ServiceRequestViewController {
    */
   @FXML
   public void initialize() throws SQLException {
+    room="";
     ThemeSwitch.switchTheme(root);
     ParentController.titleString.set("Service Request View");
     setLanguage(GlobalVariables.getB().getValue());
@@ -630,6 +641,16 @@ public class ServiceRequestViewController {
               requestStatusCombo.getValue(),
               date,
               requestStaffCombo.getValue()));
+    } else if (GlobalVariables.isRequestFromMap()) {
+        room=GlobalVariables.getRoomFromMap();
+        dateBox.setValue(GlobalVariables.getDateFromMap().toLocalDateTime().toLocalDate());
+        table.setItems(
+                tableFilter(
+                        requestTypeCombo.getValue(),
+                        requestStatusCombo.getValue(),
+                        Timestamp.valueOf(dateBox.getValue().atStartOfDay()),
+                        requestStaffCombo.getValue()));
+        GlobalVariables.setRequestFromMap(false);
     }
   }
 
