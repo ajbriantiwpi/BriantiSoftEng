@@ -105,6 +105,7 @@ public class ServiceRequestController {
   public void setLanguage(Language lang) {
     switch (lang) {
       case ENGLISH:
+        ParentController.titleString.set("Service Request");
         patientNameLabel.setText("Patient Name");
         locationLabel.setText("Location");
         nodeBox.setPromptText("Choose Location");
@@ -122,6 +123,7 @@ public class ServiceRequestController {
         searchLabel.setText("Search");
         break;
       case FRENCH:
+        ParentController.titleString.set("Richiesta di servizio");
         patientNameLabel.setText("Nom du patient");
         locationLabel.setText("Emplacement");
         nodeBox.setPromptText("Choisissez un emplacement");
@@ -139,6 +141,7 @@ public class ServiceRequestController {
         searchLabel.setText("Rechercher");
         break;
       case ITALIAN:
+        ParentController.titleString.set("Richiesta di servizio");
         patientNameLabel.setText("Nome Paziente");
         locationLabel.setText("Posizione");
         nodeBox.setPromptText("Scegli Posizione");
@@ -156,6 +159,7 @@ public class ServiceRequestController {
         searchLabel.setText("Cerca");
         break;
       case SPANISH:
+        ParentController.titleString.set("Solicitud de servicio");
         patientNameLabel.setText("Nombre del Paciente");
         locationLabel.setText("Ubicación");
         nodeBox.setPromptText("Elija Ubicación");
