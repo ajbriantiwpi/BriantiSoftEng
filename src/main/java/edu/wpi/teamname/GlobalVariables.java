@@ -1,9 +1,12 @@
 package edu.wpi.teamname;
 
+import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
 import edu.wpi.teamname.navigation.LocationName;
+import edu.wpi.teamname.navigation.Node;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,6 +39,16 @@ public class GlobalVariables {
   @Getter @Setter private static Timestamp today = new Timestamp(System.currentTimeMillis());
   @Getter @Setter private static HashMap<Integer, ArrayList<LocationName>> hMap;
   @Getter @Setter private static int defaultStartID = 2280;
+  // default start: 1685
+  @Getter @Setter private static Node currentLocationNode;
+
+  static {
+    try {
+      currentLocationNode = DataManager.getNode(1685);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
   //  @Getter @Setter private static Color labelColor = new Color(.835, .89, 1, 1);
   //  @Getter @Setter private static Color labelTextColor = new Color(0, .106, .231, 1);
 
@@ -54,6 +67,8 @@ public class GlobalVariables {
   @Getter @Setter private static Screen previousScreen = Screen.HOME;
 
   @Getter @Setter private static BooleanProperty darkMode = new SimpleBooleanProperty(false) {};
+
+  public GlobalVariables() throws SQLException {}
 
   /** Sets the current user to be null indicating no user is logged in */
   public static void logOut() {

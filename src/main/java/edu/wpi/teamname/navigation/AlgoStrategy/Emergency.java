@@ -151,7 +151,7 @@ public class Emergency implements IStrategyAlgo {
 
     g.setAllG(s, t);
     Node start = s;
-    Node target = t;
+    // Node target = t;
 
     PriorityQueue<Node> closedList = new PriorityQueue<>();
     PriorityQueue<Node> openList = new PriorityQueue<>();

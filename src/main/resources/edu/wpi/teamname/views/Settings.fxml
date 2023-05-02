@@ -109,6 +109,7 @@
                         <String fx:value="headline-small" />
                      </styleClass>
                   </MFXButton>
+                  <ComboBox fx:id="setLocationBox" prefWidth="150.0" promptText="Set Location" />
                </children>
                <VBox.margin>
                   <Insets />

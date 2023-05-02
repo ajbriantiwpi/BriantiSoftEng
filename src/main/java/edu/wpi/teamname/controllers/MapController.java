@@ -5,12 +5,12 @@ import edu.wpi.teamname.controllers.JFXitems.DirectionArrow;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.database.PathMessageDAOImpl;
 import edu.wpi.teamname.extras.Sound;
+import edu.wpi.teamname.navigation.AlgoStrategy.*;
 import edu.wpi.teamname.navigation.AlgoStrategy.AStarAlgo;
 import edu.wpi.teamname.navigation.AlgoStrategy.BFSAlgo;
 import edu.wpi.teamname.navigation.AlgoStrategy.DFSAlgo;
 import edu.wpi.teamname.navigation.AlgoStrategy.DijkstraAlgo;
 import edu.wpi.teamname.navigation.Direction;
-import edu.wpi.teamname.navigation.AlgoStrategy.*;
 import edu.wpi.teamname.navigation.Map;
 import edu.wpi.teamname.navigation.Node;
 import edu.wpi.teamname.navigation.PathMessage;
@@ -124,9 +124,9 @@ public class MapController {
   String floor1;
   String floor2;
   String currFloor = "Lower Level 1";
-  int sNode = 0;
+  int sNode = GlobalVariables.getCurrentLocationNode().getId();
   int eNode = 0;
-  Node globalStartNode;
+  Node globalStartNode = GlobalVariables.getCurrentLocationNode();
 
   String currentAlgo = "";
   ArrayList<MFXButton> floorButtons = new ArrayList<>();
@@ -1243,7 +1243,11 @@ public class MapController {
     findPathButton.setDisable(true);
 
     //    LocationOne.setStyle("-fx-padding: 5 25 5 5;");
-    LocationOne.setPromptText("Select start");
+
+    // LocationOne.setPromptText("Select start");
+    LocationOne.setPromptText(
+        GlobalVariables.getHMap().get(globalStartNode.getId()).get(0).getLongName());
+
     LocationOne.setItems(
         map.getAllNodeNames()); // change for when the floor changes to update the nodes shown
     LocationOne.setOnAction(changeStart);
