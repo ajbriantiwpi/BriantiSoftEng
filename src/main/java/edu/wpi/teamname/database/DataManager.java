@@ -2124,17 +2124,7 @@ public class DataManager {
     FeedbackDAOImpl fb = new FeedbackDAOImpl();
     return fb.getAll();
   }
-  /**
-   * Uploads CSV data to a PostgreSQL database table "PathMessagea"-also creates one if one does not
-   * exist
-   *
-   * @param csvFilePath a string that represents a file path (/ is illegal so you must use double//)
-   * @throws SQLException if an error occurs while uploading the data to the database
-   */
-  public void uploadPM(String csvFilePath) throws SQLException {
-    PathMessageDAOImpl pm=new PathMessageDAOImpl();
-    pm.uploadPMToPostgreSQL(csvFilePath);
-  }
+
   /**
    * This method exports all the PathMessage objects from the "PathMessages" table in the database
    * to a CSV file at the specified file path.
