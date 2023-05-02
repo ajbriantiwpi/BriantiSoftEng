@@ -31,6 +31,33 @@ import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.PopOver;
 
 public class MapEditController {
+  @FXML Label mapSymbolsLabel;
+
+  @FXML Label conferenceRoomLabel;
+
+  @FXML Label departmentLabel;
+
+  @FXML Label labLabel;
+
+  @FXML Label infoLabel;
+
+  @FXML Label bathroomLabel;
+
+  @FXML Label serviceLabel;
+
+  @FXML Label elevatorLabel;
+
+  @FXML Label stairsLabel;
+
+  @FXML Label exitLabel;
+
+  @FXML Label startLabel;
+
+  @FXML Label pathLabel;
+
+  @FXML Label destinationLabel;
+  @FXML Label currentFloorStart;
+  @FXML Label currentFloorDestLabel;
   @FXML HBox root;
   Map map;
   @FXML GesturePane gp;

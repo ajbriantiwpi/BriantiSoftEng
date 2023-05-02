@@ -492,7 +492,24 @@ public class MapController {
           distance += map.getNumericalDistance(prevNode, node);
 
           textLine += String.valueOf(directionNum) + ": ";
-          textLine += String.format("In %.2f Units, you will reach your destination!\n", distance);
+          switch (GlobalVariables.getB().getValue()) {
+            case ENGLISH:
+              textLine +=
+                  String.format("In %.2f Units, you will reach your destination!\n", distance);
+              break;
+            case ITALIAN:
+              textLine +=
+                  String.format("In %.2f Unità, raggiungerai la tua destinazione!\n", distance);
+              break;
+            case FRENCH:
+              textLine +=
+                  String.format(
+                      "Dans %.2f unités, vous atteindrez votre destination !\n", distance);
+              break;
+            case SPANISH:
+              textLine += String.format("¡En %.2f unidades, llegarás a tu destino!\n", distance);
+              break;
+          }
 
           //          sb.append(String.valueOf(directionNum) + ": ");
           //          sb.append(String.format("In %.2f Units, you will reach your destination\n",
@@ -533,13 +550,33 @@ public class MapController {
 
               ind = i + 1;
 
-              //              sb.append(String.format("In %.2f Units, Go up %d floors\n", distance,
-              // deltaFloor));
+              switch (GlobalVariables.getB().getValue()) {
+                case ENGLISH:
+                  textLine +=
+                      String.format(
+                          "In %.2f Units, Go %s %d floors\n",
+                          distance, direction.getTranslatedString(), Math.abs(deltaFloor));
+                  break;
+                case SPANISH:
+                  textLine +=
+                      String.format(
+                          "En %.2f unidades, ve %s %d pisos.\n",
+                          distance, direction.getTranslatedString(), Math.abs(deltaFloor));
+                  break;
+                case ITALIAN:
+                  textLine +=
+                      String.format(
+                          "Fra %.2f Unità, Vai %s %d piani\n",
+                          distance, direction.getTranslatedString(), Math.abs(deltaFloor));
+                  break;
+                case FRENCH:
+                  textLine +=
+                      String.format(
+                          "En %.2f unités, allez %s à %d étages.\n",
+                          distance, direction.getTranslatedString(), Math.abs(deltaFloor));
+                  break;
+              }
 
-              textLine +=
-                  String.format(
-                      "In %.2f Units, Go %s %d floors\n",
-                      distance, direction.getString(), Math.abs(deltaFloor));
               directionObjs.add(new DirectionArrow(direction, textLine, height));
               distance = 0;
               directionNum++;
@@ -547,8 +584,30 @@ public class MapController {
             } else {
               //              sb.append(String.format("In %.2f Units, Turn %s\n", distance,
               // direction.getString()));
-              textLine +=
-                  String.format("In %.2f Units, Turn %s\n", distance, direction.getString());
+              switch (GlobalVariables.getB().getValue()) {
+                case ENGLISH:
+                  textLine +=
+                      String.format(
+                          "In %.2f Units, Turn %s\n", distance, direction.getTranslatedString());
+                  break;
+                case SPANISH:
+                  textLine +=
+                      String.format(
+                          "En %.2f unidades, gire %s\n", distance, direction.getTranslatedString());
+                  break;
+                case ITALIAN:
+                  textLine +=
+                      String.format(
+                          "Fra %.2f Unità, Girra %s\n", distance, direction.getTranslatedString());
+                  break;
+                case FRENCH:
+                  textLine +=
+                      String.format(
+                          "En %.2f unités, tournez %s\n",
+                          distance, direction.getTranslatedString());
+                  break;
+              }
+
               directionObjs.add(new DirectionArrow(direction, textLine, height));
             }
             distance = 0;
@@ -1599,5 +1658,7 @@ public class MapController {
             throw new RuntimeException(e);
           }
         });
+
+
   }
 }

@@ -95,8 +95,8 @@ public class LoginController {
     }
   }
 
-  public void setLanguage(Language lang){
-    switch(lang) {
+  public void setLanguage(Language lang) {
+    switch (lang) {
       case ENGLISH:
         loginLabel.setText("Login");
         loginText.setPromptText("Username");
@@ -142,9 +142,9 @@ public class LoginController {
     ThemeSwitch.switchTheme(rootPane);
     setLanguage(GlobalVariables.getB().getValue());
     GlobalVariables.b.addListener(
-            (options, oldValue, newValue) -> {
-              setLanguage(newValue);
-            });
+        (options, oldValue, newValue) -> {
+          setLanguage(newValue);
+        });
     // help.setVisible(false);
     newPassword.setVisible(false);
     success.setText("Username or password\nis incorrect");

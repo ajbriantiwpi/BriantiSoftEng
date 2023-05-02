@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.*?>
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import org.controlsfx.control.*?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorInput?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.SearchableComboBox?>
 
-<AnchorPane fx:id="root" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.EmployeeTableController">
+<AnchorPane fx:id="root" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.EmployeeTableController">
    <children>
       <VBox maxWidth="200.0" prefHeight="400.0" prefWidth="200.0" spacing="8.0" styleClass="surface-container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label text="Add Employee" textFill="#235fa6">
+            <Label fx:id="addEmployeeLabel" text="Add Employee" textFill="#235fa6">
                <font>
                   <Font name="Roboto" size="24.0" />
                </font>
@@ -22,7 +27,7 @@
                   <Insets left="12.0" top="12.0" />
                </VBox.margin>
             </Label>
-            <Label prefHeight="18.0" prefWidth="159.0" styleClass="title-med" text="Employee ID" textFill="#001b3b">
+            <Label fx:id="idLabel" prefHeight="18.0" prefWidth="159.0" styleClass="title-med" text="Employee ID" textFill="#001b3b">
                <font>
                   <Font name="Roboto" size="16.0" />
                </font>
@@ -34,7 +39,7 @@
                <VBox.margin>
                   <Insets />
                </VBox.margin></TextField>
-            <Label prefHeight="18.0" prefWidth="159.0" styleClass="title-med" text="First Name" textFill="#001b3b">
+            <Label fx:id="firstNameLabel" prefHeight="18.0" prefWidth="159.0" styleClass="title-med" text="First Name" textFill="#001b3b">
                <font>
                   <Font name="Roboto" size="16.0" />
                </font>
@@ -46,7 +51,7 @@
                <VBox.margin>
                   <Insets />
                </VBox.margin></TextField>
-            <Label prefHeight="18.0" prefWidth="159.0" styleClass="title-med" text="Last Name" textFill="#001b3b">
+            <Label fx:id="lastNameLabel" prefHeight="18.0" prefWidth="159.0" styleClass="title-med" text="Last Name" textFill="#001b3b">
                <font>
                   <Font name="Roboto" size="16.0" />
                </font>
@@ -58,7 +63,7 @@
                <VBox.margin>
                   <Insets />
                </VBox.margin></TextField>
-            <Label prefHeight="18.0" prefWidth="159.0" styleClass="title-med" text="Clearance Level" textFill="#001b3b">
+            <Label fx:id="clearanceLabel" prefHeight="18.0" prefWidth="159.0" styleClass="title-med" text="Clearance Level" textFill="#001b3b">
                <font>
                   <Font name="Roboto" size="16.0" />
                </font>
@@ -70,7 +75,7 @@
                <VBox.margin>
                   <Insets />
                </VBox.margin></ComboBox>
-            <Label prefHeight="18.0" prefWidth="159.0" styleClass="title-med" text="Employee Type" textFill="#001b3b">
+            <Label fx:id="typeLabel" prefHeight="18.0" prefWidth="159.0" styleClass="title-med" text="Employee Type" textFill="#001b3b">
                <font>
                   <Font name="Roboto" size="16.0" />
                </font>
@@ -82,7 +87,7 @@
                <VBox.margin>
                   <Insets />
                </VBox.margin></SearchableComboBox>
-            <Label prefHeight="18.0" prefWidth="159.0" styleClass="title-med" text="Username" textFill="#001b3b">
+            <Label fx:id="usernameLabel" prefHeight="18.0" prefWidth="159.0" styleClass="title-med" text="Username" textFill="#001b3b">
                <font>
                   <Font name="Roboto" size="16.0" />
                </font>
@@ -94,7 +99,7 @@
                <VBox.margin>
                   <Insets />
                </VBox.margin></TextField>
-            <Label prefHeight="18.0" prefWidth="159.0" styleClass="title-med" text="Password" textFill="#001b3b">
+            <Label fx:id="passwordLabel" prefHeight="18.0" prefWidth="159.0" styleClass="title-med" text="Password" textFill="#001b3b">
                <font>
                   <Font name="Roboto" size="16.0" />
                </font>
@@ -117,7 +122,7 @@
                   <Insets top="12.0" />
                </VBox.margin>
             </MFXButton>
-            <Label alignment="CENTER" prefHeight="29.0" prefWidth="180.0" styleClass="title-large" text="CSV Manager" textFill="#235fa6">
+            <Label fx:id="csvLabel" alignment="CENTER" prefHeight="29.0" prefWidth="180.0" styleClass="title-large" text="CSV Manager" textFill="#235fa6">
                <font>
                   <Font name="Roboto" size="24.0" />
                </font>
@@ -154,7 +159,7 @@
       </VBox>
       <HBox alignment="CENTER" layoutX="157.0" prefHeight="43.0" prefWidth="438.0" styleClass="surface-container" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label alignment="CENTER" prefWidth="268.0" text="Employees" textFill="#235fa6">
+            <Label fx:id="employeesLabel" alignment="CENTER" prefWidth="268.0" text="Employees" textFill="#235fa6">
                <font>
                   <Font name="Roboto" size="18.0" />
                </font>
@@ -163,7 +168,7 @@
                   <String fx:value="primary-text" />
                </styleClass>
             </Label>
-            <Label alignment="CENTER" prefHeight="24.0" prefWidth="165.0" text="Search ">
+            <Label fx:id="searchLabel" alignment="CENTER" prefHeight="24.0" prefWidth="165.0" text="Search ">
                <font>
                   <Font name="Roboto" size="18.0" />
                </font>
