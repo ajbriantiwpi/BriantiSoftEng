@@ -1,5 +1,6 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.database.ServiceRequestDAOImpl;
 import edu.wpi.teamname.servicerequest.RequestType;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
@@ -12,8 +13,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.*;
+import javafx.scene.layout.AnchorPane;
 
+/**
+ * The ServiceRequestAnalyticsController class is responsible for populating and managing the
+ * Service Request Analytics view.
+ */
 public class ServiceRequestAnalyticsController {
+  @FXML AnchorPane root;
   @FXML private BarChart<String, Number> barChart;
   @FXML private PieChart pieChart;
   @FXML private BarChart<String, Number> barChart2;
@@ -22,9 +29,11 @@ public class ServiceRequestAnalyticsController {
 
   @FXML
   private void initialize() {
+    ThemeSwitch.switchTheme(root);
     populateCharts();
   }
 
+  /** Populates the charts with data obtained from the database. */
   public void populateCharts() {
     ServiceRequestDAOImpl serviceRequestDAO = new ServiceRequestDAOImpl();
     List<ServiceRequest> serviceRequests = new ArrayList<>();

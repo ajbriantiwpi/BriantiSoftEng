@@ -15,223 +15,253 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.EditSignageController">
+<AnchorPane fx:id="rootPane" prefWidth="1000.0" styleClass="surface" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.EditSignageController">
    <children>
-      <VBox minWidth="200.0" prefHeight="400.0" prefWidth="202.0" spacing="12.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label text="Add Signage" textFill="#235fa6">
-                <font>
-                    <Font name="Roboto" size="28.0" />
-                </font>
-               <VBox.margin>
-                  <Insets left="10.0" top="8.0" />
-               </VBox.margin>
-               <styleClass>
-                  <String fx:value="primary-text" />
-                  <String fx:value="headline-med" />
-               </styleClass></Label>
-            <Label prefHeight="17.0" prefWidth="138.0" text="Sign ID">
-                <font>
-                    <Font name="Roboto" size="28.0" />
-                </font>
-               <VBox.margin>
-                  <Insets left="10.0" top="24.0" />
-               </VBox.margin>
-               <styleClass>
-                  <String fx:value="on-suface-text" />
-                  <String fx:value="headline-med" />
-               </styleClass>
-            </Label>
-            <TextField fx:id="signIDinput" prefHeight="26.0" prefWidth="2.0" styleClass="primary-container" stylesheets="@../stylesheets/TextField.css">
-               <VBox.margin>
-                  <Insets left="10.0" right="10.0" />
-               </VBox.margin>
-                <font>
-                    <Font name="Roboto" size="14.0" />
-                </font>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </TextField>
-            <Label prefHeight="17.0" prefWidth="138.0" text="Kiosk ID">
-               <font>
-                  <Font name="Roboto" size="28.0" />
-               </font>
-               <VBox.margin>
-                  <Insets left="10.0" right="5.0" top="30.0" />
-               </VBox.margin>
-               <styleClass>
-                  <String fx:value="on-suface-text" />
-                  <String fx:value="headline-med" />
-               </styleClass>
-            </Label>
-            <TextField fx:id="kioskInput" prefHeight="26.0" prefWidth="2.0" styleClass="primary-container" stylesheets="@../stylesheets/TextField.css">
-               <font>
-                  <Font name="Roboto" size="14.0" />
-               </font>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <VBox.margin>
-                  <Insets left="10.0" right="10.0" />
-               </VBox.margin>
-            </TextField>
-            <Label prefHeight="34.0" prefWidth="165.0" text="Long Name">
-                <font>
-                    <Font name="Roboto" size="28.0" />
-                </font>
-               <VBox.margin>
-                  <Insets left="10.0" right="10.0" top="30.0" />
-               </VBox.margin>
-               <styleClass>
-                  <String fx:value="on-suface-text" />
-                  <String fx:value="headline-med" />
-               </styleClass>
-            </Label>
-            <TextField fx:id="longNameInput" prefHeight="26.0" prefWidth="2.0" styleClass="primary-container" stylesheets="@../stylesheets/TextField.css">
-                <font>
-                    <Font name="Roboto" size="14.0" />
-                </font>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <VBox.margin>
-                  <Insets left="10.0" right="10.0" />
-               </VBox.margin>
-            </TextField>
-            <Label prefHeight="34.0" prefWidth="162.0" text="Short Name">
-                <font>
-                    <Font name="Roboto" size="28.0" />
-                </font>
-               <VBox.margin>
-                  <Insets left="10.0" top="30.0" />
-               </VBox.margin>
-               <styleClass>
-                  <String fx:value="on-suface-text" />
-                  <String fx:value="headline-med" />
-               </styleClass>
-            </Label>
-            <TextField fx:id="shortNameInput" prefHeight="26.0" prefWidth="2.0" styleClass="primary-container" stylesheets="@../stylesheets/TextField.css">
-                <font>
-                    <Font name="Roboto" size="14.0" />
-                </font>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <VBox.margin>
-                  <Insets left="10.0" right="10.0" />
-               </VBox.margin>
-            </TextField>
-            <Label prefHeight="17.0" prefWidth="138.0" text="Date">
-                <font>
-                    <Font name="Roboto" size="28.0" />
-                </font>
-               <VBox.margin>
-                  <Insets left="10.0" right="10.0" top="30.0" />
-               </VBox.margin>
-               <styleClass>
-                  <String fx:value="on-suface-text" />
-                  <String fx:value="headline-med" />
-               </styleClass>
-            </Label>
-            <DatePicker fx:id="dateInput">
-               <VBox.margin>
-                  <Insets left="10.0" right="10.0" />
-               </VBox.margin>
-               <stylesheets>
-                  <URL value="@../stylesheets/TextField.css" />
-                  <URL value="@../stylesheets/dateBoxSmall.css" />
-               </stylesheets>
-            </DatePicker>
-            <Label prefHeight="17.0" prefWidth="138.0" text="End Date">
-               <font>
-                  <Font name="Roboto" size="28.0" />
-               </font>
-               <styleClass>
-                  <String fx:value="on-suface-text" />
-                  <String fx:value="headline-med" />
-               </styleClass>
-               <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </VBox.margin>
-            </Label>
-            <DatePicker fx:id="endDateInput">
-               <stylesheets>
-                  <URL value="@../stylesheets/TextField.css" />
-                  <URL value="@../stylesheets/dateBoxSmall.css" />
-               </stylesheets>
-               <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </VBox.margin>
-            </DatePicker>
-            <Label prefHeight="17.0" prefWidth="138.0" text="Direction">
-                <font>
-                    <Font name="Roboto" size="28.0" />
-                </font>
-               <VBox.margin>
-                  <Insets left="10.0" right="10.0" top="30.0" />
-               </VBox.margin>
-               <styleClass>
-                  <String fx:value="on-suface-text" />
-                  <String fx:value="headline-med" />
-               </styleClass>
-            </Label>
-            <ComboBox fx:id="directionPicker" prefHeight="26.0" prefWidth="182.0" style="-fx-background-radius: 10;">
-               <VBox.margin>
-                  <Insets left="10.0" right="10.0" />
-               </VBox.margin>
-               <stylesheets>
-                  <URL value="@../stylesheets/comboSmall.css" />
-                  <URL value="@../stylesheets/Colors/theme.css" />
-               </stylesheets>
-            </ComboBox>
-             <MFXButton fx:id="submitButton" buttonType="RAISED" defaultButton="true" onAction="#handleSubmitButton" prefHeight="20.0" prefWidth="99.0" rippleColor="#235fa6" style="-fx-font-size: 20;" styleClass="primary" stylesheets="@../stylesheets/button.css" text="Submit">
-                 <effect>
-                     <ColorInput paint="#235fa6" />
-                 </effect>
-               <font>
-                  <Font name="Roboto" size="14.0" />
-               </font>
-               <VBox.margin>
-                  <Insets left="20.0" top="15.0" />
-               </VBox.margin>
-               <effect>
-                  <ColorInput paint="#235fa6" />
-               </effect>
-            </MFXButton>
-         </children></VBox>
-       <TableView fx:id="editSignageTable" layoutX="249.0" layoutY="75.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="852.0" prefWidth="352.0" stylesheets="@../stylesheets/TableViewStuff.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="75.0">
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy></TableView>
-       <HBox layoutX="205.0" prefHeight="50.0" prefWidth="396.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Label text="Edit Signage" textFill="#235fa6">
-               <font>
-                  <Font name="Roboto" size="28.0" />
-               </font>
-               <styleClass>
-                  <String fx:value="primary-text" />
-                  <String fx:value="headline-med" />
-               </styleClass>
+            <VBox maxHeight="970.0" maxWidth="400.0" minWidth="200.0" prefWidth="202.0" spacing="12.0" style="-fx-background-radius: 16;" styleClass="surface-container-high" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label text="Add Signage" textFill="#235fa6">
+                      <font>
+                          <Font name="Roboto" size="28.0" />
+                      </font>
+                     <VBox.margin>
+                        <Insets left="10.0" top="8.0" />
+                     </VBox.margin>
+                     <styleClass>
+                        <String fx:value="primary-text-container" />
+                        <String fx:value="headline-med" />
+                     </styleClass>
+                  </Label>
+                  <Label prefHeight="17.0" prefWidth="138.0" text="Sign ID">
+                      <font>
+                          <Font name="Roboto" size="28.0" />
+                      </font>
+                     <VBox.margin>
+                        <Insets left="10.0" top="24.0" />
+                     </VBox.margin>
+                     <styleClass>
+                        <String fx:value="on-suface-text" />
+                        <String fx:value="headline-med" />
+                     </styleClass>
+                  </Label>
+                  <TextField fx:id="signIDinput" prefHeight="26.0" prefWidth="2.0" styleClass="primary-container" stylesheets="@../stylesheets/TextField.css">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </VBox.margin>
+                      <font>
+                          <Font name="Roboto" size="14.0" />
+                      </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </TextField>
+                  <Label prefHeight="17.0" prefWidth="138.0" text="Kiosk ID">
+                     <font>
+                        <Font name="Roboto" size="28.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" right="5.0" top="30.0" />
+                     </VBox.margin>
+                     <styleClass>
+                        <String fx:value="on-suface-text" />
+                        <String fx:value="headline-med" />
+                     </styleClass>
+                  </Label>
+                  <TextField fx:id="kioskInput" prefHeight="26.0" prefWidth="2.0" styleClass="primary-container" stylesheets="@../stylesheets/TextField.css">
+                     <font>
+                        <Font name="Roboto" size="14.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label prefHeight="34.0" prefWidth="165.0" text="Long Name">
+                      <font>
+                          <Font name="Roboto" size="28.0" />
+                      </font>
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="30.0" />
+                     </VBox.margin>
+                     <styleClass>
+                        <String fx:value="on-suface-text" />
+                        <String fx:value="headline-med" />
+                     </styleClass>
+                  </Label>
+                  <TextField fx:id="longNameInput" prefHeight="26.0" prefWidth="2.0" styleClass="primary-container" stylesheets="@../stylesheets/TextField.css">
+                      <font>
+                          <Font name="Roboto" size="14.0" />
+                      </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label prefHeight="34.0" prefWidth="162.0" text="Short Name">
+                      <font>
+                          <Font name="Roboto" size="28.0" />
+                      </font>
+                     <VBox.margin>
+                        <Insets left="10.0" top="30.0" />
+                     </VBox.margin>
+                     <styleClass>
+                        <String fx:value="on-suface-text" />
+                        <String fx:value="headline-med" />
+                     </styleClass>
+                  </Label>
+                  <TextField fx:id="shortNameInput" prefHeight="26.0" prefWidth="2.0" styleClass="primary-container" stylesheets="@../stylesheets/TextField.css">
+                      <font>
+                          <Font name="Roboto" size="14.0" />
+                      </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label prefHeight="17.0" prefWidth="138.0" text="Date">
+                      <font>
+                          <Font name="Roboto" size="28.0" />
+                      </font>
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="30.0" />
+                     </VBox.margin>
+                     <styleClass>
+                        <String fx:value="on-suface-text" />
+                        <String fx:value="headline-med" />
+                     </styleClass>
+                  </Label>
+                  <DatePicker fx:id="dateInput" maxWidth="396.0" prefWidth="396.0">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </VBox.margin>
+                     <stylesheets>
+                        <URL value="@../stylesheets/TextField.css" />
+                        <URL value="@../stylesheets/dateBoxSmall.css" />
+                     </stylesheets>
+                  </DatePicker>
+                  <Label prefHeight="17.0" prefWidth="138.0" text="End Date">
+                     <font>
+                        <Font name="Roboto" size="28.0" />
+                     </font>
+                     <styleClass>
+                        <String fx:value="on-suface-text" />
+                        <String fx:value="headline-med" />
+                     </styleClass>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <DatePicker fx:id="endDateInput" maxWidth="396.0" prefWidth="396.0">
+                     <stylesheets>
+                        <URL value="@../stylesheets/TextField.css" />
+                        <URL value="@../stylesheets/dateBoxSmall.css" />
+                     </stylesheets>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </DatePicker>
+                  <Label prefHeight="17.0" prefWidth="138.0" text="Direction">
+                      <font>
+                          <Font name="Roboto" size="28.0" />
+                      </font>
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="30.0" />
+                     </VBox.margin>
+                     <styleClass>
+                        <String fx:value="on-suface-text" />
+                        <String fx:value="headline-med" />
+                     </styleClass>
+                  </Label>
+                  <ComboBox fx:id="directionPicker" maxWidth="396.0" prefWidth="396.0" style="-fx-background-radius: 10;">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </VBox.margin>
+                     <stylesheets>
+                        <URL value="@../stylesheets/comboSmall.css" />
+                        <URL value="@../stylesheets/Colors/theme.css" />
+                     </stylesheets>
+                  </ComboBox>
+                   <MFXButton fx:id="submitButton" buttonType="RAISED" defaultButton="true" onAction="#handleSubmitButton" prefHeight="20.0" prefWidth="99.0" rippleColor="#235fa6" style="-fx-font-size: 20;" styleClass="primary" stylesheets="@../stylesheets/button.css" text="Submit">
+                       <effect>
+                           <ColorInput paint="#235fa6" />
+                       </effect>
+                     <font>
+                        <Font name="Roboto" size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="12.0" left="20.0" top="15.0" />
+                     </VBox.margin>
+                     <effect>
+                        <ColorInput paint="#235fa6" />
+                     </effect>
+                  </MFXButton>
+               </children>
                <HBox.margin>
-                  <Insets top="8.0" />
+                  <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
                </HBox.margin>
-            </Label>
-            <Label prefHeight="26.0" prefWidth="46.0" styleClass="primary-text" text="Search" textFill="#235fa6">
-               <HBox.margin>
-                  <Insets left="12.0" right="2.0" top="12.0" />
-               </HBox.margin>
-                <font>
-                    <Font name="Roboto" size="14.0" />
-                </font>
-            </Label>
-            <TextField fx:id="searchBar" prefHeight="26.0" prefWidth="154.0" style="-fx-background-radius: 10;" styleClass="primary-container" stylesheets="@../stylesheets/TextField.css">
-               <HBox.margin>
-                  <Insets top="12.0" />
-               </HBox.margin>
-            </TextField>
-         </children></HBox>
+            </VBox>
+            <AnchorPane HBox.hgrow="ALWAYS">
+               <children>
+                  <VBox alignment="TOP_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <AnchorPane VBox.vgrow="NEVER">
+                           <children>
+                               <HBox alignment="TOP_RIGHT" minHeight="50.0" prefHeight="50.0" prefWidth="396.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                 <children>
+                                    <Label text="Edit Signage" textFill="#235fa6">
+                                       <font>
+                                          <Font name="Roboto" size="28.0" />
+                                       </font>
+                                       <styleClass>
+                                          <String fx:value="primary-text-container" />
+                                          <String fx:value="headline-med" />
+                                       </styleClass>
+                                       <HBox.margin>
+                                          <Insets top="8.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Label prefHeight="26.0" prefWidth="46.0" styleClass="primary-text" text="Search" textFill="#235fa6">
+                                       <HBox.margin>
+                                          <Insets left="12.0" right="2.0" top="12.0" />
+                                       </HBox.margin>
+                                        <font>
+                                            <Font name="Roboto" size="14.0" />
+                                        </font>
+                                    </Label>
+                                    <TextField fx:id="searchBar" prefHeight="26.0" prefWidth="154.0" style="-fx-background-radius: 10;" styleClass="secondary-container" stylesheets="@../stylesheets/TextField.css">
+                                       <HBox.margin>
+                                          <Insets top="12.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                 </children>
+                                 <padding>
+                                    <Insets right="12.0" />
+                                 </padding>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane VBox.vgrow="ALWAYS">
+                           <children>
+                               <TableView fx:id="editSignageTable" minWidth="-Infinity" prefHeight="852.0" prefWidth="352.0" stylesheets="@../stylesheets/TableViewStuff.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
    </children>
    <stylesheets>
       <URL value="@../stylesheets/Colors/lightTheme.css" />

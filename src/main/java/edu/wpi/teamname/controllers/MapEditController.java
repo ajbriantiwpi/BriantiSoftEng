@@ -2,6 +2,7 @@ package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.App;
 import edu.wpi.teamname.GlobalVariables;
+import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.navigation.*;
@@ -30,7 +31,7 @@ import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.PopOver;
 
 public class MapEditController {
-
+  @FXML HBox root;
   Map map;
   @FXML GesturePane gp;
   @FXML TableView<LocationName> table;
@@ -550,6 +551,9 @@ public class MapEditController {
             table.setVisible(false);
             table.setDisable(true);
 
+            Legend.setVisible(true);
+            Legend.setDisable(false);
+
             //            floorSelector.setVisible(true);
             //            floorSelector.setDisable(false);
           } else {
@@ -558,6 +562,9 @@ public class MapEditController {
 
             table.setVisible(true);
             table.setDisable(false);
+
+            Legend.setVisible(false);
+            Legend.setDisable(true);
 
             //            floorSelector.setVisible(false);
             //            floorSelector.setDisable(true);
@@ -1092,10 +1099,14 @@ public class MapEditController {
                 Edge e = AllEdges.get(i);
                 if (e.getStartNodeID() == movingID) {
                   Node adj = AllNodes.get(Node.idToIndex(e.getEndNodeID()));
-                  adjacentNodes.add(new Point2D(adj.getX(), adj.getY()));
+                  if (adj.getFloor().equals(map.takeFloor(map.getCurrentDisplayFloor(), true))) {
+                    adjacentNodes.add(new Point2D(adj.getX(), adj.getY()));
+                  }
                 } else if (e.getEndNodeID() == movingID) {
                   Node adj = AllNodes.get(Node.idToIndex(e.getStartNodeID()));
-                  adjacentNodes.add(new Point2D(adj.getX(), adj.getY()));
+                  if (adj.getFloor().equals(map.takeFloor(map.getCurrentDisplayFloor(), true))) {
+                    adjacentNodes.add(new Point2D(adj.getX(), adj.getY()));
+                  }
                 }
               }
 
@@ -1156,6 +1167,7 @@ public class MapEditController {
 
   @FXML
   public void initialize() throws SQLException, IOException {
+    ThemeSwitch.switchTheme(root);
 
     map = new Map(anchor, false);
     //

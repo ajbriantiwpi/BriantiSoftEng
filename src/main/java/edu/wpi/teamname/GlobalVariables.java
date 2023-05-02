@@ -14,6 +14,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class GlobalVariables {
+  @Getter @Setter private static String[] args;
   @Getter @Setter private static boolean futureMovesPressed = false;
   @Getter @Setter private static boolean activeRequestsPressed = false;
   @Getter @Setter private static boolean doneRequestsPressed = false;
@@ -52,7 +53,7 @@ public class GlobalVariables {
   @Getter @Setter private static Screen currentScreen = Screen.HOME;
   @Getter @Setter private static Screen previousScreen = Screen.HOME;
 
-  @Getter @Setter private static BooleanProperty darkMode = new SimpleBooleanProperty(true) {};
+  @Getter @Setter private static BooleanProperty darkMode = new SimpleBooleanProperty(false) {};
 
   /** Sets the current user to be null indicating no user is logged in */
   public static void logOut() {

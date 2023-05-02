@@ -1,5 +1,6 @@
 package edu.wpi.teamname.database;
 
+import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.database.interfaces.SignageDAO;
 import edu.wpi.teamname.navigation.Direction;
 import edu.wpi.teamname.navigation.Signage;
@@ -60,7 +61,9 @@ public class SignageDAOImpl implements SignageDAO {
     ArrayList<Integer> items = new ArrayList<>();
     Connection connection = DataManager.DbConnection();
     String query =
-        "Select \"kioskID\"\n" + "From \"Signage\"\n" + "Where \"date\" = ? Group by \"kioskID\"";
+        "Select \"kioskID\", \"endDate\"\n"
+            + "From \"Signage\"\n"
+            + "Where \"date\" = ? Group by \"kioskID\", \"endDate\"";
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setTimestamp(1, date);
@@ -68,7 +71,8 @@ public class SignageDAOImpl implements SignageDAO {
       ResultSet rs = statement.executeQuery();
       while (rs.next()) {
         int kioskID = rs.getInt("kioskID");
-        items.add(kioskID);
+        Timestamp endDate = rs.getTimestamp("endDate");
+        if (endDate.after(GlobalVariables.getToday())) items.add(kioskID);
       }
     } catch (SQLException e) {
       System.out.println(e.getMessage());

@@ -1,5 +1,6 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.extras.Sound;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
@@ -29,6 +30,7 @@ public class AboutPageController {
   @FXML AnchorPane aboutAnchorPane;
 
   public void initialize() {
+    ThemeSwitch.switchTheme(aboutAnchorPane);
     MFXButton.class.getClassLoader().setDefaultAssertionStatus(false);
     ParentController.titleString.set("About");
 

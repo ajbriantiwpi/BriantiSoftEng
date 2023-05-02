@@ -2,13 +2,14 @@ package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.Navigation;
+import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.alerts.Alert;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
+import edu.wpi.teamname.extras.Song;
 import edu.wpi.teamname.extras.Sound;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -20,11 +21,13 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
 public class LoginController {
+
   @FXML MFXButton exit;
   @FXML AnchorPane rootPane;
   @FXML StackPane paneOfStuff;
@@ -33,7 +36,7 @@ public class LoginController {
   @FXML Label success;
   @FXML MFXButton loginButton;
   @FXML MFXButton forgotPassword;
-  @FXML MFXTextField loginText;
+  @FXML TextField loginText;
   @FXML PasswordField passwordText;
   @FXML MFXButton cancel;
   // @FXML MFXButton help;
@@ -55,6 +58,9 @@ public class LoginController {
     Employee user = DataManager.checkLogin(username, password);
     if (user != null) {
       GlobalVariables.setCurrentUser(user);
+      if (user.getUsername().equals("ian")) {
+        Sound.setSong(Song.JETPACKJOYRIDE);
+      }
       HomeController.setLoggedIn(new SimpleBooleanProperty(true));
       Navigation.navigate(GlobalVariables.getPreviousScreen());
       return true;
@@ -95,6 +101,7 @@ public class LoginController {
   /** initializes the view for the login page */
   @FXML
   public void initialize() {
+    ThemeSwitch.switchTheme(rootPane);
     // help.setVisible(false);
     newPassword.setVisible(false);
     success.setText("Username or password\nis incorrect");

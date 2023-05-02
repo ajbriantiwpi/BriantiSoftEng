@@ -24,7 +24,9 @@ public class Joke {
   private static final String API_URL =
       "https://official-joke-api.appspot.com/jokes/general/random";
   private static final ArrayList<Integer> badJokeIDs =
-      new ArrayList<>(List.of(53, 92, 45, 208, 46, 48));
+      new ArrayList<>(
+          List.of(
+              53, 92, 45, 208, 46, 48, 140, 133, 238, 81, 203, 280, 399, 144, 276, 238, 364, 79));
 
   public Joke(String type, String setup, String punchline, int id) {
     this.type = type;
@@ -81,7 +83,7 @@ public class Joke {
    * @return the joke to display on the homepage
    * @throws IOException Connection to the API fails
    */
-  public static Joke getJoke() throws IOException {
+  public static Joke getJoke(int count) throws IOException {
 
     OkHttpClient client = new OkHttpClient();
     Request request = new Request.Builder().url(API_URL).build();
@@ -93,13 +95,24 @@ public class Joke {
       ArrayList<Joke> jokes =
           mapper.readValue(responseBody, new TypeReference<ArrayList<Joke>>() {});
       if (badJokeIDs.contains(jokes.get(0).getId())) {
-        return getJoke();
+        if (count > 3) {
+          return new Joke(
+              "general", "Why did the chicken cross the road?", "To get to the other side!", 0);
+        } else {
+          return getJoke(count + 1);
+        }
       }
       return jokes.get(0);
     } catch (Exception e) {
       Joke joke = mapper.readValue(responseBody, new TypeReference<Joke>() {});
-      if (badJokeIDs.contains(joke)) {
-        return getJoke();
+      if (badJokeIDs.contains(joke.getId())) {
+        System.out.println("here");
+        if (count > 3) {
+          return new Joke(
+              "general", "Why did the chicken cross the road?", "To get to the other side!", 0);
+        } else {
+          return getJoke(count + 1);
+        }
       }
       return joke;
     }
