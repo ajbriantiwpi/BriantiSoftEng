@@ -1,17 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.*?>
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox spacing="16.0" style="-fx-border-width: 2; -fx-border-radius: 8;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<VBox spacing="16.0" style="-fx-border-width: 2; -fx-border-radius: 8;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <AnchorPane style="-fx-background-radius: 16;">
-            <children>
-                <MFXButton alignment="BASELINE_LEFT" style="-fx-background-radius: 8; -fx-border-radius: 8;" text="Confirm" textFill="#fffbfb" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox spacing="10.0">
+         <children>
+            <MFXButton alignment="BASELINE_LEFT" style="-fx-background-radius: 8; -fx-border-radius: 8;" text="Cancel" textFill="#fffbfb">
+               <font>
+                  <Font name="Roboto" size="12.0" />
+               </font>
+               <padding>
+                  <Insets bottom="4.0" left="16.0" right="16.0" top="4.0" />
+               </padding>
+               <styleClass>
+                  <String fx:value="outline" />
+                  <String fx:value="primary-container" />
+               </styleClass>
+            </MFXButton>
+                <MFXButton alignment="BASELINE_LEFT" style="-fx-background-radius: 8; -fx-border-radius: 8;" text="Confirm" textFill="#fffbfb">
                     <font>
                         <Font name="Roboto" size="12.0" />
                     </font>
@@ -23,8 +36,8 @@
                         <String fx:value="primary" />
                     </styleClass>
                 </MFXButton>
-            </children>
-        </AnchorPane>
+         </children>
+      </HBox>
     </children>
     <styleClass>
         <String fx:value="outline" />

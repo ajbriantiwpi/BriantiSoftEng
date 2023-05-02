@@ -12,6 +12,8 @@ public class Pacman extends JFrame {
 
   // All Pacman code used from GitHub
   // https://github.com/Gaspared/Pacman
+
+  /** * Initializes the game and runs it */
   public static void pacBear() {
     Sound.setSong(Song.JETPACKJOYRIDE);
     Pacman pac = new Pacman();
