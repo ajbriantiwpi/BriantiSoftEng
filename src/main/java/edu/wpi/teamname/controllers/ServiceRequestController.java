@@ -213,9 +213,10 @@ public class ServiceRequestController {
       requestPage = 0;
       nextButton.setText("Next");
       DataManager.addServiceRequest(request);
+      Sound.playSFX(SFX.SUCCESS);
       Navigation.navigate(Screen.SMILE);
 
-      System.out.println(request);
+      // System.out.println(request);
     }
   }
 

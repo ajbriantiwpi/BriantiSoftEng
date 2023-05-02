@@ -162,7 +162,6 @@ public class MoveTableController {
     setupRowFactory();
     submitButton.setOnAction(
         event -> {
-          Sound.playSFX(SFX.BUTTONCLICK);
           int nodeId = Integer.parseInt(nodeIdTextField.getText());
           String longName = longNameTextField.getText();
           LocalDate localDate = datePicker.getValue();
@@ -178,7 +177,9 @@ public class MoveTableController {
             nodeIdTextField.clear();
             longNameTextField.clear();
             datePicker.setValue(null);
-          } catch (SQLException e) {
+            Sound.playSFX(SFX.SUCCESS);
+          } catch (Exception e) {
+            Sound.playSFX(SFX.ERROR);
             e.printStackTrace();
           }
         });

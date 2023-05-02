@@ -144,7 +144,7 @@ public class LoginController {
           try {
             boolean temp = loginPressed(loginText.getText(), passwordText.getText());
             if (!temp) {
-              Sound.playSFX(SFX.BUTTONCLICK);
+              Sound.playSFX(SFX.ERROR);
               paneOfStuff.setDisable(true);
               success.setVisible(true);
               passwordText.clear();
