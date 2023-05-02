@@ -1,14 +1,12 @@
 package edu.wpi.teamname.controllers;
 
-import edu.wpi.teamname.App;
-import edu.wpi.teamname.GlobalVariables;
-import edu.wpi.teamname.Navigation;
-import edu.wpi.teamname.Screen;
+import edu.wpi.teamname.*;
 import edu.wpi.teamname.alerts.Alert;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.employees.EmployeeType;
 import edu.wpi.teamname.extras.Joke;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.navigation.Move;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
@@ -80,7 +78,7 @@ public class HomeController {
 
   /** logs the current user out of the application */
   private void logout() {
-    Sound.playOnButtonClick();
+    Sound.playSFX(SFX.BUTTONCLICK);
     loggedIn = new SimpleBooleanProperty(false);
     loginButton.setVisible(true);
     logoutButton.setVisible(false);
@@ -119,12 +117,13 @@ public class HomeController {
 
   @FXML
   public void initialize() throws SQLException, IOException {
+    ThemeSwitch.switchTheme(rootPane);
 
     EventHandler<MouseEvent> NotificationPopupEvent =
         new EventHandler<MouseEvent>() {
           @Override
           public void handle(MouseEvent event) {
-            Sound.playOnButtonClick();
+            Sound.playSFX(SFX.BUTTONCLICK);
             ObservableList<Alert> alertList = null;
 
             MFXButton createNewButton = ((MFXButton) event.getSource());
@@ -421,7 +420,7 @@ public class HomeController {
     editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
     exitButton.setOnMouseClicked(
         event -> {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           try {
             Connection connection = DataManager.DbConnection();
             connection.close();

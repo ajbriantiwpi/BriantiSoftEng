@@ -11,7 +11,7 @@
 
 <!--        style="-fx-background-color: #D9E3F8;" -->
 
-<AnchorPane styleClass="surface-container" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ConfrenceViewController">
+<AnchorPane fx:id="root" styleClass="surface-container" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ConfrenceViewController">
     <children>
         <HBox style="-fx-background-radius: 16;" styleClass="surface-container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="surface-container" HBox.hgrow="ALWAYS">
@@ -30,7 +30,7 @@
                                        <Insets bottom="4.0" />
                                     </VBox.margin>
                                  </Label>
-                                 <Label styleClass="primary-text-container" text="Date" textFill="#001b3b">
+                                 <Label styleClass="on-suface-text" text="Date" textFill="#001b3b">
                                     <font>
                                         <Font name="Roboto" size="28.0" />
                                     </font>
@@ -45,7 +45,7 @@
                                        <Font name="Roboto" size="28.0" />
                                     </font>
                                     <styleClass>
-                                       <String fx:value="primary-text-container" />
+                                       <String fx:value="on-suface-text" />
                                        <String fx:value="headline-med" />
                                     </styleClass>
                                  </Label>
@@ -80,7 +80,7 @@
                                        <Insets />
                                     </VBox.margin>
                                     <styleClass>
-                                       <String fx:value="primary-text-container" />
+                                       <String fx:value="on-suface-text" />
                                        <String fx:value="headline-med" />
                                     </styleClass>
                                  </Label>
@@ -97,7 +97,7 @@
                                        <Insets />
                                     </VBox.margin>
                                     <styleClass>
-                                       <String fx:value="primary-text-container" />
+                                       <String fx:value="on-suface-text" />
                                        <String fx:value="headline-med" />
                                     </styleClass>
                                  </Label>

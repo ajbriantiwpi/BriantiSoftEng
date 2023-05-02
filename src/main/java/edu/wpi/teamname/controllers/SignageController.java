@@ -1,15 +1,17 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.controllers.JFXitems.DirectionArrow;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.extras.Pacman;
+import edu.wpi.teamname.extras.SFX;
+import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.navigation.Direction;
 import edu.wpi.teamname.navigation.Signage;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import java.awt.*;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javafx.application.Platform;
@@ -20,6 +22,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -28,6 +31,7 @@ import javafx.scene.layout.VBox;
  * the selected kiosk and date.
  */
 public class SignageController {
+  @FXML AnchorPane root;
   @FXML ComboBox<Integer> KskBox;
   @FXML ObservableList<Integer> kioskList;
   @FXML DatePicker dateChos;
@@ -53,13 +57,30 @@ public class SignageController {
 
   /** Initializes the SignageController and sets up the UI elements and functionality. */
   @FXML
-  public void initialize() throws SQLException, IOException {
+  public void initialize() throws SQLException {
+    ThemeSwitch.switchTheme(root);
+
     play.setVisible(false);
     play.setDisable(true);
+    dateChos.setValue(LocalDate.now());
+    dateChosen =
+        Timestamp.valueOf(
+            dateChos
+                .getValue()
+                .atTime(12, 0)
+                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.nnn")));
+
     ParentController.titleString.set("Signage");
     kioskList = FXCollections.observableArrayList();
     kioskList.add(null);
     KskBox.setItems(kioskList);
+
+    try {
+      kioskList = FXCollections.observableArrayList(DataManager.getKiosks(dateChosen));
+      KskBox.setItems(kioskList);
+    } catch (SQLException e) {
+      System.out.println(e);
+    }
     dateChos
         .valueProperty()
         .addListener(
@@ -101,6 +122,7 @@ public class SignageController {
 
     submit.setOnMouseClicked(
         event -> {
+          Sound.playSFX(SFX.BUTTONCLICK);
           directions.clear();
           leftC = 0;
           rightC = 0;
@@ -150,7 +172,7 @@ public class SignageController {
                           if (leftC == l && rightC == r && upC == u && downC == d && stopC == s) {
                             play.setVisible(true);
                             play.setDisable(false);
-                            System.out.println("Pacman!");
+                            System.out.println("Pac-man!");
                           }
                           leftC = 0;
                           rightC = 0;
@@ -163,7 +185,11 @@ public class SignageController {
                       }
                       event.consume();
                     }));
-    play.setOnMouseClicked(event -> Pacman.pacBear());
+    play.setOnMouseClicked(
+        event -> {
+          Sound.playSFX(SFX.BUTTONCLICK);
+          Pacman.pacBear();
+        });
   }
 
   private void fillDir() {

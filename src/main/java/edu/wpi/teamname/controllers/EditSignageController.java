@@ -2,10 +2,12 @@ package edu.wpi.teamname.controllers;
 
 import static edu.wpi.teamname.database.DataManager.syncSignage;
 
+import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.controllers.helpers.DatePickerTableCell;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.database.SignageDAOImpl;
 import edu.wpi.teamname.database.interfaces.SignageDAO;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.navigation.Direction;
 import edu.wpi.teamname.navigation.Signage;
@@ -48,6 +50,7 @@ public class EditSignageController {
   @FXML private TextField searchBar;
   /** Initializes the GUI and sets up event handlers for various GUI components. */
   public void initialize() {
+    ThemeSwitch.switchTheme(rootPane);
     DataManager signageDAO = new DataManager();
     ParentController.titleString.set("Signage Editor");
     TableColumn<Signage, String> longNameColumn = new TableColumn<>("Long Name");
@@ -330,7 +333,6 @@ public class EditSignageController {
    * @throws NumberFormatException If the signId or kioskId input field is not a valid integer.
    */
   public void handleSubmitButton() {
-    Sound.playOnButtonClick();
     StringConverter<Direction> directionConverter =
         new StringConverter<Direction>() {
           @Override
@@ -354,22 +356,25 @@ public class EditSignageController {
             return null;
           }
         };
-    int signId = Integer.parseInt(signIDinput.getText());
-    String longName = longNameInput.getText();
-    String shortName = shortNameInput.getText();
-    java.sql.Timestamp date = java.sql.Timestamp.valueOf(dateInput.getValue().atStartOfDay());
-    java.sql.Timestamp endDate = java.sql.Timestamp.valueOf(endDateInput.getValue().atStartOfDay());
-    Direction direction = directionConverter.fromString(directionPicker.getValue());
-    int kioskId = Integer.parseInt(kioskInput.getText());
-
-    Signage newSignage =
-        new Signage(longName, shortName, date, endDate, direction, signId, kioskId);
-    SignageDAO signageDAO = new SignageDAOImpl();
-
     try {
+      int signId = Integer.parseInt(signIDinput.getText());
+      String longName = longNameInput.getText();
+      String shortName = shortNameInput.getText();
+      java.sql.Timestamp date = java.sql.Timestamp.valueOf(dateInput.getValue().atStartOfDay());
+      java.sql.Timestamp endDate =
+          java.sql.Timestamp.valueOf(endDateInput.getValue().atStartOfDay());
+      Direction direction = directionConverter.fromString(directionPicker.getValue());
+      int kioskId = Integer.parseInt(kioskInput.getText());
+
+      Signage newSignage =
+          new Signage(longName, shortName, date, endDate, direction, signId, kioskId);
+      SignageDAO signageDAO = new SignageDAOImpl();
+
       signageDAO.add(newSignage);
+      Sound.playSFX(SFX.SUCCESS);
       editSignageTable.getItems().add(newSignage);
-    } catch (SQLException e) {
+    } catch (Exception e) {
+      Sound.playSFX(SFX.ERROR);
       e.printStackTrace();
     }
 

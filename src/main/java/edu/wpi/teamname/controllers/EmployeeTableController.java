@@ -1,10 +1,12 @@
 package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.App;
+import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +25,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
@@ -33,6 +36,7 @@ import org.controlsfx.control.SearchableComboBox;
  * interface.
  */
 public class EmployeeTableController {
+  @FXML AnchorPane root;
   @FXML private TableView<Employee> employeeTable;
   @FXML private TextField employeeIDField;
   @FXML private TextField employeeFirstNameTextField;
@@ -49,6 +53,7 @@ public class EmployeeTableController {
    * Initializes the employee table and sets up the event handlers for interacting with the table.
    */
   public void initialize() {
+    ThemeSwitch.switchTheme(root);
     ObservableList<String> employeeTypes =
         FXCollections.observableArrayList(EmployeeType.formattedValues());
     employeeTypeText.setItems(employeeTypes);
@@ -182,7 +187,7 @@ public class EmployeeTableController {
 
     exportButton.setOnAction(
         event -> {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           FileChooser fileChooser = new FileChooser();
           fileChooser.setTitle("Save CSV File");
           fileChooser.setInitialFileName("employees.csv");
@@ -201,7 +206,7 @@ public class EmployeeTableController {
 
     importButton.setOnAction(
         event -> {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           FileChooser fileChooser = new FileChooser();
           fileChooser.setTitle("Select CSV File");
           fileChooser
@@ -332,7 +337,7 @@ public class EmployeeTableController {
    */
   @FXML
   private void handleSubmitButton() {
-    Sound.playOnButtonClick();
+
     try {
       DataManager employeeDAO = new DataManager();
       int employeeIDInput = Integer.parseInt(employeeIDField.getText());
@@ -360,11 +365,12 @@ public class EmployeeTableController {
 
       // Validate the password using checkLegalLogin method
       if (employee.checkLegalLogin(password)) {
+
         // employee.addType(employeeType);
         // employeeDAO.addEmployeeType(username, employeeType);
         employeeDAO.addEmployee(employee);
         employeeTable.getItems().add(employee);
-
+        Sound.playSFX(SFX.SUCCESS);
         // Clear the input fields
         employeeFirstNameTextField.clear();
         employeeIDField.clear();
@@ -373,6 +379,7 @@ public class EmployeeTableController {
         employeePasswordTextField.clear();
       } else {
         // Display an error message if password validation fails
+        Sound.playSFX(SFX.ERROR);
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText("Invalid Password");
@@ -386,6 +393,7 @@ public class EmployeeTableController {
       }
     } catch (Exception e) {
       // Display an error message if an exception occurs
+      Sound.playSFX(SFX.ERROR);
       Alert alert = new Alert(Alert.AlertType.ERROR);
       alert.initOwner(App.getPrimaryStage());
       alert.setTitle("Error");

@@ -6,9 +6,9 @@ import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import java.awt.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -24,7 +24,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -32,7 +31,7 @@ import lombok.Setter;
 import org.controlsfx.control.PopOver;
 
 public class ParentController {
-  @FXML CheckBox darkToggle;
+
   @FXML MFXButton homeButton;
   @FXML MFXButton helpButton;
   //    @FXML
@@ -122,7 +121,7 @@ public class ParentController {
     if (secureScreens.contains(GlobalVariables.getCurrentScreen())) {
       Navigation.navigate(Screen.HOME);
     } else {
-      Sound.playOnButtonClick();
+      Sound.playSFX(SFX.BUTTONCLICK);
     }
   }
 
@@ -421,10 +420,10 @@ public class ParentController {
 
   @FXML
   public void initialize() throws IOException {
+
     titleLabel.setText(titleString.getValue());
     System.out.println("Parent!");
-    darkToggle.selectedProperty().bindBidirectional(GlobalVariables.getDarkMode());
-    darkToggle.setVisible(false);
+
     if (HomeController.getLoggedIn().getValue()) {
       // disableButtonsWhenNotLoggedIn();
       loginButton.setVisible(false);

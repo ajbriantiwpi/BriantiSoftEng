@@ -21,6 +21,10 @@ public class GlobalVariables {
   @Getter @Setter private static boolean futureMovesPressed = false;
   @Getter @Setter private static boolean activeRequestsPressed = false;
   @Getter @Setter private static boolean doneRequestsPressed = false;
+  @Getter @Setter private static boolean requestFromMap = false;
+  @Getter @Setter private static String roomFromMap = "";
+  @Getter @Setter private static Timestamp dateFromMap = null;
+  @Getter @Setter private static int roomIDFromMap = 0;
   @Getter @Setter private static Color borderColor = Color.web("012D5A"); // Color.web("33567A");
   @Getter @Setter private static Color insideColor = Color.web("35A7FF"); // Color.web("2FA7B0");
   @Getter @Setter private static Color insideBlue = Color.web("35A7FF");
@@ -59,10 +63,9 @@ public class GlobalVariables {
   @Getter @Setter private static Screen currentScreen = Screen.HOME;
   @Getter @Setter private static Screen previousScreen = Screen.HOME;
 
+  @Getter @Setter private static BooleanProperty darkMode = new SimpleBooleanProperty(false) {};
   @Getter @Setter private static Boolean showServiceIcons = new Boolean(true);
   @Getter @Setter private static Boolean showConfItems = new Boolean(true);
-
-  @Getter @Setter private static BooleanProperty darkMode = new SimpleBooleanProperty(true) {};
 
   /** Sets the current user to be null indicating no user is logged in */
   public static void logOut() {

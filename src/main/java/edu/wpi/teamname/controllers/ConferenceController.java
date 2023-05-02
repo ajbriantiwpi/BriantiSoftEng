@@ -1,8 +1,10 @@
 package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.GlobalVariables;
+import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.controllers.JFXitems.RoomSelector;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.servicerequest.ConfReservation;
 import edu.wpi.teamname.servicerequest.RoomManager;
@@ -76,11 +78,7 @@ public class ConferenceController {
   @FXML
   public void initialize() throws SQLException {
     ParentController.titleString.set("Conference Room Request");
-    if (GlobalVariables.getDarkMode().get()) {
-      root.getStylesheets().remove(0);
-    } else {
-      root.getStylesheets().remove(1);
-    }
+    ThemeSwitch.switchTheme(root);
     buildings = FXCollections.observableArrayList(DataManager.getConfBuildings());
     buildings.add("None");
     roomsString = FXCollections.observableArrayList();
@@ -191,8 +189,8 @@ public class ConferenceController {
 
     submitButton.setOnMouseClicked(
         event -> { // add to db and make new relation in array in confroomrequests
-          Sound.playOnButtonClick();
           if (roomManager.isViableRoom(activeSelector.getRoom(), dateBook)) {
+
             try {
               resID = DataManager.setResID();
               username = GlobalVariables.getCurrentUser().getUsername();
@@ -208,9 +206,10 @@ public class ConferenceController {
                       staff,
                       findSelector(roomBox.getValue()).getRoom().getRoomID());
               DataManager.addConfReservation(c);
-
-            } catch (SQLException e) {
+              Sound.playSFX(SFX.SUCCESS);
+            } catch (Exception e) {
               System.out.println(e);
+              Sound.playSFX(SFX.ERROR);
             }
           }
         });

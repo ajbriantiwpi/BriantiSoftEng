@@ -5,6 +5,7 @@ import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.servicerequest.ConfReservation;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
@@ -634,7 +635,7 @@ public class NodeCircle {
   EventHandler<MouseEvent> boxVisible =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           MFXButton button = ((MFXButton) event.getSource());
           //        p.setOpacity(1);
 
@@ -735,7 +736,7 @@ public class NodeCircle {
   EventHandler<MouseEvent> startMoveNode =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           //          System.out.println("SMN");
 
           if (map.getMovingNodeId() == -1) {
@@ -749,7 +750,7 @@ public class NodeCircle {
   EventHandler<MouseEvent> startCreateEdge =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           System.out.println("SCE");
 
           if (map.getStartEdgeNodeId() == -1) {
@@ -813,7 +814,7 @@ public class NodeCircle {
   EventHandler<MouseEvent> startAlign =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           System.out.println("SA");
           addSelfToAlign();
         }
@@ -822,7 +823,7 @@ public class NodeCircle {
   EventHandler<MouseEvent> align =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           System.out.println("A");
           addSelfToAlign();
           //          System.out.println(map.getAlignSelection().size());
@@ -987,7 +988,7 @@ public class NodeCircle {
   EventHandler<MouseEvent> removeNode =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           System.out.println("REM");
 
           // Only the Node ID is important for Deletion
@@ -1112,7 +1113,7 @@ public class NodeCircle {
   EventHandler<MouseEvent> saveNodeChanges =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           MFXButton SubmitButton = ((MFXButton) event.getSource());
           VBox v = (VBox) ((HBox) SubmitButton.getParent()).getParent();
 

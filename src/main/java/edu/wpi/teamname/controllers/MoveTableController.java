@@ -2,10 +2,12 @@ package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.App;
 import edu.wpi.teamname.GlobalVariables;
+import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.controllers.helpers.DatePickerEditingCell;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.database.MoveDAOImpl;
 import edu.wpi.teamname.employees.ClearanceLevel;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.navigation.Move;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -26,6 +28,7 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.util.converter.IntegerStringConverter;
@@ -36,6 +39,7 @@ import javafx.util.converter.IntegerStringConverter;
  * components.
  */
 public class MoveTableController {
+  @FXML AnchorPane root;
   @FXML private TableView<Move> moveTable;
   @FXML private Button importButton;
 
@@ -50,6 +54,7 @@ public class MoveTableController {
 
   /** Initializes the GUI and sets up event handlers for various GUI components. */
   public void initialize() {
+    ThemeSwitch.switchTheme(root);
     DataManager moveDAO = new DataManager();
 
     // Implement to disable buttons for staff
@@ -91,7 +96,7 @@ public class MoveTableController {
     }
     importButton.setOnAction(
         event -> {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           FileChooser fileChooser = new FileChooser();
           fileChooser.setTitle("Select CSV File");
           fileChooser
@@ -113,7 +118,7 @@ public class MoveTableController {
     // event handler for export button
     exportButton.setOnAction(
         event -> {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           FileChooser fileChooser = new FileChooser();
           fileChooser.setTitle("Save CSV File");
           fileChooser.setInitialFileName("moves.csv");
@@ -131,7 +136,7 @@ public class MoveTableController {
         });
     newMovesCheck.setOnAction(
         event -> {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           if (newMovesCheck.isSelected()) {
             ObservableList<Move> allMoves = moveTable.getItems();
             ObservableList<Move> filteredMoves = FXCollections.observableArrayList();
@@ -157,7 +162,6 @@ public class MoveTableController {
     setupRowFactory();
     submitButton.setOnAction(
         event -> {
-          Sound.playOnButtonClick();
           int nodeId = Integer.parseInt(nodeIdTextField.getText());
           String longName = longNameTextField.getText();
           LocalDate localDate = datePicker.getValue();
@@ -173,7 +177,9 @@ public class MoveTableController {
             nodeIdTextField.clear();
             longNameTextField.clear();
             datePicker.setValue(null);
-          } catch (SQLException e) {
+            Sound.playSFX(SFX.SUCCESS);
+          } catch (Exception e) {
+            Sound.playSFX(SFX.ERROR);
             e.printStackTrace();
           }
         });

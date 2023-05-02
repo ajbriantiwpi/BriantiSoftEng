@@ -1,15 +1,15 @@
 package edu.wpi.teamname.extras;
 
 public enum Song {
-  OTJANBIRD1("Otjanbird-Pt.-I.mp3", "Otjánbird Pt. I"),
-  OTJANBIRD2("Otjanbird-Pt.-II.mp3", "Otjánbird Pt. II"),
-  OTJANBIRD3("Otjanbird-Pt.-III.mp3", "Otjánbird Pt. III"),
+  OTJANBIRD1("Otjanbird-Pt.-I.mp3", "Otjanbird Pt. I"),
+  OTJANBIRD2("Otjanbird-Pt.-II.mp3", "Otjanbird Pt. II"),
+  OTJANBIRD3("Otjanbird-Pt.-III.mp3", "Otjanbird Pt. III"),
   CRUISINALONG("cruisin-along.mp3", "Cruisin Along"),
   EVENINGIMPROVISATION(
       "Evening-Improvisation-with-Ethera.mp3", "Evening Improvisation (with Ethera)"),
   HOMEWORK("homework.mp3", "Homework"),
   SERENA("serena.mp3", "Serena"),
-  SKOGUR("skogur.mp3", "Skógur"),
+  SKOGUR("skogur.mp3", "Skogur"),
   JETPACKJOYRIDE("jetpackjoyridegoodloop.mp3", "Jetpack Joyride Main Theme");
 
   private final String filename;

@@ -35,7 +35,7 @@
                                  <Insets left="10.0" />
                               </padding>
                            </Label>
-                           <CheckBox fx:id="darkToggle" mnemonicParsing="false" styleClass="label-large" text="Dark Mode" textFill="WHITE" StackPane.alignment="CENTER_RIGHT" />
+<!--                           <CheckBox fx:id="darkToggle" mnemonicParsing="false" styleClass="label-large" text="Dark Mode" textFill="WHITE" StackPane.alignment="CENTER_RIGHT" />-->
                         </children>
                      </StackPane>
                   </children>

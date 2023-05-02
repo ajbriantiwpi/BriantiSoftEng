@@ -1,8 +1,10 @@
 package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.GlobalVariables;
+import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.controllers.JFXitems.ReqMenuItems;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
 import edu.wpi.teamname.servicerequest.RequestType;
@@ -29,7 +31,7 @@ import javafx.scene.layout.VBox;
 import org.controlsfx.control.SearchableComboBox;
 
 public class ServiceRequestViewController {
-
+  @FXML AnchorPane root;
   @FXML TableView<ServiceRequest> table;
   @FXML TableColumn requestIDCol;
   @FXML TableColumn patientNameCol;
@@ -65,6 +67,8 @@ public class ServiceRequestViewController {
       FXCollections.observableArrayList("", "PROCESSING", "BLANK", "DONE");
   @FXML ComboBox<Status> requestStatusCombo;
 
+  private static String room;
+
   /**
    * filters the list of service requests to add it to the table
    *
@@ -96,7 +100,10 @@ public class ServiceRequestViewController {
         requestList =
             FXCollections.observableList(
                 requestList.stream()
-                    .filter((request) -> request.getDeliverBy().getDate() == date.getDate())
+                    .filter(
+                        (request) ->
+                            (request.getDeliverBy().getDate() == date.getDate())
+                                && (request.getDeliverBy().getMonth() == date.getMonth()))
                     .toList());
       }
     } catch (NullPointerException e) {
@@ -107,6 +114,13 @@ public class ServiceRequestViewController {
           FXCollections.observableList(
               requestList.stream()
                   .filter((request) -> request.getStaffName().equals(username))
+                  .toList());
+    }
+    if (!(room.equals(""))) {
+      requestList =
+          FXCollections.observableList(
+              requestList.stream()
+                  .filter((request) -> request.getRoomNumber().equals(room))
                   .toList());
     }
     return requestList;
@@ -156,6 +170,8 @@ public class ServiceRequestViewController {
    */
   @FXML
   public void initialize() throws SQLException {
+    room = "";
+    ThemeSwitch.switchTheme(root);
     ParentController.titleString.set("Service Request View");
     submitButton.disableProperty().bind(Bindings.isNull(requestIDText.valueProperty()));
     submitButton.disableProperty().bind(Bindings.isNull(assignStaffText.valueProperty()));
@@ -163,7 +179,7 @@ public class ServiceRequestViewController {
 
     submitButton.setOnMouseClicked(
         event -> {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           try {
             assignStuff(
                 requestIDText.valueProperty().getValue(),
@@ -332,7 +348,7 @@ public class ServiceRequestViewController {
                 if (newValue != null) {
                   ViewButton.setOnMouseClicked(
                       event -> {
-                        Sound.playOnButtonClick();
+                        Sound.playSFX(SFX.BUTTONCLICK);
                         table.setVisible(false);
                         table.setDisable(true);
                         ViewButton.setVisible(false);
@@ -359,7 +375,7 @@ public class ServiceRequestViewController {
 
     backButton.setOnMouseClicked(
         event -> {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           totalPrice = 0.0;
           System.out.println("Back " + totalPrice);
           table.setVisible(true);
@@ -392,6 +408,16 @@ public class ServiceRequestViewController {
               requestStatusCombo.getValue(),
               Timestamp.valueOf(dateBox.getValue().atStartOfDay()),
               requestStaffCombo.getValue()));
+    } else if (GlobalVariables.isRequestFromMap()) {
+      room = GlobalVariables.getRoomFromMap();
+      dateBox.setValue(GlobalVariables.getDateFromMap().toLocalDateTime().toLocalDate());
+      table.setItems(
+          tableFilter(
+              requestTypeCombo.getValue(),
+              requestStatusCombo.getValue(),
+              Timestamp.valueOf(dateBox.getValue().atStartOfDay()),
+              requestStaffCombo.getValue()));
+      GlobalVariables.setRequestFromMap(false);
     }
   }
 
