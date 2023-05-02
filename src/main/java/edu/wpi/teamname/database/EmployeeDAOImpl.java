@@ -204,7 +204,7 @@ public class EmployeeDAOImpl implements LoginDAO {
       }*/
       System.out.println("Employee information has been successfully added to the database.");
     } catch (SQLException e) {
-      System.err.println("Error adding Login information to database: " + e.getMessage());
+      throw e;
     }
   }
 

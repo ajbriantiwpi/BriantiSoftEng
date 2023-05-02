@@ -6,9 +6,9 @@ import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import java.awt.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -24,7 +24,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -32,7 +31,7 @@ import lombok.Setter;
 import org.controlsfx.control.PopOver;
 
 public class ParentController {
-  @FXML CheckBox darkToggle;
+
   @FXML MFXButton homeButton;
   @FXML MFXButton helpButton;
   //    @FXML
@@ -122,7 +121,7 @@ public class ParentController {
     if (secureScreens.contains(GlobalVariables.getCurrentScreen())) {
       Navigation.navigate(Screen.HOME);
     } else {
-      Sound.playOnButtonClick();
+      Sound.playSFX(SFX.BUTTONCLICK);
     }
   }
 
@@ -130,7 +129,7 @@ public class ParentController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          System.out.println("Show");
+          //          System.out.println("Show");
           MFXButton button = (MFXButton) event.getSource();
           //          mapPop = loadButtons("views/MapButtons.fxml");
           //          mapPop.setAutoHide(true);
@@ -164,7 +163,7 @@ public class ParentController {
 
         @Override
         public void handle(MouseEvent event) {
-          System.out.println("HideALl");
+          //          System.out.println("HideALl");
           //          if (!isOnMapPop) {
           //            mp2.setVisible(false);
           mapPop.hide();
@@ -275,7 +274,7 @@ public class ParentController {
     ArrayList<Integer> remInd = new ArrayList<>();
     for (int i = 0; i < v.getChildren().size(); i++) {
       Node n = v.getChildren().get(i);
-      System.out.println("CH: " + i);
+      //      System.out.println("CH: " + i);
       try {
         MFXButton button = (MFXButton) n;
         Screen s = textToScreen(button.getId());
@@ -284,27 +283,27 @@ public class ParentController {
         button.setOnMouseClicked(
             event -> {
               Navigation.navigate(s);
-              System.out.println("S");
+              //              System.out.println("S");
             });
 
         if (c.accessableScreens().contains(s)) {
-          System.out.println("Good: " + i);
+          //          System.out.println("Good: " + i);
         } else {
-          System.out.println("REM: " + i);
+          //          System.out.println("REM: " + i);
           remInd.add(i);
         }
       } catch (Exception e) {
-        System.out.println("Bar?");
+        //        System.out.println("Bar?");
         continue;
       }
     }
 
-    System.out.println("SS: " + v.getChildren().size());
+    //    System.out.println("SS: " + v.getChildren().size());
     for (int i = remInd.size() - 1; i >= 0; i--) {
-      System.out.println(remInd.get(i));
+      //      System.out.println(remInd.get(i));
       v.getChildren().remove(remInd.get(i).intValue());
     }
-    System.out.println("ES: " + v.getChildren().size());
+    //    System.out.println("ES: " + v.getChildren().size());
 
     return v;
     //    PopOver pop = new PopOver(v);
@@ -424,8 +423,7 @@ public class ParentController {
 
     titleLabel.setText(titleString.getValue());
     System.out.println("Parent!");
-    darkToggle.selectedProperty().bindBidirectional(GlobalVariables.getDarkMode());
-    //    darkToggle.setVisible(false);
+
     if (HomeController.getLoggedIn().getValue()) {
       // disableButtonsWhenNotLoggedIn();
       loginButton.setVisible(false);
@@ -505,11 +503,11 @@ public class ParentController {
       // Screen.SIGNAGE) {
       MFXButton retButton = screenToButtonRef(screen);
       if (retButton != null) {
-        System.out.println(retButton.getText());
+        //        System.out.println(retButton.getText());
         retButton.setOnMouseClicked(
             event -> {
               Navigation.navigate(screen);
-              System.out.println("S");
+              //              System.out.println("S");
             });
       }
       //      }
@@ -548,8 +546,8 @@ public class ParentController {
                   ObservableValue<? extends Boolean> observable,
                   Boolean oldValue,
                   Boolean newValue) {
-                System.out.println("Hover: " + oldValue + " -> " + newValue);
-                System.out.println("MP:  " + isOnMapPop);
+                //                System.out.println("Hover: " + oldValue + " -> " + newValue);
+                //                System.out.println("MP:  " + isOnMapPop);
                 if (newValue) {
                   mp2.setVisible(newValue);
                   //                  mapPop.show(mapButton);
@@ -608,7 +606,7 @@ public class ParentController {
                   ObservableValue<? extends Boolean> observable,
                   Boolean oldValue,
                   Boolean newValue) {
-                System.out.println("MPC");
+                //                System.out.println("MPC");
                 isOnMapPop = newValue;
                 mp2.setVisible(isOnMapPop);
               }

@@ -4,6 +4,7 @@ import edu.wpi.teamname.*;
 import edu.wpi.teamname.controllers.JFXitems.DirectionArrow;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.database.PathMessageDAOImpl;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.navigation.AlgoStrategy.AStarAlgo;
 import edu.wpi.teamname.navigation.AlgoStrategy.BFSAlgo;
@@ -40,7 +41,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javax.swing.*;
 import net.kurobako.gesturefx.GesturePane;
 
 public class MapController {
@@ -282,7 +282,7 @@ public class MapController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           System.out.println("Submit Button Pressed");
 
           //          String adminIDIn = AdminIDVal.getText();
@@ -338,7 +338,7 @@ public class MapController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           System.out.println("Viewing Message");
 
           if (MessageTableView.isVisible() == true) {
@@ -381,7 +381,7 @@ public class MapController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           System.out.println("Add Message Running");
 
           if (MessageVal.isVisible() == true) {
@@ -561,7 +561,7 @@ public class MapController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           ViewMessageButton.setDisable(false);
           AddMessageButton.setDisable(false);
           try {
@@ -812,7 +812,7 @@ public class MapController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           System.out.println("This is the toggle");
 
           //          double parentW = map.getMapWitdh(OuterMapAnchor);
@@ -1029,7 +1029,7 @@ public class MapController {
 
         @Override
         public void handle(ActionEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
 
           MFXButton newButton = ((MFXButton) event.getSource());
 
@@ -1072,7 +1072,7 @@ public class MapController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           CheckBox newCheck = ((CheckBox) event.getSource());
 
           int oldLabel = map.getLabelTextType();
@@ -1104,7 +1104,7 @@ public class MapController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           map.setShowEdges(EdgeSelector.isSelected());
           try {
             map.refresh();
@@ -1121,7 +1121,7 @@ public class MapController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           //        map.setShowEdges(EdgeSelector.isSelected());
           map.setShowNodes(NodeSelector.isSelected());
 
@@ -1140,7 +1140,7 @@ public class MapController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           //        map.setShowEdges(EdgeSelector.isSelected());
           map.setShowLegend(LegendSelector.isSelected()); // && NodeSelector.isSelected());
           Legend.setVisible(map.getShowLegend());
@@ -1160,7 +1160,7 @@ public class MapController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           map.setShowTypeLabels(new boolean[] {HallNamesSelector.isSelected()});
 
           try {
@@ -1178,7 +1178,7 @@ public class MapController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           AStarAlgo.setNoStairs(AvoidElevatorsToggle.isSelected());
         }
       };
