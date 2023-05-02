@@ -128,6 +128,27 @@ public class RoomManager {
     }
   }
 
+  public boolean checkAvailable(int roomID, Timestamp date){
+    ConfRoom room = getRoomFromID(roomID);
+    if(room==null){
+      return false;
+    }
+    start = date.toString().split(" ")[1].substring(0,5);
+    System.out.println(start);
+    end=start;
+    return timeCheck(room,date);
+  }
+
+  private ConfRoom getRoomFromID(int roomID){
+    for (ConfRoom room: rooms){
+      if(room.getRoomID()==roomID){
+        return room;
+      }
+    }
+    System.out.println("Room doesnt Exist");
+    return null;
+  }
+
   /**
    * checks if room is within specified size constraints
    *
