@@ -152,14 +152,14 @@ public class Model extends JPanel implements ActionListener {
       }
 
       frame.setVisible(false);
-      Sound.playOnWinEffect();
+      Sound.playSFX(SFX.VINE);
       Sound.setSong(Song.OTJANBIRD1);
       // initLevel();
     }
   }
 
   private void death() {
-    Sound.playOnWinEffect();
+    Sound.playSFX(SFX.VINE);
     lives--;
 
     if (lives == 0) {

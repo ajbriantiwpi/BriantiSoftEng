@@ -6,6 +6,7 @@ import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.alerts.Alert;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.EmployeeType;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
@@ -128,7 +129,7 @@ public class AlertTableViewController {
         new EventHandler<MouseEvent>() {
           @Override
           public void handle(MouseEvent event) {
-            Sound.playOnButtonClick();
+            Sound.playSFX(SFX.BUTTONCLICK);
             MFXButton createNewButton = ((MFXButton) event.getSource());
             VBox outerPane = (VBox) createNewButton.getParent();
 
@@ -161,7 +162,7 @@ public class AlertTableViewController {
             PopOver pop = new PopOver(v);
             submit.setOnMouseClicked(
                 event1 -> {
-                  Sound.playOnButtonClick();
+                  Sound.playSFX(SFX.BUTTONCLICK);
                   LocalDate startDateDate = start.getValue();
                   LocalTime startTime = LocalTime.of(0, 0);
                   LocalTime endTime = LocalTime.of(23, 59);
@@ -200,7 +201,7 @@ public class AlertTableViewController {
 
             cancel.setOnMouseClicked(
                 event1 -> {
-                  Sound.playOnButtonClick();
+                  Sound.playSFX(SFX.BUTTONCLICK);
                   pop.hide();
                 });
             pop.show(createNewButton);
