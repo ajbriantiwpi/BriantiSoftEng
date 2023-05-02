@@ -7,10 +7,7 @@ import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.database.PathMessageDAOImpl;
 import edu.wpi.teamname.extras.Sound;
-import edu.wpi.teamname.navigation.AlgoStrategy.AStarAlgo;
-import edu.wpi.teamname.navigation.AlgoStrategy.BFSAlgo;
-import edu.wpi.teamname.navigation.AlgoStrategy.DFSAlgo;
-import edu.wpi.teamname.navigation.AlgoStrategy.DijkstraAlgo;
+import edu.wpi.teamname.navigation.AlgoStrategy.*;
 import edu.wpi.teamname.navigation.Map;
 import edu.wpi.teamname.navigation.Node;
 import edu.wpi.teamname.navigation.PathMessage;
@@ -707,6 +704,9 @@ public class MapController {
               break;
             case ("Dijkstra's Algorithm"):
               map.graph.setPathfindingAlgo(new DijkstraAlgo());
+              break;
+            case ("Emergency"):
+              map.graph.setPathfindingAlgo(new Emergency());
               break;
             default:
               System.out.println("Not supposed to be here: Wrong Algo");

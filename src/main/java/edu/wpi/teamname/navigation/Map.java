@@ -49,7 +49,7 @@ public class Map {
   };
 
   private String[] algoArr = {
-    "A-Star", "Breadth First Search", "Depth First Search", "Dijkstra's Algorithm"
+    "A-Star", "Breadth First Search", "Depth First Search", "Dijkstra's Algorithm", "Emergency"
   };
 
   private boolean isMapPage;
@@ -81,11 +81,11 @@ public class Map {
    * @throws SQLException if there is an error accessing the database.
    */
   public Map(AnchorPane subAnchor, boolean isMapPage) throws SQLException {
+    GlobalVariables.setHMap(
+        DataManager.getAllLocationNamesMappedByNode(new Timestamp(System.currentTimeMillis())));
     this.graph = new Graph();
     this.currentDisplayFloor = "Lower Level 1";
     this.subAnchor = subAnchor;
-    GlobalVariables.setHMap(
-        DataManager.getAllLocationNamesMappedByNode(new Timestamp(System.currentTimeMillis())));
     this.labelTextType = 1;
     this.isMapPage = isMapPage;
     this.showEdges = !this.isMapPage;
@@ -633,7 +633,8 @@ public class Map {
     direction = Direction.STRAIGHT;
     sb.append(direction.getString());
     System.out.print(direction.getString());
-    distance = getTextDistance(nodePath.get(0), nodePath.get(1));
+    if (nodePath.size() > 1) distance = getTextDistance(nodePath.get(0), nodePath.get(1));
+    else distance = getTextDistance(nodePath.get(0), nodePath.get(0));
     sb.append(distance);
     System.out.println(distance);
 
