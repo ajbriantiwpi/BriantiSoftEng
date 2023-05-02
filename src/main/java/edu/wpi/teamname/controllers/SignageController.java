@@ -6,11 +6,11 @@ import edu.wpi.teamname.controllers.JFXitems.DirectionArrow;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.extras.Pacman;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.navigation.Direction;
 import edu.wpi.teamname.navigation.Signage;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import java.awt.*;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -168,7 +168,7 @@ public class SignageController {
 
     submit.setOnMouseClicked(
         event -> {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           directions.clear();
           leftC = 0;
           rightC = 0;
@@ -233,7 +233,7 @@ public class SignageController {
                     }));
     play.setOnMouseClicked(
         event -> {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           Pacman.pacBear();
         });
   }

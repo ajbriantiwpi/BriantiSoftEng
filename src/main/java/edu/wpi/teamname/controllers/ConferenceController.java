@@ -4,6 +4,7 @@ import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.controllers.JFXitems.RoomSelector;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.servicerequest.ConfReservation;
@@ -272,8 +273,8 @@ public class ConferenceController {
 
     submitButton.setOnMouseClicked(
         event -> { // add to db and make new relation in array in confroomrequests
-          Sound.playOnButtonClick();
           if (roomManager.isViableRoom(activeSelector.getRoom(), dateBook)) {
+
             try {
               resID = DataManager.setResID();
               username = GlobalVariables.getCurrentUser().getUsername();
@@ -289,9 +290,10 @@ public class ConferenceController {
                       staff,
                       findSelector(roomBox.getValue()).getRoom().getRoomID());
               DataManager.addConfReservation(c);
-
-            } catch (SQLException e) {
+              Sound.playSFX(SFX.SUCCESS);
+            } catch (Exception e) {
               System.out.println(e);
+              Sound.playSFX(SFX.ERROR);
             }
           }
         });

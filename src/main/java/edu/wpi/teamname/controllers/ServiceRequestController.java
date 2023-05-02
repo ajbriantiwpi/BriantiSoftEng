@@ -8,6 +8,7 @@ import edu.wpi.teamname.controllers.JFXitems.ReqMenuItems;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.EmployeeType;
 import edu.wpi.teamname.extras.Language;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.servicerequest.RequestType;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
@@ -194,7 +195,7 @@ public class ServiceRequestController {
    */
   private void nextPane() throws SQLException {
     if (requestPage != 2) {
-      Sound.playOnButtonClick();
+      Sound.playSFX(SFX.BUTTONCLICK);
     }
     System.out.println("NEXT");
     if (requestPage == 0) {
@@ -294,9 +295,10 @@ public class ServiceRequestController {
       requestPage = 0;
       nextButton.setText("Next");
       DataManager.addServiceRequest(request);
+      Sound.playSFX(SFX.SUCCESS);
       Navigation.navigate(Screen.SMILE);
 
-      System.out.println(request);
+      // System.out.println(request);
     }
   }
 
@@ -398,7 +400,7 @@ public class ServiceRequestController {
     cancelButton.setOnMouseClicked(event -> cancelAction());
     clearButton.setOnMouseClicked(
         event -> {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           clearAction();
         });
     if (!GlobalVariables.userIsType(EmployeeType.DOCTOR)) {
@@ -415,7 +417,7 @@ public class ServiceRequestController {
 
     forgotButton.setOnMouseClicked(
         event -> {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           setVisibleScreen(1);
           cartBox.getChildren().clear();
           totalLabel.setText("Total Price: ");
@@ -429,7 +431,7 @@ public class ServiceRequestController {
 
     searchButton.setOnMouseClicked(
         event -> {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           try {
             refreshItems();
           } catch (SQLException e) {

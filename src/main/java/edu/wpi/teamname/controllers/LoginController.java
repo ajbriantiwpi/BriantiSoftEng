@@ -8,6 +8,7 @@ import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
 import edu.wpi.teamname.extras.Language;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Song;
 import edu.wpi.teamname.extras.Sound;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -155,7 +156,7 @@ public class LoginController {
     success.setVisible(false);
     exit.setOnMouseClicked(
         event -> {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           try {
             Connection connection = DataManager.DbConnection();
             connection.close();
@@ -190,7 +191,7 @@ public class LoginController {
           try {
             boolean temp = loginPressed(loginText.getText(), passwordText.getText());
             if (!temp) {
-              Sound.playOnButtonClick();
+              Sound.playSFX(SFX.ERROR);
               paneOfStuff.setDisable(true);
               success.setVisible(true);
               passwordText.clear();
@@ -229,7 +230,7 @@ public class LoginController {
    * @throws SQLException if there is an error connecting to the database
    */
   public static String forgotPasswordPressed(String username) throws SQLException {
-    Sound.playOnButtonClick();
+    Sound.playSFX(SFX.BUTTONCLICK);
     //    return DataManager.forgotPassword(username);
     Employee employee = DataManager.getEmployee(username);
     if (employee != null) {

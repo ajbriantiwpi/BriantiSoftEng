@@ -4,6 +4,7 @@ import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.extras.Language;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import java.io.File;
 import java.io.IOException;
@@ -135,7 +136,7 @@ public class DataController implements Initializable {
   }
 
   private void onImportButtonClicked() {
-    Sound.playOnButtonClick();
+    Sound.playSFX(SFX.BUTTONCLICK);
     FileChooser fileChooser = new FileChooser();
     String selectedItem = importComboBox.getSelectionModel().getSelectedItem();
     fileChooser.setTitle("Open CSV File");
@@ -216,7 +217,7 @@ public class DataController implements Initializable {
   }
 
   private void onExportButtonClicked() {
-    Sound.playOnButtonClick();
+    Sound.playSFX(SFX.BUTTONCLICK);
     String selectedItem = exportComboBox.getSelectionModel().getSelectedItem();
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Save CSV File");

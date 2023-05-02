@@ -2,6 +2,7 @@ package edu.wpi.teamname.controllers.JFXitems;
 
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.extras.Language;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import java.sql.SQLException;
@@ -68,7 +69,7 @@ public class RequestMenuItemButton extends Button {
     setMnemonicParsing(true);
     setOnMouseClicked(
         event -> {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           for (int a = 0; a < parent.getQuantity(); a++) {
             try {
               if (add) {

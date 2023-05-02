@@ -7,6 +7,7 @@ import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.extras.Language;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Song;
 import edu.wpi.teamname.extras.Sound;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -101,6 +102,7 @@ public class SettingsController {
 
     ThemeSwitch.switchTheme(root);
     darkToggle.selectedProperty().bindBidirectional(GlobalVariables.getDarkMode());
+    darkToggle.setOnAction(e -> Sound.playSFX(SFX.BUTTONCLICK));
     ParentController.titleString.set("Settings");
     ParentController.titleString.set("Service Request View");
     setLanguage(GlobalVariables.getB().getValue());

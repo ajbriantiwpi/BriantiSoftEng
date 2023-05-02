@@ -5,6 +5,8 @@ import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.Feedback;
 import edu.wpi.teamname.extras.Language;
+import edu.wpi.teamname.extras.SFX;
+import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.servicerequest.Status;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -72,7 +74,7 @@ public class FeedbackController {
     try {
       dataManager.addFeedback(feedback);
       descriptionField.clear();
-
+      Sound.playSFX(SFX.SUCCESS);
     } catch (SQLException e) {
       System.out.println(e.getMessage());
       showErrorAlert("Error", "Failed to submit feedback", e.getMessage());
@@ -80,6 +82,7 @@ public class FeedbackController {
   }
 
   private void showErrorAlert(String title, String header, String content) {
+    Sound.playSFX(SFX.ERROR);
     Alert alert = new Alert(Alert.AlertType.ERROR);
     alert.setTitle(title);
     alert.setHeaderText(header);

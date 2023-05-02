@@ -39,7 +39,7 @@
                   <String fx:value="on-suface-text" />
                </styleClass>
             </Label>
-            <TextField fx:id="employeeIDField" maxWidth="280.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 10;" styleClass="primary-container" stylesheets="@../stylesheets/TextField.css">
+            <TextField fx:id="employeeIDField" maxWidth="280.0" style="-fx-background-radius: 10;" styleClass="primary-container" stylesheets="@../stylesheets/TextField.css">
                <VBox.margin>
                   <Insets />
                </VBox.margin></TextField>
@@ -55,7 +55,7 @@
                   <String fx:value="on-suface-text" />
                </styleClass>
             </Label>
-            <TextField fx:id="employeeFirstNameTextField" maxWidth="280.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 10;" styleClass="primary-container" stylesheets="@../stylesheets/TextField.css">
+            <TextField fx:id="employeeFirstNameTextField" maxWidth="280.0" style="-fx-background-radius: 10;" styleClass="primary-container" stylesheets="@../stylesheets/TextField.css">
                <VBox.margin>
                   <Insets />
                </VBox.margin></TextField>
@@ -71,7 +71,7 @@
                   <String fx:value="on-suface-text" />
                </styleClass>
             </Label>
-            <TextField fx:id="employeeLastNameTextField" maxWidth="280.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 10;" styleClass="primary-container" stylesheets="@../stylesheets/TextField.css">
+            <TextField fx:id="employeeLastNameTextField" maxWidth="280.0" style="-fx-background-radius: 10;" styleClass="primary-container" stylesheets="@../stylesheets/TextField.css">
                <VBox.margin>
                   <Insets />
                </VBox.margin></TextField>
@@ -119,7 +119,7 @@
                   <String fx:value="on-suface-text" />
                </styleClass>
             </Label>
-            <TextField fx:id="employeeUserTextField" maxWidth="280.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 10;" styleClass="primary-container" stylesheets="@../stylesheets/TextField.css">
+            <TextField fx:id="employeeUserTextField" maxWidth="280.0" style="-fx-background-radius: 10;" styleClass="primary-container" stylesheets="@../stylesheets/TextField.css">
                <VBox.margin>
                   <Insets />
                </VBox.margin></TextField>
@@ -135,7 +135,7 @@
                   <String fx:value="on-suface-text" />
                </styleClass>
             </Label>
-            <TextField fx:id="employeePasswordTextField" maxWidth="280.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 10;" styleClass="primary-container" stylesheets="@../stylesheets/TextField.css">
+            <TextField fx:id="employeePasswordTextField" maxWidth="280.0" style="-fx-background-radius: 10;" styleClass="primary-container" stylesheets="@../stylesheets/TextField.css">
                <VBox.margin>
                   <Insets />
                </VBox.margin></TextField>
