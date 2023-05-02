@@ -15,7 +15,7 @@ public class Sound {
   private static String buttonClickFilename =
       "src/main/resources/edu/wpi/teamname/sounds/buttonclick.mp3";
   private static Media soundButton = new Media(new File(buttonClickFilename).toURI().toString());
-  private static Media soundButton2 =
+  private static Media soundEffect =
       new Media(
           new File("src/main/resources/edu/wpi/teamname/sounds/vine-boom.mp3").toURI().toString());
   @Getter private static MediaPlayer buttonPlayer = new MediaPlayer(soundButton);
@@ -76,8 +76,9 @@ public class Sound {
     buttonPlayer.play();
   }
 
-  public static void playOnButtonClick2() {
-    buttonPlayer = new MediaPlayer(soundButton2);
+  /** * Plays the sound effect for winning pac-man */
+  public static void playOnWinEffect() {
+    buttonPlayer = new MediaPlayer(soundEffect);
     buttonPlayer.setVolume(volume);
     buttonPlayer.play();
   }
