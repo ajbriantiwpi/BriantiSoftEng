@@ -22,85 +22,113 @@
                   <Insets left="12.0" top="12.0" />
                </VBox.margin>
             </Label>
-            <Label prefHeight="18.0" prefWidth="159.0" styleClass="title-med" text="Employee ID" textFill="#001b3b">
+            <Label prefHeight="18.0" prefWidth="159.0" text="Employee ID" textFill="#001b3b">
                <font>
                   <Font name="Roboto" size="16.0" />
                </font>
                <VBox.margin>
                   <Insets top="12.0" />
                </VBox.margin>
+               <styleClass>
+                  <String fx:value="title-med" />
+                  <String fx:value="primary-text-container" />
+               </styleClass>
             </Label>
             <TextField fx:id="employeeIDField" maxWidth="280.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 10;" stylesheets="@../stylesheets/TextField.css">
                <VBox.margin>
                   <Insets />
                </VBox.margin></TextField>
-            <Label prefHeight="18.0" prefWidth="159.0" styleClass="title-med" text="First Name" textFill="#001b3b">
+            <Label prefHeight="18.0" prefWidth="159.0" text="First Name" textFill="#001b3b">
                <font>
                   <Font name="Roboto" size="16.0" />
                </font>
                <VBox.margin>
                   <Insets top="12.0" />
                </VBox.margin>
+               <styleClass>
+                  <String fx:value="title-med" />
+                  <String fx:value="primary-text-container" />
+               </styleClass>
             </Label>
             <TextField fx:id="employeeFirstNameTextField" maxWidth="280.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 10;" stylesheets="@../stylesheets/TextField.css">
                <VBox.margin>
                   <Insets />
                </VBox.margin></TextField>
-            <Label prefHeight="18.0" prefWidth="159.0" styleClass="title-med" text="Last Name" textFill="#001b3b">
+            <Label prefHeight="18.0" prefWidth="159.0" text="Last Name" textFill="#001b3b">
                <font>
                   <Font name="Roboto" size="16.0" />
                </font>
                <VBox.margin>
                   <Insets top="12.0" />
                </VBox.margin>
+               <styleClass>
+                  <String fx:value="title-med" />
+                  <String fx:value="primary-text-container" />
+               </styleClass>
             </Label>
             <TextField fx:id="employeeLastNameTextField" maxWidth="280.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 10;" stylesheets="@../stylesheets/TextField.css">
                <VBox.margin>
                   <Insets />
                </VBox.margin></TextField>
-            <Label prefHeight="18.0" prefWidth="159.0" styleClass="title-med" text="Clearance Level" textFill="#001b3b">
+            <Label prefHeight="18.0" prefWidth="159.0" text="Clearance Level" textFill="#001b3b">
                <font>
                   <Font name="Roboto" size="16.0" />
                </font>
                <VBox.margin>
                   <Insets top="12.0" />
                </VBox.margin>
+               <styleClass>
+                  <String fx:value="title-med" />
+                  <String fx:value="primary-text-container" />
+               </styleClass>
             </Label>
             <ComboBox fx:id="employeeLevelText" maxWidth="280.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 10;" stylesheets="@../stylesheets/comboSmall.css">
                <VBox.margin>
                   <Insets />
                </VBox.margin></ComboBox>
-            <Label prefHeight="18.0" prefWidth="159.0" styleClass="title-med" text="Employee Type" textFill="#001b3b">
+            <Label prefHeight="18.0" prefWidth="159.0" text="Employee Type" textFill="#001b3b">
                <font>
                   <Font name="Roboto" size="16.0" />
                </font>
                <VBox.margin>
                   <Insets top="12.0" />
                </VBox.margin>
+               <styleClass>
+                  <String fx:value="title-med" />
+                  <String fx:value="primary-text-container" />
+               </styleClass>
             </Label>
             <SearchableComboBox fx:id="employeeTypeText" maxWidth="280.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 10;" stylesheets="@../stylesheets/comboSmall.css">
                <VBox.margin>
                   <Insets />
                </VBox.margin></SearchableComboBox>
-            <Label prefHeight="18.0" prefWidth="159.0" styleClass="title-med" text="Username" textFill="#001b3b">
+            <Label prefHeight="18.0" prefWidth="159.0" text="Username" textFill="#001b3b">
                <font>
                   <Font name="Roboto" size="16.0" />
                </font>
                <VBox.margin>
                   <Insets top="12.0" />
                </VBox.margin>
+               <styleClass>
+                  <String fx:value="title-med" />
+                  <String fx:value="primary-text-container" />
+               </styleClass>
             </Label>
             <TextField fx:id="employeeUserTextField" maxWidth="280.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 10;" stylesheets="@../stylesheets/TextField.css">
                <VBox.margin>
                   <Insets />
                </VBox.margin></TextField>
-            <Label prefHeight="18.0" prefWidth="159.0" styleClass="title-med" text="Password" textFill="#001b3b">
+            <Label prefHeight="18.0" prefWidth="159.0" text="Password" textFill="#001b3b">
                <font>
                   <Font name="Roboto" size="16.0" />
                </font>
                <VBox.margin>
                   <Insets top="12.0" />
                </VBox.margin>
+               <styleClass>
+                  <String fx:value="title-med" />
+                  <String fx:value="primary-text-container" />
+               </styleClass>
             </Label>
             <TextField fx:id="employeePasswordTextField" maxWidth="280.0" style="-fx-background-color: #D5E3FF; -fx-background-radius: 10;" stylesheets="@../stylesheets/TextField.css">
                <VBox.margin>
@@ -172,7 +200,7 @@
                </HBox.margin>
                <styleClass>
                   <String fx:value="title-med" />
-                  <String fx:value="on-suface-text" />
+                  <String fx:value="primary-text-container" />
                </styleClass>
             </Label>
             <TextField fx:id="searchEmployee" prefHeight="54.0" prefWidth="248.0" style="-fx-background-radius: 10;" styleClass="primary-container" stylesheets="@../stylesheets/TextField.css">
