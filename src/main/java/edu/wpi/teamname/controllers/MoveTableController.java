@@ -7,6 +7,7 @@ import edu.wpi.teamname.controllers.helpers.DatePickerEditingCell;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.database.MoveDAOImpl;
 import edu.wpi.teamname.employees.ClearanceLevel;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.navigation.Move;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -95,7 +96,7 @@ public class MoveTableController {
     }
     importButton.setOnAction(
         event -> {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           FileChooser fileChooser = new FileChooser();
           fileChooser.setTitle("Select CSV File");
           fileChooser
@@ -117,7 +118,7 @@ public class MoveTableController {
     // event handler for export button
     exportButton.setOnAction(
         event -> {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           FileChooser fileChooser = new FileChooser();
           fileChooser.setTitle("Save CSV File");
           fileChooser.setInitialFileName("moves.csv");
@@ -135,7 +136,7 @@ public class MoveTableController {
         });
     newMovesCheck.setOnAction(
         event -> {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           if (newMovesCheck.isSelected()) {
             ObservableList<Move> allMoves = moveTable.getItems();
             ObservableList<Move> filteredMoves = FXCollections.observableArrayList();
@@ -161,7 +162,7 @@ public class MoveTableController {
     setupRowFactory();
     submitButton.setOnAction(
         event -> {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           int nodeId = Integer.parseInt(nodeIdTextField.getText());
           String longName = longNameTextField.getText();
           LocalDate localDate = datePicker.getValue();

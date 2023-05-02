@@ -6,9 +6,9 @@ import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import java.awt.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -121,7 +121,7 @@ public class ParentController {
     if (secureScreens.contains(GlobalVariables.getCurrentScreen())) {
       Navigation.navigate(Screen.HOME);
     } else {
-      Sound.playOnButtonClick();
+      Sound.playSFX(SFX.BUTTONCLICK);
     }
   }
 

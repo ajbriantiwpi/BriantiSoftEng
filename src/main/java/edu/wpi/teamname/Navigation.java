@@ -1,5 +1,6 @@
 package edu.wpi.teamname;
 
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +13,7 @@ public class Navigation {
 
   public static void navigate(final Screen screen) {
     if (!first) {
-      Sound.playOnButtonClick();
+      Sound.playSFX(SFX.BUTTONCLICK);
     } else {
       first = false;
     }

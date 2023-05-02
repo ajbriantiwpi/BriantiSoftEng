@@ -7,6 +7,7 @@ import edu.wpi.teamname.controllers.helpers.DatePickerTableCell;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.database.SignageDAOImpl;
 import edu.wpi.teamname.database.interfaces.SignageDAO;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.navigation.Direction;
 import edu.wpi.teamname.navigation.Signage;
@@ -332,7 +333,7 @@ public class EditSignageController {
    * @throws NumberFormatException If the signId or kioskId input field is not a valid integer.
    */
   public void handleSubmitButton() {
-    Sound.playOnButtonClick();
+    Sound.playSFX(SFX.BUTTONCLICK);
     StringConverter<Direction> directionConverter =
         new StringConverter<Direction>() {
           @Override
