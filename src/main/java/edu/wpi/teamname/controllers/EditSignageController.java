@@ -333,7 +333,6 @@ public class EditSignageController {
    * @throws NumberFormatException If the signId or kioskId input field is not a valid integer.
    */
   public void handleSubmitButton() {
-    Sound.playSFX(SFX.BUTTONCLICK);
     StringConverter<Direction> directionConverter =
         new StringConverter<Direction>() {
           @Override
@@ -357,22 +356,25 @@ public class EditSignageController {
             return null;
           }
         };
-    int signId = Integer.parseInt(signIDinput.getText());
-    String longName = longNameInput.getText();
-    String shortName = shortNameInput.getText();
-    java.sql.Timestamp date = java.sql.Timestamp.valueOf(dateInput.getValue().atStartOfDay());
-    java.sql.Timestamp endDate = java.sql.Timestamp.valueOf(endDateInput.getValue().atStartOfDay());
-    Direction direction = directionConverter.fromString(directionPicker.getValue());
-    int kioskId = Integer.parseInt(kioskInput.getText());
-
-    Signage newSignage =
-        new Signage(longName, shortName, date, endDate, direction, signId, kioskId);
-    SignageDAO signageDAO = new SignageDAOImpl();
-
     try {
+      int signId = Integer.parseInt(signIDinput.getText());
+      String longName = longNameInput.getText();
+      String shortName = shortNameInput.getText();
+      java.sql.Timestamp date = java.sql.Timestamp.valueOf(dateInput.getValue().atStartOfDay());
+      java.sql.Timestamp endDate =
+          java.sql.Timestamp.valueOf(endDateInput.getValue().atStartOfDay());
+      Direction direction = directionConverter.fromString(directionPicker.getValue());
+      int kioskId = Integer.parseInt(kioskInput.getText());
+
+      Signage newSignage =
+          new Signage(longName, shortName, date, endDate, direction, signId, kioskId);
+      SignageDAO signageDAO = new SignageDAOImpl();
+
       signageDAO.add(newSignage);
+      Sound.playSFX(SFX.SUCCESS);
       editSignageTable.getItems().add(newSignage);
-    } catch (SQLException e) {
+    } catch (Exception e) {
+      Sound.playSFX(SFX.ERROR);
       e.printStackTrace();
     }
 

@@ -192,7 +192,6 @@ public class ConferenceController {
           if (roomManager.isViableRoom(activeSelector.getRoom(), dateBook)) {
 
             try {
-
               resID = DataManager.setResID();
               username = GlobalVariables.getCurrentUser().getUsername();
               ConfReservation c =
@@ -208,13 +207,10 @@ public class ConferenceController {
                       findSelector(roomBox.getValue()).getRoom().getRoomID());
               DataManager.addConfReservation(c);
               Sound.playSFX(SFX.SUCCESS);
-
-            } catch (SQLException e) {
+            } catch (Exception e) {
               System.out.println(e);
               Sound.playSFX(SFX.ERROR);
             }
-          } else {
-            Sound.playSFX(SFX.ERROR);
           }
         });
   }
