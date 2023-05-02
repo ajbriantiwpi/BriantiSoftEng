@@ -357,7 +357,7 @@ public class Map {
    * @param nodes List of nodes to create the path from
    * @return An ArrayList of Shape objects representing the path
    */
-  private ArrayList<ArrayList<Shape>> makeShapePath(ArrayList<Node> nodes) {
+  private ArrayList<ArrayList<Shape>> makeShapePath(ArrayList<Node> nodes) throws SQLException {
     ArrayList<Node> listFloor1 = new ArrayList<>();
     ArrayList<Node> listFloor2 = new ArrayList<>();
     ArrayList<Node> listUpper1 = new ArrayList<>();
@@ -403,25 +403,25 @@ public class Map {
     }
 
     if (listFloor2.size() != 0) {
-      pathAllFloor.add(0, makeShapePathFloor(listFloor2, "L2"));
+      pathAllFloor.add(0, makeShapePathFloor(listFloor2, "L2", true));
     }
 
     if (listFloor1.size() != 0) {
       System.out.println("size of list1: " + listFloor1.size());
       // System.out.println("size of list in list: " + pathAllFloor.get(1).size());
-      pathAllFloor.add(1, makeShapePathFloor(listFloor1, "L1"));
+      pathAllFloor.add(1, makeShapePathFloor(listFloor1, "L1", true));
     }
 
     if (listUpper1.size() != 0) {
-      pathAllFloor.add(2, makeShapePathFloor(listUpper1, "1"));
+      pathAllFloor.add(2, makeShapePathFloor(listUpper1, "1", true));
     }
 
     if (listUpper2.size() != 0) {
-      pathAllFloor.add(3, makeShapePathFloor(listUpper2, "2"));
+      pathAllFloor.add(3, makeShapePathFloor(listUpper2, "2", true));
     }
 
     if (listUpper3.size() != 0) {
-      pathAllFloor.add(4, makeShapePathFloor(listUpper3, "3"));
+      pathAllFloor.add(4, makeShapePathFloor(listUpper3, "3", true));
     }
 
     return pathAllFloor;
@@ -465,34 +465,48 @@ public class Map {
     //    return shapes;
   }
 
-  private ArrayList<Shape> makeShapePathFloor(ArrayList<Node> listNode, String floor) {
+  private ArrayList<Shape> makeShapePathFloor(ArrayList<Node> listNode, String floor, boolean flag)
+      throws SQLException {
     ArrayList<Shape> shapes = new ArrayList<Shape>();
+    ArrayList<Node> subsectionListNodes = new ArrayList<>();
 
+    int saveIndex;
     Circle c;
     Path path;
 
     for (int j = 0; j < 2; j++) {
       path = new Path();
-      if (j == 0) {
+      if (j == 0) { // runs first time
         path.setStroke(GlobalVariables.getBorderColor());
-      } else {
+      } else { // runs second time
         path.setStroke(GlobalVariables.getInsideColor());
       }
+
+      // This is setting the line width
       path.setStrokeWidth(
           GlobalVariables.getLineT() - (GlobalVariables.getStrokeThickness() * 2 * j));
+
+      // Adds new MoveTo object to the path elements, runs twice
       path.getElements().add(new MoveTo(listNode.get(0).getX(), listNode.get(0).getY()));
 
       for (int i = 1; i < listNode.size(); i++) {
+        boolean isConnectedToPrev = false;
+        for (Edge e : DataManager.getAllEdges()) {
+          if (((e.getEndNodeID() == listNode.get(i).getId())
+                  && (e.getStartNodeID() == listNode.get(i - 1).getId()))
+              || ((e.getStartNodeID() == listNode.get(i).getId())
+                  && (e.getEndNodeID() == listNode.get(i - 1).getId()))) {
+            path.getElements().add(new LineTo(listNode.get(i).getX(), listNode.get(i).getY()));
+            isConnectedToPrev = true;
+          }
+        }
 
-        //        if(hasEdge){
-        path.getElements().add(new LineTo(listNode.get(i).getX(), listNode.get(i).getY()));
-        //        }else {
-        // run the rest fo the method to draw the end circles
-        // break out of both for loops. and go to the go to.
-        // save you i index here. Then
-        // Recusively call make shape path floor, with a smaller subset of listNode
-        //        }
-
+        if (!isConnectedToPrev) {
+          ArrayList<Node> subSection = new ArrayList<>(listNode.subList(i, listNode.size()));
+          subsectionListNodes = subSection;
+          break;
+        }
+        // path.getElements().add(new LineTo(listNode.get(i).getX(), listNode.get(i).getY()));
       }
 
       path.setStrokeLineJoin(StrokeLineJoin.ROUND);
@@ -523,22 +537,6 @@ public class Map {
         shapes.addAll(newShapes);
 
       } else if (i == listNode.size() - 1) {
-        //        c =
-        //            new Circle(
-        //                listNode.get(i).getX(),
-        //                listNode.get(i).getY(),
-        //                GlobalVariables.getCircleR() + GlobalVariables.getStrokeThickness());
-        //        c.setFill(GlobalVariables.getBorderColor());
-        //        shapes.add(c);
-
-        //        c =
-        //            new Circle(
-        //                listNode.get(i).getX(), listNode.get(i).getY(),
-        // GlobalVariables.getCircleR());
-        //        c.setFill(GlobalVariables.getInsideColor());
-        //        shapes.add(c);
-
-        //        listNode.get(i).getY(),
 
         ArrayList<Shape> newShapes = new ArrayList<>();
 
@@ -559,9 +557,9 @@ public class Map {
       }
     }
 
-    //    susection = ListNode from i to the end
-    //    shapes.addAll(makeShapePathFloor(subsectionOfListNode, sameFloor));
-
+    if (flag && subsectionListNodes.size() > 0) {
+      shapes.addAll(makeShapePathFloor(subsectionListNodes, floor, false));
+    }
     prevPath.addAll(shapes);
     return shapes;
   }
@@ -576,7 +574,8 @@ public class Map {
    * @param floor2 The ending floor
    */
   public void drawPath(
-      Pane parent, Point2D firstClick, Point2D secondClick, String floor1, String floor2) {
+      Pane parent, Point2D firstClick, Point2D secondClick, String floor1, String floor2)
+      throws SQLException {
 
     //    String floor = "L1";
 
@@ -648,7 +647,7 @@ public class Map {
    * @param startNodeId the starting MapNode ID
    * @param endNodeId the ending MapNode ID
    */
-  public void drawPath(Pane parent, int startNodeId, int endNodeId) {
+  public void drawPath(Pane parent, int startNodeId, int endNodeId) throws SQLException {
     ArrayList<Node> nodePath = this.graph.getPathBetween(startNodeId, endNodeId);
 
     System.out.println("SIZE: " + nodePath.size());
