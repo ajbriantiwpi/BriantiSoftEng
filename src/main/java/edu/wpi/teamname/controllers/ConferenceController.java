@@ -25,6 +25,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.controlsfx.control.RangeSlider;
 
+/**
+ * Controller for the UI to reserve a conference room
+ */
 public class ConferenceController {
 
   @FXML AnchorPane root;
@@ -222,6 +225,10 @@ public class ConferenceController {
     return null;
   }
 
+  /**
+   * Refreshes the rooms on the screen to
+   * @param date date to refresh the screen to
+   */
   private void refreshRooms(Timestamp date) {
     String roomName = roomBox.getValue();
     selectors.clear();
@@ -241,10 +248,17 @@ public class ConferenceController {
     }
   }
 
+  /**
+   * Refreshes the rooms on the screen to. defaulting date to the datebox
+   */
   private void refreshRooms() {
     refreshRooms(Timestamp.valueOf(dateBox.getValue().atStartOfDay()));
   }
 
+  /**
+   * sets the active selector to the RoomSelector that is currently being worked on
+   * @param selector RoomSelector currently being used
+   */
   public void setActiveSelector(RoomSelector selector) {
     if (!activeSelector.equals(selector)) {
       activeSelector.setAllInRange(false);
@@ -256,18 +270,26 @@ public class ConferenceController {
     roomBox.setValue(activeSelector.getRoom().getLocationName().split(",")[0]);
   }
 
+  /**
+   * sets the value of the start box as well as the start value in RoomManager
+   * @param time starting time
+   */
   public void setStartBox(String time) {
     startBox.setValue(time);
     roomManager.setStart(time);
   }
 
+  /**
+   * sets the value of the end box as well as the end value in RoomManager
+   * @param time end time
+   */
   public void setEndBox(String time) {
     endBox.setValue(time);
     roomManager.setEnd(time);
   }
 }
 
-/**
+/*
  * @FXML public void initialize() throws SQLException { System.out.println("Initializing");
  * rooms.add(uno); rooms.add(dos); rooms.add(tres); for (ConfRoom room : rooms) { selectors.add(new
  * RoomSelector(room, this)); } activeSelector = selectors.get(0); listView.setItems(selectors); }

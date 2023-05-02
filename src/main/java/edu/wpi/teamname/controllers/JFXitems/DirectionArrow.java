@@ -9,6 +9,9 @@ import javafx.scene.layout.GridPane;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Object for displaying text direcitons and signage
+ */
 public class DirectionArrow extends GridPane {
   @Getter @Setter Direction direction;
 
