@@ -127,8 +127,8 @@ public class DataController implements Initializable {
             throw new RuntimeException(e);
           }
         });
-    importComboBox.getItems().addAll(FIELDS);
-    exportComboBox.getItems().addAll(FIELDS);
+    importComboBox.setItems(FXCollections.observableList(Arrays.asList(FIELDS)));
+    exportComboBox.setItems(FXCollections.observableList(Arrays.asList(FIELDS)));
 
     importButton.setOnAction(e -> onImportButtonClicked());
     exportButton.setOnAction(e -> onExportButtonClicked());

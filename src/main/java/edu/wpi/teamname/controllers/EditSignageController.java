@@ -2,11 +2,13 @@ package edu.wpi.teamname.controllers;
 
 import static edu.wpi.teamname.database.DataManager.syncSignage;
 
+import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.controllers.helpers.DatePickerTableCell;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.database.SignageDAOImpl;
 import edu.wpi.teamname.database.interfaces.SignageDAO;
+import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.navigation.Direction;
 import edu.wpi.teamname.navigation.Signage;
@@ -34,6 +36,16 @@ import jdk.jfr.Timestamp;
  */
 public class EditSignageController {
 
+  @FXML Label addSignageLabel;
+  @FXML Label idLabel;
+  @FXML Label kioskIDLabel;
+  @FXML Label longLabel;
+  @FXML Label shortLabel;
+  @FXML Label dateLabel;
+  @FXML Label endLabel;
+  @FXML Label directionLabel;
+  @FXML Label editLabel;
+  @FXML Label searchLabel;
   @FXML private TableView<Signage> editSignageTable;
   @FXML private TextField signIDinput;
   @FXML private TextField longNameInput;
@@ -47,11 +59,110 @@ public class EditSignageController {
   //  @FXML private MFXButton exportButton;
   @FXML private AnchorPane rootPane;
   @FXML private TextField searchBar;
+
+  public void setLanguage(
+      Language lang,
+      TableColumn longNameColumn,
+      TableColumn shortNameColumn,
+      TableColumn dateColumn,
+      TableColumn endDateColumn,
+      TableColumn arrowDirectionColumn,
+      TableColumn signIDColumn,
+      TableColumn kioskIDColumn) {
+    switch (lang) {
+      case ENGLISH:
+        ParentController.titleString.set("Signage Editor");
+        addSignageLabel.setText("Add Signage");
+        idLabel.setText("Sign ID");
+        kioskIDLabel.setText("Kiosk ID");
+        longLabel.setText("Long Name");
+        shortLabel.setText("Short Name");
+        dateLabel.setText("Date");
+        endLabel.setText("End Date");
+        directionLabel.setText("Direction");
+        submitButton.setText("Submit");
+        editLabel.setText("Edit Signage");
+        searchLabel.setText("Search");
+        longNameColumn.setText("Long Name");
+        shortNameColumn.setText("Short Name");
+        dateColumn.setText("Date");
+        endDateColumn.setText("End Date");
+        arrowDirectionColumn.setText("Direction");
+        signIDColumn.setText("Sign ID");
+        kioskIDLabel.setText("Kiosk ID");
+        break;
+      case FRENCH:
+        ParentController.titleString.set("Éditeur de Signalisation");
+        addSignageLabel.setText("Ajouter une Signalisation");
+        idLabel.setText("ID du Signal");
+        kioskIDLabel.setText("ID du Kiosque");
+        longLabel.setText("Nom Long");
+        shortLabel.setText("Nom Court");
+        dateLabel.setText("Date");
+        endLabel.setText("Date de Fin");
+        directionLabel.setText("Direction");
+        submitButton.setText("Soumettre");
+        editLabel.setText("Modifier la Signalisation");
+        searchLabel.setText("Recherche");
+        longNameColumn.setText("Nom Long");
+        shortNameColumn.setText("Nom Court");
+        dateColumn.setText("Date");
+        endDateColumn.setText("Date de Fin");
+        arrowDirectionColumn.setText("Direction");
+        signIDColumn.setText("ID du Signal");
+        kioskIDLabel.setText("ID du Kiosque");
+        break;
+      case ITALIAN:
+        ParentController.titleString.set("Editor di Segnaletica");
+        addSignageLabel.setText("Aggiungi Segnaletica");
+        idLabel.setText("ID Segnale");
+        kioskIDLabel.setText("ID Kiosk");
+        longLabel.setText("Nome Lungo");
+        shortLabel.setText("Nome Breve");
+        dateLabel.setText("Data");
+        endLabel.setText("Data di Fine");
+        directionLabel.setText("Direzione");
+        submitButton.setText("Invia");
+        editLabel.setText("Modifica Segnaletica");
+        searchLabel.setText("Ricerca");
+        longNameColumn.setText("Nome Lungo");
+        shortNameColumn.setText("Nome Breve");
+        dateColumn.setText("Data");
+        endDateColumn.setText("Data di Fine");
+        arrowDirectionColumn.setText("Direzione");
+        signIDColumn.setText("ID Segnale");
+        kioskIDLabel.setText("ID Kiosk");
+        break;
+      case SPANISH:
+        ParentController.titleString.set("Editor de Señalización");
+        addSignageLabel.setText("Agregar Señalización");
+        idLabel.setText("ID de Señal");
+        kioskIDLabel.setText("ID de Kiosco");
+        longLabel.setText("Nombre Largo");
+        shortLabel.setText("Nombre Corto");
+        dateLabel.setText("Fecha");
+        endLabel.setText("Fecha de Finalización");
+        directionLabel.setText("Dirección");
+        submitButton.setText("Enviar");
+        editLabel.setText("Editar Señalización");
+        searchLabel.setText("Buscar");
+        longNameColumn.setText("Nombre Largo");
+        shortNameColumn.setText("Nombre Corto");
+        dateColumn.setText("Fecha");
+        endDateColumn.setText("Fecha de Finalización");
+        arrowDirectionColumn.setText("Dirección");
+        signIDColumn.setText("ID de Señal");
+        kioskIDLabel.setText("ID de Kiosco");
+        break;
+    }
+  }
+
   /** Initializes the GUI and sets up event handlers for various GUI components. */
   public void initialize() {
     ThemeSwitch.switchTheme(rootPane);
     DataManager signageDAO = new DataManager();
     ParentController.titleString.set("Signage Editor");
+
     TableColumn<Signage, String> longNameColumn = new TableColumn<>("Long Name");
     longNameColumn.setCellValueFactory(new PropertyValueFactory<>("longName"));
 
@@ -275,7 +386,30 @@ public class EditSignageController {
             kioskIDColumn);
     loadData();
     directionPicker.getItems().addAll(Direction.getAll());
+
+    setLanguage(
+        GlobalVariables.getB().getValue(),
+        longNameColumn,
+        shortNameColumn,
+        dateColumn,
+        endDateColumn,
+        arrowDirectionColumn,
+        signIDColumn,
+        kioskIDColumn);
+    GlobalVariables.b.addListener(
+        (options, oldValue, newValue) -> {
+          setLanguage(
+              newValue,
+              longNameColumn,
+              shortNameColumn,
+              dateColumn,
+              endDateColumn,
+              arrowDirectionColumn,
+              signIDColumn,
+              kioskIDColumn);
+        });
   }
+
   /**
    * This method loads all the data from the SignageDAOImpl and populates the editSignageTable with
    * it.
