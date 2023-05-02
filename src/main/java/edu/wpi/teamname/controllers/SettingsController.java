@@ -105,9 +105,9 @@ public class SettingsController {
     ParentController.titleString.set("Service Request View");
     setLanguage(GlobalVariables.getB().getValue());
     GlobalVariables.b.addListener(
-            (options, oldValue, newValue) -> {
-              setLanguage(newValue);
-            });
+        (options, oldValue, newValue) -> {
+          setLanguage(newValue);
+        });
     viewFeedbackButton.setDisable(true);
     wpiButton.setDisable(true);
     awsButton.setDisable(true);

@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -28,6 +29,8 @@ import javafx.stage.Stage;
  */
 public class DataController implements Initializable {
   @FXML AnchorPane dataPage;
+  @FXML Label importLabel;
+  @FXML Label exportLabel;
   @FXML private ComboBox<String> importComboBox;
 
   @FXML private ComboBox<String> exportComboBox;
@@ -62,12 +65,40 @@ public class DataController implements Initializable {
   public void setLanguage(Language lang) throws SQLException {
     switch (lang) {
       case ENGLISH:
+        ParentController.titleString.set("Data Manager");
+        importLabel.setText("Import");
+        importButton.setText("Import");
+        exportLabel.setText("Export");
+        exportButton.setText("Export");
+        importComboBox.setPromptText("Choose Import");
+        exportComboBox.setPromptText("Choose Export");
         break;
       case ITALIAN:
+        ParentController.titleString.set("Gestione dei dati");
+        importLabel.setText("Importa");
+        importButton.setText("Importa");
+        exportLabel.setText("Esporta");
+        exportButton.setText("Esporta");
+        importComboBox.setPromptText("Scegli Importazione");
+        exportComboBox.setPromptText("Scegli Esportazione");
         break;
       case FRENCH:
+        ParentController.titleString.set("Gestionnaire de données");
+        importLabel.setText("Importer");
+        importButton.setText("Importer");
+        exportLabel.setText("Exporter");
+        exportButton.setText("Exporter");
+        importComboBox.setPromptText("Choisissez l'importation");
+        exportComboBox.setPromptText("Choisissez l'exportation");
         break;
       case SPANISH:
+        ParentController.titleString.set("Administrador de datos");
+        importLabel.setText("Importar");
+        importButton.setText("Importar");
+        exportLabel.setText("Exportar");
+        exportButton.setText("Exportar");
+        importComboBox.setPromptText("Elegir importación");
+        exportComboBox.setPromptText("Elegir exportación");
         break;
     }
     importComboBox.setItems(FXCollections.observableList(Arrays.asList(FIELDS)));

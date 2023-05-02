@@ -35,58 +35,57 @@ public class ViewFeedbackController {
   @FXML private TableColumn<Feedback, Integer> idColumn;
   @FXML private TableColumn<Feedback, Status> statusColumn;
 
-
-    public void setLanguage(Language lang) {
-        switch (lang) {
-            case ENGLISH:
-                ParentController.titleString.set("Feedback Requests");
-                reporterColumn.setText("Reporter");
-                descriptionColumn.setText("Description");
-                dateColumn.setText("Date");
-                assigneeColumn.setText("Assignee");
-                statusColumn.setText("Status");
-                idColumn.setText("ID");
-                break;
-            case ITALIAN:
-                ParentController.titleString.set("Richieste di Feedback");
-                reporterColumn.setText("Segnalatore");
-                descriptionColumn.setText("Descrizione");
-                dateColumn.setText("Data");
-                assigneeColumn.setText("Assegnatario");
-                statusColumn.setText("Stato");
-                idColumn.setText("ID");
-                break;
-            case FRENCH:
-                ParentController.titleString.set("Demandes de Commentaires");
-                reporterColumn.setText("Déclarant");
-                descriptionColumn.setText("Description");
-                dateColumn.setText("Date");
-                assigneeColumn.setText("Assigné");
-                statusColumn.setText("Statut");
-                idColumn.setText("ID");
-                break;
-            case SPANISH:
-                ParentController.titleString.set("Solicitudes de Comentarios");
-                reporterColumn.setText("Reportante");
-                descriptionColumn.setText("Descripción");
-                dateColumn.setText("Fecha");
-                assigneeColumn.setText("Asignado");
-                statusColumn.setText("Estado");
-                idColumn.setText("ID");
-                break;
-        }
+  public void setLanguage(Language lang) {
+    switch (lang) {
+      case ENGLISH:
+        ParentController.titleString.set("Feedback Requests");
+        reporterColumn.setText("Reporter");
+        descriptionColumn.setText("Description");
+        dateColumn.setText("Date");
+        assigneeColumn.setText("Assignee");
+        statusColumn.setText("Status");
+        idColumn.setText("ID");
+        break;
+      case ITALIAN:
+        ParentController.titleString.set("Richieste di Feedback");
+        reporterColumn.setText("Segnalatore");
+        descriptionColumn.setText("Descrizione");
+        dateColumn.setText("Data");
+        assigneeColumn.setText("Assegnatario");
+        statusColumn.setText("Stato");
+        idColumn.setText("ID");
+        break;
+      case FRENCH:
+        ParentController.titleString.set("Demandes de Commentaires");
+        reporterColumn.setText("Déclarant");
+        descriptionColumn.setText("Description");
+        dateColumn.setText("Date");
+        assigneeColumn.setText("Assigné");
+        statusColumn.setText("Statut");
+        idColumn.setText("ID");
+        break;
+      case SPANISH:
+        ParentController.titleString.set("Solicitudes de Comentarios");
+        reporterColumn.setText("Reportante");
+        descriptionColumn.setText("Descripción");
+        dateColumn.setText("Fecha");
+        assigneeColumn.setText("Asignado");
+        statusColumn.setText("Estado");
+        idColumn.setText("ID");
+        break;
     }
+  }
   /** Initializes the ViewFeedbackController and sets up the UI elements and functionality. */
   @FXML
   private void initialize() {
     ThemeSwitch.switchTheme(root);
     DataManager dm = new DataManager();
     ParentController.titleString.set("Feedback Requests");
-      setLanguage(GlobalVariables.getB().getValue());
-      GlobalVariables.b.addListener(
-              (options, oldValue, newValue) -> {
-                  setLanguage(newValue);
-              });
+    setLanguage(GlobalVariables.getB().getValue());
+    GlobalVariables.b.addListener(
+        (options, oldValue, newValue) -> {
+          setLanguage(newValue);
+        });
     // Fetch all feedback records from the database
     ArrayList<Feedback> feedbackList = new ArrayList<>();
     try {

@@ -15,8 +15,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 
 public class FeedbackController {
-  @FXML
-  Label bugReportLabel;
+  @FXML Label bugReportLabel;
   @FXML AnchorPane root;
   @FXML TextArea descriptionField;
 
@@ -51,9 +50,9 @@ public class FeedbackController {
     ThemeSwitch.switchTheme(root);
     setLanguage(GlobalVariables.getB().getValue());
     GlobalVariables.b.addListener(
-            (options, oldValue, newValue) -> {
-              setLanguage(newValue);
-            });
+        (options, oldValue, newValue) -> {
+          setLanguage(newValue);
+        });
     ParentController.titleString.set("Feedback Submission");
     dataManager = new DataManager();
   }
