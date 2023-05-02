@@ -939,15 +939,21 @@ public class MapEditController {
               throw new RuntimeException(e);
             }
 
-            MFXButton AddNode = (MFXButton) ((Pane) (v.getChildren().get(0))).getChildren().get(0);
+            MFXButton Cancel = (MFXButton) ((Pane) (v.getChildren().get(0))).getChildren().get(0);
+            MFXButton AddNode = (MFXButton) ((Pane) (v.getChildren().get(0))).getChildren().get(1);
             AddNode.setText("Confirm new Location");
 
             clickPos = new Point2D(event.getX(), event.getY());
             realClickPos = new Point2D(event.getScreenX(), event.getScreenY());
 
-            AddNode.setOnMouseClicked(updateNodePosition);
-
             PopOver pop = new PopOver(v);
+
+            AddNode.setOnMouseClicked(updateNodePosition);
+            Cancel.setOnMouseClicked(
+                event1 -> {
+                  pop.hide();
+                  map.setMovingNodeId(-1);
+                });
 
             v.setOnMouseExited(event2 -> pop.hide());
 
@@ -965,15 +971,17 @@ public class MapEditController {
               throw new RuntimeException(e);
             }
 
-            MFXButton AddNode = (MFXButton) ((Pane) (v.getChildren().get(0))).getChildren().get(0);
+            MFXButton Cancel = (MFXButton) ((Pane) (v.getChildren().get(0))).getChildren().get(0);
+            MFXButton AddNode = (MFXButton) ((Pane) (v.getChildren().get(0))).getChildren().get(1);
             AddNode.setText("Add Node Here");
 
             clickPos = new Point2D(event.getX(), event.getY());
             realClickPos = new Point2D(event.getScreenX(), event.getScreenY());
 
-            AddNode.setOnMouseClicked(addNode);
-
             PopOver pop = new PopOver(v);
+
+            AddNode.setOnMouseClicked(addNode);
+            Cancel.setOnMouseClicked(event1 -> pop.hide());
 
             v.setOnMouseExited(event2 -> pop.hide());
 

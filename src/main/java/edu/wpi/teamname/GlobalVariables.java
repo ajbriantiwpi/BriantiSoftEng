@@ -4,8 +4,12 @@ import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
 import edu.wpi.teamname.navigation.LocationName;
+import edu.wpi.teamname.servicerequest.ConfReservation;
+import edu.wpi.teamname.servicerequest.ServiceRequest;
+import edu.wpi.teamname.servicerequest.requestitem.ConfRoom;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -39,8 +43,21 @@ public class GlobalVariables {
   @Getter @Setter private static Color labelTextColor = new Color(0, .106, .231, 1);
   @Getter @Setter private static Timestamp today = new Timestamp(System.currentTimeMillis());
   @Getter @Setter private static HashMap<Integer, ArrayList<LocationName>> hMap;
+
+  @Getter @Setter private static ArrayList<ServiceRequest> serviceRequests;
+  @Getter @Setter private static ArrayList<ConfReservation> confReservations;
+  @Getter @Setter private static ArrayList<ConfRoom> confRooms;
+
+  @Getter @Setter private static ArrayList<ArrayList<ConfReservation>> allRes;
+
   //  @Getter @Setter private static Color labelColor = new Color(.835, .89, 1, 1);
   //  @Getter @Setter private static Color labelTextColor = new Color(0, .106, .231, 1);
+
+  public static int roomNumToIndex(int roomNum) {
+    ArrayList<Integer> vals =
+        new ArrayList<>(Arrays.asList(290, 1335, 1685, 1690, 1695, 1110, 1860));
+    return vals.indexOf(roomNum);
+  }
 
   private static final Employee dummyEmployee =
       new Employee(
@@ -57,6 +74,8 @@ public class GlobalVariables {
   @Getter @Setter private static Screen previousScreen = Screen.HOME;
 
   @Getter @Setter private static BooleanProperty darkMode = new SimpleBooleanProperty(false) {};
+  @Getter @Setter private static Boolean showServiceIcons = new Boolean(true);
+  @Getter @Setter private static Boolean showConfItems = new Boolean(true);
 
   /** Sets the current user to be null indicating no user is logged in */
   public static void logOut() {
