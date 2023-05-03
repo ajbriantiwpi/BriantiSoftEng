@@ -24,21 +24,45 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import net.kurobako.gesturefx.GesturePane?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Ellipse?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import net.kurobako.gesturefx.GesturePane?>
 <?import org.controlsfx.control.SearchableComboBox?>
 
 <AnchorPane id="AP" fx:id="OuterMapAnchor" prefHeight="668.0" prefWidth="951.0" styleClass="surface" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MapController">
     <children>
       <HBox styleClass="surface" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane styleClass="surface">
+            <AnchorPane minWidth="300.0" styleClass="surface">
                <children>
-                  <ScrollPane fx:id="MapScrollPane" styleClass="surface" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <ScrollPane fx:id="MapScrollPane" hbarPolicy="NEVER" styleClass="surface" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" styleClass="surface">
                            <children>
                               <VBox styleClass="surface" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                  <TitledPane fx:id="PathfindingTitlePane" animated="false" styleClass="primary-text-container" text="Pathfinding">
+                                  <TitledPane fx:id="PathfindingTitlePane" animated="false" minWidth="300.0" styleClass="primary-text-container" text="Pathfinding">
                                     <content>
                                       <AnchorPane>
                                              <children>
@@ -110,7 +134,7 @@
                                           </AnchorPane>
                                     </content>
                                   </TitledPane>
-                                    <TitledPane fx:id="DirectionsTitlePane" animated="false" styleClass="primary-text-container" text="Directions">
+                                    <TitledPane fx:id="DirectionsTitlePane" animated="false" minWidth="300.0" styleClass="primary-text-container" text="Directions">
                                        <content>
                                       <AnchorPane>
                                              <children>
@@ -119,7 +143,7 @@
                                           </AnchorPane>
                                        </content>
                                     </TitledPane>
-                                  <TitledPane fx:id="FloorTitlePane" animated="false" styleClass="primary-text-container" text="Floors">
+                                  <TitledPane fx:id="FloorTitlePane" animated="false" minWidth="300.0" styleClass="primary-text-container" text="Floors">
                                     <content>
                                       <AnchorPane>
                                              <children>
@@ -205,7 +229,7 @@
                                           </AnchorPane>
                                     </content>
                                   </TitledPane>
-                                    <TitledPane fx:id="TickTitlePane" animated="false" styleClass="primary-text-container" text="TickBoxes">
+                                    <TitledPane fx:id="TickTitlePane" animated="false" minWidth="300.0" styleClass="primary-text-container" text="TickBoxes">
                                       <content>
                                         <AnchorPane>
                                              <children>
@@ -217,7 +241,7 @@
                                                       <HBox spacing="10.0">
                                                          <children>
                                                             <CheckBox id="0" fx:id="LongNameSelector" mnemonicParsing="false" text="Long" />
-                                                            <CheckBox id="1" fx:id="ShortNameSelector" mnemonicParsing="false" selected="true" text="Short" />
+                                                            <CheckBox id="1" fx:id="ShortNameSelector" mnemonicParsing="false" text="Short" />
                                                             <CheckBox id="2" fx:id="IdSelector" mnemonicParsing="false" text="ID" />
                                                          </children>
                                                       </HBox>
@@ -233,7 +257,7 @@
                                           </AnchorPane>
                                       </content>
                                     </TitledPane>
-                                    <TitledPane fx:id="DateTitlePane" animated="false" styleClass="primary-text-container" text="DatePicker">
+                                    <TitledPane fx:id="DateTitlePane" animated="false" minWidth="300.0" styleClass="primary-text-container" text="DatePicker">
                                        <content>
                                           <AnchorPane>
                                              <children>
@@ -242,7 +266,7 @@
                                           </AnchorPane>
                                        </content>
                                     </TitledPane>
-                                    <TitledPane fx:id="MessageTitlePane" animated="false" styleClass="primary-text-container" text="Messages">
+                                    <TitledPane fx:id="MessageTitlePane" animated="false" minWidth="300.0" styleClass="primary-text-container" text="Messages">
                                       <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0">
                                              <children>
@@ -309,7 +333,7 @@
                     </StackPane>
                   <VBox fx:id="Legend" layoutX="236.0" layoutY="104.0" prefHeight="278.0" prefWidth="238.0" style="-fx-border-radius: 10; -fx-background-radius: 10;" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
                      <children>
-                        <Label fx:id="mapSymbolsLabel" text="Map Symbols">
+                        <Label fx:id="mapSymbolsLabel" styleClass="on-suface-text" text="Map Symbols">
                            <font>
                               <Font name="Roboto" size="18.0" />
                            </font>

@@ -33,7 +33,7 @@ public class Map {
   private Point2D centerPoint;
   private Point2D centerTL;
 
-  @Getter @Setter private int labelTextType; // 0 = Long Name, 1 = Short Name, 2 = ID
+  @Getter @Setter private int labelTextType; // 0 = Long Name, 1 = Short Name, 2 = ID, -1 = None
 
   @Getter @Setter private ArrayList<Shape> prevPath = new ArrayList<Shape>();
 
@@ -96,7 +96,7 @@ public class Map {
 
     setGlobalVars(new Timestamp(System.currentTimeMillis()));
 
-    this.labelTextType = 1;
+    this.labelTextType = -1;
     this.isMapPage = isMapPage;
     this.showEdges = !this.isMapPage;
     this.roomTypes.add("HALL");
@@ -315,6 +315,12 @@ public class Map {
       this.setPrevPath(null);
     }
 
+    currentFloorShapes = (this.makeAllFloorShapes(shortRealFloorName));
+    //    System.out.println("SetFloor :" + shortRealFloorName);
+
+    //    System.out.println("SubL:" + subAnchor.getChildren().size());
+    subAnchor.getChildren().addAll(currentFloorShapes);
+
     if (!this.getShapes().isEmpty() && this.isMapPage) {
 
       if (cssFloorName.equals("L1")) {
@@ -344,11 +350,7 @@ public class Map {
     // Re add based on new floor
 
     // Lots Of time.
-    currentFloorShapes = (this.makeAllFloorShapes(shortRealFloorName));
-    //    System.out.println("SetFloor :" + shortRealFloorName);
 
-    //    System.out.println("SubL:" + subAnchor.getChildren().size());
-    subAnchor.getChildren().addAll(currentFloorShapes);
     //    System.out.println("SubL:" + subAnchor.getChildren().size());
 
     subAnchor.getStyleClass().add(cssFloorName);
@@ -665,7 +667,7 @@ public class Map {
 
     //    System.out.println(nodePath);
 
-    // parent.getChildren().addAll(shapes);
+    //     parent.getChildren().addAll(shapes);
 
   }
 
