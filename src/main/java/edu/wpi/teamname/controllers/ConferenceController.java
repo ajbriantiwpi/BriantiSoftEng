@@ -1,6 +1,8 @@
 package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.GlobalVariables;
+import edu.wpi.teamname.Navigation;
+import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.controllers.JFXitems.RoomSelector;
 import edu.wpi.teamname.database.DataManager;
@@ -174,6 +176,7 @@ public class ConferenceController {
     sizeSlider.setLowValue(0);
     sizeSlider.setHighValue(100);
 
+
     //    startBox.valueProperty().bindBidirectional(roomManager.getStart());
     //    endBox.valueProperty().bindBidirectional(roomManager.getEnd());
     //    buildingBox.valueProperty().bindBidirectional(roomManager.getBuilding());
@@ -287,6 +290,7 @@ public class ConferenceController {
                       findSelector(roomBox.getValue()).getRoom().getRoomID());
               DataManager.addConfReservation(c);
               Sound.playSFX(SFX.SUCCESS);
+              Navigation.navigate(Screen.SMILE);
             } catch (Exception e) {
               System.out.println(e);
               Sound.playSFX(SFX.ERROR);
