@@ -313,7 +313,8 @@ public class HomeController {
         employeeButton.setText("Voir les employ" + GlobalVariables.getEAcute() + "s");
         requestRoomButton.setText(
             "Demander une salle de conf" + GlobalVariables.getEAcute() + "rence");
-        viewConfrenceRoomButton.setText("Voir les salles de conf" + GlobalVariables.getEAcute() + "rence");
+        viewConfrenceRoomButton.setText(
+            "Voir les salles de conf" + GlobalVariables.getEAcute() + "rence");
         viewAlertsButton.setText("Voir les alertes");
         mapButton.setText("Voir la carte");
         editMoveButton.setText("Voir les d" + GlobalVariables.getEAcute() + "placements");

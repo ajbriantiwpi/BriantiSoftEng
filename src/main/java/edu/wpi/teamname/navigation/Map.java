@@ -52,7 +52,7 @@ public class Map {
   };
 
   private String[] algoArr = {
-    "A-Star", "Breadth First Search", "Depth First Search", "Dijkstra's Algorithm", "Emergency"
+    "A-Star", "Breadth First Search", "Depth First Search", "Dijkstra's Algorithm", "Emergency Exit"
   };
 
   private boolean isMapPage;

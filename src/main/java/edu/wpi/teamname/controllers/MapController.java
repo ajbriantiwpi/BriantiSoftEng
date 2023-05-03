@@ -672,7 +672,7 @@ public class MapController {
     AddMessageButton.setDisable(false);
     try {
       if (exit) {
-        map.drawPath(anchor, sNode, sNode);
+        map.drawPath(anchor, GlobalVariables.getCurrentLocationNode().getId(), 300);
       } else map.drawPath(anchor, sNode, eNode);
     } catch (SQLException ex) {
       throw new RuntimeException(ex);
@@ -932,7 +932,7 @@ public class MapController {
             case ("Dijkstra's Algorithm"):
               map.graph.setPathfindingAlgo(new DijkstraAlgo());
               break;
-            case ("Emergency"):
+            case ("Emergency Exit"):
               map.graph.setPathfindingAlgo(new Emergency());
               break;
             default:
@@ -1845,7 +1845,7 @@ public class MapController {
     // If the map is opened because the emergency button is clicked, display emergency path right
     // away
     if (GlobalVariables.isPathToExit()) {
-      System.out.println("Wongtastic lifestyle");
+      //System.out.println("Wongtastic lifestyle");
       map.graph.setPathfindingAlgo(new Emergency());
       GlobalVariables.setBorderColor(Color.RED);
       GlobalVariables.setInsideColor(Color.RED);
