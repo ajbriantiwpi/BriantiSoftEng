@@ -61,7 +61,7 @@ public class EmployeeTableController {
   @FXML Label usernameLabel;
   @FXML Label passwordLabel;
   @FXML Label csvLabel;
-  @FXML Label employeesLabel;
+//  @FXML Label employeesLabel;
   @FXML Label searchLabel;
 
   public void setLanguage(
@@ -88,7 +88,7 @@ public class EmployeeTableController {
         csvLabel.setText("CSV Manager");
         importButton.setText("Import");
         exportButton.setText("Export");
-        employeesLabel.setText("Employees");
+//        employeesLabel.setText("Employees");
         searchLabel.setText("Search");
         id.setText("Employee ID");
         first.setText("First Name");
@@ -112,7 +112,7 @@ public class EmployeeTableController {
         csvLabel.setText("Gestore CSV");
         importButton.setText("Importa");
         exportButton.setText("Esporta");
-        employeesLabel.setText("Dipendenti");
+//        employeesLabel.setText("Dipendenti");
         searchLabel.setText("Cerca");
         id.setText("ID Dipendente");
         first.setText("Nome");
@@ -136,7 +136,9 @@ public class EmployeeTableController {
         csvLabel.setText("Gestionnaire CSV");
         importButton.setText("Importer");
         exportButton.setText("Exporter");
-        employeesLabel.setText("Employ" + GlobalVariables.getEAcute() + "s");
+
+//        employeesLabel.setText("Employ" + GlobalVariables.getEAcute() + "s");
+
         searchLabel.setText("Rechercher");
         id.setText("Identifiant de l'employ" + GlobalVariables.getEAcute());
         first.setText("Pr" + GlobalVariables.getEAcute() + "nom");
@@ -160,7 +162,7 @@ public class EmployeeTableController {
         csvLabel.setText("Administrador CSV");
         importButton.setText("Importar");
         exportButton.setText("Exportar");
-        employeesLabel.setText("Empleados");
+//        employeesLabel.setText("Empleados");
         searchLabel.setText("Buscar");
         id.setText("ID del Empleado");
         first.setText("Nombre");
