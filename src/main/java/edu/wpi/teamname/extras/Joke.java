@@ -70,9 +70,10 @@ public class Joke {
     // Fixes Typo
     if (id == 312) {
       setup = "Why can't you use \"Beef stew\" as a password?";
-    }
-    if (id == 79) {
+    } else if (id == 79) {
       punchline = "Pop, goes the weasel.";
+    } else if (id == 275) {
+      punchline = "You can tune a guitar but you can't \"tuna\" fish!";
     }
     return this.getSetup() + "\n\n" + this.getPunchline();
   }

@@ -195,10 +195,10 @@ public class Model extends JPanel implements ActionListener {
     continueLevel();
   }
 
-
   /**
-   * Updates the positions of the ghosts and redraws them on the screen. If a ghost collides with the
-   * player's Pacman character, sets the game state to "dying".
+   * Updates the positions of the ghosts and redraws them on the screen. If a ghost collides with
+   * the player's Pacman character, sets the game state to "dying".
+   *
    * @param g2d the Graphics2D object used for drawing
    */
   private void moveGhosts(Graphics2D g2d) {
@@ -274,9 +274,9 @@ public class Model extends JPanel implements ActionListener {
     }
   }
 
-
   /**
    * Draws a ghost image at the specified position on the screen.
+   *
    * @param g2d the graphics context in which to draw the ghost image.
    * @param x the x-coordinate of the top-left corner of the ghost image.
    * @param y the y-coordinate of the top-left corner of the ghost image.
@@ -286,9 +286,8 @@ public class Model extends JPanel implements ActionListener {
   }
 
   /**
-   * Moves the Pacman character on the game board by checking for valid movements and
-   * updating the character's position. Also checks for and updates score when Pacman
-   * consumes a pellet.
+   * Moves the Pacman character on the game board by checking for valid movements and updating the
+   * character's position. Also checks for and updates score when Pacman consumes a pellet.
    */
   private void movePacman() {
 
@@ -329,6 +328,7 @@ public class Model extends JPanel implements ActionListener {
 
   /**
    * Draws the Pacman character according to its current direction.
+   *
    * @param g2d Graphics2D object used for drawing
    */
   private void drawPacman(Graphics2D g2d) {
@@ -344,11 +344,12 @@ public class Model extends JPanel implements ActionListener {
     }
   }
 
-
   /**
-   * This method is responsible for drawing the maze on the screen. It iterates through the levelData array
-   * and screenData array to determine which blocks of the maze need to be drawn and what color to use.
-   * It then uses Graphics2D methods to draw the walls, pellets, and background of the maze.
+   * This method is responsible for drawing the maze on the screen. It iterates through the
+   * levelData array and screenData array to determine which blocks of the maze need to be drawn and
+   * what color to use. It then uses Graphics2D methods to draw the walls, pellets, and background
+   * of the maze.
+   *
    * @param g2d the Graphics2D object used to draw the maze
    */
   private void drawMaze(Graphics2D g2d) {
@@ -395,8 +396,8 @@ public class Model extends JPanel implements ActionListener {
   }
 
   /**
-   * Initializes the game by setting the player's starting lives and score to zero,
-   * initializing the level, and setting the player's initial speed to 1.
+   * Initializes the game by setting the player's starting lives and score to zero, initializing the
+   * level, and setting the player's initial speed to 1.
    */
   private void initGame() {
 
@@ -407,9 +408,10 @@ public class Model extends JPanel implements ActionListener {
   }
 
   /**
-   * Initializes the current level by copying the level data into the screen data array and continuing the level.
-   * The function loops through each element in the screen data array and sets it equal to the corresponding element in the level data array.
-   * Finally, the function calls the continueLevel() method to set up the level.
+   * Initializes the current level by copying the level data into the screen data array and
+   * continuing the level. The function loops through each element in the screen data array and sets
+   * it equal to the corresponding element in the level data array. Finally, the function calls the
+   * continueLevel() method to set up the level.
    */
   private void initLevel() {
 
@@ -421,12 +423,13 @@ public class Model extends JPanel implements ActionListener {
     continueLevel();
   }
 
-
   /**
-   * Initializes a new level by setting the starting positions and speeds for the ghosts and Pacman, and resetting their directions and movement.
-   * Called when the player completes a level or loses a life and continues playing.
-   * For each ghost, sets its starting position to (4 * BLOCK_SIZE, 4 * BLOCK_SIZE), and its starting direction to move horizontally (dx) with a speed randomly selected from validSpeeds array, alternating the direction for each ghost.
-   * Sets Pacman's starting position to (7 * BLOCK_SIZE, 11 * BLOCK_SIZE), and resets his direction to stay still.
+   * Initializes a new level by setting the starting positions and speeds for the ghosts and Pacman,
+   * and resetting their directions and movement. Called when the player completes a level or loses
+   * a life and continues playing. For each ghost, sets its starting position to (4 * BLOCK_SIZE, 4
+   * * BLOCK_SIZE), and its starting direction to move horizontally (dx) with a speed randomly
+   * selected from validSpeeds array, alternating the direction for each ghost. Sets Pacman's
+   * starting position to (7 * BLOCK_SIZE, 11 * BLOCK_SIZE), and resets his direction to stay still.
    * Sets dying to false, indicating that the player has not lost a life and is not currently dying.
    */
   private void continueLevel() {
@@ -459,14 +462,13 @@ public class Model extends JPanel implements ActionListener {
     dying = false;
   }
 
-
   /**
-   * Overrides the default paintComponent method to draw the game screen.
-   * This method first clears the screen with a black color,
-   * then draws the maze and the player score.
-   * If the game is in progress, it calls the playGame method to update and draw the game objects.
-   * If the game is not in progress, it shows the introductory screen.
-   * Finally, it synchronizes the graphics state and disposes of the graphics object.
+   * Overrides the default paintComponent method to draw the game screen. This method first clears
+   * the screen with a black color, then draws the maze and the player score. If the game is in
+   * progress, it calls the playGame method to update and draw the game objects. If the game is not
+   * in progress, it shows the introductory screen. Finally, it synchronizes the graphics state and
+   * disposes of the graphics object.
+   *
    * @param g the Graphics object used for drawing
    */
   public void paintComponent(Graphics g) {
@@ -493,12 +495,12 @@ public class Model extends JPanel implements ActionListener {
   // controls
   class TAdapter extends KeyAdapter {
 
-    /***
-     * If the game is currently in progress, the direction of Pac-Man's movement
-     * is changed accordingly. If the game is not currently in progress, the
-     * user can start a new game by pressing the spacebar. If the user presses
-     * the escape key during the game, the game is paused and the current song
-     * playing in the background is changed to a new song.
+    /**
+     * * If the game is currently in progress, the direction of Pac-Man's movement is changed
+     * accordingly. If the game is not currently in progress, the user can start a new game by
+     * pressing the spacebar. If the user presses the escape key during the game, the game is paused
+     * and the current song playing in the background is changed to a new song.
+     *
      * @param e the event to be processed
      */
     @Override
@@ -533,7 +535,9 @@ public class Model extends JPanel implements ActionListener {
   }
 
   /**
-   * This method is called when an action is performed. In this case, it triggers a repaint of the game screen.
+   * This method is called when an action is performed. In this case, it triggers a repaint of the
+   * game screen.
+   *
    * @param e the action event
    */
   @Override
