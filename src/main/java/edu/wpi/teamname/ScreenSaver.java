@@ -41,35 +41,60 @@ public class ScreenSaver extends Application {
       rec.setOpacity(0.8);
 
       root.getChildren().add(rec);
-      FillTransition ft = new FillTransition(Duration.seconds(GlobalVariables.getScreenSaveTransTime()), rec, Color.BLACK, Color.BLACK);
+      FillTransition ft =
+          new FillTransition(
+              Duration.seconds(GlobalVariables.getScreenSaveTransTime()),
+              rec,
+              Color.BLACK,
+              Color.BLACK);
       ft.setOnFinished(
           event -> {
             FillTransition ft2 =
-                new FillTransition(Duration.seconds(GlobalVariables.getScreenSaveTransTime()), rec, Color.BLACK, Color.GREEN);
+                new FillTransition(
+                    Duration.seconds(GlobalVariables.getScreenSaveTransTime()),
+                    rec,
+                    Color.BLACK,
+                    Color.GREEN);
             rec.setOpacity(1);
             ft2.setOnFinished(
                 event2 -> {
                   FillTransition ft3 =
-                      new FillTransition(Duration.seconds(GlobalVariables.getScreenSaveTransTime()), rec, Color.GREEN, Color.RED);
+                      new FillTransition(
+                          Duration.seconds(GlobalVariables.getScreenSaveTransTime()),
+                          rec,
+                          Color.GREEN,
+                          Color.RED);
                   ft3.setOnFinished(
                       event3 -> {
                         FillTransition ft4 =
-                            new FillTransition(Duration.seconds(GlobalVariables.getScreenSaveTransTime()), rec, Color.RED, Color.MAGENTA);
+                            new FillTransition(
+                                Duration.seconds(GlobalVariables.getScreenSaveTransTime()),
+                                rec,
+                                Color.RED,
+                                Color.MAGENTA);
                         ft4.setOnFinished(
                             event4 -> {
                               FillTransition ft5 =
                                   new FillTransition(
-                                      Duration.seconds(GlobalVariables.getScreenSaveTransTime()), rec, Color.MAGENTA, Color.GOLD);
+                                      Duration.seconds(GlobalVariables.getScreenSaveTransTime()),
+                                      rec,
+                                      Color.MAGENTA,
+                                      Color.GOLD);
                               ft5.setOnFinished(
                                   event5 -> {
                                     FillTransition ft6 =
                                         new FillTransition(
-                                            Duration.seconds(GlobalVariables.getScreenSaveTransTime()), rec, Color.GOLD, Color.TEAL);
+                                            Duration.seconds(
+                                                GlobalVariables.getScreenSaveTransTime()),
+                                            rec,
+                                            Color.GOLD,
+                                            Color.TEAL);
                                     ft6.setOnFinished(
                                         event6 -> {
                                           FillTransition ft7 =
                                               new FillTransition(
-                                                  Duration.seconds(GlobalVariables.getScreenSaveTransTime()),
+                                                  Duration.seconds(
+                                                      GlobalVariables.getScreenSaveTransTime()),
                                                   rec,
                                                   Color.TEAL,
                                                   Color.MAROON);
@@ -77,7 +102,9 @@ public class ScreenSaver extends Application {
                                               event7 -> {
                                                 FillTransition ft8 =
                                                     new FillTransition(
-                                                        Duration.seconds(GlobalVariables.getScreenSaveTransTime()),
+                                                        Duration.seconds(
+                                                            GlobalVariables
+                                                                .getScreenSaveTransTime()),
                                                         rec,
                                                         Color.BLACK,
                                                         Color.BLUE);
