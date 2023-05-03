@@ -313,7 +313,7 @@ public class HomeController {
         employeeButton.setText("Voir les employ" + GlobalVariables.getEAcute() + "s");
         requestRoomButton.setText(
             "Demander une salle de conf" + GlobalVariables.getEAcute() + "rence");
-        viewConfrenceRoomButton.setText("Voir les salles de conférence");
+        viewConfrenceRoomButton.setText("Voir les salles de conf" + GlobalVariables.getEAcute() + "rence");
         viewAlertsButton.setText("Voir les alertes");
         mapButton.setText("Voir la carte");
         editMoveButton.setText("Voir les d" + GlobalVariables.getEAcute() + "placements");
@@ -321,13 +321,13 @@ public class HomeController {
         viewSignageButton.setText("Voir la signalisation");
         editSignageButton.setText("Modifier la signalisation");
         exitButton.setText("Sortir");
-        settingsButton.setText("Paramètres");
+        settingsButton.setText("Param" + GlobalVariables.getEGrave() + "tres");
         notificationPopupButtonSimple.setText("Notifications");
         creditButton.setText("Cr" + GlobalVariables.getEAcute() + "dits");
         aboutButton.setText(GlobalVariables.getBigAGrave() + " propos");
         helpButton.setText("Aide");
         loginButton.setText("Se connecter");
-        logoutButton.setText("Se déconnecter");
+        logoutButton.setText("Se d" + GlobalVariables.getEAcute() + "connecter");
         break;
       case SPANISH:
         actionItemsLabel.setText("Elementos de acci" + GlobalVariables.getOAcute() + "n");

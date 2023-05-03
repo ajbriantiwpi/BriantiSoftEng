@@ -62,6 +62,7 @@ public class SettingsController {
         appSettingsLabel.setText("App Settings");
         dbConnectionLabel.setText("Database Connection");
         dataManageButton.setText("Data");
+        darkToggle.setText("Dark Mode");
         feedbackButton.setText("Feedback");
         viewFeedbackButton.setText("View Feedback");
         break;
@@ -69,6 +70,7 @@ public class SettingsController {
         ParentController.titleString.set("Impostazioni");
         hardwareLabel.setText("Impostazioni Hardware");
         volumeLabel.setText("Volume");
+        Italian: darkToggle.setText("Modalit"+GlobalVariables.getAGrave()+" scura");
         songLabel.setText("Scegli Canzone");
         appSettingsLabel.setText("Impostazioni dell'App");
         dbConnectionLabel.setText("Connessione al Database");
@@ -87,6 +89,7 @@ public class SettingsController {
         volumeLabel.setText("Volume");
         songLabel.setText("Choisir une chanson");
         appSettingsLabel.setText("Param" + GlobalVariables.getEGrave() + "tres de l'application");
+        French: darkToggle.setText("Mode sombre");
         dbConnectionLabel.setText(
             "Connexion "
                 + GlobalVariables.getAGrave()
@@ -101,6 +104,7 @@ public class SettingsController {
         ParentController.titleString.set("Configuraci" + GlobalVariables.getOAcute() + "n");
         hardwareLabel.setText("Configuraci" + GlobalVariables.getOAcute() + "n de Hardware");
         volumeLabel.setText("Volumen");
+        Spanish: darkToggle.setText("Modo oscuro");
         songLabel.setText("Elegir Canci" + GlobalVariables.getOAcute() + "n");
         appSettingsLabel.setText(
             "Configuraci"
