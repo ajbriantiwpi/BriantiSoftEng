@@ -12,7 +12,8 @@
 <?import javafx.scene.text.*?>
 <?import net.kurobako.gesturefx.*?>
 
-<AnchorPane id="AP" fx:id="OuterMapAnchor" prefHeight="668.0" prefWidth="951.0" styleClass="surface" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MapController">
+<?import org.controlsfx.control.SearchableComboBox?>
+<AnchorPane id="AP" fx:id="OuterMapAnchor" prefHeight="668.0" prefWidth="951.0" styleClass="surface" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MapController">
     <children>
       <HBox styleClass="surface" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -32,12 +33,12 @@
                                                    <children>
                                                       <AnchorPane>
                                                          <children>
-                                                            <ComboBox fx:id="LocationOne" prefHeight="48.0" prefWidth="255.0" promptText="Select Start" stylesheets="@../stylesheets/combo.css" />
+                                                            <SearchableComboBox fx:id="LocationOne" prefHeight="48.0" prefWidth="255.0" promptText="Select Start" />
                                                          </children>
                                                       </AnchorPane>
                                                       <AnchorPane>
                                                          <children>
-                                                            <ComboBox fx:id="EndPointSelect" prefHeight="48.0" prefWidth="255.0" promptText="Select Destination" stylesheets="@../stylesheets/combo.css" />
+                                                            <SearchableComboBox fx:id="EndPointSelect" prefHeight="48.0" prefWidth="255.0" promptText="Select Destination" />
                                                          </children>
                                                       </AnchorPane>
                                                       <AnchorPane>
