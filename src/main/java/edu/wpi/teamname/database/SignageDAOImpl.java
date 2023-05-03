@@ -1,6 +1,5 @@
 package edu.wpi.teamname.database;
 
-import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.database.interfaces.SignageDAO;
 import edu.wpi.teamname.navigation.Direction;
 import edu.wpi.teamname.navigation.Signage;
@@ -62,19 +61,15 @@ public class SignageDAOImpl implements SignageDAO {
   public ArrayList<Integer> getKiosks(Timestamp date) throws SQLException {
     ArrayList<Integer> items = new ArrayList<>();
     Connection connection = DataManager.DbConnection();
-    String query =
-        "Select \"kioskID\", \"endDate\"\n"
-            + "From \"Signage\"\n"
-            + "Where \"date\" = ? Group by \"kioskID\", \"endDate\"";
+    String query = "Select distinct \"kioskID\"" + "From \"Signage\"\n";
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
-      statement.setTimestamp(1, date);
+      //      statement.setTimestamp(1, date);
 
       ResultSet rs = statement.executeQuery();
       while (rs.next()) {
         int kioskID = rs.getInt("kioskID");
-        Timestamp endDate = rs.getTimestamp("endDate");
-        if (endDate.after(GlobalVariables.getToday())) items.add(kioskID);
+        items.add(kioskID);
       }
     } catch (SQLException e) {
       System.out.println(e.getMessage());
