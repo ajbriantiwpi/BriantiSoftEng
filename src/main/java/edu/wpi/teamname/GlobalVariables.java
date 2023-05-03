@@ -95,7 +95,7 @@ public class GlobalVariables {
   @Getter @Setter private static int screenSaveWaitTime = 15;
   @Getter @Setter private static int screenSaveTransTime = 20;
 
-  @Getter @Setter private static int labelTextType = -2;
+  @Getter @Setter private static int labelTextType = -2; // -1 = node, 0 =Long , 1 = Short, 2= ID
   @Getter @Setter private static Boolean showHallNames = null;
   @Getter @Setter private static Boolean showEdges = null;
   @Getter @Setter private static Boolean showNodes = null;
@@ -119,7 +119,7 @@ public class GlobalVariables {
   @Getter @Setter
   private static ArrayList<Boolean> showTypeLabels =
       new ArrayList<>(
-          Arrays.asList(true, false, true, true, true, true, true, true, true, true, true, true));
+          Arrays.asList(true, true, true, true, true, true, true, true, true, true, true, true));
 
   static {
     try {

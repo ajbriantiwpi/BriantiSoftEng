@@ -800,7 +800,7 @@ public class ParentController {
         });
     // darkToggle.setOnAction(event -> GlobalVariables.setDarkMode(darkToggle.isSelected()));
 
-    // titleLabel.setText(titleString.getValue());
+    titleLabel.setText(titleString.getValue());
 
     // (1) //This section is only needed to make sure that home and login work
     for (Screen screen : Screen.values()) {
