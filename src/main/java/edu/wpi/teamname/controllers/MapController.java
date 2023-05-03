@@ -10,6 +10,7 @@ import edu.wpi.teamname.database.PathMessageDAOImpl;
 import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
+import edu.wpi.teamname.navigation.AlgoStrategy.*;
 import edu.wpi.teamname.navigation.AlgoStrategy.AStarAlgo;
 import edu.wpi.teamname.navigation.AlgoStrategy.BFSAlgo;
 import edu.wpi.teamname.navigation.AlgoStrategy.DFSAlgo;
@@ -45,6 +46,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.SearchableComboBox;
 
@@ -158,9 +160,10 @@ public class MapController {
   String floor1;
   String floor2;
   String currFloor = "Lower Level 1";
-  int sNode = 0;
+  int sNode = GlobalVariables.getCurrentLocationNode().getId();
+  // int sNode = 0;
   int eNode = 0;
-  Node globalStartNode;
+  Node globalStartNode = GlobalVariables.getCurrentLocationNode();
 
   String globalLongNames = "";
   String globalLongNamee = "";
@@ -661,64 +664,68 @@ public class MapController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
-          ViewMessageButton.setDisable(false);
-          AddMessageButton.setDisable(false);
-          try {
-            map.drawPath(anchor, sNode, eNode);
-          } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-          }
-          int secInd = map.getAllFloors().indexOf(currFloor);
-          System.out.println("secInd: " + secInd);
-          anchor.getChildren().addAll(map.getShapes().get(secInd));
-
-          ArrayList<Node> allNodes;
-          try {
-            allNodes = DataManager.getAllNodes();
-          } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-          }
-
-          int floorIndex = -1;
-
-          int indOfStart = Node.idToIndex(sNode);
-          //          DataManager.getNode(sNode)
-          String floorForSNode = map.takeFloor(allNodes.get(indOfStart).getFloor(), true);
-          System.out.println("Floor to move to " + floorForSNode);
-          if (floorForSNode == "Third Floor") {
-            floorIndex = 4;
-            ThirdFloorButton.fire();
-          } else if (floorForSNode == "Second Floor") {
-            floorIndex = 3;
-            SecondFloorButton.fire();
-          } else if (floorForSNode == "First Floor") {
-            floorIndex = 2;
-            // System.out.println("Got to First Floor");
-            FirstFloorButton.fire();
-          } else if (floorForSNode == "Lower Level 1") {
-            floorIndex = 1;
-            LowerFirstButton.fire();
-          } else if (floorForSNode == "Lower Level 2") {
-            floorIndex = 0;
-            LowerSecondButton.fire();
-          } else {
-            System.out.println("Move to start node floor failed, should not be here");
-          }
-
-          FloorsToggle.setDisable(false);
-          showPathFloors(false);
-
-          clearTextDriections();
-          generateTextDirections(floorIndex);
-
-          map.centerAndZoomStart(gp, OuterMapAnchor, globalStartNode);
-
-          clickCount = 0;
-
-          System.out.println("Test Alek: " + globalLongNames + " " + globalLongNamee);
+          loveYouWong(false);
         }
       };
+
+  public void loveYouWong(Boolean exit) {
+    Sound.playSFX(SFX.BUTTONCLICK);
+    ViewMessageButton.setDisable(false);
+    AddMessageButton.setDisable(false);
+    try {
+      if (exit) {
+        map.drawPath(anchor, GlobalVariables.getCurrentLocationNode().getId(), 300);
+      } else map.drawPath(anchor, sNode, eNode);
+    } catch (SQLException ex) {
+      throw new RuntimeException(ex);
+    }
+    int secInd = map.getAllFloors().indexOf(currFloor);
+    System.out.println("secInd: " + secInd);
+    anchor.getChildren().addAll(map.getShapes().get(secInd));
+
+    ArrayList<Node> allNodes;
+    try {
+      allNodes = DataManager.getAllNodes();
+    } catch (SQLException ex) {
+      throw new RuntimeException(ex);
+    }
+
+    int floorIndex = -1;
+
+    int indOfStart = Node.idToIndex(sNode);
+    //          DataManager.getNode(sNode)
+    String floorForSNode = map.takeFloor(allNodes.get(indOfStart).getFloor(), true);
+    System.out.println("Floor to move to " + floorForSNode);
+    if (floorForSNode == "Third Floor") {
+      floorIndex = 4;
+      ThirdFloorButton.fire();
+    } else if (floorForSNode == "Second Floor") {
+      floorIndex = 3;
+      SecondFloorButton.fire();
+    } else if (floorForSNode == "First Floor") {
+      floorIndex = 2;
+      // System.out.println("Got to First Floor");
+      FirstFloorButton.fire();
+    } else if (floorForSNode == "Lower Level 1") {
+      floorIndex = 1;
+      LowerFirstButton.fire();
+    } else if (floorForSNode == "Lower Level 2") {
+      floorIndex = 0;
+      LowerSecondButton.fire();
+    } else {
+      System.out.println("Move to start node floor failed, should not be here");
+    }
+
+    FloorsToggle.setDisable(false);
+    showPathFloors(false);
+
+    clearTextDriections();
+    generateTextDirections(floorIndex);
+
+    map.centerAndZoomStart(gp, OuterMapAnchor, globalStartNode);
+
+    clickCount = 0;
+  }
 
   EventHandler<ActionEvent> changeStart =
       new EventHandler<ActionEvent>() {
@@ -926,6 +933,9 @@ public class MapController {
               break;
             case ("Dijkstra's Algorithm"):
               map.graph.setPathfindingAlgo(new DijkstraAlgo());
+              break;
+            case ("Emergency Exit"):
+              map.graph.setPathfindingAlgo(new Emergency());
               break;
             default:
               System.out.println("Not supposed to be here: Wrong Algo");
@@ -1335,7 +1345,9 @@ public class MapController {
     switch (lang) {
       case ENGLISH:
         ParentController.titleString.set("Map");
-        LocationOne.setPromptText("Select Start");
+        // LocationOne.setPromptText("Select Start");
+        LocationOne.setPromptText(
+            GlobalVariables.getHMap().get(globalStartNode.getId()).get(0).getLongName());
         EndPointSelect.setPromptText("Select Destination");
         AlgoSelect.setPromptText("Select Algorithm");
         findPathButton.setText("Find Path");
@@ -1353,7 +1365,7 @@ public class MapController {
         IdSelector.setText("ID");
         HallNamesSelector.setText("Hall Names");
         EdgeSelector.setText("Show Edges");
-        NodeSelector.setText("Node");
+        NodeSelector.setText("Show Nodes");
         LegendSelector.setText("Unique Shapes");
         FloorsToggle.setText("Display all Floors");
         AvoidElevatorsToggle.setText("Avoid Stairs");
@@ -1432,7 +1444,7 @@ public class MapController {
         break;
       case SPANISH:
         ParentController.titleString.set("Mapa");
-        PathfindingTitlePane.setText("Búsqueda de ruta");
+        PathfindingTitlePane.setText("B" + GlobalVariables.getUAcute() + "squeda de ruta");
         LocationOne.setPromptText("Seleccionar inicio");
         EndPointSelect.setPromptText("Seleccionar destino");
         AlgoSelect.setPromptText("Seleccionar algoritmo");
@@ -1445,24 +1457,29 @@ public class MapController {
         FirstFloorButton.setText("Primer piso");
         LowerFirstButton.setText("Nivel inferior 1");
         LowerSecondButton.setText("Nivel inferior 2");
-        TickTitlePane.setText("Casillas de verificación");
+        TickTitlePane.setText("Casillas de verificaci" + GlobalVariables.getOAcute() + "n");
         LongNameSelector.setText("Nombre largo");
         ShortNameSelector.setText("Nombre corto");
         IdSelector.setText("ID");
-        HallNamesSelector.setText("Nombres de salón");
+        HallNamesSelector.setText("Nombres de sal" + GlobalVariables.getOAcute() + "n");
         EdgeSelector.setText("Mostrar bordes");
         NodeSelector.setText("Nodo");
-        LegendSelector.setText("Formas únicas");
+        LegendSelector.setText("Formas " + GlobalVariables.getUAcute() + "nicas");
         FloorsToggle.setText("Mostrar todos los pisos");
         AvoidElevatorsToggle.setText("Evitar escaleras");
         ViewMessageButton.setText("Ver mensajes");
         AddMessageButton.setText("Agregar mensaje");
-        mapSymbolsLabel.setText("Símbolos del mapa");
+        mapSymbolsLabel.setText("S" + GlobalVariables.getIAcute() + "mbolos del mapa");
         conferenceRoomLabel.setText("Sala de conferencias");
         departmentLabel.setText("Departamento");
         labLabel.setText("Laboratorio");
-        infoLabel.setText("Información");
-        bathroomLabel.setText("Baño/Servicios higiénicos");
+        infoLabel.setText("Informaci" + GlobalVariables.getOAcute() + "n");
+        bathroomLabel.setText(
+            "Ba"
+                + GlobalVariables.getNTilda()
+                + "o/Servicios higi"
+                + GlobalVariables.getEAcute()
+                + "nicos");
         serviceLabel.setText("Servicios/Tienda");
         elevatorLabel.setText("Ascensor");
         stairsLabel.setText("Escaleras");
@@ -1482,19 +1499,27 @@ public class MapController {
       case FRENCH:
         ParentController.titleString.set("Carte");
         PathfindingTitlePane.setText("Recherche de chemin");
-        LocationOne.setPromptText("Sélectionner le départ");
-        EndPointSelect.setPromptText("Sélectionner la destination");
-        AlgoSelect.setPromptText("Sélectionner l'algorithme");
+        LocationOne.setPromptText(
+            "S"
+                + GlobalVariables.getEAcute()
+                + "lectionner le d"
+                + GlobalVariables.getEAcute()
+                + "part");
+        EndPointSelect.setPromptText(
+            "S" + GlobalVariables.getEAcute() + "lectionner la destination");
+        AlgoSelect.setPromptText("S" + GlobalVariables.getEAcute() + "lectionner l'algorithme");
         findPathButton.setText("Trouver un chemin");
-        DeleteNodeButton.setText("Réinitialiser");
-        DirectionsTitlePane.setText("Itinéraire");
-        FloorTitlePane.setText("Étages");
-        ThirdFloorButton.setText("Troisième étage");
-        SecondFloorButton.setText("Deuxième étage");
-        FirstFloorButton.setText("Premier étage");
-        LowerFirstButton.setText("Niveau inférieur 1");
-        LowerSecondButton.setText("Niveau inférieur 2");
-        TickTitlePane.setText("Cases à cocher");
+        DeleteNodeButton.setText("R" + GlobalVariables.getEAcute() + "initialiser");
+        DirectionsTitlePane.setText("Itin" + GlobalVariables.getEAcute() + "raire");
+        FloorTitlePane.setText(GlobalVariables.getBigEACute() + "tages");
+        ThirdFloorButton.setText(
+            "Troisi" + GlobalVariables.getEGrave() + "me " + GlobalVariables.getEAcute() + "tage");
+        SecondFloorButton.setText(
+            "Deuxi" + GlobalVariables.getEGrave() + "me " + GlobalVariables.getEAcute() + "tage");
+        FirstFloorButton.setText("Premier " + GlobalVariables.getEAcute() + "tage");
+        LowerFirstButton.setText("Niveau inf" + GlobalVariables.getEAcute() + "rieur 1");
+        LowerSecondButton.setText("Niveau inf" + GlobalVariables.getEAcute() + "rieur 2");
+        TickTitlePane.setText("Cases " + GlobalVariables.getAGrave() + " cocher");
         LongNameSelector.setText("Nom long");
         ShortNameSelector.setText("Nom court");
         IdSelector.setText("ID");
@@ -1502,13 +1527,13 @@ public class MapController {
         EdgeSelector.setText("Afficher les bords");
         NodeSelector.setText("Noeud");
         LegendSelector.setText("Formes uniques");
-        FloorsToggle.setText("Afficher tous les étages");
-        AvoidElevatorsToggle.setText("Éviter les escaliers");
+        FloorsToggle.setText("Afficher tous les " + GlobalVariables.getEAcute() + "tages");
+        AvoidElevatorsToggle.setText(GlobalVariables.getBigEACute() + "viter les escaliers");
         ViewMessageButton.setText("Voir les messages");
         AddMessageButton.setText("Ajouter un message");
         mapSymbolsLabel.setText("Symboles de carte");
-        conferenceRoomLabel.setText("Salle de conférence");
-        departmentLabel.setText("Département");
+        conferenceRoomLabel.setText("Salle de conf" + GlobalVariables.getEAcute() + "rence");
+        departmentLabel.setText("D" + GlobalVariables.getEAcute() + "partement");
         labLabel.setText("Laboratoire");
         infoLabel.setText("Info");
         bathroomLabel.setText("Toilettes");
@@ -1516,11 +1541,12 @@ public class MapController {
         elevatorLabel.setText("Ascenseur");
         stairsLabel.setText("Escalier");
         exitLabel.setText("Sortie");
-        startLabel.setText("Départ");
+        startLabel.setText("D" + GlobalVariables.getEAcute() + "part");
         pathLabel.setText("Chemin");
         destinationLabel.setText("Destination");
-        currentFloorStart.setText("Étage de départ");
-        currentFloorDestLabel.setText("Étage de destination");
+        currentFloorStart.setText(
+            GlobalVariables.getBigEACute() + "tage de d" + GlobalVariables.getEAcute() + "part");
+        currentFloorDestLabel.setText(GlobalVariables.getBigEACute() + "tage de destination");
         AdminIDLabel.setText("ID d'administrateur");
         MessageLabel.setText("Message");
         MessageSubmitButton.setText("Envoyer");
@@ -1567,7 +1593,11 @@ public class MapController {
     Platform.runLater(() -> map.centerAndZoom(gp, OuterMapAnchor));
 
     // DeleteNodeButton.setOnMouseClicked(deleteNodeButton);
-    DeleteNodeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
+    DeleteNodeButton.setOnMouseClicked(
+        event -> {
+          GlobalVariables.setPathToExit(false);
+          Navigation.navigate(Screen.MAP);
+        });
     //    DeleteNodeButton.setOnMouseClicked(
     //        event -> {
     //          try {
@@ -1583,7 +1613,11 @@ public class MapController {
     findPathButton.setDisable(true);
 
     //    LocationOne.setStyle("-fx-padding: 5 25 5 5;");
-    LocationOne.setPromptText("Select start");
+
+    // LocationOne.setPromptText("Select start");
+    LocationOne.setPromptText(
+        GlobalVariables.getHMap().get(globalStartNode.getId()).get(0).getLongName());
+
     LocationOne.setItems(
         map.getAllNodeNames()); // change for when the floor changes to update the nodes shown
     LocationOne.setOnAction(changeStart);
@@ -1814,5 +1848,19 @@ public class MapController {
             throw new RuntimeException(e);
           }
         });
+
+    // If the map is opened because the emergency button is clicked, display emergency path right
+    // away
+    if (GlobalVariables.isPathToExit()) {
+      // System.out.println("Wongtastic lifestyle");
+      map.graph.setPathfindingAlgo(new Emergency());
+      GlobalVariables.setBorderColor(Color.RED);
+      GlobalVariables.setInsideColor(Color.RED);
+      loveYouWong(true);
+      GlobalVariables.setBorderColor(Color.web("012D5A"));
+      GlobalVariables.setInsideColor(Color.web("35A7FF"));
+      GlobalVariables.setPathToExit(false);
+      map.graph.setPathfindingAlgo(new AStarAlgo());
+    }
   }
 }

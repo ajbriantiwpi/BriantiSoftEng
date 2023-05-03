@@ -76,6 +76,9 @@ public class ParentController {
   @FXML VBox SideBar;
   @FXML HBox MainScreen;
 
+  @FXML MFXButton SettingsButton;
+  @FXML MFXButton EmergencyButton;
+
   PopOver mapPop;
   PopOver signagePop;
   PopOver servicePop;
@@ -88,7 +91,7 @@ public class ParentController {
   Pane sp2;
   Pane rp2;
 
-  int buttonSize = 45;
+  int buttonSize = 50;
 
   ArrayList<Screen> secureScreens =
       new ArrayList<>(
@@ -371,6 +374,8 @@ public class ParentController {
         //        break;
       case "Service Request Analytics":
         return Screen.SERVICE_REQUEST_ANALYTICS;
+      case "Settings":
+        return Screen.SETTINGS;
         //      case ABOUT:
         //        break;
         //      case CREDITS:
@@ -424,6 +429,8 @@ public class ParentController {
         //        break;
       case SERVICE_REQUEST_ANALYTICS:
         return this.showRequestsButton1;
+      case SETTINGS:
+        return this.SettingsButton;
         //      case ABOUT:
         //        break;
         //      case CREDITS:
@@ -459,7 +466,7 @@ public class ParentController {
         makeRequestsButtonSelector.setText("Service Requests");
         break;
       case FRENCH:
-        homeButton.setText("Page D’accueil");
+        homeButton.setText("Page D'accueil");
         mapButton.setText("Carte");
         viewSignageButton.setText("Voir la signalisation");
         makeRequestsButton.setText("Faire des demandes");
@@ -468,10 +475,10 @@ public class ParentController {
         editMoveButton.setText("Voir les mouvements");
         editSignageButton.setText("Modifier la signalisation");
         editMapButton.setText("Modifier la carte");
-        showEmployeesButton.setText("Afficher les employés");
+        showEmployeesButton.setText("Afficher les employ" + GlobalVariables.getEAcute() + "s");
         viewAlertsButton.setText("Afficher les alertes");
         loginButton.setText("Connexion");
-        logoutButton.setText("Se déconnecter");
+        logoutButton.setText("Se d" + GlobalVariables.getEAcute() + "connecter");
         exitButton.setText("Sortie");
         mapButtonSelector.setText("Carte");
         viewSignageButtonSelector.setText("Signalisation");
@@ -497,11 +504,12 @@ public class ParentController {
         makeRequestsButtonSelector.setText("Richieste");
         break;
       case SPANISH:
-        homeButton.setText("Página de Inicio");
+        homeButton.setText("P" + GlobalVariables.getAAcute() + "gina de Inicio");
         mapButton.setText("Mapa");
-        viewSignageButton.setText("Ver señalización");
+        viewSignageButton.setText(
+            "Ver se" + GlobalVariables.getNTilda() + "alizaci" + GlobalVariables.getOAcute() + "n");
         makeRequestsButton.setText("Hacer peticiones");
-        requestRoomButton.setText("Solicitar Habitación");
+        requestRoomButton.setText("Solicitar Habitaci" + GlobalVariables.getOAcute() + "n");
         showRequestsButton.setText("Ver solicitudes");
         editMoveButton.setText("Ver movimientos");
         editSignageButton.setText("Editar señalización");
@@ -512,7 +520,8 @@ public class ParentController {
         logoutButton.setText("Cerrar sesión");
         exitButton.setText("Salir");
         mapButtonSelector.setText("Mapa");
-        viewSignageButtonSelector.setText("Señalización");
+        viewSignageButtonSelector.setText(
+            "Se" + GlobalVariables.getNTilda() + "alizaci" + GlobalVariables.getOAcute() + "n");
         makeRequestsButtonSelector.setText("Peticiones");
         break;
     }
@@ -849,6 +858,8 @@ public class ParentController {
               }
             });
 
+    //    EmergencyButton.setOnMouseClicked();
+
     //    makeRequestsButtonSelector
     //    viewSignageButtonSelector
     //    mapButtonSelector.setMaxHeight(buttonSize);
@@ -877,7 +888,8 @@ public class ParentController {
     double realHeight = height.get();
     realHeight = ((Pane) (two.getChildren().get(0))).getChildren().size() * buttonSize;
     System.out.println("RH: " + realHeight);
-    VBox.setMargin(one, new Insets(0, 0, -realHeight + buttonSize, 0));
+    int extra = 0;
+    VBox.setMargin(one, new Insets(0, 0, -realHeight + buttonSize - extra, 0));
     //    VBox.setMargin(one, new Insets(0, 0, -180, 0));
   }
 

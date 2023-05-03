@@ -33,7 +33,7 @@ public class Map {
   private Point2D centerPoint;
   private Point2D centerTL;
 
-  @Getter @Setter private int labelTextType; // 0 = Long Name, 1 = Short Name, 2 = ID
+  @Getter @Setter private int labelTextType; // 0 = Long Name, 1 = Short Name, 2 = ID, -1 = None
 
   @Getter @Setter private ArrayList<Shape> prevPath = new ArrayList<Shape>();
 
@@ -52,7 +52,7 @@ public class Map {
   };
 
   private String[] algoArr = {
-    "A-Star", "Breadth First Search", "Depth First Search", "Dijkstra's Algorithm"
+    "A-Star", "Breadth First Search", "Depth First Search", "Dijkstra's Algorithm", "Emergency Exit"
   };
 
   private boolean isMapPage;
@@ -88,13 +88,15 @@ public class Map {
    * @throws SQLException if there is an error accessing the database.
    */
   public Map(AnchorPane subAnchor, boolean isMapPage) throws SQLException {
+    GlobalVariables.setHMap(
+        DataManager.getAllLocationNamesMappedByNode(new Timestamp(System.currentTimeMillis())));
     this.graph = new Graph();
     this.currentDisplayFloor = "Lower Level 1";
     this.subAnchor = subAnchor;
 
     setGlobalVars(new Timestamp(System.currentTimeMillis()));
 
-    this.labelTextType = 1;
+    this.labelTextType = -1;
     this.isMapPage = isMapPage;
     this.showEdges = !this.isMapPage;
     this.roomTypes.add("HALL");
@@ -313,6 +315,12 @@ public class Map {
       this.setPrevPath(null);
     }
 
+    currentFloorShapes = (this.makeAllFloorShapes(shortRealFloorName));
+    //    System.out.println("SetFloor :" + shortRealFloorName);
+
+    //    System.out.println("SubL:" + subAnchor.getChildren().size());
+    subAnchor.getChildren().addAll(currentFloorShapes);
+
     if (!this.getShapes().isEmpty() && this.isMapPage) {
 
       if (cssFloorName.equals("L1")) {
@@ -342,11 +350,7 @@ public class Map {
     // Re add based on new floor
 
     // Lots Of time.
-    currentFloorShapes = (this.makeAllFloorShapes(shortRealFloorName));
-    //    System.out.println("SetFloor :" + shortRealFloorName);
 
-    //    System.out.println("SubL:" + subAnchor.getChildren().size());
-    subAnchor.getChildren().addAll(currentFloorShapes);
     //    System.out.println("SubL:" + subAnchor.getChildren().size());
 
     subAnchor.getStyleClass().add(cssFloorName);
@@ -663,7 +667,7 @@ public class Map {
 
     //    System.out.println(nodePath);
 
-    // parent.getChildren().addAll(shapes);
+    //     parent.getChildren().addAll(shapes);
 
   }
 
@@ -681,7 +685,8 @@ public class Map {
     direction = Direction.STRAIGHT;
     sb.append(direction.getString());
     System.out.print(direction.getString());
-    distance = getTextDistance(nodePath.get(0), nodePath.get(1));
+    if (nodePath.size() > 1) distance = getTextDistance(nodePath.get(0), nodePath.get(1));
+    else distance = getTextDistance(nodePath.get(0), nodePath.get(0));
     sb.append(distance);
     System.out.println(distance);
 

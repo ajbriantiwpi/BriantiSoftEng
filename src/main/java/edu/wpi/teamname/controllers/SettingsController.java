@@ -10,9 +10,19 @@ import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Song;
 import edu.wpi.teamname.extras.Sound;
+import edu.wpi.teamname.navigation.LocationName;
+import edu.wpi.teamname.navigation.Node;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
@@ -40,6 +50,7 @@ public class SettingsController {
   @FXML MFXButton viewFeedbackButton;
   @FXML RadioButton wpiButton;
   @FXML RadioButton awsButton;
+  @FXML ComboBox<String> setLocationBox;
 
   public void setLanguage(Language lang) {
     switch (lang) {
@@ -51,40 +62,62 @@ public class SettingsController {
         appSettingsLabel.setText("App Settings");
         dbConnectionLabel.setText("Database Connection");
         dataManageButton.setText("Data");
-        feedbackButton.setText("Feedback");
+        darkToggle.setText("Dark Mode");
+        feedbackButton.setText("Submit Feedback");
         viewFeedbackButton.setText("View Feedback");
         break;
       case ITALIAN:
         ParentController.titleString.set("Impostazioni");
         hardwareLabel.setText("Impostazioni Hardware");
         volumeLabel.setText("Volume");
+        Italian:
+        darkToggle.setText("Modalit" + GlobalVariables.getAGrave() + " scura");
         songLabel.setText("Scegli Canzone");
         appSettingsLabel.setText("Impostazioni dell'App");
         dbConnectionLabel.setText("Connessione al Database");
         dataManageButton.setText("Dati");
-        feedbackButton.setText("Feedback");
+        feedbackButton.setText("Invia feedback");
         viewFeedbackButton.setText("Visualizza Feedback");
         break;
       case FRENCH:
-        ParentController.titleString.set("Paramètres");
-        hardwareLabel.setText("Paramètres Matériels");
+        ParentController.titleString.set("Param" + GlobalVariables.getEGrave() + "tres");
+        hardwareLabel.setText(
+            "Param"
+                + GlobalVariables.getEGrave()
+                + "tres Mat"
+                + GlobalVariables.getEAcute()
+                + "riels");
         volumeLabel.setText("Volume");
         songLabel.setText("Choisir une chanson");
-        appSettingsLabel.setText("Paramètres de l'application");
-        dbConnectionLabel.setText("Connexion à la base de données");
-        dataManageButton.setText("Données");
-        feedbackButton.setText("Commentaires");
+        appSettingsLabel.setText("Param" + GlobalVariables.getEGrave() + "tres de l'application");
+        French:
+        darkToggle.setText("Mode sombre");
+        dbConnectionLabel.setText(
+            "Connexion "
+                + GlobalVariables.getAGrave()
+                + " la base de donn"
+                + GlobalVariables.getEAcute()
+                + "es");
+        dataManageButton.setText("Donn" + GlobalVariables.getEAcute() + "es");
+        feedbackButton.setText("Soumettre des commentaires");
         viewFeedbackButton.setText("Voir les commentaires");
         break;
       case SPANISH:
-        ParentController.titleString.set("Configuración");
-        hardwareLabel.setText("Configuración de Hardware");
+        ParentController.titleString.set("Configuraci" + GlobalVariables.getOAcute() + "n");
+        hardwareLabel.setText("Configuraci" + GlobalVariables.getOAcute() + "n de Hardware");
         volumeLabel.setText("Volumen");
-        songLabel.setText("Elegir Canción");
-        appSettingsLabel.setText("Configuración de la Aplicación");
-        dbConnectionLabel.setText("Conexión de Base de Datos");
+        Spanish:
+        darkToggle.setText("Modo oscuro");
+        songLabel.setText("Elegir Canci" + GlobalVariables.getOAcute() + "n");
+        appSettingsLabel.setText(
+            "Configuraci"
+                + GlobalVariables.getOAcute()
+                + "n de la Aplicaci"
+                + GlobalVariables.getOAcute()
+                + "n");
+        dbConnectionLabel.setText("Conexi" + GlobalVariables.getOAcute() + "n de Base de Datos");
         dataManageButton.setText("Datos");
-        feedbackButton.setText("Comentarios");
+        feedbackButton.setText("Enviar comentarios");
         viewFeedbackButton.setText("Ver Comentarios");
         break;
     }
@@ -214,6 +247,13 @@ public class SettingsController {
               }
             });
 
+    GlobalVariables.setHMap(
+        DataManager.getAllLocationNamesMappedByNode(new Timestamp(System.currentTimeMillis())));
+
+    setLocationBox.setPromptText("Select Location");
+    setLocationBox.setItems(getAllNodeNames());
+    setLocationBox.setOnAction(changeCurrentLocation);
+
     dataManageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.DATA_MANAGER));
     feedbackButton.setOnMouseClicked(event -> Navigation.navigate(Screen.FEEDBACK));
     viewFeedbackButton.setOnMouseClicked(event -> Navigation.navigate(Screen.VIEW_FEEDBACK));
@@ -226,4 +266,45 @@ public class SettingsController {
   private void setApplicationVolume(double volume) {
     Sound.setVolume(volume);
   }
+
+  public static ObservableList<String> getAllNodeNames() throws SQLException {
+    ObservableList<String> nodeNames = FXCollections.observableArrayList();
+
+    HashMap<Integer, ArrayList<LocationName>> hMap = GlobalVariables.getHMap();
+
+    for (Integer i : hMap.keySet()) {
+      // Gets rid of all Hallway locations
+      if (!hMap.get(i).get(0).getNodeType().equals("HALL")) {
+        nodeNames.add(hMap.get(i).get(0).getLongName());
+      }
+    }
+
+    Collections.sort(nodeNames);
+
+    return nodeNames;
+  }
+
+  EventHandler<ActionEvent> changeCurrentLocation =
+      new EventHandler<ActionEvent>() {
+
+        @Override
+        public void handle(ActionEvent event) {
+          Node nodeForLocation;
+          // System.out.println("changed start " + LocationOne.getValue());
+          // System.out.println(LocationOne.getValue());
+          // System.out.println(EndPointSelect.getValue());
+          String currentLName = setLocationBox.getValue();
+
+          try {
+            nodeForLocation =
+                DataManager.getNodeByLocationName(
+                    currentLName, new Timestamp(System.currentTimeMillis()));
+          } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+          }
+
+          GlobalVariables.setCurrentLocationNode(nodeForLocation);
+          // System.out.print("New Location: " + GlobalVariables.getCurrentLocationNode().getId());
+        }
+      };
 }

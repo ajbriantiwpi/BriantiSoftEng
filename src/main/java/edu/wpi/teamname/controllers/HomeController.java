@@ -58,6 +58,7 @@ public class HomeController {
   @FXML MFXButton showRequestsButton;
   @FXML MFXButton editMapButton;
   @FXML MFXButton exitButton;
+  @FXML MFXButton exitPathButton;
   @FXML MFXButton employeeButton;
   @FXML MFXButton aboutButton;
   @FXML MFXButton creditButton;
@@ -127,7 +128,8 @@ public class HomeController {
   public void setLanguage(Language lang) throws SQLException {
     switch (lang) {
       case ENGLISH:
-        actionItemsLabel.setText("Action Items");
+        exitButton.setText("Emergency");
+        actionItemsLabel.setText("Service Requests");
         staffItemsLabel.setText("Staff Items");
         navigationLabel.setText("Navigation");
         if (loggedIn.getValue()) {
@@ -189,7 +191,8 @@ public class HomeController {
         logoutButton.setText("Logout");
         break;
       case ITALIAN:
-        actionItemsLabel.setText("Elementi di azione");
+        exitButton.setText("Emergenza");
+        actionItemsLabel.setText("Richieste di Servizio");
         staffItemsLabel.setText("Elementi del personale");
         navigationLabel.setText("Navigazione");
         if (loggedIn.getValue()) {
@@ -251,8 +254,13 @@ public class HomeController {
         logoutButton.setText("Disconnettersi");
         break;
       case FRENCH:
-        actionItemsLabel.setText("Tâches à effectuer");
-        staffItemsLabel.setText("Éléments du personnel");
+        exitButton.setText("Urgence");
+        actionItemsLabel.setText("Demandes de Service");
+        staffItemsLabel.setText(
+            GlobalVariables.getBigEACute()
+                + "l"
+                + GlobalVariables.getEAcute()
+                + "ments du personnel");
         navigationLabel.setText("Navigation");
         if (loggedIn.getValue()) {
           ObservableList<ServiceRequest> requestList =
@@ -278,7 +286,8 @@ public class HomeController {
           int processingSize = processingRequestsList.size();
           int doneSize = doneRequestsList.size();
           activeRequests.setText(processingSize + " demande(s) active(s)");
-          doneRequests.setText(doneSize + " demande(s) effectuée(s)");
+          doneRequests.setText(
+              doneSize + " demande(s) effectu" + GlobalVariables.getEAcute() + "e(s)");
           ObservableList<Move> allMoves =
               FXCollections.observableArrayList(DataManager.getAllMoves());
           LocalDate today = LocalDate.now();
@@ -289,33 +298,42 @@ public class HomeController {
               futureMoves++;
             }
           }
-          upcomingMoves.setText(futureMoves + " Déplacements à venir");
+          upcomingMoves.setText(
+              futureMoves
+                  + " D"
+                  + GlobalVariables.getEAcute()
+                  + "placements "
+                  + GlobalVariables.getAGrave()
+                  + " venir");
         }
         makeRequestsButton.setText("Faire une demande");
         showRequestsButton.setText("Voir les demandes de service");
         serviceRequestAnalyticsButton.setText("Voir l'analyse des demandes de service");
-        employeeButton.setText("Voir les employés");
-        requestRoomButton.setText("Demander une salle de conférence");
-        viewConfrenceRoomButton.setText("Voir les salles de conférence");
+        employeeButton.setText("Voir les employ" + GlobalVariables.getEAcute() + "s");
+        requestRoomButton.setText(
+            "Demander une salle de conf" + GlobalVariables.getEAcute() + "rence");
+        viewConfrenceRoomButton.setText(
+            "Voir les salles de conf" + GlobalVariables.getEAcute() + "rence");
         viewAlertsButton.setText("Voir les alertes");
         mapButton.setText("Voir la carte");
-        editMoveButton.setText("Voir les déplacements");
+        editMoveButton.setText("Voir les d" + GlobalVariables.getEAcute() + "placements");
         editMapButton.setText("Modifier la carte");
         viewSignageButton.setText("Voir la signalisation");
         editSignageButton.setText("Modifier la signalisation");
         exitButton.setText("Sortir");
-        settingsButton.setText("Paramètres");
+        settingsButton.setText("Param" + GlobalVariables.getEGrave() + "tres");
         notificationPopupButtonSimple.setText("Notifications");
-        creditButton.setText("Crédits");
-        aboutButton.setText("À propos");
+        creditButton.setText("Cr" + GlobalVariables.getEAcute() + "dits");
+        aboutButton.setText(GlobalVariables.getBigAGrave() + " propos");
         helpButton.setText("Aide");
         loginButton.setText("Se connecter");
-        logoutButton.setText("Se déconnecter");
+        logoutButton.setText("Se d" + GlobalVariables.getEAcute() + "connecter");
         break;
       case SPANISH:
-        actionItemsLabel.setText("Elementos de acción");
+        exitButton.setText("Emergencia");
+        actionItemsLabel.setText("Solicitudes de Servicio");
         staffItemsLabel.setText("Elementos del personal");
-        navigationLabel.setText("Navegación");
+        navigationLabel.setText("Navegaci" + GlobalVariables.getOAcute() + "n");
         if (loggedIn.getValue()) {
           ObservableList<ServiceRequest> requestList =
               FXCollections.observableList(
@@ -355,7 +373,8 @@ public class HomeController {
         }
         makeRequestsButton.setText("Hacer una solicitud");
         showRequestsButton.setText("Ver solicitudes de servicio");
-        serviceRequestAnalyticsButton.setText("Ver análisis de solicitudes de servicio");
+        serviceRequestAnalyticsButton.setText(
+            "Ver an" + GlobalVariables.getAAcute() + "lisis de solicitudes de servicio");
         employeeButton.setText("Ver empleados");
         requestRoomButton.setText("Solicitar una sala de conferencias");
         viewConfrenceRoomButton.setText("Ver salas de conferencias");
@@ -363,16 +382,22 @@ public class HomeController {
         mapButton.setText("Ver mapa");
         editMoveButton.setText("Ver movimientos");
         editMapButton.setText("Editar mapa");
-        viewSignageButton.setText("Ver señalización");
-        editSignageButton.setText("Editar señalización");
+        viewSignageButton.setText(
+            "Ver se" + GlobalVariables.getNTilda() + "alizaci" + GlobalVariables.getOAcute() + "n");
+        editSignageButton.setText(
+            "Editar se"
+                + GlobalVariables.getNTilda()
+                + "alizaci"
+                + GlobalVariables.getOAcute()
+                + "n");
         exitButton.setText("Salir");
-        settingsButton.setText("Configuración");
+        settingsButton.setText("Configuraci" + GlobalVariables.getOAcute() + "n");
         notificationPopupButtonSimple.setText("Notificaciones");
-        creditButton.setText("Créditos");
+        creditButton.setText("Cr" + GlobalVariables.getEAcute() + "ditos");
         aboutButton.setText("Acerca de");
         helpButton.setText("Ayuda");
-        loginButton.setText("Iniciar sesión");
-        logoutButton.setText("Cerrar sesión");
+        loginButton.setText("Iniciar sesi" + GlobalVariables.getOAcute() + "n");
+        logoutButton.setText("Cerrar sesi" + GlobalVariables.getOAcute() + "n");
         break;
     }
   }
@@ -432,7 +457,6 @@ public class HomeController {
               }
               GlobalVariables.b.setValue(newValue);
             });
-    setLanguage(GlobalVariables.getB().getValue());
 
     EventHandler<MouseEvent> NotificationPopupEvent =
         new EventHandler<MouseEvent>() {
@@ -731,6 +755,11 @@ public class HomeController {
         });
 
     mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
+    exitPathButton.setOnMouseClicked(
+        event -> {
+          GlobalVariables.setPathToExit(true);
+          Navigation.navigate(Screen.MAP);
+        });
     makeRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
     showRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST_VIEW));
     editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
@@ -759,5 +788,7 @@ public class HomeController {
         event -> Navigation.navigate(Screen.SERVICE_REQUEST_ANALYTICS));
     viewConfrenceRoomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CONF_VIEW));
     //    notifsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERT));
+
+    setLanguage(GlobalVariables.getB().getValue());
   }
 }

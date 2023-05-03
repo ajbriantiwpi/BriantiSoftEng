@@ -1,13 +1,16 @@
 package edu.wpi.teamname;
 
+import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
 import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.navigation.LocationName;
+import edu.wpi.teamname.navigation.Node;
 import edu.wpi.teamname.servicerequest.ConfReservation;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import edu.wpi.teamname.servicerequest.requestitem.ConfRoom;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,6 +25,35 @@ import lombok.Setter;
 
 public class GlobalVariables {
   // language is set to English by default
+  @Getter public static final char aGrave = '\u00E0';
+  @Getter public static final char bigAGrave = '\u00C0';
+  @Getter public static final char aAcute = '\u00E1';
+  @Getter public static final char bigAAcute = '\u00C1';
+  @Getter public static final char aCircumflex = '\u00E2';
+  @Getter public static final char bigACircumflex = '\u00C2';
+  // e acute
+  @Getter public static final char eAcute = '\u00E9';
+  @Getter public static final char bigEACute = '\u00C9';
+  @Getter public static final char eGrave = '\u00E8';
+  @Getter public static final char bigEGrave = '\u00C8';
+  @Getter public static final char oAcute = '\u00F3';
+  @Getter public static final char bigOACute = '\u00D3';
+  @Getter public static final char oGrave = '\u00F2';
+  @Getter public static final char bigOGrave = '\u00D2';
+  @Getter public static final char iAcute = '\u00EC';
+  @Getter public static final char bigIACute = '\u00CC';
+  @Getter public static final char iGrave = '\u00ED';
+  @Getter public static final char bigIGrave = '\u00CD';
+  @Getter public static final char nTilda = '\u00F1';
+  @Getter public static final char bigNTilda = '\u00D1';
+
+  @Getter public static final char uGrave = '\u00F9';
+  @Getter public static final char bigUGrave = '\u00D9';
+  @Getter public static final char uAcute = '\u00FA';
+  @Getter public static final char bigUAcute = '\u00DA';
+  @Getter public static final char oe = '\u0153';
+  //  @Getter public static final char bigOE = '\u00DA';
+
   @Getter @Setter public static Property<Language> b = new SimpleObjectProperty<>(Language.ENGLISH);
   @Getter @Setter private static String[] args;
   @Getter @Setter private static boolean futureMovesPressed = false;
@@ -52,9 +84,24 @@ public class GlobalVariables {
   @Getter @Setter private static ArrayList<ServiceRequest> serviceRequests;
   @Getter @Setter private static ArrayList<ConfReservation> confReservations;
   @Getter @Setter private static ArrayList<ConfRoom> confRooms;
+  @Getter @Setter private static ScreenSaver ss = new ScreenSaver();
 
   @Getter @Setter private static ArrayList<ArrayList<ConfReservation>> allRes;
 
+  @Getter @Setter private static boolean pathToExit = false;
+  @Getter @Setter private static int defaultStartID = 2280;
+  // default start: 1685
+  @Getter @Setter private static Node currentLocationNode;
+  @Getter @Setter private static int screenSaveWaitTime = 15;
+  @Getter @Setter private static int screenSaveTransTime = 20;
+
+  static {
+    try {
+      currentLocationNode = DataManager.getNode(1685);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
   //  @Getter @Setter private static Color labelColor = new Color(.835, .89, 1, 1);
   //  @Getter @Setter private static Color labelTextColor = new Color(0, .106, .231, 1);
 

@@ -194,7 +194,7 @@ public class ServiceRequestViewController {
         ViewButton.setText("Visualizza");
         requestIDCol.setText("ID Richiesta");
         patientNameCol.setText("Nome Paziente");
-        roomNumCol.setText("N. Stanza");
+        roomNumCol.setText("Numero di Stanza");
         requesterIDCol.setText("ID Richiedente");
         requestedAtCol.setText("Richiesta Fatta il");
         requestedForCol.setText("Richiesta per");
@@ -209,17 +209,21 @@ public class ServiceRequestViewController {
         requestTypeCombo.setPromptText("Choisir le Type de Demande");
         statusLabel.setText("Statut de la Demande");
         requestStatusCombo.setPromptText("Choisir le Statut");
-        assignedLabel.setText("Personnel Assigné");
+        assignedLabel.setText("Personnel Assign" + GlobalVariables.getEAcute());
         requestStaffCombo.setPromptText("Choisir le Personnel");
         dateLabel.setText("Date");
         refreshButton.setText("Actualiser");
-        assignStaffLabel.setText("Assigner du Personnel à la Demande");
+        assignStaffLabel.setText(
+            "Assigner du Personnel " + GlobalVariables.getAGrave() + " la Demande");
         requestIDLabel.setText("ID de la Demande");
-        requestIDText.setPromptText("Sélectionner l'ID de la Demande");
+        requestIDText.setPromptText(
+            "S" + GlobalVariables.getEAcute() + "lectionner l'ID de la Demande");
         staffLabel.setText("Assigner du Personnel");
-        assignStaffText.setPromptText("Sélectionner du Personnel");
-        setStatusLabel.setText("Définir le Statut de la Demande");
-        requestStatusText.setPromptText("Sélectionner le Statut de la Demande");
+        assignStaffText.setPromptText(
+            "S" + GlobalVariables.getEAcute() + "lectionner du Personnel");
+        setStatusLabel.setText("D" + GlobalVariables.getEAcute() + "finir le Statut de la Demande");
+        requestStatusText.setPromptText(
+            "S" + GlobalVariables.getEAcute() + "lectionner le Statut de la Demande");
         backButton.setText("Retour");
         submitButton.setText("Assigner");
         ViewButton.setText("Voir");
@@ -227,8 +231,8 @@ public class ServiceRequestViewController {
         patientNameCol.setText("Nom du Patient");
         roomNumCol.setText("Nombre de Chambre");
         requesterIDCol.setText("ID du Demandeur");
-        requestedAtCol.setText("Demandé le");
-        requestedForCol.setText("Demandé pour");
+        requestedAtCol.setText("Demand" + GlobalVariables.getEAcute() + " le");
+        requestedForCol.setText("Demand" + GlobalVariables.getEAcute() + " pour");
         assignedStaffCol.setText("Personnel Assigné");
         statusCol.setText("Statut");
         ViewButton.setText("Voir");
@@ -256,7 +260,7 @@ public class ServiceRequestViewController {
         ViewButton.setText("Ver");
         requestIDCol.setText("ID de la Solicitud");
         patientNameCol.setText("Nombre del Paciente");
-        roomNumCol.setText("Nº de Habitación");
+        roomNumCol.setText("Numero de Habitación");
         requesterIDCol.setText("ID del Solicitante");
         requestedAtCol.setText("Solicitado el");
         requestedForCol.setText("Solicitado para");

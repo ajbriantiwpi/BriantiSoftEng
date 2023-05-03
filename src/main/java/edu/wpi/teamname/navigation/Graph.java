@@ -22,6 +22,9 @@ public class Graph {
     nodes = this.getAllNodes(); // Changed based on DB team
     Edges = this.getAllEdges(); // Changed based on DB team
     this.initializeEdges();
+
+    // pathfindingAlgo = new Emergency();
+
     pathfindingAlgo = new AStarAlgo();
     // pathfindingAlgo = new BFSAlgo();
     // pathfindingAlgo = new DFSAlgo();
