@@ -59,23 +59,27 @@ public class ReqMenuItems extends GridPane {
   }
 
   public void setTexts(Language lang, DecimalFormat df, Label labelP) {
-    switch (GlobalVariables.getB().getValue()) {
-      case ENGLISH:
-        quantity.setText("Quantity: " + String.valueOf(this.q));
-        quantity.setPromptText("Quantity");
-        break;
-      case ITALIAN:
-        quantity.setText("Quantità: " + String.valueOf(this.q));
-        quantity.setPromptText("Quantità");
-        break;
-      case FRENCH:
-        quantity.setText("Quantité: " + String.valueOf(this.q));
-        quantity.setPromptText("Quantité");
-        break;
-      case SPANISH:
-        quantity.setText("Cantidad: " + String.valueOf(this.q));
-        quantity.setPromptText("Cantidad");
-        break;
+    if (!add) {
+      switch (GlobalVariables.getB().getValue()) {
+        case ENGLISH:
+          quantity.setText("Quantity: " + String.valueOf(this.q));
+          quantity.setPromptText("Quantity");
+          break;
+        case ITALIAN:
+          quantity.setText("Quantità: " + String.valueOf(this.q));
+          quantity.setPromptText("Quantità");
+          break;
+        case FRENCH:
+          quantity.setText("Quantité: " + String.valueOf(this.q));
+          quantity.setPromptText("Quantité");
+          break;
+        case SPANISH:
+          quantity.setText("Cantidad: " + String.valueOf(this.q));
+          quantity.setPromptText("Cantidad");
+          break;
+      }
+    } else {
+      quantity.setText(String.valueOf(1));
     }
     if (labelP != null) {
       switch (GlobalVariables.getB().getValue()) {
@@ -113,20 +117,23 @@ public class ReqMenuItems extends GridPane {
     this.q = q;
 
     initialize();
-
-    switch (GlobalVariables.getB().getValue()) {
-      case ENGLISH:
-        quantity.setText("Quantity: " + String.valueOf(this.q));
-        break;
-      case ITALIAN:
-        quantity.setText("Quantità: " + String.valueOf(this.q));
-        break;
-      case FRENCH:
-        quantity.setText("Quantité: " + String.valueOf(this.q));
-        break;
-      case SPANISH:
-        quantity.setText("Cantidad: " + String.valueOf(this.q));
-        break;
+    if (!add) {
+      switch (GlobalVariables.getB().getValue()) {
+        case ENGLISH:
+          quantity.setText("Quantity: " + String.valueOf(this.q));
+          break;
+        case ITALIAN:
+          quantity.setText("Quantità: " + String.valueOf(this.q));
+          break;
+        case FRENCH:
+          quantity.setText("Quantité: " + String.valueOf(this.q));
+          break;
+        case SPANISH:
+          quantity.setText("Cantidad: " + String.valueOf(this.q));
+          break;
+      }
+    } else {
+      quantity.setText(String.valueOf(1));
     }
     //    quantity.setText("Quantity: " + String.valueOf(this.q));
     quantity.setDisable(true);
@@ -141,22 +148,27 @@ public class ReqMenuItems extends GridPane {
     this.add = false;
 
     initialize();
-    switch (GlobalVariables.getB().getValue()) {
-      case ENGLISH:
-        quantity.setText("Quantity: " + String.valueOf(this.q));
-        break;
-      case ITALIAN:
-        quantity.setText("Quantità: " + String.valueOf(this.q));
-        break;
-      case FRENCH:
-        quantity.setText("Quantité: " + String.valueOf(this.q));
-        break;
-      case SPANISH:
-        quantity.setText("Cantidad: " + String.valueOf(this.q));
-        break;
+    if (!add) {
+      switch (GlobalVariables.getB().getValue()) {
+        case ENGLISH:
+          quantity.setText("Quantity: " + String.valueOf(this.q));
+          break;
+        case ITALIAN:
+          quantity.setText("Quantità: " + String.valueOf(this.q));
+          break;
+        case FRENCH:
+          quantity.setText("Quantité: " + String.valueOf(this.q));
+          break;
+        case SPANISH:
+          quantity.setText("Cantidad: " + String.valueOf(this.q));
+          break;
+      }
+
+      //    quantity.setText("Quantity: " + String.valueOf(q));
+      quantity.setDisable(true);
+    } else {
+      quantity.setText(String.valueOf(1));
     }
-    //    quantity.setText("Quantity: " + String.valueOf(q));
-    quantity.setDisable(true);
   }
 
   private void initialize() {
@@ -180,7 +192,8 @@ public class ReqMenuItems extends GridPane {
     // hBox = new HBox();
     DecimalFormat df = new DecimalFormat("###0.00");
     label = new Label(name.replace("_", " "));
-    label.setFont(Font.font("Roboto", 32));
+    label.getStyleClass().add("headline-med");
+    label.getStyleClass().add("primary-text-container");
     label.setMinWidth(300);
     label.setMaxWidth(300);
     switch (GlobalVariables.getB().getValue()) {
@@ -198,7 +211,8 @@ public class ReqMenuItems extends GridPane {
         break;
     }
 
-    labelP.setFont(Font.font("Roboto", 32));
+    labelP.getStyleClass().add("headline-med");
+    labelP.getStyleClass().add("primary-text-container");
     labelP.setMinWidth(200);
     labelP.setMaxWidth(200);
     if (editable) {
@@ -220,19 +234,21 @@ public class ReqMenuItems extends GridPane {
       button.getStyleClass().add("primary");
     }
     quantity = new TextField("");
-    switch (GlobalVariables.getB().getValue()) {
-      case ENGLISH:
-        quantity.setPromptText("Quantity");
-        break;
-      case ITALIAN:
-        quantity.setPromptText("Quantità");
-        break;
-      case FRENCH:
-        quantity.setPromptText("Quantité");
-        break;
-      case SPANISH:
-        quantity.setPromptText("Cantidad");
-        break;
+    if (!add) {
+      switch (GlobalVariables.getB().getValue()) {
+        case ENGLISH:
+          quantity.setPromptText("Quantity");
+          break;
+        case ITALIAN:
+          quantity.setPromptText("Quantità");
+          break;
+        case FRENCH:
+          quantity.setPromptText("Quantité");
+          break;
+        case SPANISH:
+          quantity.setPromptText("Cantidad");
+          break;
+      }
     }
 
     quantity.setFont(Font.font("Roboto", 32));

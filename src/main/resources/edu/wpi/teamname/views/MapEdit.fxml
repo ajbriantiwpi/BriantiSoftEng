@@ -292,6 +292,9 @@
                                 <TableColumn fx:id="shortNameColumn" minWidth="300.0" prefWidth="300.0" text="Short Name" />
                                 <TableColumn fx:id="nodeTypeColumn" minWidth="300.0" prefWidth="300.0" text="Node Type" />
                             </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
                         </TableView>
                     </children>
                 </StackPane>

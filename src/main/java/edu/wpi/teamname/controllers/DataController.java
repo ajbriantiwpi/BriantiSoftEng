@@ -83,7 +83,8 @@ public class DataController implements Initializable {
         exportComboBox.setPromptText("Scegli Esportazione");
         break;
       case FRENCH:
-        ParentController.titleString.set("Gestionnaire de données");
+        ParentController.titleString.set(
+            "Gestionnaire de donn" + GlobalVariables.getEAcute() + "es");
         importLabel.setText("Importer");
         importButton.setText("Importer");
         exportLabel.setText("Exporter");
@@ -97,8 +98,8 @@ public class DataController implements Initializable {
         importButton.setText("Importar");
         exportLabel.setText("Exportar");
         exportButton.setText("Exportar");
-        importComboBox.setPromptText("Elegir importación");
-        exportComboBox.setPromptText("Elegir exportación");
+        importComboBox.setPromptText("Elegir importaci" + GlobalVariables.getOAcute() + "n");
+        exportComboBox.setPromptText("Elegir exportaci" + GlobalVariables.getOAcute() + "n");
         break;
     }
     importComboBox.setItems(FXCollections.observableList(Arrays.asList(FIELDS)));

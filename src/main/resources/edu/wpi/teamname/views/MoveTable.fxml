@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.*?>
-<?import java.net.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="400.0" prefWidth="600.0" styleClass="surface" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MoveTableController">
-    <children>
+<AnchorPane fx:id="root" styleClass="surface" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MoveTableController">
+   <children>
       <HBox prefHeight="100.0" prefWidth="200.0" />
-        <HBox layoutY="24.0" prefHeight="423.0" prefWidth="614.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <children>
-                <VBox fx:id="adminMoveView" minWidth="240.0" prefHeight="240.0" prefWidth="300.0" spacing="12.0" styleClass="surface-container" HBox.hgrow="SOMETIMES">
+      <HBox layoutY="24.0" prefHeight="423.0" prefWidth="614.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox fx:id="adminMoveView" minWidth="240.0" prefHeight="240.0" prefWidth="300.0" spacing="12.0" styleClass="surface-container" HBox.hgrow="SOMETIMES">
                <children>
-                  <Label fx:id="addMoveLabel" layoutX="20.0" layoutY="267.0" prefHeight="40.0" text="Add Move" styleClass="primary-text-container" textFill="#235fa6">
+                  <Label fx:id="addMoveLabel" layoutX="20.0" layoutY="267.0" prefHeight="40.0" styleClass="primary-text-container" text="Add Move" textFill="#235fa6">
                      <font>
                         <Font name="Roboto" size="28.0" />
                      </font>
@@ -94,36 +100,49 @@
                <padding>
                   <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
                </padding></VBox>
-               <TableView fx:id="moveTable" prefHeight="400.0" prefWidth="450.0" styleClass="surface" stylesheets="@../stylesheets/Colors/lightTheme.css" HBox.hgrow="ALWAYS">
-               </TableView>
-            </children>
-        </HBox>
-      <HBox alignment="TOP_RIGHT" layoutX="117.0" layoutY="-42.0" prefHeight="41.0" prefWidth="475.0" AnchorPane.rightAnchor="7.6666666666667425" AnchorPane.topAnchor="-42.0">
-         <children>
-            <CheckBox fx:id="newMovesCheck" mnemonicParsing="false" prefHeight="25.0" prefWidth="151.0" stylesheets="@../stylesheets/TopBarSmall.css" text="Future Moves">
-               <font>
-                  <Font name="Roboto" size="18.0" />
-               </font>
+            <VBox spacing="16.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox spacing="12.0">
+                     <children>
+                        <Label fx:id="searchLabel" prefWidth="115.0" styleClass="secondary-text-container" text="Search By ID">
+                           <font>
+                              <Font name="Roboto" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets top="4.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="searchTextField" styleClass="secondary">
+                           <HBox.margin>
+                              <Insets top="4.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <CheckBox fx:id="newMovesCheck" mnemonicParsing="false" styleClass="secondary-text-container" text="Future Moves">
+                           <font>
+                              <Font name="Roboto" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets top="4.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets left="12.0" />
+                           </padding>
+                        </CheckBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <TableView fx:id="moveTable" prefHeight="400.0" prefWidth="450.0" styleClass="surface" stylesheets="@../stylesheets/Colors/lightTheme.css">
+                  </TableView>
+               </children>
                <HBox.margin>
-                  <Insets top="15.0" />
+                  <Insets top="12.0" />
                </HBox.margin>
-            </CheckBox>
-            <Label fx:id="searchLabel" prefHeight="34.0" prefWidth="115.0" stylesheets="@../stylesheets/TopBarSmall.css" text="Search By ID">
-               <font>
-                  <Font name="Roboto" size="18.0" />
-               </font>
-               <HBox.margin>
-                  <Insets left="20.0" top="15.0" />
-               </HBox.margin>
-            </Label>
-            <TextField fx:id="searchTextField" style="-fx-background-color: #D5E3FF;" stylesheets="@../stylesheets/TextField.css">
-               <HBox.margin>
-                  <Insets right="10.0" top="15.0" />
-               </HBox.margin>
-            </TextField>
+            </VBox>
          </children>
       </HBox>
-    </children>
+   </children>
    <stylesheets>
       <URL value="@../stylesheets/Colors/lightTheme.css" />
       <URL value="@../stylesheets/Colors/darkTheme.css" />

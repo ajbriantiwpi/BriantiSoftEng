@@ -24,6 +24,31 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import net.kurobako.gesturefx.GesturePane?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Ellipse?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import net.kurobako.gesturefx.GesturePane?>
+<?import org.controlsfx.control.SearchableComboBox?>
 
 <AnchorPane id="AP" fx:id="OuterMapAnchor" prefHeight="668.0" prefWidth="951.0" styleClass="surface" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MapController">
     <children>
@@ -45,12 +70,12 @@
                                                    <children>
                                                       <AnchorPane>
                                                          <children>
-                                                            <ComboBox fx:id="LocationOne" prefHeight="48.0" prefWidth="255.0" promptText="Select Start" stylesheets="@../stylesheets/combo.css" />
+                                                            <SearchableComboBox fx:id="LocationOne" prefHeight="48.0" prefWidth="255.0" promptText="Select Start" />
                                                          </children>
                                                       </AnchorPane>
                                                       <AnchorPane>
                                                          <children>
-                                                            <ComboBox fx:id="EndPointSelect" prefHeight="48.0" prefWidth="255.0" promptText="Select Destination" stylesheets="@../stylesheets/combo.css" />
+                                                            <SearchableComboBox fx:id="EndPointSelect" prefHeight="48.0" prefWidth="255.0" promptText="Select Destination" />
                                                          </children>
                                                       </AnchorPane>
                                                       <AnchorPane>
@@ -236,7 +261,7 @@
                                        <content>
                                           <AnchorPane>
                                              <children>
-                                                <DatePicker fx:id="datePickerUI" />
+                                                <DatePicker fx:id="datePickerUI" maxWidth="255.0" stylesheets="@../stylesheets/dateBox.css" />
                                              </children>
                                           </AnchorPane>
                                        </content>
