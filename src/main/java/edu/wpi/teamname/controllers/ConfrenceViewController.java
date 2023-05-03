@@ -260,7 +260,7 @@ public class ConfrenceViewController {
   public void initialize() throws SQLException {
     roomNum = 0;
     ThemeSwitch.switchTheme(root);
-    ParentController.titleString.set("Conference Room Reservations View");
+    ParentController.titleString.set("Room Reservations View");
     setLanguage(GlobalVariables.getB().getValue());
     GlobalVariables.b.addListener(
         (options, oldValue, newValue) -> {
