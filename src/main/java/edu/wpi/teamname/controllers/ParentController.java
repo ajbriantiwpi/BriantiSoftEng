@@ -1,9 +1,6 @@
 package edu.wpi.teamname.controllers;
 
-import edu.wpi.teamname.App;
-import edu.wpi.teamname.GlobalVariables;
-import edu.wpi.teamname.Navigation;
-import edu.wpi.teamname.Screen;
+import edu.wpi.teamname.*;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.extras.Language;
@@ -703,6 +700,7 @@ public class ParentController {
 
   @FXML
   public void initialize() throws IOException {
+    ThemeSwitch.switchTheme(MainScreen);
     currParentController = this;
     titleString.addListener((observable, oldValue, newValue) -> titleLabel.setText(newValue));
     //    languageChooser.setItems(

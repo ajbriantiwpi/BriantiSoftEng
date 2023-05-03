@@ -3,7 +3,6 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -320,7 +319,11 @@
                      </VBox>
                   </children>
                </AnchorPane>
-               <HBox fx:id="MainScreen" style="-fx-background-radius: 8;" styleClass="surface" HBox.hgrow="ALWAYS" />
+               <HBox fx:id="MainScreen" style="-fx-background-radius: 8;" styleClass="surface" HBox.hgrow="ALWAYS">
+                  <stylesheets>
+                     <URL value="@../stylesheets/Colors/lightCombo.css" />
+                     <URL value="@../stylesheets/Colors/darkTheme.css" />
+                  </stylesheets></HBox>
             </children>
          </HBox>
       </VBox>
