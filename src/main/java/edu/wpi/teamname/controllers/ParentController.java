@@ -575,6 +575,7 @@ public class ParentController {
     setLanguage(GlobalVariables.getB().getValue());
 
     titleLabel.setText(titleString.getValue());
+
     System.out.println("Parent!: " + HomeController.getLoggedIn().getValue());
 
     /*/(2)
