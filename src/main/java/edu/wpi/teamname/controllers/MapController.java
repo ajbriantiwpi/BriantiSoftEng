@@ -1363,7 +1363,7 @@ public class MapController {
         IdSelector.setText("ID");
         HallNamesSelector.setText("Hall Names");
         EdgeSelector.setText("Show Edges");
-        NodeSelector.setText("Node");
+        NodeSelector.setText("Show Nodes");
         LegendSelector.setText("Unique Shapes");
         FloorsToggle.setText("Display all Floors");
         AvoidElevatorsToggle.setText("Avoid Stairs");
@@ -1497,7 +1497,12 @@ public class MapController {
       case FRENCH:
         ParentController.titleString.set("Carte");
         PathfindingTitlePane.setText("Recherche de chemin");
-        LocationOne.setPromptText("S" + GlobalVariables.getEAcute() + "lectionner le départ");
+        LocationOne.setPromptText(
+            "S"
+                + GlobalVariables.getEAcute()
+                + "lectionner le d"
+                + GlobalVariables.getEAcute()
+                + "part");
         EndPointSelect.setPromptText(
             "S" + GlobalVariables.getEAcute() + "lectionner la destination");
         AlgoSelect.setPromptText("S" + GlobalVariables.getEAcute() + "lectionner l'algorithme");

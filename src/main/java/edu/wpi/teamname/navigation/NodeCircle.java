@@ -124,13 +124,16 @@ public class NodeCircle {
       iconP.setMinHeight(pSize);
       iconP.setMaxHeight(pSize);
       boolean added = false;
+      int offset = 10;
+
+      iconP.setTranslateX(iconP.getTranslateX() - (offset));
+      iconP.setTranslateY(iconP.getTranslateY() - (offset));
 
       // */
       if (GlobalVariables.getShowServiceIcons().booleanValue()) {
-        int offset = 20;
 
-        iconP.setTranslateX(iconP.getTranslateX() - offset);
-        iconP.setTranslateY(iconP.getTranslateY() - offset);
+        //        iconP.setTranslateX(iconP.getTranslateX() - offset);
+        //        iconP.setTranslateY(iconP.getTranslateY() - offset);
 
         //        iconP.setBackground(Background.fill(Color.GREEN));
 
@@ -139,11 +142,11 @@ public class NodeCircle {
         Shape s = NodeCircle.makeNodeShape("").get(1);
         Shape sO = NodeCircle.makeNodeShape("").get(0);
 
-        s.setTranslateX(s.getTranslateX() + pSize / 2);
-        s.setTranslateY(s.getTranslateY() + pSize / 2);
+        s.setTranslateX(s.getTranslateX() + (pSize / 2) - offset);
+        s.setTranslateY(s.getTranslateY() + (pSize / 2) + offset);
 
-        sO.setTranslateX(sO.getTranslateX() + pSize / 2);
-        sO.setTranslateY(sO.getTranslateY() + pSize / 2);
+        sO.setTranslateX(sO.getTranslateX() + (pSize / 2) - offset);
+        sO.setTranslateY(sO.getTranslateY() + (pSize / 2) + offset);
 
         int iconS = 14;
 
@@ -224,8 +227,8 @@ public class NodeCircle {
 
               float circleR = GlobalVariables.getCircleR();
 
-              servIcon.setTranslateX(servIcon.getTranslateX() + (pSize / 2) - (iconS / 2));
-              servIcon.setTranslateY(servIcon.getTranslateY() + (pSize / 2) - (iconS / 2));
+              servIcon.setTranslateX(servIcon.getTranslateX() + (pSize / 2) - (iconS / 2) - offset);
+              servIcon.setTranslateY(servIcon.getTranslateY() + (pSize / 2) - (iconS / 2) + offset);
 
               iconP.getChildren().add(sO);
               iconP.getChildren().add(s);
@@ -245,7 +248,6 @@ public class NodeCircle {
 
       // */
       if (GlobalVariables.getShowConfItems().booleanValue()) {
-        int offset = 20;
 
         //        iconP.setTranslateX(iconP.getTranslateX() + offset);
         //        iconP.setTranslateY(iconP.getTranslateY() - offset);
@@ -258,11 +260,11 @@ public class NodeCircle {
         Shape s2 = NodeCircle.makeNodeShape("").get(1);
         Shape s2O = NodeCircle.makeNodeShape("").get(0);
 
-        s2.setTranslateX(s2.getTranslateX() + pSize / 2 + offset);
-        s2.setTranslateY(s2.getTranslateY() + pSize / 2);
+        s2.setTranslateX(s2.getTranslateX() + (pSize / 2) + offset);
+        s2.setTranslateY(s2.getTranslateY() + (pSize / 2) + offset);
 
-        s2O.setTranslateX(s2O.getTranslateX() + pSize / 2 + offset);
-        s2O.setTranslateY(s2O.getTranslateY() + pSize / 2);
+        s2O.setTranslateX(s2O.getTranslateX() + (pSize / 2) + offset);
+        s2O.setTranslateY(s2O.getTranslateY() + (pSize / 2) + offset);
 
         int iconS = 14;
 
@@ -273,8 +275,8 @@ public class NodeCircle {
 
         float circleR = GlobalVariables.getCircleR();
 
-        confIcon.setTranslateX(confIcon.getTranslateX() + (pSize / 2) + (offset) - (iconS / 2));
-        confIcon.setTranslateY(confIcon.getTranslateY() + (pSize / 2) - (iconS / 2));
+        confIcon.setTranslateX(confIcon.getTranslateX() + (pSize / 2) - (iconS / 2) + (offset));
+        confIcon.setTranslateY(confIcon.getTranslateY() + (pSize / 2) - (iconS / 2) + (offset));
 
         ArrayList<ConfRoom> confs = GlobalVariables.getConfRooms();
         String sName = l.get(0).getShortName();
