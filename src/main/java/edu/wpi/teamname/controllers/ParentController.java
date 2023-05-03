@@ -9,6 +9,7 @@ import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
+import edu.wpi.teamname.extras.Weather;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.sql.Connection;
@@ -22,14 +23,12 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -37,7 +36,7 @@ import lombok.Setter;
 import org.controlsfx.control.PopOver;
 
 public class ParentController {
-  @FXML ComboBox<Language> languageChooser;
+  //  @FXML ComboBox<Language> languageChooser;
   @FXML CheckBox darkToggle;
 
   @FXML MFXButton homeButton;
@@ -72,6 +71,17 @@ public class ParentController {
   MFXButton editSignageButton = new MFXButton();
   @FXML MFXButton viewAlertsButton; // = new MFXButton();
   @FXML Label titleLabel;
+
+  // Top bar label
+  @FXML Label timeLabel;
+
+  @FXML Label dateLabel;
+
+  @FXML Label tempLabel;
+
+  @FXML Label descLabel;
+
+  @FXML Label userLabel;
 
   @FXML VBox SideBar;
   @FXML HBox MainScreen;
@@ -110,6 +120,11 @@ public class ParentController {
               Screen.SMILE));
 
   @Setter public static StringProperty titleString = new SimpleStringProperty();
+  @Setter public static StringProperty timeString = new SimpleStringProperty();
+  @Setter public static StringProperty dateString = new SimpleStringProperty();
+  @Setter public static StringProperty tempString = new SimpleStringProperty();
+  @Setter public static StringProperty userString = new SimpleStringProperty();
+  @Setter public static StringProperty weatherString = new SimpleStringProperty();
 
   /** * Disables all the buttons that can not be accessed without logging in */
   public void disableButtonsWhenNotLoggedIn() {
@@ -676,20 +691,60 @@ public class ParentController {
   @FXML
   public void initialize() throws IOException {
     titleString.addListener((observable, oldValue, newValue) -> titleLabel.setText(newValue));
-    languageChooser.setItems(
-        FXCollections.observableList(Arrays.stream(Language.values()).toList()));
-    languageChooser.setValue(GlobalVariables.getB().getValue());
-    languageChooser
-        .getSelectionModel()
-        .selectedItemProperty()
-        .addListener(
-            (options, oldValue, newValue) -> {
-              setLanguage(newValue);
-              GlobalVariables.b.setValue(newValue);
-            });
+    //    languageChooser.setItems(
+    //        FXCollections.observableList(Arrays.stream(Language.values()).toList()));
+    //    languageChooser.setValue(GlobalVariables.getB().getValue());
+    //    languageChooser
+    //        .getSelectionModel()
+    //        .selectedItemProperty()
+    //        .addListener(
+    //            (options, oldValue, newValue) -> {
+    //              setLanguage(newValue);
+    //              GlobalVariables.b.setValue(newValue);
+    //            });
     setLanguage(GlobalVariables.getB().getValue());
 
-    titleLabel.setText(titleString.getValue());
+    Thread t =
+        new Thread(
+            () -> {
+              try {
+                tempString.set(Weather.getTemperature());
+              } catch (IOException e) {
+                throw new RuntimeException(e);
+              }
+              try {
+                weatherString.set(Weather.getDescription());
+              } catch (IOException e) {
+                throw new RuntimeException(e);
+              }
+              while (true) {
+                timeString.set(Weather.getTime());
+                dateString.set(Weather.getDate());
+                userString.set(GlobalVariables.getCurrentUser().getUsername());
+
+                Platform.runLater(
+                    () -> {
+                      timeLabel.setText(timeString.getValue());
+                      dateLabel.setText(dateString.getValue());
+                      descLabel.setText(weatherString.getValue());
+                      tempLabel.setText(tempString.getValue());
+                      userLabel.setText(userString.getValue());
+                    });
+                try {
+                  Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                  throw new RuntimeException(e);
+                }
+              }
+            });
+    // System.out.println(Thread.activeCount());
+    //    if (Thread.activeCount() == 1) {
+    //      System.out.println("Thread tart");
+    t.start();
+    //    } else {
+    //      System.out.println("Thread already working");
+    //    }
+
     System.out.println("Parent!: " + HomeController.getLoggedIn().getValue());
 
     /*/(2)
