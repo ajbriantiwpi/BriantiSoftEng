@@ -180,7 +180,8 @@ public class ReqMenuItems extends GridPane {
     // hBox = new HBox();
     DecimalFormat df = new DecimalFormat("###0.00");
     label = new Label(name.replace("_", " "));
-    label.setFont(Font.font("Roboto", 32));
+    label.getStyleClass().add("headline-med");
+    label.getStyleClass().add("primary-text-container");
     label.setMinWidth(300);
     label.setMaxWidth(300);
     switch (GlobalVariables.getB().getValue()) {
@@ -198,7 +199,8 @@ public class ReqMenuItems extends GridPane {
         break;
     }
 
-    labelP.setFont(Font.font("Roboto", 32));
+    labelP.getStyleClass().add("headline-med");
+    labelP.getStyleClass().add("primary-text-container");
     labelP.setMinWidth(200);
     labelP.setMaxWidth(200);
     if (editable) {

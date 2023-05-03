@@ -52,7 +52,7 @@ public class RoomSelector extends BorderPane {
     // HBox.setHgrow(this, Priority.ALWAYS);
     setMinHeight(50);
     setMinWidth(400);
-//    setMaxWidth(300);
+    //    setMaxWidth(300);
     //    this.getStylesheets().add("../stylesheets/Colors/lightTheme.css");
     //    this.getStyleClass().add("surface-container");
     this.name = new Label(this.room.getLocationName().split(",")[0]);
@@ -66,7 +66,6 @@ public class RoomSelector extends BorderPane {
     this.name.setMaxWidth(275);
     this.getStyleClass().add("primary-container");
     this.name.getStyleClass().add("headline-small");
-
 
     for (int i = 0; i < slots; i++) {
       buttons.add(new SelectorButton(i, this));
