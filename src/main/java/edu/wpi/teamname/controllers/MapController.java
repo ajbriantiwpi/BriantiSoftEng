@@ -1845,7 +1845,7 @@ public class MapController {
     // If the map is opened because the emergency button is clicked, display emergency path right
     // away
     if (GlobalVariables.isPathToExit()) {
-      //System.out.println("Wongtastic lifestyle");
+      // System.out.println("Wongtastic lifestyle");
       map.graph.setPathfindingAlgo(new Emergency());
       GlobalVariables.setBorderColor(Color.RED);
       GlobalVariables.setInsideColor(Color.RED);
