@@ -39,21 +39,62 @@ public class ScreenSaver extends Application {
 
       rec = new Rectangle(0, 0, WIDTH, HEIGHT);
       root.getChildren().add(rec);
-      FillTransition ft = new FillTransition(Duration.seconds(30), rec, Color.BLACK, Color.RED);
-      ft.play();
-      ft = new FillTransition(Duration.seconds(30), rec, Color.GREEN, Color.YELLOW);
-      ft.play();
-      ft = new FillTransition(Duration.seconds(30), rec, Color.YELLOW, Color.BLUE);
-      ft.play();
-      ft = new FillTransition(Duration.seconds(30), rec, Color.BLUE, Color.MAGENTA);
-      ft.play();
-      ft = new FillTransition(Duration.seconds(30), rec, Color.MAGENTA, Color.GOLD);
-      ft.play();
-      ft = new FillTransition(Duration.seconds(30), rec, Color.GOLD, Color.TEAL);
-      ft.play();
-      ft = new FillTransition(Duration.seconds(30), rec, Color.TEAL, Color.MAROON);
-      ft.play();
-      ft = new FillTransition(Duration.seconds(30), rec, Color.MAROON, Color.BLACK);
+      FillTransition ft = new FillTransition(Duration.seconds(20), rec, Color.BLACK, Color.RED);
+      ft.setOnFinished(
+          event -> {
+            FillTransition ft2 =
+                new FillTransition(Duration.seconds(20), rec, Color.RED, Color.GREEN);
+            ft2.setOnFinished(
+                event2 -> {
+                  FillTransition ft3 =
+                      new FillTransition(Duration.seconds(20), rec, Color.GREEN, Color.BLUE);
+                  ft3.setOnFinished(
+                      event3 -> {
+                        FillTransition ft4 =
+                            new FillTransition(Duration.seconds(20), rec, Color.BLUE, Color.MAGENTA);
+                        ft4.setOnFinished(
+                            event4 -> {
+                              FillTransition ft5 =
+                                  new FillTransition(
+                                      Duration.seconds(20), rec, Color.MAGENTA, Color.GOLD);
+                              ft5.setOnFinished(
+                                  event5 -> {
+                                    FillTransition ft6 =
+                                        new FillTransition(
+                                            Duration.seconds(20), rec, Color.GOLD, Color.TEAL);
+                                    ft6.setOnFinished(
+                                        event6 -> {
+                                          FillTransition ft7 =
+                                              new FillTransition(
+                                                  Duration.seconds(20),
+                                                  rec,
+                                                  Color.TEAL,
+                                                  Color.MAROON);
+                                          ft7.setOnFinished(
+                                              event7 -> {
+                                                FillTransition ft8 =
+                                                    new FillTransition(
+                                                        Duration.seconds(20),
+                                                        rec,
+                                                        Color.BLACK,
+                                                        Color.MAROON);
+                                                ft8.setOnFinished(
+                                                    event8 -> {
+                                                      ft8.play();
+                                                    });
+                                              });
+                                          ft7.play();
+                                        });
+                                    ft6.play();
+                                  });
+                              ft5.play();
+                            });
+                        ft4.play();
+                      });
+                  ft3.play();
+                });
+            ft2.play();
+          });
       ft.play();
 
       timeline = new Timeline(new KeyFrame(Duration.seconds(30), event -> {}));
