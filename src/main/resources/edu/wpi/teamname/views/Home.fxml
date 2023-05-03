@@ -325,11 +325,6 @@
                   <Font size="20.0" />
                </font>
             </MFXButton>
-            <MFXButton fx:id="helpButton" alignment="CENTER" style="-fx-border-color: #f6bd38; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Help" textAlignment="CENTER" textFill="#fdfbff">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </MFXButton>
                   <MFXButton fx:id="aboutButton" alignment="CENTER" style="-fx-border-color: #b3009e; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="About" textAlignment="CENTER" textFill="#fdfbff" HBox.hgrow="ALWAYS">
                       <font>
                           <Font size="20.0" />

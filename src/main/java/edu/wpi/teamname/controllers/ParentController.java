@@ -41,7 +41,7 @@ public class ParentController {
   @FXML CheckBox darkToggle;
 
   @FXML MFXButton homeButton;
-  @FXML MFXButton helpButton;
+  //  @FXML MFXButton helpButton;
   //    @FXML
   MFXButton mapButton = new MFXButton();
   @FXML MFXButton mapButtonSelector;
@@ -295,6 +295,7 @@ public class ParentController {
     ClearanceLevel c = GlobalVariables.getCurrentUser().getLevel();
     ArrayList<Integer> remInd = new ArrayList<>();
     for (int i = 0; i < v.getChildren().size(); i++) {
+
       Node n = v.getChildren().get(i);
       //      System.out.println("CH: " + i);
       try {
@@ -319,6 +320,8 @@ public class ParentController {
         continue;
       }
     }
+
+    //
 
     //    System.out.println("SS: " + v.getChildren().size());
     for (int i = remInd.size() - 1; i >= 0; i--) {
@@ -763,6 +766,11 @@ public class ParentController {
                 if (newValue) {
                   rp2 = (Pane) rp.getChildren().get(1);
                   rp2.getChildren().add(loadButtons("views/ServiceButtons.fxml"));
+                  if (((Pane) rp2.getChildren().get(0)).getChildren().size() == 0) {
+                    makeRequestsButtonSelector.setVisible(false);
+                  } else {
+                    makeRequestsButtonSelector.setVisible(true);
+                  }
                   resize(rp, rp2);
                   //                  Platform.runLater(() -> resize(rp, rp2));
                 } else {
@@ -829,6 +837,11 @@ public class ParentController {
               }
             });
 
+    if (GlobalVariables.getCurrentUser().getLevel() == ClearanceLevel.GUEST) {
+      makeRequestsButtonSelector.setVisible(false);
+    } else {
+      makeRequestsButtonSelector.setVisible(true);
+    }
     Pane rp = (Pane) makeRequestsButtonSelector.getParent();
     rp2 = (Pane) rp.getChildren().get(1);
     //    rp2.getChildren().add(loadButtons("views/ServiceButtons.fxml"));
@@ -848,6 +861,11 @@ public class ParentController {
                 if (newValue) {
                   rp2 = (Pane) rp.getChildren().get(1);
                   rp2.getChildren().add(loadButtons("views/ServiceButtons.fxml"));
+                  if (((Pane) rp2.getChildren().get(0)).getChildren().size() == 0) {
+                    makeRequestsButtonSelector.setVisible(false);
+                  } else {
+                    makeRequestsButtonSelector.setVisible(true);
+                  }
                   resize(rp, rp2);
                   //                  Platform.runLater(() -> resize(rp, rp2));
                 } else {
@@ -858,7 +876,18 @@ public class ParentController {
               }
             });
 
+    //    if (((Pane) rp2.getChildren().get(0)).getChildren().size() == 0) {
+    //      makeRequestsButtonSelector.setVisible(false);
+    //    } else {
+    //      makeRequestsButtonSelector.setVisible(true);
+    //    }
+
     //    EmergencyButton.setOnMouseClicked();
+    EmergencyButton.setOnMouseClicked(
+        event -> {
+          GlobalVariables.setPathToExit(true);
+          Navigation.navigate(Screen.MAP);
+        });
 
     //    makeRequestsButtonSelector
     //    viewSignageButtonSelector
@@ -874,7 +903,6 @@ public class ParentController {
     //    makeRequestsButton.setOnMouseEntered(showServiceRequestButtons);
 
     //    mapPop = loadButtons("views/MapButtons.fxml");
-    //    mapPop.setArrowLocation(PopOver.ArrowLocation.LEFT_CENTER)
     //    signagePop = loadButtons("views/SignageButtons.fxml");
     //    servicePop = loadButtons("views/ServiceButtons.fxml");
 

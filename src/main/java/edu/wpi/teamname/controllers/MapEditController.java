@@ -31,6 +31,7 @@ import javafx.scene.shape.*;
 import javafx.stage.FileChooser;
 import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.PopOver;
+import org.controlsfx.control.ToggleSwitch;
 
 public class MapEditController {
   @FXML Label mapSymbolsLabel;
@@ -92,14 +93,14 @@ public class MapEditController {
   @FXML MFXButton LowerLevelTwoButton;
   ArrayList<MFXButton> floorButtons = new ArrayList<>();
 
-  @FXML CheckBox LongNameSelector;
-  @FXML CheckBox ShortNameSelector;
-  @FXML CheckBox IdSelector;
-  ArrayList<CheckBox> nameSelectBoxes = new ArrayList<>();
-  @FXML CheckBox EdgeSelector;
-  @FXML CheckBox HallNamesSelector;
-  @FXML CheckBox NodeSelector;
-  @FXML CheckBox LegendSelector;
+  @FXML ToggleSwitch LongNameSelector;
+  @FXML ToggleSwitch ShortNameSelector;
+  @FXML ToggleSwitch IdSelector;
+  ArrayList<ToggleSwitch> nameSelectBoxes = new ArrayList<>();
+  @FXML ToggleSwitch EdgeSelector;
+  @FXML ToggleSwitch HallNamesSelector;
+  @FXML ToggleSwitch NodeSelector;
+  @FXML ToggleSwitch LegendSelector;
 
   @FXML AnchorPane OuterMapAnchor;
 
@@ -114,6 +115,29 @@ public class MapEditController {
   Pane nodeDragP;
   ArrayList<Point2D> adjacentNodes;
   @FXML VBox Legend;
+
+  //  @FXML MFXToggleButton showConf;
+  @FXML ToggleSwitch showBath;
+  @FXML ToggleSwitch showConf;
+  @FXML ToggleSwitch showDept;
+  @FXML ToggleSwitch showElev;
+  @FXML ToggleSwitch showExit;
+  @FXML ToggleSwitch showHall;
+  @FXML ToggleSwitch showInfo;
+  @FXML ToggleSwitch showLabs;
+  @FXML ToggleSwitch showRest;
+  @FXML ToggleSwitch showRetl;
+  @FXML ToggleSwitch showServ;
+  @FXML ToggleSwitch showStai;
+
+  //  FXCollections
+  ObservableList<ToggleSwitch> switches;
+
+  //    ArrayList<ToggleSwitch> switches =
+  //        new ArrayList<>(
+  //            Arrays.asList(
+  //                showBath, showConf, showDept, showElev, showExit, showHall, showInfo, showLabs,
+  //                showRest, showRetl, showServ, showStai));
 
   //  EventHandler<MouseEvent> e =
   //      new EventHandler<MouseEvent>() {
@@ -854,12 +878,13 @@ public class MapEditController {
         @Override
         public void handle(MouseEvent event) {
           Sound.playSFX(SFX.BUTTONCLICK);
-          CheckBox newCheck = ((CheckBox) event.getSource());
+          ToggleSwitch newCheck = ((ToggleSwitch) event.getSource());
 
-          int oldLabel = map.getLabelTextType();
+          //          int oldLabel = map.getLabelTextType();
+          int oldLabel = GlobalVariables.getLabelTextType();
 
           if (oldLabel != -1) {
-            CheckBox oldCheck = nameSelectBoxes.get(oldLabel);
+            ToggleSwitch oldCheck = nameSelectBoxes.get(oldLabel);
             oldCheck.setSelected(false);
           }
 
@@ -868,7 +893,8 @@ public class MapEditController {
             newLabel = -1;
           }
 
-          map.setLabelTextType(newLabel);
+          //          map.setLabelTextType(newLabel);
+          GlobalVariables.setLabelTextType(newLabel);
 
           try {
             map.setCurrentDisplayFloor(map.getCurrentDisplayFloor());
@@ -886,7 +912,8 @@ public class MapEditController {
         @Override
         public void handle(MouseEvent event) {
           Sound.playSFX(SFX.BUTTONCLICK);
-          map.setShowEdges(EdgeSelector.isSelected());
+          GlobalVariables.setShowEdges(EdgeSelector.isSelected());
+          //          map.setShowEdges(EdgeSelector.isSelected());
           try {
             map.refresh();
           } catch (SQLException e) {
@@ -903,8 +930,8 @@ public class MapEditController {
         @Override
         public void handle(MouseEvent event) {
           Sound.playSFX(SFX.BUTTONCLICK);
-          //        map.setShowEdges(EdgeSelector.isSelected());
-          map.setShowNodes(NodeSelector.isSelected());
+          GlobalVariables.setShowNodes(NodeSelector.isSelected());
+          //          map.setShowNodes(NodeSelector.isSelected());
 
           try {
             map.refresh();
@@ -922,8 +949,9 @@ public class MapEditController {
         @Override
         public void handle(MouseEvent event) {
           Sound.playSFX(SFX.BUTTONCLICK);
-          //        map.setShowEdges(EdgeSelector.isSelected());
-          map.setShowLegend(LegendSelector.isSelected()); // && NodeSelector.isSelected());
+          GlobalVariables.setShowLegend(LegendSelector.isSelected());
+          //          map.setShowLegend(LegendSelector.isSelected()); // &&
+          // NodeSelector.isSelected());
           Legend.setVisible(map.getShowLegend());
 
           try {
@@ -942,7 +970,8 @@ public class MapEditController {
         @Override
         public void handle(MouseEvent event) {
           Sound.playSFX(SFX.BUTTONCLICK);
-          map.setShowTypeLabels(new boolean[] {HallNamesSelector.isSelected()});
+          //          map.setShowTypeLabels(new boolean[] {HallNamesSelector.isSelected()});
+          GlobalVariables.setShowHallNames(HallNamesSelector.isSelected());
 
           try {
             map.refresh();
@@ -1205,6 +1234,21 @@ public class MapEditController {
           }
         }
       };
+
+  //  EventHandler<MouseEvent> changeBath =
+  //      new EventHandler<MouseEvent>() {
+  //        @Override
+  //        public void handle(MouseEvent event) {}
+  //      };
+  //
+  //  EventHandler<MouseEvent> changeToggle =
+  //    new EventHandler<MouseEvent>() {
+  //      @Override
+  //      public void handle(MouseEvent event) {
+  //        ToggleButton t = (ToggleButton) event.getSource();
+  //        t.
+  //      }
+  //    };
 
   public void setLanguage(Language lang) throws SQLException {
     switch (lang) {
@@ -1502,6 +1546,25 @@ public class MapEditController {
           return row;
         });
 
+    switches =
+        FXCollections.observableArrayList(
+            showBath, showConf, showDept, showElev, showExit, showHall, showInfo, showLabs,
+            showRest, showRetl, showServ, showStai);
+
+    //    showConf.setColors(Color.CORAL, Color.ALICEBLUE);
+
+    //    showBath.setOnMouseClicked(changeBath);
+
+    //    showBath.setSelected(GlobalVariables.getShowTypeLabels().get(1));
+
+    //        for(ToggleSwitch t: switches){
+    //    for (int i = 0; i < switches.size(); i++) {
+    //      System.out.println("N: " + i);
+    //      ToggleSwitch t = switches.get(i);
+    //      t.setSelected(GlobalVariables.getShowTypeLabels().get(i));
+    //      t.setOnMouseClicked(changeToggle);
+    //    }
+
     floorButtons.add(ThirdFloorButton);
     floorButtons.add(SecondFloorButton);
     floorButtons.add(FirstFloorButton);
@@ -1516,7 +1579,7 @@ public class MapEditController {
     nameSelectBoxes.add(ShortNameSelector);
     nameSelectBoxes.add(IdSelector);
 
-    for (CheckBox selectBox : nameSelectBoxes) {
+    for (ToggleSwitch selectBox : nameSelectBoxes) {
       selectBox.setOnMouseClicked(changeLabels);
     }
 
@@ -1533,5 +1596,7 @@ public class MapEditController {
     anchor.setOnMouseClicked(checkAddNode);
 
     anchor.setOnMouseMoved(dragNode);
+
+    //    showConf.isSelected();
   }
 }

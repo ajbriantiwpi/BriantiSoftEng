@@ -44,7 +44,7 @@ public class HomeController {
   @FXML ComboBox<Language> languageChooser;
   @FXML MFXButton notificationPopupButtonSimple;
   @FXML MFXNotificationCenter notifsButton;
-  @FXML MFXButton helpButton;
+  //  @FXML MFXButton helpButton;
   @FXML MFXButton mapButton;
   @FXML VBox actionVBox;
   @FXML VBox SRVBox;
@@ -185,7 +185,7 @@ public class HomeController {
         notificationPopupButtonSimple.setText("Notifications");
         creditButton.setText("Credits");
         aboutButton.setText("About");
-        helpButton.setText("Help");
+        //        helpButton.setText("Help");
         loginButton.setText("Login");
         logoutButton.setText("Logout");
         break;
@@ -247,7 +247,7 @@ public class HomeController {
         notificationPopupButtonSimple.setText("Notifiche");
         creditButton.setText("Crediti");
         aboutButton.setText("Informazioni");
-        helpButton.setText("Aiuto");
+        //        helpButton.setText("Aiuto");
         loginButton.setText("Login");
         logoutButton.setText("Disconnettersi");
         break;
@@ -321,7 +321,7 @@ public class HomeController {
         notificationPopupButtonSimple.setText("Notifications");
         creditButton.setText("Cr" + GlobalVariables.getEAcute() + "dits");
         aboutButton.setText(GlobalVariables.getBigAGrave() + " propos");
-        helpButton.setText("Aide");
+        //        helpButton.setText("Aide");
         loginButton.setText("Se connecter");
         logoutButton.setText("Se d" + GlobalVariables.getEAcute() + "connecter");
         break;
@@ -390,7 +390,7 @@ public class HomeController {
         notificationPopupButtonSimple.setText("Notificaciones");
         creditButton.setText("Cr" + GlobalVariables.getEAcute() + "ditos");
         aboutButton.setText("Acerca de");
-        helpButton.setText("Ayuda");
+        //        helpButton.setText("Ayuda");
         loginButton.setText("Iniciar sesi" + GlobalVariables.getOAcute() + "n");
         logoutButton.setText("Cerrar sesi" + GlobalVariables.getOAcute() + "n");
         break;
@@ -601,7 +601,7 @@ public class HomeController {
     jokeIDLabel.setText("Joke #" + Integer.toString(joke.getId()));
     jokesLabel.setText(joke.toString());
 
-    helpButton.setVisible(false);
+    //    helpButton.setVisible(false);
     if (loggedIn.getValue()) {
       loginButton.setVisible(false);
       logoutButton.setVisible(true);

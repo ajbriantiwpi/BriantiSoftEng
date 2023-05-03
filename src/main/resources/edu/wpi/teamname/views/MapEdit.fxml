@@ -5,7 +5,6 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -21,6 +20,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import net.kurobako.gesturefx.GesturePane?>
+<?import org.controlsfx.control.ToggleSwitch?>
 
 <HBox fx:id="root" style="-fx-background-radius: 16;" styleClass="surface" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MapEditController">
     <children>
@@ -135,50 +135,224 @@
                                        <children>
                                           <HBox spacing="10.0">
                                              <children>
-                                                <CheckBox id="0" fx:id="LongNameSelector" mnemonicParsing="false" text="Long">
+                                                <ToggleSwitch id="0" fx:id="LongNameSelector" mnemonicParsing="false" text="Long">
                                                    <styleClass>
                                                       <String fx:value="primary-text-container" />
                                                       <String fx:value="label-med" />
+                                                <String fx:value="switch" />
                                                    </styleClass>
-                                                </CheckBox>
-                                                <CheckBox id="1" fx:id="ShortNameSelector" mnemonicParsing="false" text="Short">
+                                                </ToggleSwitch>
+                                                <ToggleSwitch id="1" fx:id="ShortNameSelector" mnemonicParsing="false" text="Short">
                                                    <styleClass>
                                                       <String fx:value="primary-text-container" />
                                                       <String fx:value="label-med" />
+                                                <String fx:value="switch" />
                                                    </styleClass>
-                                                </CheckBox>
-                                                <CheckBox id="2" fx:id="IdSelector" mnemonicParsing="false" text="ID">
+                                                </ToggleSwitch>
+                                                <ToggleSwitch id="2" fx:id="IdSelector" mnemonicParsing="false" text="ID">
                                                    <styleClass>
                                                       <String fx:value="primary-text-container" />
                                                       <String fx:value="label-med" />
+                                                <String fx:value="switch" />
                                                    </styleClass>
-                                                </CheckBox>
+                                                </ToggleSwitch>
                                              </children>
                                           </HBox>
-                                          <CheckBox fx:id="HallNamesSelector" mnemonicParsing="false" text="Hall Names">
+                                          <ToggleSwitch fx:id="HallNamesSelector" mnemonicParsing="false" text="Hall Names">
                                              <styleClass>
                                                 <String fx:value="primary-text-container" />
                                                 <String fx:value="label-med" />
+                                          <String fx:value="switch" />
                                              </styleClass>
-                                          </CheckBox>
-                                          <CheckBox fx:id="EdgeSelector" mnemonicParsing="false" selected="true" text="Show Edges">
+                                          </ToggleSwitch>
+                                          <ToggleSwitch fx:id="EdgeSelector" mnemonicParsing="false" selected="true" text="Show Edges">
                                              <styleClass>
                                                 <String fx:value="primary-text-container" />
                                                 <String fx:value="label-med" />
+                                          <String fx:value="switch" />
                                              </styleClass>
-                                          </CheckBox>
-                                          <CheckBox fx:id="NodeSelector" mnemonicParsing="false" selected="true" text="Show Nodes">
+                                          </ToggleSwitch>
+                                          <ToggleSwitch fx:id="NodeSelector" mnemonicParsing="false" selected="true" text="Show Nodes">
                                              <styleClass>
                                                 <String fx:value="primary-text-container" />
                                                 <String fx:value="label-med" />
+                                          <String fx:value="switch" />
                                              </styleClass>
-                                          </CheckBox>
-                                          <CheckBox fx:id="LegendSelector" mnemonicParsing="false" selected="true" text="Unique Shapes">
+                                          </ToggleSwitch>
+                                          <ToggleSwitch fx:id="LegendSelector" mnemonicParsing="false" selected="true" text="Unique Shapes">
                                              <styleClass>
                                                 <String fx:value="primary-text-container" />
                                                 <String fx:value="label-med" />
+                                          <String fx:value="switch" />
                                              </styleClass>
-                                          </CheckBox>
+                                          </ToggleSwitch>
+                                    <TitledPane fx:id="TickTitlePane1" animated="false" minWidth="300.0" styleClass="surface" text="Room Type Selectors">
+                                       <content>
+                                          <VBox spacing="4.0">
+                                             <padding>
+                                                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                                             </padding>
+                                             <children>
+                                                <HBox spacing="12.0" style="-fx-background-radius: 8;" styleClass="primary">
+                                                   <children>
+                                                      <ToggleSwitch fx:id="showBath" minHeight="50.0" prefHeight="50.0" prefWidth="0.0" selected="true" />
+                                                      <AnchorPane HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="Show Bathrooms" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="8.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <HBox spacing="12.0" style="-fx-background-radius: 8;" styleClass="primary">
+                                                   <children>
+                                                      <ToggleSwitch fx:id="showConf" minHeight="50.0" prefHeight="50.0" prefWidth="0.0" selected="true" />
+                                                      <AnchorPane HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="Show Confrence Rooms" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="8.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <HBox spacing="12.0" style="-fx-background-radius: 8;" styleClass="primary">
+                                                   <children>
+                                                      <ToggleSwitch fx:id="showDept" minHeight="50.0" prefHeight="50.0" prefWidth="0.0" selected="true" />
+                                                      <AnchorPane HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="Show Department Rooms" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="8.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <HBox spacing="12.0" style="-fx-background-radius: 8;" styleClass="primary">
+                                                   <children>
+                                                      <ToggleSwitch fx:id="showElev" minHeight="50.0" prefHeight="50.0" prefWidth="0.0" selected="true" />
+                                                      <AnchorPane HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="Show Elevators" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="8.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <HBox spacing="12.0" style="-fx-background-radius: 8;" styleClass="primary">
+                                                   <children>
+                                                      <ToggleSwitch fx:id="showExit" minHeight="50.0" prefHeight="50.0" prefWidth="0.0" selected="true" />
+                                                      <AnchorPane HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="Show Exits" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="8.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <HBox spacing="12.0" style="-fx-background-radius: 8;" styleClass="primary">
+                                                   <children>
+                                                      <ToggleSwitch fx:id="showHall" minHeight="50.0" prefHeight="50.0" prefWidth="0.0" />
+                                                      <AnchorPane HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="Show Halls" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="8.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <HBox spacing="12.0" style="-fx-background-radius: 8;" styleClass="primary">
+                                                   <children>
+                                                      <ToggleSwitch fx:id="showInfo" minHeight="50.0" prefHeight="50.0" prefWidth="0.0" selected="true" />
+                                                      <AnchorPane HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="Show Information Desks" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="8.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <HBox spacing="12.0" style="-fx-background-radius: 8;" styleClass="primary">
+                                                   <children>
+                                                      <ToggleSwitch fx:id="showLabs" minHeight="50.0" prefHeight="50.0" prefWidth="0.0" selected="true" />
+                                                      <AnchorPane HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="Show Labs" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="8.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <HBox spacing="12.0" style="-fx-background-radius: 8;" styleClass="primary">
+                                                   <children>
+                                                      <ToggleSwitch fx:id="showRest" minHeight="50.0" prefHeight="50.0" prefWidth="0.0" selected="true" />
+                                                      <AnchorPane HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="Show Restrooms" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="8.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <HBox spacing="12.0" style="-fx-background-radius: 8;" styleClass="primary">
+                                                   <children>
+                                                      <ToggleSwitch fx:id="showRetl" minHeight="50.0" prefHeight="50.0" prefWidth="0.0" selected="true" />
+                                                      <AnchorPane HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="Show Retail Locations" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="8.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <HBox spacing="12.0" style="-fx-background-radius: 8;" styleClass="primary">
+                                                   <children>
+                                                      <ToggleSwitch minHeight="50.0" prefHeight="50.0" prefWidth="0.0" selected="true" />
+                                                      <AnchorPane HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="Show Service Locations" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="8.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <HBox spacing="12.0" style="-fx-background-radius: 8;" styleClass="primary">
+                                                   <children>
+                                                      <ToggleSwitch minHeight="50.0" prefHeight="50.0" prefWidth="0.0" selected="true" />
+                                                      <AnchorPane HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="Show Stairs" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="8.0" />
+                                                   </padding>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                       </content>
+                                    </TitledPane>
                                        </children>
                                     </VBox>
                                  </content>

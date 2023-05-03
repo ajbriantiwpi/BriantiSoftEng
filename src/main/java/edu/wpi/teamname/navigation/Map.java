@@ -9,10 +9,7 @@ import edu.wpi.teamname.servicerequest.requestitem.ConfRoom;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,7 +30,10 @@ public class Map {
   private Point2D centerPoint;
   private Point2D centerTL;
 
-  @Getter @Setter private int labelTextType; // 0 = Long Name, 1 = Short Name, 2 = ID, -1 = None
+  //  @Getter @Setter private int labelTextType; // 0 = Long Name, 1 = Short Name, 2 = ID, -1 = None
+  //  @Getter @Setter private boolean showEdges;
+  //  @Getter @Setter private boolean showNodes;
+  //  @Setter private boolean showLegend;
 
   @Getter @Setter private ArrayList<Shape> prevPath = new ArrayList<Shape>();
 
@@ -56,12 +56,8 @@ public class Map {
   };
 
   private boolean isMapPage;
-  @Getter @Setter private boolean showEdges;
-  @Getter @Setter private boolean showNodes;
-  @Setter private boolean showLegend;
 
   @Getter private ArrayList<String> roomTypes = new ArrayList<>();
-  @Getter @Setter private boolean[] showTypeLabels = {false}; // HALL
 
   //  @Getter @Setter private ArrayList<Node> alignSelection = new ArrayList<>();
   @Getter @Setter private ArrayList<Integer> alignSelection = new ArrayList<>();
@@ -96,16 +92,33 @@ public class Map {
 
     setGlobalVars(new Timestamp(System.currentTimeMillis()));
 
-    this.labelTextType = -1;
+    if (GlobalVariables.getLabelTextType() == -2) {
+      GlobalVariables.setLabelTextType(-1);
+    }
+    //    this.labelTextType = -1;
     this.isMapPage = isMapPage;
-    this.showEdges = !this.isMapPage;
-    this.roomTypes.add("HALL");
+    if (GlobalVariables.getShowEdges() == null) {
+      GlobalVariables.setShowEdges(new Boolean(!this.isMapPage));
+    }
+    //    this.showEdges = !this.isMapPage;
+    //    this.roomTypes.add("BATH"HALL");
+    this.roomTypes =
+        new ArrayList<>(
+            Arrays.asList(
+                "BATH", "CONF", "DEPT", "ELEV", "EXIT", "HALL", "INFO", "LABS", "REST", "RETL",
+                "SERV", "STAI"));
     this.startEdgeNodeId = -1;
     this.movingNodeId = -1;
 
-    this.showNodes = !this.isMapPage;
+    if (GlobalVariables.getShowNodes() == null) {
+      GlobalVariables.setShowNodes(new Boolean(!this.isMapPage));
+    }
+    //    this.showNodes = !this.isMapPage;
     //    this.showLegend = !this.isMapPage;
-    this.showLegend = true;
+    if (GlobalVariables.getShowLegend() == null) {
+      GlobalVariables.setShowLegend(new Boolean(true));
+    }
+    //    this.showLegend = true;
     this.currTime = new Timestamp(System.currentTimeMillis());
 
     this.rm = new RoomManager();
@@ -131,7 +144,8 @@ public class Map {
   }
 
   public boolean getShowLegend() {
-    return this.showLegend;
+    //    return this.showLegend;
+    return GlobalVariables.getShowLegend().booleanValue();
   }
 
   /**
@@ -148,11 +162,13 @@ public class Map {
 
     //    System.out.println("E: " + this.showEdges + ", " + this.showNodes);
 
-    if (this.showEdges) {
+    //    if (this.showEdges) {
+    if (GlobalVariables.getShowEdges().booleanValue()) {
       //      System.out.println("ADDEDGES");
       allCirclesAndEdges.addAll(this.makeAllFloorEdges(floor));
     }
-    if (this.showNodes) {
+    //    if (this.showNodes) {
+    if (GlobalVariables.getShowNodes().booleanValue()) {
       allCirclesAndEdges.addAll(this.makeAllFloorNodes(floor));
     }
     return allCirclesAndEdges;

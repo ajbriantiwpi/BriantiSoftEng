@@ -1208,7 +1208,8 @@ public class MapController {
           Sound.playSFX(SFX.BUTTONCLICK);
           CheckBox newCheck = ((CheckBox) event.getSource());
 
-          int oldLabel = map.getLabelTextType();
+          //          int oldLabel = map.getLabelTextType();
+          int oldLabel = GlobalVariables.getLabelTextType();
 
           if (oldLabel != -1) {
             CheckBox oldCheck = nameSelectBoxes.get(oldLabel);
@@ -1220,7 +1221,8 @@ public class MapController {
             newLabel = -1;
           }
 
-          map.setLabelTextType(newLabel);
+          //          map.setLabelTextType(newLabel);
+          GlobalVariables.setLabelTextType(newLabel);
 
           try {
             map.setCurrentDisplayFloor(map.getCurrentDisplayFloor());
@@ -1238,7 +1240,8 @@ public class MapController {
         @Override
         public void handle(MouseEvent event) {
           Sound.playSFX(SFX.BUTTONCLICK);
-          map.setShowEdges(EdgeSelector.isSelected());
+          GlobalVariables.setShowEdges(EdgeSelector.isSelected());
+          //          map.setShowEdges(EdgeSelector.isSelected());
           try {
             map.refresh();
           } catch (SQLException e) {
@@ -1255,8 +1258,8 @@ public class MapController {
         @Override
         public void handle(MouseEvent event) {
           Sound.playSFX(SFX.BUTTONCLICK);
-          //        map.setShowEdges(EdgeSelector.isSelected());
-          map.setShowNodes(NodeSelector.isSelected());
+          GlobalVariables.setShowNodes(NodeSelector.isSelected());
+          //          map.setShowNodes(NodeSelector.isSelected());
 
           try {
             map.refresh();
@@ -1274,8 +1277,9 @@ public class MapController {
         @Override
         public void handle(MouseEvent event) {
           Sound.playSFX(SFX.BUTTONCLICK);
-          //        map.setShowEdges(EdgeSelector.isSelected());
-          map.setShowLegend(LegendSelector.isSelected()); // && NodeSelector.isSelected());
+          GlobalVariables.setShowLegend(LegendSelector.isSelected());
+          //          map.setShowLegend(LegendSelector.isSelected()); // &&
+          // NodeSelector.isSelected());
           Legend.setVisible(map.getShowLegend());
 
           try {
@@ -1294,7 +1298,8 @@ public class MapController {
         @Override
         public void handle(MouseEvent event) {
           Sound.playSFX(SFX.BUTTONCLICK);
-          map.setShowTypeLabels(new boolean[] {HallNamesSelector.isSelected()});
+          //          map.setShowTypeLabels(new boolean[] {HallNamesSelector.isSelected()});
+          GlobalVariables.setShowHallNames(HallNamesSelector.isSelected());
 
           try {
             map.refresh();

@@ -1,0 +1,26 @@
+*{
+    -common-gradient: linear-gradient(to right bottom, #c4008b, #d00085, #dc007f, #e60b79, #ef1872, #f5276b, #fa3564, #fe415e, #ff5158, #ff5f52, #ff6c4e, #ff794b);
+}
+
+/**************************************************
+ * Toggle Buttons
+**************************************************/
+.mfx-toggle-button {
+    -fx-font-family: 'Roboto';
+    /*-fx-text-fill: -mfx-text-he;*/
+}
+
+.mfx-toggle-button .text {
+    -fx-font-smoothing-type: lcd;
+}
+
+#customToggleButton {
+    -mfx-main: -common-gradient;
+    -mfx-secondary: #5E0BA8;
+    -fx-text-fill: #5E0BA8;
+}
+
+#customToggleButton .mfx-ripple-generator {
+    -mfx-ripple-color: -common-gradient;
+    -fx-opacity: 0.5;
+}
