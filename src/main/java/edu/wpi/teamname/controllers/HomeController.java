@@ -58,6 +58,7 @@ public class HomeController {
   @FXML MFXButton showRequestsButton;
   @FXML MFXButton editMapButton;
   @FXML MFXButton exitButton;
+  @FXML MFXButton exitPathButton;
   @FXML MFXButton employeeButton;
   @FXML MFXButton aboutButton;
   @FXML MFXButton creditButton;
@@ -312,7 +313,8 @@ public class HomeController {
         employeeButton.setText("Voir les employ" + GlobalVariables.getEAcute() + "s");
         requestRoomButton.setText(
             "Demander une salle de conf" + GlobalVariables.getEAcute() + "rence");
-        viewConfrenceRoomButton.setText("Voir les salles de conf" + GlobalVariables.getEAcute() + "rence");
+        viewConfrenceRoomButton.setText(
+            "Voir les salles de conf" + GlobalVariables.getEAcute() + "rence");
         viewAlertsButton.setText("Voir les alertes");
         mapButton.setText("Voir la carte");
         editMoveButton.setText("Voir les d" + GlobalVariables.getEAcute() + "placements");
@@ -754,6 +756,11 @@ public class HomeController {
         });
 
     mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
+    exitPathButton.setOnMouseClicked(
+        event -> {
+          GlobalVariables.setPathToExit(true);
+          Navigation.navigate(Screen.MAP);
+        });
     makeRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
     showRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST_VIEW));
     editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
