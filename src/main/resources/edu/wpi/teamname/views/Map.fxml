@@ -234,7 +234,7 @@
                                                                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                                                                </padding>
                                                                <children>
-                                                                  <HBox spacing="12.0" style="-fx-background-radius: 8;" styleClass="primary">
+                                                                  <HBox spacing="12.0" style="-fx-background-radius: 8;">
                                                                      <children>
                                                                         <ToggleSwitch id="BATH" fx:id="showBath" minHeight="50.0" prefHeight="50.0" prefWidth="0.0" selected="true" />
                                                                         <AnchorPane HBox.hgrow="ALWAYS">
@@ -247,7 +247,7 @@
                                                                         <Insets left="8.0" />
                                                                      </padding>
                                                                   </HBox>
-                                                                  <HBox spacing="12.0" style="-fx-background-radius: 8;" styleClass="primary">
+                                                                  <HBox spacing="12.0" style="-fx-background-radius: 8;">
                                                                      <children>
                                                                         <ToggleSwitch id="CONF" fx:id="showConf" minHeight="50.0" prefHeight="50.0" prefWidth="0.0" selected="true" />
                                                                         <AnchorPane HBox.hgrow="ALWAYS">
@@ -260,7 +260,7 @@
                                                                         <Insets left="8.0" />
                                                                      </padding>
                                                                   </HBox>
-                                                                  <HBox spacing="12.0" style="-fx-background-radius: 8;" styleClass="primary">
+                                                                  <HBox spacing="12.0" style="-fx-background-radius: 8;">
                                                                      <children>
                                                                         <ToggleSwitch id="DEPT" fx:id="showDept" minHeight="50.0" prefHeight="50.0" prefWidth="0.0" selected="true" />
                                                                         <AnchorPane HBox.hgrow="ALWAYS">
@@ -273,7 +273,7 @@
                                                                         <Insets left="8.0" />
                                                                      </padding>
                                                                   </HBox>
-                                                                  <HBox spacing="12.0" style="-fx-background-radius: 8;" styleClass="primary">
+                                                                  <HBox spacing="12.0" style="-fx-background-radius: 8;">
                                                                      <children>
                                                                         <ToggleSwitch id="ELEV" fx:id="showElev" minHeight="50.0" prefHeight="50.0" prefWidth="0.0" selected="true" />
                                                                         <AnchorPane HBox.hgrow="ALWAYS">
@@ -286,7 +286,7 @@
                                                                         <Insets left="8.0" />
                                                                      </padding>
                                                                   </HBox>
-                                                                  <HBox spacing="12.0" style="-fx-background-radius: 8;" styleClass="primary">
+                                                                  <HBox spacing="12.0" style="-fx-background-radius: 8;">
                                                                      <children>
                                                                         <ToggleSwitch id="EXIT" fx:id="showExit" minHeight="50.0" prefHeight="50.0" prefWidth="0.0" selected="true" />
                                                                         <AnchorPane HBox.hgrow="ALWAYS">
@@ -299,7 +299,7 @@
                                                                         <Insets left="8.0" />
                                                                      </padding>
                                                                   </HBox>
-                                                                  <HBox spacing="12.0" style="-fx-background-radius: 8;" styleClass="primary">
+                                                                  <HBox spacing="12.0" style="-fx-background-radius: 8;">
                                                                      <children>
                                                                         <ToggleSwitch id="HALL" fx:id="showHall" minHeight="50.0" prefHeight="50.0" prefWidth="0.0" />
                                                                         <AnchorPane HBox.hgrow="ALWAYS">
@@ -312,7 +312,7 @@
                                                                         <Insets left="8.0" />
                                                                      </padding>
                                                                   </HBox>
-                                                                  <HBox spacing="12.0" style="-fx-background-radius: 8;" styleClass="primary">
+                                                                  <HBox spacing="12.0" style="-fx-background-radius: 8;">
                                                                      <children>
                                                                         <ToggleSwitch id="INFO" fx:id="showInfo" minHeight="50.0" prefHeight="50.0" prefWidth="0.0" selected="true" />
                                                                         <AnchorPane HBox.hgrow="ALWAYS">
@@ -325,7 +325,7 @@
                                                                         <Insets left="8.0" />
                                                                      </padding>
                                                                   </HBox>
-                                                                  <HBox spacing="12.0" style="-fx-background-radius: 8;" styleClass="primary">
+                                                                  <HBox spacing="12.0" style="-fx-background-radius: 8;">
                                                                      <children>
                                                                         <ToggleSwitch id="LABS" fx:id="showLabs" minHeight="50.0" prefHeight="50.0" prefWidth="0.0" selected="true" />
                                                                         <AnchorPane HBox.hgrow="ALWAYS">
@@ -338,7 +338,7 @@
                                                                         <Insets left="8.0" />
                                                                      </padding>
                                                                   </HBox>
-                                                                  <HBox spacing="12.0" style="-fx-background-radius: 8;" styleClass="primary">
+                                                                  <HBox spacing="12.0" style="-fx-background-radius: 8;">
                                                                      <children>
                                                                         <ToggleSwitch id="REST" fx:id="showRest" minHeight="50.0" prefHeight="50.0" prefWidth="0.0" selected="true" />
                                                                         <AnchorPane HBox.hgrow="ALWAYS">
@@ -351,7 +351,7 @@
                                                                         <Insets left="8.0" />
                                                                      </padding>
                                                                   </HBox>
-                                                                  <HBox spacing="12.0" style="-fx-background-radius: 8;" styleClass="primary">
+                                                                  <HBox spacing="12.0" style="-fx-background-radius: 8;">
                                                                      <children>
                                                                         <ToggleSwitch id="RETL" fx:id="showRetl" minHeight="50.0" prefHeight="50.0" prefWidth="0.0" selected="true" />
                                                                         <AnchorPane HBox.hgrow="ALWAYS">
@@ -364,7 +364,7 @@
                                                                         <Insets left="8.0" />
                                                                      </padding>
                                                                   </HBox>
-                                                                  <HBox spacing="12.0" style="-fx-background-radius: 8;" styleClass="primary">
+                                                                  <HBox spacing="12.0" style="-fx-background-radius: 8;">
                                                                      <children>
                                                                         <ToggleSwitch id="SERV" fx:id="showServ" minHeight="50.0" prefHeight="50.0" prefWidth="0.0" selected="true" />
                                                                         <AnchorPane HBox.hgrow="ALWAYS">
@@ -377,7 +377,7 @@
                                                                         <Insets left="8.0" />
                                                                      </padding>
                                                                   </HBox>
-                                                                  <HBox spacing="12.0" style="-fx-background-radius: 8;" styleClass="primary">
+                                                                  <HBox spacing="12.0" style="-fx-background-radius: 8;">
                                                                      <children>
                                                                         <ToggleSwitch id="STAI" fx:id="showStai" minHeight="50.0" prefHeight="50.0" prefWidth="0.0" selected="true" />
                                                                         <AnchorPane HBox.hgrow="ALWAYS">

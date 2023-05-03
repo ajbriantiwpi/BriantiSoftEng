@@ -284,8 +284,8 @@ public class Map {
         }
         ;
 
-        if (l != null
-            && GlobalVariables.getShowTypeLabels()
+        if (l == null
+            || GlobalVariables.getShowTypeLabels()
                 .get(this.roomTypes.indexOf(l.get(0).getNodeType()))) {
           circles.add(new NodeCircle(n, this.isMapPage, defShortName, this));
         }
