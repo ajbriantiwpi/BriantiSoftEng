@@ -143,10 +143,16 @@ public class ParentController {
     HomeController.setLoggedIn(new SimpleBooleanProperty(false));
     loginButton.setVisible(true);
     logoutButton.setVisible(false);
+
     GlobalVariables.logOut();
     disableButtonsWhenNotLoggedIn();
     if (GlobalVariables.getCurrentScreen().equals(Screen.SETTINGS)) {
       SettingsController.getCurrController().logout();
+    }
+    if (GlobalVariables.getCurrentUser().getLevel() == ClearanceLevel.GUEST) {
+      makeRequestsButtonSelector.setVisible(false);
+    } else {
+      makeRequestsButtonSelector.setVisible(true);
     }
     if (secureScreens.contains(GlobalVariables.getCurrentScreen())) {
       Navigation.navigate(Screen.HOME);
