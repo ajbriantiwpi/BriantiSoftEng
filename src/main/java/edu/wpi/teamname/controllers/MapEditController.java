@@ -483,7 +483,7 @@ public class MapEditController {
           v.getChildren().remove(0);
 
           Submit.setOnMouseClicked(makeNewNode);
-          ThemeSwitch.switchTheme(v);
+          //          ThemeSwitch.switchTheme(v);
 
           //          outerPane.getChildren().add(v);
           PopOver pop = new PopOver(v);
@@ -530,7 +530,7 @@ public class MapEditController {
           v.getChildren().remove(1);
 
           Submit.setOnMouseClicked(makeNewLocation);
-          ThemeSwitch.switchTheme(v);
+          //          ThemeSwitch.switchTheme(v);
 
           //          outerPane.getChildren().add(v);
           PopOver pop = new PopOver(v);
