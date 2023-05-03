@@ -189,14 +189,9 @@ public class SettingsController {
       defaultLocationLabel.setVisible(true);
     } else if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.STAFF)) {
       viewFeedbackButton.setDisable(false);
-      wpiButton.setDisable(false);
-      awsButton.setDisable(false);
       appSettingsLabel.setVisible(true);
-      dbConnectionLabel.setVisible(true);
       dataManageButton.setVisible(true);
       viewFeedbackButton.setVisible(true);
-      wpiButton.setVisible(true);
-      awsButton.setVisible(true);
     }
     // Add a listener to the volume slider
     volumeSlide.setValue(Sound.getVolume());

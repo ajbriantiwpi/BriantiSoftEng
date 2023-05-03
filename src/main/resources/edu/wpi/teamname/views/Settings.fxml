@@ -77,13 +77,6 @@
                   <String fx:value="headline-small" />
                </styleClass>
             </MFXButton>
-            <Label fx:id="defaultLocationLabel" prefHeight="19.0" prefWidth="596.0" stylesheets="@../stylesheets/RowLabel.css" text="Set Default Location">
-               <styleClass>
-                  <String fx:value="primary-text" />
-                  <String fx:value="headline-large" />
-               </styleClass>
-            </Label>
-            <ComboBox fx:id="setLocationBox" prefHeight="54.0" prefWidth="195.0" promptText="Set Location" />
             <Label fx:id="appSettingsLabel" prefHeight="19.0" prefWidth="596.0" stylesheets="@../stylesheets/RowLabel.css" text="App Settings">
                <VBox.margin>
                   <Insets top="12.0" />
@@ -118,6 +111,13 @@
                   <Insets />
                </VBox.margin>
             </HBox>
+            <Label fx:id="defaultLocationLabel" prefHeight="19.0" prefWidth="596.0" stylesheets="@../stylesheets/RowLabel.css" text="Set Default Location">
+               <styleClass>
+                  <String fx:value="primary-text" />
+                  <String fx:value="headline-large" />
+               </styleClass>
+            </Label>
+            <ComboBox fx:id="setLocationBox" prefHeight="54.0" prefWidth="195.0" promptText="Set Location" />
             <Label fx:id="dbConnectionLabel" prefHeight="40.0" prefWidth="1110.0" stylesheets="@../stylesheets/RowLabel.css" text="Database Connection">
                <VBox.margin>
                   <Insets top="12.0" />
