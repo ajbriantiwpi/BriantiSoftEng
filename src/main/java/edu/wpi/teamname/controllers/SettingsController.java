@@ -53,6 +53,7 @@ public class SettingsController {
   @FXML RadioButton wpiButton;
   @FXML RadioButton awsButton;
   @FXML ComboBox<String> setLocationBox;
+  @FXML Label defaultLocationLabel;
   @Getter @Setter private static SettingsController currController;
 
   public void setLanguage(Language lang) {
@@ -138,6 +139,7 @@ public class SettingsController {
     awsButton.setVisible(false);
     setLocationBox.setDisable(true);
     setLocationBox.setVisible(false);
+    defaultLocationLabel.setVisible(false);
   }
 
   /**
@@ -171,6 +173,7 @@ public class SettingsController {
     awsButton.setVisible(false);
     setLocationBox.setDisable(true);
     setLocationBox.setVisible(false);
+    defaultLocationLabel.setVisible(false);
     if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.ADMIN)) {
       viewFeedbackButton.setDisable(false);
       wpiButton.setDisable(false);
@@ -183,6 +186,7 @@ public class SettingsController {
       awsButton.setVisible(true);
       setLocationBox.setVisible(true);
       setLocationBox.setDisable(false);
+      defaultLocationLabel.setVisible(true);
     } else if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.STAFF)) {
       viewFeedbackButton.setDisable(false);
       wpiButton.setDisable(false);

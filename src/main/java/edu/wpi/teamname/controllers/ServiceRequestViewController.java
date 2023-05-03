@@ -219,9 +219,11 @@ public class ServiceRequestViewController {
         requestIDText.setPromptText(
             "S" + GlobalVariables.getEAcute() + "lectionner l'ID de la Demande");
         staffLabel.setText("Assigner du Personnel");
-        assignStaffText.setPromptText("S" + GlobalVariables.getEAcute() + "lectionner du Personnel");
+        assignStaffText.setPromptText(
+            "S" + GlobalVariables.getEAcute() + "lectionner du Personnel");
         setStatusLabel.setText("D" + GlobalVariables.getEAcute() + "finir le Statut de la Demande");
-        requestStatusText.setPromptText("S" + GlobalVariables.getEAcute() + "lectionner le Statut de la Demande");
+        requestStatusText.setPromptText(
+            "S" + GlobalVariables.getEAcute() + "lectionner le Statut de la Demande");
         backButton.setText("Retour");
         submitButton.setText("Assigner");
         ViewButton.setText("Voir");

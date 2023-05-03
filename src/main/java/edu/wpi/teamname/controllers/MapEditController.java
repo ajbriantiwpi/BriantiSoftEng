@@ -1398,8 +1398,6 @@ public class MapEditController {
     //    map.centerAndZoom(gp, OuterMapAnchor);
     Platform.runLater(() -> map.centerAndZoom(gp, OuterMapAnchor));
 
-
-
     ArrayList<javafx.scene.Node> currentFloorNodes = (map.makeAllFloorShapes(defaultFloor));
     anchor.getChildren().addAll(currentFloorNodes);
     map.setCurrentFloorShapes(currentFloorNodes);
