@@ -22,6 +22,25 @@ import lombok.Setter;
 
 public class GlobalVariables {
   // language is set to English by default
+  @Getter public static final char aGrave = '\u00E0';
+  @Getter public static final char bigAGrave = '\u00C0';
+  @Getter public static final char aAcute = '\u00E1';
+  @Getter public static final char bigAAcute = '\u00C1';
+  // e acute
+  @Getter public static final char eAcute = '\u00E9';
+  @Getter public static final char bigEACute = '\u00C9';
+  @Getter public static final char eGrave = '\u00E8';
+  @Getter public static final char bigEGrave = '\u00C8';
+  @Getter public static final char oAcute = '\u00F3';
+  @Getter public static final char bigOACute = '\u00D3';
+  @Getter public static final char oGrave = '\u00F2';
+  @Getter public static final char bigOGrave = '\u00D2';
+  @Getter public static final char iAcute = '\u00EC';
+  @Getter public static final char bigIACute = '\u00CC';
+  @Getter public static final char iGrave = '\u00ED';
+  @Getter public static final char bigIGrave = '\u00CD';
+
+
   @Getter @Setter public static Property<Language> b = new SimpleObjectProperty<>(Language.ENGLISH);
   @Getter @Setter private static String[] args;
   @Getter @Setter private static boolean futureMovesPressed = false;

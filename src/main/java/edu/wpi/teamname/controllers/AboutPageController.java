@@ -10,18 +10,18 @@ import java.io.IOException;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import org.controlsfx.control.PopOver;
 
 public class AboutPageController {
 
-  @FXML Label titleLabel;
-  @FXML Label thanksLabel;
-  @FXML Label specialThanksLabel;
+  @FXML Text titleLabel;
+  @FXML Text thanksLabel;
+  @FXML Text specialThanksLabel;
   @FXML MFXButton ianButton;
   @FXML MFXButton jasonButton;
   @FXML MFXButton alessandroButton;
@@ -62,7 +62,7 @@ public class AboutPageController {
                 + "Prof. Wilson Wong");
         thanksLabel.setText("Grazie!");
         specialThanksLabel.setText(
-            "Un ringraziamento speciale à Brigham and Women’s Hospital,\n"
+            "Un ringraziamento speciale "+ GlobalVariables.getAGrave() +" Brigham and Women's Hospital,\n"
                 + "\n"
                 + "e al loro rappresentante Andrew Shinn,\n"
                 + "\n"
@@ -70,7 +70,7 @@ public class AboutPageController {
         break;
       case SPANISH:
         titleLabel.setText(
-            "Departamento de Ciencias de la Computación del WPI\n"
+            "Departamento de Ciencias de la Computaci"+ GlobalVariables.getOAcute()+ "n del WPI\n"
                 + "\n"
                 + "Ingeniería de Software CS3733-D23\n"
                 + "\n"

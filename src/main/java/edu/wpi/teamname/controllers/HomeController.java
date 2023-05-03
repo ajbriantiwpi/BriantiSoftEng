@@ -251,7 +251,7 @@ public class HomeController {
         logoutButton.setText("Disconnettersi");
         break;
       case FRENCH:
-        actionItemsLabel.setText("Tâches à effectuer");
+        actionItemsLabel.setText("Tâches " + GlobalVariables.getAGrave() + " effectuer");
         staffItemsLabel.setText("Éléments du personnel");
         navigationLabel.setText("Navigation");
         if (loggedIn.getValue()) {
