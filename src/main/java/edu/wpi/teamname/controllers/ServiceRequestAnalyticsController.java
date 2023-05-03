@@ -55,7 +55,8 @@ public class ServiceRequestAnalyticsController {
             "Price By Flower",
             "Service Requests By Type",
             "Flowers Ordered By Category",
-            "Medical Supplies By Type", "Meals By Cuisine");
+            "Medical Supplies By Type",
+            "Meals By Cuisine");
 
     piechartCombo.getItems().addAll("Service Requests By Status", "Flowers By Color");
 
@@ -166,6 +167,7 @@ public class ServiceRequestAnalyticsController {
 
     return colorCounts;
   }
+
   private Map<String, Integer> getMealsByCuisine() throws SQLException {
     MealDAOImpl mealDAO = new MealDAOImpl();
     List<Meal> meals = mealDAO.getAll();
@@ -179,7 +181,6 @@ public class ServiceRequestAnalyticsController {
 
     return mealsByCuisine;
   }
-
 
   /** Updates the PieChart based on the selected option in the ComboBox. */
   private void updatePieChart(String selectedOption) {
@@ -289,28 +290,28 @@ public class ServiceRequestAnalyticsController {
 
     return suppliesByType;
   }
-//  private String getMostPopularMeal() throws SQLException {
-//    MealDAOImpl mealDAO = new MealDAOImpl();
-//    List<Meal> meals = mealDAO.getAll();
-//
-//    Map<String, Integer> mealCounts = new HashMap<>();
-//
-//    for (Meal meal : meals) {
-//      String mealName = meal.getName();
-//      mealCounts.put(mealName, mealCounts.getOrDefault(mealName, 0) + 1);
-//    }
-//
-//    String mostPopularMeal = null;
-//    int maxCount = 0;
-//
-//    for (Map.Entry<String, Integer> entry : mealCounts.entrySet()) {
-//      if (entry.getValue() > maxCount) {
-//        mostPopularMeal = entry.getKey();
-//        maxCount = entry.getValue();
-//      }
-//    }
-//
-//    return mostPopularMeal;
-//  }
+  //  private String getMostPopularMeal() throws SQLException {
+  //    MealDAOImpl mealDAO = new MealDAOImpl();
+  //    List<Meal> meals = mealDAO.getAll();
+  //
+  //    Map<String, Integer> mealCounts = new HashMap<>();
+  //
+  //    for (Meal meal : meals) {
+  //      String mealName = meal.getName();
+  //      mealCounts.put(mealName, mealCounts.getOrDefault(mealName, 0) + 1);
+  //    }
+  //
+  //    String mostPopularMeal = null;
+  //    int maxCount = 0;
+  //
+  //    for (Map.Entry<String, Integer> entry : mealCounts.entrySet()) {
+  //      if (entry.getValue() > maxCount) {
+  //        mostPopularMeal = entry.getKey();
+  //        maxCount = entry.getValue();
+  //      }
+  //    }
+  //
+  //    return mostPopularMeal;
+  //  }
 
 }
