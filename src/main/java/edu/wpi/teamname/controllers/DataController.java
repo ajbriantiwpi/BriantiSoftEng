@@ -62,6 +62,12 @@ public class DataController implements Initializable {
     "Feedback"
   };
 
+  /**
+   * sets the language of the labels
+   *
+   * @param lang language to set it to
+   * @throws SQLException when the datamanager throws one
+   */
   public void setLanguage(Language lang) throws SQLException {
     switch (lang) {
       case ENGLISH:

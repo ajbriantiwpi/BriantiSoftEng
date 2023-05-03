@@ -71,13 +71,12 @@
                   <Insets top="12.0" />
                </VBox.margin>
             </CheckBox>
-            <Label fx:id="volumeLabel1" stylesheets="@../stylesheets/RowLabel.css" text="Set Default Location">
+            <MFXButton fx:id="feedbackButton" prefHeight="46.0" prefWidth="361.0" stylesheets="@../stylesheets/button.css" text="Soumettre des commentaires">
                <styleClass>
-                  <String fx:value="primary-text" />
-                  <String fx:value="headline-large" />
+                  <String fx:value="primary" />
+                  <String fx:value="headline-small" />
                </styleClass>
-            </Label>
-            <ComboBox fx:id="setLocationBox" prefHeight="54.0" prefWidth="195.0" promptText="Set Location" />
+            </MFXButton>
             <Label fx:id="appSettingsLabel" prefHeight="19.0" prefWidth="596.0" stylesheets="@../stylesheets/RowLabel.css" text="App Settings">
                <VBox.margin>
                   <Insets top="12.0" />
@@ -87,7 +86,7 @@
                   <String fx:value="headline-large" />
                </styleClass>
             </Label>
-            <HBox alignment="CENTER_LEFT" prefHeight="64.0" prefWidth="472.0" spacing="24.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="881.0" spacing="24.0">
                <children>
                   <MFXButton fx:id="dataManageButton" prefHeight="51.0" prefWidth="150.0" stylesheets="@../stylesheets/button.css" text="Data">
                      <HBox.margin>
@@ -98,16 +97,7 @@
                         <String fx:value="headline-small" />
                      </styleClass>
                   </MFXButton>
-                  <MFXButton fx:id="feedbackButton" prefHeight="51.0" prefWidth="150.0" stylesheets="@../stylesheets/button.css" text="Feedback">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <styleClass>
-                        <String fx:value="primary" />
-                        <String fx:value="headline-small" />
-                     </styleClass>
-                  </MFXButton>
-                  <MFXButton fx:id="viewFeedbackButton" layoutX="190.0" layoutY="20.0" prefHeight="51.0" prefWidth="236.0" stylesheets="@../stylesheets/button.css" text="View Feedback">
+                  <MFXButton fx:id="viewFeedbackButton" layoutX="190.0" layoutY="20.0" prefHeight="51.0" prefWidth="244.0" stylesheets="@../stylesheets/button.css" text="View Feedback">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -121,6 +111,13 @@
                   <Insets />
                </VBox.margin>
             </HBox>
+            <Label fx:id="defaultLocationLabel" prefHeight="19.0" prefWidth="596.0" stylesheets="@../stylesheets/RowLabel.css" text="Set Default Location">
+               <styleClass>
+                  <String fx:value="primary-text" />
+                  <String fx:value="headline-large" />
+               </styleClass>
+            </Label>
+            <ComboBox fx:id="setLocationBox" prefHeight="54.0" prefWidth="195.0" promptText="Set Location" stylesheets="@../stylesheets/comboSmall.css"/>
             <Label fx:id="dbConnectionLabel" prefHeight="40.0" prefWidth="1110.0" stylesheets="@../stylesheets/RowLabel.css" text="Database Connection">
                <VBox.margin>
                   <Insets top="12.0" />

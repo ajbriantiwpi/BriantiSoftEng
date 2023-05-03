@@ -137,6 +137,12 @@ public class ServiceRequestViewController {
     return requestList;
   }
 
+  /**
+   * changes the language of the app
+   *
+   * @param lang language to it to
+   * @throws SQLException when the datamanager throws one
+   */
   public void setLanguage(Language lang) throws SQLException {
 
     switch (lang) {
@@ -219,9 +225,11 @@ public class ServiceRequestViewController {
         requestIDText.setPromptText(
             "S" + GlobalVariables.getEAcute() + "lectionner l'ID de la Demande");
         staffLabel.setText("Assigner du Personnel");
-        assignStaffText.setPromptText("Sélectionner du Personnel");
+        assignStaffText.setPromptText(
+            "S" + GlobalVariables.getEAcute() + "lectionner du Personnel");
         setStatusLabel.setText("D" + GlobalVariables.getEAcute() + "finir le Statut de la Demande");
-        requestStatusText.setPromptText("Sélectionner le Statut de la Demande");
+        requestStatusText.setPromptText(
+            "S" + GlobalVariables.getEAcute() + "lectionner le Statut de la Demande");
         backButton.setText("Retour");
         submitButton.setText("Assigner");
         ViewButton.setText("Voir");

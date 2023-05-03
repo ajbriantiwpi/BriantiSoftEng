@@ -28,6 +28,18 @@ public class EdgeRectangle {
   boolean isMapPage;
   Map map;
 
+  /**
+   * A class representing an Edge Rectangle in a map. An edge rectangle is a graphical
+   * representation of an edge connecting two nodes in a map. This class uses JavaFX to create and
+   * draw the edge rectangle on a pane.
+   *
+   * @param startNode the starting node of the edge
+   * @param endNode the ending node of the edge
+   * @param isMapPage a boolean flag indicating whether the edge is being drawn on a map page
+   * @param map a Map object that the edge is a part of
+   * @return an EdgeRectangle object representing the graphical representation of the edge
+   *     connecting startNode and endNode
+   */
   public EdgeRectangle(Node startNode, Node endNode, boolean isMapPage, Map map) {
     this.startNode = startNode;
     this.endNode = endNode;

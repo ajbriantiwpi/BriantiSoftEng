@@ -196,11 +196,23 @@ public class Node implements Comparable<Node> {
     return Node.idToIndex(this.id);
   }
 
+  /**
+   * * converts node id to index
+   *
+   * @param id the id to convert
+   * @return the index
+   */
   public static int idToIndex(int id) {
     int index = ((id - 100) / 5);
     return index;
   }
 
+  /**
+   * * converts node index to id
+   *
+   * @param index the index to convert
+   * @return the id
+   */
   public static int indexToId(int index) {
     int id = (5 * index) + 100;
     return id;

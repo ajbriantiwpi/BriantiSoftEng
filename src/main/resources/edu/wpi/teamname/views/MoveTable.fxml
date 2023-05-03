@@ -112,7 +112,7 @@
                               <Insets top="4.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField fx:id="searchTextField" styleClass="secondary">
+                        <TextField fx:id="searchTextField" styleClass="secondary-container">
                            <HBox.margin>
                               <Insets top="4.0" />
                            </HBox.margin>
@@ -133,7 +133,7 @@
                         <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
                      </VBox.margin>
                   </HBox>
-                  <TableView fx:id="moveTable" prefHeight="400.0" prefWidth="450.0" styleClass="surface" stylesheets="@../stylesheets/Colors/lightTheme.css">
+                  <TableView fx:id="moveTable" prefHeight="400.0" prefWidth="450.0" styleClass="surface" stylesheets="@../stylesheets/Colors/lightTheme.css" VBox.vgrow="ALWAYS">
                   </TableView>
                </children>
                <HBox.margin>

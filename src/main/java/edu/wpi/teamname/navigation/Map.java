@@ -129,6 +129,13 @@ public class Map {
     //    }
   }
 
+  /**
+   * Sets the global variables used by the application, based on data fetched from the database at a
+   * specific time.
+   *
+   * @param time the timestamp indicating the moment in time for which to fetch the data.
+   * @throws SQLException if an error occurs while accessing the database.
+   */
   public void setGlobalVars(Timestamp time) throws SQLException {
     GlobalVariables.setHMap(DataManager.getAllLocationNamesMappedByNode(time));
     GlobalVariables.setServiceRequests(DataManager.getAllServiceRequests());
@@ -143,6 +150,11 @@ public class Map {
     GlobalVariables.setAllRes(reses);
   }
 
+  /**
+   * Returns whether the legend should be shown or not.
+   *
+   * @return true if the legend should be shown, false otherwise.
+   */
   public boolean getShowLegend() {
     //    return this.showLegend;
     return GlobalVariables.getShowLegend().booleanValue();
@@ -274,18 +286,48 @@ public class Map {
     return nodes;
   }
 
+  /**
+   * Refreshes the current display floor, potentially performing additional side-effects.
+   *
+   * @throws SQLException if an error occurs while accessing the database.
+   * @throws IOException if an error occurs while reading/writing files.
+   */
   public void refresh() throws SQLException, IOException {
     this.setCurrentDisplayFloor(this.getCurrentDisplayFloor());
   }
 
+  /**
+   * Refreshes the current display floor at a specific time, potentially performing additional
+   * side-effects.
+   *
+   * @param time the timestamp indicating the moment in time for which to refresh the current
+   *     display floor.
+   * @throws SQLException if an error occurs while accessing the database.
+   * @throws IOException if an error occurs while reading/writing files.
+   */
   public void refresh(Timestamp time) throws SQLException, IOException {
     this.setCurrentDisplayFloor(this.getCurrentDisplayFloor(), time);
   }
 
+  /**
+   * Sets the current display floor to a new value.
+   *
+   * @param currentDisplayFloor the new value for the current display floor.
+   * @throws SQLException if an error occurs while accessing the database.
+   * @throws IOException if an error occurs while reading/writing files.
+   */
   public void setCurrentDisplayFloor(String currentDisplayFloor) throws SQLException, IOException {
     this.setCurrentDisplayFloor(currentDisplayFloor, currTime);
   }
 
+  /**
+   * Sets the current display floor and updates the display accordingly.
+   *
+   * @param currentDisplayFloor the new floor to be displayed
+   * @param time the timestamp indicating the time at which the floor display is being updated
+   * @throws SQLException if there is an error accessing data from the database
+   * @throws IOException if there is an error reading from or writing to a file
+   */
   public void setCurrentDisplayFloor(String currentDisplayFloor, Timestamp time)
       throws SQLException, IOException {
     this.currentDisplayFloor = currentDisplayFloor;
@@ -486,6 +528,18 @@ public class Map {
     //    return shapes;
   }
 
+  /**
+   * Creates an ArrayList of Shape objects that represent a path on a floor map, given a list of
+   * nodes that define the path and the floor the path is on. If the flag parameter is true and
+   * there are additional nodes in the list after the end of the path, this method will recursively
+   * call itself with the remaining nodes until the entire list has been processed.
+   *
+   * @param listNode the list of nodes that define the path
+   * @param floor the floor the path is on
+   * @param flag a boolean flag indicating whether to recursively process the remaining nodes
+   * @return an ArrayList of Shape objects representing the path on the floor map
+   * @throws SQLException if an error occurs while accessing the database
+   */
   private ArrayList<Shape> makeShapePathFloor(ArrayList<Node> listNode, String floor, boolean flag)
       throws SQLException {
     ArrayList<Shape> shapes = new ArrayList<Shape>();
@@ -687,6 +741,12 @@ public class Map {
 
   }
 
+  /**
+   * Returns an ArrayList of textual directions for a given path of Nodes.
+   *
+   * @param nodePath the path of Nodes for which to generate textual directions
+   * @return an ArrayList of textual directions
+   */
   public ArrayList<String> getTextual(ArrayList<Node> nodePath) {
     ArrayList<String> textuals = new ArrayList<>();
 
@@ -803,6 +863,15 @@ public class Map {
     return textuals;
   }
 
+  /**
+   * Calculates the direction of travel from the current node to the next node in a path, based on
+   * the angles between these nodes and their shared neighbor.
+   *
+   * @param prevNode the node prior to the current node in the path
+   * @param node the current node in the path
+   * @param nextNode the next node in the path
+   * @return a Direction enum representing the direction of travel
+   */
   public Direction getDirection(Node prevNode, Node node, Node nextNode) {
     Direction direction;
     // y's are flipped I think since +y is down
@@ -843,6 +912,15 @@ public class Map {
     return direction;
   }
 
+  /**
+   * Calculates the numerical distance between two nodes. This can either be a difference in floors
+   * or the straight-line distance between nodes on the same floor.
+   *
+   * @param node The starting node
+   * @param nextNode The destination node
+   * @return The numerical distance between the two nodes, either a difference in floors or the
+   *     straight-line distance between nodes on the same floor.
+   */
   public double getNumericalDistance(Node node, Node nextNode) {
     int curFloor = node.getFloorNum();
     int nextFloor = nextNode.getFloorNum();
@@ -855,6 +933,18 @@ public class Map {
     }
   }
 
+  /**
+   * Computes the text representation of the distance between two nodes, which can be in terms of
+   * floors or units. If the nodes are on different floors, the distance is the absolute value of
+   * the difference in floor numbers, followed by the string " Floor" or " Floors" depending on
+   * whether the absolute difference is greater than one. If the nodes are on the same floor, the
+   * distance is the value returned by calculateHeuristic method of the starting node rounded to two
+   * decimal places, followed by the string " units".
+   *
+   * @param node the starting node
+   * @param nextNode the destination node
+   * @return the text representation of the distance between the two nodes
+   */
   public String getTextDistance(Node node, Node nextNode) {
     String distance;
     int curFloor = node.getFloorNum();
@@ -948,6 +1038,12 @@ public class Map {
     return floorNames;
   }
 
+  /**
+   * Returns an ArrayList of all the floor names that the path goes through. Floor names are in the
+   * order they appear on the path.
+   *
+   * @return ArrayList of all the floor names that the path goes through.
+   */
   public ArrayList<String> getAllFloorsInPath() {
     // ObservableList<String> floorNames = FXCollections.observableArrayList();
     ArrayList<String> floorPathArr = new ArrayList<>();
@@ -970,6 +1066,12 @@ public class Map {
     return floorPathArr;
   }
 
+  /**
+   * Returns an observable list of all available pathfinding algorithms.
+   *
+   * @return An observable list of strings containing the names of all available pathfinding
+   *     algorithms.
+   */
   public ObservableList<String> getAllAlgos() {
     ObservableList<String> algoNames = FXCollections.observableArrayList();
 
@@ -980,6 +1082,18 @@ public class Map {
     return algoNames;
   }
 
+  /**
+   * This function takes a floor name as a string and converts it into a standardized format. If the
+   * flag is true, the function returns the standardized format for Ground Floor and higher floors
+   * as 'G1', 'G2', 'G3', etc. If the flag is false, it returns the standardized format for the
+   * first three floors as '1', '2', '3', etc. If the input string is null, it returns "L1" as the
+   * default value.
+   *
+   * @param f the floor name as a string
+   * @param flag a boolean flag to indicate whether the function should return the standardized
+   *     format for Ground Floor and higher floors or for the first three floors.
+   * @return the standardized format of the floor name as a string.
+   */
   public String takeFloor(String f, boolean flag) {
     String retStr = "";
     if (f == null) {
@@ -1190,6 +1304,14 @@ public class Map {
     parent.centreOn(centerPoint); // Actually Moves the Top left corner
   }
 
+  /**
+   * Centers and zooms the view on the given starting node within the given parent GesturePane and
+   * AnchorPane.
+   *
+   * @param parent the GesturePane parent that holds the view to be centered and zoomed
+   * @param outerMapAnchor the AnchorPane that contains the map being viewed
+   * @param sNode the starting node that will be centered in the view
+   */
   public void centerAndZoomStart(GesturePane parent, AnchorPane outerMapAnchor, Node sNode) {
     Point2D centerOnStart = new Point2D(sNode.getX(), sNode.getY());
     parent.centreOn(centerOnStart);

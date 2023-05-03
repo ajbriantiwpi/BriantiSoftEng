@@ -9,6 +9,7 @@ import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
+import edu.wpi.teamname.extras.Weather;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.sql.Connection;
@@ -22,14 +23,12 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -37,7 +36,7 @@ import lombok.Setter;
 import org.controlsfx.control.PopOver;
 
 public class ParentController {
-  @FXML ComboBox<Language> languageChooser;
+  //  @FXML ComboBox<Language> languageChooser;
   @FXML CheckBox darkToggle;
 
   @FXML MFXButton homeButton;
@@ -72,6 +71,17 @@ public class ParentController {
   MFXButton editSignageButton = new MFXButton();
   @FXML MFXButton viewAlertsButton; // = new MFXButton();
   @FXML Label titleLabel;
+
+  // Top bar label
+  @FXML Label timeLabel;
+
+  @FXML Label dateLabel;
+
+  @FXML Label tempLabel;
+
+  @FXML Label descLabel;
+
+  @FXML Label userLabel;
 
   @FXML VBox SideBar;
   @FXML HBox MainScreen;
@@ -110,6 +120,11 @@ public class ParentController {
               Screen.SMILE));
 
   @Setter public static StringProperty titleString = new SimpleStringProperty();
+  @Setter public static StringProperty timeString = new SimpleStringProperty();
+  @Setter public static StringProperty dateString = new SimpleStringProperty();
+  @Setter public static StringProperty tempString = new SimpleStringProperty();
+  @Setter public static StringProperty userString = new SimpleStringProperty();
+  @Setter public static StringProperty weatherString = new SimpleStringProperty();
 
   /** * Disables all the buttons that can not be accessed without logging in */
   public void disableButtonsWhenNotLoggedIn() {
@@ -124,13 +139,15 @@ public class ParentController {
   }
 
   /** logs the current user out of the application */
-  private void logout() {
+  private void logout() throws IOException {
     HomeController.setLoggedIn(new SimpleBooleanProperty(false));
     loginButton.setVisible(true);
     logoutButton.setVisible(false);
     GlobalVariables.logOut();
     disableButtonsWhenNotLoggedIn();
-
+    if (GlobalVariables.getCurrentScreen().equals(Screen.SETTINGS)) {
+      SettingsController.getCurrController().logout();
+    }
     if (secureScreens.contains(GlobalVariables.getCurrentScreen())) {
       Navigation.navigate(Screen.HOME);
     } else {
@@ -320,6 +337,99 @@ public class ParentController {
         continue;
       }
     }
+    switch (path) {
+      case "views/MapButtons.fxml":
+        switch (GlobalVariables.getB().getValue()) {
+          case ENGLISH:
+            ((MFXButton) (v.getChildren().get(0))).setText("View Map");
+            ((MFXButton) (v.getChildren().get(1))).setText("View Moves");
+            ((MFXButton) (v.getChildren().get(2))).setText("Edit Map");
+            break;
+          case FRENCH:
+            ((MFXButton) (v.getChildren().get(0))).setText("Voir la carte");
+            ((MFXButton) (v.getChildren().get(1))).setText("Voir les mouvements");
+            ((MFXButton) (v.getChildren().get(2))).setText("Modifier la carte");
+            break;
+          case SPANISH:
+            ((MFXButton) (v.getChildren().get(0))).setText("Ver mapa");
+            ((MFXButton) (v.getChildren().get(1))).setText("Ver movimientos");
+            ((MFXButton) (v.getChildren().get(2))).setText("Editar mapa");
+            break;
+          case ITALIAN:
+            ((MFXButton) (v.getChildren().get(0))).setText("Visualizza mappa");
+            ((MFXButton) (v.getChildren().get(1))).setText("Visualizza mosse");
+            ((MFXButton) (v.getChildren().get(2))).setText("Modifica mappa");
+            break;
+        }
+        break;
+      case "views/SignageButtons.fxml":
+        switch (GlobalVariables.getB().getValue()) {
+          case ENGLISH:
+            ((MFXButton) (v.getChildren().get(0))).setText("View Signage");
+            ((MFXButton) (v.getChildren().get(1))).setText("Edit Signage");
+            break;
+          case FRENCH:
+            ((MFXButton) (v.getChildren().get(0))).setText("Voir la signalisation");
+            ((MFXButton) (v.getChildren().get(1))).setText("Modifier la signalisation");
+            break;
+          case SPANISH:
+            ((MFXButton) (v.getChildren().get(0)))
+                .setText(
+                    "Ver se"
+                        + GlobalVariables.getNTilda()
+                        + "alizaci"
+                        + GlobalVariables.getOAcute()
+                        + "n");
+            ((MFXButton) (v.getChildren().get(1)))
+                .setText(
+                    "Editar se"
+                        + GlobalVariables.getNTilda()
+                        + "alizaci"
+                        + GlobalVariables.getOAcute()
+                        + "n");
+            break;
+          case ITALIAN:
+            ((MFXButton) (v.getChildren().get(0))).setText("Visualizza la segnaletica");
+            ((MFXButton) (v.getChildren().get(1))).setText("Modifica la segnaletica");
+            break;
+        }
+        break;
+      case "views/ServiceButtons.fxml":
+        switch (GlobalVariables.getB().getValue()) {
+          case ENGLISH:
+            ((MFXButton) (v.getChildren().get(0))).setText("Make Requests");
+            ((MFXButton) (v.getChildren().get(1))).setText("Request Room");
+            ((MFXButton) (v.getChildren().get(2))).setText("View Requests");
+            ((MFXButton) (v.getChildren().get(3))).setText("Service Request Analytics");
+            ((MFXButton) (v.getChildren().get(4))).setText("View Conference Room");
+            break;
+          case FRENCH:
+            ((MFXButton) (v.getChildren().get(0))).setText("Faire des demandes");
+            ((MFXButton) (v.getChildren().get(1))).setText("Demander une chambre");
+            ((MFXButton) (v.getChildren().get(2))).setText("Voir les demandes");
+            ((MFXButton) (v.getChildren().get(3))).setText("Analyse des demandes de service");
+            ((MFXButton) (v.getChildren().get(4)))
+                .setText("Voir la salle de conf" + GlobalVariables.getEAcute() + "rence");
+            break;
+          case SPANISH:
+            ((MFXButton) (v.getChildren().get(0))).setText("Realizar solicitudes");
+            ((MFXButton) (v.getChildren().get(1)))
+                .setText("Solicitar una habitaci" + GlobalVariables.getOAcute() + "n");
+            ((MFXButton) (v.getChildren().get(2))).setText("Ver solicitudes");
+            ((MFXButton) (v.getChildren().get(3)))
+                .setText("An" + GlobalVariables.getAAcute() + "lisis de solicitudes de servicio");
+            ((MFXButton) (v.getChildren().get(4))).setText("Ver sala de conferencias");
+            break;
+          case ITALIAN:
+            ((MFXButton) (v.getChildren().get(0))).setText("Fai richieste");
+            ((MFXButton) (v.getChildren().get(1))).setText("Richiedi una stanza");
+            ((MFXButton) (v.getChildren().get(2))).setText("Visualizza le richieste");
+            ((MFXButton) (v.getChildren().get(3))).setText("Analytics di richieste di servizio");
+            ((MFXButton) (v.getChildren().get(4))).setText("Visualizza sala conferenze");
+            break;
+        }
+        break;
+    }
 
     //
 
@@ -447,10 +557,17 @@ public class ParentController {
     return null; // Test for errors
   }
 
+  /**
+   * changes the language of the app
+   *
+   * @param lang language to change it to
+   */
   public void setLanguage(Language lang) {
     switch (lang) {
       case ENGLISH:
+        EmergencyButton.setText("Emergency");
         homeButton.setText("Home");
+        SettingsButton.setText("Settings");
         mapButton.setText("Map");
         viewSignageButton.setText("View Signage");
         makeRequestsButton.setText("Make Requests");
@@ -469,7 +586,9 @@ public class ParentController {
         makeRequestsButtonSelector.setText("Service Requests");
         break;
       case FRENCH:
-        homeButton.setText("Page D’accueil");
+        EmergencyButton.setText("Urgence");
+
+        homeButton.setText("Page D'accueil");
         mapButton.setText("Carte");
         viewSignageButton.setText("Voir la signalisation");
         makeRequestsButton.setText("Faire des demandes");
@@ -478,16 +597,18 @@ public class ParentController {
         editMoveButton.setText("Voir les mouvements");
         editSignageButton.setText("Modifier la signalisation");
         editMapButton.setText("Modifier la carte");
-        showEmployeesButton.setText("Afficher les employés");
+        showEmployeesButton.setText("Afficher les employ" + GlobalVariables.getEAcute() + "s");
         viewAlertsButton.setText("Afficher les alertes");
         loginButton.setText("Connexion");
         logoutButton.setText("Se d" + GlobalVariables.getEAcute() + "connecter");
         exitButton.setText("Sortie");
+        SettingsButton.setText("Param" + GlobalVariables.getEGrave() + "tres");
         mapButtonSelector.setText("Carte");
         viewSignageButtonSelector.setText("Signalisation");
         makeRequestsButtonSelector.setText("Demandes");
         break;
       case ITALIAN:
+        EmergencyButton.setText("Emergenza");
         homeButton.setText("Pagina Iniziale");
         mapButton.setText("Mappa");
         viewSignageButton.setText("Segnaletica");
@@ -503,10 +624,13 @@ public class ParentController {
         logoutButton.setText("Disconnettersi");
         exitButton.setText("Uscire");
         mapButtonSelector.setText("Mappa");
+        SettingsButton.setText("Impostazioni");
         viewSignageButtonSelector.setText("Segnaletica");
         makeRequestsButtonSelector.setText("Richieste");
         break;
       case SPANISH:
+        SettingsButton.setText("Configuraci" + GlobalVariables.getOAcute() + "n");
+        EmergencyButton.setText("Emergencia");
         homeButton.setText("P" + GlobalVariables.getAAcute() + "gina de Inicio");
         mapButton.setText("Mapa");
         viewSignageButton.setText(
@@ -571,20 +695,60 @@ public class ParentController {
   @FXML
   public void initialize() throws IOException {
     titleString.addListener((observable, oldValue, newValue) -> titleLabel.setText(newValue));
-    languageChooser.setItems(
-        FXCollections.observableList(Arrays.stream(Language.values()).toList()));
-    languageChooser.setValue(GlobalVariables.getB().getValue());
-    languageChooser
-        .getSelectionModel()
-        .selectedItemProperty()
-        .addListener(
-            (options, oldValue, newValue) -> {
-              setLanguage(newValue);
-              GlobalVariables.b.setValue(newValue);
-            });
+    //    languageChooser.setItems(
+    //        FXCollections.observableList(Arrays.stream(Language.values()).toList()));
+    //    languageChooser.setValue(GlobalVariables.getB().getValue());
+    //    languageChooser
+    //        .getSelectionModel()
+    //        .selectedItemProperty()
+    //        .addListener(
+    //            (options, oldValue, newValue) -> {
+    //              setLanguage(newValue);
+    //              GlobalVariables.b.setValue(newValue);
+    //            });
     setLanguage(GlobalVariables.getB().getValue());
 
-    titleLabel.setText(titleString.getValue());
+    Thread t =
+        new Thread(
+            () -> {
+              try {
+                tempString.set(Weather.getTemperature());
+              } catch (IOException e) {
+                throw new RuntimeException(e);
+              }
+              try {
+                weatherString.set(Weather.getDescription());
+              } catch (IOException e) {
+                throw new RuntimeException(e);
+              }
+              while (true) {
+                timeString.set(Weather.getTime());
+                dateString.set(Weather.getDate());
+                userString.set(GlobalVariables.getCurrentUser().getUsername());
+
+                Platform.runLater(
+                    () -> {
+                      timeLabel.setText(timeString.getValue());
+                      dateLabel.setText(dateString.getValue());
+                      descLabel.setText(weatherString.getValue());
+                      tempLabel.setText(tempString.getValue());
+                      userLabel.setText(userString.getValue());
+                    });
+                try {
+                  Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                  throw new RuntimeException(e);
+                }
+              }
+            });
+    // System.out.println(Thread.activeCount());
+    //    if (Thread.activeCount() == 1) {
+    //      System.out.println("Thread tart");
+    t.start();
+    //    } else {
+    //      System.out.println("Thread already working");
+    //    }
+
     System.out.println("Parent!: " + HomeController.getLoggedIn().getValue());
 
     /*/(2)
@@ -654,8 +818,14 @@ public class ParentController {
       }
       //      }
     }
-
-    logoutButton.setOnMouseClicked(event -> logout());
+    logoutButton.setOnMouseClicked(
+        event -> {
+          try {
+            logout();
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+        });
 
     // (2)
     ClearanceLevel c = GlobalVariables.getCurrentUser().getLevel();

@@ -83,6 +83,11 @@ public class ConferenceController {
   private static String username;
   private static String staff = "None";
 
+  /**
+   * sets the language of the labels
+   *
+   * @param lang language to set it to
+   */
   public void setLanguage(Language lang) {
     switch (lang) {
       case ENGLISH:
@@ -156,7 +161,7 @@ public class ConferenceController {
 
   @FXML
   public void initialize() throws SQLException {
-    ParentController.titleString.set("Conference Room Request");
+    ParentController.titleString.set("Room Request");
     setLanguage(GlobalVariables.getB().getValue());
     GlobalVariables.b.addListener(
         (options, oldValue, newValue) -> {

@@ -47,12 +47,7 @@ public class ServiceRequest {
   }
 
   /**
-   * Adds an item to the list of items for this service request based on the provided request ID. If
-   * the request ID is less than 1100, a new Flower object will be created and added to the list. If
-   * the request ID is less than 1200, a new Meal object will be created and added to the list. If
-   * the request ID is less than 1400, a new Furniture object will be created and added to the list.
-   * If the request ID is less than 1500, a new OfficeSupply object will be created and added to the
-   * list.
+   * Adds an item to the list of items for this service request based on this request type
    *
    * @param requestID the ID of the item to be added to the list
    * @throws SQLException if there is an error accessing the database
@@ -88,6 +83,11 @@ public class ServiceRequest {
     }
   }
 
+  /**
+   * * Returns specific details of this service request
+   *
+   * @return
+   */
   public String getDetails() {
     //    return "["
     //        + requestID

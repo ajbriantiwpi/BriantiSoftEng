@@ -125,6 +125,12 @@ public class ConfrenceViewController {
     table.setItems(sortedServiceReq);
   }
 
+  /**
+   * sets the language of the labels
+   *
+   * @param lang language to set it to
+   * @throws SQLException when the sql doesnt work
+   */
   public void setLanguage(Language lang) throws SQLException {
     switch (lang) {
       case ENGLISH:
@@ -254,7 +260,7 @@ public class ConfrenceViewController {
   public void initialize() throws SQLException {
     roomNum = 0;
     ThemeSwitch.switchTheme(root);
-    ParentController.titleString.set("Conference Room Reservations View");
+    ParentController.titleString.set("Room Reservations View");
     setLanguage(GlobalVariables.getB().getValue());
     GlobalVariables.b.addListener(
         (options, oldValue, newValue) -> {

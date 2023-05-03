@@ -27,7 +27,7 @@ public class Joke {
       new ArrayList<>(
           List.of(
               53, 92, 45, 208, 46, 48, 140, 133, 238, 81, 203, 280, 399, 144, 276, 238, 364, 79, 98,
-              91, 101, 141, 202, 278, 357, 221, 39));
+              91, 101, 141, 202, 278, 357, 221, 405, 39));
 
   public Joke(String type, String setup, String punchline, int id) {
     this.type = type;
@@ -70,9 +70,10 @@ public class Joke {
     // Fixes Typo
     if (id == 312) {
       setup = "Why can't you use \"Beef stew\" as a password?";
-    }
-    if (id == 79) {
+    } else if (id == 79) {
       punchline = "Pop, goes the weasel.";
+    } else if (id == 275) {
+      punchline = "You can tune a guitar but you can't \"tuna\" fish!";
     }
     return this.getSetup() + "\n\n" + this.getPunchline();
   }
