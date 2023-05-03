@@ -17,7 +17,7 @@
                   <children>
                      <VBox spacing="12.0" style="-fx-background-radius: 16;" styleClass="surface-container-highest">
                         <children>
-                           <Label styleClass="primary-text-container" text="Filter Table" textFill="#001b3b">
+                           <Label fx:id="filterTable" styleClass="primary-text-container" text="Filter Table" textFill="#001b3b">
                               <font>
                                  <Font name="Roboto" size="32.0" />
                               </font>
@@ -25,7 +25,7 @@
                                  <Insets bottom="4.0" />
                               </VBox.margin>
                            </Label>
-                           <Label styleClass="on-suface-text" text="Alert Urgency" textFill="#001b3b">
+                           <Label fx:id="urgencyLabel" styleClass="on-suface-text" text="Alert Urgency" textFill="#001b3b">
                               <font>
                                  <Font name="Roboto" size="28.0" />
                               </font>
@@ -42,12 +42,12 @@
                                  <URL value="@../stylesheets/Colors/darkCombo.css" />
                               </stylesheets>
                            </ComboBox>
-                           <Label styleClass="on-suface-text" text="Staff Type" textFill="#001b3b">
+                           <Label fx:id="staffTypeLabel" styleClass="on-suface-text" text="Staff Type" textFill="#001b3b">
                               <font>
                                  <Font name="Roboto" size="28.0" />
                               </font>
                            </Label>
-                           <ComboBox fx:id="staffTypeCombo" prefHeight="71.0" prefWidth="396.0" promptText="Choose Staff">
+                           <ComboBox fx:id="staffTypeCombo" prefHeight="71.0" prefWidth="396.0" promptText="Choose Staff Type">
                               <stylesheets>
                                  <URL value="@../stylesheets/combo.css" />
                                  <URL value="@../stylesheets/Colors/darkCombo.css" />
@@ -130,7 +130,7 @@
                   <children>
                      <HBox alignment="CENTER_RIGHT" minHeight="50.0" prefHeight="50.0">
                         <children>
-                           <Label alignment="CENTER" prefHeight="34.0" prefWidth="144.0" styleClass="primary-text-container" text="Search">
+                           <Label fx:id="searchLabel" alignment="CENTER" prefHeight="34.0" prefWidth="144.0" styleClass="primary-text-container" text="Search">
                               <font>
                                  <Font name="Roboto" size="18.0" />
                               </font>

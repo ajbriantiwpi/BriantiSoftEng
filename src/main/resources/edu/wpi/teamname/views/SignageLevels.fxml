@@ -14,7 +14,7 @@
          <children>
             <VBox prefHeight="800.0" prefWidth="486.0">
                <children>
-                  <Label prefHeight="89.0" prefWidth="578.0" styleClass="primary-text-container" text="Signage Search" textFill="#235fa6">
+                  <Label fx:id="signageSearchLabel" prefHeight="89.0" prefWidth="578.0" styleClass="primary-text-container" text="Signage Search" textFill="#235fa6">
                      <font>
                         <Font name="Roboto" size="36.0" />
                      </font>
@@ -22,7 +22,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <Label prefHeight="37.0" prefWidth="628.0" styleClass="on-suface-text" stylesheets="@../stylesheets/RowLabel.css" text="Choose Date">
+                  <Label fx:id="dateLabel" prefHeight="37.0" prefWidth="628.0" styleClass="on-suface-text" stylesheets="@../stylesheets/RowLabel.css" text="Choose Date">
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>
@@ -32,7 +32,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>
                   </DatePicker>
-                  <Label prefHeight="37.0" prefWidth="628.0" styleClass="on-suface-text" stylesheets="@../stylesheets/RowLabel.css" text="Choose Kiosk ID">
+                  <Label fx:id="kioskIDLabel" prefHeight="37.0" prefWidth="628.0" styleClass="on-suface-text" stylesheets="@../stylesheets/RowLabel.css" text="Choose Kiosk ID">
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>

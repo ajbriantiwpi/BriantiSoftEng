@@ -28,7 +28,7 @@
             <children>
                 <VBox alignment="CENTER" prefHeight="206.0" prefWidth="52.0" style="-fx-background-radius: 16;" styleClass="secondary-container">
                     <children>
-                        <Label alignment="CENTER" maxWidth="476.0" prefHeight="62.0" prefWidth="266.0" style="-fx-background-radius: 16;" styleClass="primary-on-container" text="Import" textFill="#fdfbff">
+                        <Label fx:id="importLabel" alignment="CENTER" maxWidth="476.0" prefHeight="62.0" prefWidth="266.0" style="-fx-background-radius: 16;" styleClass="primary-on-container" text="Import" textFill="#fdfbff">
                             <font>
                                 <Font name="Roboto" size="36.0" />
                             </font>
@@ -57,7 +57,7 @@
                 </VBox>
                 <VBox alignment="CENTER" prefHeight="206.0" prefWidth="84.0" style="-fx-background-radius: 16;" styleClass="secondary-container" GridPane.columnIndex="1">
                     <children>
-                        <Label alignment="CENTER" maxWidth="476.0" prefHeight="62.0" prefWidth="266.0" style="-fx-background-radius: 16;" styleClass="primary-on-container" text="Export" textFill="#fdfbff">
+                        <Label fx:id="exportLabel" alignment="CENTER" maxWidth="476.0" prefHeight="62.0" prefWidth="266.0" style="-fx-background-radius: 16;" styleClass="primary-on-container" text="Export" textFill="#fdfbff">
                             <font>
                                 <Font name="Roboto" size="36.0" />
                             </font>

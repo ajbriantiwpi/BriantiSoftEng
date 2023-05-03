@@ -18,7 +18,7 @@
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0" spacing="16.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label prefHeight="40.0" prefWidth="1110.0" stylesheets="@../stylesheets/RowLabel.css" text="Hardware Settings">
+            <Label fx:id="hardwareLabel" prefHeight="40.0" prefWidth="1110.0" stylesheets="@../stylesheets/RowLabel.css" text="Hardware Settings">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -29,7 +29,7 @@
                </styleClass>
 
             </Label>
-            <Label stylesheets="@../stylesheets/RowLabel.css" text="Volume">
+            <Label fx:id="volumeLabel" stylesheets="@../stylesheets/RowLabel.css" text="Volume">
                <VBox.margin>
                   <Insets top="12.0" />
                </VBox.margin>
@@ -46,7 +46,7 @@
                   <Insets />
                </VBox.margin>
             </Slider>
-            <Label stylesheets="@../stylesheets/RowLabel.css" text="Choose Song">
+            <Label fx:id="songLabel" stylesheets="@../stylesheets/RowLabel.css" text="Choose Song">
                <VBox.margin>
                   <Insets top="12.0" />
                </VBox.margin>

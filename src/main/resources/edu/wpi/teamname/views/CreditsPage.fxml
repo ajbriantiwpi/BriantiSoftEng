@@ -13,7 +13,7 @@
          <content>
             <VBox style="-fx-background-radius: 16;" styleClass="primary-container">
                <children>
-                  <Label text="Credits">
+                  <Label fx:id="creditsLabel" styleClass="display-large" text="Credits">
                      <padding>
                         <Insets bottom="30.0" />
                      </padding>

@@ -4,6 +4,7 @@
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import javafx.geometry.*?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -42,7 +43,7 @@
                 </MFXButton>
                 <VBox fx:id="SRVBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="500.0" prefWidth="500.0" spacing="12.0" style="-fx-background-radius: 16;" styleClass="primary-container" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                     <children>
-                        <Label alignment="CENTER" minHeight="92.0" minWidth="444.0" prefWidth="500.0" style="-fx-background-radius: 16;" styleClass="primary-on-container" text="Staff Items" textFill="#fdfbff">
+                        <Label fx:id="staffItemsLabel" alignment="CENTER" minHeight="92.0" minWidth="444.0" prefWidth="500.0" style="-fx-background-radius: 16;" styleClass="primary-on-container" text="Staff Items" textFill="#fdfbff">
                             <font>
                                 <Font name="Roboto" size="36.0" />
                             </font>
@@ -140,7 +141,7 @@
                 </VBox>
                 <VBox fx:id="mapVBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="500.0" prefWidth="500.0" spacing="12.0" style="-fx-background-radius: 16;" styleClass="primary-container" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                     <children>
-                        <Label alignment="CENTER" minHeight="92.0" minWidth="444.0" prefWidth="500.0" style="-fx-background-radius: 16;" styleClass="primary-on-container" text="Navigation" textFill="#fdfbff">
+                        <Label fx:id="navigationLabel" alignment="CENTER" minHeight="92.0" minWidth="444.0" prefWidth="500.0" style="-fx-background-radius: 16;" styleClass="primary-on-container" text="Navigation" textFill="#fdfbff">
                             <font>
                                 <Font name="Roboto" size="36.0" />
                             </font>
@@ -239,7 +240,7 @@
                 </VBox>
             <VBox fx:id="actionVBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="500.0" prefWidth="500.0" spacing="12.0" style="-fx-background-radius: 16;" styleClass="primary-container" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <children>
-                  <Label alignment="CENTER" maxWidth="500.0" minHeight="92.0" minWidth="444.0" style="-fx-background-radius: 16;" styleClass="primary-on-container" text="Action Items" textFill="#fdfbff">
+                  <Label fx:id="actionItemsLabel" alignment="CENTER" maxWidth="500.0" minHeight="92.0" minWidth="444.0" style="-fx-background-radius: 16;" styleClass="primary-on-container" text="Action Items" textFill="#fdfbff">
                      <font>
                         <Font name="Roboto" size="36.0" />
                      </font>
@@ -312,6 +313,7 @@
         </GridPane>
           <HBox alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
               <children>
+                  <ComboBox fx:id="languageChooser" prefWidth="150.0" promptText="Choose Language" />
             <MFXButton fx:id="helpButton" alignment="CENTER" style="-fx-border-color: #f6bd38; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Help" textAlignment="CENTER" textFill="#fdfbff">
                <font>
                   <Font size="20.0" />
