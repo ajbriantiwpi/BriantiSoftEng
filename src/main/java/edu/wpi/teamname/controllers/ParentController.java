@@ -412,7 +412,8 @@ public class ParentController {
             break;
           case SPANISH:
             ((MFXButton) (v.getChildren().get(0))).setText("Realizar solicitudes");
-            ((MFXButton) (v.getChildren().get(1))).setText("Solicitar una habitaci"+GlobalVariables.getOAcute()+"n");
+            ((MFXButton) (v.getChildren().get(1)))
+                .setText("Solicitar una habitaci" + GlobalVariables.getOAcute() + "n");
             ((MFXButton) (v.getChildren().get(2))).setText("Ver solicitudes");
             ((MFXButton) (v.getChildren().get(3)))
                 .setText("An" + GlobalVariables.getAAcute() + "lisis de solicitudes de servicio");
