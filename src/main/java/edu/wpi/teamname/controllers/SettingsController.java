@@ -172,6 +172,7 @@ public class SettingsController {
     GlobalVariables.b.addListener(
         (options, oldValue, newValue) -> {
           setLanguage(newValue);
+          ParentController.getCurrParentController().setLanguage(newValue);
         });
 
     languageChooser.setItems(
