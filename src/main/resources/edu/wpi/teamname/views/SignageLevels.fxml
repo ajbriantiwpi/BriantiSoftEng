@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="surface" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.SignageController">
+<AnchorPane fx:id="root" styleClass="surface" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.SignageController">
    <children>
       <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -71,19 +71,15 @@
                   </VBox>
                </children>
             </VBox>
-            <HBox alignment="CENTER" maxWidth="1300.0" HBox.hgrow="ALWAYS">
+            <AnchorPane HBox.hgrow="ALWAYS">
                <children>
-                  <ScrollPane HBox.hgrow="ALWAYS">
+                  <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefWidth="400.0" style="-fx-background-radius: 16;" styleClass="surface-container" vbarPolicy="NEVER" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="24.0">
                      <content>
-                        <VBox fx:id="textVbox" alignment="CENTER" spacing="8.0" styleClass="surface" />
+                        <VBox fx:id="textVbox" alignment="CENTER" spacing="8.0" style="-fx-background-radius: 16;" styleClass="surface-container" />
                      </content>
-                     <styleClass>
-                        <String fx:value="surface" />
-                        <String fx:value="scroll-pane" />
-                     </styleClass>
                   </ScrollPane>
                </children>
-            </HBox>
+            </AnchorPane>
          </children>
       </HBox>
    </children>
