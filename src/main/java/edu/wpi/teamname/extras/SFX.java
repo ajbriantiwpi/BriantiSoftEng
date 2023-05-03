@@ -1,5 +1,7 @@
 package edu.wpi.teamname.extras;
 
+import edu.wpi.teamname.App;
+
 public enum SFX {
   BUTTONCLICK("buttonclick.mp3", "Button Click"),
   ERROR("error-sound-fx.wav", "Error"),
@@ -16,7 +18,9 @@ public enum SFX {
   }
 
   public String getFilename() {
-    return "src/main/resources/edu/wpi/teamname/sounds/sfx/" + filename;
+    String fn = "sounds/sfx/" + filename;
+    // return getClass().getResource(fn);
+    return App.class.getResource(fn).toString();
   }
 
   public String getTitle() {

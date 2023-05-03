@@ -3,6 +3,7 @@ package edu.wpi.teamname.controllers.JFXitems;
 import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.net.URISyntaxException;
 import javafx.scene.AccessibleRole;
 import lombok.Getter;
 
@@ -12,7 +13,7 @@ public class SelectorButton extends MFXButton {
   int id;
   @Getter RoomStatus status;
 
-  SelectorButton(int id, RoomSelector parent) {
+  SelectorButton(int id, RoomSelector parent) throws URISyntaxException {
     super(parent.idToTime(id));
     this.parent = parent;
     this.id = id;
@@ -20,7 +21,7 @@ public class SelectorButton extends MFXButton {
     initialize();
   }
 
-  private void initialize() {
+  private void initialize() throws URISyntaxException {
     getStyleClass().setAll("button");
     setAccessibleRole(AccessibleRole.BUTTON);
     setMnemonicParsing(true);
@@ -33,7 +34,11 @@ public class SelectorButton extends MFXButton {
     setStyle("-fx-background-radius: 0;-fx-border-color: #6F797A;");
     setOnMouseClicked(
         event -> {
-          parent.handleButtonClick(this.id);
+          try {
+            parent.handleButtonClick(this.id);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
         });
   }
 
@@ -42,7 +47,7 @@ public class SelectorButton extends MFXButton {
    *
    * @param status
    */
-  void setStatus(RoomStatus status) {
+  void setStatus(RoomStatus status) throws URISyntaxException {
     this.status = status;
     if (status == RoomStatus.AVAILABLE) {
       getStyleClass().clear();

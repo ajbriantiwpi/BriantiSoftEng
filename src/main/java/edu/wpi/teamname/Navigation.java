@@ -4,6 +4,7 @@ import edu.wpi.teamname.controllers.SettingsController;
 import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -12,7 +13,7 @@ import javafx.scene.layout.Priority;
 public class Navigation {
   private static boolean first = true;
 
-  public static void navigate(final Screen screen) {
+  public static void navigate(final Screen screen) throws URISyntaxException {
     if (!first && !screen.equals(Screen.SMILE)) {
       Sound.playSFX(SFX.BUTTONCLICK);
     } else {

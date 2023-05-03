@@ -12,6 +12,7 @@ import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Song;
 import edu.wpi.teamname.extras.Sound;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -56,7 +57,7 @@ public class LoginController {
    *     screen
    */
   public boolean loginPressed(String username, String password)
-      throws SQLException, ExceptionInInitializerError {
+      throws SQLException, ExceptionInInitializerError, URISyntaxException {
     Employee user = DataManager.checkLogin(username, password);
     if (user != null) {
       GlobalVariables.setCurrentUser(user);
@@ -166,7 +167,11 @@ public class LoginController {
     success.setVisible(false);
     exit.setOnMouseClicked(
         event -> {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           try {
             Connection connection = DataManager.DbConnection();
             connection.close();
@@ -185,7 +190,7 @@ public class LoginController {
             newPassword.setText(tempPassword);
             newPassword.setVisible(true);
             paneOfStuff.setDisable(true);
-          } catch (SQLException e) {
+          } catch (SQLException | URISyntaxException e) {
             throw new RuntimeException(e);
           }
         });
@@ -206,11 +211,18 @@ public class LoginController {
               success.setVisible(true);
               passwordText.clear();
             }
-          } catch (SQLException e) {
+          } catch (SQLException | URISyntaxException e) {
             throw new RuntimeException(e);
           }
         });
-    cancel.setOnMouseClicked(event -> Navigation.navigate(GlobalVariables.getPreviousScreen()));
+    cancel.setOnMouseClicked(
+        event -> {
+          try {
+            Navigation.navigate(GlobalVariables.getPreviousScreen());
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
+        });
 
     passwordText.setOnKeyPressed(
         event -> {
@@ -224,7 +236,7 @@ public class LoginController {
                 success.setVisible(true);
                 passwordText.clear();
               }
-            } catch (SQLException e) {
+            } catch (SQLException | URISyntaxException e) {
               throw new RuntimeException(e);
             }
           }
@@ -239,7 +251,8 @@ public class LoginController {
    * @return the new password string
    * @throws SQLException if there is an error connecting to the database
    */
-  public static String forgotPasswordPressed(String username) throws SQLException {
+  public static String forgotPasswordPressed(String username)
+      throws SQLException, URISyntaxException {
     Sound.playSFX(SFX.BUTTONCLICK);
     //    return DataManager.forgotPassword(username);
     Employee employee = DataManager.getEmployee(username);

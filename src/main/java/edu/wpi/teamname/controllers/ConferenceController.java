@@ -13,6 +13,7 @@ import edu.wpi.teamname.servicerequest.ConfReservation;
 import edu.wpi.teamname.servicerequest.RoomManager;
 import edu.wpi.teamname.servicerequest.requestitem.ConfRoom;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -160,7 +161,7 @@ public class ConferenceController {
   }
 
   @FXML
-  public void initialize() throws SQLException {
+  public void initialize() throws SQLException, URISyntaxException {
     ParentController.titleString.set("Room Request");
     setLanguage(GlobalVariables.getB().getValue());
     GlobalVariables.b.addListener(
@@ -205,7 +206,11 @@ public class ConferenceController {
         event -> {
           if (!buildingBox.getValue().toString().equals("")) { // if no building is selected
             roomManager.setBuilding(buildingBox.getValue());
-            refreshRooms();
+            try {
+              refreshRooms();
+            } catch (URISyntaxException e) {
+              throw new RuntimeException(e);
+            }
           } else { // if building is selected only display correct rooms
             try {
               roomsString =
@@ -226,7 +231,11 @@ public class ConferenceController {
           //          LocalTime time = LocalTime.of(hour, min);
           dateBook = Timestamp.valueOf(dateBox.getValue().atStartOfDay());
 
-          refreshRooms(dateBook);
+          try {
+            refreshRooms(dateBook);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           /**
            * SET THE ACTUAL TABLE TO THE RIGHT CONFREQUESTS FOR EACH ROOM BASED ON DATE HERE USING
            * THE ARRAY LIST OF CONFERENCErESERVATIONS WITH (int resID, String startTime, String
@@ -239,7 +248,11 @@ public class ConferenceController {
           if (!fromSelector) {
             startTime = startBox.getValue();
             roomManager.setStart(startTime);
-            refreshRooms();
+            try {
+              refreshRooms();
+            } catch (URISyntaxException e) {
+              throw new RuntimeException(e);
+            }
           }
         });
 
@@ -248,19 +261,31 @@ public class ConferenceController {
           if (!fromSelector) {
             endTime = endBox.getValue();
             roomManager.setEnd(endTime);
-            refreshRooms();
+            try {
+              refreshRooms();
+            } catch (URISyntaxException e) {
+              throw new RuntimeException(e);
+            }
           }
         });
 
     sizeSlider.setOnMouseClicked(
         event -> {
-          refreshRooms();
+          try {
+            refreshRooms();
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
         });
 
     roomBox.setOnAction(
         event -> { // when room chosen set size slider and store into room variable
           room = roomBox.getValue();
-          setActiveSelector(findSelector(room));
+          try {
+            setActiveSelector(findSelector(room));
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           if (startBox.getValue().contains(":") && endBox.getValue().contains(":")) {
             if (RoomSelector.timeToID(endBox.getValue())
                 <= RoomSelector.timeToID(startBox.getValue())) {
@@ -271,7 +296,11 @@ public class ConferenceController {
             }
             activeSelector.setStart(RoomSelector.timeToID(startBox.getValue()));
             activeSelector.setEnd(RoomSelector.timeToID(endBox.getValue()));
-            activeSelector.setAllInRange(true);
+            try {
+              activeSelector.setAllInRange(true);
+            } catch (URISyntaxException e) {
+              throw new RuntimeException(e);
+            }
           }
         });
 
@@ -303,10 +332,18 @@ public class ConferenceController {
               Navigation.navigate(Screen.SMILE);
             } catch (Exception e) {
               System.out.println(e);
-              Sound.playSFX(SFX.ERROR);
+              try {
+                Sound.playSFX(SFX.ERROR);
+              } catch (URISyntaxException ex) {
+                throw new RuntimeException(ex);
+              }
             }
           } else {
-            Sound.playSFX(SFX.ERROR);
+            try {
+              Sound.playSFX(SFX.ERROR);
+            } catch (URISyntaxException e) {
+              throw new RuntimeException(e);
+            }
           }
         });
   }
@@ -325,7 +362,7 @@ public class ConferenceController {
    *
    * @param date date to refresh the screen to
    */
-  private void refreshRooms(Timestamp date) {
+  private void refreshRooms(Timestamp date) throws URISyntaxException {
     String roomName = roomBox.getValue();
     selectors.clear();
     rooms.clear();
@@ -345,7 +382,7 @@ public class ConferenceController {
   }
 
   /** Refreshes the rooms on the screen to. defaulting date to the datebox */
-  private void refreshRooms() {
+  private void refreshRooms() throws URISyntaxException {
     refreshRooms(Timestamp.valueOf(dateBox.getValue().atStartOfDay()));
   }
 
@@ -354,7 +391,7 @@ public class ConferenceController {
    *
    * @param selector RoomSelector currently being used
    */
-  public void setActiveSelector(RoomSelector selector) {
+  public void setActiveSelector(RoomSelector selector) throws URISyntaxException {
     if (!activeSelector.equals(selector)) {
       activeSelector.setAllInRange(false);
       activeSelector.setSelected(0);

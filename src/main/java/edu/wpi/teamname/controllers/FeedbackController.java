@@ -10,6 +10,7 @@ import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.servicerequest.Status;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import javafx.fxml.FXML;
@@ -77,7 +78,7 @@ public class FeedbackController {
   }
 
   @FXML
-  private void handleSubmit() {
+  private void handleSubmit() throws URISyntaxException {
     String description = descriptionField.getText();
 
     Feedback feedback = new Feedback();
@@ -98,10 +99,13 @@ public class FeedbackController {
     } catch (SQLException e) {
       System.out.println(e.getMessage());
       showErrorAlert("Error", "Failed to submit feedback", e.getMessage());
+    } catch (URISyntaxException e) {
+      throw new RuntimeException(e);
     }
   }
 
-  private void showErrorAlert(String title, String header, String content) {
+  private void showErrorAlert(String title, String header, String content)
+      throws URISyntaxException {
     Sound.playSFX(SFX.ERROR);
     Alert alert = new Alert(Alert.AlertType.ERROR);
     alert.setTitle(title);

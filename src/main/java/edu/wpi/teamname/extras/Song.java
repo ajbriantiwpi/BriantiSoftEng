@@ -1,5 +1,7 @@
 package edu.wpi.teamname.extras;
 
+import edu.wpi.teamname.App;
+
 public enum Song {
   OTJANBIRD1("Otjanbird-Pt.-I.mp3", "Otjanbird Pt. I"),
   OTJANBIRD2("Otjanbird-Pt.-II.mp3", "Otjanbird Pt. II"),
@@ -21,7 +23,9 @@ public enum Song {
   }
 
   public String getFilename() {
-    return "src/main/resources/edu/wpi/teamname/sounds/" + filename;
+    String fn = "sounds/" + filename;
+    // return getClass().getResource(fn);
+    return App.class.getResource(fn).toString();
   }
 
   public String getTitle() {

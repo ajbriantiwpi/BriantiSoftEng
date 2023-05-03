@@ -14,6 +14,7 @@ import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.navigation.Direction;
 import edu.wpi.teamname.navigation.Signage;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.Optional;
 import javafx.beans.binding.Bindings;
@@ -496,7 +497,7 @@ public class EditSignageController {
    *
    * @throws NumberFormatException If the signId or kioskId input field is not a valid integer.
    */
-  public void handleSubmitButton() {
+  public void handleSubmitButton() throws URISyntaxException {
     StringConverter<Direction> directionConverter =
         new StringConverter<Direction>() {
           @Override

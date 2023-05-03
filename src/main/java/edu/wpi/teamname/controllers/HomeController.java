@@ -14,6 +14,7 @@ import edu.wpi.teamname.servicerequest.ServiceRequest;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXNotificationCenter;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.Instant;
@@ -85,7 +86,7 @@ public class HomeController {
   @FXML Label jokeIDLabel;
 
   /** logs the current user out of the application */
-  private void logout() {
+  private void logout() throws URISyntaxException {
     Sound.playSFX(SFX.BUTTONCLICK);
     loggedIn = new SimpleBooleanProperty(false);
     loginButton.setVisible(true);
@@ -466,7 +467,11 @@ public class HomeController {
         new EventHandler<MouseEvent>() {
           @Override
           public void handle(MouseEvent event) {
-            Sound.playSFX(SFX.BUTTONCLICK);
+            try {
+              Sound.playSFX(SFX.BUTTONCLICK);
+            } catch (URISyntaxException e) {
+              throw new RuntimeException(e);
+            }
             ObservableList<Alert> alertList = null;
 
             MFXButton createNewButton = ((MFXButton) event.getSource());
@@ -656,8 +661,22 @@ public class HomeController {
       logoutButton.setVisible(false);
       logoutButton.setDisable(true);
     }
-    loginButton.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN));
-    logoutButton.setOnMouseClicked(event -> logout());
+    loginButton.setOnMouseClicked(
+        event -> {
+          try {
+            Navigation.navigate(Screen.LOGIN);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
+        });
+    logoutButton.setOnMouseClicked(
+        event -> {
+          try {
+            logout();
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
+        });
     //    homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
 
     //        helpButton.setOnMouseClicked(event -> Navigation.navigate(Screen));
@@ -745,31 +764,79 @@ public class HomeController {
     upcomingMoves.setOnMouseClicked(
         event -> {
           GlobalVariables.setFutureMovesPressed(true);
-          Navigation.navigate(Screen.MOVE_TABLE);
+          try {
+            Navigation.navigate(Screen.MOVE_TABLE);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
         });
     activeRequests.setOnMouseClicked(
         event -> {
           GlobalVariables.setActiveRequestsPressed(true);
-          Navigation.navigate(Screen.SERVICE_REQUEST_VIEW);
+          try {
+            Navigation.navigate(Screen.SERVICE_REQUEST_VIEW);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
         });
     doneRequests.setOnMouseClicked(
         event -> {
           GlobalVariables.setDoneRequestsPressed(true);
-          Navigation.navigate(Screen.SERVICE_REQUEST_VIEW);
+          try {
+            Navigation.navigate(Screen.SERVICE_REQUEST_VIEW);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
         });
 
-    mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
+    mapButton.setOnMouseClicked(
+        event -> {
+          try {
+            Navigation.navigate(Screen.MAP);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
+        });
     exitPathButton.setOnMouseClicked(
         event -> {
           GlobalVariables.setPathToExit(true);
-          Navigation.navigate(Screen.MAP);
+          try {
+            Navigation.navigate(Screen.MAP);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
         });
-    makeRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
-    showRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST_VIEW));
-    editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
+    makeRequestsButton.setOnMouseClicked(
+        event -> {
+          try {
+            Navigation.navigate(Screen.SERVICE_REQUEST);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
+        });
+    showRequestsButton.setOnMouseClicked(
+        event -> {
+          try {
+            Navigation.navigate(Screen.SERVICE_REQUEST_VIEW);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
+        });
+    editMapButton.setOnMouseClicked(
+        event -> {
+          try {
+            Navigation.navigate(Screen.MAP_EDIT);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
+        });
     exitButton.setOnMouseClicked(
         event -> {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           try {
             Connection connection = DataManager.DbConnection();
             connection.close();
@@ -778,19 +845,95 @@ public class HomeController {
           }
           System.exit(0);
         });
-    editMoveButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MOVE_TABLE));
-    employeeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.EMPLOYEE_TABLE));
-    editSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_TABLE));
-    viewSignageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
-    viewAlertsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERT));
-    requestRoomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CONFERENCE_ROOM));
+    editMoveButton.setOnMouseClicked(
+        event -> {
+          try {
+            Navigation.navigate(Screen.MOVE_TABLE);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
+        });
+    employeeButton.setOnMouseClicked(
+        event -> {
+          try {
+            Navigation.navigate(Screen.EMPLOYEE_TABLE);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
+        });
+    editSignageButton.setOnMouseClicked(
+        event -> {
+          try {
+            Navigation.navigate(Screen.SIGNAGE_TABLE);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
+        });
+    viewSignageButton.setOnMouseClicked(
+        event -> {
+          try {
+            Navigation.navigate(Screen.SIGNAGE);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
+        });
+    viewAlertsButton.setOnMouseClicked(
+        event -> {
+          try {
+            Navigation.navigate(Screen.ALERT);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
+        });
+    requestRoomButton.setOnMouseClicked(
+        event -> {
+          try {
+            Navigation.navigate(Screen.CONFERENCE_ROOM);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
+        });
     notificationPopupButtonSimple.setOnMouseClicked(NotificationPopupEvent);
-    aboutButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ABOUT));
-    settingsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SETTINGS));
-    creditButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CREDITS));
+    aboutButton.setOnMouseClicked(
+        event -> {
+          try {
+            Navigation.navigate(Screen.ABOUT);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
+        });
+    settingsButton.setOnMouseClicked(
+        event -> {
+          try {
+            Navigation.navigate(Screen.SETTINGS);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
+        });
+    creditButton.setOnMouseClicked(
+        event -> {
+          try {
+            Navigation.navigate(Screen.CREDITS);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
+        });
     serviceRequestAnalyticsButton.setOnMouseClicked(
-        event -> Navigation.navigate(Screen.SERVICE_REQUEST_ANALYTICS));
-    viewConfrenceRoomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CONF_VIEW));
+        event -> {
+          try {
+            Navigation.navigate(Screen.SERVICE_REQUEST_ANALYTICS);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
+        });
+    viewConfrenceRoomButton.setOnMouseClicked(
+        event -> {
+          try {
+            Navigation.navigate(Screen.CONF_VIEW);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
+        });
     //    notifsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERT));
 
     setLanguage(GlobalVariables.getB().getValue());

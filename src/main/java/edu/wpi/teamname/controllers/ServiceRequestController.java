@@ -15,6 +15,7 @@ import edu.wpi.teamname.servicerequest.ServiceRequest;
 import edu.wpi.teamname.servicerequest.Status;
 import edu.wpi.teamname.servicerequest.requestitem.*;
 import io.github.palexdev.materialfx.controls.*;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
@@ -206,7 +207,7 @@ public class ServiceRequestController {
    *
    * @throws SQLException
    */
-  private void nextPane() throws SQLException {
+  private void nextPane() throws SQLException, URISyntaxException {
     if (requestPage != 2) {
       Sound.playSFX(SFX.BUTTONCLICK);
     }
@@ -324,7 +325,7 @@ public class ServiceRequestController {
   }
 
   /** Clears the service request and brings you back to the home page */
-  private void cancelAction() {
+  private void cancelAction() throws URISyntaxException {
     clearAction();
     Navigation.navigate(Screen.HOME);
   }
@@ -416,12 +417,25 @@ public class ServiceRequestController {
             nextPane();
           } catch (SQLException e) {
             throw new RuntimeException(e);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
           }
         });
-    cancelButton.setOnMouseClicked(event -> cancelAction());
+    cancelButton.setOnMouseClicked(
+        event -> {
+          try {
+            cancelAction();
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
+        });
     clearButton.setOnMouseClicked(
         event -> {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           clearAction();
         });
     if (!GlobalVariables.userIsType(EmployeeType.DOCTOR)) {
@@ -438,7 +452,11 @@ public class ServiceRequestController {
 
     forgotButton.setOnMouseClicked(
         event -> {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           setVisibleScreen(1);
           cartBox.getChildren().clear();
           totalLabel.setText("Total Price: ");
@@ -452,7 +470,11 @@ public class ServiceRequestController {
 
     searchButton.setOnMouseClicked(
         event -> {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           try {
             refreshItems();
           } catch (SQLException e) {
