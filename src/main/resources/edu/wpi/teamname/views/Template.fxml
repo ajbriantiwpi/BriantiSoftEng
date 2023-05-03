@@ -27,7 +27,7 @@
                         <children>
                            <ImageView fitHeight="100.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                               <image>
-                                 <Image url="@../images/Logos/Logo_With_Name%203.png" />
+                                 <Image url="@../images/Logos/Logo_With_Name_3.png" />
                               </image>
                            </ImageView>
                            <Label fx:id="titleLabel" maxHeight="96.0" minHeight="96.0" prefHeight="96.0" stylesheets="@../stylesheets/TopBar.css" text="Template Page" StackPane.alignment="CENTER">
@@ -37,7 +37,6 @@
                            </Label>
                            <HBox alignment="CENTER_RIGHT" prefHeight="8.0" prefWidth="312.0" spacing="15.0" StackPane.alignment="CENTER_RIGHT">
                               <children>
-g
                                  <ComboBox fx:id="languageChooser" promptText="Choose Language" />
 
                               </children>
