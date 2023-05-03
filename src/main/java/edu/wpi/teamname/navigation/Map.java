@@ -118,6 +118,11 @@ public class Map {
     if (GlobalVariables.getShowLegend() == null) {
       GlobalVariables.setShowLegend(new Boolean(true));
     }
+
+    if (GlobalVariables.getShowHallNames() == null) {
+      GlobalVariables.setShowHallNames(new Boolean(false));
+    }
+
     //    this.showLegend = true;
     this.currTime = new Timestamp(System.currentTimeMillis());
 
@@ -270,14 +275,20 @@ public class Map {
         //        }
 
         //        if (!(locations == null) && locations.size() > 0) {
+        ArrayList<LocationName> l = idToLocation.get(n.getId());
 
         if (idToLocation.get(n.getId()) != null) {
-          defShortName = idToLocation.get(n.getId()).get(0).getShortName();
+          defShortName = l.get(0).getShortName();
         } else {
           defShortName = "" + n.getId();
         }
+        ;
 
-        circles.add(new NodeCircle(n, this.isMapPage, defShortName, this));
+        if (l != null
+            && GlobalVariables.getShowTypeLabels()
+                .get(this.roomTypes.indexOf(l.get(0).getNodeType()))) {
+          circles.add(new NodeCircle(n, this.isMapPage, defShortName, this));
+        }
       }
     }
     for (NodeCircle c : circles) {

@@ -49,6 +49,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.SearchableComboBox;
+import org.controlsfx.control.ToggleSwitch;
 
 public class MapController {
   @FXML Label mapSymbolsLabel;
@@ -92,17 +93,17 @@ public class MapController {
   // @FXML ComboBox<String> FloorSelect = new ComboBox<>();
   @FXML ComboBox<String> AlgoSelect = new ComboBox<>();
 
-  @FXML CheckBox LongNameSelector;
-  @FXML CheckBox ShortNameSelector;
-  @FXML CheckBox IdSelector;
-  ArrayList<CheckBox> nameSelectBoxes = new ArrayList<>();
-  @FXML CheckBox EdgeSelector;
-  @FXML CheckBox HallNamesSelector;
-  @FXML CheckBox NodeSelector;
-  @FXML CheckBox LegendSelector;
-  @FXML CheckBox AvoidElevatorsToggle;
+  @FXML ToggleSwitch LongNameSelector;
+  @FXML ToggleSwitch ShortNameSelector;
+  @FXML ToggleSwitch IdSelector;
+  ArrayList<ToggleSwitch> nameSelectBoxes = new ArrayList<>();
+  @FXML ToggleSwitch EdgeSelector;
+  @FXML ToggleSwitch HallNamesSelector;
+  @FXML ToggleSwitch NodeSelector;
+  @FXML ToggleSwitch LegendSelector;
+  @FXML ToggleSwitch AvoidElevatorsToggle;
 
-  @FXML CheckBox FloorsToggle = new CheckBox();
+  @FXML ToggleSwitch FloorsToggle = new ToggleSwitch();
 
   @FXML DatePicker datePickerUI;
 
@@ -173,6 +174,21 @@ public class MapController {
   @FXML VBox directionsBox;
 
   @FXML VBox Legend;
+
+  @FXML ToggleSwitch showBath;
+  @FXML ToggleSwitch showConf;
+  @FXML ToggleSwitch showDept;
+  @FXML ToggleSwitch showElev;
+  @FXML ToggleSwitch showExit;
+  @FXML ToggleSwitch showHall;
+  @FXML ToggleSwitch showInfo;
+  @FXML ToggleSwitch showLabs;
+  @FXML ToggleSwitch showRest;
+  @FXML ToggleSwitch showRetl;
+  @FXML ToggleSwitch showServ;
+  @FXML ToggleSwitch showStai;
+
+  ObservableList<ToggleSwitch> switches;
 
   //  EventHandler<MouseEvent> e =
   //      new EventHandler<MouseEvent>() {
@@ -1225,13 +1241,13 @@ public class MapController {
         @Override
         public void handle(MouseEvent event) {
           Sound.playSFX(SFX.BUTTONCLICK);
-          CheckBox newCheck = ((CheckBox) event.getSource());
+          ToggleSwitch newCheck = ((ToggleSwitch) event.getSource());
 
           //          int oldLabel = map.getLabelTextType();
           int oldLabel = GlobalVariables.getLabelTextType();
 
           if (oldLabel != -1) {
-            CheckBox oldCheck = nameSelectBoxes.get(oldLabel);
+            ToggleSwitch oldCheck = nameSelectBoxes.get(oldLabel);
             oldCheck.setSelected(false);
           }
 
@@ -1588,6 +1604,37 @@ public class MapController {
     AlgoSelect.setItems(map.getAllAlgos());
   }
 
+  EventHandler<MouseEvent> changeToggle =
+      new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+          ToggleSwitch t = (ToggleSwitch) event.getSource();
+          System.out.println("Toggle!");
+          String id = t.getId();
+          int ind = map.getRoomTypes().indexOf(id);
+          //          System.out.println(nameSelectBoxes.indexOf(t));
+          System.out.println(ind);
+
+          ArrayList<Boolean> showTypeLabels = GlobalVariables.getShowTypeLabels();
+
+          showTypeLabels.set(ind, t.isSelected());
+
+          GlobalVariables.setShowTypeLabels(showTypeLabels);
+
+          try {
+            map.refresh();
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+
+          //          if (t.isSelected()) {
+          //
+          //          }
+        }
+      };
+
   @FXML
   public void initialize() throws SQLException, IOException {
     ThemeSwitch.switchTheme(OuterMapAnchor);
@@ -1820,6 +1867,19 @@ public class MapController {
               }
             });
 
+    switches =
+        FXCollections.observableArrayList(
+            showBath, showConf, showDept, showElev, showExit, showHall, showInfo, showLabs,
+            showRest, showRetl, showServ, showStai);
+
+    //        for(ToggleSwitch t: switches){
+    for (int i = 0; i < switches.size(); i++) {
+      System.out.println("N: " + i);
+      ToggleSwitch t = switches.get(i);
+      t.setSelected(GlobalVariables.getShowTypeLabels().get(i));
+      t.setOnMouseClicked(changeToggle);
+    }
+
     // New Floor Stuff
     floorButtons.add(ThirdFloorButton);
     floorButtons.add(SecondFloorButton);
@@ -1835,9 +1895,17 @@ public class MapController {
     nameSelectBoxes.add(ShortNameSelector);
     nameSelectBoxes.add(IdSelector);
 
-    for (CheckBox selectBox : nameSelectBoxes) {
+    for (ToggleSwitch selectBox : nameSelectBoxes) {
       selectBox.setOnMouseClicked(changeLabels);
     }
+
+    LongNameSelector.setSelected(GlobalVariables.getLabelTextType() == 0);
+    ShortNameSelector.setSelected(GlobalVariables.getLabelTextType() == 1);
+    IdSelector.setSelected(GlobalVariables.getLabelTextType() == 2);
+    EdgeSelector.setSelected(GlobalVariables.getShowEdges());
+    HallNamesSelector.setSelected(GlobalVariables.getShowHallNames());
+    NodeSelector.setSelected(GlobalVariables.getShowNodes());
+    LegendSelector.setSelected(GlobalVariables.getShowLegend());
 
     EdgeSelector.setOnMouseClicked(toggleEdges);
     HallNamesSelector.setOnMouseClicked(toggleHalls);

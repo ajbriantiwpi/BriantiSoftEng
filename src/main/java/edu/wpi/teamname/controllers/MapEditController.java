@@ -1241,14 +1241,36 @@ public class MapEditController {
   //        public void handle(MouseEvent event) {}
   //      };
   //
-  //  EventHandler<MouseEvent> changeToggle =
-  //    new EventHandler<MouseEvent>() {
-  //      @Override
-  //      public void handle(MouseEvent event) {
-  //        ToggleButton t = (ToggleButton) event.getSource();
-  //        t.
-  //      }
-  //    };
+  EventHandler<MouseEvent> changeToggle =
+      new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+          ToggleSwitch t = (ToggleSwitch) event.getSource();
+          System.out.println("Toggle!");
+          String id = t.getId();
+          int ind = map.getRoomTypes().indexOf(id);
+          //          System.out.println(nameSelectBoxes.indexOf(t));
+          System.out.println(ind);
+
+          ArrayList<Boolean> showTypeLabels = GlobalVariables.getShowTypeLabels();
+
+          showTypeLabels.set(ind, t.isSelected());
+
+          GlobalVariables.setShowTypeLabels(showTypeLabels);
+
+          try {
+            map.refresh();
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+
+          //          if (t.isSelected()) {
+          //
+          //          }
+        }
+      };
 
   public void setLanguage(Language lang) throws SQLException {
     switch (lang) {
@@ -1551,19 +1573,13 @@ public class MapEditController {
             showBath, showConf, showDept, showElev, showExit, showHall, showInfo, showLabs,
             showRest, showRetl, showServ, showStai);
 
-    //    showConf.setColors(Color.CORAL, Color.ALICEBLUE);
-
-    //    showBath.setOnMouseClicked(changeBath);
-
-    //    showBath.setSelected(GlobalVariables.getShowTypeLabels().get(1));
-
     //        for(ToggleSwitch t: switches){
-    //    for (int i = 0; i < switches.size(); i++) {
-    //      System.out.println("N: " + i);
-    //      ToggleSwitch t = switches.get(i);
-    //      t.setSelected(GlobalVariables.getShowTypeLabels().get(i));
-    //      t.setOnMouseClicked(changeToggle);
-    //    }
+    for (int i = 0; i < switches.size(); i++) {
+      System.out.println("N: " + i);
+      ToggleSwitch t = switches.get(i);
+      t.setSelected(GlobalVariables.getShowTypeLabels().get(i));
+      t.setOnMouseClicked(changeToggle);
+    }
 
     floorButtons.add(ThirdFloorButton);
     floorButtons.add(SecondFloorButton);
@@ -1582,6 +1598,14 @@ public class MapEditController {
     for (ToggleSwitch selectBox : nameSelectBoxes) {
       selectBox.setOnMouseClicked(changeLabels);
     }
+
+    LongNameSelector.setSelected(GlobalVariables.getLabelTextType() == 0);
+    ShortNameSelector.setSelected(GlobalVariables.getLabelTextType() == 1);
+    IdSelector.setSelected(GlobalVariables.getLabelTextType() == 2);
+    EdgeSelector.setSelected(GlobalVariables.getShowEdges());
+    HallNamesSelector.setSelected(GlobalVariables.getShowHallNames());
+    NodeSelector.setSelected(GlobalVariables.getShowNodes());
+    LegendSelector.setSelected(GlobalVariables.getShowLegend());
 
     EdgeSelector.setOnMouseClicked(toggleEdges);
     HallNamesSelector.setOnMouseClicked(toggleHalls);
