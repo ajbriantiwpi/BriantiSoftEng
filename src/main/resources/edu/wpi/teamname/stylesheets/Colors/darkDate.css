@@ -64,5 +64,6 @@
 /*}*/
 .date-picker, .date-picker .text-field{
     -fx-background-color: -fx-primary-color;
+    -fx-text-fill: -fx-secondary-color;
     -fx-border-color: #899393;
 }
