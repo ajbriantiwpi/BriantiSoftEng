@@ -21,7 +21,7 @@
          <children>
             <VBox maxHeight="970.0" maxWidth="400.0" minWidth="200.0" prefWidth="202.0" spacing="12.0" style="-fx-background-radius: 16;" styleClass="surface-container-high" HBox.hgrow="ALWAYS">
                <children>
-                  <Label text="Add Signage" textFill="#235fa6">
+                  <Label fx:id="addSignageLabel" text="Add Signage" textFill="#235fa6">
                       <font>
                           <Font name="Roboto" size="28.0" />
                       </font>
@@ -33,7 +33,7 @@
                         <String fx:value="headline-med" />
                      </styleClass>
                   </Label>
-                  <Label prefHeight="17.0" prefWidth="138.0" text="Sign ID">
+                  <Label fx:id="idLabel" prefHeight="17.0" prefWidth="200.0" text="Sign ID">
                       <font>
                           <Font name="Roboto" size="28.0" />
                       </font>
@@ -56,7 +56,7 @@
                         <Insets />
                      </opaqueInsets>
                   </TextField>
-                  <Label prefHeight="17.0" prefWidth="138.0" text="Kiosk ID">
+                  <Label fx:id="kioskIDLabel" prefHeight="17.0" prefWidth="200.0" text="Kiosk ID">
                      <font>
                         <Font name="Roboto" size="28.0" />
                      </font>
@@ -79,7 +79,7 @@
                         <Insets left="10.0" right="10.0" />
                      </VBox.margin>
                   </TextField>
-                  <Label prefHeight="34.0" prefWidth="165.0" text="Long Name">
+                  <Label fx:id="longLabel" prefHeight="34.0" prefWidth="200.0" text="Long Name">
                       <font>
                           <Font name="Roboto" size="28.0" />
                       </font>
@@ -102,7 +102,7 @@
                         <Insets left="10.0" right="10.0" />
                      </VBox.margin>
                   </TextField>
-                  <Label prefHeight="34.0" prefWidth="162.0" text="Short Name">
+                  <Label fx:id="shortLabel" prefHeight="34.0" prefWidth="200.0" text="Short Name">
                       <font>
                           <Font name="Roboto" size="28.0" />
                       </font>
@@ -125,7 +125,7 @@
                         <Insets left="10.0" right="10.0" />
                      </VBox.margin>
                   </TextField>
-                  <Label prefHeight="17.0" prefWidth="138.0" text="Date">
+                  <Label fx:id="dateLabel" prefHeight="17.0" prefWidth="200.0" text="Date">
                       <font>
                           <Font name="Roboto" size="28.0" />
                       </font>
@@ -146,7 +146,7 @@
                         <URL value="@../stylesheets/dateBoxSmall.css" />
                      </stylesheets>
                   </DatePicker>
-                  <Label prefHeight="17.0" prefWidth="138.0" text="End Date">
+                  <Label fx:id="endLabel" prefHeight="17.0" prefWidth="250.0" text="End Date">
                      <font>
                         <Font name="Roboto" size="28.0" />
                      </font>
@@ -167,7 +167,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>
                   </DatePicker>
-                  <Label prefHeight="17.0" prefWidth="138.0" text="Direction">
+                  <Label fx:id="directionLabel" prefHeight="17.0" prefWidth="200.0" text="Direction">
                       <font>
                           <Font name="Roboto" size="28.0" />
                       </font>
@@ -215,7 +215,7 @@
                            <children>
                                <HBox alignment="TOP_RIGHT" minHeight="50.0" prefHeight="50.0" prefWidth="396.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                                  <children>
-                                    <Label text="Edit Signage" textFill="#235fa6">
+                                    <Label fx:id="editLabel" text="Edit Signage" textFill="#235fa6">
                                        <font>
                                           <Font name="Roboto" size="28.0" />
                                        </font>
@@ -227,7 +227,7 @@
                                           <Insets top="8.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <Label prefHeight="26.0" prefWidth="46.0" styleClass="primary-text" text="Search" textFill="#235fa6">
+                                    <Label fx:id="searchLabel" prefHeight="26.0" prefWidth="46.0" styleClass="primary-text" text="Search" textFill="#235fa6">
                                        <HBox.margin>
                                           <Insets left="12.0" right="2.0" top="12.0" />
                                        </HBox.margin>

@@ -1,6 +1,7 @@
 package edu.wpi.teamname.controllers.JFXitems;
 
 import edu.wpi.teamname.controllers.ConferenceController;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.servicerequest.ConfReservation;
 import edu.wpi.teamname.servicerequest.requestitem.ConfRoom;
@@ -20,6 +21,7 @@ import javafx.scene.layout.HBox;
 import lombok.Getter;
 import lombok.Setter;
 
+/** Custom selector item for reserving conference rooms */
 public class RoomSelector extends BorderPane {
   @Getter private ConfRoom room;
   private Label name;
@@ -72,7 +74,7 @@ public class RoomSelector extends BorderPane {
   }
 
   void handleButtonClick(int id) {
-    Sound.playOnButtonClick();
+    Sound.playSFX(SFX.BUTTONCLICK);
     System.out.println(String.valueOf(room.getRoomID()) + ": " + String.valueOf(selected));
     if (selected == 0) {
       setSelect(true, id);

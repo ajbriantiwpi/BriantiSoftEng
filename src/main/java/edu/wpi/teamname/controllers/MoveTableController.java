@@ -7,6 +7,8 @@ import edu.wpi.teamname.controllers.helpers.DatePickerEditingCell;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.database.MoveDAOImpl;
 import edu.wpi.teamname.employees.ClearanceLevel;
+import edu.wpi.teamname.extras.Language;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.navigation.Move;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -38,6 +40,12 @@ import javafx.util.converter.IntegerStringConverter;
  * components.
  */
 public class MoveTableController {
+  @FXML Label addMoveLabel;
+  @FXML Label nodeIDLabel;
+  @FXML Label longNameLabel;
+  @FXML Label dateLabel;
+  @FXML Label csvManagerLabel;
+  @FXML Label searchLabel;
   @FXML AnchorPane root;
   @FXML private TableView<Move> moveTable;
   @FXML private Button importButton;
@@ -51,9 +59,80 @@ public class MoveTableController {
   @FXML private CheckBox newMovesCheck;
   @FXML private VBox adminMoveView;
 
+  public void setLanguage(
+      Language lang, TableColumn nodeIDColumn, TableColumn longNameColumn, TableColumn dateColumn) {
+    switch (lang) {
+      case ENGLISH:
+        ParentController.titleString.set("Move Editor");
+        addMoveLabel.setText("Add Move");
+        nodeIDLabel.setText("Node ID");
+        longNameLabel.setText("Long Name");
+        dateLabel.setText("Date");
+        csvManagerLabel.setText("CSV Manager");
+        submitButton.setText("Submit");
+        importButton.setText("Import");
+        exportButton.setText("Export");
+        nodeIDColumn.setText("Node ID");
+        longNameColumn.setText("Long Name");
+        dateColumn.setText("Date");
+        searchLabel.setText("Search by ID");
+        newMovesCheck.setText("Future Moves");
+        break;
+      case ITALIAN:
+        ParentController.titleString.set("Editor spostamenti");
+        addMoveLabel.setText("Aggiungi spostamento");
+        nodeIDLabel.setText("ID del nodo");
+        longNameLabel.setText("Nome esteso");
+        dateLabel.setText("Data");
+        csvManagerLabel.setText("Gestore CSV");
+        submitButton.setText("Invia");
+        importButton.setText("Importa");
+        exportButton.setText("Esporta");
+        nodeIDColumn.setText("ID del nodo");
+        longNameColumn.setText("Nome esteso");
+        searchLabel.setText("Cerca per ID");
+        newMovesCheck.setText("Spostamenti futuri");
+        dateColumn.setText("Data");
+        break;
+      case FRENCH:
+        ParentController.titleString.set("Éditeur de mouvements");
+        addMoveLabel.setText("Ajouter un mouvement");
+        nodeIDLabel.setText("ID du nœud");
+        longNameLabel.setText("Nom long");
+        dateLabel.setText("Date");
+        csvManagerLabel.setText("Gestionnaire CSV");
+        submitButton.setText("Soumettre");
+        importButton.setText("Importer");
+        exportButton.setText("Exporter");
+        nodeIDColumn.setText("ID du nœud");
+        longNameColumn.setText("Nom long");
+        dateColumn.setText("Date");
+        searchLabel.setText("Rechercher par ID");
+        newMovesCheck.setText("Mouvements futurs");
+        break;
+      case SPANISH:
+        ParentController.titleString.set("Editor de movimientos");
+        addMoveLabel.setText("Agregar movimiento");
+        nodeIDLabel.setText("ID del nodo");
+        longNameLabel.setText("Nombre largo");
+        dateLabel.setText("Fecha");
+        csvManagerLabel.setText("Gestor de CSV");
+        submitButton.setText("Enviar");
+        importButton.setText("Importar");
+        exportButton.setText("Exportar");
+        nodeIDColumn.setText("ID del nodo");
+        longNameColumn.setText("Nombre largo");
+        dateColumn.setText("Fecha");
+        searchLabel.setText("Buscar por ID");
+        newMovesCheck.setText("Movimientos futuros");
+        break;
+    }
+  }
+
   /** Initializes the GUI and sets up event handlers for various GUI components. */
   public void initialize() {
     ThemeSwitch.switchTheme(root);
+    //      ParentController.titleString.set("Move Editor");
     DataManager moveDAO = new DataManager();
 
     // Implement to disable buttons for staff
@@ -63,7 +142,6 @@ public class MoveTableController {
     //      // EXTEND TABLEVIEW SOMEHOW
     //    }
 
-    ParentController.titleString.set("Move Editor");
     TableColumn<Move, Integer> nodeIDColumn = new TableColumn<>("Node ID");
     nodeIDColumn.setCellValueFactory(new PropertyValueFactory<>("nodeID"));
 
@@ -95,7 +173,7 @@ public class MoveTableController {
     }
     importButton.setOnAction(
         event -> {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           FileChooser fileChooser = new FileChooser();
           fileChooser.setTitle("Select CSV File");
           fileChooser
@@ -117,7 +195,7 @@ public class MoveTableController {
     // event handler for export button
     exportButton.setOnAction(
         event -> {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           FileChooser fileChooser = new FileChooser();
           fileChooser.setTitle("Save CSV File");
           fileChooser.setInitialFileName("moves.csv");
@@ -135,7 +213,7 @@ public class MoveTableController {
         });
     newMovesCheck.setOnAction(
         event -> {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           if (newMovesCheck.isSelected()) {
             ObservableList<Move> allMoves = moveTable.getItems();
             ObservableList<Move> filteredMoves = FXCollections.observableArrayList();
@@ -161,7 +239,6 @@ public class MoveTableController {
     setupRowFactory();
     submitButton.setOnAction(
         event -> {
-          Sound.playOnButtonClick();
           int nodeId = Integer.parseInt(nodeIdTextField.getText());
           String longName = longNameTextField.getText();
           LocalDate localDate = datePicker.getValue();
@@ -177,7 +254,9 @@ public class MoveTableController {
             nodeIdTextField.clear();
             longNameTextField.clear();
             datePicker.setValue(null);
-          } catch (SQLException e) {
+            Sound.playSFX(SFX.SUCCESS);
+          } catch (Exception e) {
+            Sound.playSFX(SFX.ERROR);
             e.printStackTrace();
           }
         });
@@ -282,6 +361,11 @@ public class MoveTableController {
     submitButton.disableProperty().bind(Bindings.isEmpty(nodeIdTextField.textProperty()));
     submitButton.disableProperty().bind(Bindings.isEmpty(longNameTextField.textProperty()));
     submitButton.disableProperty().bind(Bindings.isNull(datePicker.valueProperty()));
+    setLanguage(GlobalVariables.getB().getValue(), nodeIDColumn, longNameColumn, dateColumn);
+    GlobalVariables.b.addListener(
+        (options, oldValue, newValue) -> {
+          setLanguage(newValue, nodeIDColumn, longNameColumn, dateColumn);
+        });
   }
 
   /**

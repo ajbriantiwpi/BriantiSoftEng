@@ -6,6 +6,8 @@ import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
+import edu.wpi.teamname.extras.Language;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Song;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.navigation.LocationName;
@@ -32,6 +34,9 @@ import javafx.scene.layout.AnchorPane;
  * adjusting the application's volume.
  */
 public class SettingsController {
+  @FXML Label hardwareLabel;
+  @FXML Label volumeLabel;
+  @FXML Label songLabel;
   @FXML CheckBox darkToggle;
   @FXML AnchorPane root;
   private static boolean wpiSelected = true;
@@ -46,6 +51,56 @@ public class SettingsController {
   @FXML RadioButton wpiButton;
   @FXML RadioButton awsButton;
   @FXML ComboBox<String> setLocationBox;
+
+  public void setLanguage(Language lang) {
+    switch (lang) {
+      case ENGLISH:
+        ParentController.titleString.set("Settings");
+        hardwareLabel.setText("Hardware Settings");
+        volumeLabel.setText("Volume");
+        songLabel.setText("Choose Song");
+        appSettingsLabel.setText("App Settings");
+        dbConnectionLabel.setText("Database Connection");
+        dataManageButton.setText("Data");
+        feedbackButton.setText("Feedback");
+        viewFeedbackButton.setText("View Feedback");
+        break;
+      case ITALIAN:
+        ParentController.titleString.set("Impostazioni");
+        hardwareLabel.setText("Impostazioni Hardware");
+        volumeLabel.setText("Volume");
+        songLabel.setText("Scegli Canzone");
+        appSettingsLabel.setText("Impostazioni dell'App");
+        dbConnectionLabel.setText("Connessione al Database");
+        dataManageButton.setText("Dati");
+        feedbackButton.setText("Feedback");
+        viewFeedbackButton.setText("Visualizza Feedback");
+        break;
+      case FRENCH:
+        ParentController.titleString.set("Paramètres");
+        hardwareLabel.setText("Paramètres Matériels");
+        volumeLabel.setText("Volume");
+        songLabel.setText("Choisir une chanson");
+        appSettingsLabel.setText("Paramètres de l'application");
+        dbConnectionLabel.setText("Connexion à la base de données");
+        dataManageButton.setText("Données");
+        feedbackButton.setText("Commentaires");
+        viewFeedbackButton.setText("Voir les commentaires");
+        break;
+      case SPANISH:
+        ParentController.titleString.set("Configuración");
+        hardwareLabel.setText("Configuración de Hardware");
+        volumeLabel.setText("Volumen");
+        songLabel.setText("Elegir Canción");
+        appSettingsLabel.setText("Configuración de la Aplicación");
+        dbConnectionLabel.setText("Conexión de Base de Datos");
+        dataManageButton.setText("Datos");
+        feedbackButton.setText("Comentarios");
+        viewFeedbackButton.setText("Ver Comentarios");
+        break;
+    }
+  }
+
   /**
    * Initializes the SettingsController and sets up the UI elements and functionality.
    *
@@ -58,7 +113,14 @@ public class SettingsController {
 
     ThemeSwitch.switchTheme(root);
     darkToggle.selectedProperty().bindBidirectional(GlobalVariables.getDarkMode());
+    darkToggle.setOnAction(e -> Sound.playSFX(SFX.BUTTONCLICK));
     ParentController.titleString.set("Settings");
+    ParentController.titleString.set("Service Request View");
+    setLanguage(GlobalVariables.getB().getValue());
+    GlobalVariables.b.addListener(
+        (options, oldValue, newValue) -> {
+          setLanguage(newValue);
+        });
     viewFeedbackButton.setDisable(true);
     wpiButton.setDisable(true);
     awsButton.setDisable(true);

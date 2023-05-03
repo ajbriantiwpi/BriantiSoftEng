@@ -1,11 +1,18 @@
 package edu.wpi.teamname.controllers.JFXitems;
 
+import edu.wpi.teamname.GlobalVariables;
+import edu.wpi.teamname.extras.Language;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import java.sql.SQLException;
 import javafx.scene.AccessibleRole;
 import javafx.scene.control.Button;
 
+/**
+ * Custom button for service request items that hard codes for adding and removing items from the
+ * cart
+ */
 public class RequestMenuItemButton extends Button {
   ReqMenuItems parent;
   String name;
@@ -23,21 +30,50 @@ public class RequestMenuItemButton extends Button {
     this.request = request;
     this.add = add;
     initialize();
-    if (add) {
-      this.setText("Add to Cart");
-    } else {
-      this.setText("Remove From Cart");
+    setTexts(GlobalVariables.getB().getValue());
+  }
+
+  public void setTexts(Language lang) {
+    switch (lang) {
+      case ENGLISH:
+        if (add) {
+          this.setText("Add to Cart");
+        } else {
+          this.setText("Remove From Cart");
+        }
+        break;
+      case ITALIAN:
+        if (add) {
+          this.setText("Aggiunga al carro");
+        } else {
+          this.setText("rimuovere dal carro");
+        }
+        break;
+      case SPANISH:
+        if (add) {
+          this.setText("En el Carro");
+        } else {
+          this.setText("Retirar del carrito");
+        }
+        break;
+      case FRENCH:
+        if (add) {
+          this.setText("Ajouter au Chariot");
+        } else {
+          this.setText("Retirer du Chariot");
+        }
+        break;
     }
   }
 
   private void initialize() {
     getStyleClass().setAll("button");
+
     setAccessibleRole(AccessibleRole.BUTTON);
     setMnemonicParsing(true);
-    // setStyle("-fx-background-color: #d9d9d9");
     setOnMouseClicked(
         event -> {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           for (int a = 0; a < parent.getQuantity(); a++) {
             try {
               if (add) {
@@ -51,6 +87,10 @@ public class RequestMenuItemButton extends Button {
               throw new RuntimeException(e);
             }
           }
+        });
+    GlobalVariables.b.addListener(
+        (options, oldValue, newValue) -> {
+          setTexts(newValue);
         });
   }
 }
