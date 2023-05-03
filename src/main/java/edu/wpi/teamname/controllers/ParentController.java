@@ -448,6 +448,7 @@ public class ParentController {
 
   /**
    * changes the language of the app
+   *
    * @param lang language to change it to
    */
   public void setLanguage(Language lang) {

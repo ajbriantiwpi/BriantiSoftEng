@@ -102,6 +102,7 @@ public class LoginController {
 
   /**
    * changes the labels to a diff language
+   *
    * @param lang language to set it to
    */
   public void setLanguage(Language lang) {
