@@ -29,6 +29,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import jdk.jfr.Timestamp;
+import org.controlsfx.control.SearchableComboBox;
 
 /**
  * This class represents a controller for the Signage Table GUI, which allows users to view, add,
@@ -41,7 +42,7 @@ public class EditSignageController {
   @FXML Label idLabel;
   @FXML Label kioskIDLabel;
   @FXML Label longLabel;
-  @FXML Label shortLabel;
+
   @FXML Label dateLabel;
   @FXML Label endLabel;
   @FXML Label directionLabel;
@@ -49,8 +50,7 @@ public class EditSignageController {
   @FXML Label searchLabel;
   @FXML private TableView<Signage> editSignageTable;
   @FXML private TextField signIDinput;
-  @FXML private TextField longNameInput;
-  @FXML private TextField shortNameInput;
+  @FXML private SearchableComboBox longNameInput;
   @FXML private DatePicker dateInput;
   @FXML private ComboBox<String> directionPicker;
   @FXML private TextField kioskInput;
@@ -60,6 +60,10 @@ public class EditSignageController {
   //  @FXML private MFXButton exportButton;
   @FXML private AnchorPane rootPane;
   @FXML private TextField searchBar;
+  ObservableList<String> longNames =
+      FXCollections.observableArrayList(DataManager.getNamesAlphabetically());
+
+  public EditSignageController() throws SQLException {}
 
   /**
    * sets the language of the labels
@@ -89,7 +93,6 @@ public class EditSignageController {
         idLabel.setText("Sign ID");
         kioskIDLabel.setText("Kiosk ID");
         longLabel.setText("Long Name");
-        shortLabel.setText("Short Name");
         dateLabel.setText("Date");
         endLabel.setText("End Date");
         directionLabel.setText("Direction");
@@ -111,7 +114,6 @@ public class EditSignageController {
         idLabel.setText("ID du Signal");
         kioskIDLabel.setText("ID du Kiosque");
         longLabel.setText("Nom Long");
-        shortLabel.setText("Nom Court");
         dateLabel.setText("Date");
         endLabel.setText("Date de Fin");
         directionLabel.setText("Direction");
@@ -132,7 +134,6 @@ public class EditSignageController {
         idLabel.setText("ID Segnale");
         kioskIDLabel.setText("ID Kiosk");
         longLabel.setText("Nome Lungo");
-        shortLabel.setText("Nome Breve");
         dateLabel.setText("Data");
         endLabel.setText("Data di Fine");
         directionLabel.setText("Direzione");
@@ -163,7 +164,6 @@ public class EditSignageController {
         idLabel.setText("ID de Se" + GlobalVariables.getNTilda() + "al");
         kioskIDLabel.setText("ID de Kiosco");
         longLabel.setText("Nombre Largo");
-        shortLabel.setText("Nombre Corto");
         dateLabel.setText("Fecha");
         endLabel.setText("Fecha de Finalizaci" + GlobalVariables.getOAcute() + "n");
         directionLabel.setText("Direcci" + GlobalVariables.getOAcute() + "n");
@@ -190,6 +190,7 @@ public class EditSignageController {
   /** Initializes the GUI and sets up event handlers for various GUI components. */
   public void initialize() {
     ThemeSwitch.switchTheme(rootPane);
+    longNameInput.setItems(longNames);
     DataManager signageDAO = new DataManager();
     ParentController.titleString.set("Signage Editor");
 
@@ -521,8 +522,8 @@ public class EditSignageController {
         };
     try {
       int signId = Integer.parseInt(signIDinput.getText());
-      String longName = longNameInput.getText();
-      String shortName = shortNameInput.getText();
+      String longName = longNameInput.getValue().toString();
+      String shortName = DataManager.getLocationName(longName).getShortName();
       java.sql.Timestamp date = java.sql.Timestamp.valueOf(dateInput.getValue().atStartOfDay());
       java.sql.Timestamp endDate =
           java.sql.Timestamp.valueOf(endDateInput.getValue().atStartOfDay());
@@ -543,8 +544,7 @@ public class EditSignageController {
 
     // Clear input fields
     signIDinput.clear();
-    longNameInput.clear();
-    shortNameInput.clear();
+    longNameInput.setValue(null);
     dateInput.setValue(null);
     endDateInput.setValue(null);
     kioskInput.clear();
