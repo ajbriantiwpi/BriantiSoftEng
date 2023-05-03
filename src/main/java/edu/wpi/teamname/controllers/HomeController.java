@@ -128,6 +128,7 @@ public class HomeController {
   public void setLanguage(Language lang) throws SQLException {
     switch (lang) {
       case ENGLISH:
+        exitButton.setText("Emergency");
         actionItemsLabel.setText("Service Requests");
         staffItemsLabel.setText("Staff Items");
         navigationLabel.setText("Navigation");
@@ -190,6 +191,7 @@ public class HomeController {
         logoutButton.setText("Logout");
         break;
       case ITALIAN:
+        exitButton.setText("Emergenza");
         actionItemsLabel.setText("Richieste di Servizio");
         staffItemsLabel.setText("Elementi del personale");
         navigationLabel.setText("Navigazione");
@@ -252,6 +254,7 @@ public class HomeController {
         logoutButton.setText("Disconnettersi");
         break;
       case FRENCH:
+        exitButton.setText("Urgence");
         actionItemsLabel.setText("Demandes de Service");
         staffItemsLabel.setText(
             GlobalVariables.getBigEACute()
@@ -283,7 +286,8 @@ public class HomeController {
           int processingSize = processingRequestsList.size();
           int doneSize = doneRequestsList.size();
           activeRequests.setText(processingSize + " demande(s) active(s)");
-          doneRequests.setText(doneSize + " demande(s) effectuée(s)");
+          doneRequests.setText(
+              doneSize + " demande(s) effectu" + GlobalVariables.getEAcute() + "e(s)");
           ObservableList<Move> allMoves =
               FXCollections.observableArrayList(DataManager.getAllMoves());
           LocalDate today = LocalDate.now();
@@ -326,6 +330,7 @@ public class HomeController {
         logoutButton.setText("Se d" + GlobalVariables.getEAcute() + "connecter");
         break;
       case SPANISH:
+        exitButton.setText("Emergencia");
         actionItemsLabel.setText("Solicitudes de Servicio");
         staffItemsLabel.setText("Elementos del personal");
         navigationLabel.setText("Navegaci" + GlobalVariables.getOAcute() + "n");
@@ -452,7 +457,6 @@ public class HomeController {
               }
               GlobalVariables.b.setValue(newValue);
             });
-    setLanguage(GlobalVariables.getB().getValue());
 
     EventHandler<MouseEvent> NotificationPopupEvent =
         new EventHandler<MouseEvent>() {
@@ -784,5 +788,7 @@ public class HomeController {
         event -> Navigation.navigate(Screen.SERVICE_REQUEST_ANALYTICS));
     viewConfrenceRoomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.CONF_VIEW));
     //    notifsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ALERT));
+
+    setLanguage(GlobalVariables.getB().getValue());
   }
 }

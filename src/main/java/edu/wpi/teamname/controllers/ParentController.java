@@ -466,7 +466,7 @@ public class ParentController {
         makeRequestsButtonSelector.setText("Service Requests");
         break;
       case FRENCH:
-        homeButton.setText("Page D’accueil");
+        homeButton.setText("Page D'accueil");
         mapButton.setText("Carte");
         viewSignageButton.setText("Voir la signalisation");
         makeRequestsButton.setText("Faire des demandes");
@@ -475,7 +475,7 @@ public class ParentController {
         editMoveButton.setText("Voir les mouvements");
         editSignageButton.setText("Modifier la signalisation");
         editMapButton.setText("Modifier la carte");
-        showEmployeesButton.setText("Afficher les employés");
+        showEmployeesButton.setText("Afficher les employ" + GlobalVariables.getEAcute() + "s");
         viewAlertsButton.setText("Afficher les alertes");
         loginButton.setText("Connexion");
         logoutButton.setText("Se d" + GlobalVariables.getEAcute() + "connecter");
