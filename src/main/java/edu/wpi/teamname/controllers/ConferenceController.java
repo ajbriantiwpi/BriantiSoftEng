@@ -36,7 +36,7 @@ public class ConferenceController {
   @FXML Label roomSizeLabel;
   @FXML Label nameLabel;
   @FXML Label roomLabel;
-  @FXML AnchorPane root;
+  @FXML AnchorPane rootPane;
   @FXML ComboBox<String> startBox;
   @FXML ComboBox<String> endBox;
   @FXML ComboBox<String> buildingBox;
@@ -160,12 +160,7 @@ public class ConferenceController {
         (options, oldValue, newValue) -> {
           setLanguage(newValue);
         });
-    if (GlobalVariables.getDarkMode().get()) {
-      root.getStylesheets().remove(0);
-    } else {
-      root.getStylesheets().remove(1);
-    }
-    ThemeSwitch.switchTheme(root);
+    ThemeSwitch.switchTheme(rootPane);
     buildings = FXCollections.observableArrayList(DataManager.getConfBuildings());
     buildings.add("None");
     roomsString = FXCollections.observableArrayList();
