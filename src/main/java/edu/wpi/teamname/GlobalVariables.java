@@ -47,7 +47,7 @@ public class GlobalVariables {
   @Getter @Setter private static ArrayList<ServiceRequest> serviceRequests;
   @Getter @Setter private static ArrayList<ConfReservation> confReservations;
   @Getter @Setter private static ArrayList<ConfRoom> confRooms;
-  @Getter @Setter private static ScreenSaver ss;
+  @Getter @Setter private static ScreenSaver ss = new ScreenSaver();
 
   @Getter @Setter private static ArrayList<ArrayList<ConfReservation>> allRes;
 

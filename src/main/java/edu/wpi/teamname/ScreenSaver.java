@@ -1,26 +1,26 @@
 package edu.wpi.teamname;
 
-import javafx.animation.Animation;
+import javafx.animation.FillTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javax.swing.*;
 
 public class ScreenSaver extends Application {
 
-  private static int count = 0;
   private static double WIDTH;
   private static double HEIGHT;
   private static final int CIRCLE_RADIUS = 50;
   private static final Color[] COLORS = {Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW};
   private Timeline timeline;
   private static boolean screenSaverOn = false;
+  private static Rectangle rec;
 
   //  private Pane root;
   //  private Scene scene;
@@ -28,73 +28,50 @@ public class ScreenSaver extends Application {
   public ScreenSaver() {}
 
   @Override
-  public void start(Stage primaryStage) throws Exception {
-    //    // Load the image from a file
-    //    Image image = new Image("C:\\Users\\Aleksandr Samarin\\Desktop\\images.png");
-    //
-    //    // Create an ImageView object to display the image
-    //    ImageView imageView = new ImageView(image);
-    //
-    //    // Set the size and position of the ImageView to fill the scene
-    //    imageView.setFitWidth(primaryStage.getWidth());
-    //    imageView.setFitHeight(primaryStage.getHeight());
-    //
-    //    Group root = new Group(imageView);
-    //
-    //    // Add any desired visual elements to the root Group
-    //
-    //    Scene scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
-    //    primaryStage.setScene(scene);
-    //    primaryStage.show();
+  public void start(Stage primaryStage) throws Exception {}
 
-    //    primaryStage.setScene(scene);
-    //    primaryStage.show();
-    startScreenSaver(primaryStage);
-  }
+  public void startScreenSaver(BorderPane root, Stage primaryStage) {
+    if (!screenSaverOn) {
+      WIDTH = root.getWidth();
+      HEIGHT = root.getHeight();
+      System.out.println(WIDTH);
+      System.out.println(HEIGHT);
 
-  public void startScreenSaver(Stage primaryStage) {
-    WIDTH = 35;
-    HEIGHT = 35;
-    System.out.println(WIDTH);
-    System.out.println(HEIGHT);
+      rec = new Rectangle(0, 0, WIDTH, HEIGHT);
+      root.getChildren().add(rec);
+      FillTransition ft = new FillTransition(Duration.seconds(30), rec, Color.BLACK, Color.RED);
+      ft.play();
+      ft = new FillTransition(Duration.seconds(30), rec, Color.GREEN, Color.YELLOW);
+      ft.play();
+      ft = new FillTransition(Duration.seconds(30), rec, Color.YELLOW, Color.BLUE);
+      ft.play();
+      ft = new FillTransition(Duration.seconds(30), rec, Color.BLUE, Color.MAGENTA);
+      ft.play();
+      ft = new FillTransition(Duration.seconds(30), rec, Color.MAGENTA, Color.GOLD);
+      ft.play();
+      ft = new FillTransition(Duration.seconds(30), rec, Color.GOLD, Color.TEAL);
+      ft.play();
+      ft = new FillTransition(Duration.seconds(30), rec, Color.TEAL, Color.MAROON);
+      ft.play();
+      ft = new FillTransition(Duration.seconds(30), rec, Color.MAROON, Color.BLACK);
+      ft.play();
 
-    ImageView iView = new ImageView("edu/wpi/teamname/images/logo.png");
+      timeline = new Timeline(new KeyFrame(Duration.seconds(30), event -> {}));
 
-    iView.setFitHeight(HEIGHT);
-    iView.setFitWidth(WIDTH);
-
-    Pane pane = new Pane(iView);
-    // StackPane sp = App.getRootPane();
-    // sp.getChildren().add(pane);
-
-    Scene scene = new Scene(pane, WIDTH, HEIGHT); // shit balls error
-
-    timeline =
-        new Timeline(
-            new KeyFrame(
-                Duration.seconds(1),
-                e -> {
-                  double x = Math.random() * (primaryStage.getWidth() - iView.getFitWidth());
-                  double y = Math.random() * (primaryStage.getHeight() - iView.getFitHeight());
-                  iView.setLayoutX(x);
-                  iView.setLayoutY(y);
-                }));
-    timeline.setCycleCount(Animation.INDEFINITE);
-    timeline.play();
-    // Scene scene = new Scene(paneRoot, 35, 35, Color.BLACK);
-
-    primaryStage.setScene(scene);
-    primaryStage.show();
-    screenSaverOn = true;
+      primaryStage.show();
+      screenSaverOn = true;
+    }
   }
 
   public void stopScreenSaver(Pane root) {
+    // System.out.println("stop");
     if (timeline != null) {
       timeline.stop();
-    }
-    if (screenSaverOn) {
-      count = 0;
-      root.getChildren().remove(0);
+      if (screenSaverOn) {
+        // System.out.println("Remove rec");
+        root.getChildren().removeIf(node -> node instanceof Rectangle);
+        screenSaverOn = false;
+      }
     }
   }
 }

@@ -71,9 +71,9 @@ public class App extends Application {
             });
     root.getScene()
         .addEventFilter(
-            MouseEvent.ANY,
+            MouseEvent.MOUSE_MOVED,
             event -> {
-              // System.out.println(event);
+              // System.out.println("Mouse Moved");
               resetIdleTimeline(root);
             });
 
@@ -90,7 +90,7 @@ public class App extends Application {
                   // Do something when the idle time exceeds a certain duration
                   if (count.get() == 5 && !flag) {
                     flag = true;
-                    GlobalVariables.getSs().startScreenSaver(primaryStage);
+                    GlobalVariables.getSs().startScreenSaver(root, primaryStage);
                   }
                 }));
     idleTimeline.setCycleCount(Timeline.INDEFINITE);
@@ -98,7 +98,6 @@ public class App extends Application {
   }
 
   private void resetIdleTimeline(BorderPane root) {
-    // Stop and restart the idle timeline to reset the idle time
     // System.out.println("This ran");
     count.getAndSet(0);
     flag = false;
