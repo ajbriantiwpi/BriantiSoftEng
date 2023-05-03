@@ -591,44 +591,46 @@ public class ParentController {
             });
     setLanguage(GlobalVariables.getB().getValue());
 
-    //    titleLabel.setText(titleString.getValue());
-    //    timeString.set(Weather.getTime());
-    //    dateString.set(Weather.getDate());
-    //    tempString.set("42"); // Weather.getTemperature())
-    //    weatherString.set("Snowing"); // Weather.getDescription()
-    //    userString.set(GlobalVariables.getCurrentUser().getUsername());
-    //
-    //    titleLabel.setText(titleString.getValue());
-    //    timeLabel.setText(timeString.getValue());
-    //    dateLabel.setText(dateString.getValue());
-    //    descLabel.setText(weatherString.getValue());
-    //    tempLabel.setText(tempString.getValue());
-    //    userLabel.setText(userString.getValue());
-    Thread weatherThread =
+    Thread t =
         new Thread(
-            new Runnable() {
-              public void run() {
-                System.out.println(Weather.getTime());
+            () -> {
+              try {
+                tempString.set(Weather.getTemperature());
+              } catch (IOException e) {
+                throw new RuntimeException(e);
+              }
+              try {
+                weatherString.set(Weather.getDescription());
+              } catch (IOException e) {
+                throw new RuntimeException(e);
+              }
+              while (true) {
+                timeString.set(Weather.getTime());
+                dateString.set(Weather.getDate());
+                userString.set(GlobalVariables.getCurrentUser().getUsername());
+
+                Platform.runLater(
+                    () -> {
+                      timeLabel.setText(timeString.getValue());
+                      dateLabel.setText(dateString.getValue());
+                      descLabel.setText(weatherString.getValue());
+                      tempLabel.setText(tempString.getValue());
+                      userLabel.setText(userString.getValue());
+                    });
                 try {
-                  Thread.sleep(100);
+                  Thread.sleep(1000);
                 } catch (InterruptedException e) {
                   throw new RuntimeException(e);
                 }
-                timeString.set(Weather.getTime());
-                dateString.set(Weather.getDate());
-                tempString.set("42"); // Weather.getTemperature())
-                weatherString.set("Snowing"); // Weather.getDescription()
-                userString.set(GlobalVariables.getCurrentUser().getUsername());
-
-                timeLabel.setText(timeString.getValue());
-                dateLabel.setText(dateString.getValue());
-                descLabel.setText(weatherString.getValue());
-                tempLabel.setText(tempString.getValue());
-                userLabel.setText(userString.getValue());
               }
             });
-
-    weatherThread.start();
+    // System.out.println(Thread.activeCount());
+    //    if (Thread.activeCount() == 1) {
+    //      System.out.println("Thread tart");
+    t.start();
+    //    } else {
+    //      System.out.println("Thread already working");
+    //    }
 
     System.out.println("Parent!: " + HomeController.getLoggedIn().getValue());
 

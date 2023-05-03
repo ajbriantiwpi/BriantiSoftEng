@@ -77,6 +77,9 @@
                                           <image>
                                              <Image url="@../images/MenuIcons/rainLogo.png" />
                                           </image>
+                                          <HBox.margin>
+                                             <Insets top="6.0" />
+                                          </HBox.margin>
                                        </ImageView>
                                        <VBox alignment="CENTER">
                                           <children>
@@ -124,6 +127,9 @@
                                     </HBox.margin>
                                  </HBox>
                               </children>
+                              <StackPane.margin>
+                                 <Insets top="6.0" />
+                              </StackPane.margin>
                            </HBox>
 <!--                           <CheckBox fx:id="darkToggle" mnemonicParsing="false" styleClass="label-large" text="Dark Mode" textFill="WHITE" StackPane.alignment="CENTER_RIGHT" />-->
                         </children>
