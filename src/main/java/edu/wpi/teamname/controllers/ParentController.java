@@ -32,6 +32,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import lombok.Getter;
 import lombok.Setter;
 import org.controlsfx.control.PopOver;
 
@@ -102,6 +103,8 @@ public class ParentController {
   Pane rp2;
 
   int buttonSize = 50;
+
+  @Getter @Setter private static ParentController currParentController;
 
   ArrayList<Screen> secureScreens =
       new ArrayList<>(
@@ -700,6 +703,7 @@ public class ParentController {
 
   @FXML
   public void initialize() throws IOException {
+    currParentController = this;
     titleString.addListener((observable, oldValue, newValue) -> titleLabel.setText(newValue));
     //    languageChooser.setItems(
     //        FXCollections.observableList(Arrays.stream(Language.values()).toList()));
