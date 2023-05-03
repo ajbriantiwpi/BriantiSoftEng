@@ -28,7 +28,7 @@ public class Weather implements Runnable {
     JsonNode weather = MAPPER.readTree(url);
     JsonNode temperature = weather.path("main").path("temp");
     int temp = (int) Double.parseDouble(temperature.toString());
-    return Integer.toString(temp) + " F";
+    return Integer.toString(temp) + new String(Character.toChars(0x00B0)) + " F";
   }
 
   public static int getTemp() throws IOException {

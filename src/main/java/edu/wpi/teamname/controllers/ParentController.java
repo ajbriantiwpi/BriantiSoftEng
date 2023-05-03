@@ -23,14 +23,12 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -38,7 +36,7 @@ import lombok.Setter;
 import org.controlsfx.control.PopOver;
 
 public class ParentController {
-  @FXML ComboBox<Language> languageChooser;
+  //  @FXML ComboBox<Language> languageChooser;
   @FXML CheckBox darkToggle;
 
   @FXML MFXButton homeButton;
@@ -578,17 +576,17 @@ public class ParentController {
   @FXML
   public void initialize() throws IOException {
     titleString.addListener((observable, oldValue, newValue) -> titleLabel.setText(newValue));
-    languageChooser.setItems(
-        FXCollections.observableList(Arrays.stream(Language.values()).toList()));
-    languageChooser.setValue(GlobalVariables.getB().getValue());
-    languageChooser
-        .getSelectionModel()
-        .selectedItemProperty()
-        .addListener(
-            (options, oldValue, newValue) -> {
-              setLanguage(newValue);
-              GlobalVariables.b.setValue(newValue);
-            });
+    //    languageChooser.setItems(
+    //        FXCollections.observableList(Arrays.stream(Language.values()).toList()));
+    //    languageChooser.setValue(GlobalVariables.getB().getValue());
+    //    languageChooser
+    //        .getSelectionModel()
+    //        .selectedItemProperty()
+    //        .addListener(
+    //            (options, oldValue, newValue) -> {
+    //              setLanguage(newValue);
+    //              GlobalVariables.b.setValue(newValue);
+    //            });
     setLanguage(GlobalVariables.getB().getValue());
 
     Thread t =
