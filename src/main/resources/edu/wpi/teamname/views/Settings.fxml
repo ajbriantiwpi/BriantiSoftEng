@@ -74,7 +74,7 @@
                   <String fx:value="headline-large" />
                </styleClass>
             </Label>
-            <HBox alignment="CENTER_LEFT" prefHeight="64.0" prefWidth="472.0" spacing="24.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="881.0" spacing="24.0">
                <children>
                   <MFXButton fx:id="dataManageButton" prefHeight="51.0" prefWidth="150.0" stylesheets="@../stylesheets/button.css" text="Data">
                      <HBox.margin>
@@ -94,7 +94,7 @@
                         <String fx:value="headline-small" />
                      </styleClass>
                   </MFXButton>
-                  <MFXButton fx:id="viewFeedbackButton" layoutX="190.0" layoutY="20.0" prefHeight="51.0" prefWidth="236.0" stylesheets="@../stylesheets/button.css" text="View Feedback">
+                  <MFXButton fx:id="viewFeedbackButton" layoutX="190.0" layoutY="20.0" prefHeight="51.0" prefWidth="244.0" stylesheets="@../stylesheets/button.css" text="View Feedback">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -103,7 +103,7 @@
                         <String fx:value="headline-small" />
                      </styleClass>
                   </MFXButton>
-                  <ComboBox fx:id="setLocationBox" prefHeight="54.0" prefWidth="195.0" promptText="Set Location" />
+                  <ComboBox fx:id="setLocationBox" prefHeight="54.0" prefWidth="195.0" promptText="Set Location" stylesheets="@../stylesheets/comboSmall.css" />
                </children>
                <VBox.margin>
                   <Insets />
