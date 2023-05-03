@@ -591,19 +591,44 @@ public class ParentController {
             });
     setLanguage(GlobalVariables.getB().getValue());
 
-    titleLabel.setText(titleString.getValue());
-    timeString.set(Weather.getTime());
-    dateString.set(Weather.getDate());
-    tempString.set("42"); // Weather.getTemperature())
-    weatherString.set("Snowing"); // Weather.getDescription()
-    userString.set(GlobalVariables.getCurrentUser().getUsername());
+    //    titleLabel.setText(titleString.getValue());
+    //    timeString.set(Weather.getTime());
+    //    dateString.set(Weather.getDate());
+    //    tempString.set("42"); // Weather.getTemperature())
+    //    weatherString.set("Snowing"); // Weather.getDescription()
+    //    userString.set(GlobalVariables.getCurrentUser().getUsername());
+    //
+    //    titleLabel.setText(titleString.getValue());
+    //    timeLabel.setText(timeString.getValue());
+    //    dateLabel.setText(dateString.getValue());
+    //    descLabel.setText(weatherString.getValue());
+    //    tempLabel.setText(tempString.getValue());
+    //    userLabel.setText(userString.getValue());
+    Thread weatherThread =
+        new Thread(
+            new Runnable() {
+              public void run() {
+                System.out.println(Weather.getTime());
+                try {
+                  Thread.sleep(100);
+                } catch (InterruptedException e) {
+                  throw new RuntimeException(e);
+                }
+                timeString.set(Weather.getTime());
+                dateString.set(Weather.getDate());
+                tempString.set("42"); // Weather.getTemperature())
+                weatherString.set("Snowing"); // Weather.getDescription()
+                userString.set(GlobalVariables.getCurrentUser().getUsername());
 
-    titleLabel.setText(titleString.getValue());
-    timeLabel.setText(timeString.getValue());
-    dateLabel.setText(dateString.getValue());
-    descLabel.setText(weatherString.getValue());
-    tempLabel.setText(tempString.getValue());
-    userLabel.setText(userString.getValue());
+                timeLabel.setText(timeString.getValue());
+                dateLabel.setText(dateString.getValue());
+                descLabel.setText(weatherString.getValue());
+                tempLabel.setText(tempString.getValue());
+                userLabel.setText(userString.getValue());
+              }
+            });
+
+    weatherThread.start();
 
     System.out.println("Parent!: " + HomeController.getLoggedIn().getValue());
 
