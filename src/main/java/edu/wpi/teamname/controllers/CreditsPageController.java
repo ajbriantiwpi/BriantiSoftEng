@@ -12,8 +12,9 @@ public class CreditsPageController {
   @FXML Label creditsLabel;
 
   /**
-   *  sets the language of the labels
-   *  @param lang language to set it to
+   * sets the language of the labels
+   *
+   * @param lang language to set it to
    */
   public void setLanguage(Language lang) {
     switch (lang) {
