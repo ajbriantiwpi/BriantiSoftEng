@@ -117,7 +117,8 @@ public class Map {
   }
 
   /**
-   * Sets the global variables used by the application, based on data fetched from the database at a specific time.
+   * Sets the global variables used by the application, based on data fetched from the database at a
+   * specific time.
    *
    * @param time the timestamp indicating the moment in time for which to fetch the data.
    * @throws SQLException if an error occurs while accessing the database.
@@ -280,9 +281,11 @@ public class Map {
   }
 
   /**
-   * Refreshes the current display floor at a specific time, potentially performing additional side-effects.
+   * Refreshes the current display floor at a specific time, potentially performing additional
+   * side-effects.
    *
-   * @param time the timestamp indicating the moment in time for which to refresh the current display floor.
+   * @param time the timestamp indicating the moment in time for which to refresh the current
+   *     display floor.
    * @throws SQLException if an error occurs while accessing the database.
    * @throws IOException if an error occurs while reading/writing files.
    */
@@ -303,6 +306,7 @@ public class Map {
 
   /**
    * Sets the current display floor and updates the display accordingly.
+   *
    * @param currentDisplayFloor the new floor to be displayed
    * @param time the timestamp indicating the time at which the floor display is being updated
    * @throws SQLException if there is an error accessing data from the database
@@ -509,11 +513,10 @@ public class Map {
   }
 
   /**
-   * Creates an ArrayList of Shape objects that represent a path on a floor map,
-   * given a list of nodes that define the path and the floor the path is on.
-   * If the flag parameter is true and there are additional nodes in the list after
-   * the end of the path, this method will recursively call itself with the remaining
-   * nodes until the entire list has been processed.
+   * Creates an ArrayList of Shape objects that represent a path on a floor map, given a list of
+   * nodes that define the path and the floor the path is on. If the flag parameter is true and
+   * there are additional nodes in the list after the end of the path, this method will recursively
+   * call itself with the remaining nodes until the entire list has been processed.
    *
    * @param listNode the list of nodes that define the path
    * @param floor the floor the path is on
@@ -724,6 +727,7 @@ public class Map {
 
   /**
    * Returns an ArrayList of textual directions for a given path of Nodes.
+   *
    * @param nodePath the path of Nodes for which to generate textual directions
    * @return an ArrayList of textual directions
    */
@@ -844,8 +848,9 @@ public class Map {
   }
 
   /**
-   * Calculates the direction of travel from the current node to the next node in a path, based on the angles
-   * between these nodes and their shared neighbor.
+   * Calculates the direction of travel from the current node to the next node in a path, based on
+   * the angles between these nodes and their shared neighbor.
+   *
    * @param prevNode the node prior to the current node in the path
    * @param node the current node in the path
    * @param nextNode the next node in the path
@@ -892,13 +897,13 @@ public class Map {
   }
 
   /**
-   * Calculates the numerical distance between two nodes. This can either be a difference
-   * in floors or the straight-line distance between nodes on the same floor.
+   * Calculates the numerical distance between two nodes. This can either be a difference in floors
+   * or the straight-line distance between nodes on the same floor.
    *
    * @param node The starting node
    * @param nextNode The destination node
-   * @return The numerical distance between the two nodes, either a difference in floors
-   * or the straight-line distance between nodes on the same floor.
+   * @return The numerical distance between the two nodes, either a difference in floors or the
+   *     straight-line distance between nodes on the same floor.
    */
   public double getNumericalDistance(Node node, Node nextNode) {
     int curFloor = node.getFloorNum();
@@ -913,11 +918,13 @@ public class Map {
   }
 
   /**
-   * Computes the text representation of the distance between two nodes, which can be in terms of floors or units.
-   * If the nodes are on different floors, the distance is the absolute value of the difference in floor numbers,
-   * followed by the string " Floor" or " Floors" depending on whether the absolute difference is greater than one.
-   * If the nodes are on the same floor, the distance is the value returned by calculateHeuristic method of the starting node
-   * rounded to two decimal places, followed by the string " units".
+   * Computes the text representation of the distance between two nodes, which can be in terms of
+   * floors or units. If the nodes are on different floors, the distance is the absolute value of
+   * the difference in floor numbers, followed by the string " Floor" or " Floors" depending on
+   * whether the absolute difference is greater than one. If the nodes are on the same floor, the
+   * distance is the value returned by calculateHeuristic method of the starting node rounded to two
+   * decimal places, followed by the string " units".
+   *
    * @param node the starting node
    * @param nextNode the destination node
    * @return the text representation of the distance between the two nodes
@@ -1016,8 +1023,9 @@ public class Map {
   }
 
   /**
-   * Returns an ArrayList of all the floor names that the path goes through.
-   * Floor names are in the order they appear on the path.
+   * Returns an ArrayList of all the floor names that the path goes through. Floor names are in the
+   * order they appear on the path.
+   *
    * @return ArrayList of all the floor names that the path goes through.
    */
   public ArrayList<String> getAllFloorsInPath() {
@@ -1044,7 +1052,9 @@ public class Map {
 
   /**
    * Returns an observable list of all available pathfinding algorithms.
-   * @return An observable list of strings containing the names of all available pathfinding algorithms.
+   *
+   * @return An observable list of strings containing the names of all available pathfinding
+   *     algorithms.
    */
   public ObservableList<String> getAllAlgos() {
     ObservableList<String> algoNames = FXCollections.observableArrayList();
@@ -1058,13 +1068,14 @@ public class Map {
 
   /**
    * This function takes a floor name as a string and converts it into a standardized format. If the
-   * flag is true, the function returns the standardized format for Ground Floor and higher floors as
-   * 'G1', 'G2', 'G3', etc. If the flag is false, it returns the standardized format for the first
-   * three floors as '1', '2', '3', etc. If the input string is null, it returns "L1" as the default
-   * value.
+   * flag is true, the function returns the standardized format for Ground Floor and higher floors
+   * as 'G1', 'G2', 'G3', etc. If the flag is false, it returns the standardized format for the
+   * first three floors as '1', '2', '3', etc. If the input string is null, it returns "L1" as the
+   * default value.
+   *
    * @param f the floor name as a string
-   * @param flag a boolean flag to indicate whether the function should return the standardized format
-   * for Ground Floor and higher floors or for the first three floors.
+   * @param flag a boolean flag to indicate whether the function should return the standardized
+   *     format for Ground Floor and higher floors or for the first three floors.
    * @return the standardized format of the floor name as a string.
    */
   public String takeFloor(String f, boolean flag) {
@@ -1278,8 +1289,9 @@ public class Map {
   }
 
   /**
-   * Centers and zooms the view on the given starting node within the given parent GesturePane
-   * and AnchorPane.
+   * Centers and zooms the view on the given starting node within the given parent GesturePane and
+   * AnchorPane.
+   *
    * @param parent the GesturePane parent that holds the view to be centered and zoomed
    * @param outerMapAnchor the AnchorPane that contains the map being viewed
    * @param sNode the starting node that will be centered in the view

@@ -21,8 +21,9 @@ public enum ClearanceLevel {
     return level;
   }
 
-  /***
-   * Gives a list of accessible screens corresponding to this access level
+  /**
+   * * Gives a list of accessible screens corresponding to this access level
+   *
    * @return a List of screens
    */
   public List<Screen> accessableScreens() {
