@@ -1,5 +1,6 @@
 package edu.wpi.teamname.controllers.JFXitems;
 
+import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.navigation.Direction;
 import java.awt.*;
 import javafx.geometry.Insets;
@@ -9,6 +10,7 @@ import javafx.scene.layout.GridPane;
 import lombok.Getter;
 import lombok.Setter;
 
+/** Object for displaying text direcitons and signage */
 public class DirectionArrow extends GridPane {
   @Getter @Setter Direction direction;
 
@@ -21,14 +23,31 @@ public class DirectionArrow extends GridPane {
   int h;
   int w;
 
+  String styleClass;
+
   public DirectionArrow(Direction direction, String details, int height) {
     this.details = details;
     this.direction = direction;
     this.h = height;
+    this.styleClass = "secondary-container";
+    initialize();
+  }
+
+  public DirectionArrow(Direction direction, String details, int height, String styleClass) {
+    this.details = details;
+    this.direction = direction;
+    this.h = height;
+    this.styleClass = styleClass;
     initialize();
   }
 
   private void initialize() {
+    String folder;
+    if (GlobalVariables.getDarkMode().get()) {
+      folder = "dark";
+    } else {
+      folder = "light";
+    }
     if (direction == Direction.UP) {
       this.image = "arrow_upward.png";
     } else if (direction == Direction.DOWN) {
@@ -46,7 +65,8 @@ public class DirectionArrow extends GridPane {
     } else {
       this.image = "pin_drop.png";
     }
-    this.imageView = new ImageView("edu/wpi/teamname/images/DirectionIcons/" + image);
+    this.imageView =
+        new ImageView("edu/wpi/teamname/images/DirectionIcons/" + folder + "/" + image);
     this.imageView.setFitWidth(h);
     this.imageView.setFitHeight(h);
     this.add(this.imageView, 0, 0);
@@ -56,10 +76,10 @@ public class DirectionArrow extends GridPane {
     this.setMaxHeight(h);
     setFillWidth(text, true);
     this.text.getStyleClass().add("headline-med");
-    this.text.getStyleClass().add("primary-text-container");
+    this.text.getStyleClass().add("secondary-text-container");
     this.text.setStyle("-fx-font-size: " + String.valueOf(h / 2));
     this.add(this.text, 1, 0);
-    this.getStyleClass().add("secondary-container");
+    this.getStyleClass().add(styleClass);
     this.getStyleClass().add("outline");
     this.setStyle("-fx-background-radius: 8; -fx-border-radius: 8");
   }

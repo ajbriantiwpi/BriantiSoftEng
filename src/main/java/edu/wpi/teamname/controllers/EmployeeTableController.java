@@ -1,13 +1,16 @@
 package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.App;
+import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
+import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -48,6 +51,127 @@ public class EmployeeTableController {
   @FXML private Button importButton;
   @FXML private TextField searchEmployee;
   @FXML private TextField employeePasswordTextField;
+  @FXML MFXButton submitButton;
+  @FXML Label addEmployeeLabel;
+  @FXML Label idLabel;
+  @FXML Label firstNameLabel;
+  @FXML Label lastNameLabel;
+  @FXML Label clearanceLabel;
+  @FXML Label typeLabel;
+  @FXML Label usernameLabel;
+  @FXML Label passwordLabel;
+  @FXML Label csvLabel;
+  @FXML Label employeesLabel;
+  @FXML Label searchLabel;
+
+  public void setLanguage(
+      Language lang,
+      TableColumn id,
+      TableColumn first,
+      TableColumn last,
+      TableColumn clearance,
+      TableColumn type,
+      TableColumn username,
+      TableColumn password) {
+    switch (lang) {
+      case ENGLISH:
+        ParentController.titleString.set("Employees");
+        addEmployeeLabel.setText("Add Employee");
+        idLabel.setText("Employee ID");
+        firstNameLabel.setText("First Name");
+        lastNameLabel.setText("Last Name");
+        clearanceLabel.setText("Clearance Level;");
+        typeLabel.setText("Employee Type");
+        usernameLabel.setText("Username");
+        passwordLabel.setText("Password");
+        submitButton.setText("Submit");
+        csvLabel.setText("CSV Manager");
+        importButton.setText("Import");
+        exportButton.setText("Export");
+        employeesLabel.setText("Employees");
+        searchLabel.setText("Search");
+        id.setText("Employee ID");
+        first.setText("First Name");
+        last.setText("Last Name");
+        clearance.setText("Clearance Level");
+        type.setText("Employee Type");
+        username.setText("Username");
+        password.setText("Password");
+        break;
+      case ITALIAN:
+        ParentController.titleString.set("Dipendenti");
+        addEmployeeLabel.setText("Aggiungi Dipendente");
+        idLabel.setText("ID Dipendente");
+        firstNameLabel.setText("Nome");
+        lastNameLabel.setText("Cognome");
+        clearanceLabel.setText("Livello di Accesso");
+        typeLabel.setText("Tipo di Dipendente");
+        usernameLabel.setText("Nome Utente");
+        passwordLabel.setText("Password");
+        submitButton.setText("Invia");
+        csvLabel.setText("Gestore CSV");
+        importButton.setText("Importa");
+        exportButton.setText("Esporta");
+        employeesLabel.setText("Dipendenti");
+        searchLabel.setText("Cerca");
+        id.setText("ID Dipendente");
+        first.setText("Nome");
+        last.setText("Cognome");
+        clearance.setText("Livello di Accesso");
+        type.setText("Tipo di Dipendente");
+        username.setText("Nome Utente");
+        password.setText("Password");
+        break;
+      case FRENCH:
+        ParentController.titleString.set("Employés");
+        addEmployeeLabel.setText("Ajouter un employé");
+        idLabel.setText("Identifiant de l'employé");
+        firstNameLabel.setText("Prénom");
+        lastNameLabel.setText("Nom de famille");
+        clearanceLabel.setText("Niveau d'habilitation :");
+        typeLabel.setText("Type d'employé");
+        usernameLabel.setText("Nom d'utilisateur");
+        passwordLabel.setText("Mot de passe");
+        submitButton.setText("Soumettre");
+        csvLabel.setText("Gestionnaire CSV");
+        importButton.setText("Importer");
+        exportButton.setText("Exporter");
+        employeesLabel.setText("Employés");
+        searchLabel.setText("Rechercher");
+        id.setText("Identifiant de l'employé");
+        first.setText("Prénom");
+        last.setText("Nom de famille");
+        clearance.setText("Niveau d'habilitation");
+        type.setText("Type d'employé");
+        username.setText("Nom d'utilisateur");
+        password.setText("Mot de passe");
+        break;
+      case SPANISH:
+        ParentController.titleString.set("Empleados");
+        addEmployeeLabel.setText("Agregar Empleado");
+        idLabel.setText("ID del Empleado");
+        firstNameLabel.setText("Nombre");
+        lastNameLabel.setText("Apellido");
+        clearanceLabel.setText("Nivel de Autorización");
+        typeLabel.setText("Tipo de Empleado");
+        usernameLabel.setText("Nombre de Usuario");
+        passwordLabel.setText("Contraseña");
+        submitButton.setText("Enviar");
+        csvLabel.setText("Administrador CSV");
+        importButton.setText("Importar");
+        exportButton.setText("Exportar");
+        employeesLabel.setText("Empleados");
+        searchLabel.setText("Buscar");
+        id.setText("ID del Empleado");
+        first.setText("Nombre");
+        last.setText("Apellido");
+        clearance.setText("Nivel de Autorización");
+        type.setText("Tipo de Empleado");
+        username.setText("Nombre de Usuario");
+        password.setText("Contraseña");
+        break;
+    }
+  }
 
   /**
    * Initializes the employee table and sets up the event handlers for interacting with the table.
@@ -298,6 +422,28 @@ public class EmployeeTableController {
     searchEmployee
         .textProperty()
         .addListener((observable, oldValue, newValue) -> filterTable(newValue));
+
+    setLanguage(
+        GlobalVariables.getB().getValue(),
+        employeeIDColumn,
+        firstNameColumn,
+        lastNameColumn,
+        employeeLevelColumn,
+        employeeTypeColumn,
+        userColumn,
+        passColumn);
+    GlobalVariables.b.addListener(
+        (options, oldValue, newValue) -> {
+          setLanguage(
+              newValue,
+              employeeIDColumn,
+              firstNameColumn,
+              lastNameColumn,
+              employeeLevelColumn,
+              employeeTypeColumn,
+              userColumn,
+              passColumn);
+        });
   }
   /** Deletes the selected employee from the database and updates the employee table. */
   private void deleteSelectedEmployee() {

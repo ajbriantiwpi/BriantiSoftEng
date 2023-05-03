@@ -28,7 +28,7 @@
                         <VBox alignment="CENTER_LEFT" maxHeight="550.0" maxWidth="480.0" spacing="18.0" style="-fx-background-radius: 16;" styleClass="surface-container-high" stylesheets="@../stylesheets/login.css" StackPane.alignment="CENTER">
                             <children>
                         <AnchorPane maxHeight="100.0" maxWidth="400.0" minHeight="100.0" minWidth="400.0" styleClass="body2" stylesheets="@../stylesheets/logoScale.css" VBox.vgrow="ALWAYS" />
-                        <Label text="Login">
+                        <Label fx:id="loginLabel" text="Login">
                            <styleClass>
                               <String fx:value="display-med" />
                               <String fx:value="primary-text-container" />

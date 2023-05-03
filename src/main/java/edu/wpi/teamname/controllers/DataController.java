@@ -1,7 +1,9 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import java.io.File;
@@ -9,11 +11,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -25,6 +30,8 @@ import javafx.stage.Stage;
  */
 public class DataController implements Initializable {
   @FXML AnchorPane dataPage;
+  @FXML Label importLabel;
+  @FXML Label exportLabel;
   @FXML private ComboBox<String> importComboBox;
 
   @FXML private ComboBox<String> exportComboBox;
@@ -55,6 +62,49 @@ public class DataController implements Initializable {
     "Feedback"
   };
 
+  public void setLanguage(Language lang) throws SQLException {
+    switch (lang) {
+      case ENGLISH:
+        ParentController.titleString.set("Data Manager");
+        importLabel.setText("Import");
+        importButton.setText("Import");
+        exportLabel.setText("Export");
+        exportButton.setText("Export");
+        importComboBox.setPromptText("Choose Import");
+        exportComboBox.setPromptText("Choose Export");
+        break;
+      case ITALIAN:
+        ParentController.titleString.set("Gestione dei dati");
+        importLabel.setText("Importa");
+        importButton.setText("Importa");
+        exportLabel.setText("Esporta");
+        exportButton.setText("Esporta");
+        importComboBox.setPromptText("Scegli Importazione");
+        exportComboBox.setPromptText("Scegli Esportazione");
+        break;
+      case FRENCH:
+        ParentController.titleString.set("Gestionnaire de données");
+        importLabel.setText("Importer");
+        importButton.setText("Importer");
+        exportLabel.setText("Exporter");
+        exportButton.setText("Exporter");
+        importComboBox.setPromptText("Choisissez l'importation");
+        exportComboBox.setPromptText("Choisissez l'exportation");
+        break;
+      case SPANISH:
+        ParentController.titleString.set("Administrador de datos");
+        importLabel.setText("Importar");
+        importButton.setText("Importar");
+        exportLabel.setText("Exportar");
+        exportButton.setText("Exportar");
+        importComboBox.setPromptText("Elegir importación");
+        exportComboBox.setPromptText("Elegir exportación");
+        break;
+    }
+    importComboBox.setItems(FXCollections.observableList(Arrays.asList(FIELDS)));
+    exportComboBox.setItems(FXCollections.observableList(Arrays.asList(FIELDS)));
+  }
+
   /**
    * Initializes the GUI components of the Data Manager page. Sets the title of the page, populates
    * the import and export ComboBoxes with the available options, and sets the action listeners for
@@ -64,8 +114,21 @@ public class DataController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     ThemeSwitch.switchTheme(dataPage);
     ParentController.titleString.set("Data Manager");
-    importComboBox.getItems().addAll(FIELDS);
-    exportComboBox.getItems().addAll(FIELDS);
+    try {
+      setLanguage(GlobalVariables.getB().getValue());
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+    GlobalVariables.b.addListener(
+        (options, oldValue, newValue) -> {
+          try {
+            setLanguage(newValue);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          }
+        });
+    importComboBox.setItems(FXCollections.observableList(Arrays.asList(FIELDS)));
+    exportComboBox.setItems(FXCollections.observableList(Arrays.asList(FIELDS)));
 
     importButton.setOnAction(e -> onImportButtonClicked());
     exportButton.setOnAction(e -> onExportButtonClicked());

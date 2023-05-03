@@ -1,6 +1,8 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.ThemeSwitch;
+import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -8,6 +10,7 @@ import java.io.IOException;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -16,6 +19,9 @@ import org.controlsfx.control.PopOver;
 
 public class AboutPageController {
 
+  @FXML Label titleLabel;
+  @FXML Label thanksLabel;
+  @FXML Label specialThanksLabel;
   @FXML MFXButton ianButton;
   @FXML MFXButton jasonButton;
   @FXML MFXButton alessandroButton;
@@ -30,10 +36,80 @@ public class AboutPageController {
   @FXML VBox memberVBox;
   @FXML AnchorPane aboutAnchorPane;
 
+  public void setLanguage(Language lang) {
+    switch (lang) {
+      case ENGLISH:
+        titleLabel.setText(
+            "WPI Computer Science Department\n"
+                + "\n"
+                + "CS3733-D23 Software Engineering\n"
+                + "\n"
+                + "Prof. Wilson Wong");
+        thanksLabel.setText("Thank you!");
+        specialThanksLabel.setText(
+            "Special thank you to Brigham and Women’s Hospital,\n"
+                + "\n"
+                + "and their representative Andrew Shinn,\n"
+                + "\n"
+                + "for their time and input with this project.");
+        break;
+      case ITALIAN:
+        titleLabel.setText(
+            "Dipartimento di Informatica del WPI\n"
+                + "\n"
+                + "Ingegneria del software CS3733-D23\n"
+                + "\n"
+                + "Prof. Wilson Wong");
+        thanksLabel.setText("Grazie!");
+        specialThanksLabel.setText(
+            "Un ringraziamento speciale à Brigham and Women’s Hospital,\n"
+                + "\n"
+                + "e al loro rappresentante Andrew Shinn,\n"
+                + "\n"
+                + "per il loro tempo e contributo a questo progetto.");
+        break;
+      case SPANISH:
+        titleLabel.setText(
+            "Departamento de Ciencias de la Computación del WPI\n"
+                + "\n"
+                + "Ingeniería de Software CS3733-D23\n"
+                + "\n"
+                + "Prof. Wilson Wong");
+        thanksLabel.setText("¡Gracias!");
+        specialThanksLabel.setText(
+            "Agradecimiento especial al Hospital Brigham and Women,\n"
+                + "\n"
+                + "y su representante Andrew Shinn,\n"
+                + "\n"
+                + "por su tiempo y aporte en este proyecto.");
+        break;
+      case FRENCH:
+        titleLabel.setText(
+            "Département d'Informatique du WPI\n"
+                + "\n"
+                + "Ingénierie Logicielle CS3733-D23\n"
+                + "\n"
+                + "Prof. Wilson Wong");
+        thanksLabel.setText("Merci!");
+        specialThanksLabel.setText(
+            "Un remerciement spécial à l'Hôpital Brigham and Women,\n"
+                + "\n"
+                + "et leur représentant Andrew Shinn,\n"
+                + "\n"
+                + "pour leur temps et leur contribution à ce projet.");
+        break;
+    }
+  }
+
   public void initialize() {
     ThemeSwitch.switchTheme(aboutAnchorPane);
     MFXButton.class.getClassLoader().setDefaultAssertionStatus(false);
     ParentController.titleString.set("About");
+    setLanguage(GlobalVariables.getB().getValue());
+    GlobalVariables.b.addListener(
+        (options, oldValue, newValue) -> {
+          setLanguage(newValue);
+        });
 
     EventHandler<MouseEvent> PersonPopup =
         new EventHandler<MouseEvent>() {

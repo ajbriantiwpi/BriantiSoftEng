@@ -4,6 +4,7 @@ import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.controllers.JFXitems.RoomSelector;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.servicerequest.ConfReservation;
@@ -26,9 +27,16 @@ import lombok.Getter;
 import lombok.Setter;
 import org.controlsfx.control.RangeSlider;
 
+/** Controller for the UI to reserve a conference room */
 public class ConferenceController {
-
-  @FXML AnchorPane root;
+  @FXML Label dateLabel;
+  @FXML Label buildingLabel;
+  @FXML Label startTimeLabel;
+  @FXML Label endTimeLabel;
+  @FXML Label roomSizeLabel;
+  @FXML Label nameLabel;
+  @FXML Label roomLabel;
+  @FXML AnchorPane rootPane;
   @FXML ComboBox<String> startBox;
   @FXML ComboBox<String> endBox;
   @FXML ComboBox<String> buildingBox;
@@ -37,7 +45,7 @@ public class ConferenceController {
   @FXML RangeSlider sizeSlider;
   @FXML MFXButton submitButton;
   @FXML TextField nameText;
-
+  @Getter @Setter boolean fromSelector;
   @FXML ListView<RoomSelector> listView;
   @FXML TableView<ConfRoom> confTable;
   ConfRoom uno = new ConfRoom(1, "Uno", 10);
@@ -73,12 +81,84 @@ public class ConferenceController {
   private static String username;
   private static String staff = "None";
 
-  @Getter @Setter boolean fromSelector;
+  public void setLanguage(Language lang) {
+    switch (lang) {
+      case ENGLISH:
+        ParentController.titleString.set("Conference Room Request");
+        dateLabel.setText("Date");
+        buildingLabel.setText("Building");
+        buildingBox.setPromptText("Choose Building");
+        startTimeLabel.setText("Start Time");
+        startBox.setPromptText("Choose Start Time");
+        endTimeLabel.setText("End Time");
+        endBox.setPromptText("Choose End Time");
+        roomSizeLabel.setText("Room Size");
+        nameLabel.setText("Name");
+        roomLabel.setText("Room");
+        roomBox.setPromptText("Choose Room");
+        submitButton.setText("Request");
+        break;
+      case ITALIAN:
+        ParentController.titleString.set("Richiesta sala conferenze");
+        dateLabel.setText("Data");
+        buildingLabel.setText("Edificio");
+        buildingBox.setPromptText("Scegli Edificio");
+        startTimeLabel.setText("Orario di inizio");
+        startBox.setPromptText("Scegli orario di inizio");
+        endTimeLabel.setText("Orario di fine");
+        endBox.setPromptText("Scegli orario di fine");
+        roomSizeLabel.setText("Dimensioni della stanza");
+        nameLabel.setText("Nome");
+        roomLabel.setText("Stanza");
+        roomBox.setPromptText("Scegli la stanza");
+        submitButton.setText("Richiesta");
+        break;
+      case FRENCH:
+        ParentController.titleString.set("Demande de salle de conférence");
+        dateLabel.setText("Date");
+        buildingLabel.setText("Bâtiment");
+        buildingBox.setPromptText("Choisir un bâtiment");
+        startTimeLabel.setText("Heure de début");
+        startBox.setPromptText("Choisir une heure de début");
+        endTimeLabel.setText("Heure de fin");
+        endBox.setPromptText("Choisir une heure de fin");
+        roomSizeLabel.setText("Taille de la salle");
+        nameLabel.setText("Nom");
+        roomLabel.setText("Salle");
+        roomBox.setPromptText("Choisir une salle");
+        submitButton.setText("Demande");
+        break;
+      case SPANISH:
+        ParentController.titleString.set("Solicitud de Sala de Conferencias");
+        dateLabel.setText("Fecha");
+        buildingLabel.setText("Edificio");
+        buildingBox.setPromptText("Seleccione un edificio");
+        startTimeLabel.setText("Hora de inicio");
+        startBox.setPromptText("Seleccione la hora de inicio");
+        endTimeLabel.setText("Hora de finalización");
+        endBox.setPromptText("Seleccione la hora de finalización");
+        roomSizeLabel.setText("Tamaño de la sala");
+        nameLabel.setText("Nombre");
+        roomLabel.setText("Sala");
+        roomBox.setPromptText("Seleccione la sala");
+        submitButton.setText("Solicitud");
+        break;
+    }
+    buildingBox.setItems(buildings);
+    startBox.setItems(startTimes);
+    endBox.setItems(endTimes);
+    roomBox.setItems(roomsString);
+  }
 
   @FXML
   public void initialize() throws SQLException {
     ParentController.titleString.set("Conference Room Request");
-    ThemeSwitch.switchTheme(root);
+    setLanguage(GlobalVariables.getB().getValue());
+    GlobalVariables.b.addListener(
+        (options, oldValue, newValue) -> {
+          setLanguage(newValue);
+        });
+    ThemeSwitch.switchTheme(rootPane);
     buildings = FXCollections.observableArrayList(DataManager.getConfBuildings());
     buildings.add("None");
     roomsString = FXCollections.observableArrayList();
@@ -224,6 +304,11 @@ public class ConferenceController {
     return null;
   }
 
+  /**
+   * Refreshes the rooms on the screen to
+   *
+   * @param date date to refresh the screen to
+   */
   private void refreshRooms(Timestamp date) {
     String roomName = roomBox.getValue();
     selectors.clear();
@@ -243,10 +328,16 @@ public class ConferenceController {
     }
   }
 
+  /** Refreshes the rooms on the screen to. defaulting date to the datebox */
   private void refreshRooms() {
     refreshRooms(Timestamp.valueOf(dateBox.getValue().atStartOfDay()));
   }
 
+  /**
+   * sets the active selector to the RoomSelector that is currently being worked on
+   *
+   * @param selector RoomSelector currently being used
+   */
   public void setActiveSelector(RoomSelector selector) {
     if (!activeSelector.equals(selector)) {
       activeSelector.setAllInRange(false);
@@ -258,18 +349,28 @@ public class ConferenceController {
     roomBox.setValue(activeSelector.getRoom().getLocationName().split(",")[0]);
   }
 
+  /**
+   * sets the value of the start box as well as the start value in RoomManager
+   *
+   * @param time starting time
+   */
   public void setStartBox(String time) {
     startBox.setValue(time);
     roomManager.setStart(time);
   }
 
+  /**
+   * sets the value of the end box as well as the end value in RoomManager
+   *
+   * @param time end time
+   */
   public void setEndBox(String time) {
     endBox.setValue(time);
     roomManager.setEnd(time);
   }
 }
 
-/**
+/*
  * @FXML public void initialize() throws SQLException { System.out.println("Initializing");
  * rooms.add(uno); rooms.add(dos); rooms.add(tres); for (ConfRoom room : rooms) { selectors.add(new
  * RoomSelector(room, this)); } activeSelector = selectors.get(0); listView.setItems(selectors); }

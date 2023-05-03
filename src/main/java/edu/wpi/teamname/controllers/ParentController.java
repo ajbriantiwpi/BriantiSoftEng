@@ -6,6 +6,7 @@ import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
+import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -20,10 +21,13 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -31,6 +35,8 @@ import lombok.Setter;
 import org.controlsfx.control.PopOver;
 
 public class ParentController {
+  @FXML ComboBox<Language> languageChooser;
+  @FXML CheckBox darkToggle;
 
   @FXML MFXButton homeButton;
   @FXML MFXButton helpButton;
@@ -418,8 +424,140 @@ public class ParentController {
     return null; // Test for errors
   }
 
+  public void setLanguage(Language lang) {
+    switch (lang) {
+      case ENGLISH:
+        homeButton.setText("Home");
+        mapButton.setText("Map");
+        viewSignageButton.setText("View Signage");
+        makeRequestsButton.setText("Make Requests");
+        requestRoomButton.setText("Request Room");
+        showRequestsButton.setText("View Requests");
+        editMoveButton.setText("View Moves");
+        editSignageButton.setText("Edit Signage");
+        editMapButton.setText("Edit Map");
+        showEmployeesButton.setText("Show Employees");
+        viewAlertsButton.setText("View Alerts");
+        loginButton.setText("Login");
+        logoutButton.setText("Logout");
+        exitButton.setText("Exit");
+        mapButtonSelector.setText("Map");
+        viewSignageButtonSelector.setText("Signage");
+        makeRequestsButtonSelector.setText("Service Requests");
+        break;
+      case FRENCH:
+        homeButton.setText("Page D’accueil");
+        mapButton.setText("Carte");
+        viewSignageButton.setText("Voir la signalisation");
+        makeRequestsButton.setText("Faire des demandes");
+        requestRoomButton.setText("Demander une chambre");
+        showRequestsButton.setText("Afficher les demandes");
+        editMoveButton.setText("Voir les mouvements");
+        editSignageButton.setText("Modifier la signalisation");
+        editMapButton.setText("Modifier la carte");
+        showEmployeesButton.setText("Afficher les employés");
+        viewAlertsButton.setText("Afficher les alertes");
+        loginButton.setText("Connexion");
+        logoutButton.setText("Se déconnecter");
+        exitButton.setText("Sortie");
+        mapButtonSelector.setText("Carte");
+        viewSignageButtonSelector.setText("Signalisation");
+        makeRequestsButtonSelector.setText("Demandes");
+        break;
+      case ITALIAN:
+        homeButton.setText("Pagina Iniziale");
+        mapButton.setText("Mappa");
+        viewSignageButton.setText("Segnaletica");
+        makeRequestsButton.setText("Fare Una Richiesta");
+        requestRoomButton.setText("Richiedi Una Camera");
+        showRequestsButton.setText("Visualizzare Le Richieste");
+        editMoveButton.setText("Visualizza Mosse");
+        editSignageButton.setText("Modifica Segnaletica");
+        editMapButton.setText("Modifica Mappa");
+        showEmployeesButton.setText("Mostra Dipendenti");
+        viewAlertsButton.setText("Visualizza Avvisi");
+        loginButton.setText("Login");
+        logoutButton.setText("Disconnettersi");
+        exitButton.setText("Uscire");
+        mapButtonSelector.setText("Mappa");
+        viewSignageButtonSelector.setText("Segnaletica");
+        makeRequestsButtonSelector.setText("Richieste");
+        break;
+      case SPANISH:
+        homeButton.setText("Página de Inicio");
+        mapButton.setText("Mapa");
+        viewSignageButton.setText("Ver señalización");
+        makeRequestsButton.setText("Hacer peticiones");
+        requestRoomButton.setText("Solicitar Habitación");
+        showRequestsButton.setText("Ver solicitudes");
+        editMoveButton.setText("Ver movimientos");
+        editSignageButton.setText("Editar señalización");
+        editMapButton.setText("Editar mapa");
+        showEmployeesButton.setText("Mostrar empleados");
+        viewAlertsButton.setText("Ver alertas");
+        loginButton.setText("Acceso");
+        logoutButton.setText("Cerrar sesión");
+        exitButton.setText("Salir");
+        mapButtonSelector.setText("Mapa");
+        viewSignageButtonSelector.setText("Señalización");
+        makeRequestsButtonSelector.setText("Peticiones");
+        break;
+    }
+  }
+
+  /**
+   * template for when we want to add a new language, so it is easier to copy paste First block is
+   * the list of words to be translated, second is the method to set the text for each, where you
+   * change the letter to be the translated version
+   */
+  /*
+  Home
+  Map
+  View Signage
+  Make Requests
+  Request Room
+  View Requests
+  View Moves
+  Edit Signage
+  Edit Map
+  Show Employees
+  View Alerts
+  Login
+  Logout
+  Exit
+     */
+  /*
+  homeButton.setText("A");
+        mapButton.setText("B");
+        viewSignageButton.setText("C");
+        makeRequestsButton.setText("D");
+        requestRoomButton.setText("E");
+        showRequestsButton.setText("F");
+        editMoveButton.setText("G");
+        editSignageButton.setText("H");
+        editMapButton.setText("I");
+        showEmployeesButton.setText("J");
+        viewAlertsButton.setText("K");
+        loginButton.setText("L");
+        logoutButton.setText("M");
+        exitButton.setText("N");
+   */
+
   @FXML
   public void initialize() throws IOException {
+    titleString.addListener((observable, oldValue, newValue) -> titleLabel.setText(newValue));
+    languageChooser.setItems(
+        FXCollections.observableList(Arrays.stream(Language.values()).toList()));
+    languageChooser.setValue(GlobalVariables.getB().getValue());
+    languageChooser
+        .getSelectionModel()
+        .selectedItemProperty()
+        .addListener(
+            (options, oldValue, newValue) -> {
+              setLanguage(newValue);
+              GlobalVariables.b.setValue(newValue);
+            });
+    setLanguage(GlobalVariables.getB().getValue());
 
     titleLabel.setText(titleString.getValue());
     System.out.println("Parent!");

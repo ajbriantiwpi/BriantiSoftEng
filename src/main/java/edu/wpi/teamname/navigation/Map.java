@@ -699,10 +699,65 @@ public class Map {
         direction = getDirection(prevNode, node, nextNode);
 
         if (direction.getString().equals("Straight")) {
-          sb.append("Continue Straight ");
+          switch (GlobalVariables.getB().getValue()) {
+            case ENGLISH:
+              sb.append("Continue Straight ");
+              break;
+            case FRENCH:
+              sb.append("Continuer Droit");
+              break;
+            case ITALIAN:
+              sb.append("Continua Dritto");
+              break;
+            case SPANISH:
+              sb.append("Continuar Recto");
+              break;
+          }
+
         } else if (direction.getString().equals("Down") || direction.getString().equals("Up")) {
-          sb.append("Go " + direction.getString());
+          switch (GlobalVariables.getB().getValue()) {
+            case ENGLISH:
+              sb.append("Go ");
+              if (direction.getString().equals("Down")) {
+                sb.append("Down");
+              } else {
+                sb.append("Up");
+              }
+              break;
+            case FRENCH: // En haut
+              //              sb.append("Go ");
+              if (direction.getString().equals("Down")) {
+                sb.append("Descendez.");
+              } else {
+                sb.append("Monter");
+              }
+              break;
+            case ITALIAN:
+              sb.append("Vai ");
+              if (direction.getString().equals("Down")) {
+                sb.append("Giu");
+              } else {
+                sb.append("Su");
+              }
+              break;
+            case SPANISH: // sube
+              //              sb.append("Go ");
+              if (direction.getString().equals("Down")) {
+                sb.append("Baje");
+              } else {
+                sb.append("Sube");
+              }
+              break;
+          }
         } else {
+          switch (GlobalVariables.getB().getValue()) {
+            case ENGLISH:
+              sb.append("Turn " + direction.getString() + " then Continue Straight ");
+              break;
+            case ITALIAN:
+              sb.append("Giri " + direction.getTranslatedString() + ", e poi vai dritto");
+          }
+
           sb.append("Turn " + direction.getString() + " then Continue Straight ");
         }
         //        sb.append(direction.getString());
