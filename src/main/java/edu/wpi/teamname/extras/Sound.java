@@ -12,11 +12,15 @@ public class Sound {
 
   @Getter private static MediaPlayer backgroundMusicPlayer;
 
-  private static String buttonClickFilename =
-      "src/main/resources/edu/wpi/teamname/sounds/buttonclick.mp3";
-  private static Media soundButton = new Media(new File(buttonClickFilename).toURI().toString());
-  @Getter private static MediaPlayer buttonPlayer = new MediaPlayer(soundButton);
-  @Getter private static double volume = 1.0;
+  private static Media soundSFX =
+      new Media(new File(SFX.BUTTONCLICK.getFilename()).toURI().toString());
+  private static Media soundButton2 =
+      new Media(
+          new File("src/main/resources/edu/wpi/teamname/sounds/sfx/vine-boom.mp3")
+              .toURI()
+              .toString());
+  @Getter private static MediaPlayer buttonPlayer = new MediaPlayer(soundSFX);
+  @Getter private static double volume = 0.0;
 
   /**
    * * Starts playing the background music It will play whatever song is currently set and stop a
@@ -33,7 +37,6 @@ public class Sound {
     backgroundMusicPlayer.setCycleCount(MediaPlayer.INDEFINITE);
     backgroundMusicPlayer.setOnEndOfMedia(
         () -> {
-          System.out.println("Media has finished playing.");
           backgroundMusicPlayer.seek(Duration.ZERO);
           backgroundMusicPlayer.play();
         });
@@ -67,8 +70,9 @@ public class Sound {
   }
 
   /** * Plays the button click sound effect Call this function whenever a button is pressed */
-  public static void playOnButtonClick() {
-    buttonPlayer = new MediaPlayer(soundButton);
+  public static void playSFX(SFX sfx) {
+    soundSFX = new Media(new File(sfx.getFilename()).toURI().toString());
+    buttonPlayer = new MediaPlayer(soundSFX);
     buttonPlayer.setVolume(volume);
     buttonPlayer.play();
   }

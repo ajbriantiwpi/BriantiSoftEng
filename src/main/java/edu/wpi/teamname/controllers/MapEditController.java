@@ -2,7 +2,10 @@ package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.App;
 import edu.wpi.teamname.GlobalVariables;
+import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.extras.Language;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.navigation.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -30,7 +33,36 @@ import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.PopOver;
 
 public class MapEditController {
+  @FXML Label mapSymbolsLabel;
+  @FXML TitledPane EditingTitledPane;
+  @FXML TitledPane TickTitlePane;
+  @FXML TitledPane FloorTitlePane;
+  @FXML Label conferenceRoomLabel;
 
+  @FXML Label departmentLabel;
+
+  @FXML Label labLabel;
+
+  @FXML Label infoLabel;
+
+  @FXML Label bathroomLabel;
+
+  @FXML Label serviceLabel;
+
+  @FXML Label elevatorLabel;
+
+  @FXML Label stairsLabel;
+
+  @FXML Label exitLabel;
+
+  @FXML Label startLabel;
+
+  @FXML Label pathLabel;
+
+  @FXML Label destinationLabel;
+  @FXML Label currentFloorStart;
+  @FXML Label currentFloorDestLabel;
+  @FXML HBox root;
   Map map;
   @FXML GesturePane gp;
   @FXML TableView<LocationName> table;
@@ -118,7 +150,7 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           String retStr = "";
           String table = selectTable.getValue();
 
@@ -189,7 +221,7 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           String retStr = "";
           String table = selectTable.getValue();
 
@@ -427,7 +459,7 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
 
           MFXButton addButton = ((MFXButton) event.getSource());
           //          VBox outerPane = (VBox) addButton.getParent();
@@ -451,6 +483,7 @@ public class MapEditController {
           v.getChildren().remove(0);
 
           Submit.setOnMouseClicked(makeNewNode);
+          ThemeSwitch.switchTheme(v);
 
           //          outerPane.getChildren().add(v);
           PopOver pop = new PopOver(v);
@@ -464,7 +497,7 @@ public class MapEditController {
         @Override
         public void handle(MouseEvent event) {
 
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           MFXButton addButton = ((MFXButton) event.getSource());
           //          VBox outerPane = (VBox) addButton.getParent();
 
@@ -497,6 +530,7 @@ public class MapEditController {
           v.getChildren().remove(1);
 
           Submit.setOnMouseClicked(makeNewLocation);
+          ThemeSwitch.switchTheme(v);
 
           //          outerPane.getChildren().add(v);
           PopOver pop = new PopOver(v);
@@ -509,7 +543,7 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           MFXButton addButton = ((MFXButton) event.getSource());
 
           final var resource = App.class.getResource("views/EditEdge.fxml");
@@ -541,7 +575,7 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           isMap = !isMap;
           if (isMap) {
             gp.setVisible(true);
@@ -549,6 +583,9 @@ public class MapEditController {
 
             table.setVisible(false);
             table.setDisable(true);
+
+            Legend.setVisible(true);
+            Legend.setDisable(false);
 
             //            floorSelector.setVisible(true);
             //            floorSelector.setDisable(false);
@@ -558,6 +595,9 @@ public class MapEditController {
 
             table.setVisible(true);
             table.setDisable(false);
+
+            Legend.setVisible(false);
+            Legend.setDisable(true);
 
             //            floorSelector.setVisible(false);
             //            floorSelector.setDisable(true);
@@ -569,7 +609,7 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           System.out.println("Save Loc");
 
           MFXButton SubmitButton = ((MFXButton) event.getSource());
@@ -631,7 +671,7 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           System.out.println("Rem");
 
           LocationName currLocation;
@@ -664,7 +704,7 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           TableRow<LocationName> row = ((TableRow<LocationName>) event.getSource());
           selectedRowIndex = row.getIndex();
 
@@ -737,7 +777,7 @@ public class MapEditController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           MFXButton newButton = ((MFXButton) event.getSource());
 
           String oldFloor = map.getCurrentDisplayFloor();
@@ -813,7 +853,7 @@ public class MapEditController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           CheckBox newCheck = ((CheckBox) event.getSource());
 
           int oldLabel = map.getLabelTextType();
@@ -845,7 +885,7 @@ public class MapEditController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           map.setShowEdges(EdgeSelector.isSelected());
           try {
             map.refresh();
@@ -862,7 +902,7 @@ public class MapEditController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           //        map.setShowEdges(EdgeSelector.isSelected());
           map.setShowNodes(NodeSelector.isSelected());
 
@@ -881,7 +921,7 @@ public class MapEditController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           //        map.setShowEdges(EdgeSelector.isSelected());
           map.setShowLegend(LegendSelector.isSelected()); // && NodeSelector.isSelected());
           Legend.setVisible(map.getShowLegend());
@@ -901,7 +941,7 @@ public class MapEditController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           map.setShowTypeLabels(new boolean[] {HallNamesSelector.isSelected()});
 
           try {
@@ -931,15 +971,21 @@ public class MapEditController {
               throw new RuntimeException(e);
             }
 
-            MFXButton AddNode = (MFXButton) ((Pane) (v.getChildren().get(0))).getChildren().get(0);
+            MFXButton Cancel = (MFXButton) ((Pane) (v.getChildren().get(0))).getChildren().get(0);
+            MFXButton AddNode = (MFXButton) ((Pane) (v.getChildren().get(0))).getChildren().get(1);
             AddNode.setText("Confirm new Location");
 
             clickPos = new Point2D(event.getX(), event.getY());
             realClickPos = new Point2D(event.getScreenX(), event.getScreenY());
 
-            AddNode.setOnMouseClicked(updateNodePosition);
-
             PopOver pop = new PopOver(v);
+
+            AddNode.setOnMouseClicked(updateNodePosition);
+            Cancel.setOnMouseClicked(
+                event1 -> {
+                  pop.hide();
+                  map.setMovingNodeId(-1);
+                });
 
             v.setOnMouseExited(event2 -> pop.hide());
 
@@ -957,15 +1003,17 @@ public class MapEditController {
               throw new RuntimeException(e);
             }
 
-            MFXButton AddNode = (MFXButton) ((Pane) (v.getChildren().get(0))).getChildren().get(0);
+            MFXButton Cancel = (MFXButton) ((Pane) (v.getChildren().get(0))).getChildren().get(0);
+            MFXButton AddNode = (MFXButton) ((Pane) (v.getChildren().get(0))).getChildren().get(1);
             AddNode.setText("Add Node Here");
 
             clickPos = new Point2D(event.getX(), event.getY());
             realClickPos = new Point2D(event.getScreenX(), event.getScreenY());
 
-            AddNode.setOnMouseClicked(addNode);
-
             PopOver pop = new PopOver(v);
+
+            AddNode.setOnMouseClicked(addNode);
+            Cancel.setOnMouseClicked(event1 -> pop.hide());
 
             v.setOnMouseExited(event2 -> pop.hide());
 
@@ -978,7 +1026,7 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           int xPos = (int) clickPos.getX();
           int yPos = (int) clickPos.getY();
           String floor = map.takeFloor(map.getCurrentDisplayFloor(), false);
@@ -1017,7 +1065,7 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           int xPos = (int) clickPos.getX();
           int yPos = (int) clickPos.getY();
           String floor = map.takeFloor(map.getCurrentDisplayFloor(), false);
@@ -1092,10 +1140,14 @@ public class MapEditController {
                 Edge e = AllEdges.get(i);
                 if (e.getStartNodeID() == movingID) {
                   Node adj = AllNodes.get(Node.idToIndex(e.getEndNodeID()));
-                  adjacentNodes.add(new Point2D(adj.getX(), adj.getY()));
+                  if (adj.getFloor().equals(map.takeFloor(map.getCurrentDisplayFloor(), true))) {
+                    adjacentNodes.add(new Point2D(adj.getX(), adj.getY()));
+                  }
                 } else if (e.getEndNodeID() == movingID) {
                   Node adj = AllNodes.get(Node.idToIndex(e.getStartNodeID()));
-                  adjacentNodes.add(new Point2D(adj.getX(), adj.getY()));
+                  if (adj.getFloor().equals(map.takeFloor(map.getCurrentDisplayFloor(), true))) {
+                    adjacentNodes.add(new Point2D(adj.getX(), adj.getY()));
+                  }
                 }
               }
 
@@ -1154,8 +1206,172 @@ public class MapEditController {
         }
       };
 
+  public void setLanguage(Language lang) throws SQLException {
+    switch (lang) {
+      case ENGLISH:
+        ParentController.titleString.set("Map Editor");
+        TickTitlePane.setText("TickBoxes");
+        FloorTitlePane.setText("Floors");
+        EditingTitledPane.setText("Editing");
+        addNodeButton.setText("Add Node");
+        addLocationButton.setText("Add Location");
+        addEdgeButton.setText("Add Edge");
+        toggleTableButton.setText("Modify Locations");
+        ThirdFloorButton.setText("Third Floor");
+        SecondFloorButton.setText("Second Floor");
+        FirstFloorButton.setText("First Floor");
+        LowerLevelOneButton.setText("Lower Level 1");
+        LowerLevelTwoButton.setText("Lower Level 2");
+        LongNameSelector.setText("Long");
+        ShortNameSelector.setText("Short");
+        IdSelector.setText("ID");
+        HallNamesSelector.setText("Hall Names");
+        EdgeSelector.setText("Show Edges");
+        NodeSelector.setText("Node");
+        LegendSelector.setText("Unique Shapes");
+        mapSymbolsLabel.setText("Map Symbols");
+        conferenceRoomLabel.setText("Conference Room");
+        departmentLabel.setText("Department");
+        labLabel.setText("Label");
+        infoLabel.setText("Info");
+        bathroomLabel.setText("Bathroom/Restroom");
+        serviceLabel.setText("Service/Retail");
+        elevatorLabel.setText("Elevator");
+        stairsLabel.setText("Stairs");
+        exitLabel.setText("Exit");
+        startLabel.setText("Start");
+        pathLabel.setText("Path");
+        destinationLabel.setText("Destination");
+        currentFloorStart.setText("Current Floor Start");
+        currentFloorDestLabel.setText("Current Floor Destination");
+        break;
+      case ITALIAN:
+        ParentController.titleString.set("Editor di Mappe");
+        TickTitlePane.setText("Caselle di Controllo");
+        FloorTitlePane.setText("Piani");
+        EditingTitledPane.setText("Modifica");
+        addNodeButton.setText("Aggiungi Nodo");
+        addLocationButton.setText("Aggiungi Posizione");
+        addEdgeButton.setText("Aggiungi Bordo");
+        toggleTableButton.setText("Modifica Posizioni");
+        ThirdFloorButton.setText("Terzo Piano");
+        SecondFloorButton.setText("Secondo Piano");
+        FirstFloorButton.setText("Primo Piano");
+        LowerLevelOneButton.setText("Livello Inferiore 1");
+        LowerLevelTwoButton.setText("Livello Inferiore 2");
+        LongNameSelector.setText("Lungo");
+        ShortNameSelector.setText("Breve");
+        IdSelector.setText("ID");
+        HallNamesSelector.setText("Nomi Corridoio");
+        EdgeSelector.setText("Mostra Bordi");
+        NodeSelector.setText("Nodo");
+        LegendSelector.setText("Forme Uniche");
+        mapSymbolsLabel.setText("Simboli della Mappa");
+        conferenceRoomLabel.setText("Sala Conferenze");
+        departmentLabel.setText("Dipartimento");
+        labLabel.setText("Laboratorio");
+        infoLabel.setText("Informazioni");
+        bathroomLabel.setText("Bagno/Toilette");
+        serviceLabel.setText("Servizio/Rivendita");
+        elevatorLabel.setText("Ascensore");
+        stairsLabel.setText("Scale");
+        exitLabel.setText("Uscita");
+        startLabel.setText("Inizio");
+        pathLabel.setText("Percorso");
+        destinationLabel.setText("Destinazione");
+        currentFloorStart.setText("Inizio Piano Corrente");
+        currentFloorDestLabel.setText("Destinazione Piano Corrente");
+        break;
+      case SPANISH:
+        ParentController.titleString.set("Editor de Mapas");
+        TickTitlePane.setText("Casillas de Verificación");
+        FloorTitlePane.setText("Pisos");
+        EditingTitledPane.setText("Edición");
+        addNodeButton.setText("Agregar Nodo");
+        addLocationButton.setText("Agregar Ubicación");
+        addEdgeButton.setText("Agregar Borde");
+        toggleTableButton.setText("Modificar Ubicaciones");
+        ThirdFloorButton.setText("Tercer Piso");
+        SecondFloorButton.setText("Segundo Piso");
+        FirstFloorButton.setText("Primer Piso");
+        LowerLevelOneButton.setText("Nivel Inferior 1");
+        LowerLevelTwoButton.setText("Nivel Inferior 2");
+        LongNameSelector.setText("Largo");
+        ShortNameSelector.setText("Corto");
+        IdSelector.setText("ID");
+        HallNamesSelector.setText("Nombres de Pasillo");
+        EdgeSelector.setText("Mostrar Bordes");
+        NodeSelector.setText("Nodo");
+        LegendSelector.setText("Formas Únicas");
+        mapSymbolsLabel.setText("Símbolos del Mapa");
+        conferenceRoomLabel.setText("Sala de Conferencias");
+        departmentLabel.setText("Departamento");
+        labLabel.setText("Laboratorio");
+        infoLabel.setText("Información");
+        bathroomLabel.setText("Baño/Aseo");
+        serviceLabel.setText("Servicio/Venta");
+        elevatorLabel.setText("Ascensor");
+        stairsLabel.setText("Escaleras");
+        exitLabel.setText("Salida");
+        startLabel.setText("Inicio");
+        pathLabel.setText("Ruta");
+        destinationLabel.setText("Destino");
+        currentFloorStart.setText("Inicio Piso Actual");
+        currentFloorDestLabel.setText("Destino Piso Actual");
+        break;
+      case FRENCH:
+        ParentController.titleString.set("Éditeur de Cartes");
+        TickTitlePane.setText("Cases à Cocher");
+        FloorTitlePane.setText("Étages");
+        EditingTitledPane.setText("Modification");
+        addNodeButton.setText("Ajouter un Nœud");
+        addLocationButton.setText("Ajouter un Emplacement");
+        addEdgeButton.setText("Ajouter un Bord");
+        toggleTableButton.setText("Modifier les Emplacements");
+        ThirdFloorButton.setText("Troisième Étage");
+        SecondFloorButton.setText("Deuxième Étage");
+        FirstFloorButton.setText("Premier Étage");
+        LowerLevelOneButton.setText("Niveau Inférieur 1");
+        LowerLevelTwoButton.setText("Niveau Inférieur 2");
+        LongNameSelector.setText("Long");
+        ShortNameSelector.setText("Court");
+        IdSelector.setText("ID");
+        HallNamesSelector.setText("Noms des Couloirs");
+        EdgeSelector.setText("Afficher les Bords");
+        NodeSelector.setText("Nœud");
+        LegendSelector.setText("Formes Uniques");
+        mapSymbolsLabel.setText("Symboles de la Carte");
+        conferenceRoomLabel.setText("Salle de Conférence");
+        departmentLabel.setText("Département");
+        labLabel.setText("Laboratoire");
+        infoLabel.setText("Information");
+        bathroomLabel.setText("Salle de Bain/Toilettes");
+        serviceLabel.setText("Service/Vente");
+        elevatorLabel.setText("Ascenseur");
+        stairsLabel.setText("Escaliers");
+        exitLabel.setText("Sortie");
+        startLabel.setText("Départ");
+        pathLabel.setText("Chemin");
+        destinationLabel.setText("Destination");
+        currentFloorStart.setText("Départ Étage Actuel");
+        currentFloorDestLabel.setText("Destination Étage Actuel");
+        break;
+    }
+  }
+
   @FXML
   public void initialize() throws SQLException, IOException {
+    ThemeSwitch.switchTheme(root);
+
+    setLanguage(GlobalVariables.getB().getValue());
+    GlobalVariables.b.addListener(
+        (options, oldValue, newValue) -> {
+          try {
+            setLanguage(newValue);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          }
+        });
 
     map = new Map(anchor, false);
     //

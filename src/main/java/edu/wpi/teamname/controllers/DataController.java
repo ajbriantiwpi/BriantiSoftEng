@@ -1,33 +1,44 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.GlobalVariables;
+import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.extras.Language;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+/**
+ * The DataController class is responsible for handling the importing and exporting of data to and
+ * from the database. It contains methods for initializing the GUI components and for handling the
+ * actions performed by the user on the GUI.
+ */
 public class DataController implements Initializable {
+  @FXML AnchorPane dataPage;
+  @FXML Label importLabel;
+  @FXML Label exportLabel;
   @FXML private ComboBox<String> importComboBox;
-  @FXML private RadioButton wpiButton;
-  @FXML private RadioButton awsButton;
 
   @FXML private ComboBox<String> exportComboBox;
 
   @FXML private Button importButton;
 
   @FXML private Button exportButton;
-  private static boolean wpiSelected = true;
 
   private static final String[] FIELDS = {
     "Alert",
@@ -35,7 +46,6 @@ public class DataController implements Initializable {
     "Conference Reservations",
     "Edge",
     "Employee",
-    "Employee Type",
     "Flowers",
     "Furniture",
     "Items Ordered",
@@ -46,55 +56,86 @@ public class DataController implements Initializable {
     "Node",
     "Office Supply",
     "Path Messages",
+    "Pharmaceutical",
     "Service Request",
-    "Signage"
+    "Signage",
+    "Feedback"
   };
 
+  public void setLanguage(Language lang) throws SQLException {
+    switch (lang) {
+      case ENGLISH:
+        ParentController.titleString.set("Data Manager");
+        importLabel.setText("Import");
+        importButton.setText("Import");
+        exportLabel.setText("Export");
+        exportButton.setText("Export");
+        importComboBox.setPromptText("Choose Import");
+        exportComboBox.setPromptText("Choose Export");
+        break;
+      case ITALIAN:
+        ParentController.titleString.set("Gestione dei dati");
+        importLabel.setText("Importa");
+        importButton.setText("Importa");
+        exportLabel.setText("Esporta");
+        exportButton.setText("Esporta");
+        importComboBox.setPromptText("Scegli Importazione");
+        exportComboBox.setPromptText("Scegli Esportazione");
+        break;
+      case FRENCH:
+        ParentController.titleString.set("Gestionnaire de données");
+        importLabel.setText("Importer");
+        importButton.setText("Importer");
+        exportLabel.setText("Exporter");
+        exportButton.setText("Exporter");
+        importComboBox.setPromptText("Choisissez l'importation");
+        exportComboBox.setPromptText("Choisissez l'exportation");
+        break;
+      case SPANISH:
+        ParentController.titleString.set("Administrador de datos");
+        importLabel.setText("Importar");
+        importButton.setText("Importar");
+        exportLabel.setText("Exportar");
+        exportButton.setText("Exportar");
+        importComboBox.setPromptText("Elegir importación");
+        exportComboBox.setPromptText("Elegir exportación");
+        break;
+    }
+    importComboBox.setItems(FXCollections.observableList(Arrays.asList(FIELDS)));
+    exportComboBox.setItems(FXCollections.observableList(Arrays.asList(FIELDS)));
+  }
+
+  /**
+   * Initializes the GUI components of the Data Manager page. Sets the title of the page, populates
+   * the import and export ComboBoxes with the available options, and sets the action listeners for
+   * the buttons.
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    ThemeSwitch.switchTheme(dataPage);
     ParentController.titleString.set("Data Manager");
-    importComboBox.getItems().addAll(FIELDS);
-    exportComboBox.getItems().addAll(FIELDS);
+    try {
+      setLanguage(GlobalVariables.getB().getValue());
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+    GlobalVariables.b.addListener(
+        (options, oldValue, newValue) -> {
+          try {
+            setLanguage(newValue);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          }
+        });
+    importComboBox.setItems(FXCollections.observableList(Arrays.asList(FIELDS)));
+    exportComboBox.setItems(FXCollections.observableList(Arrays.asList(FIELDS)));
 
     importButton.setOnAction(e -> onImportButtonClicked());
     exportButton.setOnAction(e -> onExportButtonClicked());
-
-    // Create a ToggleGroup to ensure only one button can be selected at a time
-    ToggleGroup databaseToggleGroup = new ToggleGroup();
-    wpiButton.setToggleGroup(databaseToggleGroup);
-    awsButton.setToggleGroup(databaseToggleGroup);
-    if (wpiSelected) {
-      wpiButton.setSelected(true);
-    } else {
-      awsButton.setSelected(true);
-    }
-
-    // Hook up the methods to the toggle buttons
-    wpiButton.setOnAction(
-        e -> {
-          Sound.playOnButtonClick();
-          try {
-            DataManager.connectToWPI();
-            wpiSelected = true;
-          } catch (SQLException ex) {
-            ex.printStackTrace();
-          }
-        });
-
-    awsButton.setOnAction(
-        e -> {
-          Sound.playOnButtonClick();
-          try {
-            DataManager.connectToAWS();
-            wpiSelected = false;
-          } catch (SQLException ex) {
-            ex.printStackTrace();
-          }
-        });
   }
 
   private void onImportButtonClicked() {
-    Sound.playOnButtonClick();
+    Sound.playSFX(SFX.BUTTONCLICK);
     FileChooser fileChooser = new FileChooser();
     String selectedItem = importComboBox.getSelectionModel().getSelectedItem();
     fileChooser.setTitle("Open CSV File");
@@ -102,7 +143,6 @@ public class DataController implements Initializable {
 
     Stage stage = (Stage) importButton.getScene().getWindow();
     File csvFile = fileChooser.showOpenDialog(stage);
-
     if (csvFile != null) {
       if (selectedItem != null) {
         try {
@@ -114,19 +154,16 @@ public class DataController implements Initializable {
               DataManager.uploadNode(csvFile.getPath());
               break;
             case "Conference Room":
-              // DataManager.upload(csvFile.getPath());
+              DataManager.uploadConfRoom(csvFile.getPath());
               break;
             case "Conference Reservations":
-              // DataManager.upload(csvFile.getPath());
+              DataManager.uploadConfReservation(csvFile.getPath());
               break;
             case "Alert":
               DataManager.uploadAlert(csvFile.getPath());
               break;
             case "Employee":
               DataManager.uploadEmployee(csvFile.getPath());
-              break;
-            case "Employee Type":
-              // DataManager.uploadEmployeeType(csvFile.getPath());
               break;
             case "Flowers":
               DataManager.uploadFlower(csvFile.getPath());
@@ -153,13 +190,19 @@ public class DataController implements Initializable {
               DataManager.uploadOfficeSupply(csvFile.getPath());
               break;
             case "Path Messages":
-              // DataManager.uploadPathMessages(csvFile.getPath());
+              DataManager.uploadPathMessage(csvFile.getPath());
               break;
             case "Service Requests":
               DataManager.uploadServiceRequest(csvFile.getPath());
               break;
             case "Signage":
               DataManager.uploadSignage(csvFile.getPath());
+              break;
+            case "Feedback":
+              DataManager.uploadFeedback(csvFile.getPath());
+              break;
+            case "Pharmaceutical":
+              DataManager.uploadPharmaceutical(csvFile.getPath());
               break;
           }
         } catch (SQLException | ParseException e) {
@@ -170,7 +213,7 @@ public class DataController implements Initializable {
   }
 
   private void onExportButtonClicked() {
-    Sound.playOnButtonClick();
+    Sound.playSFX(SFX.BUTTONCLICK);
     String selectedItem = exportComboBox.getSelectionModel().getSelectedItem();
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Save CSV File");
@@ -197,11 +240,11 @@ public class DataController implements Initializable {
               break;
             case "Conference Room":
               fileChooser.setInitialFileName("conferenceRoom.csv");
-              // DataManager.exportConferenceRoomToCSV(csvFile.getPath());
+              DataManager.exportConfRoomToCSV(csvFile.getPath());
               break;
             case "Conference Reservations":
               fileChooser.setInitialFileName("conferenceReservations.csv");
-              // DataManager.exportConferenceRoomToCSV(csvFile.getPath());
+              DataManager.exportConfReservationToCSV(csvFile.getPath());
               break;
             case "Alert":
               fileChooser.setInitialFileName("alert.csv");
@@ -210,10 +253,6 @@ public class DataController implements Initializable {
             case "Employee":
               fileChooser.setInitialFileName("employee.csv");
               DataManager.exportEmployeeToCSV(csvFile.getPath());
-              break;
-            case "Employee Type":
-              fileChooser.setInitialFileName("employeeType.csv");
-              // DataManager.exportEmployeeTypeToCSV(csvFile.getPath());
               break;
             case "Flowers":
               fileChooser.setInitialFileName("flowers.csv");
@@ -245,7 +284,11 @@ public class DataController implements Initializable {
               break;
             case "Path Messages":
               fileChooser.setInitialFileName("pathMessages.csv");
-              // DataManager.exportPathMessagesToCSV(csvFile.getPath());
+              DataManager.exportPMToCSV(csvFile.getPath());
+              break;
+            case "Pharmaceutical":
+              fileChooser.setInitialFileName("pharmaceutical.csv");
+              DataManager.exportPharmaceuticalToCSV(csvFile.getPath());
               break;
             case "Service Request":
               fileChooser.setInitialFileName("serviceRequest.csv");
@@ -254,6 +297,10 @@ public class DataController implements Initializable {
             case "Signage":
               fileChooser.setInitialFileName("signage.csv");
               DataManager.exportSignageToCSV(csvFile.getPath());
+              break;
+            case "Feedback":
+              fileChooser.setInitialFileName("feedback.csv");
+              DataManager.exportFeedbackToCSV(csvFile.getPath());
               break;
           }
         } catch (SQLException e) {

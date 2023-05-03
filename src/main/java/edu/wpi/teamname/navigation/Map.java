@@ -3,6 +3,9 @@ package edu.wpi.teamname.navigation;
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.controllers.MapController;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.servicerequest.ConfReservation;
+import edu.wpi.teamname.servicerequest.RoomManager;
+import edu.wpi.teamname.servicerequest.requestitem.ConfRoom;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -60,12 +63,14 @@ public class Map {
   @Getter private ArrayList<String> roomTypes = new ArrayList<>();
   @Getter @Setter private boolean[] showTypeLabels = {false}; // HALL
 
-  @Getter @Setter private ArrayList<Node> alignSelection = new ArrayList<>();
+  //  @Getter @Setter private ArrayList<Node> alignSelection = new ArrayList<>();
+  @Getter @Setter private ArrayList<Integer> alignSelection = new ArrayList<>();
 
   @Getter @Setter private int startEdgeNodeId;
   @Getter @Setter private int movingNodeId;
 
   @Getter @Setter private ArrayList<String> textDirections;
+  @Getter @Setter private ArrayList<Node> nodeDirections;
 
   @Getter @Setter private ArrayList<Integer> floorChanges;
 
@@ -73,6 +78,8 @@ public class Map {
   @Getter @Setter private String endFloor;
 
   @Getter @Setter private Timestamp currTime;
+
+  @Getter @Setter private RoomManager rm;
 
   /**
    * Constructs a Map object with the given sub-anchor pane.
@@ -84,8 +91,9 @@ public class Map {
     this.graph = new Graph();
     this.currentDisplayFloor = "Lower Level 1";
     this.subAnchor = subAnchor;
-    GlobalVariables.setHMap(
-        DataManager.getAllLocationNamesMappedByNode(new Timestamp(System.currentTimeMillis())));
+
+    setGlobalVars(new Timestamp(System.currentTimeMillis()));
+
     this.labelTextType = 1;
     this.isMapPage = isMapPage;
     this.showEdges = !this.isMapPage;
@@ -94,8 +102,30 @@ public class Map {
     this.movingNodeId = -1;
 
     this.showNodes = !this.isMapPage;
-    this.showLegend = !this.isMapPage;
+    //    this.showLegend = !this.isMapPage;
+    this.showLegend = true;
     this.currTime = new Timestamp(System.currentTimeMillis());
+
+    this.rm = new RoomManager();
+    //    try {
+    //      this.refresh();
+    //    } catch (IOException e) {
+    //      throw new RuntimeException(e);
+    //    }
+  }
+
+  public void setGlobalVars(Timestamp time) throws SQLException {
+    GlobalVariables.setHMap(DataManager.getAllLocationNamesMappedByNode(time));
+    GlobalVariables.setServiceRequests(DataManager.getAllServiceRequests());
+    GlobalVariables.setConfReservations(DataManager.getAllConfReservation());
+    GlobalVariables.setConfRooms(DataManager.getAllConfRoom());
+
+    ArrayList<ArrayList<ConfReservation>> reses = new ArrayList<>();
+    ArrayList<ConfRoom> confs = GlobalVariables.getConfRooms();
+    for (int i = 0; i < confs.size(); i++) {
+      reses.add(DataManager.getResForRoom(confs.get(i)));
+    }
+    GlobalVariables.setAllRes(reses);
   }
 
   public boolean getShowLegend() {
@@ -114,8 +144,10 @@ public class Map {
       throws SQLException, IOException {
     ArrayList<javafx.scene.Node> allCirclesAndEdges = new ArrayList<>();
 
+    //    System.out.println("E: " + this.showEdges + ", " + this.showNodes);
+
     if (this.showEdges) {
-      System.out.println("ADDEDGES");
+      //      System.out.println("ADDEDGES");
       allCirclesAndEdges.addAll(this.makeAllFloorEdges(floor));
     }
     if (this.showNodes) {
@@ -166,14 +198,6 @@ public class Map {
 
       //      Node StartNode = this.graph.findNodeByID(mapEdges.get(i).getStartNodeID());
       //      Node EndNode = this.graph.findNodeByID(mapEdges.get(i).getEndNodeID());
-
-      if (StartNode.getId() == 1785) {
-        System.out.println("EDGE 1785: " + i);
-      }
-
-      if (mapEdges.get(i).getStartNodeID() == 1785) {
-        System.out.println("EL 1785: " + i);
-      }
 
       if (StartNode.getFloor().equals(floor) && EndNode.getFloor().equals(floor)) {
         EdgeRectangle er = new EdgeRectangle(StartNode, EndNode, this.isMapPage, this);
@@ -248,12 +272,16 @@ public class Map {
       throws SQLException, IOException {
     this.currentDisplayFloor = currentDisplayFloor;
 
-    GlobalVariables.setHMap(DataManager.getAllLocationNamesMappedByNode(time));
+    // Time
+    this.setGlobalVars(time);
+
+    //    System.out.println("Done");
 
     if (this.isMapPage) {
       Platform.runLater(() -> MapController.updateNames());
     }
 
+    // Time
     subAnchor.getStyleClass().remove(0);
 
     String cssFloorName = this.takeFloor(currentDisplayFloor, true);
@@ -261,8 +289,8 @@ public class Map {
 
     // Delete all nodeCircles
 
-    System.out.println("Change Floor");
-
+    //    System.out.println("Change Floor");
+    //    System.out.println("SubLC:" + subAnchor.getChildren().size());
     //    subAnchor.getChildren();currentFloorNodes;
     if (!this.currentFloorShapes.isEmpty()) {
       for (int i = subAnchor.getChildren().size() - 1; i >= 0; i--) {
@@ -274,6 +302,7 @@ public class Map {
       //      this.setPrevPath(null);
       this.setCurrentFloorShapes(null);
     }
+    //    System.out.println("SubLC:" + subAnchor.getChildren().size());
 
     if (!this.getPrevPath().isEmpty()) {
       for (int i = subAnchor.getChildren().size() - 1; i >= 0; i--) {
@@ -284,7 +313,7 @@ public class Map {
       this.setPrevPath(null);
     }
 
-    if (!this.getShapes().isEmpty()) {
+    if (!this.getShapes().isEmpty() && this.isMapPage) {
 
       if (cssFloorName.equals("L1")) {
         //            for (int i = 0; i < map.getShapes().get(1).size(); i++) {
@@ -312,10 +341,13 @@ public class Map {
 
     // Re add based on new floor
 
+    // Lots Of time.
     currentFloorShapes = (this.makeAllFloorShapes(shortRealFloorName));
-    System.out.println("SetFloor :" + shortRealFloorName);
+    //    System.out.println("SetFloor :" + shortRealFloorName);
 
+    //    System.out.println("SubL:" + subAnchor.getChildren().size());
     subAnchor.getChildren().addAll(currentFloorShapes);
+    //    System.out.println("SubL:" + subAnchor.getChildren().size());
 
     subAnchor.getStyleClass().add(cssFloorName);
   }
@@ -326,7 +358,7 @@ public class Map {
    * @param nodes List of nodes to create the path from
    * @return An ArrayList of Shape objects representing the path
    */
-  private ArrayList<ArrayList<Shape>> makeShapePath(ArrayList<Node> nodes) {
+  private ArrayList<ArrayList<Shape>> makeShapePath(ArrayList<Node> nodes) throws SQLException {
     ArrayList<Node> listFloor1 = new ArrayList<>();
     ArrayList<Node> listFloor2 = new ArrayList<>();
     ArrayList<Node> listUpper1 = new ArrayList<>();
@@ -372,25 +404,25 @@ public class Map {
     }
 
     if (listFloor2.size() != 0) {
-      pathAllFloor.add(0, makeShapePathFloor(listFloor2, "L2"));
+      pathAllFloor.add(0, makeShapePathFloor(listFloor2, "L2", true));
     }
 
     if (listFloor1.size() != 0) {
       System.out.println("size of list1: " + listFloor1.size());
       // System.out.println("size of list in list: " + pathAllFloor.get(1).size());
-      pathAllFloor.add(1, makeShapePathFloor(listFloor1, "L1"));
+      pathAllFloor.add(1, makeShapePathFloor(listFloor1, "L1", true));
     }
 
     if (listUpper1.size() != 0) {
-      pathAllFloor.add(2, makeShapePathFloor(listUpper1, "1"));
+      pathAllFloor.add(2, makeShapePathFloor(listUpper1, "1", true));
     }
 
     if (listUpper2.size() != 0) {
-      pathAllFloor.add(3, makeShapePathFloor(listUpper2, "2"));
+      pathAllFloor.add(3, makeShapePathFloor(listUpper2, "2", true));
     }
 
     if (listUpper3.size() != 0) {
-      pathAllFloor.add(4, makeShapePathFloor(listUpper3, "3"));
+      pathAllFloor.add(4, makeShapePathFloor(listUpper3, "3", true));
     }
 
     return pathAllFloor;
@@ -434,29 +466,55 @@ public class Map {
     //    return shapes;
   }
 
-  private ArrayList<Shape> makeShapePathFloor(ArrayList<Node> listNode, String floor) {
+  private ArrayList<Shape> makeShapePathFloor(ArrayList<Node> listNode, String floor, boolean flag)
+      throws SQLException {
     ArrayList<Shape> shapes = new ArrayList<Shape>();
+    ArrayList<Node> subsectionListNodes = new ArrayList<>();
 
+    int saveIndex;
     Circle c;
     Path path;
 
     for (int j = 0; j < 2; j++) {
       path = new Path();
-      if (j == 0) {
+      if (j == 0) { // runs first time
         path.setStroke(GlobalVariables.getBorderColor());
-      } else {
+      } else { // runs second time
         path.setStroke(GlobalVariables.getInsideColor());
       }
+
+      // This is setting the line width
       path.setStrokeWidth(
           GlobalVariables.getLineT() - (GlobalVariables.getStrokeThickness() * 2 * j));
+
+      // Adds new MoveTo object to the path elements, runs twice
       path.getElements().add(new MoveTo(listNode.get(0).getX(), listNode.get(0).getY()));
 
       for (int i = 1; i < listNode.size(); i++) {
-        path.getElements().add(new LineTo(listNode.get(i).getX(), listNode.get(i).getY()));
+        boolean isConnectedToPrev = false;
+        for (Edge e : DataManager.getAllEdges()) {
+          if (((e.getEndNodeID() == listNode.get(i).getId())
+                  && (e.getStartNodeID() == listNode.get(i - 1).getId()))
+              || ((e.getStartNodeID() == listNode.get(i).getId())
+                  && (e.getEndNodeID() == listNode.get(i - 1).getId()))) {
+            path.getElements().add(new LineTo(listNode.get(i).getX(), listNode.get(i).getY()));
+            isConnectedToPrev = true;
+          }
+        }
+
+        if (!isConnectedToPrev) {
+          ArrayList<Node> subSection = new ArrayList<>(listNode.subList(i, listNode.size()));
+          subsectionListNodes = subSection;
+          break;
+        }
+        // path.getElements().add(new LineTo(listNode.get(i).getX(), listNode.get(i).getY()));
       }
+
       path.setStrokeLineJoin(StrokeLineJoin.ROUND);
       shapes.add(path);
     }
+
+    // goto to here!!
 
     for (int i = 0; i < listNode.size(); i++) {
 
@@ -480,22 +538,6 @@ public class Map {
         shapes.addAll(newShapes);
 
       } else if (i == listNode.size() - 1) {
-        //        c =
-        //            new Circle(
-        //                listNode.get(i).getX(),
-        //                listNode.get(i).getY(),
-        //                GlobalVariables.getCircleR() + GlobalVariables.getStrokeThickness());
-        //        c.setFill(GlobalVariables.getBorderColor());
-        //        shapes.add(c);
-
-        //        c =
-        //            new Circle(
-        //                listNode.get(i).getX(), listNode.get(i).getY(),
-        // GlobalVariables.getCircleR());
-        //        c.setFill(GlobalVariables.getInsideColor());
-        //        shapes.add(c);
-
-        //        listNode.get(i).getY(),
 
         ArrayList<Shape> newShapes = new ArrayList<>();
 
@@ -515,6 +557,10 @@ public class Map {
         shapes.addAll(newShapes);
       }
     }
+
+    if (flag && subsectionListNodes.size() > 0) {
+      shapes.addAll(makeShapePathFloor(subsectionListNodes, floor, false));
+    }
     prevPath.addAll(shapes);
     return shapes;
   }
@@ -529,7 +575,8 @@ public class Map {
    * @param floor2 The ending floor
    */
   public void drawPath(
-      Pane parent, Point2D firstClick, Point2D secondClick, String floor1, String floor2) {
+      Pane parent, Point2D firstClick, Point2D secondClick, String floor1, String floor2)
+      throws SQLException {
 
     //    String floor = "L1";
 
@@ -601,7 +648,7 @@ public class Map {
    * @param startNodeId the starting MapNode ID
    * @param endNodeId the ending MapNode ID
    */
-  public void drawPath(Pane parent, int startNodeId, int endNodeId) {
+  public void drawPath(Pane parent, int startNodeId, int endNodeId) throws SQLException {
     ArrayList<Node> nodePath = this.graph.getPathBetween(startNodeId, endNodeId);
 
     System.out.println("SIZE: " + nodePath.size());
@@ -609,6 +656,7 @@ public class Map {
     shapes = makeShapePath(nodePath);
 
     this.floorChanges = new ArrayList<>();
+    this.nodeDirections = nodePath;
     this.textDirections = getTextual(nodePath);
 
     // return shapes
@@ -639,6 +687,8 @@ public class Map {
 
     textuals.add(sb.toString());
 
+    int distanceNum = 0;
+
     if (nodePath.size() > 2) {
       for (int i = 1; i < nodePath.size() - 1; i++) {
         sb = new StringBuilder();
@@ -650,10 +700,65 @@ public class Map {
         direction = getDirection(prevNode, node, nextNode);
 
         if (direction.getString().equals("Straight")) {
-          sb.append("Continue Straight ");
+          switch (GlobalVariables.getB().getValue()) {
+            case ENGLISH:
+              sb.append("Continue Straight ");
+              break;
+            case FRENCH:
+              sb.append("Continuer Droit");
+              break;
+            case ITALIAN:
+              sb.append("Continua Dritto");
+              break;
+            case SPANISH:
+              sb.append("Continuar Recto");
+              break;
+          }
+
         } else if (direction.getString().equals("Down") || direction.getString().equals("Up")) {
-          sb.append("Go " + direction.getString());
+          switch (GlobalVariables.getB().getValue()) {
+            case ENGLISH:
+              sb.append("Go ");
+              if (direction.getString().equals("Down")) {
+                sb.append("Down");
+              } else {
+                sb.append("Up");
+              }
+              break;
+            case FRENCH: // En haut
+              //              sb.append("Go ");
+              if (direction.getString().equals("Down")) {
+                sb.append("Descendez.");
+              } else {
+                sb.append("Monter");
+              }
+              break;
+            case ITALIAN:
+              sb.append("Vai ");
+              if (direction.getString().equals("Down")) {
+                sb.append("Giu");
+              } else {
+                sb.append("Su");
+              }
+              break;
+            case SPANISH: // sube
+              //              sb.append("Go ");
+              if (direction.getString().equals("Down")) {
+                sb.append("Baje");
+              } else {
+                sb.append("Sube");
+              }
+              break;
+          }
         } else {
+          switch (GlobalVariables.getB().getValue()) {
+            case ENGLISH:
+              sb.append("Turn " + direction.getString() + " then Continue Straight ");
+              break;
+            case ITALIAN:
+              sb.append("Giri " + direction.getTranslatedString() + ", e poi vai dritto");
+          }
+
           sb.append("Turn " + direction.getString() + " then Continue Straight ");
         }
         //        sb.append(direction.getString());
@@ -717,7 +822,19 @@ public class Map {
     return direction;
   }
 
-  String getTextDistance(Node node, Node nextNode) {
+  public double getNumericalDistance(Node node, Node nextNode) {
+    int curFloor = node.getFloorNum();
+    int nextFloor = nextNode.getFloorNum();
+    if (curFloor != nextFloor) {
+      int delFloor = nextFloor - curFloor;
+      return delFloor;
+    } else {
+      double val = Math.round(node.calculateHeuristic(nextNode) * 100.0) / 100.0;
+      return val;
+    }
+  }
+
+  public String getTextDistance(Node node, Node nextNode) {
     String distance;
     int curFloor = node.getFloorNum();
     int nextFloor = nextNode.getFloorNum();

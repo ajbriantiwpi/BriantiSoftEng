@@ -1,6 +1,9 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.GlobalVariables;
+import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.servicerequest.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.sql.SQLException;
@@ -13,10 +16,21 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import lombok.Getter;
+import lombok.Setter;
 import org.controlsfx.control.SearchableComboBox;
 
+/** Controller for the UI to view the conference room reservations */
 public class ConfrenceViewController {
 
+  @FXML Label filterTableLabel;
+  @FXML Label dateLabel;
+
+  @FXML Label assignedLabel;
+  @FXML Label assignStaffLabel;
+  @FXML Label idLabel;
+  @FXML Label assignStaffLabel1;
   @FXML TableView<ConfReservation> table;
   @FXML TableColumn resIDCol;
   @FXML TableColumn dateCol;
@@ -32,9 +46,10 @@ public class ConfrenceViewController {
   @FXML MFXButton submitButton;
 
   @FXML MFXButton refreshButton;
+  @FXML AnchorPane root;
 
   private double totalPrice = 0.0;
-
+  @Getter @Setter static int roomNum;
   @FXML DatePicker dateBox;
   @FXML SearchableComboBox<String> requestStaffCombo;
   //  ObservableList<String> serviceType =
@@ -59,7 +74,17 @@ public class ConfrenceViewController {
       reservationList =
           FXCollections.observableList(
               reservationList.stream()
-                  .filter((reservation) -> reservation.getDateBook().getDate() == date.getDate())
+                  .filter(
+                      (reservation) ->
+                          (reservation.getDateBook().getDate() == date.getDate())
+                              && (reservation.getDateBook().getMonth() == date.getMonth()))
+                  .toList());
+    }
+    if (roomNum != 0) {
+      reservationList =
+          FXCollections.observableList(
+              reservationList.stream()
+                  .filter((reservation) -> (roomNum == reservation.getRoomID()))
                   .toList());
     }
     if (!(username == (null)) && !(username.toString().equals(""))) {
@@ -86,6 +111,11 @@ public class ConfrenceViewController {
     refreshTable();
   }
 
+  /**
+   * refreshes the contents of the table
+   *
+   * @throws SQLException
+   */
   public void refreshTable() throws SQLException {
     ObservableList<ConfReservation> reservations =
         FXCollections.observableList(DataManager.getAllConfReservation());
@@ -95,6 +125,110 @@ public class ConfrenceViewController {
     table.setItems(sortedServiceReq);
   }
 
+  public void setLanguage(Language lang) throws SQLException {
+    switch (lang) {
+      case ENGLISH:
+        ParentController.titleString.set("Conference Room Reservations View");
+        filterTableLabel.setText("Filter Table");
+        dateLabel.setText("Date");
+        refreshButton.setText("Refresh");
+        assignedLabel.setText("Assigned Staff");
+        requestStaffCombo.setPromptText("Choose Staff");
+        assignStaffLabel.setText("Assign Staff to Reservation");
+        idLabel.setText("Reservation ID");
+        reservationIDText.setPromptText("Select Reservation ID");
+        assignStaffLabel1.setText("Assign Staff");
+        assignStaffText.setPromptText("Select Staff");
+        submitButton.setText("Assign");
+        resIDCol.setText("Reservation ID");
+        dateCol.setText("Datebook");
+        startCol.setText("Start Time");
+        endCol.setText("End Time");
+        nameCol.setText("Name");
+        usernameCol.setText("Username");
+        assignedStaffCol.setText("Assigned Staff");
+        madeCol.setText("Date Made");
+        roomCol.setText("Room ID");
+        break;
+      case FRENCH:
+        ParentController.titleString.set("Vue des réservations de salle de conférence");
+        filterTableLabel.setText("Filtrer la table");
+        dateLabel.setText("Date");
+        refreshButton.setText("Actualiser");
+        assignedLabel.setText("Personnel assigné");
+        requestStaffCombo.setPromptText("Choisir le personnel");
+        assignStaffLabel.setText("Assigner le personnel à la réservation");
+        idLabel.setText("ID de réservation");
+        reservationIDText.setPromptText("Sélectionner l'ID de réservation");
+        assignStaffLabel1.setText("Assigner le personnel");
+        assignStaffText.setPromptText("Sélectionner le personnel");
+        submitButton.setText("Assigner");
+        resIDCol.setText("ID de réservation");
+        dateCol.setText("Date");
+        startCol.setText("Heure de début");
+        endCol.setText("Heure de fin");
+        nameCol.setText("Nom");
+        usernameCol.setText("Nom d'utilisateur");
+        assignedStaffCol.setText("Personnel assigné");
+        madeCol.setText("Date de création");
+        roomCol.setText("ID de la salle");
+        break;
+      case ITALIAN:
+        ParentController.titleString.set("Visualizzazione prenotazioni sala conferenze");
+        filterTableLabel.setText("Filtrare la Tabella");
+        dateLabel.setText("Data");
+        refreshButton.setText("Aggiorna");
+        assignedLabel.setText("Personale assegnato");
+        requestStaffCombo.setPromptText("Scegli il personale");
+        assignStaffLabel.setText("Assegna il personale alla prenotazione");
+        idLabel.setText("ID prenotazione");
+        reservationIDText.setPromptText("Seleziona l'ID della prenotazione");
+        assignStaffLabel1.setText("Assegna il personale");
+        assignStaffText.setPromptText("Seleziona il personale");
+        submitButton.setText("Assegna");
+        resIDCol.setText("ID prenotazione");
+        dateCol.setText("Data");
+        startCol.setText("Ora di inizio");
+        endCol.setText("Ora di fine");
+        nameCol.setText("Nome");
+        usernameCol.setText("Nome utente");
+        assignedStaffCol.setText("Personale assegnato");
+        madeCol.setText("Data di creazione");
+        roomCol.setText("ID della sala");
+        break;
+      case SPANISH:
+        ParentController.titleString.set("Vista de Reservas de Sala de Conferencias");
+        filterTableLabel.setText("Filtrar Tabla");
+        dateLabel.setText("Fecha");
+        refreshButton.setText("Actualizar");
+        assignedLabel.setText("Personal Asignado");
+        requestStaffCombo.setPromptText("Elegir Personal");
+        assignStaffLabel.setText("Asignar Personal a la Reserva");
+        idLabel.setText("ID de Reserva");
+        reservationIDText.setPromptText("Seleccionar ID de Reserva");
+        assignStaffLabel1.setText("Asignar Personal");
+        assignStaffText.setPromptText("Seleccionar Personal");
+        submitButton.setText("Asignar");
+        resIDCol.setText("ID de Reserva");
+        dateCol.setText("Fecha");
+        startCol.setText("Hora de Inicio");
+        endCol.setText("Hora de Finalización");
+        nameCol.setText("Nombre");
+        usernameCol.setText("Nombre de Usuario");
+        assignedStaffCol.setText("Personal Asignado");
+        madeCol.setText("Fecha de Creación");
+        roomCol.setText("ID de Sala");
+        break;
+    }
+    ObservableList<String> staffNames =
+        FXCollections.observableArrayList(DataManager.getAllUsernames());
+    staffNames.add(null);
+    requestStaffCombo.setItems(staffNames);
+
+    reservationIDText.setItems(
+        FXCollections.observableList(DataManager.getAllConferenceRequestIDs()));
+    assignStaffText.setItems(FXCollections.observableList(DataManager.getAllUsernames()));
+  }
   /**
    * initializes the serviceRequestView page
    *
@@ -102,7 +236,18 @@ public class ConfrenceViewController {
    */
   @FXML
   public void initialize() throws SQLException {
+    roomNum = 0;
+    ThemeSwitch.switchTheme(root);
     ParentController.titleString.set("Conference Room Reservations View");
+    setLanguage(GlobalVariables.getB().getValue());
+    GlobalVariables.b.addListener(
+        (options, oldValue, newValue) -> {
+          try {
+            setLanguage(newValue);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          }
+        });
     submitButton.disableProperty().bind(Bindings.isNull(reservationIDText.valueProperty()));
     submitButton.disableProperty().bind(Bindings.isNull(assignStaffText.valueProperty()));
 
@@ -223,6 +368,20 @@ public class ConfrenceViewController {
 
     table.setItems(sortedRes);
 
+    if (GlobalVariables.isRequestFromMap()) {
+      dateBox.setValue(GlobalVariables.getDateFromMap().toLocalDateTime().toLocalDate());
+      setRoomNum(GlobalVariables.getRoomIDFromMap());
+      GlobalVariables.setRequestFromMap(false);
+      try {
+        // update the table when the status combo box is changed
+        table.setItems(
+            tableFilter(
+                Timestamp.valueOf(dateBox.getValue().atStartOfDay()),
+                requestStaffCombo.getValue()));
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
     //    backButton.setOnMouseClicked(
     //        event -> {
     //          totalPrice = 0.0;

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" styleClass="primary-on-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <MFXButton id="Make Requests" fx:id="makeRequestsButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="primary-on-container" stylesheets="@../stylesheets/Colors/sideBarColor.css" text="Make Requests" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
+         <font>
+            <Font name="Roboto" size="22.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="34.0" fitWidth="34.0">
+               <image>
+                  <Image url="@../images/MenuIcons/view_requests_sidebar.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </MFXButton>
+      <MFXButton id="Request Room" fx:id="requestRoomButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="primary-on-container" text="Request Room" textFill="#1a1c1e">
+         <font>
+            <Font name="Roboto" size="22.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="34.0" fitWidth="34.0">
+               <image>
+                  <Image url="@../images/MenuIcons/request_room_sidebar.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <stylesheets>
+            <URL value="@../stylesheets/SideBar.css" />
+            <URL value="@../stylesheets/Colors/sideBarColor.css" />
+         </stylesheets>
+      </MFXButton>
+      <MFXButton id="View Requests" fx:id="showRequestsButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="primary-on-container" stylesheets="@../stylesheets/Colors/sideBarColor.css" text="View Requests" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
+         <font>
+            <Font name="Roboto" size="22.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="34.0" fitWidth="34.0">
+               <image>
+                  <Image url="@../images/MenuIcons/make_requests_sidebar.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </MFXButton>
+      <MFXButton id="Service Request Analytics" fx:id="showRequestsButton1" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="primary-on-container" stylesheets="@../stylesheets/Colors/sideBarColor.css" text="Service Request Analytics" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
+         <font>
+            <Font name="Roboto" size="22.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="34.0" fitWidth="34.0">
+               <image>
+                  <Image url="@../images/MenuIcons/make_requests_sidebar.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </MFXButton>
+      <MFXButton id="View Confrence Room" fx:id="showRequestsButton2" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="primary-on-container" stylesheets="@../stylesheets/Colors/sideBarColor.css" text="View Confrence Room" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
+         <font>
+            <Font name="Roboto" size="22.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="34.0" fitWidth="34.0">
+               <image>
+                  <Image url="@../images/MenuIcons/make_requests_sidebar.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </MFXButton>
+   </children>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+   <padding>
+      <Insets top="1.0" />
+   </padding>
+   <stylesheets>
+      <URL value="@../stylesheets/SideBar.css" />
+      <URL value="@../stylesheets/Colors/lightTheme.css" />
+   </stylesheets>
+</VBox>

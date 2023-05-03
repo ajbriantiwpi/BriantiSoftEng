@@ -3,8 +3,12 @@ package edu.wpi.teamname.controllers;
 import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
+import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.controllers.JFXitems.ReqMenuItems;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.employees.EmployeeType;
+import edu.wpi.teamname.extras.Language;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.servicerequest.RequestType;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
@@ -30,6 +34,10 @@ import javafx.scene.layout.*;
 import lombok.Getter;
 import lombok.Setter;
 
+//
+/// **
+// * Controller for Creating service requests
+// */
 public class ServiceRequestController {
 
   // requestInfo Error if not added anything to both meal and side
@@ -44,7 +52,15 @@ public class ServiceRequestController {
   // Sam's Form GUI
   @FXML AnchorPane root;
 
+  @FXML Label patientNameLabel;
+  @FXML Label locationLabel;
+  @FXML Label dateLabel;
+  @FXML Label timeLabel;
+  @FXML Label serviceRequestLabel;
+  @FXML Label searchLabel;
+  @FXML Label cartLabel;
   @FXML ImageView background;
+  @FXML Label detailsLabel;
   private int requestPage = 0; // used for keeping track of which page is active
 
   // Bottom Bar
@@ -72,7 +88,8 @@ public class ServiceRequestController {
           "Flower Delivery",
           "Office Supply Delivery",
           "Furniture Delivery",
-          "Medical Supply Delivery");
+          "Medical Supply Delivery",
+          "Pharmaceutical Delivery");
 
   @Setter @Getter private RequestType reqType;
   @FXML ComboBox requestType;
@@ -88,6 +105,83 @@ public class ServiceRequestController {
   @FXML Label summaryLabel;
 
   @FXML VBox cartBox;
+
+  public void setLanguage(Language lang) {
+    switch (lang) {
+      case ENGLISH:
+        ParentController.titleString.set("Service Request");
+        patientNameLabel.setText("Patient Name");
+        locationLabel.setText("Location");
+        nodeBox.setPromptText("Choose Location");
+        dateLabel.setText("Date");
+        timeLabel.setText("Time");
+        timeBox.setPromptText("Choose Time of Delivery");
+        serviceRequestLabel.setText("Service Request Type");
+        requestType.setPromptText("Choose Service Request Type");
+        clearButton.setText("Clear");
+        cancelButton.setText("Cancel");
+        nextButton.setText("Next");
+        forgotButton.setText("Forgot something?");
+        detailsLabel.setText("Order Details");
+        cartLabel.setText("Your Cart");
+        searchLabel.setText("Search");
+        break;
+      case FRENCH:
+        ParentController.titleString.set("Richiesta di servizio");
+        patientNameLabel.setText("Nom du patient");
+        locationLabel.setText("Emplacement");
+        nodeBox.setPromptText("Choisissez un emplacement");
+        dateLabel.setText("Date");
+        timeLabel.setText("Heure");
+        timeBox.setPromptText("Choisissez l'heure de livraison");
+        serviceRequestLabel.setText("Type de demande de service");
+        requestType.setPromptText("Choisissez le type de demande de service");
+        clearButton.setText("Effacer");
+        cancelButton.setText("Annuler");
+        nextButton.setText("Suivant");
+        forgotButton.setText("Vous avez oublié quelque chose?");
+        detailsLabel.setText("Détails de la commande");
+        cartLabel.setText("Votre panier");
+        searchLabel.setText("Rechercher");
+        break;
+      case ITALIAN:
+        ParentController.titleString.set("Richiesta di servizio");
+        patientNameLabel.setText("Nome Paziente");
+        locationLabel.setText("Posizione");
+        nodeBox.setPromptText("Scegli Posizione");
+        dateLabel.setText("Data");
+        timeLabel.setText("Ora");
+        timeBox.setPromptText("Scegli Ora di Consegna");
+        serviceRequestLabel.setText("Tipo di Richiesta di Servizio");
+        requestType.setPromptText("Scegli Tipo di Richiesta di Servizio");
+        clearButton.setText("Pulisci");
+        cancelButton.setText("Annulla");
+        nextButton.setText("Avanti");
+        forgotButton.setText("Hai dimenticato qualcosa?");
+        detailsLabel.setText("Dettagli Ordine");
+        cartLabel.setText("Il Tuo Carrello");
+        searchLabel.setText("Cerca");
+        break;
+      case SPANISH:
+        ParentController.titleString.set("Solicitud de servicio");
+        patientNameLabel.setText("Nombre del Paciente");
+        locationLabel.setText("Ubicación");
+        nodeBox.setPromptText("Elija Ubicación");
+        dateLabel.setText("Fecha");
+        timeLabel.setText("Hora");
+        timeBox.setPromptText("Elija Hora de Entrega");
+        serviceRequestLabel.setText("Tipo de Solicitud de Servicio");
+        requestType.setPromptText("Elija Tipo de Solicitud de Servicio");
+        clearButton.setText("Limpiar");
+        cancelButton.setText("Cancelar");
+        nextButton.setText("Siguiente");
+        forgotButton.setText("¿Olvidaste algo?");
+        detailsLabel.setText("Detalles del Pedido");
+        cartLabel.setText("Tu Carrito");
+        searchLabel.setText("Buscar");
+        break;
+    }
+  }
 
   public VBox getCartBox() {
     return cartBox;
@@ -109,7 +203,7 @@ public class ServiceRequestController {
    */
   private void nextPane() throws SQLException {
     if (requestPage != 2) {
-      Sound.playOnButtonClick();
+      Sound.playSFX(SFX.BUTTONCLICK);
     }
     System.out.println("NEXT");
     if (requestPage == 0) {
@@ -122,6 +216,8 @@ public class ServiceRequestController {
         reqType = RequestType.OFFICESUPPLY;
       } else if (requestType.getValue() == "Medical Supply Delivery") {
         reqType = RequestType.MEDICALSUPPLY;
+      } else if (requestType.getValue() == "Pharmaceutical Delivery") {
+        reqType = RequestType.PHARMACEUTICAL;
       } else { // "Furniture Delivery"
         reqType = RequestType.FURNITURE;
       }
@@ -170,24 +266,34 @@ public class ServiceRequestController {
       ArrayList<RequestItem> tem = new ArrayList<>();
       double totalPrice = 0.0;
       String t = request.getRequestType().toString();
-      String f;
-      if (t == "Meal Request") {
-        f = "MealIcons";
-        tem.addAll(DataManager.getAllMeals());
-      } else if (t == "Flower Request") {
-        f = "FlowerIcons";
-        tem.addAll(DataManager.getAllFlowers());
+      String f = "";
+      switch (t) {
+        case "Meal Request":
+          f = "MealIcons";
+          tem.addAll(DataManager.getAllMeals());
+          break;
+        case "Flower Request":
+          f = "FlowerIcons";
+          tem.addAll(DataManager.getAllFlowers());
+          break;
+        case "Office Supply Request":
+          f = "OfficeIcons";
+          tem.addAll(DataManager.getAllOfficeSupplies());
+          break;
+        case "Medical Supply Request":
+          f = "MedicalIcons";
+          tem.addAll(DataManager.getAllMedicalSupplies());
+          break;
+        case "Pharmaceutical Request":
+          f = "PharmaceuticalIcons";
+          tem.addAll(DataManager.getAllPharmaceuticals());
+          break;
 
-      } else if (t == "Office Supply Request") {
-        f = "OfficeIcons";
-        tem.addAll(DataManager.getAllOfficeSupplies());
-      } else if (t == "Medical Supply Request") {
-        f = "MedicalIcons";
-        tem.addAll(DataManager.getAllMedicalSupplies());
-      } else {
-        f = "FurnitureIcons";
-        System.out.println(t);
-        tem.addAll(DataManager.getAllFurniture());
+        default:
+          f = "FurnitureIcons";
+          System.out.println(t);
+          tem.addAll(DataManager.getAllFurniture());
+          break;
       }
       int c = 0;
 
@@ -205,9 +311,10 @@ public class ServiceRequestController {
       requestPage = 0;
       nextButton.setText("Next");
       DataManager.addServiceRequest(request);
+      Sound.playSFX(SFX.SUCCESS);
       Navigation.navigate(Screen.SMILE);
 
-      System.out.println(request);
+      // System.out.println(request);
     }
   }
 
@@ -272,11 +379,17 @@ public class ServiceRequestController {
   }
 
   public void initialize() {
-    if (GlobalVariables.getDarkMode().get()) {
-      root.getStylesheets().remove(0);
-    } else {
-      root.getStylesheets().remove(1);
-    }
+    //    if (GlobalVariables.getDarkMode().get()) {
+    //      root.getStylesheets().remove(0);
+    //    } else {
+    //      root.getStylesheets().remove(1);
+    //    }
+    setLanguage(GlobalVariables.getB().getValue());
+    GlobalVariables.b.addListener(
+        (options, oldValue, newValue) -> {
+          setLanguage(newValue);
+        });
+    ThemeSwitch.switchTheme(root);
     ParentController.titleString.set("Service Request");
     setVisibleScreen(0);
 
@@ -303,10 +416,13 @@ public class ServiceRequestController {
     cancelButton.setOnMouseClicked(event -> cancelAction());
     clearButton.setOnMouseClicked(
         event -> {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           clearAction();
         });
-
+    if (!GlobalVariables.userIsType(EmployeeType.DOCTOR)) {
+      serviceType.remove("Pharmaceutical Delivery");
+    }
+    System.out.println("service type: " + serviceType);
     requestType.setItems(serviceType);
 
     // request = new ServiceRequest();
@@ -317,7 +433,7 @@ public class ServiceRequestController {
 
     forgotButton.setOnMouseClicked(
         event -> {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           setVisibleScreen(1);
           cartBox.getChildren().clear();
           totalLabel.setText("Total Price: ");
@@ -331,7 +447,7 @@ public class ServiceRequestController {
 
     searchButton.setOnMouseClicked(
         event -> {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           try {
             refreshItems();
           } catch (SQLException e) {
@@ -358,12 +474,14 @@ public class ServiceRequestController {
       tem.addAll(DataManager.getAllOfficeSupplies());
     } else if (t == "Medical Supply Request") {
       tem.addAll(DataManager.getAllMedicalSupplies());
+    } else if (t == "Pharmaceutical Request") {
+      tem.addAll(DataManager.getAllPharmaceuticals());
     } else {
       System.out.println(t);
       tem.addAll(DataManager.getAllFurniture());
     }
     int c = 0;
-    // System.out.println(tem);
+    System.out.println("tem: " + tem);
     // System.out.println(request.getItems());
     for (RequestItem item : tem) {
       c = request.countItem(item.getItemID());
@@ -373,6 +491,7 @@ public class ServiceRequestController {
       }
     }
     System.out.println(totalPrice);
+    System.out.println("Here");
     DecimalFormat format = new DecimalFormat("###0.00");
     totalLabel.setText(totalLabel.getText() + format.format(totalPrice));
   }
@@ -405,6 +524,11 @@ public class ServiceRequestController {
       ArrayList<MedicalSupply> temp = DataManager.getAllMedicalSupplies();
       items.addAll(temp);
       reqType = RequestType.MEDICALSUPPLY;
+    } else if (requestType.getValue() == "Pharmaceutical Delivery") {
+      folder = "PharmaceuticalIcons";
+      ArrayList<Pharmaceutical> temp = DataManager.getAllPharmaceuticals();
+      items.addAll(temp);
+      reqType = RequestType.PHARMACEUTICAL;
     } else { // "Furniture Delivery"
       folder = "FurnitureIcons";
       ArrayList<Furniture> tems = DataManager.getAllFurniture();

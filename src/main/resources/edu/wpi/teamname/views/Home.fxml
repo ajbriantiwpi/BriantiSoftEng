@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import java.lang.String?>
-<?import java.net.URL?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import io.github.palexdev.materialfx.controls.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="rootPane" prefHeight="1080.0" prefWidth="1920.0" styleClass="body" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.HomeController">
+<AnchorPane fx:id="rootPane" prefHeight="1080.0" prefWidth="1920.0" styleClass="body" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.HomeController">
     <children>
         <GridPane fx:id="homeGrid" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
@@ -48,7 +43,7 @@
                 </MFXButton>
                 <VBox fx:id="SRVBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="500.0" prefWidth="500.0" spacing="12.0" style="-fx-background-radius: 16;" styleClass="primary-container" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                     <children>
-                        <Label alignment="CENTER" minHeight="92.0" minWidth="444.0" prefWidth="500.0" style="-fx-background-radius: 16;" styleClass="primary-on-container" text="Staff Items" textFill="#fdfbff">
+                        <Label fx:id="staffItemsLabel" alignment="CENTER" minHeight="92.0" minWidth="444.0" prefWidth="500.0" style="-fx-background-radius: 16;" styleClass="primary-on-container" text="Staff Items" textFill="#fdfbff">
                             <font>
                                 <Font name="Roboto" size="36.0" />
                             </font>
@@ -61,9 +56,9 @@
                                 <Insets left="2.0" />
                             </VBox.margin>
                      <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                        <ImageView fitHeight="48.0" fitWidth="48.0">
                            <image>
-                              <Image url="@../images/MenuIcons/edit_note.png" />
+                              <Image url="@../images/MenuIcons/dark/edit_note.png" />
                            </image>
                         </ImageView>
                      </graphic></MFXButton>
@@ -72,9 +67,9 @@
                                 <Font name="Roboto" size="22.0" />
                             </font>
                      <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                        <ImageView fitHeight="48.0" fitWidth="48.0">
                            <image>
-                              <Image url="@../images/MenuIcons/assignment.png" />
+                              <Image url="@../images/MenuIcons/dark/assignment.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -84,9 +79,9 @@
                         <Font name="Roboto" size="22.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                        <ImageView fitHeight="48.0" fitWidth="48.0">
                            <image>
-                              <Image url="@../images/MenuIcons/bar_chart.png" />
+                              <Image url="@../images/MenuIcons/dark/add_chart.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -96,9 +91,9 @@
                         <Font name="Roboto" size="22.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                        <ImageView fitHeight="48.0" fitWidth="48.0">
                            <image>
-                              <Image url="@../images/MenuIcons/employeetable.png" />
+                              <Image url="@../images/MenuIcons/dark/badge.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -108,9 +103,21 @@
                         <Font name="Roboto" size="22.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                        <ImageView fitHeight="48.0" fitWidth="48.0">
                            <image>
-                              <Image url="@../images/MenuIcons/request_room_home.png" />
+                              <Image url="@../images/MenuIcons/dark/meeting_room.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MFXButton>
+                  <MFXButton fx:id="viewConfrenceRoomButton" alignment="BASELINE_LEFT" maxWidth="476.0" styleClass="surface" text="View Conference Room">
+                     <font>
+                        <Font name="Roboto" size="22.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="48.0" fitWidth="48.0">
+                           <image>
+                              <Image url="@../images/MenuIcons/dark/room_preferences.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -120,9 +127,9 @@
                         <Font name="Roboto" size="22.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                        <ImageView fitHeight="48.0" fitWidth="48.0">
                            <image>
-                              <Image url="@../images/MenuIcons/view_alerts_home.png" />
+                              <Image url="@../images/MenuIcons/dark/circle_notifications.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -134,7 +141,7 @@
                 </VBox>
                 <VBox fx:id="mapVBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="500.0" prefWidth="500.0" spacing="12.0" style="-fx-background-radius: 16;" styleClass="primary-container" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                     <children>
-                        <Label alignment="CENTER" minHeight="92.0" minWidth="444.0" prefWidth="500.0" style="-fx-background-radius: 16;" styleClass="primary-on-container" text="Navigation" textFill="#fdfbff">
+                        <Label fx:id="navigationLabel" alignment="CENTER" minHeight="92.0" minWidth="444.0" prefWidth="500.0" style="-fx-background-radius: 16;" styleClass="primary-on-container" text="Navigation" textFill="#fdfbff">
                             <font>
                                 <Font name="Roboto" size="36.0" />
                             </font>
@@ -147,9 +154,9 @@
                                 <Insets left="2.0" />
                             </VBox.margin>
                      <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                        <ImageView fitHeight="48.0" fitWidth="48.0">
                            <image>
-                              <Image url="@../images/MenuIcons/map.png" />
+                              <Image url="@../images/MenuIcons/dark/map.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -183,9 +190,9 @@
                                 <Font name="Roboto" size="22.0" />
                             </font>
                      <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                        <ImageView fitHeight="48.0" fitWidth="48.0">
                            <image>
-                              <Image url="@../images/MenuIcons/edit_move.png" />
+                              <Image url="@../images/MenuIcons/dark/edit_location.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -195,9 +202,9 @@
                                 <Font name="Roboto" size="22.0" />
                             </font>
                      <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                        <ImageView fitHeight="48.0" fitWidth="48.0">
                            <image>
-                              <Image url="@../images/MenuIcons/edit_location_alt.png" />
+                              <Image url="@../images/MenuIcons/dark/edit_location_alt.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -207,9 +214,9 @@
                         <Font name="Roboto" size="22.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                        <ImageView fitHeight="48.0" fitWidth="48.0">
                            <image>
-                              <Image url="@../images/MenuIcons/view_signage_home.png" />
+                              <Image url="@../images/MenuIcons/dark/directions.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -219,9 +226,9 @@
                         <Font name="Roboto" size="22.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                        <ImageView fitHeight="48.0" fitWidth="48.0">
                            <image>
-                              <Image url="@../images/MenuIcons/edit_signage_home.png" />
+                              <Image url="@../images/MenuIcons/dark/fork_left.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -233,7 +240,7 @@
                 </VBox>
             <VBox fx:id="actionVBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="500.0" prefWidth="500.0" spacing="12.0" style="-fx-background-radius: 16;" styleClass="primary-container" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <children>
-                  <Label alignment="CENTER" maxWidth="500.0" minHeight="92.0" minWidth="444.0" style="-fx-background-radius: 16;" styleClass="primary-on-container" text="Action Items" textFill="#fdfbff">
+                  <Label fx:id="actionItemsLabel" alignment="CENTER" maxWidth="500.0" minHeight="92.0" minWidth="444.0" style="-fx-background-radius: 16;" styleClass="primary-on-container" text="Action Items" textFill="#fdfbff">
                      <font>
                         <Font name="Roboto" size="36.0" />
                      </font>
@@ -306,6 +313,7 @@
         </GridPane>
           <HBox alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
               <children>
+                  <ComboBox fx:id="languageChooser" prefWidth="150.0" promptText="Choose Language" />
             <MFXButton fx:id="helpButton" alignment="CENTER" style="-fx-border-color: #f6bd38; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Help" textAlignment="CENTER" textFill="#fdfbff">
                <font>
                   <Font size="20.0" />
@@ -332,7 +340,7 @@
                           <Insets />
                       </HBox.margin>
                   </MFXButton>
-                  <MFXButton fx:id="dataButton" alignment="CENTER" style="-fx-border-color: #456d4c; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Data" textAlignment="CENTER" textFill="#fdfbff">
+                  <MFXButton fx:id="settingsButton" alignment="CENTER" style="-fx-border-color: #456d4c; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="Settings" textAlignment="CENTER" textFill="#fdfbff">
                       <font>
                           <Font size="20.0" />
                       </font>
@@ -347,8 +355,8 @@
 
     </children>
    <stylesheets>
-      <URL value="@../stylesheets/imageScale.css" />
       <URL value="@../stylesheets/Colors/lightTheme.css" />
       <URL value="@../stylesheets/Colors/darkTheme.css" />
+      <URL value="@../stylesheets/imageScale.css" />
    </stylesheets>
 </AnchorPane>

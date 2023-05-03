@@ -3,13 +3,18 @@ package edu.wpi.teamname.controllers;
 import edu.wpi.teamname.App;
 import edu.wpi.teamname.Navigation;
 import edu.wpi.teamname.Screen;
+import edu.wpi.teamname.*;
+import edu.wpi.teamname.controllers.JFXitems.DirectionArrow;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.database.PathMessageDAOImpl;
+import edu.wpi.teamname.extras.Language;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.navigation.AlgoStrategy.AStarAlgo;
 import edu.wpi.teamname.navigation.AlgoStrategy.BFSAlgo;
 import edu.wpi.teamname.navigation.AlgoStrategy.DFSAlgo;
 import edu.wpi.teamname.navigation.AlgoStrategy.DijkstraAlgo;
+import edu.wpi.teamname.navigation.Direction;
 import edu.wpi.teamname.navigation.Map;
 import edu.wpi.teamname.navigation.Node;
 import edu.wpi.teamname.navigation.PathMessage;
@@ -40,11 +45,37 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javax.swing.*;
 import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.SearchableComboBox;
 
 public class MapController {
+  @FXML Label mapSymbolsLabel;
+
+  @FXML Label conferenceRoomLabel;
+
+  @FXML Label departmentLabel;
+
+  @FXML Label labLabel;
+
+  @FXML Label infoLabel;
+
+  @FXML Label bathroomLabel;
+
+  @FXML Label serviceLabel;
+
+  @FXML Label elevatorLabel;
+
+  @FXML Label stairsLabel;
+
+  @FXML Label exitLabel;
+
+  @FXML Label startLabel;
+
+  @FXML Label pathLabel;
+
+  @FXML Label destinationLabel;
+  @FXML Label currentFloorStart;
+  @FXML Label currentFloorDestLabel;
 
   static Map map;
   @FXML GesturePane gp;
@@ -54,7 +85,7 @@ public class MapController {
   public static ComboBox<String> LocOne;
   @FXML SearchableComboBox<String> EndPointSelect = new SearchableComboBox<>();
   public static ComboBox<String> endSel;
-  @FXML MFXButton DeleteNodeButton;
+  @FXML MFXButton DeleteNodeButton; // On this page, this is actually the reset button
   @FXML MFXButton findPathButton;
   // @FXML ComboBox<String> FloorSelect = new ComboBox<>();
   @FXML ComboBox<String> AlgoSelect = new ComboBox<>();
@@ -290,7 +321,7 @@ public class MapController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           System.out.println("Submit Button Pressed");
 
           //          String adminIDIn = AdminIDVal.getText();
@@ -346,7 +377,7 @@ public class MapController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           System.out.println("Viewing Message");
 
           if (MessageTableView.isVisible() == true) {
@@ -389,7 +420,7 @@ public class MapController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           System.out.println("Add Message Running");
 
           if (MessageVal.isVisible() == true) {
@@ -423,14 +454,219 @@ public class MapController {
         }
       };
 
+  public void clearTextDriections() {
+    for (int i = directionsBox.getChildren().size() - 1; i >= 0; i--) {
+      directionsBox.getChildren().remove(i);
+    }
+  }
+
+  public void generateTextDirections(int startFloorIndex) {
+    int floorIndex = startFloorIndex;
+    //    ArrayList<String> directions = map.getTextDirections();
+    ArrayList<Node> nodePath = map.getNodeDirections();
+    int ind = 1;
+    int changes = 0;
+    int i = 1;
+    String oldFloor = map.getFloorArr()[floorIndex];
+    String newFloor = "";
+
+    Direction direction;
+    double distance;
+
+    int directionNum = 1;
+
+    int deltaFloor = 0;
+
+    distance = 0;
+
+    while (i != nodePath.size()) {
+      //      System.out.println("IO: " + i + " DS: " + nodePath.size());
+
+      StringBuilder sb = new StringBuilder();
+      sb = new StringBuilder();
+
+      ArrayList<DirectionArrow> directionObjs = new ArrayList<>();
+      //      String textDirections = "";
+      for (i = ind; i < nodePath.size(); i++) {
+        //        System.out.println("II: " + i + " DS: " + nodePath.size());
+        Node prevNode;
+        Node node;
+        Node nextNode;
+
+        prevNode = nodePath.get(i - 1);
+        node = nodePath.get(i);
+
+        String textLine = "";
+        int height = 35;
+
+        if (i == nodePath.size() - 1) {
+          distance += map.getNumericalDistance(prevNode, node);
+
+          textLine += String.valueOf(directionNum) + ": ";
+          switch (GlobalVariables.getB().getValue()) {
+            case ENGLISH:
+              textLine +=
+                  String.format("In %.2f Units, you will reach your destination!\n", distance);
+              break;
+            case ITALIAN:
+              textLine +=
+                  String.format("In %.2f Unità, raggiungerai la tua destinazione!\n", distance);
+              break;
+            case FRENCH:
+              textLine +=
+                  String.format(
+                      "Dans %.2f unités, vous atteindrez votre destination !\n", distance);
+              break;
+            case SPANISH:
+              textLine += String.format("¡En %.2f unidades, llegarás a tu destino!\n", distance);
+              break;
+          }
+
+          //          sb.append(String.valueOf(directionNum) + ": ");
+          //          sb.append(String.format("In %.2f Units, you will reach your destination\n",
+          // distance));
+
+          directionObjs.add(new DirectionArrow(Direction.END, textLine, height));
+
+        } else {
+          nextNode = nodePath.get(i + 1);
+
+          direction = map.getDirection(prevNode, node, nextNode);
+          distance += map.getNumericalDistance(prevNode, node);
+
+          if (direction == Direction.STRAIGHT) {
+            // Do Nothing
+          } else {
+
+            textLine += String.valueOf(directionNum) + ": ";
+            //            sb.append(String.valueOf(directionNum) + ": ");
+
+            if (i == ind && i != 1) {
+
+              //              sb.append(String.format("Turn %s\n", direction.getString()));
+
+              //              if (deltaFloor < 0) {
+              //                System.out.println("INV");
+              //              }
+              //
+              //              textLine += (String.format("Turn %s\n", direction.getString()));
+              //              directionObjs.add(new DirectionArrow(direction, textLine, height));
+
+              directionNum--;
+
+            } else if (direction == Direction.UP || direction == Direction.DOWN) {
+              deltaFloor = (int) map.getNumericalDistance(node, nextNode);
+              floorIndex += deltaFloor;
+              changes++;
+
+              ind = i + 1;
+
+              switch (GlobalVariables.getB().getValue()) {
+                case ENGLISH:
+                  textLine +=
+                      String.format(
+                          "In %.2f Units, Go %s %d floors\n",
+                          distance, direction.getTranslatedString(), Math.abs(deltaFloor));
+                  break;
+                case SPANISH:
+                  textLine +=
+                      String.format(
+                          "En %.2f unidades, ve %s %d pisos.\n",
+                          distance, direction.getTranslatedString(), Math.abs(deltaFloor));
+                  break;
+                case ITALIAN:
+                  textLine +=
+                      String.format(
+                          "Fra %.2f Unità, Vai %s %d piani\n",
+                          distance, direction.getTranslatedString(), Math.abs(deltaFloor));
+                  break;
+                case FRENCH:
+                  textLine +=
+                      String.format(
+                          "En %.2f unités, allez %s à %d étages.\n",
+                          distance, direction.getTranslatedString(), Math.abs(deltaFloor));
+                  break;
+              }
+
+              directionObjs.add(new DirectionArrow(direction, textLine, height));
+              distance = 0;
+              directionNum++;
+              break;
+            } else {
+              //              sb.append(String.format("In %.2f Units, Turn %s\n", distance,
+              // direction.getString()));
+              switch (GlobalVariables.getB().getValue()) {
+                case ENGLISH:
+                  textLine +=
+                      String.format(
+                          "In %.2f Units, Turn %s\n", distance, direction.getTranslatedString());
+                  break;
+                case SPANISH:
+                  textLine +=
+                      String.format(
+                          "En %.2f unidades, gire %s\n", distance, direction.getTranslatedString());
+                  break;
+                case ITALIAN:
+                  textLine +=
+                      String.format(
+                          "Fra %.2f Unità, Girra %s\n", distance, direction.getTranslatedString());
+                  break;
+                case FRENCH:
+                  textLine +=
+                      String.format(
+                          "En %.2f unités, tournez %s\n",
+                          distance, direction.getTranslatedString());
+                  break;
+              }
+
+              directionObjs.add(new DirectionArrow(direction, textLine, height));
+            }
+            distance = 0;
+            directionNum++;
+          }
+        }
+      }
+
+      final var resource = App.class.getResource("views/TitlePane.fxml");
+      final FXMLLoader loader = new FXMLLoader(resource);
+      TitledPane t = null;
+      try {
+        t = loader.load();
+      } catch (IOException ex) {
+        throw new RuntimeException(ex);
+      }
+
+      //      Label l = (Label) ((AnchorPane) t.getContent()).getChildren().get(0);
+      VBox v = (VBox) ((AnchorPane) t.getContent()).getChildren().get(0);
+
+      v.setMinWidth(250);
+      v.setMaxWidth(250);
+
+      v.getChildren().addAll(directionObjs);
+
+      newFloor = map.getFloorArr()[floorIndex];
+
+      t.setText(oldFloor);
+      oldFloor = newFloor;
+      t.setExpanded(false);
+
+      directionsBox.getChildren().add(t);
+    }
+    System.out.println("DOne!");
+  }
+
   EventHandler<MouseEvent> findPathWButton =
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           ViewMessageButton.setDisable(false);
           AddMessageButton.setDisable(false);
-          map.drawPath(anchor, sNode, eNode);
+          try {
+            map.drawPath(anchor, sNode, eNode);
+          } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+          }
           int secInd = map.getAllFloors().indexOf(currFloor);
           System.out.println("secInd: " + secInd);
           anchor.getChildren().addAll(map.getShapes().get(secInd));
@@ -471,59 +707,8 @@ public class MapController {
           FloorsToggle.setDisable(false);
           showPathFloors(false);
 
-          ArrayList<String> directions = map.getTextDirections();
-          int ind = 0;
-
-          int changes = 0;
-          int i = 0;
-          String oldFloor = map.getFloorArr()[floorIndex];
-          String newFloor = "";
-
-          while (i != directions.size()) {
-            //            System.out.println("IO: " + i + " DS: " + directions.size());
-            String textDirections = "";
-            for (i = ind; i < directions.size(); i++) {
-              //              System.out.println("II: " + i);
-              String s = directions.get(i);
-
-              //            "1: Left/Straight Pixels: 190"
-              textDirections += "\n" + s;
-              if (s.contains("loor")) {
-                if (s.contains("own")) {
-                  System.out.println("Down " + map.getFloorChanges().get(changes));
-                  floorIndex -= map.getFloorChanges().get(changes);
-                  changes++;
-                } else {
-                  System.out.println("UP");
-                  floorIndex += map.getFloorChanges().get(changes);
-                  changes++;
-                }
-
-                ind = i + 1;
-                break;
-              }
-            }
-
-            final var resource = App.class.getResource("views/TitlePane.fxml");
-            final FXMLLoader loader = new FXMLLoader(resource);
-            TitledPane t = null;
-            try {
-              t = loader.load();
-            } catch (IOException ex) {
-              throw new RuntimeException(ex);
-            }
-
-            Label l = (Label) ((AnchorPane) t.getContent()).getChildren().get(0);
-            l.setText(textDirections);
-
-            newFloor = map.getFloorArr()[floorIndex];
-
-            t.setText(oldFloor);
-            oldFloor = newFloor;
-            t.setExpanded(false);
-
-            directionsBox.getChildren().add(t);
-          }
+          clearTextDriections();
+          generateTextDirections(floorIndex);
 
           map.centerAndZoomStart(gp, OuterMapAnchor, globalStartNode);
 
@@ -750,7 +935,7 @@ public class MapController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           System.out.println("This is the toggle");
 
           //          double parentW = map.getMapWitdh(OuterMapAnchor);
@@ -967,7 +1152,7 @@ public class MapController {
 
         @Override
         public void handle(ActionEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
 
           MFXButton newButton = ((MFXButton) event.getSource());
 
@@ -1010,7 +1195,7 @@ public class MapController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           CheckBox newCheck = ((CheckBox) event.getSource());
 
           int oldLabel = map.getLabelTextType();
@@ -1042,7 +1227,7 @@ public class MapController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           map.setShowEdges(EdgeSelector.isSelected());
           try {
             map.refresh();
@@ -1059,7 +1244,7 @@ public class MapController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           //        map.setShowEdges(EdgeSelector.isSelected());
           map.setShowNodes(NodeSelector.isSelected());
 
@@ -1078,7 +1263,7 @@ public class MapController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           //        map.setShowEdges(EdgeSelector.isSelected());
           map.setShowLegend(LegendSelector.isSelected()); // && NodeSelector.isSelected());
           Legend.setVisible(map.getShowLegend());
@@ -1098,7 +1283,7 @@ public class MapController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           map.setShowTypeLabels(new boolean[] {HallNamesSelector.isSelected()});
 
           try {
@@ -1116,7 +1301,7 @@ public class MapController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           AStarAlgo.setNoStairs(AvoidElevatorsToggle.isSelected());
         }
       };
@@ -1144,8 +1329,212 @@ public class MapController {
     return filteredItems;
   }
 
+  public void setLanguage(Language lang) throws SQLException {
+    switch (lang) {
+      case ENGLISH:
+        ParentController.titleString.set("Map");
+        LocationOne.setPromptText("Select Start");
+        EndPointSelect.setPromptText("Select Destination");
+        AlgoSelect.setPromptText("Select Algorithm");
+        findPathButton.setText("Find Path");
+        DeleteNodeButton.setText("Reset");
+        DirectionsTitlePane.setText("Directions");
+        FloorTitlePane.setText("Floors");
+        ThirdFloorButton.setText("Third Floor");
+        SecondFloorButton.setText("Second Floor");
+        FirstFloorButton.setText("First Floor");
+        LowerFirstButton.setText("Lower Level 1");
+        LowerSecondButton.setText("Lower Level 2");
+        TickTitlePane.setText("TickBoxes");
+        LongNameSelector.setText("Long");
+        ShortNameSelector.setText("Short");
+        IdSelector.setText("ID");
+        HallNamesSelector.setText("Hall Names");
+        EdgeSelector.setText("Show Edges");
+        NodeSelector.setText("Node");
+        LegendSelector.setText("Unique Shapes");
+        FloorsToggle.setText("Display all Floors");
+        AvoidElevatorsToggle.setText("Avoid Stairs");
+        ViewMessageButton.setText("View Messages");
+        AddMessageButton.setText("Add Message");
+        mapSymbolsLabel.setText("Map Symbols");
+        conferenceRoomLabel.setText("Conference Room");
+        departmentLabel.setText("Department");
+        labLabel.setText("Label");
+        infoLabel.setText("Info");
+        bathroomLabel.setText("Bathroom/Restroom");
+        serviceLabel.setText("Service/Retail");
+        elevatorLabel.setText("Elevator");
+        stairsLabel.setText("Stairs");
+        exitLabel.setText("Exit");
+        startLabel.setText("Start");
+        pathLabel.setText("Path");
+        destinationLabel.setText("Destination");
+        currentFloorStart.setText("Current Floor Start");
+        currentFloorDestLabel.setText("Current Floor Destination");
+        AdminIDLabel.setText("Admin ID");
+        MessageLabel.setText("Message");
+        MessageSubmitButton.setText("Submit");
+        DateColumn.setText("Date");
+        AdminColumn.setText("Admin ID");
+        MessageColumn.setText("Message");
+        break;
+      case ITALIAN:
+        ParentController.titleString.set("Mappa");
+        PathfindingTitlePane.setText("Ricerca del percorso");
+        LocationOne.setPromptText("Seleziona la partenza");
+        EndPointSelect.setPromptText("Seleziona la destinazione");
+        AlgoSelect.setPromptText("Seleziona l'algoritmo");
+        findPathButton.setText("Trova percorso");
+        DeleteNodeButton.setText("Resetta");
+        DirectionsTitlePane.setText("Indicazioni");
+        FloorTitlePane.setText("Piani");
+        ThirdFloorButton.setText("Terzo piano");
+        SecondFloorButton.setText("Secondo piano");
+        FirstFloorButton.setText("Primo piano");
+        LowerFirstButton.setText("Livello inferiore 1");
+        LowerSecondButton.setText("Livello inferiore 2");
+        TickTitlePane.setText("Caselle di spunta");
+        LongNameSelector.setText("Nome lungo");
+        ShortNameSelector.setText("Nome breve");
+        IdSelector.setText("ID");
+        HallNamesSelector.setText("Nomi delle hall");
+        EdgeSelector.setText("Mostra bordi");
+        NodeSelector.setText("Nodo");
+        LegendSelector.setText("Forme uniche");
+        FloorsToggle.setText("Mostra tutti i piani");
+        AvoidElevatorsToggle.setText("Evita le scale");
+        ViewMessageButton.setText("Visualizza messaggi");
+        AddMessageButton.setText("Aggiungi messaggio");
+        mapSymbolsLabel.setText("Simboli della mappa");
+        conferenceRoomLabel.setText("Sala conferenze");
+        departmentLabel.setText("Dipartimento");
+        labLabel.setText("Laboratorio");
+        infoLabel.setText("Informazioni");
+        bathroomLabel.setText("Bagno/Servizi igienici");
+        serviceLabel.setText("Servizi/Negozi");
+        elevatorLabel.setText("Ascensore");
+        stairsLabel.setText("Scale");
+        exitLabel.setText("Uscita");
+        startLabel.setText("Partenza");
+        pathLabel.setText("Percorso");
+        destinationLabel.setText("Destinazione");
+        currentFloorStart.setText("Piano di partenza");
+        currentFloorDestLabel.setText("Piano di destinazione");
+        AdminIDLabel.setText("ID amministratore");
+        MessageLabel.setText("Messaggio");
+        MessageSubmitButton.setText("Invia");
+        DateColumn.setText("Data");
+        AdminColumn.setText("ID amministratore");
+        MessageColumn.setText("Messaggio");
+        break;
+      case SPANISH:
+        ParentController.titleString.set("Mapa");
+        PathfindingTitlePane.setText("Búsqueda de ruta");
+        LocationOne.setPromptText("Seleccionar inicio");
+        EndPointSelect.setPromptText("Seleccionar destino");
+        AlgoSelect.setPromptText("Seleccionar algoritmo");
+        findPathButton.setText("Encontrar ruta");
+        DeleteNodeButton.setText("Restablecer");
+        DirectionsTitlePane.setText("Indicaciones");
+        FloorTitlePane.setText("Pisos");
+        ThirdFloorButton.setText("Tercer piso");
+        SecondFloorButton.setText("Segundo piso");
+        FirstFloorButton.setText("Primer piso");
+        LowerFirstButton.setText("Nivel inferior 1");
+        LowerSecondButton.setText("Nivel inferior 2");
+        TickTitlePane.setText("Casillas de verificación");
+        LongNameSelector.setText("Nombre largo");
+        ShortNameSelector.setText("Nombre corto");
+        IdSelector.setText("ID");
+        HallNamesSelector.setText("Nombres de salón");
+        EdgeSelector.setText("Mostrar bordes");
+        NodeSelector.setText("Nodo");
+        LegendSelector.setText("Formas únicas");
+        FloorsToggle.setText("Mostrar todos los pisos");
+        AvoidElevatorsToggle.setText("Evitar escaleras");
+        ViewMessageButton.setText("Ver mensajes");
+        AddMessageButton.setText("Agregar mensaje");
+        mapSymbolsLabel.setText("Símbolos del mapa");
+        conferenceRoomLabel.setText("Sala de conferencias");
+        departmentLabel.setText("Departamento");
+        labLabel.setText("Laboratorio");
+        infoLabel.setText("Información");
+        bathroomLabel.setText("Baño/Servicios higiénicos");
+        serviceLabel.setText("Servicios/Tienda");
+        elevatorLabel.setText("Ascensor");
+        stairsLabel.setText("Escaleras");
+        exitLabel.setText("Salida");
+        startLabel.setText("Inicio");
+        pathLabel.setText("Ruta");
+        destinationLabel.setText("Destino");
+        currentFloorStart.setText("Piso de inicio");
+        currentFloorDestLabel.setText("Piso de destino");
+        AdminIDLabel.setText("ID de administrador");
+        MessageLabel.setText("Mensaje");
+        MessageSubmitButton.setText("Enviar");
+        DateColumn.setText("Fecha");
+        AdminColumn.setText("ID de administrador");
+        MessageColumn.setText("Mensaje");
+        break;
+      case FRENCH:
+        ParentController.titleString.set("Carte");
+        PathfindingTitlePane.setText("Recherche de chemin");
+        LocationOne.setPromptText("Sélectionner le départ");
+        EndPointSelect.setPromptText("Sélectionner la destination");
+        AlgoSelect.setPromptText("Sélectionner l'algorithme");
+        findPathButton.setText("Trouver un chemin");
+        DeleteNodeButton.setText("Réinitialiser");
+        DirectionsTitlePane.setText("Itinéraire");
+        FloorTitlePane.setText("Étages");
+        ThirdFloorButton.setText("Troisième étage");
+        SecondFloorButton.setText("Deuxième étage");
+        FirstFloorButton.setText("Premier étage");
+        LowerFirstButton.setText("Niveau inférieur 1");
+        LowerSecondButton.setText("Niveau inférieur 2");
+        TickTitlePane.setText("Cases à cocher");
+        LongNameSelector.setText("Nom long");
+        ShortNameSelector.setText("Nom court");
+        IdSelector.setText("ID");
+        HallNamesSelector.setText("Noms de salles");
+        EdgeSelector.setText("Afficher les bords");
+        NodeSelector.setText("Noeud");
+        LegendSelector.setText("Formes uniques");
+        FloorsToggle.setText("Afficher tous les étages");
+        AvoidElevatorsToggle.setText("Éviter les escaliers");
+        ViewMessageButton.setText("Voir les messages");
+        AddMessageButton.setText("Ajouter un message");
+        mapSymbolsLabel.setText("Symboles de carte");
+        conferenceRoomLabel.setText("Salle de conférence");
+        departmentLabel.setText("Département");
+        labLabel.setText("Laboratoire");
+        infoLabel.setText("Info");
+        bathroomLabel.setText("Toilettes");
+        serviceLabel.setText("Service/Commerce");
+        elevatorLabel.setText("Ascenseur");
+        stairsLabel.setText("Escalier");
+        exitLabel.setText("Sortie");
+        startLabel.setText("Départ");
+        pathLabel.setText("Chemin");
+        destinationLabel.setText("Destination");
+        currentFloorStart.setText("Étage de départ");
+        currentFloorDestLabel.setText("Étage de destination");
+        AdminIDLabel.setText("ID d'administrateur");
+        MessageLabel.setText("Message");
+        MessageSubmitButton.setText("Envoyer");
+        DateColumn.setText("Date");
+        AdminColumn.setText("ID d'administrateur");
+        MessageColumn.setText("Message");
+        break;
+    }
+    LocationOne.setItems(map.getAllNodeNames());
+    EndPointSelect.setItems(map.getAllNodeNames());
+    AlgoSelect.setItems(map.getAllAlgos());
+  }
+
   @FXML
   public void initialize() throws SQLException, IOException {
+    ThemeSwitch.switchTheme(OuterMapAnchor);
 
     map = new Map(anchor, true);
 
@@ -1177,6 +1566,17 @@ public class MapController {
 
     // DeleteNodeButton.setOnMouseClicked(deleteNodeButton);
     DeleteNodeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
+    //    DeleteNodeButton.setOnMouseClicked(
+    //        event -> {
+    //          try {
+    //            map.refresh();
+    //          } catch (SQLException ex) {
+    //            throw new RuntimeException(ex);
+    //          } catch (IOException ex) {
+    //            throw new RuntimeException(ex);
+    //          }
+    //        });
+
     findPathButton.setOnMouseClicked(findPathWButton);
     findPathButton.setDisable(true);
 
@@ -1328,7 +1728,7 @@ public class MapController {
     MessageSubmitButton.setVisible(false);
     MessageSubmitButton.setOnMouseClicked(submitMessage);
 
-    // anchor.setOnMouseClicked(e);
+    //    anchor.setOnMouseClicked(e);
 
     // New Floor Button Layout
     //    ThirdFloorButton.setOnAction(setThirdFloor);
@@ -1402,5 +1802,15 @@ public class MapController {
 
     endSel = EndPointSelect;
     LocOne = LocationOne;
+    //    ParentController.titleString.set("Service Request View");
+    setLanguage(GlobalVariables.getB().getValue());
+    GlobalVariables.b.addListener(
+        (options, oldValue, newValue) -> {
+          try {
+            setLanguage(newValue);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          }
+        });
   }
 }
