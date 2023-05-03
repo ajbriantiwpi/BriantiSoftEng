@@ -153,8 +153,8 @@ public class Emergency implements IStrategyAlgo {
       j.setParent(null);
       j.setG(Double.MAX_VALUE);
     }
-    // Node start = nodes.get(Node.idToIndex(startNodeId));
-    Node start = GlobalVariables.getCurrentLocationNode();
+    Node start = nodes.get(Node.idToIndex(startNodeId));
+    // Node start = GlobalVariables.getCurrentLocationNode();
     start.setG(0);
 
     // g.setAllG(s, t);

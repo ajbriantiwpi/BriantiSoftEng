@@ -282,6 +282,7 @@ public class SettingsController {
           }
 
           GlobalVariables.setCurrentLocationNode(nodeForLocation);
+          // System.out.print("New Location: " + GlobalVariables.getCurrentLocationNode().getId());
         }
       };
 }
