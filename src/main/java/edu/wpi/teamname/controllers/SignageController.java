@@ -11,6 +11,7 @@ import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.navigation.Direction;
 import edu.wpi.teamname.navigation.Signage;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -181,7 +182,11 @@ public class SignageController {
 
     submit.setOnMouseClicked(
         event -> {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           directions.clear();
           leftC = 0;
           rightC = 0;
@@ -246,8 +251,16 @@ public class SignageController {
                     }));
     play.setOnMouseClicked(
         event -> {
-          Sound.playSFX(SFX.BUTTONCLICK);
-          Pacman.pacBear();
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
+          try {
+            Pacman.pacBear();
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
         });
   }
 

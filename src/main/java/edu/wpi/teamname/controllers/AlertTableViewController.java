@@ -11,6 +11,7 @@ import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -231,7 +232,11 @@ public class AlertTableViewController {
         new EventHandler<MouseEvent>() {
           @Override
           public void handle(MouseEvent event) {
-            Sound.playSFX(SFX.BUTTONCLICK);
+            try {
+              Sound.playSFX(SFX.BUTTONCLICK);
+            } catch (URISyntaxException e) {
+              throw new RuntimeException(e);
+            }
             MFXButton createNewButton = ((MFXButton) event.getSource());
             VBox outerPane = (VBox) createNewButton.getParent();
 
@@ -264,7 +269,11 @@ public class AlertTableViewController {
             PopOver pop = new PopOver(v);
             submit.setOnMouseClicked(
                 event1 -> {
-                  Sound.playSFX(SFX.BUTTONCLICK);
+                  try {
+                    Sound.playSFX(SFX.BUTTONCLICK);
+                  } catch (URISyntaxException e) {
+                    throw new RuntimeException(e);
+                  }
                   LocalDate startDateDate = start.getValue();
                   LocalTime startTime = LocalTime.of(0, 0);
                   LocalTime endTime = LocalTime.of(23, 59);
@@ -303,7 +312,11 @@ public class AlertTableViewController {
 
             cancel.setOnMouseClicked(
                 event1 -> {
-                  Sound.playSFX(SFX.BUTTONCLICK);
+                  try {
+                    Sound.playSFX(SFX.BUTTONCLICK);
+                  } catch (URISyntaxException e) {
+                    throw new RuntimeException(e);
+                  }
                   pop.hide();
                 });
             pop.show(createNewButton);

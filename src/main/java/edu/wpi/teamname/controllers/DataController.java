@@ -8,6 +8,7 @@ import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -137,11 +138,25 @@ public class DataController implements Initializable {
     importComboBox.setItems(FXCollections.observableList(Arrays.asList(FIELDS)));
     exportComboBox.setItems(FXCollections.observableList(Arrays.asList(FIELDS)));
 
-    importButton.setOnAction(e -> onImportButtonClicked());
-    exportButton.setOnAction(e -> onExportButtonClicked());
+    importButton.setOnAction(
+        e -> {
+          try {
+            onImportButtonClicked();
+          } catch (URISyntaxException ex) {
+            throw new RuntimeException(ex);
+          }
+        });
+    exportButton.setOnAction(
+        e -> {
+          try {
+            onExportButtonClicked();
+          } catch (URISyntaxException ex) {
+            throw new RuntimeException(ex);
+          }
+        });
   }
 
-  private void onImportButtonClicked() {
+  private void onImportButtonClicked() throws URISyntaxException {
     Sound.playSFX(SFX.BUTTONCLICK);
     FileChooser fileChooser = new FileChooser();
     String selectedItem = importComboBox.getSelectionModel().getSelectedItem();
@@ -219,7 +234,7 @@ public class DataController implements Initializable {
     }
   }
 
-  private void onExportButtonClicked() {
+  private void onExportButtonClicked() throws URISyntaxException {
     Sound.playSFX(SFX.BUTTONCLICK);
     String selectedItem = exportComboBox.getSelectionModel().getSelectedItem();
     FileChooser fileChooser = new FileChooser();

@@ -9,6 +9,7 @@ import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.extras.Weather;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -139,7 +140,7 @@ public class ParentController {
   }
 
   /** logs the current user out of the application */
-  private void logout() throws IOException {
+  private void logout() throws IOException, URISyntaxException {
     HomeController.setLoggedIn(new SimpleBooleanProperty(false));
     loginButton.setVisible(true);
     logoutButton.setVisible(false);
@@ -328,7 +329,11 @@ public class ParentController {
         // (1)
         button.setOnMouseClicked(
             event -> {
-              Navigation.navigate(s);
+              try {
+                Navigation.navigate(s);
+              } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+              }
               //              System.out.println("S");
             });
 
@@ -820,7 +825,11 @@ public class ParentController {
         //        System.out.println(retButton.getText());
         retButton.setOnMouseClicked(
             event -> {
-              Navigation.navigate(screen);
+              try {
+                Navigation.navigate(screen);
+              } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+              }
               //              System.out.println("S");
             });
       }
@@ -831,6 +840,8 @@ public class ParentController {
           try {
             logout();
           } catch (IOException e) {
+            throw new RuntimeException(e);
+          } catch (URISyntaxException e) {
             throw new RuntimeException(e);
           }
         });
@@ -1064,7 +1075,11 @@ public class ParentController {
     EmergencyButton.setOnMouseClicked(
         event -> {
           GlobalVariables.setPathToExit(true);
-          Navigation.navigate(Screen.MAP);
+          try {
+            Navigation.navigate(Screen.MAP);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
         });
 
     //    makeRequestsButtonSelector

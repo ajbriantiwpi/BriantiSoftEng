@@ -14,6 +14,7 @@ import edu.wpi.teamname.navigation.LocationName;
 import edu.wpi.teamname.navigation.Node;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -165,7 +166,14 @@ public class SettingsController {
     currController = this;
     ThemeSwitch.switchTheme(root);
     darkToggle.selectedProperty().bindBidirectional(GlobalVariables.getDarkMode());
-    darkToggle.setOnAction(e -> Sound.playSFX(SFX.BUTTONCLICK));
+    darkToggle.setOnAction(
+        e -> {
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException ex) {
+            throw new RuntimeException(ex);
+          }
+        });
     ParentController.titleString.set("Settings");
     ParentController.titleString.set("Service Request View");
     setLanguage(GlobalVariables.getB().getValue());
@@ -280,7 +288,11 @@ public class SettingsController {
               // Change the background song of the application
               for (Song song : Song.values()) {
                 if (song.getTitle().equals(newValue)) {
-                  Sound.setSong(song);
+                  try {
+                    Sound.setSong(song);
+                  } catch (URISyntaxException e) {
+                    throw new RuntimeException(e);
+                  }
                   break;
                 }
               }
@@ -293,9 +305,30 @@ public class SettingsController {
     setLocationBox.setItems(getAllNodeNames());
     setLocationBox.setOnAction(changeCurrentLocation);
 
-    dataManageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.DATA_MANAGER));
-    feedbackButton.setOnMouseClicked(event -> Navigation.navigate(Screen.FEEDBACK));
-    viewFeedbackButton.setOnMouseClicked(event -> Navigation.navigate(Screen.VIEW_FEEDBACK));
+    dataManageButton.setOnMouseClicked(
+        event -> {
+          try {
+            Navigation.navigate(Screen.DATA_MANAGER);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
+        });
+    feedbackButton.setOnMouseClicked(
+        event -> {
+          try {
+            Navigation.navigate(Screen.FEEDBACK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
+        });
+    viewFeedbackButton.setOnMouseClicked(
+        event -> {
+          try {
+            Navigation.navigate(Screen.VIEW_FEEDBACK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
+        });
   }
   /**
    * Sets the volume of the application to the specified value.

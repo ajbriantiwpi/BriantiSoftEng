@@ -7,6 +7,7 @@ import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -144,7 +145,11 @@ public class AboutPageController {
         new EventHandler<MouseEvent>() {
           @Override
           public void handle(MouseEvent event) {
-            Sound.playSFX(SFX.BUTTONCLICK);
+            try {
+              Sound.playSFX(SFX.BUTTONCLICK);
+            } catch (URISyntaxException e) {
+              throw new RuntimeException(e);
+            }
             MFXButton clickedButton = (MFXButton) event.getSource();
             String fxmlFileName = null;
 
@@ -204,7 +209,11 @@ public class AboutPageController {
               popOver.show(clickedButton);
               close.setOnMouseClicked(
                   event1 -> {
-                    Sound.playSFX(SFX.BUTTONCLICK);
+                    try {
+                      Sound.playSFX(SFX.BUTTONCLICK);
+                    } catch (URISyntaxException e) {
+                      throw new RuntimeException(e);
+                    }
                     popOver.hide();
                   });
             }

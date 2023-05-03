@@ -13,6 +13,7 @@ import edu.wpi.teamname.servicerequest.ServiceRequest;
 import edu.wpi.teamname.servicerequest.Status;
 import edu.wpi.teamname.servicerequest.requestitem.RequestItem;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
@@ -418,7 +419,11 @@ public class ServiceRequestViewController {
 
     submitButton.setOnMouseClicked(
         event -> {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           try {
             assignStuff(
                 requestIDText.valueProperty().getValue(),
@@ -587,7 +592,11 @@ public class ServiceRequestViewController {
                 if (newValue != null) {
                   ViewButton.setOnMouseClicked(
                       event -> {
-                        Sound.playSFX(SFX.BUTTONCLICK);
+                        try {
+                          Sound.playSFX(SFX.BUTTONCLICK);
+                        } catch (URISyntaxException e) {
+                          throw new RuntimeException(e);
+                        }
                         table.setVisible(false);
                         table.setDisable(true);
                         ViewButton.setVisible(false);
@@ -614,7 +623,11 @@ public class ServiceRequestViewController {
 
     backButton.setOnMouseClicked(
         event -> {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           totalPrice = 0.0;
           System.out.println("Back " + totalPrice);
           table.setVisible(true);

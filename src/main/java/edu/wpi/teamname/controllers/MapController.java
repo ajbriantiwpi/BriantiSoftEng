@@ -21,6 +21,7 @@ import edu.wpi.teamname.navigation.Node;
 import edu.wpi.teamname.navigation.PathMessage;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -332,6 +333,8 @@ public class MapController {
             throw new RuntimeException(ex);
           } catch (IOException ex) {
             throw new RuntimeException(ex);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
           }
         }
       };
@@ -340,7 +343,11 @@ public class MapController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           System.out.println("Submit Button Pressed");
 
           //          String adminIDIn = AdminIDVal.getText();
@@ -396,7 +403,11 @@ public class MapController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           System.out.println("Viewing Message");
 
           if (MessageVal.isVisible() == true) {
@@ -451,7 +462,11 @@ public class MapController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           System.out.println("Add Message Running");
 
           if (MessageTableView.isVisible() == true) {
@@ -697,11 +712,15 @@ public class MapController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          loveYouWong(false);
+          try {
+            loveYouWong(false);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
         }
       };
 
-  public void loveYouWong(Boolean exit) {
+  public void loveYouWong(Boolean exit) throws URISyntaxException {
     Sound.playSFX(SFX.BUTTONCLICK);
     ViewMessageButton.setDisable(false);
     AddMessageButton.setDisable(false);
@@ -980,7 +999,11 @@ public class MapController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           System.out.println("This is the toggle");
 
           //          double parentW = map.getMapWitdh(OuterMapAnchor);
@@ -1197,7 +1220,11 @@ public class MapController {
 
         @Override
         public void handle(ActionEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
 
           MFXButton newButton = ((MFXButton) event.getSource());
 
@@ -1240,7 +1267,11 @@ public class MapController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           ToggleSwitch newCheck = ((ToggleSwitch) event.getSource());
 
           //          int oldLabel = map.getLabelTextType();
@@ -1274,7 +1305,11 @@ public class MapController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           GlobalVariables.setShowEdges(EdgeSelector.isSelected());
           //          map.setShowEdges(EdgeSelector.isSelected());
           try {
@@ -1292,7 +1327,11 @@ public class MapController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           GlobalVariables.setShowNodes(NodeSelector.isSelected());
           //          map.setShowNodes(NodeSelector.isSelected());
 
@@ -1311,7 +1350,11 @@ public class MapController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           GlobalVariables.setShowLegend(LegendSelector.isSelected());
           //          map.setShowLegend(LegendSelector.isSelected()); // &&
           // NodeSelector.isSelected());
@@ -1332,7 +1375,11 @@ public class MapController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           //          map.setShowTypeLabels(new boolean[] {HallNamesSelector.isSelected()});
           GlobalVariables.setShowHallNames(HallNamesSelector.isSelected());
 
@@ -1351,7 +1398,11 @@ public class MapController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           AStarAlgo.setNoStairs(AvoidElevatorsToggle.isSelected());
         }
       };
@@ -1636,7 +1687,7 @@ public class MapController {
       };
 
   @FXML
-  public void initialize() throws SQLException, IOException {
+  public void initialize() throws SQLException, IOException, URISyntaxException {
     ThemeSwitch.switchTheme(OuterMapAnchor);
 
     map = new Map(anchor, true);
@@ -1671,7 +1722,11 @@ public class MapController {
     DeleteNodeButton.setOnMouseClicked(
         event -> {
           GlobalVariables.setPathToExit(false);
-          Navigation.navigate(Screen.MAP);
+          try {
+            Navigation.navigate(Screen.MAP);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
         });
     //    DeleteNodeButton.setOnMouseClicked(
     //        event -> {

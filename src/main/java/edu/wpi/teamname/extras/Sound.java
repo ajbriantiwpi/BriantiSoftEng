@@ -1,6 +1,6 @@
 package edu.wpi.teamname.extras;
 
-import java.io.File;
+import java.net.URISyntaxException;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
@@ -12,8 +12,12 @@ public class Sound {
 
   @Getter private static MediaPlayer backgroundMusicPlayer;
 
-  private static Media soundSFX =
-      new Media(new File(SFX.BUTTONCLICK.getFilename()).toURI().toString());
+  private static Media soundSFX;
+
+  static {
+    soundSFX = new Media(SFX.BUTTONCLICK.getFilename());
+  }
+
   @Getter private static MediaPlayer buttonPlayer = new MediaPlayer(soundSFX);
   @Getter private static double volume = 0.5;
 
@@ -21,11 +25,12 @@ public class Sound {
    * * Starts playing the background music It will play whatever song is currently set and stop a
    * song that is already playing to prevent overlap
    */
-  public static void playMusic() {
+  public static void playMusic() throws URISyntaxException {
     if (backgroundMusicPlayer != null) {
       backgroundMusicPlayer.stop();
     }
-    Media sound = new Media(new File(backgroundSong.getFilename()).toURI().toString());
+    // Media sound = new Media(new File(backgroundSong.getFilename()).toString());
+    Media sound = new Media(backgroundSong.getFilename());
     backgroundMusicPlayer = new MediaPlayer(sound);
     backgroundMusicPlayer.setVolume(volume);
     // mediaPlayer2.seek(Duration.ZERO);
@@ -48,7 +53,7 @@ public class Sound {
    *
    * @param song the new song to play
    */
-  public static void setSong(Song song) {
+  public static void setSong(Song song) throws URISyntaxException {
     backgroundSong = song;
     playMusic();
   }
@@ -65,8 +70,9 @@ public class Sound {
   }
 
   /** * Plays the button click sound effect Call this function whenever a button is pressed */
-  public static void playSFX(SFX sfx) {
-    soundSFX = new Media(new File(sfx.getFilename()).toURI().toString());
+  public static void playSFX(SFX sfx) throws URISyntaxException {
+    // soundSFX = new Media(new File(sfx.getFilename()).toString());
+    soundSFX = new Media(sfx.getFilename());
     buttonPlayer = new MediaPlayer(soundSFX);
     buttonPlayer.setVolume(volume);
     buttonPlayer.play();

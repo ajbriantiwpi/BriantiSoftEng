@@ -13,6 +13,7 @@ import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.navigation.Move;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.File;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -181,7 +182,11 @@ public class MoveTableController {
     }
     importButton.setOnAction(
         event -> {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           FileChooser fileChooser = new FileChooser();
           fileChooser.setTitle("Select CSV File");
           fileChooser
@@ -203,7 +208,11 @@ public class MoveTableController {
     // event handler for export button
     exportButton.setOnAction(
         event -> {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           FileChooser fileChooser = new FileChooser();
           fileChooser.setTitle("Save CSV File");
           fileChooser.setInitialFileName("moves.csv");
@@ -221,7 +230,11 @@ public class MoveTableController {
         });
     newMovesCheck.setOnAction(
         event -> {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           if (newMovesCheck.isSelected()) {
             ObservableList<Move> allMoves = moveTable.getItems();
             ObservableList<Move> filteredMoves = FXCollections.observableArrayList();
@@ -264,7 +277,11 @@ public class MoveTableController {
             datePicker.setValue(null);
             Sound.playSFX(SFX.SUCCESS);
           } catch (Exception e) {
-            Sound.playSFX(SFX.ERROR);
+            try {
+              Sound.playSFX(SFX.ERROR);
+            } catch (URISyntaxException ex) {
+              throw new RuntimeException(ex);
+            }
             e.printStackTrace();
           }
         });

@@ -5,6 +5,7 @@ import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.servicerequest.ConfReservation;
 import edu.wpi.teamname.servicerequest.requestitem.ConfRoom;
+import java.net.URISyntaxException;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -38,7 +39,8 @@ public class RoomSelector extends BorderPane {
   @Getter @Setter private int end = 0;
   @Getter @Setter int selected = 0;
 
-  public RoomSelector(ConfRoom room, ConferenceController controller, Timestamp date) {
+  public RoomSelector(ConfRoom room, ConferenceController controller, Timestamp date)
+      throws URISyntaxException {
     this.date = date;
     this.room = room;
     this.controller = controller;
@@ -48,7 +50,7 @@ public class RoomSelector extends BorderPane {
     initialize();
   }
 
-  private void initialize() {
+  private void initialize() throws URISyntaxException {
     // HBox.setHgrow(this, Priority.ALWAYS);
     setMinHeight(50);
     setMinWidth(400);
@@ -76,7 +78,7 @@ public class RoomSelector extends BorderPane {
     handleExistingReservations();
   }
 
-  void handleButtonClick(int id) {
+  void handleButtonClick(int id) throws URISyntaxException {
     Sound.playSFX(SFX.BUTTONCLICK);
     System.out.println(String.valueOf(room.getRoomID()) + ": " + String.valueOf(selected));
     if (selected == 0) {
@@ -126,7 +128,7 @@ public class RoomSelector extends BorderPane {
     controller.setFromSelector(false);
   }
 
-  void setSelect(boolean select, int id) {
+  void setSelect(boolean select, int id) throws URISyntaxException {
     if (select) {
       if (buttons.get(id).getStatus() == RoomStatus.AVAILABLE
           || buttons.get(id).getStatus() == RoomStatus.SELECTED) {
@@ -144,7 +146,7 @@ public class RoomSelector extends BorderPane {
     }
   }
 
-  public void setAllInRange(boolean select) {
+  public void setAllInRange(boolean select) throws URISyntaxException {
     //    if (start == end) {
     //      end++;
     //    } else if (start > end) {
@@ -157,7 +159,7 @@ public class RoomSelector extends BorderPane {
     }
   }
 
-  private void handleExistingReservations() {
+  private void handleExistingReservations() throws URISyntaxException {
     int oStart;
     int oEnd;
     for (ConfReservation reservation : room.getReservations()) {

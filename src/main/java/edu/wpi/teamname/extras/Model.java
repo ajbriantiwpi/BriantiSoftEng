@@ -2,6 +2,7 @@ package edu.wpi.teamname.extras;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.net.URISyntaxException;
 import javax.swing.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -100,7 +101,7 @@ public class Model extends JPanel implements ActionListener {
    *
    * @param g2d the Graphics2D object used for drawing the game.
    */
-  private void playGame(Graphics2D g2d) {
+  private void playGame(Graphics2D g2d) throws URISyntaxException {
 
     if (dying) {
 
@@ -149,7 +150,7 @@ public class Model extends JPanel implements ActionListener {
    * increments the score and the number of ghosts and increases the player's speed. Also plays a
    * sound effect, changes the background music and hides the game window.
    */
-  private void checkMaze() {
+  private void checkMaze() throws URISyntaxException {
 
     int i = 0;
     boolean finished = true;
@@ -184,7 +185,7 @@ public class Model extends JPanel implements ActionListener {
    * Handles the death of the player, which involves playing a sound effect, decreasing the number
    * of remaining lives, and continuing the level.
    */
-  private void death() {
+  private void death() throws URISyntaxException {
     Sound.playSFX(SFX.VINE);
     lives--;
 
@@ -483,7 +484,11 @@ public class Model extends JPanel implements ActionListener {
     drawScore(g2d);
 
     if (inGame) {
-      playGame(g2d);
+      try {
+        playGame(g2d);
+      } catch (URISyntaxException e) {
+        throw new RuntimeException(e);
+      }
     } else {
       showIntroScreen(g2d);
     }
@@ -524,7 +529,11 @@ public class Model extends JPanel implements ActionListener {
         } else if (key == KeyEvent.VK_ESCAPE && timer.isRunning()) {
           inGame = false;
           frame.setVisible(false);
-          Sound.setSong(Song.OTJANBIRD1);
+          try {
+            Sound.setSong(Song.OTJANBIRD1);
+          } catch (URISyntaxException ex) {
+            throw new RuntimeException(ex);
+          }
         }
       } else {
         if (key == KeyEvent.VK_SPACE) {

@@ -13,6 +13,7 @@ import edu.wpi.teamname.servicerequest.ServiceRequest;
 import edu.wpi.teamname.servicerequest.requestitem.ConfRoom;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -171,7 +172,11 @@ public class NodeCircle {
                     GlobalVariables.setDateFromMap(t);
                     GlobalVariables.setRoomFromMap(request.getRoomNumber());
 
-                    Navigation.navigate(Screen.SERVICE_REQUEST_VIEW);
+                    try {
+                      Navigation.navigate(Screen.SERVICE_REQUEST_VIEW);
+                    } catch (URISyntaxException e) {
+                      throw new RuntimeException(e);
+                    }
                   });
 
               switch (request.getRequestType()) {
@@ -349,7 +354,11 @@ public class NodeCircle {
                   GlobalVariables.setRequestFromMap(true);
                   GlobalVariables.setRoomIDFromMap(room.getRoomID());
                   GlobalVariables.setDateFromMap(map.getCurrTime());
-                  Navigation.navigate(Screen.CONF_VIEW);
+                  try {
+                    Navigation.navigate(Screen.CONF_VIEW);
+                  } catch (URISyntaxException e) {
+                    throw new RuntimeException(e);
+                  }
                 });
 
             System.out.println("Child");
@@ -658,7 +667,11 @@ public class NodeCircle {
   EventHandler<MouseEvent> boxVisible =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           MFXButton button = ((MFXButton) event.getSource());
           //        p.setOpacity(1);
 
@@ -759,7 +772,11 @@ public class NodeCircle {
   EventHandler<MouseEvent> startMoveNode =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           //          System.out.println("SMN");
 
           if (map.getMovingNodeId() == -1) {
@@ -773,7 +790,11 @@ public class NodeCircle {
   EventHandler<MouseEvent> startCreateEdge =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           System.out.println("SCE");
 
           if (map.getStartEdgeNodeId() == -1) {
@@ -837,7 +858,11 @@ public class NodeCircle {
   EventHandler<MouseEvent> startAlign =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           System.out.println("SA");
           addSelfToAlign();
         }
@@ -846,7 +871,11 @@ public class NodeCircle {
   EventHandler<MouseEvent> align =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           System.out.println("A");
           addSelfToAlign();
           //          System.out.println(map.getAlignSelection().size());
@@ -1011,7 +1040,11 @@ public class NodeCircle {
   EventHandler<MouseEvent> removeNode =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           System.out.println("REM");
 
           // Only the Node ID is important for Deletion
@@ -1136,7 +1169,11 @@ public class NodeCircle {
   EventHandler<MouseEvent> saveNodeChanges =
       new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           MFXButton SubmitButton = ((MFXButton) event.getSource());
           VBox v = (VBox) ((HBox) SubmitButton.getParent()).getParent();
 

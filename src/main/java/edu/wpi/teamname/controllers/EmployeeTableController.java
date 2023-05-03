@@ -13,6 +13,7 @@ import edu.wpi.teamname.extras.Sound;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -325,7 +326,11 @@ public class EmployeeTableController {
 
     exportButton.setOnAction(
         event -> {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           FileChooser fileChooser = new FileChooser();
           fileChooser.setTitle("Save CSV File");
           fileChooser.setInitialFileName("employees.csv");
@@ -344,7 +349,11 @@ public class EmployeeTableController {
 
     importButton.setOnAction(
         event -> {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           FileChooser fileChooser = new FileChooser();
           fileChooser.setTitle("Select CSV File");
           fileChooser
@@ -496,7 +505,7 @@ public class EmployeeTableController {
    * <p>Validates the password input against certain criteria.
    */
   @FXML
-  private void handleSubmitButton() {
+  private void handleSubmitButton() throws URISyntaxException {
 
     try {
       DataManager employeeDAO = new DataManager();

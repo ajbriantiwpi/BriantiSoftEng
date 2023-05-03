@@ -5,6 +5,7 @@ import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 import javafx.scene.AccessibleRole;
 import javafx.scene.control.Button;
@@ -73,7 +74,11 @@ public class RequestMenuItemButton extends Button {
     setMnemonicParsing(true);
     setOnMouseClicked(
         event -> {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           for (int a = 0; a < parent.getQuantity(); a++) {
             try {
               if (add) {

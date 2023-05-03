@@ -11,6 +11,7 @@ import edu.wpi.teamname.navigation.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -174,7 +175,11 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           String retStr = "";
           String table = selectTable.getValue();
 
@@ -245,7 +250,11 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           String retStr = "";
           String table = selectTable.getValue();
 
@@ -483,7 +492,11 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
 
           MFXButton addButton = ((MFXButton) event.getSource());
           //          VBox outerPane = (VBox) addButton.getParent();
@@ -521,7 +534,11 @@ public class MapEditController {
         @Override
         public void handle(MouseEvent event) {
 
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           MFXButton addButton = ((MFXButton) event.getSource());
           //          VBox outerPane = (VBox) addButton.getParent();
 
@@ -567,7 +584,11 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           MFXButton addButton = ((MFXButton) event.getSource());
 
           final var resource = App.class.getResource("views/EditEdge.fxml");
@@ -599,7 +620,11 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           isMap = !isMap;
           if (isMap) {
             gp.setVisible(true);
@@ -633,7 +658,11 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           System.out.println("Save Loc");
 
           MFXButton SubmitButton = ((MFXButton) event.getSource());
@@ -695,7 +724,11 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           System.out.println("Rem");
 
           LocationName currLocation;
@@ -728,7 +761,11 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           TableRow<LocationName> row = ((TableRow<LocationName>) event.getSource());
           selectedRowIndex = row.getIndex();
 
@@ -801,7 +838,11 @@ public class MapEditController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           MFXButton newButton = ((MFXButton) event.getSource());
 
           String oldFloor = map.getCurrentDisplayFloor();
@@ -877,7 +918,11 @@ public class MapEditController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           ToggleSwitch newCheck = ((ToggleSwitch) event.getSource());
 
           //          int oldLabel = map.getLabelTextType();
@@ -911,7 +956,11 @@ public class MapEditController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           GlobalVariables.setShowEdges(EdgeSelector.isSelected());
           //          map.setShowEdges(EdgeSelector.isSelected());
           try {
@@ -929,7 +978,11 @@ public class MapEditController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           GlobalVariables.setShowNodes(NodeSelector.isSelected());
           //          map.setShowNodes(NodeSelector.isSelected());
 
@@ -948,7 +1001,11 @@ public class MapEditController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           GlobalVariables.setShowLegend(LegendSelector.isSelected());
           //          map.setShowLegend(LegendSelector.isSelected()); // &&
           // NodeSelector.isSelected());
@@ -969,7 +1026,11 @@ public class MapEditController {
 
         @Override
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           //          map.setShowTypeLabels(new boolean[] {HallNamesSelector.isSelected()});
           GlobalVariables.setShowHallNames(HallNamesSelector.isSelected());
 
@@ -1055,7 +1116,11 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           int xPos = (int) clickPos.getX();
           int yPos = (int) clickPos.getY();
           String floor = map.takeFloor(map.getCurrentDisplayFloor(), false);
@@ -1094,7 +1159,11 @@ public class MapEditController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
+          try {
+            Sound.playSFX(SFX.BUTTONCLICK);
+          } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+          }
           int xPos = (int) clickPos.getX();
           int yPos = (int) clickPos.getY();
           String floor = map.takeFloor(map.getCurrentDisplayFloor(), false);

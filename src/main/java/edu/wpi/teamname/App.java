@@ -3,6 +3,7 @@ package edu.wpi.teamname;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.extras.Sound;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -39,7 +40,7 @@ public class App extends Application {
   }
 
   @Override
-  public void start(Stage primaryStage) throws IOException, SQLException {
+  public void start(Stage primaryStage) throws IOException, SQLException, URISyntaxException {
     /* primaryStage is generally only used if one of your components require the stage to display */
 
     Sound.playMusic();
