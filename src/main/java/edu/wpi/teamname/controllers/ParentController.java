@@ -124,13 +124,15 @@ public class ParentController {
   }
 
   /** logs the current user out of the application */
-  private void logout() {
+  private void logout() throws IOException {
     HomeController.setLoggedIn(new SimpleBooleanProperty(false));
     loginButton.setVisible(true);
     logoutButton.setVisible(false);
     GlobalVariables.logOut();
     disableButtonsWhenNotLoggedIn();
-
+    if (GlobalVariables.getCurrentScreen().equals(Screen.SETTINGS)) {
+      SettingsController.getCurrController().logout();
+    }
     if (secureScreens.contains(GlobalVariables.getCurrentScreen())) {
       Navigation.navigate(Screen.HOME);
     } else {
@@ -663,8 +665,14 @@ public class ParentController {
       }
       //      }
     }
-
-    logoutButton.setOnMouseClicked(event -> logout());
+    logoutButton.setOnMouseClicked(
+        event -> {
+          try {
+            logout();
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+        });
 
     // (2)
     ClearanceLevel c = GlobalVariables.getCurrentUser().getLevel();

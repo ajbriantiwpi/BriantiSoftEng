@@ -27,6 +27,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * The SettingsController class is responsible for managing the settings screen of the application.
@@ -51,6 +53,8 @@ public class SettingsController {
   @FXML RadioButton wpiButton;
   @FXML RadioButton awsButton;
   @FXML ComboBox<String> setLocationBox;
+  @FXML Label defaultLocationLabel;
+  @Getter @Setter private static SettingsController currController;
 
   /**
    * sets the language of all the labels
@@ -131,6 +135,21 @@ public class SettingsController {
     }
   }
 
+  public void logout() {
+    viewFeedbackButton.setDisable(true);
+    wpiButton.setDisable(true);
+    awsButton.setDisable(true);
+    appSettingsLabel.setVisible(false);
+    dbConnectionLabel.setVisible(false);
+    dataManageButton.setVisible(false);
+    viewFeedbackButton.setVisible(false);
+    wpiButton.setVisible(false);
+    awsButton.setVisible(false);
+    setLocationBox.setDisable(true);
+    setLocationBox.setVisible(false);
+    defaultLocationLabel.setVisible(false);
+  }
+
   /**
    * Initializes the SettingsController and sets up the UI elements and functionality.
    *
@@ -140,7 +159,7 @@ public class SettingsController {
   public void initialize() throws SQLException {
 
     // darkToggle.setOnAction(event -> GlobalVariables.getDarkMode().set(darkToggle.isSelected()));
-
+    currController = this;
     ThemeSwitch.switchTheme(root);
     darkToggle.selectedProperty().bindBidirectional(GlobalVariables.getDarkMode());
     darkToggle.setOnAction(e -> Sound.playSFX(SFX.BUTTONCLICK));
@@ -154,38 +173,33 @@ public class SettingsController {
     viewFeedbackButton.setDisable(true);
     wpiButton.setDisable(true);
     awsButton.setDisable(true);
-    feedbackButton.setDisable(true);
     appSettingsLabel.setVisible(false);
     dbConnectionLabel.setVisible(false);
     dataManageButton.setVisible(false);
     viewFeedbackButton.setVisible(false);
     wpiButton.setVisible(false);
-    feedbackButton.setVisible(false);
     awsButton.setVisible(false);
+    setLocationBox.setDisable(true);
+    setLocationBox.setVisible(false);
+    defaultLocationLabel.setVisible(false);
     if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.ADMIN)) {
       viewFeedbackButton.setDisable(false);
       wpiButton.setDisable(false);
       awsButton.setDisable(false);
-      feedbackButton.setDisable(false);
       appSettingsLabel.setVisible(true);
       dbConnectionLabel.setVisible(true);
       dataManageButton.setVisible(true);
       viewFeedbackButton.setVisible(true);
       wpiButton.setVisible(true);
-      feedbackButton.setVisible(true);
       awsButton.setVisible(true);
+      setLocationBox.setVisible(true);
+      setLocationBox.setDisable(false);
+      defaultLocationLabel.setVisible(true);
     } else if (GlobalVariables.userIsClearanceLevel(ClearanceLevel.STAFF)) {
       viewFeedbackButton.setDisable(false);
-      wpiButton.setDisable(false);
-      awsButton.setDisable(false);
-      feedbackButton.setDisable(false);
       appSettingsLabel.setVisible(true);
-      dbConnectionLabel.setVisible(true);
       dataManageButton.setVisible(true);
       viewFeedbackButton.setVisible(true);
-      wpiButton.setVisible(true);
-      feedbackButton.setVisible(true);
-      awsButton.setVisible(true);
     }
     // Add a listener to the volume slider
     volumeSlide.setValue(Sound.getVolume());
@@ -195,6 +209,12 @@ public class SettingsController {
             (observable, oldValue, newValue) -> {
               // Change volume of the application
               setApplicationVolume(newValue.doubleValue());
+            });
+
+    HomeController.getLoggedIn()
+        .addListener(
+            (observable, old, newv) -> {
+              if (!newv) {}
             });
 
     // Create a ToggleGroup to ensure only one button can be selected at a time

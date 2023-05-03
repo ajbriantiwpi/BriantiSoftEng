@@ -84,6 +84,7 @@ public class GlobalVariables {
   @Getter @Setter private static ArrayList<ServiceRequest> serviceRequests;
   @Getter @Setter private static ArrayList<ConfReservation> confReservations;
   @Getter @Setter private static ArrayList<ConfRoom> confRooms;
+  @Getter @Setter private static ScreenSaver ss = new ScreenSaver();
 
   @Getter @Setter private static ArrayList<ArrayList<ConfReservation>> allRes;
 
@@ -91,6 +92,8 @@ public class GlobalVariables {
   @Getter @Setter private static int defaultStartID = 2280;
   // default start: 1685
   @Getter @Setter private static Node currentLocationNode;
+  @Getter @Setter private static int screenSaveWaitTime = 15;
+  @Getter @Setter private static int screenSaveTransTime = 20;
 
   static {
     try {
@@ -110,11 +113,11 @@ public class GlobalVariables {
 
   private static final Employee dummyEmployee =
       new Employee(
-          "dummyU",
-          "dummyP",
+          "visitor",
+          "visitorPass",
           -1,
-          "dummmyF",
-          "dummyL",
+          "Visitor",
+          "Visitor",
           ClearanceLevel.GUEST,
           EmployeeType.NONE,
           false);

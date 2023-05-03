@@ -78,10 +78,20 @@ public class Signage {
         && this.signId == otherSignage.getSignId();
   }
 
+  /**
+   * * sets the long name of this signage to the given value
+   *
+   * @param newValue the new long name
+   */
   public void setLongName(String newValue) {
     this.longName = newValue;
   }
 
+  /**
+   * * sets the short name of this signage to the given value
+   *
+   * @param newValue the new short name
+   */
   public void setShortName(String newValue) {
     this.shortName = newValue;
   }

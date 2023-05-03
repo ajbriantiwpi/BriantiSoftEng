@@ -4,9 +4,11 @@ import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.navigation.Direction;
 import java.awt.*;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,10 +17,14 @@ public class DirectionArrow extends GridPane {
   @Getter @Setter Direction direction;
 
   @Getter @Setter String details;
+  @Getter @Setter String details2;
 
   String image;
   ImageView imageView;
   Label text;
+  Label text2;
+
+  boolean twoTexts = false;
 
   int h;
   int w;
@@ -26,6 +32,17 @@ public class DirectionArrow extends GridPane {
   String styleClass;
 
   public DirectionArrow(Direction direction, String details, int height) {
+    this.details = details;
+    this.direction = direction;
+    this.h = height;
+    this.styleClass = "secondary-container";
+    this.twoTexts = false;
+    initialize();
+  }
+
+  public DirectionArrow(Direction direction, String details, String details2, int height) {
+    this.details2 = details2;
+    this.twoTexts = true;
     this.details = details;
     this.direction = direction;
     this.h = height;
@@ -38,6 +55,7 @@ public class DirectionArrow extends GridPane {
     this.direction = direction;
     this.h = height;
     this.styleClass = styleClass;
+    this.twoTexts = false;
     initialize();
   }
 
@@ -77,10 +95,26 @@ public class DirectionArrow extends GridPane {
     setFillWidth(text, true);
     this.text.getStyleClass().add("headline-med");
     this.text.getStyleClass().add("secondary-text-container");
-    this.text.setStyle("-fx-font-size: " + String.valueOf(h / 2));
-    this.add(this.text, 1, 0);
+
     this.getStyleClass().add(styleClass);
     this.getStyleClass().add("outline");
     this.setStyle("-fx-background-radius: 8; -fx-border-radius: 8");
+    if (twoTexts) {
+      this.text2 = new Label(details2);
+      setFillWidth(text2, true);
+      this.text2.getStyleClass().add("headline-med");
+      this.text2.getStyleClass().add("secondary-text-container");
+      this.text.setStyle("-fx-font-size: " + String.valueOf(h / 3.5));
+      this.text2.setStyle("-fx-font-size: " + String.valueOf(h / 3.5));
+      VBox vBox = new VBox();
+      vBox.setSpacing(4);
+      vBox.getChildren().add(text);
+      vBox.getChildren().add(text2);
+      vBox.setAlignment(Pos.CENTER_LEFT);
+      this.add(vBox, 1, 0);
+    } else {
+      this.text.setStyle("-fx-font-size: " + String.valueOf(h / 2));
+      this.add(this.text, 1, 0);
+    }
   }
 }
