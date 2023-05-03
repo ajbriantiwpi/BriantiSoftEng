@@ -1341,8 +1341,9 @@ public class MapEditController {
                 + GlobalVariables.getBigEACute()
                 + "tage");
         FirstFloorButton.setText("Premier " + GlobalVariables.getBigEACute() + "tage");
-        LowerLevelOneButton.setText("Niveau Inférieur 1");
-        LowerLevelTwoButton.setText("Niveau Inférieur 2");
+        LowerLevelOneButton.setText("Niveau inf" + GlobalVariables.getEAcute() + "rieur 1");
+        LowerLevelTwoButton.setText("Niveau inf" + GlobalVariables.getEAcute() + "rieur 2");
+
         LongNameSelector.setText("Long");
         ShortNameSelector.setText("Court");
         IdSelector.setText("ID");
@@ -1351,7 +1352,7 @@ public class MapEditController {
         NodeSelector.setText("N" + GlobalVariables.getOe() + "ud");
         LegendSelector.setText("Formes Uniques");
         mapSymbolsLabel.setText("Symboles de la Carte");
-        conferenceRoomLabel.setText("Salle de Conférence");
+        conferenceRoomLabel.setText("Salle de conf" + GlobalVariables.getEAcute() + "rence");
         departmentLabel.setText("D" + GlobalVariables.getEAcute() + "partement");
         labLabel.setText("Laboratoire");
         infoLabel.setText("Information");
@@ -1378,7 +1379,7 @@ public class MapEditController {
   @FXML
   public void initialize() throws SQLException, IOException {
     ThemeSwitch.switchTheme(root);
-
+    ParentController.titleString.set("Map Editor");
     setLanguage(GlobalVariables.getB().getValue());
     GlobalVariables.b.addListener(
         (options, oldValue, newValue) -> {
@@ -1397,7 +1398,7 @@ public class MapEditController {
     //    map.centerAndZoom(gp, OuterMapAnchor);
     Platform.runLater(() -> map.centerAndZoom(gp, OuterMapAnchor));
 
-    ParentController.titleString.set("Map Editor");
+
 
     ArrayList<javafx.scene.Node> currentFloorNodes = (map.makeAllFloorShapes(defaultFloor));
     anchor.getChildren().addAll(currentFloorNodes);
