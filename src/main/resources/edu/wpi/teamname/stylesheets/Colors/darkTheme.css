@@ -169,6 +169,9 @@
     -fx-background-radius: 8;
     -fx-min-height: 60;
 }
+.scroll-pane {
+    -fx-background: #121316;
+}
 /*.logo{*/
 /*    -fx-background-image: url("../resources/edu/wpi/teamname/images/Logos/LoginLogoIteration1.png");*/
 /*    -fx-background-position: center;*/

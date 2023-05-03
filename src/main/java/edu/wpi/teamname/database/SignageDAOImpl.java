@@ -24,11 +24,11 @@ public class SignageDAOImpl implements SignageDAO {
   public ArrayList<Signage> getSignages(int kiosk, Timestamp date) throws SQLException {
     ArrayList<Signage> items = new ArrayList<>();
     Connection connection = DataManager.DbConnection();
-    String query = "Select *\n" + "From \"Signage\"\n" + "Where \"kioskID\" = ? AND \"date\" = ?";
+    String query = "Select *\n" + "From \"Signage\"\n" + "Where \"kioskID\" = ? ";
     try (connection) {
       PreparedStatement statement = connection.prepareStatement(query);
       statement.setInt(1, kiosk);
-      statement.setTimestamp(2, date);
+      // statement.setTimestamp(2, date);
 
       ResultSet rs = statement.executeQuery();
       while (rs.next()) {
@@ -41,8 +41,10 @@ public class SignageDAOImpl implements SignageDAO {
         int kioskID = rs.getInt("kioskID");
 
         Direction direction = Direction.valueOf(dir);
-        Signage s = new Signage(lName, sName, dateSet, endDate, direction, signID, kioskID);
-        items.add(s);
+        if ((date.before(endDate)) && (date.after(dateSet))) {
+          Signage s = new Signage(lName, sName, dateSet, endDate, direction, signID, kioskID);
+          items.add(s);
+        }
       }
     } catch (SQLException e) {
       System.out.println(e.getMessage());
