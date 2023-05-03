@@ -802,7 +802,6 @@ public class ParentController {
 
     titleLabel.setText(titleString.getValue());
 
-
     // (1) //This section is only needed to make sure that home and login work
     for (Screen screen : Screen.values()) {
       // Remove the functionality for the basic sidebar buttons that only are for navigation

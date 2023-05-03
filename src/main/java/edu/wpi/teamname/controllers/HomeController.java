@@ -18,7 +18,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.util.Arrays;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.FXCollections;
@@ -26,7 +25,6 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
@@ -41,7 +39,7 @@ public class HomeController {
   @FXML Label actionItemsLabel;
   @FXML Label staffItemsLabel;
   @FXML Label navigationLabel;
-  @FXML ComboBox<Language> languageChooser;
+  // @FXML ComboBox<Language> languageChooser;
   @FXML MFXButton notificationPopupButtonSimple;
   @FXML MFXNotificationCenter notifsButton;
   //  @FXML MFXButton helpButton;
@@ -448,7 +446,7 @@ public class HomeController {
           getSizedGraphic("edu/wpi/teamname/images/MenuIcons/light/fork_left.png"));
     }
 
-    languageChooser.setItems(
+    /*languageChooser.setItems(
         FXCollections.observableList(Arrays.stream(Language.values()).toList()));
     languageChooser.setValue(GlobalVariables.getB().getValue());
     languageChooser
@@ -462,7 +460,7 @@ public class HomeController {
                 throw new RuntimeException(e);
               }
               GlobalVariables.b.setValue(newValue);
-            });
+            });*/
 
     EventHandler<MouseEvent> NotificationPopupEvent =
         new EventHandler<MouseEvent>() {

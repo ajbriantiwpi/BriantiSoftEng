@@ -71,6 +71,7 @@
                   <Insets top="12.0" />
                </VBox.margin>
             </CheckBox>
+            <ComboBox fx:id="languageChooser" promptText="Choose Language" stylesheets="@../stylesheets/comboSmall.css" />
             <MFXButton fx:id="feedbackButton" prefHeight="46.0" prefWidth="361.0" stylesheets="@../stylesheets/button.css" text="Soumettre des commentaires">
                <styleClass>
                   <String fx:value="primary" />

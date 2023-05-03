@@ -17,6 +17,7 @@ import java.awt.*;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import javafx.collections.FXCollections;
@@ -42,6 +43,7 @@ public class SettingsController {
   @FXML CheckBox darkToggle;
   @FXML AnchorPane root;
   private static boolean wpiSelected = true;
+  @FXML ComboBox<Language> languageChooser;
   @FXML Slider volumeSlide;
   @FXML MFXButton feedbackButton;
   @FXML Label dbConnectionLabel;
@@ -171,6 +173,19 @@ public class SettingsController {
         (options, oldValue, newValue) -> {
           setLanguage(newValue);
         });
+
+    languageChooser.setItems(
+        FXCollections.observableList(Arrays.stream(Language.values()).toList()));
+    languageChooser.setValue(GlobalVariables.getB().getValue());
+    languageChooser
+        .getSelectionModel()
+        .selectedItemProperty()
+        .addListener(
+            (options, oldValue, newValue) -> {
+              setLanguage(newValue);
+              GlobalVariables.b.setValue(newValue);
+            });
+
     viewFeedbackButton.setDisable(true);
     wpiButton.setDisable(true);
     awsButton.setDisable(true);
@@ -210,12 +225,6 @@ public class SettingsController {
             (observable, oldValue, newValue) -> {
               // Change volume of the application
               setApplicationVolume(newValue.doubleValue());
-            });
-
-    HomeController.getLoggedIn()
-        .addListener(
-            (observable, old, newv) -> {
-              if (!newv) {}
             });
 
     // Create a ToggleGroup to ensure only one button can be selected at a time
