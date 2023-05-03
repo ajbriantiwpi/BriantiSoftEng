@@ -114,12 +114,13 @@ public class ConferenceController {
         submitButton.setText("Richiesta");
         break;
       case FRENCH:
-        ParentController.titleString.set("Demande de salle de conférence");
+        ParentController.titleString.set(
+            "Demande de salle de conf" + GlobalVariables.getEAcute() + "rence");
         dateLabel.setText("Date");
-        buildingLabel.setText("Bâtiment");
-        buildingBox.setPromptText("Choisir un bâtiment");
-        startTimeLabel.setText("Heure de début");
-        startBox.setPromptText("Choisir une heure de début");
+        buildingLabel.setText("B" + GlobalVariables.getACircumflex() + "timent");
+        buildingBox.setPromptText("Choisir un b" + GlobalVariables.getACircumflex() + "timent");
+        startTimeLabel.setText("Heure de d" + GlobalVariables.getEAcute() + "but");
+        startBox.setPromptText("Choisir une heure de d" + GlobalVariables.getEAcute() + "but");
         endTimeLabel.setText("Heure de fin");
         endBox.setPromptText("Choisir une heure de fin");
         roomSizeLabel.setText("Taille de la salle");
@@ -135,9 +136,10 @@ public class ConferenceController {
         buildingBox.setPromptText("Seleccione un edificio");
         startTimeLabel.setText("Hora de inicio");
         startBox.setPromptText("Seleccione la hora de inicio");
-        endTimeLabel.setText("Hora de finalización");
-        endBox.setPromptText("Seleccione la hora de finalización");
-        roomSizeLabel.setText("Tamaño de la sala");
+        endTimeLabel.setText("Hora de finalizaci" + GlobalVariables.getOAcute() + "n");
+        endBox.setPromptText(
+            "Seleccione la hora de finalizaci" + GlobalVariables.getOAcute() + "n");
+        roomSizeLabel.setText("Tama" + GlobalVariables.getNTilda() + "o de la sala");
         nameLabel.setText("Nombre");
         roomLabel.setText("Sala");
         roomBox.setPromptText("Seleccione la sala");
