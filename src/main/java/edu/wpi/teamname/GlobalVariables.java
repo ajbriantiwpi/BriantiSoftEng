@@ -110,11 +110,11 @@ public class GlobalVariables {
 
   private static final Employee dummyEmployee =
       new Employee(
-          "dummyU",
-          "dummyP",
+          "visitor",
+          "visitorPass",
           -1,
-          "dummmyF",
-          "dummyL",
+          "Visitor",
+          "Visitor",
           ClearanceLevel.GUEST,
           EmployeeType.NONE,
           false);
