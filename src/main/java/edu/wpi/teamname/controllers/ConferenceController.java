@@ -183,6 +183,10 @@ public class ConferenceController {
     sizeSlider.setLowValue(0);
     sizeSlider.setHighValue(100);
 
+    submitButton.disableProperty().bind(startBox.valueProperty().isNull());
+    submitButton.disableProperty().bind(endBox.valueProperty().isNull());
+    submitButton.disableProperty().bind(nameText.textProperty().isEmpty());
+
     //    startBox.valueProperty().bindBidirectional(roomManager.getStart());
     //    endBox.valueProperty().bindBidirectional(roomManager.getEnd());
     //    buildingBox.valueProperty().bindBidirectional(roomManager.getBuilding());
@@ -301,6 +305,8 @@ public class ConferenceController {
               System.out.println(e);
               Sound.playSFX(SFX.ERROR);
             }
+          } else {
+            Sound.playSFX(SFX.ERROR);
           }
         });
   }
