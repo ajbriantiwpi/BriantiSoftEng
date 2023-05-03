@@ -1,38 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.*?>
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox spacing="16.0" style="-fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<VBox spacing="16.0" style="-fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox alignment="CENTER" style="-fx-background-radius: 8;" styleClass="surface-container-highest" stylesheets="@../stylesheets/Colors/lightTheme.css">
+      <HBox alignment="CENTER" style="-fx-background-radius: 8;" styleClass="surface-container-highest">
          <children>
-            <Label styleClass="label-large" stylesheets="@../stylesheets/Colors/lightTheme.css" text="Start Node ID">
+            <Label stylesheets="@../stylesheets/Colors/lightTheme.css" text="Start Node ID">
                <font>
                   <Font name="Roboto" size="13.0" />
                </font>
+               <styleClass>
+                  <String fx:value="label-large" />
+                  <String fx:value="primary-text-container" />
+               </styleClass>
             </Label>
             <AnchorPane minWidth="12.0" HBox.hgrow="ALWAYS" />
-            <TextField style="-fx-background-color: D5E3ff; -fx-background-radius: 10;" styleClass="text-field" stylesheets="@../stylesheets/TextField.css" />
+            <TextField style="-fx-background-radius: 10;" styleClass="primary-container" stylesheets="@../stylesheets/TextField.css" />
          </children>
          <padding>
             <Insets bottom="2.0" left="12.0" top="2.0" />
          </padding>
       </HBox>
-      <HBox alignment="CENTER" style="-fx-background-radius: 8;" styleClass="surface-container-highest" stylesheets="@../stylesheets/Colors/lightTheme.css">
+      <HBox alignment="CENTER" style="-fx-background-radius: 8;" styleClass="surface-container-highest">
          <children>
-            <Label styleClass="label-large" stylesheets="@../stylesheets/Colors/lightTheme.css" text="End Node ID">
+            <Label stylesheets="@../stylesheets/Colors/lightTheme.css" text="End Node ID">
                <font>
                   <Font name="Roboto" size="13.0" />
                </font>
+               <styleClass>
+                  <String fx:value="label-large" />
+                  <String fx:value="primary-text-container" />
+               </styleClass>
             </Label>
             <AnchorPane minWidth="12.0" HBox.hgrow="ALWAYS" />
-            <TextField style="-fx-background-color: D5E3ff; -fx-background-radius: 10;" styleClass="text-field" stylesheets="@../stylesheets/TextField.css" />
+            <TextField style="-fx-background-radius: 10;" styleClass="primary-container" stylesheets="@../stylesheets/TextField.css" />
          </children>
          <padding>
             <Insets bottom="2.0" left="12.0" top="2.0" />
@@ -40,7 +50,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="32.0">
          <children>
-            <MFXButton style="-fx-background-radius: 8; -fx-border-radius: 8;" stylesheets="@../stylesheets/Colors/lightTheme.css" text="Remove Node" textFill="#fffbfb">
+            <MFXButton style="-fx-background-radius: 8; -fx-border-radius: 8;" text="Remove Node" textFill="#fffbfb">
                <font>
                   <Font name="Roboto" size="12.0" />
                </font>
@@ -53,7 +63,7 @@
                </padding>
             </MFXButton>
             <AnchorPane HBox.hgrow="ALWAYS" />
-            <MFXButton style="-fx-background-radius: 8;" styleClass="primary" stylesheets="@../stylesheets/Colors/lightTheme.css" text="Submit" textFill="WHITE">
+            <MFXButton style="-fx-background-radius: 8;" styleClass="primary" text="Submit" textFill="WHITE">
                <font>
                   <Font name="Roboto" size="12.0" />
                </font>
@@ -74,8 +84,4 @@
    <padding>
       <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
    </padding>
-   <stylesheets>
-      <URL value="@../stylesheets/Colors/lightTheme.css" />
-      <URL value="@../stylesheets/Colors/darkTheme.css" />
-   </stylesheets>
 </VBox>
