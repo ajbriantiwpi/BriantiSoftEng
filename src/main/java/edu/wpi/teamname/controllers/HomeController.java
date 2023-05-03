@@ -58,6 +58,7 @@ public class HomeController {
   @FXML MFXButton showRequestsButton;
   @FXML MFXButton editMapButton;
   @FXML MFXButton exitButton;
+  @FXML MFXButton exitPathButton;
   @FXML MFXButton employeeButton;
   @FXML MFXButton aboutButton;
   @FXML MFXButton creditButton;
@@ -755,6 +756,11 @@ public class HomeController {
         });
 
     mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
+    exitPathButton.setOnMouseClicked(
+        event -> {
+          GlobalVariables.setPathToExit(true);
+          Navigation.navigate(Screen.MAP);
+        });
     makeRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
     showRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST_VIEW));
     editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
