@@ -88,7 +88,7 @@ public class App extends Application {
                   // System.out.println("Time: " + count);
 
                   // Do something when the idle time exceeds a certain duration
-                  if (count.get() == 5 && !flag) {
+                  if (count.get() == GlobalVariables.getScreenSaveWaitTime() && !flag) {
                     flag = true;
                     GlobalVariables.getSs().startScreenSaver(root, primaryStage);
                   }
