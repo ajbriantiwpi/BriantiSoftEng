@@ -1,15 +1,13 @@
 package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.ThemeSwitch;
-import edu.wpi.teamname.database.FlowerDAOImpl;
-import edu.wpi.teamname.database.ItemsOrderedDAOImpl;
-import edu.wpi.teamname.database.MedicalSupplyDAOImpl;
-import edu.wpi.teamname.database.ServiceRequestDAOImpl;
+import edu.wpi.teamname.database.*;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
 import edu.wpi.teamname.servicerequest.RequestType;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import edu.wpi.teamname.servicerequest.Status;
 import edu.wpi.teamname.servicerequest.requestitem.Flower;
+import edu.wpi.teamname.servicerequest.requestitem.Meal;
 import edu.wpi.teamname.servicerequest.requestitem.MedicalSupply;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -57,7 +55,7 @@ public class ServiceRequestAnalyticsController {
             "Price By Flower",
             "Service Requests By Type",
             "Flowers Ordered By Category",
-            "Medical Supplies By Type");
+            "Medical Supplies By Type", "Meals By Cuisine");
 
     piechartCombo.getItems().addAll("Service Requests By Status", "Flowers By Color");
 
@@ -140,6 +138,16 @@ public class ServiceRequestAnalyticsController {
           e.printStackTrace();
         }
         break;
+      case "Meals By Cuisine":
+        try {
+          Map<String, Integer> mealsByCuisine = getMealsByCuisine();
+          for (Map.Entry<String, Integer> entry : mealsByCuisine.entrySet()) {
+            barChartData.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
+          }
+        } catch (SQLException e) {
+          e.printStackTrace();
+        }
+        break;
     }
 
     barChart.getData().add(barChartData);
@@ -158,6 +166,20 @@ public class ServiceRequestAnalyticsController {
 
     return colorCounts;
   }
+  private Map<String, Integer> getMealsByCuisine() throws SQLException {
+    MealDAOImpl mealDAO = new MealDAOImpl();
+    List<Meal> meals = mealDAO.getAll();
+
+    Map<String, Integer> mealsByCuisine = new HashMap<>();
+
+    for (Meal meal : meals) {
+      String cuisine = meal.getCuisine();
+      mealsByCuisine.put(cuisine, mealsByCuisine.getOrDefault(cuisine, 0) + 1);
+    }
+
+    return mealsByCuisine;
+  }
+
 
   /** Updates the PieChart based on the selected option in the ComboBox. */
   private void updatePieChart(String selectedOption) {
@@ -267,4 +289,28 @@ public class ServiceRequestAnalyticsController {
 
     return suppliesByType;
   }
+//  private String getMostPopularMeal() throws SQLException {
+//    MealDAOImpl mealDAO = new MealDAOImpl();
+//    List<Meal> meals = mealDAO.getAll();
+//
+//    Map<String, Integer> mealCounts = new HashMap<>();
+//
+//    for (Meal meal : meals) {
+//      String mealName = meal.getName();
+//      mealCounts.put(mealName, mealCounts.getOrDefault(mealName, 0) + 1);
+//    }
+//
+//    String mostPopularMeal = null;
+//    int maxCount = 0;
+//
+//    for (Map.Entry<String, Integer> entry : mealCounts.entrySet()) {
+//      if (entry.getValue() > maxCount) {
+//        mostPopularMeal = entry.getKey();
+//        maxCount = entry.getValue();
+//      }
+//    }
+//
+//    return mostPopularMeal;
+//  }
+
 }
