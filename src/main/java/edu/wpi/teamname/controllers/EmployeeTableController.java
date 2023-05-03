@@ -80,7 +80,7 @@ public class EmployeeTableController {
         idLabel.setText("Employee ID");
         firstNameLabel.setText("First Name");
         lastNameLabel.setText("Last Name");
-        clearanceLabel.setText("Clearance Level;");
+        clearanceLabel.setText("Clearance Level");
         typeLabel.setText("Employee Type");
         usernameLabel.setText("Username");
         passwordLabel.setText("Password");

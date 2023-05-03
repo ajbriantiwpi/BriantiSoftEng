@@ -25,7 +25,7 @@
             <children>
                <VBox styleClass="surface-container-high" VBox.vgrow="ALWAYS">
                   <children>
-                     <VBox spacing="12.0" style="-fx-background-radius: 16;" styleClass="surface-container-highest">
+                     <VBox prefWidth="170.0" spacing="12.0" style="-fx-background-radius: 16;" styleClass="surface-container-highest">
                         <children>
                            <Label fx:id="filterTable" styleClass="primary-text-container" text="Filter Table" textFill="#001b3b">
                               <font>
@@ -43,25 +43,17 @@
                                  <Insets />
                               </VBox.margin>
                            </Label>
-                           <ComboBox fx:id="urgencyCombo" maxWidth="400.0" prefHeight="71.0" prefWidth="396.0" promptText="Urgency">
+                           <ComboBox fx:id="urgencyCombo" maxWidth="400.0" prefHeight="71.0" prefWidth="396.0" promptText="Urgency" stylesheets="@../stylesheets/combo.css">
                               <VBox.margin>
                                  <Insets bottom="12.0" />
                               </VBox.margin>
-                              <stylesheets>
-                                 <URL value="@../stylesheets/combo.css" />
-                                 <URL value="@../stylesheets/Colors/darkCombo.css" />
-                              </stylesheets>
                            </ComboBox>
                            <Label fx:id="staffTypeLabel" styleClass="on-suface-text" text="Staff Type" textFill="#001b3b">
                               <font>
                                  <Font name="Roboto" size="28.0" />
                               </font>
                            </Label>
-                           <ComboBox fx:id="staffTypeCombo" prefHeight="71.0" prefWidth="396.0" promptText="Choose Staff Type">
-                              <stylesheets>
-                                 <URL value="@../stylesheets/combo.css" />
-                                 <URL value="@../stylesheets/Colors/darkCombo.css" />
-                              </stylesheets></ComboBox>
+                           <ComboBox fx:id="staffTypeCombo" prefHeight="71.0" prefWidth="396.0" promptText="Choose Staff Type" stylesheets="@../stylesheets/combo.css" />
                         </children>
                         <VBox.margin>
                            <Insets bottom="32.0" top="24.0" />
