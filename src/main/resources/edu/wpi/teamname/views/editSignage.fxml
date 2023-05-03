@@ -189,7 +189,7 @@
                      <children>
                         <AnchorPane VBox.vgrow="NEVER">
                            <children>
-                               <HBox alignment="TOP_RIGHT" minHeight="50.0" prefHeight="50.0" prefWidth="396.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                               <HBox minHeight="50.0" prefHeight="50.0" prefWidth="396.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                                  <children>
                                     <Label fx:id="editLabel" text="Edit Signage" textFill="#235fa6">
                                        <font>
@@ -218,7 +218,7 @@
                                     </TextField>
                                  </children>
                                  <padding>
-                                    <Insets right="12.0" />
+                                    <Insets left="12.0" right="12.0" />
                                  </padding>
                               </HBox>
                            </children>
