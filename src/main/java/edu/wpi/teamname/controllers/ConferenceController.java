@@ -158,11 +158,7 @@ public class ConferenceController {
         (options, oldValue, newValue) -> {
           setLanguage(newValue);
         });
-    if (GlobalVariables.getDarkMode().get()) {
-      root.getStylesheets().remove(0);
-    } else {
-      root.getStylesheets().remove(1);
-    }
+
     ThemeSwitch.switchTheme(root);
     buildings = FXCollections.observableArrayList(DataManager.getConfBuildings());
     buildings.add("None");
