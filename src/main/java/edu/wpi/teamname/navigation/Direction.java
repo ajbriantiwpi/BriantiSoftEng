@@ -21,6 +21,10 @@ public enum Direction {
     this.type = type;
   }
 
+  /***
+   * Gets the translated name of the direction given the current language in GlobalVariables
+   * @return the translated direction
+   */
   public String getTranslatedString() {
     switch (type) {
       case "Straight":

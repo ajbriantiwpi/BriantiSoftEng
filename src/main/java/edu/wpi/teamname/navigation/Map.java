@@ -116,6 +116,12 @@ public class Map {
     //    }
   }
 
+  /**
+   * Sets the global variables used by the application, based on data fetched from the database at a specific time.
+   *
+   * @param time the timestamp indicating the moment in time for which to fetch the data.
+   * @throws SQLException if an error occurs while accessing the database.
+   */
   public void setGlobalVars(Timestamp time) throws SQLException {
     GlobalVariables.setHMap(DataManager.getAllLocationNamesMappedByNode(time));
     GlobalVariables.setServiceRequests(DataManager.getAllServiceRequests());
@@ -130,6 +136,11 @@ public class Map {
     GlobalVariables.setAllRes(reses);
   }
 
+  /**
+   * Returns whether the legend should be shown or not.
+   *
+   * @return true if the legend should be shown, false otherwise.
+   */
   public boolean getShowLegend() {
     return this.showLegend;
   }
@@ -258,14 +269,34 @@ public class Map {
     return nodes;
   }
 
+  /**
+   * Refreshes the current display floor, potentially performing additional side-effects.
+   *
+   * @throws SQLException if an error occurs while accessing the database.
+   * @throws IOException if an error occurs while reading/writing files.
+   */
   public void refresh() throws SQLException, IOException {
     this.setCurrentDisplayFloor(this.getCurrentDisplayFloor());
   }
 
+  /**
+   * Refreshes the current display floor at a specific time, potentially performing additional side-effects.
+   *
+   * @param time the timestamp indicating the moment in time for which to refresh the current display floor.
+   * @throws SQLException if an error occurs while accessing the database.
+   * @throws IOException if an error occurs while reading/writing files.
+   */
   public void refresh(Timestamp time) throws SQLException, IOException {
     this.setCurrentDisplayFloor(this.getCurrentDisplayFloor(), time);
   }
 
+  /**
+   * Sets the current display floor to a new value.
+   *
+   * @param currentDisplayFloor the new value for the current display floor.
+   * @throws SQLException if an error occurs while accessing the database.
+   * @throws IOException if an error occurs while reading/writing files.
+   */
   public void setCurrentDisplayFloor(String currentDisplayFloor) throws SQLException, IOException {
     this.setCurrentDisplayFloor(currentDisplayFloor, currTime);
   }

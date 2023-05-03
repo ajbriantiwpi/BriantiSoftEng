@@ -37,6 +37,10 @@ public class Feedback {
     this("null", "null");
   }
 
+  /***
+   * Clones this instance of feedback
+   * @return this instance of feedback
+   */
   public Feedback clone() {
     return new Feedback(this);
   }
