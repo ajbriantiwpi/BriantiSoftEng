@@ -67,7 +67,7 @@ public class ScreenSaver extends Application {
     // StackPane sp = App.getRootPane();
     // sp.getChildren().add(pane);
 
-    Scene scene = new Scene(pane, WIDTH, HEIGHT);//shit balls error
+    Scene scene = new Scene(pane, WIDTH, HEIGHT); // shit balls error
 
     timeline =
         new Timeline(
