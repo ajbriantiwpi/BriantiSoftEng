@@ -55,6 +55,7 @@ public class SettingsController {
   public void setLanguage(Language lang) {
     switch (lang) {
       case ENGLISH:
+        setLocationBox.setPromptText("Set Location");
         ParentController.titleString.set("Settings");
         hardwareLabel.setText("Hardware Settings");
         volumeLabel.setText("Volume");
@@ -67,6 +68,7 @@ public class SettingsController {
         viewFeedbackButton.setText("View Feedback");
         break;
       case ITALIAN:
+        setLocationBox.setPromptText("Imposta la posizione");
         ParentController.titleString.set("Impostazioni");
         hardwareLabel.setText("Impostazioni Hardware");
         volumeLabel.setText("Volume");
@@ -80,6 +82,7 @@ public class SettingsController {
         viewFeedbackButton.setText("Visualizza Feedback");
         break;
       case FRENCH:
+        setLocationBox.setPromptText("D"+GlobalVariables.getEAcute()+"finir l'emplacement");
         ParentController.titleString.set("Param" + GlobalVariables.getEGrave() + "tres");
         hardwareLabel.setText(
             "Param"
@@ -103,6 +106,7 @@ public class SettingsController {
         viewFeedbackButton.setText("Voir les commentaires");
         break;
       case SPANISH:
+        setLocationBox.setPromptText("Establecer ubicaci"+GlobalVariables.getOAcute()+"n");
         ParentController.titleString.set("Configuraci" + GlobalVariables.getOAcute() + "n");
         hardwareLabel.setText("Configuraci" + GlobalVariables.getOAcute() + "n de Hardware");
         volumeLabel.setText("Volumen");

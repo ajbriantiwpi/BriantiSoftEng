@@ -466,6 +466,8 @@ public class ParentController {
         makeRequestsButtonSelector.setText("Service Requests");
         break;
       case FRENCH:
+        EmergencyButton.setText("Urgence");
+
         homeButton.setText("Page D'accueil");
         mapButton.setText("Carte");
         viewSignageButton.setText("Voir la signalisation");
@@ -485,6 +487,7 @@ public class ParentController {
         makeRequestsButtonSelector.setText("Demandes");
         break;
       case ITALIAN:
+        EmergencyButton.setText("Emergenza");
         homeButton.setText("Pagina Iniziale");
         mapButton.setText("Mappa");
         viewSignageButton.setText("Segnaletica");
@@ -504,6 +507,7 @@ public class ParentController {
         makeRequestsButtonSelector.setText("Richieste");
         break;
       case SPANISH:
+        EmergencyButton.setText("Emergencia");
         homeButton.setText("P" + GlobalVariables.getAAcute() + "gina de Inicio");
         mapButton.setText("Mapa");
         viewSignageButton.setText(

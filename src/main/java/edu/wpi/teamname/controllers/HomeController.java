@@ -128,7 +128,7 @@ public class HomeController {
   public void setLanguage(Language lang) throws SQLException {
     switch (lang) {
       case ENGLISH:
-        exitButton.setText("Emergency");
+        exitPathButton.setText("Emergency");
         actionItemsLabel.setText("Service Requests");
         staffItemsLabel.setText("Staff Items");
         navigationLabel.setText("Navigation");
@@ -191,7 +191,7 @@ public class HomeController {
         logoutButton.setText("Logout");
         break;
       case ITALIAN:
-        exitButton.setText("Emergenza");
+        exitPathButton.setText("Emergenza");
         actionItemsLabel.setText("Richieste di Servizio");
         staffItemsLabel.setText("Elementi del personale");
         navigationLabel.setText("Navigazione");
@@ -254,7 +254,7 @@ public class HomeController {
         logoutButton.setText("Disconnettersi");
         break;
       case FRENCH:
-        exitButton.setText("Urgence");
+        exitPathButton.setText("Urgence");
         actionItemsLabel.setText("Demandes de Service");
         staffItemsLabel.setText(
             GlobalVariables.getBigEACute()
@@ -330,7 +330,7 @@ public class HomeController {
         logoutButton.setText("Se d" + GlobalVariables.getEAcute() + "connecter");
         break;
       case SPANISH:
-        exitButton.setText("Emergencia");
+        exitPathButton.setText("Emergencia");
         actionItemsLabel.setText("Solicitudes de Servicio");
         staffItemsLabel.setText("Elementos del personal");
         navigationLabel.setText("Navegaci" + GlobalVariables.getOAcute() + "n");
