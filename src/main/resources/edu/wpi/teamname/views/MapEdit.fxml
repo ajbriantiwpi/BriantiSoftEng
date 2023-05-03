@@ -7,6 +7,7 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TitledPane?>
@@ -21,17 +22,16 @@
 <?import javafx.scene.text.Font?>
 <?import net.kurobako.gesturefx.GesturePane?>
 
-<?import javafx.scene.control.ScrollPane?>
 <HBox fx:id="root" style="-fx-background-radius: 16;" styleClass="surface" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MapEditController">
     <children>
 
-            <ScrollPane fx:id="MapScrollPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <ScrollPane fx:id="MapScrollPane" hbarPolicy="NEVER" minWidth="300.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <content>
-                  <AnchorPane style="-fx-background-color: #ff0000;">
+                  <AnchorPane prefHeight="919.0" style="-fx-background-color: #ff0000;">
                      <children>
                         <VBox styleClass="surface" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <TitledPane fx:id="EditingTitledPane" animated="false" styleClass="surface" text="Editing">
+                              <TitledPane fx:id="EditingTitledPane" animated="false" minWidth="300.0" styleClass="surface" text="Editing">
                                  <content>
                                     <VBox spacing="24.0" style="-fx-background-radius: 16;">
                                        <children>
@@ -126,7 +126,7 @@
                                     </VBox>
                                  </content>
                               </TitledPane>
-                              <TitledPane fx:id="TickTitlePane" animated="false" styleClass="surface" text="TickBoxes">
+                              <TitledPane fx:id="TickTitlePane" animated="false" minWidth="300.0" styleClass="surface" text="TickBoxes">
                                  <content>
                                     <VBox spacing="24.0">
                                        <padding>
@@ -141,7 +141,7 @@
                                                       <String fx:value="label-med" />
                                                    </styleClass>
                                                 </CheckBox>
-                                                <CheckBox id="1" fx:id="ShortNameSelector" mnemonicParsing="false" selected="true" text="Short">
+                                                <CheckBox id="1" fx:id="ShortNameSelector" mnemonicParsing="false" text="Short">
                                                    <styleClass>
                                                       <String fx:value="primary-text-container" />
                                                       <String fx:value="label-med" />
@@ -183,7 +183,7 @@
                                     </VBox>
                                  </content>
                               </TitledPane>
-                              <TitledPane fx:id="FloorTitlePane" animated="false" styleClass="surface" text="Floors" VBox.vgrow="ALWAYS">
+                              <TitledPane fx:id="FloorTitlePane" animated="false" minWidth="300.0" styleClass="surface" text="Floors" VBox.vgrow="ALWAYS">
                                  <content>
                                     <VBox spacing="12.0" style="-fx-background-radius: 16;" styleClass="surface-container-highest">
                                        <children>
@@ -297,7 +297,7 @@
                 </StackPane>
                <VBox fx:id="Legend" layoutX="236.0" layoutY="104.0" prefHeight="278.0" prefWidth="238.0" style="-fx-border-radius: 10; -fx-background-radius: 10;" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
                   <children>
-                     <Label fx:id="mapSymbolsLabel" text="Map Symbols">
+                     <Label fx:id="mapSymbolsLabel" styleClass="on-suface-text" text="Map Symbols">
                         <font>
                            <Font name="Roboto" size="18.0" />
                         </font>

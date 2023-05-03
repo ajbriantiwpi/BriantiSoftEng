@@ -43,6 +43,7 @@ public enum ClearanceLevel {
         guestScreens.add(Screen.MAP);
         guestScreens.add(Screen.SIGNAGE);
         guestScreens.add(Screen.LOGIN);
+        guestScreens.add(Screen.SETTINGS);
         return guestScreens;
     }
     return null;
