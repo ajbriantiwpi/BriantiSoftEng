@@ -124,13 +124,15 @@ public class ParentController {
   }
 
   /** logs the current user out of the application */
-  private void logout() {
+  private void logout() throws IOException {
     HomeController.setLoggedIn(new SimpleBooleanProperty(false));
     loginButton.setVisible(true);
     logoutButton.setVisible(false);
     GlobalVariables.logOut();
     disableButtonsWhenNotLoggedIn();
-
+    if (GlobalVariables.getCurrentScreen().equals(Screen.SETTINGS)) {
+      SettingsController.getCurrController().logout();
+    }
     if (secureScreens.contains(GlobalVariables.getCurrentScreen())) {
       Navigation.navigate(Screen.HOME);
     } else {
@@ -444,10 +446,15 @@ public class ParentController {
     return null; // Test for errors
   }
 
+  /**
+   * changes the language of the app
+   * @param lang language to change it to
+   */
   public void setLanguage(Language lang) {
     switch (lang) {
       case ENGLISH:
         homeButton.setText("Home");
+        SettingsButton.setText("Settings");
         mapButton.setText("Map");
         viewSignageButton.setText("View Signage");
         makeRequestsButton.setText("Make Requests");
@@ -466,7 +473,9 @@ public class ParentController {
         makeRequestsButtonSelector.setText("Service Requests");
         break;
       case FRENCH:
-        homeButton.setText("Page D’accueil");
+        EmergencyButton.setText("Urgence");
+
+        homeButton.setText("Page D'accueil");
         mapButton.setText("Carte");
         viewSignageButton.setText("Voir la signalisation");
         makeRequestsButton.setText("Faire des demandes");
@@ -475,16 +484,18 @@ public class ParentController {
         editMoveButton.setText("Voir les mouvements");
         editSignageButton.setText("Modifier la signalisation");
         editMapButton.setText("Modifier la carte");
-        showEmployeesButton.setText("Afficher les employés");
+        showEmployeesButton.setText("Afficher les employ" + GlobalVariables.getEAcute() + "s");
         viewAlertsButton.setText("Afficher les alertes");
         loginButton.setText("Connexion");
         logoutButton.setText("Se d" + GlobalVariables.getEAcute() + "connecter");
         exitButton.setText("Sortie");
+        SettingsButton.setText("Param" + GlobalVariables.getEGrave() + "tres");
         mapButtonSelector.setText("Carte");
         viewSignageButtonSelector.setText("Signalisation");
         makeRequestsButtonSelector.setText("Demandes");
         break;
       case ITALIAN:
+        EmergencyButton.setText("Emergenza");
         homeButton.setText("Pagina Iniziale");
         mapButton.setText("Mappa");
         viewSignageButton.setText("Segnaletica");
@@ -500,10 +511,13 @@ public class ParentController {
         logoutButton.setText("Disconnettersi");
         exitButton.setText("Uscire");
         mapButtonSelector.setText("Mappa");
+        SettingsButton.setText("Impostazioni");
         viewSignageButtonSelector.setText("Segnaletica");
         makeRequestsButtonSelector.setText("Richieste");
         break;
       case SPANISH:
+        SettingsButton.setText("Configuraci" + GlobalVariables.getOAcute() + "n");
+        EmergencyButton.setText("Emergencia");
         homeButton.setText("P" + GlobalVariables.getAAcute() + "gina de Inicio");
         mapButton.setText("Mapa");
         viewSignageButton.setText(
@@ -651,8 +665,14 @@ public class ParentController {
       }
       //      }
     }
-
-    logoutButton.setOnMouseClicked(event -> logout());
+    logoutButton.setOnMouseClicked(
+        event -> {
+          try {
+            logout();
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+        });
 
     // (2)
     ClearanceLevel c = GlobalVariables.getCurrentUser().getLevel();

@@ -1,5 +1,6 @@
 package edu.wpi.teamname;
 
+import edu.wpi.teamname.controllers.SettingsController;
 import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import java.io.IOException;
@@ -17,7 +18,7 @@ public class Navigation {
     } else {
       first = false;
     }
-
+    SettingsController.setCurrController(null);
     final String filename = screen.getFilename();
 
     try {

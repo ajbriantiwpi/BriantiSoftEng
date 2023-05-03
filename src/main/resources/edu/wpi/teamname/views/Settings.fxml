@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.*?>
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefWidth="800.0" styleClass="surface" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.SettingsController">
+<AnchorPane fx:id="root" prefWidth="800.0" styleClass="surface" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.SettingsController">
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0" spacing="16.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -65,6 +71,12 @@
                   <Insets top="12.0" />
                </VBox.margin>
             </CheckBox>
+            <MFXButton fx:id="feedbackButton" prefHeight="46.0" prefWidth="361.0" stylesheets="@../stylesheets/button.css" text="Soumettre des commentaires">
+               <styleClass>
+                  <String fx:value="primary" />
+                  <String fx:value="headline-small" />
+               </styleClass>
+            </MFXButton>
             <Label fx:id="appSettingsLabel" prefHeight="19.0" prefWidth="596.0" stylesheets="@../stylesheets/RowLabel.css" text="App Settings">
                <VBox.margin>
                   <Insets top="12.0" />
@@ -77,15 +89,6 @@
             <HBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="881.0" spacing="24.0">
                <children>
                   <MFXButton fx:id="dataManageButton" prefHeight="51.0" prefWidth="150.0" stylesheets="@../stylesheets/button.css" text="Data">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <styleClass>
-                        <String fx:value="primary" />
-                        <String fx:value="headline-small" />
-                     </styleClass>
-                  </MFXButton>
-                  <MFXButton fx:id="feedbackButton" prefHeight="51.0" prefWidth="150.0" stylesheets="@../stylesheets/button.css" text="Feedback">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -109,6 +112,13 @@
                   <Insets />
                </VBox.margin>
             </HBox>
+            <Label fx:id="defaultLocationLabel" prefHeight="19.0" prefWidth="596.0" stylesheets="@../stylesheets/RowLabel.css" text="Set Default Location">
+               <styleClass>
+                  <String fx:value="primary-text" />
+                  <String fx:value="headline-large" />
+               </styleClass>
+            </Label>
+            <ComboBox fx:id="setLocationBox" prefHeight="54.0" prefWidth="195.0" promptText="Set Location" />
             <Label fx:id="dbConnectionLabel" prefHeight="40.0" prefWidth="1110.0" stylesheets="@../stylesheets/RowLabel.css" text="Database Connection">
                <VBox.margin>
                   <Insets top="12.0" />

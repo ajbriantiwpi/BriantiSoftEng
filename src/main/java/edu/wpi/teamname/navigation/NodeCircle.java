@@ -424,6 +424,12 @@ public class NodeCircle {
     }
   }
 
+  /**
+   * Constructs a list of shapes that represent a node of the given type.
+   *
+   * @param nodeType the type of node to create shapes for
+   * @return a list of shapes that represent the node
+   */
   public static ArrayList<Shape> makeNodeShape(String nodeType) {
     Shape outer;
     Shape inner;

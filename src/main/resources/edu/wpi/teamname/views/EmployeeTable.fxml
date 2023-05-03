@@ -212,7 +212,7 @@
                                     <Insets />
                                  </HBox.margin>
                               </Label>
-                              <TextField fx:id="searchLabel" styleClass="secondary-container" stylesheets="@../stylesheets/TextField.css">
+                              <TextField fx:id="searchEmployee" styleClass="secondary-container" stylesheets="@../stylesheets/TextField.css">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
