@@ -128,7 +128,7 @@ public class HomeController {
   public void setLanguage(Language lang) throws SQLException {
     switch (lang) {
       case ENGLISH:
-        actionItemsLabel.setText("Action Items");
+        actionItemsLabel.setText("Service Requests");
         staffItemsLabel.setText("Staff Items");
         navigationLabel.setText("Navigation");
         if (loggedIn.getValue()) {
@@ -190,7 +190,7 @@ public class HomeController {
         logoutButton.setText("Logout");
         break;
       case ITALIAN:
-        actionItemsLabel.setText("Elementi di azione");
+        actionItemsLabel.setText("Richieste di Servizio");
         staffItemsLabel.setText("Elementi del personale");
         navigationLabel.setText("Navigazione");
         if (loggedIn.getValue()) {
@@ -252,12 +252,7 @@ public class HomeController {
         logoutButton.setText("Disconnettersi");
         break;
       case FRENCH:
-        actionItemsLabel.setText(
-            "T"
-                + GlobalVariables.getACircumflex()
-                + "ches "
-                + GlobalVariables.getAGrave()
-                + " effectuer");
+        actionItemsLabel.setText("Demandes de Service");
         staffItemsLabel.setText(
             GlobalVariables.getBigEACute()
                 + "l"
@@ -331,7 +326,7 @@ public class HomeController {
         logoutButton.setText("Se d" + GlobalVariables.getEAcute() + "connecter");
         break;
       case SPANISH:
-        actionItemsLabel.setText("Elementos de acci" + GlobalVariables.getOAcute() + "n");
+        actionItemsLabel.setText("Solicitudes de Servicio");
         staffItemsLabel.setText("Elementos del personal");
         navigationLabel.setText("Navegaci" + GlobalVariables.getOAcute() + "n");
         if (loggedIn.getValue()) {

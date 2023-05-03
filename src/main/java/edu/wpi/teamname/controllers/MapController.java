@@ -1363,7 +1363,7 @@ public class MapController {
         IdSelector.setText("ID");
         HallNamesSelector.setText("Hall Names");
         EdgeSelector.setText("Show Edges");
-        NodeSelector.setText("Node");
+        NodeSelector.setText("Show Nodes");
         LegendSelector.setText("Unique Shapes");
         FloorsToggle.setText("Display all Floors");
         AvoidElevatorsToggle.setText("Avoid Stairs");

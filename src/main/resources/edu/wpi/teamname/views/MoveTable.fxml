@@ -8,11 +8,11 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane fx:id="root" styleClass="surface" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MoveTableController">
-    <children>
+   <children>
       <HBox prefHeight="100.0" prefWidth="200.0" />
-        <HBox layoutY="24.0" prefHeight="423.0" prefWidth="614.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <children>
-                <VBox fx:id="adminMoveView" minWidth="240.0" prefHeight="240.0" prefWidth="300.0" spacing="12.0" styleClass="surface-container" HBox.hgrow="SOMETIMES">
+      <HBox layoutY="24.0" prefHeight="423.0" prefWidth="614.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox fx:id="adminMoveView" minWidth="240.0" prefHeight="240.0" prefWidth="300.0" spacing="12.0" styleClass="surface-container" HBox.hgrow="SOMETIMES">
                <children>
                   <Label fx:id="addMoveLabel" layoutX="20.0" layoutY="267.0" prefHeight="40.0" styleClass="primary-text-container" text="Add Move" textFill="#235fa6">
                      <font>
@@ -127,16 +127,16 @@
                         <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
                      </VBox.margin>
                   </HBox>
-                     <TableView fx:id="moveTable" prefHeight="400.0" prefWidth="450.0" styleClass="surface" stylesheets="@../stylesheets/Colors/lightTheme.css">
-               </TableView>
+                  <TableView fx:id="moveTable" prefHeight="400.0" prefWidth="450.0" styleClass="surface" stylesheets="@../stylesheets/Colors/lightTheme.css">
+                  </TableView>
                </children>
                <HBox.margin>
                   <Insets top="12.0" />
                </HBox.margin>
             </VBox>
-            </children>
-        </HBox>
-    </children>
+         </children>
+      </HBox>
+   </children>
    <stylesheets>
       <URL value="@../stylesheets/Colors/lightTheme.css" />
       <URL value="@../stylesheets/Colors/darkTheme.css" />
