@@ -25,6 +25,10 @@ public class FeedbackController {
 
   private DataManager dataManager;
 
+  /**
+   * Changes the language of the app for this page
+   * @param lang to set it to
+   */
   public void setLanguage(Language lang) {
     switch (lang) {
       case ENGLISH:
