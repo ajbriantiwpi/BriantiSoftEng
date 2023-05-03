@@ -38,20 +38,23 @@ public class ScreenSaver extends Application {
       System.out.println(HEIGHT);
 
       rec = new Rectangle(0, 0, WIDTH, HEIGHT);
+      rec.setOpacity(0.8);
+
       root.getChildren().add(rec);
-      FillTransition ft = new FillTransition(Duration.seconds(20), rec, Color.BLACK, Color.RED);
+      FillTransition ft = new FillTransition(Duration.seconds(20), rec, Color.BLACK, Color.BLACK);
       ft.setOnFinished(
           event -> {
             FillTransition ft2 =
-                new FillTransition(Duration.seconds(20), rec, Color.RED, Color.GREEN);
+                new FillTransition(Duration.seconds(20), rec, Color.BLACK, Color.GREEN);
+            rec.setOpacity(1);
             ft2.setOnFinished(
                 event2 -> {
                   FillTransition ft3 =
-                      new FillTransition(Duration.seconds(20), rec, Color.GREEN, Color.BLUE);
+                      new FillTransition(Duration.seconds(20), rec, Color.GREEN, Color.RED);
                   ft3.setOnFinished(
                       event3 -> {
                         FillTransition ft4 =
-                            new FillTransition(Duration.seconds(20), rec, Color.BLUE, Color.MAGENTA);
+                            new FillTransition(Duration.seconds(20), rec, Color.RED, Color.MAGENTA);
                         ft4.setOnFinished(
                             event4 -> {
                               FillTransition ft5 =
@@ -77,7 +80,7 @@ public class ScreenSaver extends Application {
                                                         Duration.seconds(20),
                                                         rec,
                                                         Color.BLACK,
-                                                        Color.MAROON);
+                                                        Color.BLUE);
                                                 ft8.setOnFinished(
                                                     event8 -> {
                                                       ft8.play();
