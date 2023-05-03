@@ -15,7 +15,7 @@
     -fx-background-radius: 8;
 }
 
-.combo-box{
+.combo-box, .combo-box.text-field,  .combo-box .cell{
     /*-fx-background-color: #D5E3FF;*/
     -fx-font-size: 22px;
     -fx-font-family: Roboto Thin;

@@ -6,7 +6,7 @@
     -fx-background-color: #D5E3FF;
     -fx-text-fill: #001B3B;
 }
-.combo-box, .combo-box .text-field{
+.combo-box, .combo-box .text-field, .combo-box.cell{
     -fx-background-color: #D5E3FF;
     -fx-text-fill: #001B3B;
 }
