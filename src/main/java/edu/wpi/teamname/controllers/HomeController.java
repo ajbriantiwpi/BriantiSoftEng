@@ -320,13 +320,13 @@ public class HomeController {
         viewSignageButton.setText("Voir la signalisation");
         editSignageButton.setText("Modifier la signalisation");
         exitButton.setText("Sortir");
-        settingsButton.setText("Paramètres");
+        settingsButton.setText("Param" + GlobalVariables.getEGrave() + "tres");
         notificationPopupButtonSimple.setText("Notifications");
         creditButton.setText("Cr" + GlobalVariables.getEAcute() + "dits");
         aboutButton.setText(GlobalVariables.getBigAGrave() + " propos");
         helpButton.setText("Aide");
         loginButton.setText("Se connecter");
-        logoutButton.setText("Se déconnecter");
+        logoutButton.setText("Se d" + GlobalVariables.getEAcute() + "connecter");
         break;
       case SPANISH:
         actionItemsLabel.setText("Elementos de acci" + GlobalVariables.getOAcute() + "n");
