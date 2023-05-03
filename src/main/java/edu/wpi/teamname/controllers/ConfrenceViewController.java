@@ -126,8 +126,9 @@ public class ConfrenceViewController {
   }
 
   /**
-   *  sets the language of the labels
-   *  @param lang language to set it to
+   * sets the language of the labels
+   *
+   * @param lang language to set it to
    * @throws SQLException when the sql doesnt work
    */
   public void setLanguage(Language lang) throws SQLException {

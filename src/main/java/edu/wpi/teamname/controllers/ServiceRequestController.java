@@ -108,6 +108,7 @@ public class ServiceRequestController {
 
   /**
    * changes the language of the page
+   *
    * @param lang language to change it to
    */
   public void setLanguage(Language lang) {

@@ -317,9 +317,9 @@
             </VBox>
             </children>
         </GridPane>
-          <HBox alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+          <HBox alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" spacing="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
               <children>
-                  <ComboBox fx:id="languageChooser" maxHeight="50.0" promptText="Choose Language" stylesheets="@../stylesheets/combo.css" HBox.hgrow="ALWAYS" />
+                  <ComboBox fx:id="languageChooser" promptText="Choose Language" />
             <MFXButton fx:id="exitPathButton" alignment="CENTER" style="-fx-border-color: #BA1A1A; -fx-border-width: 3; -fx-border-radius: 8; -fx-background-radius: 10;" styleClass="primary-on-container" text="EMERGENCY" textAlignment="CENTER" textFill="#fdfbff">
                <font>
                   <Font size="20.0" />
