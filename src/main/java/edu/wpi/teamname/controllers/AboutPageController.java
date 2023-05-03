@@ -48,7 +48,7 @@ public class AboutPageController {
                 + "Prof. Wilson Wong");
         thanksLabel.setText("Thank you!");
         specialThanksLabel.setText(
-            "Special thank you to Brigham and Women’s Hospital,\n"
+            "Special thank you to Brigham and Women's Hospital,\n"
                 + "\n"
                 + "and their representative Andrew Shinn,\n"
                 + "\n"
@@ -75,32 +75,32 @@ public class AboutPageController {
         titleLabel.setText(
             "Departamento de Ciencias de la Computaci"+ GlobalVariables.getOAcute()+ "n del WPI\n"
                 + "\n"
-                + "Ingeniería de Software CS3733-D23\n"
+                + "Ingenier"+GlobalVariables.getIAcute()+"a de Software CS3733-D23\n"
                 + "\n"
                 + "Prof. Wilson Wong");
         thanksLabel.setText("¡Gracias!");
         specialThanksLabel.setText(
-            "Agradecimiento especial al Hospital Brigham and Women,\n"
+            "Agradecimiento especial al Brigham and Women's Hospital,\n"
                 + "\n"
                 + "y su representante Andrew Shinn,\n"
                 + "\n"
                 + "por su tiempo y aporte en este proyecto.");
         break;
       case FRENCH:
-        ParentController.titleString.set("À propos");
+        ParentController.titleString.set(GlobalVariables.getBigAGrave()+" propos");
         titleLabel.setText(
-            "Département d'Informatique du WPI\n"
+            "D"+GlobalVariables.getEAcute()+"partement d'Informatique du WPI\n"
                 + "\n"
-                + "Ingénierie Logicielle CS3733-D23\n"
+                + "Ing"+GlobalVariables.getEAcute()+"nierie Logicielle CS3733-D23\n"
                 + "\n"
                 + "Prof. Wilson Wong");
         thanksLabel.setText("Merci!");
         specialThanksLabel.setText(
-            "Un remerciement spécial à l'Hôpital Brigham and Women,\n"
+            "Un remerciement sp"+GlobalVariables.getEAcute()+"cial " +GlobalVariables.getAGrave()+ "l'H"+ '\u00F4'+"pital Brigham and Women,\n"
                 + "\n"
-                + "et leur représentant Andrew Shinn,\n"
+                + "et leur repr"+GlobalVariables.getEAcute()+"sentant Andrew Shinn,\n"
                 + "\n"
-                + "pour leur temps et leur contribution à ce projet.");
+                + "pour leur temps et leur contribution "+GlobalVariables.getAGrave()+"ce projet.");
         break;
     }
   }
