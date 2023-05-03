@@ -1284,11 +1284,11 @@ public class MapEditController {
         break;
       case SPANISH:
         ParentController.titleString.set("Editor de Mapas");
-        TickTitlePane.setText("Casillas de Verificaci"+GlobalVariables.getOAcute()+"n");
+        TickTitlePane.setText("Casillas de Verificaci" + GlobalVariables.getOAcute() + "n");
         FloorTitlePane.setText("Pisos");
-        EditingTitledPane.setText("Edici"+GlobalVariables.getOAcute()+"n");
+        EditingTitledPane.setText("Edici" + GlobalVariables.getOAcute() + "n");
         addNodeButton.setText("Agregar Nodo");
-        addLocationButton.setText("Agregar Ubicaci"+GlobalVariables.getOAcute()+"n");
+        addLocationButton.setText("Agregar Ubicaci" + GlobalVariables.getOAcute() + "n");
         addEdgeButton.setText("Agregar Borde");
         toggleTableButton.setText("Modificar Ubicaciones");
         ThirdFloorButton.setText("Tercer Piso");
@@ -1302,13 +1302,13 @@ public class MapEditController {
         HallNamesSelector.setText("Nombres de Pasillo");
         EdgeSelector.setText("Mostrar Bordes");
         NodeSelector.setText("Nodo");
-        LegendSelector.setText("Formas "+GlobalVariables.getBigUAcute()+"nicas");
+        LegendSelector.setText("Formas " + GlobalVariables.getBigUAcute() + "nicas");
         mapSymbolsLabel.setText("Símbolos del Mapa");
         conferenceRoomLabel.setText("Sala de Conferencias");
         departmentLabel.setText("Departamento");
         labLabel.setText("Laboratorio");
-        infoLabel.setText("Informaci"+GlobalVariables.getOAcute()+"n");
-        bathroomLabel.setText("Ba"+GlobalVariables.getNTilda()+"o/Aseo");
+        infoLabel.setText("Informaci" + GlobalVariables.getOAcute() + "n");
+        bathroomLabel.setText("Ba" + GlobalVariables.getNTilda() + "o/Aseo");
         serviceLabel.setText("Servicio/Venta");
         elevatorLabel.setText("Ascensor");
         stairsLabel.setText("Escaleras");
@@ -1320,17 +1320,27 @@ public class MapEditController {
         currentFloorDestLabel.setText("Destino Piso Actual");
         break;
       case FRENCH:
-        ParentController.titleString.set(GlobalVariables.getBigEACute()+"diteur de Cartes");
-        TickTitlePane.setText("Cases "+GlobalVariables.getAGrave()+" Cocher");
-        FloorTitlePane.setText(GlobalVariables.getBigEACute()+"tages");
+        ParentController.titleString.set(GlobalVariables.getBigEACute() + "diteur de Cartes");
+        TickTitlePane.setText("Cases " + GlobalVariables.getAGrave() + " Cocher");
+        FloorTitlePane.setText(GlobalVariables.getBigEACute() + "tages");
         EditingTitledPane.setText("Modification");
-        addNodeButton.setText("Ajouter un N"+GlobalVariables.getOe()+"ud");
+        addNodeButton.setText("Ajouter un N" + GlobalVariables.getOe() + "ud");
         addLocationButton.setText("Ajouter un Emplacement");
         addEdgeButton.setText("Ajouter un Bord");
         toggleTableButton.setText("Modifier les Emplacements");
-        ThirdFloorButton.setText("Troisi"+GlobalVariables.getEGrave()+"me "+GlobalVariables.getBigEACute()+"tage");
-        SecondFloorButton.setText("Deuxi"+GlobalVariables.getEGrave()+"me "+GlobalVariables.getBigEACute()+"tage");
-        FirstFloorButton.setText("Premier "+GlobalVariables.getBigEACute()+"tage");
+        ThirdFloorButton.setText(
+            "Troisi"
+                + GlobalVariables.getEGrave()
+                + "me "
+                + GlobalVariables.getBigEACute()
+                + "tage");
+        SecondFloorButton.setText(
+            "Deuxi"
+                + GlobalVariables.getEGrave()
+                + "me "
+                + GlobalVariables.getBigEACute()
+                + "tage");
+        FirstFloorButton.setText("Premier " + GlobalVariables.getBigEACute() + "tage");
         LowerLevelOneButton.setText("Niveau Inférieur 1");
         LowerLevelTwoButton.setText("Niveau Inférieur 2");
         LongNameSelector.setText("Long");
@@ -1338,11 +1348,11 @@ public class MapEditController {
         IdSelector.setText("ID");
         HallNamesSelector.setText("Noms des Couloirs");
         EdgeSelector.setText("Afficher les Bords");
-        NodeSelector.setText("N"+GlobalVariables.getOe()+"ud");
+        NodeSelector.setText("N" + GlobalVariables.getOe() + "ud");
         LegendSelector.setText("Formes Uniques");
         mapSymbolsLabel.setText("Symboles de la Carte");
         conferenceRoomLabel.setText("Salle de Conférence");
-        departmentLabel.setText("D"+GlobalVariables.getEAcute()+"partement");
+        departmentLabel.setText("D" + GlobalVariables.getEAcute() + "partement");
         labLabel.setText("Laboratoire");
         infoLabel.setText("Information");
         bathroomLabel.setText("Salle de Bain/Toilettes");
@@ -1350,11 +1360,17 @@ public class MapEditController {
         elevatorLabel.setText("Ascenseur");
         stairsLabel.setText("Escaliers");
         exitLabel.setText("Sortie");
-        startLabel.setText("D"+GlobalVariables.getEAcute()+"part");
+        startLabel.setText("D" + GlobalVariables.getEAcute() + "part");
         pathLabel.setText("Chemin");
         destinationLabel.setText("Destination");
-        currentFloorStart.setText("D"+GlobalVariables.getEAcute()+"part "+GlobalVariables.getBigEACute()+"tage Actuel");
-        currentFloorDestLabel.setText("Destination "+GlobalVariables.getBigEACute()+"tage Actuel");
+        currentFloorStart.setText(
+            "D"
+                + GlobalVariables.getEAcute()
+                + "part "
+                + GlobalVariables.getBigEACute()
+                + "tage Actuel");
+        currentFloorDestLabel.setText(
+            "Destination " + GlobalVariables.getBigEACute() + "tage Actuel");
         break;
     }
   }

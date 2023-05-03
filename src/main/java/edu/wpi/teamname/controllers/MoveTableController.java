@@ -95,16 +95,16 @@ public class MoveTableController {
         dateColumn.setText("Data");
         break;
       case FRENCH:
-        ParentController.titleString.set(GlobalVariables.getBigEACute()+"diteur de mouvements");
+        ParentController.titleString.set(GlobalVariables.getBigEACute() + "diteur de mouvements");
         addMoveLabel.setText("Ajouter un mouvement");
-        nodeIDLabel.setText("ID du n"+GlobalVariables.getOe()+"ud");
+        nodeIDLabel.setText("ID du n" + GlobalVariables.getOe() + "ud");
         longNameLabel.setText("Nom long");
         dateLabel.setText("Date");
         csvManagerLabel.setText("Gestionnaire CSV");
         submitButton.setText("Soumettre");
         importButton.setText("Importer");
         exportButton.setText("Exporter");
-        nodeIDColumn.setText("ID du n"+GlobalVariables.getOe()+"ud");
+        nodeIDColumn.setText("ID du n" + GlobalVariables.getOe() + "ud");
         longNameColumn.setText("Nom long");
         dateColumn.setText("Date");
         searchLabel.setText("Rechercher par ID");

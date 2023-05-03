@@ -49,7 +49,7 @@ public class GlobalVariables {
   @Getter public static final char uAcute = '\u00FA';
   @Getter public static final char bigUAcute = '\u00DA';
   @Getter public static final char oe = '\u0153';
-//  @Getter public static final char bigOE = '\u00DA';
+  //  @Getter public static final char bigOE = '\u00DA';
 
   @Getter @Setter public static Property<Language> b = new SimpleObjectProperty<>(Language.ENGLISH);
   @Getter @Setter private static String[] args;

@@ -1382,7 +1382,7 @@ public class MapController {
         break;
       case SPANISH:
         ParentController.titleString.set("Mapa");
-        PathfindingTitlePane.setText("B"+GlobalVariables.getUAcute()+"squeda de ruta");
+        PathfindingTitlePane.setText("B" + GlobalVariables.getUAcute() + "squeda de ruta");
         LocationOne.setPromptText("Seleccionar inicio");
         EndPointSelect.setPromptText("Seleccionar destino");
         AlgoSelect.setPromptText("Seleccionar algoritmo");
@@ -1395,24 +1395,29 @@ public class MapController {
         FirstFloorButton.setText("Primer piso");
         LowerFirstButton.setText("Nivel inferior 1");
         LowerSecondButton.setText("Nivel inferior 2");
-        TickTitlePane.setText("Casillas de verificaci"+GlobalVariables.getOAcute()+"n");
+        TickTitlePane.setText("Casillas de verificaci" + GlobalVariables.getOAcute() + "n");
         LongNameSelector.setText("Nombre largo");
         ShortNameSelector.setText("Nombre corto");
         IdSelector.setText("ID");
-        HallNamesSelector.setText("Nombres de sal"+GlobalVariables.getOAcute()+"n");
+        HallNamesSelector.setText("Nombres de sal" + GlobalVariables.getOAcute() + "n");
         EdgeSelector.setText("Mostrar bordes");
         NodeSelector.setText("Nodo");
-        LegendSelector.setText("Formas "+GlobalVariables.getUAcute()+"nicas");
+        LegendSelector.setText("Formas " + GlobalVariables.getUAcute() + "nicas");
         FloorsToggle.setText("Mostrar todos los pisos");
         AvoidElevatorsToggle.setText("Evitar escaleras");
         ViewMessageButton.setText("Ver mensajes");
         AddMessageButton.setText("Agregar mensaje");
-        mapSymbolsLabel.setText("S"+GlobalVariables.getIAcute()+"mbolos del mapa");
+        mapSymbolsLabel.setText("S" + GlobalVariables.getIAcute() + "mbolos del mapa");
         conferenceRoomLabel.setText("Sala de conferencias");
         departmentLabel.setText("Departamento");
         labLabel.setText("Laboratorio");
-        infoLabel.setText("Informaci"+GlobalVariables.getOAcute()+"n");
-        bathroomLabel.setText("Ba"+GlobalVariables.getNTilda()+"o/Servicios higi"+GlobalVariables.getEAcute()+"nicos");
+        infoLabel.setText("Informaci" + GlobalVariables.getOAcute() + "n");
+        bathroomLabel.setText(
+            "Ba"
+                + GlobalVariables.getNTilda()
+                + "o/Servicios higi"
+                + GlobalVariables.getEAcute()
+                + "nicos");
         serviceLabel.setText("Servicios/Tienda");
         elevatorLabel.setText("Ascensor");
         stairsLabel.setText("Escaleras");
@@ -1432,19 +1437,22 @@ public class MapController {
       case FRENCH:
         ParentController.titleString.set("Carte");
         PathfindingTitlePane.setText("Recherche de chemin");
-        LocationOne.setPromptText("S"+GlobalVariables.getEAcute()+"lectionner le départ");
-        EndPointSelect.setPromptText("S"+GlobalVariables.getEAcute()+"lectionner la destination");
-        AlgoSelect.setPromptText("S"+GlobalVariables.getEAcute()+"lectionner l'algorithme");
+        LocationOne.setPromptText("S" + GlobalVariables.getEAcute() + "lectionner le départ");
+        EndPointSelect.setPromptText(
+            "S" + GlobalVariables.getEAcute() + "lectionner la destination");
+        AlgoSelect.setPromptText("S" + GlobalVariables.getEAcute() + "lectionner l'algorithme");
         findPathButton.setText("Trouver un chemin");
-        DeleteNodeButton.setText("R"+GlobalVariables.getEAcute()+"initialiser");
-        DirectionsTitlePane.setText("Itin"+GlobalVariables.getEAcute()+"raire");
-        FloorTitlePane.setText(GlobalVariables.getBigEACute()+"tages");
-        ThirdFloorButton.setText("Troisi"+GlobalVariables.getEGrave()+"me "+GlobalVariables.getEAcute()+"tage");
-        SecondFloorButton.setText("Deuxi"+GlobalVariables.getEGrave()+"me "+GlobalVariables.getEAcute()+"tage");
-        FirstFloorButton.setText("Premier "+GlobalVariables.getEAcute()+"tage");
-        LowerFirstButton.setText("Niveau inf"+GlobalVariables.getEAcute()+"rieur 1");
-        LowerSecondButton.setText("Niveau inf"+GlobalVariables.getEAcute()+"rieur 2");
-        TickTitlePane.setText("Cases "+GlobalVariables.getAGrave()+" cocher");
+        DeleteNodeButton.setText("R" + GlobalVariables.getEAcute() + "initialiser");
+        DirectionsTitlePane.setText("Itin" + GlobalVariables.getEAcute() + "raire");
+        FloorTitlePane.setText(GlobalVariables.getBigEACute() + "tages");
+        ThirdFloorButton.setText(
+            "Troisi" + GlobalVariables.getEGrave() + "me " + GlobalVariables.getEAcute() + "tage");
+        SecondFloorButton.setText(
+            "Deuxi" + GlobalVariables.getEGrave() + "me " + GlobalVariables.getEAcute() + "tage");
+        FirstFloorButton.setText("Premier " + GlobalVariables.getEAcute() + "tage");
+        LowerFirstButton.setText("Niveau inf" + GlobalVariables.getEAcute() + "rieur 1");
+        LowerSecondButton.setText("Niveau inf" + GlobalVariables.getEAcute() + "rieur 2");
+        TickTitlePane.setText("Cases " + GlobalVariables.getAGrave() + " cocher");
         LongNameSelector.setText("Nom long");
         ShortNameSelector.setText("Nom court");
         IdSelector.setText("ID");
@@ -1452,13 +1460,13 @@ public class MapController {
         EdgeSelector.setText("Afficher les bords");
         NodeSelector.setText("Noeud");
         LegendSelector.setText("Formes uniques");
-        FloorsToggle.setText("Afficher tous les "+GlobalVariables.getEAcute()+"tages");
-        AvoidElevatorsToggle.setText(GlobalVariables.getBigEACute()+"viter les escaliers");
+        FloorsToggle.setText("Afficher tous les " + GlobalVariables.getEAcute() + "tages");
+        AvoidElevatorsToggle.setText(GlobalVariables.getBigEACute() + "viter les escaliers");
         ViewMessageButton.setText("Voir les messages");
         AddMessageButton.setText("Ajouter un message");
         mapSymbolsLabel.setText("Symboles de carte");
-        conferenceRoomLabel.setText("Salle de conf"+GlobalVariables.getEAcute()+"rence");
-        departmentLabel.setText("D"+GlobalVariables.getEAcute()+"partement");
+        conferenceRoomLabel.setText("Salle de conf" + GlobalVariables.getEAcute() + "rence");
+        departmentLabel.setText("D" + GlobalVariables.getEAcute() + "partement");
         labLabel.setText("Laboratoire");
         infoLabel.setText("Info");
         bathroomLabel.setText("Toilettes");
@@ -1466,11 +1474,12 @@ public class MapController {
         elevatorLabel.setText("Ascenseur");
         stairsLabel.setText("Escalier");
         exitLabel.setText("Sortie");
-        startLabel.setText("D"+GlobalVariables.getEAcute()+"part");
+        startLabel.setText("D" + GlobalVariables.getEAcute() + "part");
         pathLabel.setText("Chemin");
         destinationLabel.setText("Destination");
-        currentFloorStart.setText(GlobalVariables.getBigEACute()+"tage de d"+GlobalVariables.getEAcute()+"part");
-        currentFloorDestLabel.setText(GlobalVariables.getBigEACute()+"tage de destination");
+        currentFloorStart.setText(
+            GlobalVariables.getBigEACute() + "tage de d" + GlobalVariables.getEAcute() + "part");
+        currentFloorDestLabel.setText(GlobalVariables.getBigEACute() + "tage de destination");
         AdminIDLabel.setText("ID d'administrateur");
         MessageLabel.setText("Message");
         MessageSubmitButton.setText("Envoyer");

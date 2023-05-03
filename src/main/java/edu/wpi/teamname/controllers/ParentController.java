@@ -458,7 +458,7 @@ public class ParentController {
         showEmployeesButton.setText("Afficher les employés");
         viewAlertsButton.setText("Afficher les alertes");
         loginButton.setText("Connexion");
-        logoutButton.setText("Se d"+GlobalVariables.getEAcute()+"connecter");
+        logoutButton.setText("Se d" + GlobalVariables.getEAcute() + "connecter");
         exitButton.setText("Sortie");
         mapButtonSelector.setText("Carte");
         viewSignageButtonSelector.setText("Signalisation");
@@ -484,11 +484,12 @@ public class ParentController {
         makeRequestsButtonSelector.setText("Richieste");
         break;
       case SPANISH:
-        homeButton.setText("P"+GlobalVariables.getAAcute()+"gina de Inicio");
+        homeButton.setText("P" + GlobalVariables.getAAcute() + "gina de Inicio");
         mapButton.setText("Mapa");
-        viewSignageButton.setText("Ver se"+GlobalVariables.getNTilda()+"alizaci"+GlobalVariables.getOAcute()+"n");
+        viewSignageButton.setText(
+            "Ver se" + GlobalVariables.getNTilda() + "alizaci" + GlobalVariables.getOAcute() + "n");
         makeRequestsButton.setText("Hacer peticiones");
-        requestRoomButton.setText("Solicitar Habitaci"+GlobalVariables.getOAcute()+"n");
+        requestRoomButton.setText("Solicitar Habitaci" + GlobalVariables.getOAcute() + "n");
         showRequestsButton.setText("Ver solicitudes");
         editMoveButton.setText("Ver movimientos");
         editSignageButton.setText("Editar señalización");
@@ -499,7 +500,8 @@ public class ParentController {
         logoutButton.setText("Cerrar sesión");
         exitButton.setText("Salir");
         mapButtonSelector.setText("Mapa");
-        viewSignageButtonSelector.setText("Se"+GlobalVariables.getNTilda()+"alizaci"+GlobalVariables.getOAcute()+"n");
+        viewSignageButtonSelector.setText(
+            "Se" + GlobalVariables.getNTilda() + "alizaci" + GlobalVariables.getOAcute() + "n");
         makeRequestsButtonSelector.setText("Peticiones");
         break;
     }

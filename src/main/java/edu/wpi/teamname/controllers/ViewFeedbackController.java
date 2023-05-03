@@ -57,17 +57,17 @@ public class ViewFeedbackController {
         break;
       case FRENCH:
         ParentController.titleString.set("Demandes de Commentaires");
-        reporterColumn.setText("D"+GlobalVariables.getEAcute()+"clarant");
+        reporterColumn.setText("D" + GlobalVariables.getEAcute() + "clarant");
         descriptionColumn.setText("Description");
         dateColumn.setText("Date");
-        assigneeColumn.setText("Assign"+GlobalVariables.getEAcute());
+        assigneeColumn.setText("Assign" + GlobalVariables.getEAcute());
         statusColumn.setText("Statut");
         idColumn.setText("ID");
         break;
       case SPANISH:
         ParentController.titleString.set("Solicitudes de Comentarios");
         reporterColumn.setText("Reportante");
-        descriptionColumn.setText("Descripci"+GlobalVariables.getOAcute()+"n");
+        descriptionColumn.setText("Descripci" + GlobalVariables.getOAcute() + "n");
         dateColumn.setText("Fecha");
         assigneeColumn.setText("Asignado");
         statusColumn.setText("Estado");

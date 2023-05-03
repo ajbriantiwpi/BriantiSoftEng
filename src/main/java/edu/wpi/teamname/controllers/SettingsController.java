@@ -66,23 +66,38 @@ public class SettingsController {
         viewFeedbackButton.setText("Visualizza Feedback");
         break;
       case FRENCH:
-        ParentController.titleString.set("Param"+GlobalVariables.getEGrave()+"tres");
-        hardwareLabel.setText("Param"+GlobalVariables.getEGrave()+"tres Mat"+GlobalVariables.getEAcute()+"riels");
+        ParentController.titleString.set("Param" + GlobalVariables.getEGrave() + "tres");
+        hardwareLabel.setText(
+            "Param"
+                + GlobalVariables.getEGrave()
+                + "tres Mat"
+                + GlobalVariables.getEAcute()
+                + "riels");
         volumeLabel.setText("Volume");
         songLabel.setText("Choisir une chanson");
-        appSettingsLabel.setText("Param"+GlobalVariables.getEGrave()+"tres de l'application");
-        dbConnectionLabel.setText("Connexion "+GlobalVariables.getAGrave()+" la base de donn"+GlobalVariables.getEAcute()+"es");
-        dataManageButton.setText("Donn"+GlobalVariables.getEAcute()+"es");
+        appSettingsLabel.setText("Param" + GlobalVariables.getEGrave() + "tres de l'application");
+        dbConnectionLabel.setText(
+            "Connexion "
+                + GlobalVariables.getAGrave()
+                + " la base de donn"
+                + GlobalVariables.getEAcute()
+                + "es");
+        dataManageButton.setText("Donn" + GlobalVariables.getEAcute() + "es");
         feedbackButton.setText("Commentaires");
         viewFeedbackButton.setText("Voir les commentaires");
         break;
       case SPANISH:
-        ParentController.titleString.set("Configuraci"+GlobalVariables.getOAcute()+"n");
-        hardwareLabel.setText("Configuraci"+GlobalVariables.getOAcute()+"n de Hardware");
+        ParentController.titleString.set("Configuraci" + GlobalVariables.getOAcute() + "n");
+        hardwareLabel.setText("Configuraci" + GlobalVariables.getOAcute() + "n de Hardware");
         volumeLabel.setText("Volumen");
-        songLabel.setText("Elegir Canci"+GlobalVariables.getOAcute()+"n");
-        appSettingsLabel.setText("Configuraci"+GlobalVariables.getOAcute()+"n de la Aplicaci"+GlobalVariables.getOAcute()+"n");
-        dbConnectionLabel.setText("Conexi"+GlobalVariables.getOAcute()+"n de Base de Datos");
+        songLabel.setText("Elegir Canci" + GlobalVariables.getOAcute() + "n");
+        appSettingsLabel.setText(
+            "Configuraci"
+                + GlobalVariables.getOAcute()
+                + "n de la Aplicaci"
+                + GlobalVariables.getOAcute()
+                + "n");
+        dbConnectionLabel.setText("Conexi" + GlobalVariables.getOAcute() + "n de Base de Datos");
         dataManageButton.setText("Datos");
         feedbackButton.setText("Comentarios");
         viewFeedbackButton.setText("Ver Comentarios");

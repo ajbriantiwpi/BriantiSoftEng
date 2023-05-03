@@ -139,7 +139,7 @@ public class ServiceRequestController {
         clearButton.setText("Effacer");
         cancelButton.setText("Annuler");
         nextButton.setText("Suivant");
-        forgotButton.setText("Vous avez oubli"+GlobalVariables.getEAcute()+" quelque chose?");
+        forgotButton.setText("Vous avez oubli" + GlobalVariables.getEAcute() + " quelque chose?");
         detailsLabel.setText("Détails de la commande");
         cartLabel.setText("Votre panier");
         searchLabel.setText("Rechercher");
@@ -165,7 +165,7 @@ public class ServiceRequestController {
       case SPANISH:
         ParentController.titleString.set("Solicitud de servicio");
         patientNameLabel.setText("Nombre del Paciente");
-        locationLabel.setText("Ubicaci"+GlobalVariables.getOAcute()+"n");
+        locationLabel.setText("Ubicaci" + GlobalVariables.getOAcute() + "n");
         nodeBox.setPromptText("Elija Ubicación");
         dateLabel.setText("Fecha");
         timeLabel.setText("Hora");

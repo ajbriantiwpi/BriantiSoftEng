@@ -64,7 +64,9 @@ public class AboutPageController {
                 + "Prof. Wilson Wong");
         thanksLabel.setText("Grazie!");
         specialThanksLabel.setText(
-            "Un ringraziamento speciale "+ GlobalVariables.getAGrave() +" Brigham and Women's Hospital,\n"
+            "Un ringraziamento speciale "
+                + GlobalVariables.getAGrave()
+                + " Brigham and Women's Hospital,\n"
                 + "\n"
                 + "e al loro rappresentante Andrew Shinn,\n"
                 + "\n"
@@ -73,9 +75,13 @@ public class AboutPageController {
       case SPANISH:
         ParentController.titleString.set("Acerca de");
         titleLabel.setText(
-            "Departamento de Ciencias de la Computaci"+ GlobalVariables.getOAcute()+ "n del WPI\n"
+            "Departamento de Ciencias de la Computaci"
+                + GlobalVariables.getOAcute()
+                + "n del WPI\n"
                 + "\n"
-                + "Ingenier"+GlobalVariables.getIAcute()+"a de Software CS3733-D23\n"
+                + "Ingenier"
+                + GlobalVariables.getIAcute()
+                + "a de Software CS3733-D23\n"
                 + "\n"
                 + "Prof. Wilson Wong");
         thanksLabel.setText("¡Gracias!");
@@ -87,20 +93,34 @@ public class AboutPageController {
                 + "por su tiempo y aporte en este proyecto.");
         break;
       case FRENCH:
-        ParentController.titleString.set(GlobalVariables.getBigAGrave()+" propos");
+        ParentController.titleString.set(GlobalVariables.getBigAGrave() + " propos");
         titleLabel.setText(
-            "D"+GlobalVariables.getEAcute()+"partement d'Informatique du WPI\n"
+            "D"
+                + GlobalVariables.getEAcute()
+                + "partement d'Informatique du WPI\n"
                 + "\n"
-                + "Ing"+GlobalVariables.getEAcute()+"nierie Logicielle CS3733-D23\n"
+                + "Ing"
+                + GlobalVariables.getEAcute()
+                + "nierie Logicielle CS3733-D23\n"
                 + "\n"
                 + "Prof. Wilson Wong");
         thanksLabel.setText("Merci!");
         specialThanksLabel.setText(
-            "Un remerciement sp"+GlobalVariables.getEAcute()+"cial " +GlobalVariables.getAGrave()+ "l'H"+ '\u00F4'+"pital Brigham and Women,\n"
+            "Un remerciement sp"
+                + GlobalVariables.getEAcute()
+                + "cial "
+                + GlobalVariables.getAGrave()
+                + "l'H"
+                + '\u00F4'
+                + "pital Brigham and Women,\n"
                 + "\n"
-                + "et leur repr"+GlobalVariables.getEAcute()+"sentant Andrew Shinn,\n"
+                + "et leur repr"
+                + GlobalVariables.getEAcute()
+                + "sentant Andrew Shinn,\n"
                 + "\n"
-                + "pour leur temps et leur contribution "+GlobalVariables.getAGrave()+"ce projet.");
+                + "pour leur temps et leur contribution "
+                + GlobalVariables.getAGrave()
+                + "ce projet.");
         break;
     }
   }
