@@ -64,6 +64,18 @@ public class EmployeeTableController {
   //  @FXML Label employeesLabel;
   @FXML Label searchLabel;
 
+
+    /**
+     * Sets the language
+     * @param lang language to set it to
+     * @param id id column
+     * @param first first name column
+     * @param last last name column
+     * @param clearance clearance level column
+     * @param type type column
+     * @param username username column
+     * @param password password column
+     */
   public void setLanguage(
       Language lang,
       TableColumn id,

@@ -125,6 +125,11 @@ public class ConfrenceViewController {
     table.setItems(sortedServiceReq);
   }
 
+  /**
+   *  sets the language of the labels
+   *  @param lang language to set it to
+   * @throws SQLException when the sql doesnt work
+   */
   public void setLanguage(Language lang) throws SQLException {
     switch (lang) {
       case ENGLISH:
