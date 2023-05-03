@@ -1,7 +1,7 @@
 package edu.wpi.teamname.navigation;
 
 import edu.wpi.teamname.database.DataManager;
-import edu.wpi.teamname.navigation.AlgoStrategy.Emergency;
+import edu.wpi.teamname.navigation.AlgoStrategy.AStarAlgo;
 import edu.wpi.teamname.navigation.AlgoStrategy.IStrategyAlgo;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,9 +23,9 @@ public class Graph {
     Edges = this.getAllEdges(); // Changed based on DB team
     this.initializeEdges();
 
-    pathfindingAlgo = new Emergency();
+    // pathfindingAlgo = new Emergency();
 
-    // pathfindingAlgo = new AStarAlgo();
+    pathfindingAlgo = new AStarAlgo();
     // pathfindingAlgo = new BFSAlgo();
     // pathfindingAlgo = new DFSAlgo();
     // pathfindingAlgo = new DijkstraAlgo();

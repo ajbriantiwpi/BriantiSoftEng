@@ -120,10 +120,14 @@ public class Emergency implements IStrategyAlgo {
    */
   public ArrayList<Node> getPath(Node target) {
     System.out.println("Path");
+
     Node n = target;
 
     ArrayList<Node> ids = new ArrayList<>();
-    if (n == null) return ids;
+    if (n == null) {
+      System.out.print("N IS NULL");
+      return ids;
+    }
 
     while (n.getParent() != null) {
       ids.add(n);
@@ -139,18 +143,22 @@ public class Emergency implements IStrategyAlgo {
   @Override
   public ArrayList<Node> getPathBetween(Graph g, int startNodeId, int targetNodeId)
       throws SQLException {
-    System.out.println("ASTAR T");
+    System.out.println("Emergency");
 
     ArrayList<Node> nodes = g.getNodes();
-    Node s = nodes.get(Node.idToIndex(startNodeId));
-    Node t = nodes.get(Node.idToIndex(targetNodeId));
+    // Node s = nodes.get(Node.idToIndex(startNodeId));
+    // Node t = nodes.get(Node.idToIndex(targetNodeId));
 
     for (Node j : nodes) {
       j.setParent(null);
+      j.setG(Double.MAX_VALUE);
     }
+    // Node start = nodes.get(Node.idToIndex(startNodeId));
+    Node start = GlobalVariables.getCurrentLocationNode();
+    start.setG(0);
 
-    g.setAllG(s, t);
-    Node start = s;
+    // g.setAllG(s, t);
+    // Node start = s;
     // Node target = t;
 
     PriorityQueue<Node> closedList = new PriorityQueue<>();
@@ -168,9 +176,21 @@ public class Emergency implements IStrategyAlgo {
       }
 
       for (Node nei : ex.getNeighbors()) {
+        // Do not want to take elevators in emergency
+        //        ArrayList<LocationName> listA = GlobalVariables.getHMap().get(ex.getId());
+        //        ArrayList<LocationName> listB = GlobalVariables.getHMap().get(nei.getId());
+        //        if (listA != null && listB != null) {
+        //          LocationName a = listA.get(0);
+        //          LocationName b = listB.get(0);
+        //          if (a.getNodeType().equals("ELEV") && b.getNodeType().equals("ELEV")) {
+        //            // System.out.print("Continued");
+        //            continue;
+        //          }
+        //        }
+
         double totalWeight = ex.getG() + nei.findWeight(ex);
 
-        System.out.println(closedList.size());
+        // System.out.println(closedList.size());
 
         if (!openList.contains(nei) && !closedList.contains(nei)) {
           nei.setParent(ex);
@@ -194,6 +214,7 @@ public class Emergency implements IStrategyAlgo {
       closedList.add(ex);
       // System.out.println(closedList.size());
     }
+
     return null;
   }
 }
