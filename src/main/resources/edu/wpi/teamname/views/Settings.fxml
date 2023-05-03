@@ -106,7 +106,6 @@
                         <String fx:value="headline-small" />
                      </styleClass>
                   </MFXButton>
-                  <ComboBox fx:id="setLocationBox" prefHeight="54.0" prefWidth="195.0" promptText="Set Location" stylesheets="@../stylesheets/comboSmall.css" />
                </children>
                <VBox.margin>
                   <Insets />
@@ -118,7 +117,7 @@
                   <String fx:value="headline-large" />
                </styleClass>
             </Label>
-            <ComboBox fx:id="setLocationBox" prefHeight="54.0" prefWidth="195.0" promptText="Set Location" />
+            <ComboBox fx:id="setLocationBox" prefHeight="54.0" prefWidth="195.0" promptText="Set Location" stylesheets="@../stylesheets/comboSmall.css"/>
             <Label fx:id="dbConnectionLabel" prefHeight="40.0" prefWidth="1110.0" stylesheets="@../stylesheets/RowLabel.css" text="Database Connection">
                <VBox.margin>
                   <Insets top="12.0" />
