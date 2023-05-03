@@ -163,7 +163,6 @@
                            </VBox.margin>
                            <stylesheets>
                               <URL value="@../stylesheets/comboSmall.css" />
-                              <URL value="@../stylesheets/Colors/theme.css" />
                            </stylesheets>
                         </ComboBox>
                          <MFXButton fx:id="submitButton" buttonType="RAISED" defaultButton="true" onAction="#handleSubmitButton" prefHeight="20.0" prefWidth="99.0" rippleColor="#235fa6" style="-fx-font-size: 20;" styleClass="primary" stylesheets="@../stylesheets/button.css" text="Submit">
