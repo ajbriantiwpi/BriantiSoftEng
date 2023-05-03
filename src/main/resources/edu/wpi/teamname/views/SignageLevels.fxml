@@ -16,7 +16,7 @@
    <children>
       <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox maxWidth="300.0" minWidth="200.0" HBox.hgrow="ALWAYS">
+            <VBox maxWidth="325.0" minWidth="300.0" HBox.hgrow="ALWAYS">
                <children>
                   <Label fx:id="signageSearchLabel" prefHeight="89.0" prefWidth="578.0" styleClass="primary-text-container" text="Signage Search" textFill="#235fa6">
                      <font>
@@ -74,7 +74,7 @@
                <children>
                   <VBox fx:id="textVbox" alignment="CENTER" layoutX="10.0" layoutY="10.0" spacing="8.0" HBox.hgrow="ALWAYS">
                      <padding>
-                        <Insets bottom="12.0" left="60.0" right="12.0" top="100.0" />
+                        <Insets bottom="12.0" left="20.0" right="12.0" top="100.0" />
                      </padding></VBox>
                </children>
             </HBox>
