@@ -92,7 +92,7 @@ public class GlobalVariables {
   @Getter @Setter private static int defaultStartID = 2280;
   // default start: 1685
   @Getter @Setter private static Node currentLocationNode;
-  @Getter @Setter private static int screenSaveWaitTime = 15;
+  @Getter @Setter private static int screenSaveWaitTime = 300;
   @Getter @Setter private static int screenSaveTransTime = 20;
 
   @Getter @Setter private static int labelTextType = -2; // -1 = node, 0 =Long , 1 = Short, 2= ID
