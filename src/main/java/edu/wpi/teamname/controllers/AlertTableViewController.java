@@ -89,7 +89,8 @@ public class AlertTableViewController {
   }
 
   /**
-   *  sets the language of the labels
+   * sets the language of the labels
+   *
    * @param lang language to set it to
    */
   public void setLanguage(Language lang) {
