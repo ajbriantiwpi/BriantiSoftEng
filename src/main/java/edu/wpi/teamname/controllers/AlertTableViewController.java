@@ -161,9 +161,17 @@ public class AlertTableViewController {
         staffTypeCol.setText("Staff Type");
         announcementCol.setText("Announcement");
         urgencyCol.setText("Urgency");
-
         break;
+
     }
+    ObservableList<EmployeeType> staffTypes =
+            FXCollections.observableArrayList(EmployeeType.values());
+    staffTypes.add(null);
+    staffTypeCombo.setItems(staffTypes);
+    ObservableList<Alert.Urgency> urgencyComboList =
+            FXCollections.observableArrayList(Alert.Urgency.values());
+    urgencyComboList.add(null);
+    urgencyCombo.setItems(urgencyComboList);
   }
 
   @FXML
