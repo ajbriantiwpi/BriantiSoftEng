@@ -100,7 +100,7 @@ public class AlertTableViewController {
         createNewAlert.setText("Crear Nueva Alerta");
         searchLabel.setText("Buscar");
         notificationIDCol.setText("ID de Notificación");
-        Description.setText("Descripción");
+        Description.setText("Descripci" + GlobalVariables.getOAcute() + "n");
         authorCol.setText("Autor");
         startDateCol.setText("Fecha de Inicio");
         endDateCol.setText("Fecha de Finalización");
@@ -133,12 +133,12 @@ public class AlertTableViewController {
         urgencyCombo.setPromptText("Urgence");
         staffTypeLabel.setText("Type de Personnel");
         staffTypeCombo.setPromptText("Choisir le Type de Personnel");
-        createNewAlert.setText("Créer une Nouvelle Alerte");
+        createNewAlert.setText("Cr" + GlobalVariables.getEAcute() + "er une Nouvelle Alerte");
         searchLabel.setText("Rechercher");
         notificationIDCol.setText("ID Notification");
         Description.setText("Description");
         authorCol.setText("Auteur");
-        startDateCol.setText("Date de Début");
+        startDateCol.setText("Date de D" + GlobalVariables.getEAcute() + "but");
         endDateCol.setText("Date de Fin");
         staffTypeCol.setText("Type de Personnel");
         announcementCol.setText("Annonce");
@@ -161,9 +161,16 @@ public class AlertTableViewController {
         staffTypeCol.setText("Staff Type");
         announcementCol.setText("Announcement");
         urgencyCol.setText("Urgency");
-
         break;
     }
+    ObservableList<EmployeeType> staffTypes =
+        FXCollections.observableArrayList(EmployeeType.values());
+    staffTypes.add(null);
+    staffTypeCombo.setItems(staffTypes);
+    ObservableList<Alert.Urgency> urgencyComboList =
+        FXCollections.observableArrayList(Alert.Urgency.values());
+    urgencyComboList.add(null);
+    urgencyCombo.setItems(urgencyComboList);
   }
 
   @FXML
