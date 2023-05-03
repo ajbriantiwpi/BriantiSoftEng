@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.*?>
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1600.0" styleClass="surface" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.SignageController">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="surface" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.SignageController">
    <children>
-      <HBox prefHeight="166.0" prefWidth="366.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox prefHeight="800.0" prefWidth="486.0">
+            <VBox maxWidth="325.0" minWidth="300.0" HBox.hgrow="ALWAYS">
                <children>
                   <Label fx:id="signageSearchLabel" prefHeight="89.0" prefWidth="578.0" styleClass="primary-text-container" text="Signage Search" textFill="#235fa6">
                      <font>
@@ -66,11 +70,11 @@
                   </VBox>
                </children>
             </VBox>
-            <HBox alignment="CENTER" prefHeight="800.0" prefWidth="987.0" HBox.hgrow="ALWAYS">
+            <HBox alignment="CENTER" maxWidth="1300.0" HBox.hgrow="ALWAYS">
                <children>
                   <VBox fx:id="textVbox" alignment="CENTER" layoutX="10.0" layoutY="10.0" spacing="8.0" HBox.hgrow="ALWAYS">
                      <padding>
-                        <Insets bottom="12.0" left="150.0" right="12.0" top="100.0" />
+                        <Insets bottom="12.0" left="20.0" right="12.0" top="100.0" />
                      </padding></VBox>
                </children>
             </HBox>

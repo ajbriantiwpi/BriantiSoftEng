@@ -33,14 +33,34 @@ public class ConfRoom {
 
   public void setRes(ArrayList<ConfRoom> c) {}
 
+  /**
+   * * checks whether two conference rooms are the same
+   *
+   * @param cr the conference room to check if this one is equal to
+   * @return whether the two conference rooms are equal
+   */
   public boolean equals(ConfRoom cr) {
     return this.roomID == cr.getRoomID();
   }
 
+  /**
+   * * Returns the attributes of a ConfRoom as a string
+   *
+   * @return the attributes of a ConfRoom as a string
+   */
   public String toString() {
     return "Room ID: " + roomID + ", Location Name: " + locationName + ", Seats: " + seats;
   }
 
+  /**
+   * * Checks whether this conference room is available at a certain time and date
+   *
+   * @param start the start time to check
+   * @param end the end time to check
+   * @param date the date to check
+   * @return whether the conference room is available at this time
+   * @throws ParseException
+   */
   public boolean checkAvailable(String start, String end, Timestamp date) throws ParseException {
     SimpleDateFormat format = new SimpleDateFormat("HH:mm");
     for (ConfReservation reservation : reservations) {

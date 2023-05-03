@@ -125,6 +125,12 @@ public class ConfrenceViewController {
     table.setItems(sortedServiceReq);
   }
 
+  /**
+   * sets the language of the labels
+   *
+   * @param lang language to set it to
+   * @throws SQLException when the sql doesnt work
+   */
   public void setLanguage(Language lang) throws SQLException {
     switch (lang) {
       case ENGLISH:
@@ -134,7 +140,7 @@ public class ConfrenceViewController {
         refreshButton.setText("Refresh");
         assignedLabel.setText("Assigned Staff");
         requestStaffCombo.setPromptText("Choose Staff");
-        assignStaffLabel.setText("Assign Staff to Reservation");
+        assignStaffLabel.setText("Assign to Reservation");
         idLabel.setText("Reservation ID");
         reservationIDText.setPromptText("Select Reservation ID");
         assignStaffLabel1.setText("Assign Staff");
@@ -175,7 +181,7 @@ public class ConfrenceViewController {
                 + "lectionner l'ID de r"
                 + GlobalVariables.getEAcute()
                 + "servation");
-        assignStaffLabel1.setText("Assigner le personnel");
+        assignStaffLabel1.setText("Assigner");
         assignStaffText.setPromptText(
             "S" + GlobalVariables.getEAcute() + "lectionner le personnel");
         submitButton.setText("Assigner");
@@ -196,7 +202,7 @@ public class ConfrenceViewController {
         refreshButton.setText("Aggiorna");
         assignedLabel.setText("Personale assegnato");
         requestStaffCombo.setPromptText("Scegli il personale");
-        assignStaffLabel.setText("Assegna il personale alla prenotazione");
+        assignStaffLabel.setText("Assegna alla prenotazione");
         idLabel.setText("ID prenotazione");
         reservationIDText.setPromptText("Seleziona l'ID della prenotazione");
         assignStaffLabel1.setText("Assegna il personale");
@@ -219,7 +225,7 @@ public class ConfrenceViewController {
         refreshButton.setText("Actualizar");
         assignedLabel.setText("Personal Asignado");
         requestStaffCombo.setPromptText("Elegir Personal");
-        assignStaffLabel.setText("Asignar Personal a la Reserva");
+        assignStaffLabel.setText("Asignar a la Reserva");
         idLabel.setText("ID de Reserva");
         reservationIDText.setPromptText("Seleccionar ID de Reserva");
         assignStaffLabel1.setText("Asignar Personal");
@@ -254,7 +260,7 @@ public class ConfrenceViewController {
   public void initialize() throws SQLException {
     roomNum = 0;
     ThemeSwitch.switchTheme(root);
-    ParentController.titleString.set("Conference Room Reservations View");
+    ParentController.titleString.set("Room Reservations View");
     setLanguage(GlobalVariables.getB().getValue());
     GlobalVariables.b.addListener(
         (options, oldValue, newValue) -> {

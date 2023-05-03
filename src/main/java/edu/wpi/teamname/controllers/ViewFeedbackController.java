@@ -35,6 +35,11 @@ public class ViewFeedbackController {
   @FXML private TableColumn<Feedback, Integer> idColumn;
   @FXML private TableColumn<Feedback, Status> statusColumn;
 
+  /**
+   * changes the language of the page
+   *
+   * @param lang language to change it to
+   */
   public void setLanguage(Language lang) {
     switch (lang) {
       case ENGLISH:

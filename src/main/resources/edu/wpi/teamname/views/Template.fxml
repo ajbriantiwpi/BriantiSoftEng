@@ -3,6 +3,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -26,7 +27,7 @@
                         <children>
                            <ImageView fitHeight="100.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                               <image>
-                                 <Image url="@../images/Logos/Logo_With_Name%203.png" />
+                                 <Image url="@../images/Logos/Logo_With_Name_3.png" />
                               </image>
                            </ImageView>
                            <Label fx:id="titleLabel" maxHeight="96.0" minHeight="96.0" prefHeight="96.0" stylesheets="@../stylesheets/TopBar.css" text="Template Page" StackPane.alignment="CENTER">
@@ -36,6 +37,7 @@
                            </Label>
                            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                               <children>
+
                                  <VBox alignment="CENTER">
                                     <children>
                                        <Label fx:id="dateLabel" text="Apr 29, 2023" textFill="WHITE">
@@ -117,6 +119,7 @@
                                        <Insets left="10.0" />
                                     </HBox.margin>
                                  </HBox>
+
                               </children>
                               <StackPane.margin>
                                  <Insets top="6.0" />
@@ -135,7 +138,7 @@
                   <children>
                      <VBox fx:id="SideBar" alignment="CENTER" styleClass="primary-on-container" stylesheets="@../stylesheets/SideBar.css" AnchorPane.bottomAnchor="4.800000000000068" AnchorPane.topAnchor="0.0">
                         <children>
-                           <MFXButton fx:id="homeButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="primary-on-container" text="Home" textFill="#1a1c1e">
+                           <MFXButton fx:id="homeButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" minHeight="50.0" styleClass="primary-on-container" text="Home" textFill="#1a1c1e">
                               <font>
                                  <Font name="Roboto" size="22.0" />
                               </font>
@@ -151,7 +154,7 @@
                            </MFXButton>
                            <AnchorPane>
                               <children>
-                                 <MFXButton fx:id="mapButtonSelector" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" styleClass="primary-on-container" stylesheets="@../stylesheets/Colors/sideBarColor.css" text="Map" textFill="#1a1c1e" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <MFXButton fx:id="mapButtonSelector" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" minHeight="50.0" styleClass="primary-on-container" stylesheets="@../stylesheets/Colors/sideBarColor.css" text="Map" textFill="#1a1c1e" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <font>
                                        <Font name="Roboto" size="22.0" />
                                     </font>
@@ -166,7 +169,7 @@
                            </AnchorPane>
                            <AnchorPane>
                               <children>
-                                 <MFXButton fx:id="viewSignageButtonSelector" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" styleClass="primary-on-container" text="Signage" textFill="#1a1c1e" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <MFXButton fx:id="viewSignageButtonSelector" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" minHeight="50.0" styleClass="primary-on-container" text="Signage" textFill="#1a1c1e" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <font>
                                        <Font name="Roboto" size="22.0" />
                                     </font>
@@ -187,7 +190,7 @@
                            </AnchorPane>
                            <AnchorPane>
                               <children>
-                                 <MFXButton fx:id="makeRequestsButtonSelector" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" styleClass="primary-on-container" stylesheets="@../stylesheets/Colors/sideBarColor.css" text="Service Requests" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <MFXButton fx:id="makeRequestsButtonSelector" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" minHeight="50.0" styleClass="primary-on-container" stylesheets="@../stylesheets/Colors/sideBarColor.css" text="Service Requests" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <font>
                                        <Font name="Roboto" size="22.0" />
                                     </font>
@@ -200,7 +203,7 @@
                                  <AnchorPane maxWidth="100.0" minWidth="100.0" AnchorPane.rightAnchor="-90.0" />
                               </children>
                            </AnchorPane>
-                           <MFXButton fx:id="showEmployeesButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="primary-on-container" stylesheets="@../stylesheets/Colors/sideBarColor.css" text="View Employees" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
+                           <MFXButton fx:id="showEmployeesButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" minHeight="50.0" styleClass="primary-on-container" stylesheets="@../stylesheets/Colors/sideBarColor.css" text="View Employees" textFill="#1a1c1e" textOverrun="CLIP" wrapText="true">
                               <font>
                                  <Font name="Roboto" size="22.0" />
                               </font>
@@ -212,7 +215,7 @@
                                  </ImageView>
                               </graphic>
                            </MFXButton>
-                           <MFXButton fx:id="viewAlertsButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="primary-on-container" text="View Alerts" textFill="#1a1c1e">
+                           <MFXButton fx:id="viewAlertsButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" minHeight="50.0" styleClass="primary-on-container" text="View Alerts" textFill="#1a1c1e">
                               <font>
                                  <Font name="Roboto" size="22.0" />
                               </font>
@@ -229,6 +232,38 @@
                               </stylesheets>
                            </MFXButton>
                            <AnchorPane styleClass="primary-on-container" VBox.vgrow="ALWAYS" />
+                           <MFXButton fx:id="EmergencyButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" minHeight="50.0" styleClass="primary-on-container" text="Emergency" textFill="#1a1c1e">
+                              <font>
+                                 <Font name="Roboto" size="22.0" />
+                              </font>
+                              <graphic>
+                                 <ImageView fitHeight="34.0" fitWidth="34.0">
+                                    <image>
+                                       <Image url="@../images/MenuIcons/emergency_home.png" />
+                                    </image>
+                                 </ImageView>
+                              </graphic>
+                              <stylesheets>
+                                 <URL value="@../stylesheets/SideBar.css" />
+                                 <URL value="@../stylesheets/Colors/sideBarColor.css" />
+                              </stylesheets>
+                           </MFXButton>
+                           <MFXButton fx:id="SettingsButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" minHeight="50.0" styleClass="primary-on-container" text="Settings" textFill="#1a1c1e">
+                              <font>
+                                 <Font name="Roboto" size="22.0" />
+                              </font>
+                              <graphic>
+                                 <ImageView fitHeight="34.0" fitWidth="34.0">
+                                    <image>
+                                       <Image url="@../images/MenuIcons/settings.png" />
+                                    </image>
+                                 </ImageView>
+                              </graphic>
+                              <stylesheets>
+                                 <URL value="@../stylesheets/SideBar.css" />
+                                 <URL value="@../stylesheets/Colors/sideBarColor.css" />
+                              </stylesheets>
+                           </MFXButton>
                            <!--                     <MFXButton fx:id="helpButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="surface-container" stylesheets="@../stylesheets/SideBar.css" text="Help" textFill="#1a1c1e">-->
                            <!--                        <font>-->
                            <!--                           <Font name="Roboto" size="22.0" />-->
@@ -251,7 +286,7 @@
                                        </ImageView>
                                     </graphic>
                                  </MFXButton>
-                                 <MFXButton fx:id="loginButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="primary-on-container" stylesheets="@../stylesheets/Colors/sideBarColor.css" text="Login" textFill="#1a1c1e" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <MFXButton fx:id="loginButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" minHeight="50.0" styleClass="primary-on-container" stylesheets="@../stylesheets/Colors/sideBarColor.css" text="Login" textFill="#1a1c1e" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <font>
                                        <Font name="Roboto" size="22.0" />
                                     </font>
@@ -263,7 +298,7 @@
                                  </MFXButton>
                               </children>
                            </AnchorPane>
-                           <MFXButton fx:id="exitButton" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="452.0" maxWidth="1.7976931348623157E308" styleClass="primary-on-container" stylesheets="@../stylesheets/Colors/sideBarColor.css" text="Exit" textFill="#1a1c1e">
+                           <MFXButton fx:id="exitButton" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="452.0" maxWidth="1.7976931348623157E308" minHeight="50.0" styleClass="primary-on-container" stylesheets="@../stylesheets/Colors/sideBarColor.css" text="Exit" textFill="#1a1c1e">
                               <font>
                                  <Font name="Roboto" size="22.0" />
                               </font>

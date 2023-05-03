@@ -119,7 +119,12 @@
     -fx-text-fill: #1A1C1E;
 }
 
+.table-view .column-header .label {
+    -fx-font-size: 18;
+}
+
 .table-view .table-row-cell:even{
+    -fx-font-size: 18;
     -fx-background-color: #A7C8FF;
     -fx-text-background-color: #000000;
     -fx-text-fill: #000000;
@@ -127,12 +132,21 @@
 }
 
 .table-view .table-row-cell:odd{
+    -fx-font-size: 18;
     -fx-background-color: #D5E3FF;
     -fx-text-background-color: #000000;
     -fx-text-fill: #000000;
     -fx-font-family: Roboto;
 }
-
+.titled-pane > .title{
+    -fx-font-size: 22px;
+    -fx-font-family: Roboto;
+    -fx-text-fill: #1A1C1E;
+    -fx-background-color: #EEEDF1;
+}
+.titled-pane > *.content {
+    -fx-background-color: #EEEDF1;
+}
 
 .text-area{
     -fx-control-inner-background: #D5E3FF;

@@ -1,6 +1,8 @@
 package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.GlobalVariables;
+import edu.wpi.teamname.Navigation;
+import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.Feedback;
@@ -23,6 +25,11 @@ public class FeedbackController {
 
   private DataManager dataManager;
 
+  /**
+   * Changes the language of the app for this page
+   *
+   * @param lang to set it to
+   */
   public void setLanguage(Language lang) {
     switch (lang) {
       case ENGLISH:
@@ -75,7 +82,9 @@ public class FeedbackController {
 
     Feedback feedback = new Feedback();
     feedback.setReporter(
-        String.valueOf(GlobalVariables.getCurrentUser())); // Replace with the actual reporter info
+        String.valueOf(
+            GlobalVariables.getCurrentUser()
+                .getUsername())); // Replace with the actual reporter info
     feedback.setDateReported(new Timestamp(System.currentTimeMillis()));
     feedback.setDescription(description);
     feedback.setAssignee("Unassigned");
@@ -85,6 +94,7 @@ public class FeedbackController {
       dataManager.addFeedback(feedback);
       descriptionField.clear();
       Sound.playSFX(SFX.SUCCESS);
+      Navigation.navigate(Screen.SETTINGS);
     } catch (SQLException e) {
       System.out.println(e.getMessage());
       showErrorAlert("Error", "Failed to submit feedback", e.getMessage());

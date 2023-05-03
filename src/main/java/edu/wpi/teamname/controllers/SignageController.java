@@ -63,6 +63,11 @@ public class SignageController {
   private static int stopC = 0;
 
   /** Initializes the SignageController and sets up the UI elements and functionality. */
+  /**
+   * changes the language of the page
+   *
+   * @param lang language to change it to
+   */
   public void setLanguage(Language lang) {
     switch (lang) {
       case ENGLISH:

@@ -61,9 +61,21 @@ public class EmployeeTableController {
   @FXML Label usernameLabel;
   @FXML Label passwordLabel;
   @FXML Label csvLabel;
-  @FXML Label employeesLabel;
+  //  @FXML Label employeesLabel;
   @FXML Label searchLabel;
 
+  /**
+   * Sets the language
+   *
+   * @param lang language to set it to
+   * @param id id column
+   * @param first first name column
+   * @param last last name column
+   * @param clearance clearance level column
+   * @param type type column
+   * @param username username column
+   * @param password password column
+   */
   public void setLanguage(
       Language lang,
       TableColumn id,
@@ -80,7 +92,7 @@ public class EmployeeTableController {
         idLabel.setText("Employee ID");
         firstNameLabel.setText("First Name");
         lastNameLabel.setText("Last Name");
-        clearanceLabel.setText("Clearance Level;");
+        clearanceLabel.setText("Clearance Level");
         typeLabel.setText("Employee Type");
         usernameLabel.setText("Username");
         passwordLabel.setText("Password");
@@ -88,7 +100,7 @@ public class EmployeeTableController {
         csvLabel.setText("CSV Manager");
         importButton.setText("Import");
         exportButton.setText("Export");
-        employeesLabel.setText("Employees");
+        //        employeesLabel.setText("Employees");
         searchLabel.setText("Search");
         id.setText("Employee ID");
         first.setText("First Name");
@@ -112,7 +124,7 @@ public class EmployeeTableController {
         csvLabel.setText("Gestore CSV");
         importButton.setText("Importa");
         exportButton.setText("Esporta");
-        employeesLabel.setText("Dipendenti");
+        //        employeesLabel.setText("Dipendenti");
         searchLabel.setText("Cerca");
         id.setText("ID Dipendente");
         first.setText("Nome");
@@ -136,7 +148,9 @@ public class EmployeeTableController {
         csvLabel.setText("Gestionnaire CSV");
         importButton.setText("Importer");
         exportButton.setText("Exporter");
-        employeesLabel.setText("Employ" + GlobalVariables.getEAcute() + "s");
+
+        //        employeesLabel.setText("Employ" + GlobalVariables.getEAcute() + "s");
+
         searchLabel.setText("Rechercher");
         id.setText("Identifiant de l'employ" + GlobalVariables.getEAcute());
         first.setText("Pr" + GlobalVariables.getEAcute() + "nom");
@@ -160,7 +174,7 @@ public class EmployeeTableController {
         csvLabel.setText("Administrador CSV");
         importButton.setText("Importar");
         exportButton.setText("Exportar");
-        employeesLabel.setText("Empleados");
+        //        employeesLabel.setText("Empleados");
         searchLabel.setText("Buscar");
         id.setText("ID del Empleado");
         first.setText("Nombre");

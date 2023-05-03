@@ -1,13 +1,16 @@
 package edu.wpi.teamname;
 
+import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
 import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.navigation.LocationName;
+import edu.wpi.teamname.navigation.Node;
 import edu.wpi.teamname.servicerequest.ConfReservation;
 import edu.wpi.teamname.servicerequest.ServiceRequest;
 import edu.wpi.teamname.servicerequest.requestitem.ConfRoom;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -81,9 +84,24 @@ public class GlobalVariables {
   @Getter @Setter private static ArrayList<ServiceRequest> serviceRequests;
   @Getter @Setter private static ArrayList<ConfReservation> confReservations;
   @Getter @Setter private static ArrayList<ConfRoom> confRooms;
+  @Getter @Setter private static ScreenSaver ss = new ScreenSaver();
 
   @Getter @Setter private static ArrayList<ArrayList<ConfReservation>> allRes;
 
+  @Getter @Setter private static boolean pathToExit = false;
+  @Getter @Setter private static int defaultStartID = 2280;
+  // default start: 1685
+  @Getter @Setter private static Node currentLocationNode;
+  @Getter @Setter private static int screenSaveWaitTime = 15;
+  @Getter @Setter private static int screenSaveTransTime = 20;
+
+  static {
+    try {
+      currentLocationNode = DataManager.getNode(1685);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
   //  @Getter @Setter private static Color labelColor = new Color(.835, .89, 1, 1);
   //  @Getter @Setter private static Color labelTextColor = new Color(0, .106, .231, 1);
 
@@ -95,11 +113,11 @@ public class GlobalVariables {
 
   private static final Employee dummyEmployee =
       new Employee(
-          "dummyU",
-          "dummyP",
+          "visitor",
+          "visitorPass",
           -1,
-          "dummmyF",
-          "dummyL",
+          "Visitor",
+          "Visitor",
           ClearanceLevel.GUEST,
           EmployeeType.NONE,
           false);

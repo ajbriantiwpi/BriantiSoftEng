@@ -1,6 +1,8 @@
 package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.GlobalVariables;
+import edu.wpi.teamname.Navigation;
+import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.controllers.JFXitems.RoomSelector;
 import edu.wpi.teamname.database.DataManager;
@@ -81,6 +83,11 @@ public class ConferenceController {
   private static String username;
   private static String staff = "None";
 
+  /**
+   * sets the language of the labels
+   *
+   * @param lang language to set it to
+   */
   public void setLanguage(Language lang) {
     switch (lang) {
       case ENGLISH:
@@ -154,7 +161,7 @@ public class ConferenceController {
 
   @FXML
   public void initialize() throws SQLException {
-    ParentController.titleString.set("Conference Room Request");
+    ParentController.titleString.set("Room Request");
     setLanguage(GlobalVariables.getB().getValue());
     GlobalVariables.b.addListener(
         (options, oldValue, newValue) -> {
@@ -289,6 +296,7 @@ public class ConferenceController {
                       findSelector(roomBox.getValue()).getRoom().getRoomID());
               DataManager.addConfReservation(c);
               Sound.playSFX(SFX.SUCCESS);
+              Navigation.navigate(Screen.SMILE);
             } catch (Exception e) {
               System.out.println(e);
               Sound.playSFX(SFX.ERROR);

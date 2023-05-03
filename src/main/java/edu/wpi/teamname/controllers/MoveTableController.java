@@ -59,6 +59,14 @@ public class MoveTableController {
   @FXML private CheckBox newMovesCheck;
   @FXML private VBox adminMoveView;
 
+  /**
+   * changes the language of the app
+   *
+   * @param lang language to change it to
+   * @param nodeIDColumn column of te node ids
+   * @param longNameColumn column of the long names
+   * @param dateColumn column of dates
+   */
   public void setLanguage(
       Language lang, TableColumn nodeIDColumn, TableColumn longNameColumn, TableColumn dateColumn) {
     switch (lang) {

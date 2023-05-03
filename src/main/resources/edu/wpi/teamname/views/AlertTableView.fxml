@@ -1,21 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.*?>
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="alertTableViewPage" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.AlertTableViewController">
+<AnchorPane fx:id="alertTableViewPage" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.AlertTableViewController">
    <children>
       <HBox style="-fx-background-radius: 16;" styleClass="surface" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <VBox maxWidth="400.0" prefWidth="400.0" HBox.hgrow="ALWAYS">
             <children>
                <VBox styleClass="surface-container-high" VBox.vgrow="ALWAYS">
                   <children>
-                     <VBox spacing="12.0" style="-fx-background-radius: 16;" styleClass="surface-container-highest">
+                     <VBox prefWidth="170.0" spacing="12.0" style="-fx-background-radius: 16;" styleClass="surface-container-highest">
                         <children>
                            <Label fx:id="filterTable" styleClass="primary-text-container" text="Filter Table" textFill="#001b3b">
                               <font>
@@ -33,25 +43,17 @@
                                  <Insets />
                               </VBox.margin>
                            </Label>
-                           <ComboBox fx:id="urgencyCombo" maxWidth="400.0" prefHeight="71.0" prefWidth="396.0" promptText="Urgency">
+                           <ComboBox fx:id="urgencyCombo" maxWidth="400.0" prefHeight="71.0" prefWidth="396.0" promptText="Urgency" stylesheets="@../stylesheets/combo.css">
                               <VBox.margin>
                                  <Insets bottom="12.0" />
                               </VBox.margin>
-                              <stylesheets>
-                                 <URL value="@../stylesheets/combo.css" />
-                                 <URL value="@../stylesheets/Colors/darkCombo.css" />
-                              </stylesheets>
                            </ComboBox>
                            <Label fx:id="staffTypeLabel" styleClass="on-suface-text" text="Staff Type" textFill="#001b3b">
                               <font>
                                  <Font name="Roboto" size="28.0" />
                               </font>
                            </Label>
-                           <ComboBox fx:id="staffTypeCombo" prefHeight="71.0" prefWidth="396.0" promptText="Choose Staff Type">
-                              <stylesheets>
-                                 <URL value="@../stylesheets/combo.css" />
-                                 <URL value="@../stylesheets/Colors/darkCombo.css" />
-                              </stylesheets></ComboBox>
+                           <ComboBox fx:id="staffTypeCombo" prefHeight="71.0" prefWidth="396.0" promptText="Choose Staff Type" stylesheets="@../stylesheets/combo.css" />
                         </children>
                         <VBox.margin>
                            <Insets bottom="32.0" top="24.0" />
@@ -128,7 +130,7 @@
             <children>
                <VBox>
                   <children>
-                     <HBox alignment="CENTER_RIGHT" minHeight="50.0" prefHeight="50.0">
+                     <HBox alignment="CENTER_LEFT" minHeight="50.0" prefHeight="50.0">
                         <children>
                            <Label fx:id="searchLabel" alignment="CENTER" prefHeight="34.0" prefWidth="144.0" styleClass="primary-text-container" text="Search">
                               <font>
@@ -150,7 +152,7 @@
                            <Insets right="12.0" />
                         </VBox.margin>
                      </HBox>
-                     <TableView fx:id="table" styleClass="surface">
+                     <TableView fx:id="table" styleClass="surface" VBox.vgrow="ALWAYS">
                         <columns>
                            <TableColumn fx:id="notificationIDCol" minWidth="0.0" prefWidth="148.5" text="Notification ID" />
                            <TableColumn fx:id="Description" prefWidth="250.0" text="Description" />
