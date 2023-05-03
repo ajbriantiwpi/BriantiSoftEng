@@ -178,7 +178,6 @@ public class ConferenceController {
     sizeSlider.setLowValue(0);
     sizeSlider.setHighValue(100);
 
-
     //    startBox.valueProperty().bindBidirectional(roomManager.getStart());
     //    endBox.valueProperty().bindBidirectional(roomManager.getEnd());
     //    buildingBox.valueProperty().bindBidirectional(roomManager.getBuilding());
