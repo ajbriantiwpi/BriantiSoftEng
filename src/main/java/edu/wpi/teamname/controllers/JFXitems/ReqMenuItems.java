@@ -18,6 +18,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 
+/** Item for displaying items to be put in cart as well as in the cart for service requests */
 public class ReqMenuItems extends GridPane {
   private String name;
   private int id;
@@ -258,6 +259,11 @@ public class ReqMenuItems extends GridPane {
         });
   }
 
+  /**
+   * gets the quantity of the of this item
+   *
+   * @return the quantity of the item int he text field
+   */
   public int getQuantity() {
     int val;
     try {
@@ -272,6 +278,11 @@ public class ReqMenuItems extends GridPane {
     return val;
   }
 
+  /**
+   * deletes this item from the ui
+   *
+   * @throws SQLException
+   */
   void delete() throws SQLException {
     controller.getCartBox().getChildren().remove(this);
     controller.refreshPrice();

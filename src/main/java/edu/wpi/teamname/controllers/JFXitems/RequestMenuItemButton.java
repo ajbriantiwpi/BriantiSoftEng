@@ -9,6 +9,10 @@ import java.sql.SQLException;
 import javafx.scene.AccessibleRole;
 import javafx.scene.control.Button;
 
+/**
+ * Custom button for service request items that hard codes for adding and removing items from the
+ * cart
+ */
 public class RequestMenuItemButton extends Button {
   ReqMenuItems parent;
   String name;

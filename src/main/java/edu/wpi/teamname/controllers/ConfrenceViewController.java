@@ -19,6 +19,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import org.controlsfx.control.SearchableComboBox;
 
+/** Controller for the UI to view the conference room reservations */
 public class ConfrenceViewController {
 
   @FXML Label filterTableLabel;
@@ -101,6 +102,11 @@ public class ConfrenceViewController {
     refreshTable();
   }
 
+  /**
+   * refreshes the contents of the table
+   *
+   * @throws SQLException
+   */
   public void refreshTable() throws SQLException {
     ObservableList<ConfReservation> reservations =
         FXCollections.observableList(DataManager.getAllConfReservation());

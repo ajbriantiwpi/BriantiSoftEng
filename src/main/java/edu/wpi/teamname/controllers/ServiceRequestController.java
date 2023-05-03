@@ -34,6 +34,10 @@ import javafx.scene.layout.*;
 import lombok.Getter;
 import lombok.Setter;
 
+//
+/// **
+// * Controller for Creating service requests
+// */
 public class ServiceRequestController {
 
   // requestInfo Error if not added anything to both meal and side
@@ -262,26 +266,34 @@ public class ServiceRequestController {
       ArrayList<RequestItem> tem = new ArrayList<>();
       double totalPrice = 0.0;
       String t = request.getRequestType().toString();
-      String f;
-      if (t == "Meal Request") {
-        f = "MealIcons";
-        tem.addAll(DataManager.getAllMeals());
-      } else if (t == "Flower Request") {
-        f = "FlowerIcons";
-        tem.addAll(DataManager.getAllFlowers());
-      } else if (t == "Office Supply Request") {
-        f = "OfficeIcons";
-        tem.addAll(DataManager.getAllOfficeSupplies());
-      } else if (t == "Medical Supply Request") {
-        f = "MedicalIcons";
-        tem.addAll(DataManager.getAllMedicalSupplies());
-      } else if (t == "Pharmaceutical Request") {
-        f = "PharmaceuticalIcons";
-        tem.addAll(DataManager.getAllPharmaceuticals());
-      } else {
-        f = "FurnitureIcons";
-        System.out.println(t);
-        tem.addAll(DataManager.getAllFurniture());
+      String f = "";
+      switch (t) {
+        case "Meal Request":
+          f = "MealIcons";
+          tem.addAll(DataManager.getAllMeals());
+          break;
+        case "Flower Request":
+          f = "FlowerIcons";
+          tem.addAll(DataManager.getAllFlowers());
+          break;
+        case "Office Supply Request":
+          f = "OfficeIcons";
+          tem.addAll(DataManager.getAllOfficeSupplies());
+          break;
+        case "Medical Supply Request":
+          f = "MedicalIcons";
+          tem.addAll(DataManager.getAllMedicalSupplies());
+          break;
+        case "Pharmaceutical Request":
+          f = "PharmaceuticalIcons";
+          tem.addAll(DataManager.getAllPharmaceuticals());
+          break;
+
+        default:
+          f = "FurnitureIcons";
+          System.out.println(t);
+          tem.addAll(DataManager.getAllFurniture());
+          break;
       }
       int c = 0;
 

@@ -36,12 +36,13 @@ import javafx.scene.layout.VBox;
 import org.controlsfx.control.PopOver;
 
 public class AlertTableViewController {
-  @FXML AnchorPane AlertTableViewPage;
+  @FXML AnchorPane alertTableViewPage;
   @FXML Label filterTable;
   @FXML Label urgencyLabel;
   @FXML Label staffTypeLabel;
   @FXML Label searchLabel;
   @FXML TableView<Alert> table; // 15
+
   @FXML TableColumn notificationIDCol; // 7
   @FXML TableColumn Description; // 8
   @FXML TableColumn authorCol; // 9
@@ -167,7 +168,7 @@ public class AlertTableViewController {
 
   @FXML
   public void initialize() throws SQLException {
-    ThemeSwitch.switchTheme(AlertTableViewPage);
+    ThemeSwitch.switchTheme(alertTableViewPage);
     ParentController.titleString.set("Alerts");
     setLanguage(GlobalVariables.getB().getValue());
     GlobalVariables.b.addListener(

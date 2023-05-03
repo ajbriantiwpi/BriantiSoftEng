@@ -21,6 +21,7 @@ import javafx.scene.layout.HBox;
 import lombok.Getter;
 import lombok.Setter;
 
+/** Custom selector item for reserving conference rooms */
 public class RoomSelector extends BorderPane {
   @Getter private ConfRoom room;
   private Label name;
