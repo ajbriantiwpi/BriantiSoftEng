@@ -251,7 +251,7 @@ public class HomeController {
         logoutButton.setText("Disconnettersi");
         break;
       case FRENCH:
-        actionItemsLabel.setText("Tâches " + GlobalVariables.getAGrave() + " effectuer");
+        actionItemsLabel.setText("T"+GlobalVariables.getACircumflex() +"ches " + GlobalVariables.getAGrave() + " effectuer");
         staffItemsLabel.setText(GlobalVariables.getBigEACute()+ "l"+ GlobalVariables.getEAcute()+ "ments du personnel");
         navigationLabel.setText("Navigation");
         if (loggedIn.getValue()) {
@@ -355,7 +355,7 @@ public class HomeController {
         }
         makeRequestsButton.setText("Hacer una solicitud");
         showRequestsButton.setText("Ver solicitudes de servicio");
-        serviceRequestAnalyticsButton.setText("Ver análisis de solicitudes de servicio");
+        serviceRequestAnalyticsButton.setText("Ver an"+GlobalVariables.getAAcute()+"lisis de solicitudes de servicio");
         employeeButton.setText("Ver empleados");
         requestRoomButton.setText("Solicitar una sala de conferencias");
         viewConfrenceRoomButton.setText("Ver salas de conferencias");
@@ -363,8 +363,8 @@ public class HomeController {
         mapButton.setText("Ver mapa");
         editMoveButton.setText("Ver movimientos");
         editMapButton.setText("Editar mapa");
-        viewSignageButton.setText("Ver señalizaci"+GlobalVariables.getOAcute()+"n");
-        editSignageButton.setText("Editar señalizaci"+GlobalVariables.getOAcute()+"n");
+        viewSignageButton.setText("Ver se"+GlobalVariables.getNTilda()+"alizaci"+GlobalVariables.getOAcute()+"n");
+        editSignageButton.setText("Editar se"+GlobalVariables.getNTilda()+"alizaci"+GlobalVariables.getOAcute()+"n");
         exitButton.setText("Salir");
         settingsButton.setText("Configuraci"+GlobalVariables.getOAcute()+"n");
         notificationPopupButtonSimple.setText("Notificaciones");

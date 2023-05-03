@@ -26,6 +26,8 @@ public class GlobalVariables {
   @Getter public static final char bigAGrave = '\u00C0';
   @Getter public static final char aAcute = '\u00E1';
   @Getter public static final char bigAAcute = '\u00C1';
+  @Getter public static final char aCircumflex = '\u00E2';
+  @Getter public static final char bigACircumflex = '\u00C2';
   // e acute
   @Getter public static final char eAcute = '\u00E9';
   @Getter public static final char bigEACute = '\u00C9';
@@ -39,7 +41,8 @@ public class GlobalVariables {
   @Getter public static final char bigIACute = '\u00CC';
   @Getter public static final char iGrave = '\u00ED';
   @Getter public static final char bigIGrave = '\u00CD';
-
+  @Getter public static final char nTilda = '\u00F1';
+  @Getter public static final char bigNTilda = '\u00D1';
 
   @Getter @Setter public static Property<Language> b = new SimpleObjectProperty<>(Language.ENGLISH);
   @Getter @Setter private static String[] args;
