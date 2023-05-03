@@ -141,14 +141,14 @@ public enum Direction {
   }
 
   public Direction getInverse() {
-    if (this == Direction.UP) {
-      return Direction.DOWN;
-    } else if (this == Direction.DOWN) {
-      return Direction.UP;
-    } else if (this == Direction.LEFT) {
-      return Direction.RIGHT;
-    } else if (this == Direction.RIGHT) {
-      return Direction.LEFT;
+    if (this == UP) {
+      return DOWN;
+    } else if (this == DOWN) {
+      return UP;
+    } else if (this == LEFT) {
+      return RIGHT;
+    } else if (this == RIGHT) {
+      return LEFT;
     } else {
       return this;
     }

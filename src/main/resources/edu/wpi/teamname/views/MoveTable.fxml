@@ -100,6 +100,42 @@
                <padding>
                   <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
                </padding></VBox>
+            <VBox spacing="16.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox spacing="12.0">
+                     <children>
+                        <Label fx:id="searchLabel" prefWidth="115.0" styleClass="secondary-text-container" text="Search By ID">
+                           <font>
+                              <Font name="Roboto" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets top="4.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="searchTextField" styleClass="secondary">
+                           <HBox.margin>
+                              <Insets top="4.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <CheckBox fx:id="newMovesCheck" mnemonicParsing="false" styleClass="secondary-text-container" text="Future Moves">
+                           <font>
+                              <Font name="Roboto" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets top="4.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets left="12.0" />
+                           </padding>
+                        </CheckBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+                     </VBox.margin>
+                  </HBox>
+                     <TableView fx:id="moveTable" prefHeight="400.0" prefWidth="450.0" styleClass="surface" stylesheets="@../stylesheets/Colors/lightTheme.css">
+               </TableView>
+               </children>
                <TableView fx:id="moveTable" prefHeight="400.0" prefWidth="450.0" styleClass="surface" stylesheets="@../stylesheets/Colors/lightTheme.css" HBox.hgrow="ALWAYS">
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -126,11 +162,11 @@
             </Label>
             <TextField fx:id="searchTextField" style="-fx-background-color: #D5E3FF;" stylesheets="@../stylesheets/TextField.css">
                <HBox.margin>
-                  <Insets right="10.0" top="15.0" />
+                  <Insets top="12.0" />
                </HBox.margin>
-            </TextField>
-         </children>
-      </HBox>
+            </VBox>
+            </children>
+        </HBox>
     </children>
    <stylesheets>
       <URL value="@../stylesheets/Colors/lightTheme.css" />
