@@ -6,12 +6,23 @@ import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
+import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Song;
 import edu.wpi.teamname.extras.Sound;
+import edu.wpi.teamname.navigation.LocationName;
+import edu.wpi.teamname.navigation.Node;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
@@ -23,6 +34,9 @@ import javafx.scene.layout.AnchorPane;
  * adjusting the application's volume.
  */
 public class SettingsController {
+  @FXML Label hardwareLabel;
+  @FXML Label volumeLabel;
+  @FXML Label songLabel;
   @FXML CheckBox darkToggle;
   @FXML AnchorPane root;
   private static boolean wpiSelected = true;
@@ -36,6 +50,79 @@ public class SettingsController {
   @FXML MFXButton viewFeedbackButton;
   @FXML RadioButton wpiButton;
   @FXML RadioButton awsButton;
+  @FXML ComboBox<String> setLocationBox;
+
+  public void setLanguage(Language lang) {
+    switch (lang) {
+      case ENGLISH:
+        ParentController.titleString.set("Settings");
+        hardwareLabel.setText("Hardware Settings");
+        volumeLabel.setText("Volume");
+        songLabel.setText("Choose Song");
+        appSettingsLabel.setText("App Settings");
+        dbConnectionLabel.setText("Database Connection");
+        dataManageButton.setText("Data");
+        darkToggle.setText("Dark Mode");
+        feedbackButton.setText("Feedback");
+        viewFeedbackButton.setText("View Feedback");
+        break;
+      case ITALIAN:
+        ParentController.titleString.set("Impostazioni");
+        hardwareLabel.setText("Impostazioni Hardware");
+        volumeLabel.setText("Volume");
+        Italian:
+        darkToggle.setText("Modalit" + GlobalVariables.getAGrave() + " scura");
+        songLabel.setText("Scegli Canzone");
+        appSettingsLabel.setText("Impostazioni dell'App");
+        dbConnectionLabel.setText("Connessione al Database");
+        dataManageButton.setText("Dati");
+        feedbackButton.setText("Feedback");
+        viewFeedbackButton.setText("Visualizza Feedback");
+        break;
+      case FRENCH:
+        ParentController.titleString.set("Param" + GlobalVariables.getEGrave() + "tres");
+        hardwareLabel.setText(
+            "Param"
+                + GlobalVariables.getEGrave()
+                + "tres Mat"
+                + GlobalVariables.getEAcute()
+                + "riels");
+        volumeLabel.setText("Volume");
+        songLabel.setText("Choisir une chanson");
+        appSettingsLabel.setText("Param" + GlobalVariables.getEGrave() + "tres de l'application");
+        French:
+        darkToggle.setText("Mode sombre");
+        dbConnectionLabel.setText(
+            "Connexion "
+                + GlobalVariables.getAGrave()
+                + " la base de donn"
+                + GlobalVariables.getEAcute()
+                + "es");
+        dataManageButton.setText("Donn" + GlobalVariables.getEAcute() + "es");
+        feedbackButton.setText("Commentaires");
+        viewFeedbackButton.setText("Voir les commentaires");
+        break;
+      case SPANISH:
+        ParentController.titleString.set("Configuraci" + GlobalVariables.getOAcute() + "n");
+        hardwareLabel.setText("Configuraci" + GlobalVariables.getOAcute() + "n de Hardware");
+        volumeLabel.setText("Volumen");
+        Spanish:
+        darkToggle.setText("Modo oscuro");
+        songLabel.setText("Elegir Canci" + GlobalVariables.getOAcute() + "n");
+        appSettingsLabel.setText(
+            "Configuraci"
+                + GlobalVariables.getOAcute()
+                + "n de la Aplicaci"
+                + GlobalVariables.getOAcute()
+                + "n");
+        dbConnectionLabel.setText("Conexi" + GlobalVariables.getOAcute() + "n de Base de Datos");
+        dataManageButton.setText("Datos");
+        feedbackButton.setText("Comentarios");
+        viewFeedbackButton.setText("Ver Comentarios");
+        break;
+    }
+  }
+
   /**
    * Initializes the SettingsController and sets up the UI elements and functionality.
    *
@@ -50,6 +137,12 @@ public class SettingsController {
     darkToggle.selectedProperty().bindBidirectional(GlobalVariables.getDarkMode());
     darkToggle.setOnAction(e -> Sound.playSFX(SFX.BUTTONCLICK));
     ParentController.titleString.set("Settings");
+    ParentController.titleString.set("Service Request View");
+    setLanguage(GlobalVariables.getB().getValue());
+    GlobalVariables.b.addListener(
+        (options, oldValue, newValue) -> {
+          setLanguage(newValue);
+        });
     viewFeedbackButton.setDisable(true);
     wpiButton.setDisable(true);
     awsButton.setDisable(true);
@@ -154,6 +247,13 @@ public class SettingsController {
               }
             });
 
+    GlobalVariables.setHMap(
+        DataManager.getAllLocationNamesMappedByNode(new Timestamp(System.currentTimeMillis())));
+
+    setLocationBox.setPromptText("Select Location");
+    setLocationBox.setItems(getAllNodeNames());
+    setLocationBox.setOnAction(changeCurrentLocation);
+
     dataManageButton.setOnMouseClicked(event -> Navigation.navigate(Screen.DATA_MANAGER));
     feedbackButton.setOnMouseClicked(event -> Navigation.navigate(Screen.FEEDBACK));
     viewFeedbackButton.setOnMouseClicked(event -> Navigation.navigate(Screen.VIEW_FEEDBACK));
@@ -166,4 +266,45 @@ public class SettingsController {
   private void setApplicationVolume(double volume) {
     Sound.setVolume(volume);
   }
+
+  public static ObservableList<String> getAllNodeNames() throws SQLException {
+    ObservableList<String> nodeNames = FXCollections.observableArrayList();
+
+    HashMap<Integer, ArrayList<LocationName>> hMap = GlobalVariables.getHMap();
+
+    for (Integer i : hMap.keySet()) {
+      // Gets rid of all Hallway locations
+      if (!hMap.get(i).get(0).getNodeType().equals("HALL")) {
+        nodeNames.add(hMap.get(i).get(0).getLongName());
+      }
+    }
+
+    Collections.sort(nodeNames);
+
+    return nodeNames;
+  }
+
+  EventHandler<ActionEvent> changeCurrentLocation =
+      new EventHandler<ActionEvent>() {
+
+        @Override
+        public void handle(ActionEvent event) {
+          Node nodeForLocation;
+          // System.out.println("changed start " + LocationOne.getValue());
+          // System.out.println(LocationOne.getValue());
+          // System.out.println(EndPointSelect.getValue());
+          String currentLName = setLocationBox.getValue();
+
+          try {
+            nodeForLocation =
+                DataManager.getNodeByLocationName(
+                    currentLName, new Timestamp(System.currentTimeMillis()));
+          } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+          }
+
+          GlobalVariables.setCurrentLocationNode(nodeForLocation);
+          // System.out.print("New Location: " + GlobalVariables.getCurrentLocationNode().getId());
+        }
+      };
 }

@@ -1,8 +1,10 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.controllers.JFXitems.DirectionArrow;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.extras.Pacman;
 import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
@@ -20,6 +22,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -31,6 +34,10 @@ import javafx.scene.layout.VBox;
  * the selected kiosk and date.
  */
 public class SignageController {
+  @FXML Label signageSearchLabel;
+  @FXML Label dateLabel;
+  @FXML Label kioskIDLabel;
+
   @FXML AnchorPane root;
   @FXML ComboBox<Integer> KskBox;
   @FXML ObservableList<Integer> kioskList;
@@ -56,6 +63,47 @@ public class SignageController {
   private static int stopC = 0;
 
   /** Initializes the SignageController and sets up the UI elements and functionality. */
+  public void setLanguage(Language lang) {
+    switch (lang) {
+      case ENGLISH:
+        ParentController.titleString.set("Signage");
+        signageSearchLabel.setText("Signage Search");
+        dateLabel.setText("Choose Date");
+        kioskIDLabel.setText("Choose Kiosk ID");
+        submit.setText("Submit");
+        break;
+      case SPANISH:
+        ParentController.titleString.set(
+            "Se" + GlobalVariables.getNTilda() + "alizaci" + GlobalVariables.getOAcute() + "n");
+        signageSearchLabel.setText(
+            "B"
+                + GlobalVariables.getUAcute()
+                + "squeda de se"
+                + GlobalVariables.getNTilda()
+                + "alizaci"
+                + GlobalVariables.getOAcute()
+                + "n");
+        dateLabel.setText("Seleccione fecha");
+        kioskIDLabel.setText("Seleccione ID de quiosco");
+        submit.setText("Enviar");
+        break;
+      case FRENCH:
+        ParentController.titleString.set("Signalisation");
+        signageSearchLabel.setText("Recherche de signalisation");
+        dateLabel.setText("Choisir la date");
+        kioskIDLabel.setText("Choisir l'ID du kiosque");
+        submit.setText("Soumettre");
+        break;
+      case ITALIAN:
+        ParentController.titleString.set("Segnaletica");
+        signageSearchLabel.setText("Ricerca segnaletica");
+        dateLabel.setText("Scegli data");
+        kioskIDLabel.setText("Scegli ID chiosco");
+        submit.setText("Invia");
+        break;
+    }
+  }
+
   @FXML
   public void initialize() throws SQLException {
     ThemeSwitch.switchTheme(root);
@@ -71,6 +119,12 @@ public class SignageController {
                 .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.nnn")));
 
     ParentController.titleString.set("Signage");
+    setLanguage(GlobalVariables.getB().getValue());
+    GlobalVariables.b.addListener(
+        (options, oldValue, newValue) -> {
+          setLanguage(newValue);
+        });
+
     kioskList = FXCollections.observableArrayList();
     kioskList.add(null);
     KskBox.setItems(kioskList);

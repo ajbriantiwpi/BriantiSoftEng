@@ -119,13 +119,17 @@
 
 .table-view .table-row-cell:even{
     -fx-background-color: #003060;
+    -fx-font-size: 18;
     -fx-text-background-color: #ffffff;
     -fx-text-fill: #ffffff;
     -fx-font-family: Roboto;
 }
-
+.table-view .column-header .label {
+    -fx-font-size: 18;
+}
 .table-view .table-row-cell:odd{
     -fx-background-color: #3D4758;
+    -fx-font-size: 18;
     -fx-text-background-color: #ffffff;
     -fx-text-fill: #ffffff;
     -fx-font-family: Roboto;

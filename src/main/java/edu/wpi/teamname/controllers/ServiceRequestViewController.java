@@ -4,6 +4,7 @@ import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.controllers.JFXitems.ReqMenuItems;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
@@ -31,6 +32,16 @@ import javafx.scene.layout.VBox;
 import org.controlsfx.control.SearchableComboBox;
 
 public class ServiceRequestViewController {
+  @FXML Label filterTableLabel;
+  @FXML Label requestTypeLabel;
+  @FXML Label statusLabel;
+  @FXML Label assignedLabel;
+  @FXML Label dateLabel;
+  @FXML Label assignStaffLabel;
+  @FXML Label requestIDLabel;
+  @FXML Label staffLabel;
+  @FXML Label setStatusLabel;
+  @FXML Label requestDetailsLabel;
   @FXML AnchorPane root;
   @FXML TableView<ServiceRequest> table;
   @FXML TableColumn requestIDCol;
@@ -126,6 +137,211 @@ public class ServiceRequestViewController {
     return requestList;
   }
 
+  public void setLanguage(Language lang) throws SQLException {
+
+    switch (lang) {
+      case ENGLISH:
+        ParentController.titleString.set("Service Request View");
+        filterTableLabel.setText("Filter Table");
+        requestTypeLabel.setText("Request Type");
+        requestTypeCombo.setPromptText("Choose Request Type");
+        statusLabel.setText("Request Status");
+        requestStatusCombo.setPromptText("Choose Status");
+        assignedLabel.setText("Assigned Staff");
+        requestStaffCombo.setPromptText("Choose Staff");
+        dateLabel.setText("Date");
+        refreshButton.setText("Refresh");
+        assignStaffLabel.setText("Assign Staff to Request");
+        requestIDLabel.setText("Request ID");
+        requestIDText.setPromptText("Select Request ID");
+        staffLabel.setText("Assign Staff");
+        assignStaffText.setPromptText("Select Staff");
+        setStatusLabel.setText("Set Request Status");
+        requestStatusText.setPromptText("Select Request Status");
+        backButton.setText("Back");
+        submitButton.setText("Assign");
+        ViewButton.setText("View");
+        requestIDCol.setText("Request ID");
+        patientNameCol.setText("Patient Name");
+        roomNumCol.setText("Room #");
+        requesterIDCol.setText("Requester ID");
+        requestedAtCol.setText("Requested At");
+        requestedForCol.setText("Requested For");
+        assignedStaffCol.setText("Assigned Staff");
+        statusCol.setText("Status");
+        ViewButton.setText("View");
+        break;
+      case ITALIAN:
+        ParentController.titleString.set("Vista Richiesta Servizio");
+        filterTableLabel.setText("Filtrare la Tabella");
+        requestTypeLabel.setText("Tipo di Richiesta");
+        requestTypeCombo.setPromptText("Scegli Tipo di Richiesta");
+        statusLabel.setText("Stato Richiesta");
+        requestStatusCombo.setPromptText("Scegli Stato");
+        assignedLabel.setText("Personale Assegnato");
+        requestStaffCombo.setPromptText("Scegli Personale");
+        dateLabel.setText("Data");
+        refreshButton.setText("Aggiorna");
+        assignStaffLabel.setText("Assegna Personale alla Richiesta");
+        requestIDLabel.setText("ID Richiesta");
+        requestIDText.setPromptText("Seleziona ID Richiesta");
+        staffLabel.setText("Assegna Personale");
+        assignStaffText.setPromptText("Seleziona Personale");
+        setStatusLabel.setText("Imposta Stato Richiesta");
+        requestStatusText.setPromptText("Seleziona Stato Richiesta");
+        backButton.setText("Ritorna");
+        submitButton.setText("Assegna");
+        ViewButton.setText("Visualizza");
+        requestIDCol.setText("ID Richiesta");
+        patientNameCol.setText("Nome Paziente");
+        roomNumCol.setText("Numero di Stanza");
+        requesterIDCol.setText("ID Richiedente");
+        requestedAtCol.setText("Richiesta Fatta il");
+        requestedForCol.setText("Richiesta per");
+        assignedStaffCol.setText("Personale Assegnato");
+        statusCol.setText("Stato");
+        ViewButton.setText("Visualizza");
+        break;
+      case FRENCH:
+        ParentController.titleString.set("Vue de la Demande de Service");
+        filterTableLabel.setText("Filtrer le Tableau");
+        requestTypeLabel.setText("Type de Demande");
+        requestTypeCombo.setPromptText("Choisir le Type de Demande");
+        statusLabel.setText("Statut de la Demande");
+        requestStatusCombo.setPromptText("Choisir le Statut");
+        assignedLabel.setText("Personnel Assign" + GlobalVariables.getEAcute());
+        requestStaffCombo.setPromptText("Choisir le Personnel");
+        dateLabel.setText("Date");
+        refreshButton.setText("Actualiser");
+        assignStaffLabel.setText(
+            "Assigner du Personnel " + GlobalVariables.getAGrave() + " la Demande");
+        requestIDLabel.setText("ID de la Demande");
+        requestIDText.setPromptText(
+            "S" + GlobalVariables.getEAcute() + "lectionner l'ID de la Demande");
+        staffLabel.setText("Assigner du Personnel");
+        assignStaffText.setPromptText("Sélectionner du Personnel");
+        setStatusLabel.setText("D" + GlobalVariables.getEAcute() + "finir le Statut de la Demande");
+        requestStatusText.setPromptText("Sélectionner le Statut de la Demande");
+        backButton.setText("Retour");
+        submitButton.setText("Assigner");
+        ViewButton.setText("Voir");
+        requestIDCol.setText("ID de la Demande");
+        patientNameCol.setText("Nom du Patient");
+        roomNumCol.setText("Nombre de Chambre");
+        requesterIDCol.setText("ID du Demandeur");
+        requestedAtCol.setText("Demand" + GlobalVariables.getEAcute() + " le");
+        requestedForCol.setText("Demand" + GlobalVariables.getEAcute() + " pour");
+        assignedStaffCol.setText("Personnel Assigné");
+        statusCol.setText("Statut");
+        ViewButton.setText("Voir");
+        break;
+      case SPANISH:
+        ParentController.titleString.set("Vista de la Solicitud de Servicio");
+        filterTableLabel.setText("Filtrar Tabla");
+        requestTypeLabel.setText("Tipo de Solicitud");
+        requestTypeCombo.setPromptText("Elegir Tipo de Solicitud");
+        statusLabel.setText("Estado de la Solicitud");
+        requestStatusCombo.setPromptText("Elegir Estado");
+        assignedLabel.setText("Personal Asignado");
+        requestStaffCombo.setPromptText("Elegir Personal");
+        dateLabel.setText("Fecha");
+        refreshButton.setText("Actualizar");
+        assignStaffLabel.setText("Asignar Personal a la Solicitud");
+        requestIDLabel.setText("ID de la Solicitud");
+        requestIDText.setPromptText("Seleccionar ID de la Solicitud");
+        staffLabel.setText("Asignar Personal");
+        assignStaffText.setPromptText("Seleccionar Personal");
+        setStatusLabel.setText("Establecer Estado de la Solicitud");
+        requestStatusText.setPromptText("Seleccionar Estado de la Solicitud");
+        backButton.setText("Volver");
+        submitButton.setText("Asignar");
+        ViewButton.setText("Ver");
+        requestIDCol.setText("ID de la Solicitud");
+        patientNameCol.setText("Nombre del Paciente");
+        roomNumCol.setText("Numero de Habitación");
+        requesterIDCol.setText("ID del Solicitante");
+        requestedAtCol.setText("Solicitado el");
+        requestedForCol.setText("Solicitado para");
+        assignedStaffCol.setText("Personal Asignado");
+        statusCol.setText("Estado");
+        ViewButton.setText("Ver");
+
+        break;
+    }
+    //    assignStaffText.setValue(assignStaffText.getValue());
+    if (assignStaffText.getValue() == null) {
+      assignStaffText.setItems(FXCollections.observableList(DataManager.getAllUsernames()));
+      assignStaffText.getSelectionModel().clearSelection();
+    }
+    if (requestStatusText.getValue() == null) {
+      requestStatusText.getSelectionModel().clearSelection();
+      ObservableList<Status> requestStatuses2 = FXCollections.observableArrayList(Status.values());
+      requestStatusText.setItems(requestStatuses2);
+    }
+    if (requestIDText.getValue() == null) {
+      requestIDText.getSelectionModel().clearSelection();
+      requestIDText.setItems(FXCollections.observableList(DataManager.getAllRequestIDs()));
+    }
+    if (requestTypeCombo.getValue() == null) {
+      requestTypeCombo.getSelectionModel().clearSelection();
+      ObservableList<RequestType> requestTypes =
+          FXCollections.observableArrayList(RequestType.values());
+      requestTypes.add(null);
+      requestTypeCombo.setItems(requestTypes);
+    }
+    if (requestStaffCombo.getValue() == null) {
+      ObservableList<String> staffNames =
+          FXCollections.observableArrayList(DataManager.getAllUsernames());
+      staffNames.add(null);
+      requestStaffCombo.setItems(staffNames);
+      requestStaffCombo.getSelectionModel().clearSelection();
+    }
+    if (requestStatusCombo.getValue() == null) {
+      ObservableList<Status> requestStatuses = FXCollections.observableArrayList(Status.values());
+      requestStatuses.add(null);
+      requestStatusCombo.setItems(requestStatuses);
+      requestStatusCombo.getSelectionModel().clearSelection();
+    }
+  }
+  /*
+       * How to set the labels for everything we want translated
+  ParentController.titleString.set("Title");
+      filterTableLabel.setText("A");
+          requestTypeLabel.setText("B");
+          requestTypeCombo.setPromptText("C");
+          statusLabel.setText("D");
+          requestStatusCombo.setPromptText("E");
+          assignedLabel.setText("F");
+          requestStaffCombo.setPromptText("G");
+          dateLabel.setText("H");
+          refreshButton.setText("I");
+          assignStaffLabel.setText("J");
+          requestIDLabel.setText("K");
+          requestIDText.setPromptText("L");
+          staffLabel.setText("M");
+          assignStaffText.setPromptText("N");
+          setStatusLabel.setText("O");
+          requestStatusText.setPromptText("P");
+          backButton.setText("Q");
+          submitButton.setText("R");
+          ViewButton.setText("S");
+          requestIDCol.setText("T");
+          patientNameCol.setText("U");
+          roomNumCol.setText("V");
+          requestIDCol.setText("W");
+          requestedAtCol.setText("X");
+          requestedForCol.setText("Y");
+          assignedStaffCol.setText("Z");
+          statusCol.setText("AA");
+          requesterIDCol.setText("AB");
+          ViewButton.setText("AC");
+       */
+  /*
+  * List of Text that we need translated:
+  *
+
+  */
+
   /**
    * assigns a staff and status to a request
    *
@@ -178,6 +394,16 @@ public class ServiceRequestViewController {
     room = "";
     ThemeSwitch.switchTheme(root);
     ParentController.titleString.set("Service Request View");
+    setLanguage(GlobalVariables.getB().getValue());
+    GlobalVariables.b.addListener(
+        (options, oldValue, newValue) -> {
+          try {
+            setLanguage(newValue);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          }
+        });
+
     submitButton.disableProperty().bind(Bindings.isNull(requestIDText.valueProperty()));
     submitButton.disableProperty().bind(Bindings.isNull(assignStaffText.valueProperty()));
     submitButton.disableProperty().bind(Bindings.isNull(requestStatusText.valueProperty()));
@@ -320,7 +546,7 @@ public class ServiceRequestViewController {
             } catch (NullPointerException e) {
               date = null;
             }
-            // update the table when the status combo box is changed
+            // update the table when the staff combo box is changed
             table.setItems(
                 tableFilter(
                     requestTypeCombo.getValue(),
@@ -397,21 +623,33 @@ public class ServiceRequestViewController {
       GlobalVariables.setDoneRequestsPressed(false);
       requestStatusCombo.setValue(Status.DONE);
       requestStaffCombo.setValue(GlobalVariables.getCurrentUser().getUsername());
+      Timestamp date;
+      try {
+        date = Timestamp.valueOf(dateBox.getValue().atStartOfDay());
+      } catch (NullPointerException e) {
+        date = null;
+      }
       table.setItems(
           tableFilter(
               requestTypeCombo.getValue(),
               requestStatusCombo.getValue(),
-              Timestamp.valueOf(dateBox.getValue().atStartOfDay()),
+              date,
               requestStaffCombo.getValue()));
     } else if (GlobalVariables.isActiveRequestsPressed()) {
       requestStatusCombo.setValue(Status.PROCESSING);
       requestStaffCombo.setValue(GlobalVariables.getCurrentUser().getUsername());
       GlobalVariables.setActiveRequestsPressed(false);
+      Timestamp date;
+      try {
+        date = Timestamp.valueOf(dateBox.getValue().atStartOfDay());
+      } catch (NullPointerException e) {
+        date = null;
+      }
       table.setItems(
           tableFilter(
               requestTypeCombo.getValue(),
               requestStatusCombo.getValue(),
-              Timestamp.valueOf(dateBox.getValue().atStartOfDay()),
+              date,
               requestStaffCombo.getValue()));
     } else if (GlobalVariables.isRequestFromMap()) {
       room = GlobalVariables.getRoomFromMap();

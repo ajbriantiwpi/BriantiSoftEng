@@ -52,7 +52,7 @@ public class Map {
   };
 
   private String[] algoArr = {
-    "A-Star", "Breadth First Search", "Depth First Search", "Dijkstra's Algorithm"
+    "A-Star", "Breadth First Search", "Depth First Search", "Dijkstra's Algorithm", "Emergency Exit"
   };
 
   private boolean isMapPage;
@@ -88,6 +88,8 @@ public class Map {
    * @throws SQLException if there is an error accessing the database.
    */
   public Map(AnchorPane subAnchor, boolean isMapPage) throws SQLException {
+    GlobalVariables.setHMap(
+        DataManager.getAllLocationNamesMappedByNode(new Timestamp(System.currentTimeMillis())));
     this.graph = new Graph();
     this.currentDisplayFloor = "Lower Level 1";
     this.subAnchor = subAnchor;
@@ -102,7 +104,8 @@ public class Map {
     this.movingNodeId = -1;
 
     this.showNodes = !this.isMapPage;
-    this.showLegend = !this.isMapPage;
+    //    this.showLegend = !this.isMapPage;
+    this.showLegend = true;
     this.currTime = new Timestamp(System.currentTimeMillis());
 
     this.rm = new RoomManager();
@@ -680,7 +683,8 @@ public class Map {
     direction = Direction.STRAIGHT;
     sb.append(direction.getString());
     System.out.print(direction.getString());
-    distance = getTextDistance(nodePath.get(0), nodePath.get(1));
+    if (nodePath.size() > 1) distance = getTextDistance(nodePath.get(0), nodePath.get(1));
+    else distance = getTextDistance(nodePath.get(0), nodePath.get(0));
     sb.append(distance);
     System.out.println(distance);
 
@@ -699,10 +703,65 @@ public class Map {
         direction = getDirection(prevNode, node, nextNode);
 
         if (direction.getString().equals("Straight")) {
-          sb.append("Continue Straight ");
+          switch (GlobalVariables.getB().getValue()) {
+            case ENGLISH:
+              sb.append("Continue Straight ");
+              break;
+            case FRENCH:
+              sb.append("Continuer Droit");
+              break;
+            case ITALIAN:
+              sb.append("Continua Dritto");
+              break;
+            case SPANISH:
+              sb.append("Continuar Recto");
+              break;
+          }
+
         } else if (direction.getString().equals("Down") || direction.getString().equals("Up")) {
-          sb.append("Go " + direction.getString());
+          switch (GlobalVariables.getB().getValue()) {
+            case ENGLISH:
+              sb.append("Go ");
+              if (direction.getString().equals("Down")) {
+                sb.append("Down");
+              } else {
+                sb.append("Up");
+              }
+              break;
+            case FRENCH: // En haut
+              //              sb.append("Go ");
+              if (direction.getString().equals("Down")) {
+                sb.append("Descendez.");
+              } else {
+                sb.append("Monter");
+              }
+              break;
+            case ITALIAN:
+              sb.append("Vai ");
+              if (direction.getString().equals("Down")) {
+                sb.append("Giu");
+              } else {
+                sb.append("Su");
+              }
+              break;
+            case SPANISH: // sube
+              //              sb.append("Go ");
+              if (direction.getString().equals("Down")) {
+                sb.append("Baje");
+              } else {
+                sb.append("Sube");
+              }
+              break;
+          }
         } else {
+          switch (GlobalVariables.getB().getValue()) {
+            case ENGLISH:
+              sb.append("Turn " + direction.getString() + " then Continue Straight ");
+              break;
+            case ITALIAN:
+              sb.append("Giri " + direction.getTranslatedString() + ", e poi vai dritto");
+          }
+
           sb.append("Turn " + direction.getString() + " then Continue Straight ");
         }
         //        sb.append(direction.getString());

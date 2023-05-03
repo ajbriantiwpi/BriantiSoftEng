@@ -1,6 +1,8 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.ThemeSwitch;
+import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -12,10 +14,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import org.controlsfx.control.PopOver;
 
 public class AboutPageController {
 
+  @FXML Text titleLabel;
+  @FXML Text thanksLabel;
+  @FXML Text specialThanksLabel;
   @FXML MFXButton ianButton;
   @FXML MFXButton jasonButton;
   @FXML MFXButton alessandroButton;
@@ -30,10 +36,104 @@ public class AboutPageController {
   @FXML VBox memberVBox;
   @FXML AnchorPane aboutAnchorPane;
 
+  public void setLanguage(Language lang) {
+    switch (lang) {
+      case ENGLISH:
+        ParentController.titleString.set("About");
+        titleLabel.setText(
+            "WPI Computer Science Department\n"
+                + "\n"
+                + "CS3733-D23 Software Engineering\n"
+                + "\n"
+                + "Prof. Wilson Wong");
+        thanksLabel.setText("Thank you!");
+        specialThanksLabel.setText(
+            "Special thank you to Brigham and Women's Hospital,\n"
+                + "\n"
+                + "and their representative Andrew Shinn,\n"
+                + "\n"
+                + "for their time and input with this project.");
+        break;
+      case ITALIAN:
+        ParentController.titleString.set("Informazioni");
+        titleLabel.setText(
+            "Dipartimento di Informatica del WPI\n"
+                + "\n"
+                + "Ingegneria del software CS3733-D23\n"
+                + "\n"
+                + "Prof. Wilson Wong");
+        thanksLabel.setText("Grazie!");
+        specialThanksLabel.setText(
+            "Un ringraziamento speciale "
+                + GlobalVariables.getAGrave()
+                + " Brigham and Women's Hospital,\n"
+                + "\n"
+                + "e al loro rappresentante Andrew Shinn,\n"
+                + "\n"
+                + "per il loro tempo e contributo a questo progetto.");
+        break;
+      case SPANISH:
+        ParentController.titleString.set("Acerca de");
+        titleLabel.setText(
+            "Departamento de Ciencias de la Computaci"
+                + GlobalVariables.getOAcute()
+                + "n del WPI\n"
+                + "\n"
+                + "Ingenier"
+                + GlobalVariables.getIAcute()
+                + "a de Software CS3733-D23\n"
+                + "\n"
+                + "Prof. Wilson Wong");
+        thanksLabel.setText("¡Gracias!");
+        specialThanksLabel.setText(
+            "Agradecimiento especial al Brigham and Women's Hospital,\n"
+                + "\n"
+                + "y su representante Andrew Shinn,\n"
+                + "\n"
+                + "por su tiempo y aporte en este proyecto.");
+        break;
+      case FRENCH:
+        ParentController.titleString.set(GlobalVariables.getBigAGrave() + " propos");
+        titleLabel.setText(
+            "D"
+                + GlobalVariables.getEAcute()
+                + "partement d'Informatique du WPI\n"
+                + "\n"
+                + "Ing"
+                + GlobalVariables.getEAcute()
+                + "nierie Logicielle CS3733-D23\n"
+                + "\n"
+                + "Prof. Wilson Wong");
+        thanksLabel.setText("Merci!");
+        specialThanksLabel.setText(
+            "Un remerciement sp"
+                + GlobalVariables.getEAcute()
+                + "cial "
+                + GlobalVariables.getAGrave()
+                + "l'H"
+                + '\u00F4'
+                + "pital Brigham and Women,\n"
+                + "\n"
+                + "et leur repr"
+                + GlobalVariables.getEAcute()
+                + "sentant Andrew Shinn,\n"
+                + "\n"
+                + "pour leur temps et leur contribution "
+                + GlobalVariables.getAGrave()
+                + "ce projet.");
+        break;
+    }
+  }
+
   public void initialize() {
     ThemeSwitch.switchTheme(aboutAnchorPane);
     MFXButton.class.getClassLoader().setDefaultAssertionStatus(false);
     ParentController.titleString.set("About");
+    setLanguage(GlobalVariables.getB().getValue());
+    GlobalVariables.b.addListener(
+        (options, oldValue, newValue) -> {
+          setLanguage(newValue);
+        });
 
     EventHandler<MouseEvent> PersonPopup =
         new EventHandler<MouseEvent>() {

@@ -22,7 +22,7 @@
                         <children>
                            <VBox spacing="12.0">
                               <children>
-                                 <Label text="Filter Table" textFill="#001b3b">
+                                 <Label fx:id="filterTableLabel" text="Filter Table" textFill="#001b3b">
                                     <font>
                                        <Font name="Roboto" size="32.0" />
                                     </font>
@@ -34,7 +34,7 @@
                                        <String fx:value="headline-large" />
                                     </styleClass>
                                  </Label>
-                                 <Label text="Request Type" textFill="#001b3b">
+                                 <Label fx:id="requestTypeLabel" text="Request Type" textFill="#001b3b">
                                     <font>
                                         <Font name="Roboto" size="28.0" />
                                     </font>
@@ -51,7 +51,7 @@
                                        <Insets bottom="4.0" />
                                     </VBox.margin>
                                  </ComboBox>
-                                 <Label text="Request Status" textFill="#001b3b">
+                                 <Label fx:id="statusLabel" text="Request Status" textFill="#001b3b">
                                     <font>
                                         <Font name="Roboto" size="28.0" />
                                     </font>
@@ -68,7 +68,7 @@
                                        <Insets />
                                     </VBox.margin>
                                  </ComboBox>
-                                 <Label text="Assigned Staff" textFill="#001b3b">
+                                 <Label fx:id="assignedLabel" text="Assigned Staff" textFill="#001b3b">
                                     <font>
                                        <Font name="Roboto" size="28.0" />
                                     </font>
@@ -78,7 +78,7 @@
                                     </styleClass>
                                  </Label>
                                  <ComboBox fx:id="requestStaffCombo" maxHeight="50.0" prefHeight="50.0" prefWidth="396.0" promptText="Choose Staff" stylesheets="@../stylesheets/comboSmall.css" />
-                                 <Label text="Date" textFill="#001b3b">
+                                 <Label fx:id="dateLabel" styleClass="primary-text-container" text="Date" textFill="#001b3b">
                                     <font>
                                        <Font name="Roboto" size="28.0" />
                                     </font>
@@ -104,7 +104,7 @@
                            </VBox>
                            <VBox maxWidth="-Infinity" spacing="12.0" style="-fx-background-radius: 16;" styleClass="surface-container-highest">
                               <children>
-                                 <Label text="Assign Staff to Request" textFill="#001b3b">
+                                 <Label fx:id="assignStaffLabel" text="Assign Staff to Request" textFill="#001b3b">
                                     <font>
                                        <Font name="Roboto" size="32.0" />
                                     </font>
@@ -116,7 +116,7 @@
                                        <String fx:value="headline-large" />
                                     </styleClass>
                                  </Label>
-                                 <Label text="Request ID" textFill="#001b3b">
+                                 <Label fx:id="requestIDLabel" text="Request ID" textFill="#001b3b">
                                     <font>
                                         <Font name="Roboto" size="28.0" />
                                     </font>
@@ -133,7 +133,7 @@
                                        <Insets bottom="4.0" />
                                     </VBox.margin>
                                  </SearchableComboBox>
-                                 <Label text="Assign Staff" textFill="#001b3b">
+                                 <Label fx:id="staffLabel" text="Assign Staff" textFill="#001b3b">
                                     <font>
                                         <Font name="Roboto" size="28.0" />
                                     </font>
@@ -150,7 +150,7 @@
                                        <Insets bottom="4.0" />
                                     </VBox.margin>
                                  </SearchableComboBox>
-                                 <Label text="Set Request Status" textFill="#001b3b">
+                                 <Label fx:id="setStatusLabel" text="Set Request Status" textFill="#001b3b">
                                     <font>
                                        <Font name="Roboto" size="28.0" />
                                     </font>
@@ -243,7 +243,7 @@
                                         <children>
                                             <VBox fx:id="pane" prefHeight="200.0" prefWidth="100.0" spacing="12.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                 <children>
-                                                    <Label layoutX="10.0" layoutY="10.0" text="Request Details" textFill="#001b3b">
+                                                    <Label fx:id="requestDetailsLabel" layoutX="10.0" layoutY="10.0" text="Request Details" textFill="#001b3b">
                                                         <font>
                                                             <Font name="Roboto" size="40.0" />
                                                         </font>

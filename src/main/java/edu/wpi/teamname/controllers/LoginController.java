@@ -7,6 +7,7 @@ import edu.wpi.teamname.alerts.Alert;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.Employee;
 import edu.wpi.teamname.employees.EmployeeType;
+import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Song;
 import edu.wpi.teamname.extras.Sound;
@@ -28,7 +29,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
 public class LoginController {
-
+  @FXML Label loginLabel;
   @FXML MFXButton exit;
   @FXML AnchorPane rootPane;
   @FXML StackPane paneOfStuff;
@@ -99,10 +100,61 @@ public class LoginController {
     }
   }
 
+  public void setLanguage(Language lang) {
+    switch (lang) {
+      case ENGLISH:
+        loginLabel.setText("Login");
+        loginText.setPromptText("Username");
+        passwordText.setPromptText("Password");
+        loginButton.setText("Login");
+        cancel.setText("Cancel");
+        forgotPassword.setText("Forgot Password");
+        exit.setText("Exit");
+        break;
+      case ITALIAN:
+        loginLabel.setText("Accesso");
+        loginText.setPromptText("Nome utente");
+        passwordText.setPromptText("Password");
+        loginButton.setText("Accedi");
+        cancel.setText("Annulla");
+        forgotPassword.setText("Password dimenticata");
+        exit.setText("Esci");
+        break;
+      case FRENCH:
+        loginLabel.setText("Connexion");
+        loginText.setPromptText("Nom d'utilisateur");
+        passwordText.setPromptText("Mot de passe");
+        loginButton.setText("Se connecter");
+        cancel.setText("Annuler");
+        forgotPassword.setText("Mot de passe oubli" + GlobalVariables.getEAcute());
+        exit.setText("Sortir");
+        break;
+      case SPANISH:
+        loginLabel.setText("Inicio de sesi" + GlobalVariables.getOAcute() + "n");
+        loginText.setPromptText("Nombre de usuario");
+        passwordText.setPromptText("Contrase" + GlobalVariables.getNTilda() + "a");
+        loginButton.setText("Iniciar sesi" + GlobalVariables.getOAcute() + "n");
+        cancel.setText("Cancelar");
+        forgotPassword.setText(
+            "¿Olvid"
+                + GlobalVariables.getOAcute()
+                + " su contrase"
+                + GlobalVariables.getNTilda()
+                + "a?");
+        exit.setText("Salir");
+        break;
+    }
+  }
+
   /** initializes the view for the login page */
   @FXML
   public void initialize() {
     ThemeSwitch.switchTheme(rootPane);
+    setLanguage(GlobalVariables.getB().getValue());
+    GlobalVariables.b.addListener(
+        (options, oldValue, newValue) -> {
+          setLanguage(newValue);
+        });
     // help.setVisible(false);
     newPassword.setVisible(false);
     success.setText("Username or password\nis incorrect");

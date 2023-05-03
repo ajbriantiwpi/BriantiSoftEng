@@ -6,6 +6,7 @@ import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.alerts.Alert;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.EmployeeType;
+import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -36,6 +37,10 @@ import org.controlsfx.control.PopOver;
 
 public class AlertTableViewController {
   @FXML AnchorPane alertTableViewPage;
+  @FXML Label filterTable;
+  @FXML Label urgencyLabel;
+  @FXML Label staffTypeLabel;
+  @FXML Label searchLabel;
   @FXML TableView<Alert> table; // 15
 
   @FXML TableColumn notificationIDCol; // 7
@@ -83,10 +88,101 @@ public class AlertTableViewController {
     DataManager.addAlert(newAlert);
   }
 
+  public void setLanguage(Language lang) {
+    switch (lang) {
+      case SPANISH:
+        ParentController.titleString.set("Alertas");
+        filterTable.setText("Filtrar Tabla");
+        urgencyLabel.setText("Urgencia de la Alerta");
+        urgencyCombo.setPromptText("Urgencia");
+        staffTypeLabel.setText("Tipo de Personal");
+        staffTypeCombo.setPromptText("Elegir Tipo de Personal");
+        createNewAlert.setText("Crear Nueva Alerta");
+        searchLabel.setText("Buscar");
+        notificationIDCol.setText("ID de Notificación");
+        Description.setText("Descripci" + GlobalVariables.getOAcute() + "n");
+        authorCol.setText("Autor");
+        startDateCol.setText("Fecha de Inicio");
+        endDateCol.setText("Fecha de Finalización");
+        staffTypeCol.setText("Tipo de Personal");
+        announcementCol.setText("Anuncio");
+        urgencyCol.setText("Urgencia");
+        break;
+      case ITALIAN:
+        ParentController.titleString.set("Allarme");
+        filterTable.setText("Filtrare la Tabella");
+        urgencyLabel.setText("Urgenza dell'Allarme");
+        urgencyCombo.setPromptText("Urgenza");
+        staffTypeLabel.setText("Tipo di Personale");
+        staffTypeCombo.setPromptText("Scegliere il Tipo di Personale");
+        createNewAlert.setText("Creare un Nuovo Allarme");
+        searchLabel.setText("Cercare");
+        notificationIDCol.setText("ID della Notifica");
+        Description.setText("Descrizione");
+        authorCol.setText("Autore");
+        startDateCol.setText("Data di Inizio");
+        endDateCol.setText("Data di Fine");
+        staffTypeCol.setText("Tipo di Personale");
+        announcementCol.setText("Annuncio");
+        urgencyCol.setText("Urgenza");
+        break;
+      case FRENCH:
+        ParentController.titleString.set("Alertes");
+        filterTable.setText("Filtrer la Table");
+        urgencyLabel.setText("Urgence de l'Alerte");
+        urgencyCombo.setPromptText("Urgence");
+        staffTypeLabel.setText("Type de Personnel");
+        staffTypeCombo.setPromptText("Choisir le Type de Personnel");
+        createNewAlert.setText("Cr" + GlobalVariables.getEAcute() + "er une Nouvelle Alerte");
+        searchLabel.setText("Rechercher");
+        notificationIDCol.setText("ID Notification");
+        Description.setText("Description");
+        authorCol.setText("Auteur");
+        startDateCol.setText("Date de D" + GlobalVariables.getEAcute() + "but");
+        endDateCol.setText("Date de Fin");
+        staffTypeCol.setText("Type de Personnel");
+        announcementCol.setText("Annonce");
+        urgencyCol.setText("Urgence");
+        break;
+      case ENGLISH:
+        ParentController.titleString.set("Alerts");
+        filterTable.setText("Filter Table");
+        urgencyLabel.setText("Alert Urgency");
+        urgencyCombo.setPromptText("Urgency");
+        staffTypeLabel.setText("Staff Type");
+        staffTypeCombo.setPromptText("Choose Staff Type");
+        createNewAlert.setText("Create New Alert");
+        searchLabel.setText("Search");
+        notificationIDCol.setText("Notification ID");
+        Description.setText("Description");
+        authorCol.setText("Author");
+        startDateCol.setText("Start Date");
+        endDateCol.setText("End Date");
+        staffTypeCol.setText("Staff Type");
+        announcementCol.setText("Announcement");
+        urgencyCol.setText("Urgency");
+        break;
+    }
+    ObservableList<EmployeeType> staffTypes =
+        FXCollections.observableArrayList(EmployeeType.values());
+    staffTypes.add(null);
+    staffTypeCombo.setItems(staffTypes);
+    ObservableList<Alert.Urgency> urgencyComboList =
+        FXCollections.observableArrayList(Alert.Urgency.values());
+    urgencyComboList.add(null);
+    urgencyCombo.setItems(urgencyComboList);
+  }
+
   @FXML
   public void initialize() throws SQLException {
     ThemeSwitch.switchTheme(alertTableViewPage);
     ParentController.titleString.set("Alerts");
+    setLanguage(GlobalVariables.getB().getValue());
+    GlobalVariables.b.addListener(
+        (options, oldValue, newValue) -> {
+          setLanguage(newValue);
+        });
+
     ObservableList<EmployeeType> staffTypes =
         FXCollections.observableArrayList(EmployeeType.values());
     staffTypes.add(null);
