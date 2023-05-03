@@ -10,6 +10,7 @@ import edu.wpi.teamname.database.PathMessageDAOImpl;
 import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
+import edu.wpi.teamname.navigation.AlgoStrategy.*;
 import edu.wpi.teamname.navigation.AlgoStrategy.AStarAlgo;
 import edu.wpi.teamname.navigation.AlgoStrategy.BFSAlgo;
 import edu.wpi.teamname.navigation.AlgoStrategy.DFSAlgo;
@@ -45,6 +46,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.SearchableComboBox;
 
@@ -158,9 +160,10 @@ public class MapController {
   String floor1;
   String floor2;
   String currFloor = "Lower Level 1";
-  int sNode = 0;
+  int sNode = GlobalVariables.getCurrentLocationNode().getId();
+  // int sNode = 0;
   int eNode = 0;
-  Node globalStartNode;
+  Node globalStartNode = GlobalVariables.getCurrentLocationNode();
 
   String globalLongNames = "";
   String globalLongNamee = "";
@@ -659,64 +662,68 @@ public class MapController {
       new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-          Sound.playSFX(SFX.BUTTONCLICK);
-          ViewMessageButton.setDisable(false);
-          AddMessageButton.setDisable(false);
-          try {
-            map.drawPath(anchor, sNode, eNode);
-          } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-          }
-          int secInd = map.getAllFloors().indexOf(currFloor);
-          System.out.println("secInd: " + secInd);
-          anchor.getChildren().addAll(map.getShapes().get(secInd));
-
-          ArrayList<Node> allNodes;
-          try {
-            allNodes = DataManager.getAllNodes();
-          } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-          }
-
-          int floorIndex = -1;
-
-          int indOfStart = Node.idToIndex(sNode);
-          //          DataManager.getNode(sNode)
-          String floorForSNode = map.takeFloor(allNodes.get(indOfStart).getFloor(), true);
-          System.out.println("Floor to move to " + floorForSNode);
-          if (floorForSNode == "Third Floor") {
-            floorIndex = 4;
-            ThirdFloorButton.fire();
-          } else if (floorForSNode == "Second Floor") {
-            floorIndex = 3;
-            SecondFloorButton.fire();
-          } else if (floorForSNode == "First Floor") {
-            floorIndex = 2;
-            // System.out.println("Got to First Floor");
-            FirstFloorButton.fire();
-          } else if (floorForSNode == "Lower Level 1") {
-            floorIndex = 1;
-            LowerFirstButton.fire();
-          } else if (floorForSNode == "Lower Level 2") {
-            floorIndex = 0;
-            LowerSecondButton.fire();
-          } else {
-            System.out.println("Move to start node floor failed, should not be here");
-          }
-
-          FloorsToggle.setDisable(false);
-          showPathFloors(false);
-
-          clearTextDriections();
-          generateTextDirections(floorIndex);
-
-          map.centerAndZoomStart(gp, OuterMapAnchor, globalStartNode);
-
-          clickCount = 0;
-
-          System.out.println("Test Alek: " + globalLongNames + " " + globalLongNamee);
+          loveYouWong(false);
         }
       };
+
+  public void loveYouWong(Boolean exit) {
+    Sound.playSFX(SFX.BUTTONCLICK);
+    ViewMessageButton.setDisable(false);
+    AddMessageButton.setDisable(false);
+    try {
+      if (exit) {
+        map.drawPath(anchor, GlobalVariables.getCurrentLocationNode().getId(), 300);
+      } else map.drawPath(anchor, sNode, eNode);
+    } catch (SQLException ex) {
+      throw new RuntimeException(ex);
+    }
+    int secInd = map.getAllFloors().indexOf(currFloor);
+    System.out.println("secInd: " + secInd);
+    anchor.getChildren().addAll(map.getShapes().get(secInd));
+
+    ArrayList<Node> allNodes;
+    try {
+      allNodes = DataManager.getAllNodes();
+    } catch (SQLException ex) {
+      throw new RuntimeException(ex);
+    }
+
+    int floorIndex = -1;
+
+    int indOfStart = Node.idToIndex(sNode);
+    //          DataManager.getNode(sNode)
+    String floorForSNode = map.takeFloor(allNodes.get(indOfStart).getFloor(), true);
+    System.out.println("Floor to move to " + floorForSNode);
+    if (floorForSNode == "Third Floor") {
+      floorIndex = 4;
+      ThirdFloorButton.fire();
+    } else if (floorForSNode == "Second Floor") {
+      floorIndex = 3;
+      SecondFloorButton.fire();
+    } else if (floorForSNode == "First Floor") {
+      floorIndex = 2;
+      // System.out.println("Got to First Floor");
+      FirstFloorButton.fire();
+    } else if (floorForSNode == "Lower Level 1") {
+      floorIndex = 1;
+      LowerFirstButton.fire();
+    } else if (floorForSNode == "Lower Level 2") {
+      floorIndex = 0;
+      LowerSecondButton.fire();
+    } else {
+      System.out.println("Move to start node floor failed, should not be here");
+    }
+
+    FloorsToggle.setDisable(false);
+    showPathFloors(false);
+
+    clearTextDriections();
+    generateTextDirections(floorIndex);
+
+    map.centerAndZoomStart(gp, OuterMapAnchor, globalStartNode);
+
+    clickCount = 0;
+  }
 
   EventHandler<ActionEvent> changeStart =
       new EventHandler<ActionEvent>() {
@@ -924,6 +931,9 @@ public class MapController {
               break;
             case ("Dijkstra's Algorithm"):
               map.graph.setPathfindingAlgo(new DijkstraAlgo());
+              break;
+            case ("Emergency Exit"):
+              map.graph.setPathfindingAlgo(new Emergency());
               break;
             default:
               System.out.println("Not supposed to be here: Wrong Algo");
@@ -1333,7 +1343,9 @@ public class MapController {
     switch (lang) {
       case ENGLISH:
         ParentController.titleString.set("Map");
-        LocationOne.setPromptText("Select Start");
+        // LocationOne.setPromptText("Select Start");
+        LocationOne.setPromptText(
+            GlobalVariables.getHMap().get(globalStartNode.getId()).get(0).getLongName());
         EndPointSelect.setPromptText("Select Destination");
         AlgoSelect.setPromptText("Select Algorithm");
         findPathButton.setText("Find Path");
@@ -1574,7 +1586,11 @@ public class MapController {
     Platform.runLater(() -> map.centerAndZoom(gp, OuterMapAnchor));
 
     // DeleteNodeButton.setOnMouseClicked(deleteNodeButton);
-    DeleteNodeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
+    DeleteNodeButton.setOnMouseClicked(
+        event -> {
+          GlobalVariables.setPathToExit(false);
+          Navigation.navigate(Screen.MAP);
+        });
     //    DeleteNodeButton.setOnMouseClicked(
     //        event -> {
     //          try {
@@ -1590,7 +1606,11 @@ public class MapController {
     findPathButton.setDisable(true);
 
     //    LocationOne.setStyle("-fx-padding: 5 25 5 5;");
-    LocationOne.setPromptText("Select start");
+
+    // LocationOne.setPromptText("Select start");
+    LocationOne.setPromptText(
+        GlobalVariables.getHMap().get(globalStartNode.getId()).get(0).getLongName());
+
     LocationOne.setItems(
         map.getAllNodeNames()); // change for when the floor changes to update the nodes shown
     LocationOne.setOnAction(changeStart);
@@ -1821,5 +1841,19 @@ public class MapController {
             throw new RuntimeException(e);
           }
         });
+
+    // If the map is opened because the emergency button is clicked, display emergency path right
+    // away
+    if (GlobalVariables.isPathToExit()) {
+      // System.out.println("Wongtastic lifestyle");
+      map.graph.setPathfindingAlgo(new Emergency());
+      GlobalVariables.setBorderColor(Color.RED);
+      GlobalVariables.setInsideColor(Color.RED);
+      loveYouWong(true);
+      GlobalVariables.setBorderColor(Color.web("012D5A"));
+      GlobalVariables.setInsideColor(Color.web("35A7FF"));
+      GlobalVariables.setPathToExit(false);
+      map.graph.setPathfindingAlgo(new AStarAlgo());
+    }
   }
 }
