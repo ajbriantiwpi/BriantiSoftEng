@@ -55,9 +55,9 @@
                                 <Insets left="2.0" />
                             </VBox.margin>
                      <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                        <ImageView fitHeight="48.0" fitWidth="48.0">
                            <image>
-                              <Image url="@../images/MenuIcons/edit_note.png" />
+                              <Image url="@../images/MenuIcons/dark/edit_note.png" />
                            </image>
                         </ImageView>
                      </graphic></MFXButton>
@@ -66,9 +66,9 @@
                                 <Font name="Roboto" size="22.0" />
                             </font>
                      <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                        <ImageView fitHeight="48.0" fitWidth="48.0">
                            <image>
-                              <Image url="@../images/MenuIcons/assignment.png" />
+                              <Image url="@../images/MenuIcons/dark/assignment.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -78,9 +78,9 @@
                         <Font name="Roboto" size="22.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                        <ImageView fitHeight="48.0" fitWidth="48.0">
                            <image>
-                              <Image url="@../images/MenuIcons/bar_chart.png" />
+                              <Image url="@../images/MenuIcons/dark/add_chart.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -90,9 +90,9 @@
                         <Font name="Roboto" size="22.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                        <ImageView fitHeight="48.0" fitWidth="48.0">
                            <image>
-                              <Image url="@../images/MenuIcons/employeetable.png" />
+                              <Image url="@../images/MenuIcons/dark/badge.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -102,9 +102,9 @@
                         <Font name="Roboto" size="22.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                        <ImageView fitHeight="48.0" fitWidth="48.0">
                            <image>
-                              <Image url="@../images/MenuIcons/request_room_home.png" />
+                              <Image url="@../images/MenuIcons/dark/meeting_room.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -114,9 +114,9 @@
                         <Font name="Roboto" size="22.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                        <ImageView fitHeight="48.0" fitWidth="48.0">
                            <image>
-                              <Image url="@../images/MenuIcons/request_room_home.png" />
+                              <Image url="@../images/MenuIcons/dark/room_preferences.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -126,9 +126,9 @@
                         <Font name="Roboto" size="22.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                        <ImageView fitHeight="48.0" fitWidth="48.0">
                            <image>
-                              <Image url="@../images/MenuIcons/view_alerts_home.png" />
+                              <Image url="@../images/MenuIcons/dark/circle_notifications.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -153,9 +153,9 @@
                                 <Insets left="2.0" />
                             </VBox.margin>
                      <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                        <ImageView fitHeight="48.0" fitWidth="48.0">
                            <image>
-                              <Image url="@../images/MenuIcons/map.png" />
+                              <Image url="@../images/MenuIcons/dark/map.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -189,9 +189,9 @@
                                 <Font name="Roboto" size="22.0" />
                             </font>
                      <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                        <ImageView fitHeight="48.0" fitWidth="48.0">
                            <image>
-                              <Image url="@../images/MenuIcons/edit_move.png" />
+                              <Image url="@../images/MenuIcons/dark/edit_location.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -201,9 +201,9 @@
                                 <Font name="Roboto" size="22.0" />
                             </font>
                      <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                        <ImageView fitHeight="48.0" fitWidth="48.0">
                            <image>
-                              <Image url="@../images/MenuIcons/edit_location_alt.png" />
+                              <Image url="@../images/MenuIcons/dark/edit_location_alt.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -213,9 +213,9 @@
                         <Font name="Roboto" size="22.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                        <ImageView fitHeight="48.0" fitWidth="48.0">
                            <image>
-                              <Image url="@../images/MenuIcons/view_signage_home.png" />
+                              <Image url="@../images/MenuIcons/dark/directions.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -225,9 +225,9 @@
                         <Font name="Roboto" size="22.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                        <ImageView fitHeight="48.0" fitWidth="48.0">
                            <image>
-                              <Image url="@../images/MenuIcons/edit_signage_home.png" />
+                              <Image url="@../images/MenuIcons/dark/fork_left.png" />
                            </image>
                         </ImageView>
                      </graphic>

@@ -4,6 +4,7 @@ import edu.wpi.teamname.GlobalVariables;
 import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.controllers.JFXitems.ReqMenuItems;
 import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
 import edu.wpi.teamname.servicerequest.ItemsOrdered;
 import edu.wpi.teamname.servicerequest.RequestType;
@@ -66,6 +67,8 @@ public class ServiceRequestViewController {
       FXCollections.observableArrayList("", "PROCESSING", "BLANK", "DONE");
   @FXML ComboBox<Status> requestStatusCombo;
 
+  private static String room;
+
   /**
    * filters the list of service requests to add it to the table
    *
@@ -97,7 +100,10 @@ public class ServiceRequestViewController {
         requestList =
             FXCollections.observableList(
                 requestList.stream()
-                    .filter((request) -> request.getDeliverBy().getDate() == date.getDate())
+                    .filter(
+                        (request) ->
+                            (request.getDeliverBy().getDate() == date.getDate())
+                                && (request.getDeliverBy().getMonth() == date.getMonth()))
                     .toList());
       }
     } catch (NullPointerException e) {
@@ -108,6 +114,13 @@ public class ServiceRequestViewController {
           FXCollections.observableList(
               requestList.stream()
                   .filter((request) -> request.getStaffName().equals(username))
+                  .toList());
+    }
+    if (!(room.equals(""))) {
+      requestList =
+          FXCollections.observableList(
+              requestList.stream()
+                  .filter((request) -> request.getRoomNumber().equals(room))
                   .toList());
     }
     return requestList;
@@ -130,6 +143,11 @@ public class ServiceRequestViewController {
     refreshTable();
   }
 
+  /**
+   * Refreshes the service requests shown on the table
+   *
+   * @throws SQLException
+   */
   public void refreshTable() throws SQLException {
     ObservableList<ServiceRequest> serviceRequests =
         FXCollections.observableList(DataManager.getAllServiceRequests());
@@ -157,6 +175,7 @@ public class ServiceRequestViewController {
    */
   @FXML
   public void initialize() throws SQLException {
+    room = "";
     ThemeSwitch.switchTheme(root);
     ParentController.titleString.set("Service Request View");
     submitButton.disableProperty().bind(Bindings.isNull(requestIDText.valueProperty()));
@@ -165,7 +184,7 @@ public class ServiceRequestViewController {
 
     submitButton.setOnMouseClicked(
         event -> {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           try {
             assignStuff(
                 requestIDText.valueProperty().getValue(),
@@ -334,7 +353,7 @@ public class ServiceRequestViewController {
                 if (newValue != null) {
                   ViewButton.setOnMouseClicked(
                       event -> {
-                        Sound.playOnButtonClick();
+                        Sound.playSFX(SFX.BUTTONCLICK);
                         table.setVisible(false);
                         table.setDisable(true);
                         ViewButton.setVisible(false);
@@ -361,7 +380,7 @@ public class ServiceRequestViewController {
 
     backButton.setOnMouseClicked(
         event -> {
-          Sound.playOnButtonClick();
+          Sound.playSFX(SFX.BUTTONCLICK);
           totalPrice = 0.0;
           System.out.println("Back " + totalPrice);
           table.setVisible(true);
@@ -394,9 +413,26 @@ public class ServiceRequestViewController {
               requestStatusCombo.getValue(),
               Timestamp.valueOf(dateBox.getValue().atStartOfDay()),
               requestStaffCombo.getValue()));
+    } else if (GlobalVariables.isRequestFromMap()) {
+      room = GlobalVariables.getRoomFromMap();
+      dateBox.setValue(GlobalVariables.getDateFromMap().toLocalDateTime().toLocalDate());
+      table.setItems(
+          tableFilter(
+              requestTypeCombo.getValue(),
+              requestStatusCombo.getValue(),
+              Timestamp.valueOf(dateBox.getValue().atStartOfDay()),
+              requestStaffCombo.getValue()));
+      GlobalVariables.setRequestFromMap(false);
     }
   }
 
+  /**
+   * fills the pane of the cart view of an individual service request
+   *
+   * @param reqID request ID number to retrieve all the ordered items from
+   * @param folder folder to get the images for a specific service request type
+   * @throws SQLException
+   */
   private void fillPane(int reqID, String folder) throws SQLException {
     ServiceRequest request = DataManager.getServiceRequest(reqID);
     ArrayList<ItemsOrdered> orderedItems = new ArrayList<>();
@@ -404,22 +440,22 @@ public class ServiceRequestViewController {
     orderedItems = DataManager.getItemsFromReq(reqID);
     for (int i = 0; i < orderedItems.size(); i++) {
       ItemsOrdered item = orderedItems.get(i);
-      if (item.getItemID() / 100 >= 10 && item.getItemID() / 100 < 11) { // flower
+      if (item.getItemID() / 100 == 10) { // flower
         folder = "FlowerIcons";
         tempItems.add(DataManager.getFlower(item.getItemID()));
-      } else if (item.getItemID() / 100 >= 11 && item.getItemID() / 100 < 12) { // meal
+      } else if (item.getItemID() / 100 == 11) { // meal
         folder = "MealIcons";
         tempItems.add(DataManager.getMeal(item.getItemID()));
-      } else if (item.getItemID() / 100 >= 13 && item.getItemID() / 100 < 14) { // furniture
+      } else if (item.getItemID() / 100 == 13) { // furniture
         folder = "FurnitureIcons";
         tempItems.add(DataManager.getFurniture(item.getItemID()));
-      } else if (item.getItemID() / 100 >= 14 && item.getItemID() / 100 < 15) { // office supply
+      } else if (item.getItemID() / 100 == 14) { // office supply
         folder = "OfficeIcons";
         tempItems.add(DataManager.getOfficeSupply(item.getItemID()));
-      } else if (item.getItemID() / 100 >= 15 && item.getItemID() / 100 < 16) { // medical Supply
+      } else if (item.getItemID() / 100 == 15) { // medical Supply
         folder = "MedicalIcons";
         tempItems.add(DataManager.getMedicalSupply(item.getItemID()));
-      } else if (item.getItemID() / 100 >= 12 && item.getItemID() / 100 < 13) { // pharmacuedical
+      } else if (item.getItemID() / 100 == 12) { // pharmacuedical
         folder = "PharmaceuticalIcons";
         tempItems.add(DataManager.getPharmaceutical(item.getItemID()));
       }

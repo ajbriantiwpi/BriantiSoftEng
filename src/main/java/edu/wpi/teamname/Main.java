@@ -1,6 +1,8 @@
 package edu.wpi.teamname;
 
+import edu.wpi.teamname.database.DataManager;
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.ParseException;
 
@@ -9,6 +11,13 @@ public class Main {
     // ScreenSaver.launch(ScreenSaver.class, args);
     GlobalVariables.setArgs(args);
     App.launch(App.class, args);
+    try {
+      Connection connection = DataManager.DbConnection();
+      connection.close();
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    System.exit(0);
   }
   // shortcut: psvm
 }

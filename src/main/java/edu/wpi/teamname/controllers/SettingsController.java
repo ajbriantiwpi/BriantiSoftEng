@@ -6,12 +6,15 @@ import edu.wpi.teamname.Screen;
 import edu.wpi.teamname.ThemeSwitch;
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.employees.ClearanceLevel;
+import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Song;
 import edu.wpi.teamname.extras.Sound;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.awt.*;
 import java.sql.SQLException;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -20,6 +23,7 @@ import javafx.scene.layout.AnchorPane;
  * adjusting the application's volume.
  */
 public class SettingsController {
+  @FXML CheckBox darkToggle;
   @FXML AnchorPane root;
   private static boolean wpiSelected = true;
   @FXML Slider volumeSlide;
@@ -39,7 +43,12 @@ public class SettingsController {
    */
   @FXML
   public void initialize() throws SQLException {
+
+    // darkToggle.setOnAction(event -> GlobalVariables.getDarkMode().set(darkToggle.isSelected()));
+
     ThemeSwitch.switchTheme(root);
+    darkToggle.selectedProperty().bindBidirectional(GlobalVariables.getDarkMode());
+    darkToggle.setOnAction(e -> Sound.playSFX(SFX.BUTTONCLICK));
     ParentController.titleString.set("Settings");
     viewFeedbackButton.setDisable(true);
     wpiButton.setDisable(true);
@@ -78,6 +87,7 @@ public class SettingsController {
       awsButton.setVisible(true);
     }
     // Add a listener to the volume slider
+    volumeSlide.setValue(Sound.getVolume());
     volumeSlide
         .valueProperty()
         .addListener(
