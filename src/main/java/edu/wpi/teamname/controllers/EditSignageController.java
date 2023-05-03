@@ -61,6 +61,17 @@ public class EditSignageController {
   @FXML private AnchorPane rootPane;
   @FXML private TextField searchBar;
 
+    /**
+     *  sets the language of the labels
+     *  @param lang language to set it to
+     * @param longNameColumn column of the long name
+     * @param shortNameColumn column for the short names
+     * @param dateColumn column for the dates
+     * @param endDateColumn column for the end date
+     * @param arrowDirectionColumn direction for the signage
+     * @param signIDColumn signage id
+     * @param kioskIDColumn id of the kiosk
+     */
   public void setLanguage(
       Language lang,
       TableColumn longNameColumn,
@@ -90,7 +101,7 @@ public class EditSignageController {
         endDateColumn.setText("End Date");
         arrowDirectionColumn.setText("Direction");
         signIDColumn.setText("Sign ID");
-        kioskIDLabel.setText("Kiosk ID");
+        kioskIDColumn.setText("Kiosk ID");
         break;
       case FRENCH:
         ParentController.titleString.set(
@@ -112,7 +123,7 @@ public class EditSignageController {
         endDateColumn.setText("Date de Fin");
         arrowDirectionColumn.setText("Direction");
         signIDColumn.setText("ID du Signal");
-        kioskIDLabel.setText("ID du Kiosque");
+          kioskIDColumn.setText("ID du Kiosque");
         break;
       case ITALIAN:
         ParentController.titleString.set("Editor di Segnaletica");
@@ -133,7 +144,7 @@ public class EditSignageController {
         endDateColumn.setText("Data di Fine");
         arrowDirectionColumn.setText("Direzione");
         signIDColumn.setText("ID Segnale");
-        kioskIDLabel.setText("ID Kiosk");
+          kioskIDColumn.setText("ID Kiosk");
         break;
       case SPANISH:
         ParentController.titleString.set(
@@ -169,8 +180,9 @@ public class EditSignageController {
         endDateColumn.setText("Fecha de Finalizaci" + GlobalVariables.getOAcute() + "n");
         arrowDirectionColumn.setText("Direcci" + GlobalVariables.getOAcute() + "n");
         signIDColumn.setText("ID de Se" + GlobalVariables.getNTilda() + "al");
-        kioskIDLabel.setText("ID de Kiosco");
-        break;
+          kioskIDColumn.setText("ID de Kiosco");
+
+          break;
     }
   }
 

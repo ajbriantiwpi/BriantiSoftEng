@@ -444,10 +444,15 @@ public class ParentController {
     return null; // Test for errors
   }
 
+  /**
+   * changes the language of the app
+   * @param lang language to change it to
+   */
   public void setLanguage(Language lang) {
     switch (lang) {
       case ENGLISH:
         homeButton.setText("Home");
+        SettingsButton.setText("Settings");
         mapButton.setText("Map");
         viewSignageButton.setText("View Signage");
         makeRequestsButton.setText("Make Requests");
@@ -482,6 +487,7 @@ public class ParentController {
         loginButton.setText("Connexion");
         logoutButton.setText("Se d" + GlobalVariables.getEAcute() + "connecter");
         exitButton.setText("Sortie");
+        SettingsButton.setText("Param" + GlobalVariables.getEGrave() + "tres");
         mapButtonSelector.setText("Carte");
         viewSignageButtonSelector.setText("Signalisation");
         makeRequestsButtonSelector.setText("Demandes");
@@ -503,10 +509,12 @@ public class ParentController {
         logoutButton.setText("Disconnettersi");
         exitButton.setText("Uscire");
         mapButtonSelector.setText("Mappa");
+        SettingsButton.setText("Impostazioni");
         viewSignageButtonSelector.setText("Segnaletica");
         makeRequestsButtonSelector.setText("Richieste");
         break;
       case SPANISH:
+        SettingsButton.setText("Configuraci" + GlobalVariables.getOAcute() + "n");
         EmergencyButton.setText("Emergencia");
         homeButton.setText("P" + GlobalVariables.getAAcute() + "gina de Inicio");
         mapButton.setText("Mapa");

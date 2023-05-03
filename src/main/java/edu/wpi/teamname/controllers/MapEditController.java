@@ -1206,6 +1206,11 @@ public class MapEditController {
         }
       };
 
+  /**
+   * changes the language of the app
+   * @param lang language to set it to
+   * @throws SQLException when the datamanager throws one
+   */
   public void setLanguage(Language lang) throws SQLException {
     switch (lang) {
       case ENGLISH:

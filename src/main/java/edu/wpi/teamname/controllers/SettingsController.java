@@ -52,6 +52,10 @@ public class SettingsController {
   @FXML RadioButton awsButton;
   @FXML ComboBox<String> setLocationBox;
 
+  /**
+   * sets the language of all the labels
+   * @param lang language of current app
+   */
   public void setLanguage(Language lang) {
     switch (lang) {
       case ENGLISH:

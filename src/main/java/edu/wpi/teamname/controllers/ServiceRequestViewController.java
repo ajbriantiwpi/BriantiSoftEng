@@ -137,6 +137,11 @@ public class ServiceRequestViewController {
     return requestList;
   }
 
+  /**
+   * changes the language of the app
+   * @param lang language to it to
+   * @throws SQLException when the datamanager throws one
+   */
   public void setLanguage(Language lang) throws SQLException {
 
     switch (lang) {
