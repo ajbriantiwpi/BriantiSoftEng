@@ -73,8 +73,8 @@ public class SignageController {
         submit.setText("Submit");
         break;
       case SPANISH:
-        ParentController.titleString.set("Señalización");
-        signageSearchLabel.setText("Búsqueda de señalización");
+        ParentController.titleString.set("Se"+GlobalVariables.getNTilda()+"alizaci"+GlobalVariables.getOAcute()+"n");
+        signageSearchLabel.setText("B"+GlobalVariables.getUAcute()+"squeda de se"+GlobalVariables.getNTilda()+"alizaci"+GlobalVariables.getOAcute()+"n");
         dateLabel.setText("Seleccione fecha");
         kioskIDLabel.setText("Seleccione ID de quiosco");
         submit.setText("Enviar");

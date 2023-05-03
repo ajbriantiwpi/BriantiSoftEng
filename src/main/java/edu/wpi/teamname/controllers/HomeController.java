@@ -306,7 +306,7 @@ public class HomeController {
         exitButton.setText("Sortir");
         settingsButton.setText("Paramètres");
         notificationPopupButtonSimple.setText("Notifications");
-        creditButton.setText("Crédits");
+        creditButton.setText("Cr"+GlobalVariables.getEAcute()+"dits");
         aboutButton.setText(GlobalVariables.getBigAGrave()+" propos");
         helpButton.setText("Aide");
         loginButton.setText("Se connecter");

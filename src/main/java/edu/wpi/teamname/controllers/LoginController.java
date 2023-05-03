@@ -126,16 +126,16 @@ public class LoginController {
         passwordText.setPromptText("Mot de passe");
         loginButton.setText("Se connecter");
         cancel.setText("Annuler");
-        forgotPassword.setText("Mot de passe oublié");
+        forgotPassword.setText("Mot de passe oubli"+GlobalVariables.getEAcute());
         exit.setText("Sortir");
         break;
       case SPANISH:
-        loginLabel.setText("Inicio de sesión");
+        loginLabel.setText("Inicio de sesi"+GlobalVariables.getOAcute()+"n");
         loginText.setPromptText("Nombre de usuario");
-        passwordText.setPromptText("Contraseña");
-        loginButton.setText("Iniciar sesión");
+        passwordText.setPromptText("Contrase"+GlobalVariables.getNTilda()+"a");
+        loginButton.setText("Iniciar sesi"+GlobalVariables.getOAcute()+"n");
         cancel.setText("Cancelar");
-        forgotPassword.setText("¿Olvidó su contraseña?");
+        forgotPassword.setText("¿Olvid"+GlobalVariables.getOAcute()+" su contrase"+GlobalVariables.getNTilda()+"a?");
         exit.setText("Salir");
         break;
     }

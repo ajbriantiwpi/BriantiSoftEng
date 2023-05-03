@@ -33,7 +33,7 @@ public class FeedbackController {
       case ITALIAN:
         ParentController.titleString.set("Invio Commenti");
         bugReportLabel.setText("Segnala un Problema");
-        descriptionField.setPromptText("Fornisci una descrizione di ciò che è accaduto...");
+        descriptionField.setPromptText("Fornisci una descrizione di ci"+GlobalVariables.getOGrave()+" che "+GlobalVariables.getEGrave()+" accaduto...");
         break;
       case FRENCH:
         ParentController.titleString.set("Soumission de Commentaires");
@@ -41,9 +41,9 @@ public class FeedbackController {
         descriptionField.setPromptText("Donnez une description de ce qui s'est produit...");
         break;
       case SPANISH:
-        ParentController.titleString.set("Envío de Comentarios");
+        ParentController.titleString.set("Env"+GlobalVariables.getIAcute()+"o de Comentarios");
         bugReportLabel.setText("Informe de Error");
-        descriptionField.setPromptText("Proporcione una descripción de lo que ocurrió...");
+        descriptionField.setPromptText("Proporcione una descripci"+GlobalVariables.getOAcute()+"n de lo que ocurri"+GlobalVariables.getOAcute()+"...");
         break;
     }
   }

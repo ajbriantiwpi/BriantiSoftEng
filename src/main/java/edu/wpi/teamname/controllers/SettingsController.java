@@ -66,23 +66,23 @@ public class SettingsController {
         viewFeedbackButton.setText("Visualizza Feedback");
         break;
       case FRENCH:
-        ParentController.titleString.set("Paramètres");
-        hardwareLabel.setText("Paramètres Matériels");
+        ParentController.titleString.set("Param"+GlobalVariables.getEGrave()+"tres");
+        hardwareLabel.setText("Param"+GlobalVariables.getEGrave()+"tres Mat"+GlobalVariables.getEAcute()+"riels");
         volumeLabel.setText("Volume");
         songLabel.setText("Choisir une chanson");
-        appSettingsLabel.setText("Paramètres de l'application");
-        dbConnectionLabel.setText("Connexion à la base de données");
-        dataManageButton.setText("Données");
+        appSettingsLabel.setText("Param"+GlobalVariables.getEGrave()+"tres de l'application");
+        dbConnectionLabel.setText("Connexion "+GlobalVariables.getAGrave()+" la base de donn"+GlobalVariables.getEAcute()+"es");
+        dataManageButton.setText("Donn"+GlobalVariables.getEAcute()+"es");
         feedbackButton.setText("Commentaires");
         viewFeedbackButton.setText("Voir les commentaires");
         break;
       case SPANISH:
-        ParentController.titleString.set("Configuración");
-        hardwareLabel.setText("Configuración de Hardware");
+        ParentController.titleString.set("Configuraci"+GlobalVariables.getOAcute()+"n");
+        hardwareLabel.setText("Configuraci"+GlobalVariables.getOAcute()+"n de Hardware");
         volumeLabel.setText("Volumen");
-        songLabel.setText("Elegir Canción");
-        appSettingsLabel.setText("Configuración de la Aplicación");
-        dbConnectionLabel.setText("Conexión de Base de Datos");
+        songLabel.setText("Elegir Canci"+GlobalVariables.getOAcute()+"n");
+        appSettingsLabel.setText("Configuraci"+GlobalVariables.getOAcute()+"n de la Aplicaci"+GlobalVariables.getOAcute()+"n");
+        dbConnectionLabel.setText("Conexi"+GlobalVariables.getOAcute()+"n de Base de Datos");
         dataManageButton.setText("Datos");
         feedbackButton.setText("Comentarios");
         viewFeedbackButton.setText("Ver Comentarios");
