@@ -1,5 +1,7 @@
 package edu.wpi.teamname.controllers.JFXitems;
 
+import edu.wpi.teamname.extras.SFX;
+import edu.wpi.teamname.extras.Sound;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.scene.AccessibleRole;
 import lombok.Getter;
@@ -54,6 +56,7 @@ public class SelectorButton extends MFXButton {
     } else {
       getStyleClass().clear();
       getStyleClass().add("error");
+      Sound.playSFX(SFX.ERROR);
     }
   }
 }
