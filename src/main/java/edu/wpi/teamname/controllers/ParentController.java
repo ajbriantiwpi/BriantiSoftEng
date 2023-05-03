@@ -9,6 +9,7 @@ import edu.wpi.teamname.employees.ClearanceLevel;
 import edu.wpi.teamname.extras.Language;
 import edu.wpi.teamname.extras.SFX;
 import edu.wpi.teamname.extras.Sound;
+import edu.wpi.teamname.extras.Weather;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.sql.Connection;
@@ -73,6 +74,17 @@ public class ParentController {
   @FXML MFXButton viewAlertsButton; // = new MFXButton();
   @FXML Label titleLabel;
 
+  // Top bar label
+  @FXML Label timeLabel;
+
+  @FXML Label dateLabel;
+
+  @FXML Label tempLabel;
+
+  @FXML Label descLabel;
+
+  @FXML Label userLabel;
+
   @FXML VBox SideBar;
   @FXML HBox MainScreen;
 
@@ -107,6 +119,11 @@ public class ParentController {
               Screen.SMILE));
 
   @Setter public static StringProperty titleString = new SimpleStringProperty();
+  @Setter public static StringProperty timeString = new SimpleStringProperty();
+  @Setter public static StringProperty dateString = new SimpleStringProperty();
+  @Setter public static StringProperty tempString = new SimpleStringProperty();
+  @Setter public static StringProperty userString = new SimpleStringProperty();
+  @Setter public static StringProperty weatherString = new SimpleStringProperty();
 
   /** * Disables all the buttons that can not be accessed without logging in */
   public void disableButtonsWhenNotLoggedIn() {
@@ -575,6 +592,18 @@ public class ParentController {
     setLanguage(GlobalVariables.getB().getValue());
 
     titleLabel.setText(titleString.getValue());
+    timeString.set(Weather.getTime());
+    dateString.set(Weather.getDate());
+    tempString.set("42"); // Weather.getTemperature())
+    weatherString.set("Snowing"); // Weather.getDescription()
+    userString.set(GlobalVariables.getCurrentUser().getUsername());
+
+    titleLabel.setText(titleString.getValue());
+    timeLabel.setText(timeString.getValue());
+    dateLabel.setText(dateString.getValue());
+    descLabel.setText(weatherString.getValue());
+    tempLabel.setText(tempString.getValue());
+    userLabel.setText(userString.getValue());
 
     System.out.println("Parent!: " + HomeController.getLoggedIn().getValue());
 
