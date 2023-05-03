@@ -93,7 +93,8 @@ public class EditSignageController {
         kioskIDLabel.setText("Kiosk ID");
         break;
       case FRENCH:
-        ParentController.titleString.set("Éditeur de Signalisation");
+        ParentController.titleString.set(
+            GlobalVariables.getBigEACute() + "diteur de Signalisation");
         addSignageLabel.setText("Ajouter une Signalisation");
         idLabel.setText("ID du Signal");
         kioskIDLabel.setText("ID du Kiosque");
@@ -135,24 +136,39 @@ public class EditSignageController {
         kioskIDLabel.setText("ID Kiosk");
         break;
       case SPANISH:
-        ParentController.titleString.set("Editor de Señalización");
-        addSignageLabel.setText("Agregar Señalización");
-        idLabel.setText("ID de Señal");
+        ParentController.titleString.set(
+            "Editor de Se"
+                + GlobalVariables.getNTilda()
+                + "alizaci"
+                + GlobalVariables.getOAcute()
+                + "n");
+        addSignageLabel.setText(
+            "Agregar Se"
+                + GlobalVariables.getNTilda()
+                + "alizaci"
+                + GlobalVariables.getOAcute()
+                + "n");
+        idLabel.setText("ID de Se" + GlobalVariables.getNTilda() + "al");
         kioskIDLabel.setText("ID de Kiosco");
         longLabel.setText("Nombre Largo");
         shortLabel.setText("Nombre Corto");
         dateLabel.setText("Fecha");
-        endLabel.setText("Fecha de Finalización");
-        directionLabel.setText("Dirección");
+        endLabel.setText("Fecha de Finalizaci" + GlobalVariables.getOAcute() + "n");
+        directionLabel.setText("Direcci" + GlobalVariables.getOAcute() + "n");
         submitButton.setText("Enviar");
-        editLabel.setText("Editar Señalización");
+        editLabel.setText(
+            "Editar Se"
+                + GlobalVariables.getNTilda()
+                + "alizaci"
+                + GlobalVariables.getOAcute()
+                + "n");
         searchLabel.setText("Buscar");
         longNameColumn.setText("Nombre Largo");
         shortNameColumn.setText("Nombre Corto");
         dateColumn.setText("Fecha");
-        endDateColumn.setText("Fecha de Finalización");
-        arrowDirectionColumn.setText("Dirección");
-        signIDColumn.setText("ID de Señal");
+        endDateColumn.setText("Fecha de Finalizaci" + GlobalVariables.getOAcute() + "n");
+        arrowDirectionColumn.setText("Direcci" + GlobalVariables.getOAcute() + "n");
+        signIDColumn.setText("ID de Se" + GlobalVariables.getNTilda() + "al");
         kioskIDLabel.setText("ID de Kiosco");
         break;
     }

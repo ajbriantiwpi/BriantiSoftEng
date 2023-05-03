@@ -151,26 +151,42 @@ public class ConfrenceViewController {
         roomCol.setText("Room ID");
         break;
       case FRENCH:
-        ParentController.titleString.set("Vue des réservations de salle de conférence");
+        ParentController.titleString.set(
+            "Vue des r"
+                + GlobalVariables.getEAcute()
+                + "servations de salle de conf"
+                + GlobalVariables.getEAcute()
+                + "rence");
         filterTableLabel.setText("Filtrer la table");
         dateLabel.setText("Date");
         refreshButton.setText("Actualiser");
-        assignedLabel.setText("Personnel assigné");
+        assignedLabel.setText("Personnel assign" + GlobalVariables.getEAcute());
         requestStaffCombo.setPromptText("Choisir le personnel");
-        assignStaffLabel.setText("Assigner le personnel à la réservation");
-        idLabel.setText("ID de réservation");
-        reservationIDText.setPromptText("Sélectionner l'ID de réservation");
+        assignStaffLabel.setText(
+            "Assigner le personnel "
+                + GlobalVariables.getAGrave()
+                + " la r"
+                + GlobalVariables.getEAcute()
+                + "servation");
+        idLabel.setText("ID de r" + GlobalVariables.getEAcute() + "servation");
+        reservationIDText.setPromptText(
+            "S"
+                + GlobalVariables.getEAcute()
+                + "lectionner l'ID de r"
+                + GlobalVariables.getEAcute()
+                + "servation");
         assignStaffLabel1.setText("Assigner le personnel");
-        assignStaffText.setPromptText("Sélectionner le personnel");
+        assignStaffText.setPromptText(
+            "S" + GlobalVariables.getEAcute() + "lectionner le personnel");
         submitButton.setText("Assigner");
-        resIDCol.setText("ID de réservation");
+        resIDCol.setText("ID de r" + GlobalVariables.getEAcute() + "servation");
         dateCol.setText("Date");
-        startCol.setText("Heure de début");
+        startCol.setText("Heure de d" + GlobalVariables.getEAcute() + "but");
         endCol.setText("Heure de fin");
         nameCol.setText("Nom");
         usernameCol.setText("Nom d'utilisateur");
-        assignedStaffCol.setText("Personnel assigné");
-        madeCol.setText("Date de création");
+        assignedStaffCol.setText("Personnel assign" + GlobalVariables.getEAcute());
+        madeCol.setText("Date de cr" + GlobalVariables.getOAcute() + "ation");
         roomCol.setText("ID de la salle");
         break;
       case ITALIAN:
@@ -212,7 +228,7 @@ public class ConfrenceViewController {
         resIDCol.setText("ID de Reserva");
         dateCol.setText("Fecha");
         startCol.setText("Hora de Inicio");
-        endCol.setText("Hora de Finalización");
+        endCol.setText("Hora de Finalizaci" + GlobalVariables.getOAcute() + "n");
         nameCol.setText("Nombre");
         usernameCol.setText("Nombre de Usuario");
         assignedStaffCol.setText("Personal Asignado");
