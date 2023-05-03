@@ -3,6 +3,17 @@
 @import "darkDate.css";
 @import "typography.css";
 
+.switch .thumb-area{
+    -fx-background-color: #3D4758;
+}
+.switch:selected .thumb-area{
+    -fx-background-color:  #2FA7B0;
+}
+
+.switch .thumb{
+    -fx-background-color: #1E2023;
+}
+
 .primary-container{
     -fx-background-color: #004788;
     -fx-text-fill: #D5E3FF;
