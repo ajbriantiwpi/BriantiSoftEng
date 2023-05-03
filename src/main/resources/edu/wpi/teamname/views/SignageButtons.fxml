@@ -10,14 +10,14 @@
 
 <VBox alignment="CENTER" styleClass="primary-on-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <MFXButton id="View Signage" fx:id="viewSignageButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="primary-on-container" text="View Signage" textFill="#1a1c1e">
+      <MFXButton id="View Signage" fx:id="viewSignageButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" minHeight="50.0" styleClass="primary-on-container" text="View Signage" textFill="#1a1c1e">
          <font>
             <Font name="Roboto" size="22.0" />
          </font>
          <graphic>
             <ImageView fitHeight="34.0" fitWidth="34.0">
                <image>
-                  <Image url="@../images/MenuIcons/view_signage_sidebar.png" />
+                  <Image url="@../images/MenuIcons/sideIcons/directions.png" />
                </image>
             </ImageView>
          </graphic>
@@ -26,14 +26,14 @@
             <URL value="@../stylesheets/Colors/sideBarColor.css" />
          </stylesheets>
       </MFXButton>
-      <MFXButton id="Edit Signage" fx:id="editSignageButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" styleClass="primary-on-container" text="Edit Signage" textFill="#1a1c1e">
+      <MFXButton id="Edit Signage" fx:id="editSignageButton" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" minHeight="50.0" styleClass="primary-on-container" text="Edit Signage" textFill="#1a1c1e">
          <font>
             <Font name="Roboto" size="22.0" />
          </font>
          <graphic>
             <ImageView fitHeight="34.0" fitWidth="34.0">
                <image>
-                  <Image url="@../images/MenuIcons/edit_signage_sidebar.png" />
+                  <Image url="@../images/MenuIcons/sideIcons/fork_left.png" />
                </image>
             </ImageView>
          </graphic>

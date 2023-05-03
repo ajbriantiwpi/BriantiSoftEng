@@ -63,7 +63,7 @@ public class SettingsController {
         dbConnectionLabel.setText("Database Connection");
         dataManageButton.setText("Data");
         darkToggle.setText("Dark Mode");
-        feedbackButton.setText("Feedback");
+        feedbackButton.setText("Submit Feedback");
         viewFeedbackButton.setText("View Feedback");
         break;
       case ITALIAN:
@@ -76,7 +76,7 @@ public class SettingsController {
         appSettingsLabel.setText("Impostazioni dell'App");
         dbConnectionLabel.setText("Connessione al Database");
         dataManageButton.setText("Dati");
-        feedbackButton.setText("Feedback");
+        feedbackButton.setText("Invia feedback");
         viewFeedbackButton.setText("Visualizza Feedback");
         break;
       case FRENCH:
@@ -99,7 +99,7 @@ public class SettingsController {
                 + GlobalVariables.getEAcute()
                 + "es");
         dataManageButton.setText("Donn" + GlobalVariables.getEAcute() + "es");
-        feedbackButton.setText("Commentaires");
+        feedbackButton.setText("Soumettre des commentaires");
         viewFeedbackButton.setText("Voir les commentaires");
         break;
       case SPANISH:
@@ -117,7 +117,7 @@ public class SettingsController {
                 + "n");
         dbConnectionLabel.setText("Conexi" + GlobalVariables.getOAcute() + "n de Base de Datos");
         dataManageButton.setText("Datos");
-        feedbackButton.setText("Comentarios");
+        feedbackButton.setText("Enviar comentarios");
         viewFeedbackButton.setText("Ver Comentarios");
         break;
     }
