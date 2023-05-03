@@ -7,6 +7,7 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TitledPane?>
@@ -21,7 +22,6 @@
 <?import javafx.scene.text.Font?>
 <?import net.kurobako.gesturefx.GesturePane?>
 
-<?import javafx.scene.control.ScrollPane?>
 <HBox fx:id="root" style="-fx-background-radius: 16;" styleClass="surface" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MapEditController">
     <children>
 
@@ -292,6 +292,9 @@
                                 <TableColumn fx:id="shortNameColumn" minWidth="300.0" prefWidth="300.0" text="Short Name" />
                                 <TableColumn fx:id="nodeTypeColumn" minWidth="300.0" prefWidth="300.0" text="Node Type" />
                             </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
                         </TableView>
                     </children>
                 </StackPane>
