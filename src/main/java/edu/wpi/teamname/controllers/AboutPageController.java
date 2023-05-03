@@ -39,6 +39,7 @@ public class AboutPageController {
   public void setLanguage(Language lang) {
     switch (lang) {
       case ENGLISH:
+        ParentController.titleString.set("About");
         titleLabel.setText(
             "WPI Computer Science Department\n"
                 + "\n"
@@ -54,6 +55,7 @@ public class AboutPageController {
                 + "for their time and input with this project.");
         break;
       case ITALIAN:
+        ParentController.titleString.set("Informazioni");
         titleLabel.setText(
             "Dipartimento di Informatica del WPI\n"
                 + "\n"
@@ -69,6 +71,7 @@ public class AboutPageController {
                 + "per il loro tempo e contributo a questo progetto.");
         break;
       case SPANISH:
+        ParentController.titleString.set("Acerca de");
         titleLabel.setText(
             "Departamento de Ciencias de la Computaci"+ GlobalVariables.getOAcute()+ "n del WPI\n"
                 + "\n"
@@ -84,6 +87,7 @@ public class AboutPageController {
                 + "por su tiempo y aporte en este proyecto.");
         break;
       case FRENCH:
+        ParentController.titleString.set("À propos");
         titleLabel.setText(
             "Département d'Informatique du WPI\n"
                 + "\n"
