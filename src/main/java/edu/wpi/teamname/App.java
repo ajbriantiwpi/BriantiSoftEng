@@ -28,7 +28,7 @@ public class App extends Application {
   boolean flag = false;
   AtomicInteger count = new AtomicInteger();
 
-  //ScreenSaver ss = new ScreenSaver();
+  // ScreenSaver ss = new ScreenSaver();
   private boolean loading;
 
   @Override
