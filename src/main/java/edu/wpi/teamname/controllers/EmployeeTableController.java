@@ -123,26 +123,26 @@ public class EmployeeTableController {
         password.setText("Password");
         break;
       case FRENCH:
-        ParentController.titleString.set("Employés");
-        addEmployeeLabel.setText("Ajouter un employé");
-        idLabel.setText("Identifiant de l'employé");
-        firstNameLabel.setText("Prénom");
+        ParentController.titleString.set("Employ" + GlobalVariables.getEAcute() + "s");
+        addEmployeeLabel.setText("Ajouter un employ" + GlobalVariables.getEAcute());
+        idLabel.setText("Identifiant de l'employ" + GlobalVariables.getEAcute());
+        firstNameLabel.setText("Pr" + GlobalVariables.getEAcute() + "nom");
         lastNameLabel.setText("Nom de famille");
         clearanceLabel.setText("Niveau d'habilitation :");
-        typeLabel.setText("Type d'employé");
+        typeLabel.setText("Type d'employ" + GlobalVariables.getEAcute());
         usernameLabel.setText("Nom d'utilisateur");
         passwordLabel.setText("Mot de passe");
         submitButton.setText("Soumettre");
         csvLabel.setText("Gestionnaire CSV");
         importButton.setText("Importer");
         exportButton.setText("Exporter");
-        employeesLabel.setText("Employés");
+        employeesLabel.setText("Employ" + GlobalVariables.getEAcute() + "s");
         searchLabel.setText("Rechercher");
-        id.setText("Identifiant de l'employé");
-        first.setText("Prénom");
+        id.setText("Identifiant de l'employ" + GlobalVariables.getEAcute());
+        first.setText("Pr" + GlobalVariables.getEAcute() + "nom");
         last.setText("Nom de famille");
         clearance.setText("Niveau d'habilitation");
-        type.setText("Type d'employé");
+        type.setText("Type d'employ" + GlobalVariables.getEAcute());
         username.setText("Nom d'utilisateur");
         password.setText("Mot de passe");
         break;
@@ -152,10 +152,10 @@ public class EmployeeTableController {
         idLabel.setText("ID del Empleado");
         firstNameLabel.setText("Nombre");
         lastNameLabel.setText("Apellido");
-        clearanceLabel.setText("Nivel de Autorización");
+        clearanceLabel.setText("Nivel de Autorizaci" + GlobalVariables.getOAcute() + "n");
         typeLabel.setText("Tipo de Empleado");
         usernameLabel.setText("Nombre de Usuario");
-        passwordLabel.setText("Contraseña");
+        passwordLabel.setText("Contrase" + GlobalVariables.getNTilda() + "a");
         submitButton.setText("Enviar");
         csvLabel.setText("Administrador CSV");
         importButton.setText("Importar");
@@ -165,10 +165,10 @@ public class EmployeeTableController {
         id.setText("ID del Empleado");
         first.setText("Nombre");
         last.setText("Apellido");
-        clearance.setText("Nivel de Autorización");
+        clearance.setText("Nivel de Autorizaci" + GlobalVariables.getOAcute() + "n");
         type.setText("Tipo de Empleado");
         username.setText("Nombre de Usuario");
-        password.setText("Contraseña");
+        password.setText("Contrase" + GlobalVariables.getNTilda() + "a");
         break;
     }
   }

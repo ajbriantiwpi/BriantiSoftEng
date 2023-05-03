@@ -22,12 +22,12 @@ public class CreditsPageController {
         creditsLabel.setText("Crediti");
         break;
       case FRENCH:
-        ParentController.titleString.set("Crédits");
-        creditsLabel.setText("Crédits");
+        ParentController.titleString.set("Cr" + GlobalVariables.getEAcute() + "dits");
+        creditsLabel.setText("Cr" + GlobalVariables.getEAcute() + "dits");
         break;
       case SPANISH:
-        ParentController.titleString.set("Créditos");
-        creditsLabel.setText("Créditos");
+        ParentController.titleString.set("Cr" + GlobalVariables.getEAcute() + "ditos");
+        creditsLabel.setText("Cr" + GlobalVariables.getEAcute() + "ditos");
         break;
     }
   }

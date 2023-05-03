@@ -17,6 +17,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import lombok.Getter;
+import lombok.Setter;
 import org.controlsfx.control.SearchableComboBox;
 
 /** Controller for the UI to view the conference room reservations */
@@ -47,7 +49,7 @@ public class ConfrenceViewController {
   @FXML AnchorPane root;
 
   private double totalPrice = 0.0;
-
+  @Getter @Setter static int roomNum;
   @FXML DatePicker dateBox;
   @FXML SearchableComboBox<String> requestStaffCombo;
   //  ObservableList<String> serviceType =
@@ -76,6 +78,13 @@ public class ConfrenceViewController {
                       (reservation) ->
                           (reservation.getDateBook().getDate() == date.getDate())
                               && (reservation.getDateBook().getMonth() == date.getMonth()))
+                  .toList());
+    }
+    if (roomNum != 0) {
+      reservationList =
+          FXCollections.observableList(
+              reservationList.stream()
+                  .filter((reservation) -> (roomNum == reservation.getRoomID()))
                   .toList());
     }
     if (!(username == (null)) && !(username.toString().equals(""))) {
@@ -142,26 +151,42 @@ public class ConfrenceViewController {
         roomCol.setText("Room ID");
         break;
       case FRENCH:
-        ParentController.titleString.set("Vue des réservations de salle de conférence");
+        ParentController.titleString.set(
+            "Vue des r"
+                + GlobalVariables.getEAcute()
+                + "servations de salle de conf"
+                + GlobalVariables.getEAcute()
+                + "rence");
         filterTableLabel.setText("Filtrer la table");
         dateLabel.setText("Date");
         refreshButton.setText("Actualiser");
-        assignedLabel.setText("Personnel assigné");
+        assignedLabel.setText("Personnel assign" + GlobalVariables.getEAcute());
         requestStaffCombo.setPromptText("Choisir le personnel");
-        assignStaffLabel.setText("Assigner le personnel à la réservation");
-        idLabel.setText("ID de réservation");
-        reservationIDText.setPromptText("Sélectionner l'ID de réservation");
+        assignStaffLabel.setText(
+            "Assigner le personnel "
+                + GlobalVariables.getAGrave()
+                + " la r"
+                + GlobalVariables.getEAcute()
+                + "servation");
+        idLabel.setText("ID de r" + GlobalVariables.getEAcute() + "servation");
+        reservationIDText.setPromptText(
+            "S"
+                + GlobalVariables.getEAcute()
+                + "lectionner l'ID de r"
+                + GlobalVariables.getEAcute()
+                + "servation");
         assignStaffLabel1.setText("Assigner le personnel");
-        assignStaffText.setPromptText("Sélectionner le personnel");
+        assignStaffText.setPromptText(
+            "S" + GlobalVariables.getEAcute() + "lectionner le personnel");
         submitButton.setText("Assigner");
-        resIDCol.setText("ID de réservation");
+        resIDCol.setText("ID de r" + GlobalVariables.getEAcute() + "servation");
         dateCol.setText("Date");
-        startCol.setText("Heure de début");
+        startCol.setText("Heure de d" + GlobalVariables.getEAcute() + "but");
         endCol.setText("Heure de fin");
         nameCol.setText("Nom");
         usernameCol.setText("Nom d'utilisateur");
-        assignedStaffCol.setText("Personnel assigné");
-        madeCol.setText("Date de création");
+        assignedStaffCol.setText("Personnel assign" + GlobalVariables.getEAcute());
+        madeCol.setText("Date de cr" + GlobalVariables.getOAcute() + "ation");
         roomCol.setText("ID de la salle");
         break;
       case ITALIAN:
@@ -203,7 +228,7 @@ public class ConfrenceViewController {
         resIDCol.setText("ID de Reserva");
         dateCol.setText("Fecha");
         startCol.setText("Hora de Inicio");
-        endCol.setText("Hora de Finalización");
+        endCol.setText("Hora de Finalizaci" + GlobalVariables.getOAcute() + "n");
         nameCol.setText("Nombre");
         usernameCol.setText("Nombre de Usuario");
         assignedStaffCol.setText("Personal Asignado");
@@ -227,6 +252,7 @@ public class ConfrenceViewController {
    */
   @FXML
   public void initialize() throws SQLException {
+    roomNum = 0;
     ThemeSwitch.switchTheme(root);
     ParentController.titleString.set("Conference Room Reservations View");
     setLanguage(GlobalVariables.getB().getValue());
@@ -360,6 +386,7 @@ public class ConfrenceViewController {
 
     if (GlobalVariables.isRequestFromMap()) {
       dateBox.setValue(GlobalVariables.getDateFromMap().toLocalDateTime().toLocalDate());
+      setRoomNum(GlobalVariables.getRoomIDFromMap());
       GlobalVariables.setRequestFromMap(false);
       try {
         // update the table when the status combo box is changed
