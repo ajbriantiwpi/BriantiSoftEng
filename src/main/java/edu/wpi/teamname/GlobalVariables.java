@@ -95,6 +95,32 @@ public class GlobalVariables {
   @Getter @Setter private static int screenSaveWaitTime = 15;
   @Getter @Setter private static int screenSaveTransTime = 20;
 
+  @Getter @Setter private static int labelTextType = -2;
+  @Getter @Setter private static Boolean showHallNames = null;
+  @Getter @Setter private static Boolean showEdges = null;
+  @Getter @Setter private static Boolean showNodes = null;
+  @Getter @Setter private static Boolean showLegend = null;
+
+  //  @Getter @Setter private static BooleanProperty FloorsToggle;
+
+  // @Getter @Setter private static boolean noStairs = false;
+
+  //  @Getter @Setter private static Boolean showBath = true;
+  //  @Getter @Setter private static Boolean showConf = true;
+  //  @Getter @Setter private static Boolean showDept = true;
+  //  @Getter @Setter private static Boolean showElev = true;
+  //  @Getter @Setter private static Boolean showExit = true;
+  //  @Getter @Setter private static Boolean showHall = false;
+  //  @Getter @Setter private static Boolean showInfo = true;
+  //  @Getter @Setter private static Boolean showLabs = true;
+  //  @Getter @Setter private static Boolean showRest = true;
+  //  @Getter @Setter private static Boolean showRetl = true;
+
+  @Getter @Setter
+  private static ArrayList<Boolean> showTypeLabels =
+      new ArrayList<>(
+          Arrays.asList(true, false, true, true, true, true, true, true, true, true, true, true));
+
   static {
     try {
       currentLocationNode = DataManager.getNode(1685);

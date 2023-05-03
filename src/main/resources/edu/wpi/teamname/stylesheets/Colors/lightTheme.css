@@ -4,6 +4,16 @@
 @import "lightListView.css";
 
 
+.switch .thumb-area{
+    -fx-background-color: #D9E3F8;
+}
+.switch:selected .thumb-area{
+    -fx-background-color:  #2FA7B0;
+}
+.switch .thumb{
+    -fx-background-color: #EEEDF1;
+}
+
 .primary-container{
     -fx-background-color: #D5E3FF;
     -fx-text-fill: #001B3B;
