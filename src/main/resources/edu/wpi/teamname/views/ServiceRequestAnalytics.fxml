@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.BarChart?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.chart.PieChart?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="root" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../stylesheets/Template_Background.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestAnalyticsController">
+<AnchorPane fx:id="root" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../stylesheets/Template_Background.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestAnalyticsController">
     <stylesheets>
         <URL value="@../stylesheets/imageScale.css" />
         <URL value="@../stylesheets/Colors/lightTheme.css" />
@@ -40,7 +31,7 @@
                         <Font size="10.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="barChartCombo" prefHeight="25.0" prefWidth="658.0" promptText="Choose Data to Display" stylesheets="@../stylesheets/combo.css" />
+                  <ComboBox fx:id="barChartCombo" prefHeight="25.0" prefWidth="658.0" promptText="Choose Data to Display" stylesheets="@../stylesheets/comboSmall.css" />
                   <ScrollPane pannable="true">
                      <content>
                         <BarChart fx:id="barChart" animated="false" categoryGap="25.0" prefHeight="526.0" prefWidth="889.0">
@@ -71,7 +62,7 @@
                         <Font size="10.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="piechartCombo" prefHeight="25.0" prefWidth="658.0" promptText="Choose Data to Display" stylesheets="@../stylesheets/combo.css" />
+                  <ComboBox fx:id="piechartCombo" prefHeight="25.0" prefWidth="658.0" promptText="Choose Data to Display" stylesheets="@../stylesheets/comboSmall.css" />
                   <PieChart fx:id="pieChart" prefHeight="496.0" prefWidth="580.0">
                      <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

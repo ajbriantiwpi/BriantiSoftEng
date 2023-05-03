@@ -127,6 +127,7 @@ public class HomeController {
 
   /**
    * changes the language of the app
+   *
    * @param lang language to set it to
    * @throws SQLException when the datamanager throws one
    */

@@ -58,6 +58,7 @@ public class SettingsController {
 
   /**
    * sets the language of all the labels
+   *
    * @param lang language of current app
    */
   public void setLanguage(Language lang) {
@@ -90,7 +91,7 @@ public class SettingsController {
         viewFeedbackButton.setText("Visualizza Feedback");
         break;
       case FRENCH:
-        setLocationBox.setPromptText("D"+GlobalVariables.getEAcute()+"finir l'emplacement");
+        setLocationBox.setPromptText("D" + GlobalVariables.getEAcute() + "finir l'emplacement");
         ParentController.titleString.set("Param" + GlobalVariables.getEGrave() + "tres");
         hardwareLabel.setText(
             "Param"
@@ -114,7 +115,7 @@ public class SettingsController {
         viewFeedbackButton.setText("Voir les commentaires");
         break;
       case SPANISH:
-        setLocationBox.setPromptText("Establecer ubicaci"+GlobalVariables.getOAcute()+"n");
+        setLocationBox.setPromptText("Establecer ubicaci" + GlobalVariables.getOAcute() + "n");
         ParentController.titleString.set("Configuraci" + GlobalVariables.getOAcute() + "n");
         hardwareLabel.setText("Configuraci" + GlobalVariables.getOAcute() + "n de Hardware");
         volumeLabel.setText("Volumen");
