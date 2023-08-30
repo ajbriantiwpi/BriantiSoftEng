@@ -23,12 +23,10 @@ import lombok.Getter;
 public class DataManager {
   private static Connection connection;
 
-  @Getter
-  private static String DB_URL =
-      "jdbc:postgresql://database.cs.wpi.edu:5432/teamddb?currentSchema=\"teamD\"";
-
-  @Getter private static String DB_PASSWORD = "teamd40";
-  @Getter private static String DB_USER = "teamd";
+  @Getter private static String DB_URL = "jdbc:postgresql://localhost:32770/postgres";
+  //
+  //  @Getter private static String DB_PASSWORD = "teamd40";
+  //  @Getter private static String DB_USER = "teamd";
 
   /**
    * Main function to connect to the database
@@ -40,7 +38,8 @@ public class DataManager {
       System.out.print("--- Connecting To Database... ---");
       try {
         Class.forName("org.postgresql.Driver");
-        connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        connection = DriverManager.getConnection(DB_URL);
+        //        connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
         System.out.println(" Successfully connected to database!");
       } catch (SQLException e) {
         System.err.println(" Connection Failed! Check output console");
@@ -197,10 +196,7 @@ public class DataManager {
 
   /** Sets database connection parameters to connect to the WPI client-side server */
   public static void connectToWPI() throws SQLException {
-    DataManager.configConnection(
-        "jdbc:postgresql://database.cs.wpi.edu:5432/teamddb?currentSchema=\"teamD\"",
-        "teamd",
-        "teamd40");
+    DataManager.configConnection("postgres@localhost", "teamd", "teamd40");
   }
   /**
    * Main function to create all Database tables if they don't already exist
@@ -210,7 +206,7 @@ public class DataManager {
    */
   public static void createTableIfNotExists(String tableName, String createTableQuery)
       throws SQLException {
-    connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+    connection = DriverManager.getConnection(DB_URL);
     DatabaseMetaData dbm = connection.getMetaData();
     ResultSet rs = dbm.getTables(null, null, tableName, null);
     if (!rs.next()) { // table does not exist
@@ -231,8 +227,6 @@ public class DataManager {
   public static void configConnection(String url, String username, String password)
       throws SQLException {
     DB_URL = url;
-    DB_USER = username;
-    DB_PASSWORD = password;
     DbConnection().close();
     tryToCreateAllTables();
   }
